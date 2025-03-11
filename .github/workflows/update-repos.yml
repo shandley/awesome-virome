@@ -1,0 +1,37 @@
+name: Weekly Repository Updates
+on:
+  schedule:
+    # Runs at 00:00 UTC on Sunday
+    - cron: '0 0 * * 0'
+  workflow_dispatch: # Allows manual triggering
+jobs:
+  update-repos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.REPO_UPDATE_TOKEN }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      - name: Run update script
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_UPDATE_TOKEN }}
+        run: python update_check.py
+      - name: Commit changes if any
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md repo_data.json starred_repos.md unavailable_repos.md
+          git diff --staged --quiet || git commit -m "Weekly repository update [skip ci]"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.REPO_UPDATE_TOKEN }}
+          branch: ${{ github.ref }}
