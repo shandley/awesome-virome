@@ -28,10 +28,10 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add README.md repo_data.json starred_repos.md unavailable_repos.md
+          # Add all potentially changed files, but only if they exist
+          git add README.md
+          git add repo_data.json starred_repos.md unavailable_repos.md 2>/dev/null || true
+          # Only commit if there are changes
           git diff --staged --quiet || git commit -m "Weekly repository update [skip ci]"
       - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.REPO_UPDATE_TOKEN }}
-          branch: ${{ github.ref }}
+        run: git push
