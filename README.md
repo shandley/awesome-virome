@@ -94,18 +94,18 @@ For newcomers to virome analysis, here are some recommended starting points:
   - [Viral Strain Reconstruction](#viral-strain-reconstruction)
   - [Transduction](#transduction)
   - [Interaction Analysis](#interaction-analysis)
-- [Structural Analysis Tools](#structural-analysis-tools)
-- [Antimicrobial Resistance Analysis](#antimicrobial-resistance-analysis)
-- [Viral Metatranscriptomics](#viral-metatranscriptomics)
-- [Viral Quasispecies Analysis](#viral-quasispecies-analysis)
-- [Cloud-based Viral Analysis](#cloud-based-viral-analysis)
-- [Machine Learning Models](#machine-learning-models)
-- [Viral Single-Cell Analysis](#viral-single-cell-analysis)
-- [Viral Glycoprotein Analysis](#viral-glycoprotein-analysis)
-- [Ancient Viral Sequence Analysis](#ancient-viral-sequence-analysis)
-- [Viral Immune Epitope Prediction](#viral-immune-epitope-prediction)
-- [Viral Molecular Dynamics](#viral-molecular-dynamics)
-- [Dark Matter Viral Analysis](#dark-matter-viral-analysis)
+  - [Structural Analysis Tools](#structural-analysis-tools)
+  - [Antimicrobial Resistance Analysis](#antimicrobial-resistance-analysis)
+  - [Viral Metatranscriptomics](#viral-metatranscriptomics)
+  - [Viral Quasispecies Analysis](#viral-quasispecies-analysis)
+  - [Cloud-based Viral Analysis](#cloud-based-viral-analysis)
+  - [Machine Learning Models](#machine-learning-models)
+  - [Viral Single-Cell Analysis](#viral-single-cell-analysis)
+  - [Viral Glycoprotein Analysis](#viral-glycoprotein-analysis)
+  - [Ancient Viral Sequence Analysis](#ancient-viral-sequence-analysis)
+  - [Viral Immune Epitope Prediction](#viral-immune-epitope-prediction)
+  - [Viral Molecular Dynamics](#viral-molecular-dynamics)
+  - [Dark Matter Viral Analysis](#dark-matter-viral-analysis)
 
 ---
 
@@ -387,7 +387,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [PhagePromoter](https://github.com/martaS95/PhagePromoter) [Updated: 02/2025] [Updated: 02/2025] - ANN, SVM for phage promoter prediction. [source] [Python]
 - [VIRMOTIF](https://gitlab.com/pedram56rajaii/virmotif) - Tool for identifying viral genome motifs. [Python]
 
-## Structural Analysis Tools
+### Structural Analysis Tools
 
 - [AlphaFold-Multimer](https://github.com/deepmind/alphafold) - Useful for viral protein complex structure prediction. [Python]
 - [HNADOCK](https://hnadock.seoklab.org/) - Modeling of nucleic acid-protein complexes, useful for viral proteins. [web service]
@@ -395,21 +395,21 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [VIPERdb](https://viperdb.scripps.edu/) - Virus particle explorer database with structure visualization. [web service]
 - [VIRALpro](http://scratch.proteomics.ics.uci.edu/) - Viral capsid and tail protein prediction. [web service]
 
-## Antimicrobial Resistance Analysis
+### Antimicrobial Resistance Analysis
 
 - [AMRFinder](https://github.com/ncbi/amr) - NCBI's tool for identifying resistance genes, can be applied to phage genomes. [C++]
 - [PHANOTATE-AMR](https://github.com/deprekate/PHANOTATE) - Extension adding AMR gene identification in phages. [Python]
 - [ResFinder](https://github.com/cadms/resfinder) - Identifies resistance genes in bacteriophages. [Python]
 - [VirAMR](https://github.com/phglab/VirAMR) - Detects antimicrobial resistance genes in viral genomes. [Python]
 
-## Viral Metatranscriptomics
+### Viral Metatranscriptomics
 
 - [metaviralSPAdes-RNA](https://github.com/ablab/spades) - RNA virus detection module. [C++]
 - [RNA-Virus-Flow](https://github.com/rna-virus/RNA-Virus-Flow) - Pipeline for RNA virus assembly and analysis. [Nextflow]
 - [VirMine-RNA](https://github.com/jiarong/VirMine) - Focused on detecting RNA viruses in transcriptomic data. [Python]
 - [VirusTAP](https://github.com/bioinformatics-toyama/VirusTAP) - Transcriptome Assembler Pipeline for viral sequence discovery. [Perl]
 
-## Viral Quasispecies Analysis
+### Viral Quasispecies Analysis
 
 - [CliqueSNV](https://github.com/vtsyvina/CliqueSNV) - Reconstruction of virus haplotypes in a mixed population. [Java]
 - [QuRe](https://sourceforge.net/projects/qure/) - Viral quasispecies reconstruction tool. [Java]
@@ -417,56 +417,56 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [V-pipe](https://github.com/cbg-ethz/V-pipe) - Pipeline for viral population analysis. [Nextflow]
 - [ViQuaS](https://github.com/HadiNW/ViQuaS) - Viral Quasispecies reconstruction. [Python]
 
-## Cloud-based Viral Analysis
+### Cloud-based Viral Analysis
 
 - [CloVR-Microbe](https://github.com/jorvis/clovr-base) - Cloud-based viral metagenomics pipeline. [Perl]
 - [IDseq](https://github.com/chanzuckerberg/idseq-web) - Pathogen detection platform with viral analysis components. [Ruby]
 - [Viral Beacon](https://github.com/ga4gh-beacon/beacon-virus-server) - Cloud platform for virus sequence sharing and analysis. [Python]
 - [Viral-NGS](https://github.com/broadinstitute/viral-ngs) - Broad Institute's viral genomic analysis on cloud. [Python]
 
-## Machine Learning Models
+### Machine Learning Models
 
 - [CHERRY-models](https://github.com/KennthShang/CHERRY/tree/master/model) - Pre-trained host prediction models. [Python] 
 - [DeepVirFinder-models](https://github.com/jessieren/DeepVirFinder/tree/master/models) - Pre-trained models for viral sequence identification. [Python]
 - [PhaTYP-models](https://github.com/PhaTYP/PhaTYP) - Phage lifestyle prediction models. [Python]
 - [ViraMiner-models](https://github.com/NeuroCSUT/ViraMiner/tree/master/models) - ML models for viral sequence mining. [Python]
 
-## Viral Single-Cell Analysis
+### Viral Single-Cell Analysis
 
 - [MAVERIC](https://github.com/GreenleafLab/MAVERIC) - Analyzing viral infections at the single-cell level. [Python]
 - [scViroCap](https://github.com/liulab-dfci/scViroCap) - Single-cell viral capture sequencing analysis. [Python]
 - [scVIRseq](https://github.com/Teichlab/scRNA-seq) - Single-cell virus infection profiling. [Python]
 - [Viral-Track](https://github.com/PierreBSC/Viral-Track) - Tracking viruses in single-cell RNA-Seq data. [R]
 
-## Viral Glycoprotein Analysis
+### Viral Glycoprotein Analysis
 
 - [GlycoProtViz](https://github.com/Sunhh/GlycoproViz) - Visualizing viral glycoprotein structures. [Python]
 - [GlyConnect](https://glyconnect.expasy.org/) - Database with viral glycosylation data. [web service]
 - [NetNGlyc](https://services.healthtech.dtu.dk/service.php?NetNGlyc-1.0) - N-glycosylation site prediction in viral proteins. [web service]
 - [pGlyco](https://github.com/pFindStudio/pGlyco) - Glycopeptide identification in viral proteins. [C++]
 
-## Ancient Viral Sequence Analysis
+### Ancient Viral Sequence Analysis
 
 - [EVE](https://github.com/AntoineHo/EVE) - Ancient viral element detection in genomes. [Python]
 - [HOPS](https://github.com/rhuebler/HOPS) - Pathogen screening for ancient DNA, includes viral sequences. [Java]
 - [Paleovirology](https://github.com/giffordlabcvr/DIGS-tool) - Tools for detecting ancient viral elements. [Perl]
 - [PastML](https://github.com/evolbioinfo/pastml) - Useful for ancient viral sequence reconstruction. [Python]
 
-## Viral Immune Epitope Prediction
+### Viral Immune Epitope Prediction
 
 - [EpiDOCK](https://epidock.ddg-pharmfac.net/) - Viral epitope docking and analysis. [web service]
 - [IEDB-tools](https://github.com/iedb-org/iedb-epitope-database) - Suite of tools for epitope prediction. [Python]
 - [NetMHCpan](https://services.healthtech.dtu.dk/service.php?NetMHCpan-4.1) - Neural network for MHC binding prediction in viral proteins. [web service]
 - [TepiTool](https://www.iedb.org/tepitool) - T-cell epitope prediction for viral sequences. [web service]
 
-## Viral Molecular Dynamics
+### Viral Molecular Dynamics
 
 - [CHARMM-GUI](https://www.charmm-gui.org/) - Web-based interface for viral particle simulation setup. [web service]
 - [CovidMD](https://github.com/lammps/lammps) - COVID-19 specific molecular dynamics toolbox (extensible to other viruses). [C++]
 - [NAMD-VIRAL](https://www.ks.uiuc.edu/Research/namd/) - Molecular dynamics simulations of viral proteins. [C++]
 - [VMD-Viral](https://www.ks.uiuc.edu/Research/vmd/) - Visualization of viral molecular dynamics. [C++]
 
-## Dark Matter Viral Analysis
+### Dark Matter Viral Analysis
 
 - [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) - Accelerated BLAST for dark matter analysis. [C++]
 - [DarkVirome](https://github.com/VerinaG/dark-virome) - Analysis of unclassified viral sequences. [Python]
