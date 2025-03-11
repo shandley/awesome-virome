@@ -128,7 +128,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [VirSorter2](https://bitbucket.org/MAVERICLab/virsorter2/) [Updated: 11/2023] - Random forest classifier for virus detection. [conda] [Python] [v2.2.4, 2023]
 - [Virtifier](https://github.com/crazyinter/Seq2Vec) [Updated: 11/2024] - LSTM neural network for virus identification. [Python]
 - [Virtus](https://github.com/yyoshiaki/VIRTUS) [Updated: 10/2024] - Virus sequence detection workflow. [Snakemake]
-- [virus_prediction](https://github.com/rujinlong/virus_prediction) - Nextflow pipeline with virSorter. [Nextflow]
+- [virus_prediction](https://github.com/rujinlong/virus_prediction) [unavailable] - Nextflow pipeline with virSorter. [Nextflow]
 - [ViruSpy](https://github.com/NCBI-Hackathons/ViruSpy) [Updated: 11/2024] - Virus detection pipeline. [Python]
 - [VirusSeeker](https://wupathlabs.wustl.edu/virusseeker/) - Pipeline for virus detection from sequence data. [source] [Perl]
 - [vRhyme](https://github.com/AnantharamanLab/vRhyme) [Updated: 02/2025] - Machine learning for viral binning from metagenomes. [conda] [Python]
@@ -385,7 +385,9 @@ The script will:
 - Check all repository URLs in the README
 - Fetch the last update time for each repository
 - Update the README with [Updated: MM/YYYY] tags
-- Save results to `repo_updates.json` for future reference
+- Mark unavailable repositories with [unavailable]
+- Generate an `unavailable_repos.md` file listing all repositories that returned 404 errors
+- Save all results to `repo_updates.json` for future reference
 
 For better results, run this script periodically to keep the list current.
 
