@@ -364,6 +364,31 @@ Please feel free to [contribute](CONTRIBUTING.md)!
 
 This list was compiled from a comprehensive dataset of phage and virus bioinformatics tools. Special thanks to all the researchers who developed and shared these valuable resources.
 
+## Maintenance
+
+### Automated Update Checking
+
+This repository includes a Python script (`update_check.py`) that automatically checks when each GitHub, GitLab, and Bitbucket repository was last updated. To use it:
+
+1. Clone this repository
+2. Install required packages: `pip install requests`
+3. Set your GitHub API token (optional, but recommended to avoid rate limits):
+   ```
+   export GITHUB_TOKEN=your_github_token
+   ```
+4. Run the script:
+   ```
+   python update_check.py
+   ```
+
+The script will:
+- Check all repository URLs in the README
+- Fetch the last update time for each repository
+- Update the README with [Updated: MM/YYYY] tags
+- Save results to `repo_updates.json` for future reference
+
+For better results, run this script periodically to keep the list current.
+
 ## Last Updated
 
 This README was last updated on March 11, 2025.
