@@ -9,71 +9,351 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.1/css/dataTables.bootstrap5.min.css">
     <style>
         :root {
-            --primary-color: #198754;
-            --secondary-color: #495057;
-            --warning-color: #ffc107;
-            --danger-color: #dc3545;
+            /* Modern virology-themed color palette */
+            --primary-color: #109b81; /* Teal green */
+            --primary-light: #6FC3BA;
+            --primary-dark: #097362;
+            --secondary-color: #2C4B7C; /* Deep blue */
+            --secondary-light: #557EBF;
+            --secondary-dark: #193152;
+            --accent-color: #9D5EB0; /* Purple for viruses */
+            --accent-light: #C89AD3;
+            --accent-dark: #6A3877;
+            --info-color: #3498db; /* Blue for info */
+            --success-color: #28a745; /* Green for success */
+            --warning-color: #ffc107; /* Yellow for warnings */
+            --danger-color: #e74c3c; /* Red for errors */
             --light-bg: #f8f9fa;
-            --dark-bg: #343a40;
+            --dark-bg: #1E293B; /* Dark slate blue */
+            --card-bg: #ffffff;
+            --card-bg-dark: #334155;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --card-shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+            --border-radius: 12px;
+            --section-padding: 2rem;
+            --card-spacing: 1.5rem;
+            --nav-height: 4rem;
+            
+            /* Category-specific colors */
+            --color-identification: #4682B4; /* Steel Blue */
+            --color-host: #6A5ACD; /* Slate Blue */
+            --color-genome: #20B2AA; /* Light Sea Green */
+            --color-taxonomy: #DB7093; /* Pale Violet Red */
+            --color-functional: #9370DB; /* Medium Purple */
+            --color-structural: #4169E1; /* Royal Blue */
+        }
+        
+        /* Dark mode variables */
+        [data-theme="dark"] {
+            --primary-color: #1AB394;
+            --primary-light: #5BD6BC;
+            --primary-dark: #0D8A70;
+            --light-bg: #1E293B;
+            --dark-bg: #0F172A;
+            --card-bg: #334155;
+            --card-bg-dark: #1E293B;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            --card-shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.3);
+            color: #E2E8F0;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--light-bg);
             color: #333;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            line-height: 1.6;
+            scroll-behavior: smooth;
         }
         
+        [data-theme="dark"] body {
+            color: #E2E8F0;
+        }
+        
+        /* Dark mode toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            margin-left: 1rem;
+            outline: none;
+            position: relative;
+            transition: all var(--transition-speed);
+        }
+        
+        .theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .theme-toggle:focus-visible {
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+            outline: none;
+        }
+        
+        .theme-toggle i {
+            font-size: 1.2rem;
+        }
+        
+        /* Navbar styling */
         .navbar {
-            background-color: var(--dark-bg);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--secondary-dark), var(--secondary-color));
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.75rem 1rem;
+            height: var(--nav-height);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         
         .navbar-brand {
             font-weight: 700;
             color: #fff;
+            font-size: 1.3rem;
+            letter-spacing: 0.5px;
         }
         
+        .navbar-brand i {
+            background: linear-gradient(135deg, #5BD6BC, #109b81);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-right: 0.3rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            transition: color var(--transition-speed);
+        }
+        
+        .nav-link:hover, .nav-link:focus {
+            color: #ffffff !important;
+        }
+        
+        .nav-link.active {
+            color: #ffffff !important;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 1rem;
+            right: 1rem;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px 3px 0 0;
+        }
+        
+        .nav-link:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+            border-radius: 4px;
+        }
+        
+        /* Section containers */
         .dashboard-container {
-            padding: 20px;
+            padding: var(--section-padding);
         }
         
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1), transparent);
+            margin: 2rem 0;
+        }
+        
+        [data-theme="dark"] .section-divider {
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+        
+        .section-title {
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+            display: inline-block;
+        }
+        
+        [data-theme="dark"] .section-title {
+            color: var(--primary-light);
+        }
+        
+        /* Cards styling */
         .card {
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
-            margin-bottom: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            transition: transform var(--transition-speed), 
+                      box-shadow var(--transition-speed),
+                      background-color var(--transition-speed);
+            margin-bottom: var(--card-spacing);
             border: none;
+            background-color: var(--card-bg);
+            overflow: hidden;
         }
         
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--card-shadow-hover);
+        }
+        
+        .card:focus-within {
+            box-shadow: 0 0 0 3px var(--primary-light), var(--card-shadow);
+            outline: none;
         }
         
         .card-header {
-            border-radius: 10px 10px 0 0 !important;
-            background-color: var(--dark-bg);
+            border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark));
             color: white;
             font-weight: 600;
+            padding: 1rem 1.25rem;
+            border-bottom: none;
         }
         
+        .card-header .btn-outline-light {
+            border-color: rgba(255, 255, 255, 0.3);
+            transition: all var(--transition-speed);
+        }
+        
+        .card-header .btn-outline-light:hover, 
+        .card-header .btn-outline-light:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .card-header .btn-outline-light:focus-visible {
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+            outline: none;
+        }
+        
+        .card-header .btn-outline-light.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Tool cards */
         .tool-card {
             height: 100%;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--transition-speed);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        [data-theme="dark"] .tool-card {
+            border-color: rgba(255, 255, 255, 0.05);
         }
         
         .tool-card:hover {
             border-color: var(--primary-color);
         }
         
+        .tool-card:focus-within {
+            border-color: var(--primary-color);
+        }
+        
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--primary-color);
+            opacity: 0;
+            transition: opacity var(--transition-speed);
+        }
+        
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+        
         .tool-card .card-body {
-            padding: 1.25rem;
+            padding: 1.5rem;
+        }
+        
+        .tool-card .card-title {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--secondary-color);
+        }
+        
+        [data-theme="dark"] .tool-card .card-title {
+            color: #fff;
+        }
+        
+        /* Category colors */
+        .tool-card[data-category="Virus and Phage Identification"]::before {
+            background-color: var(--color-identification);
+        }
+        
+        .tool-card[data-category="Host Prediction"]::before {
+            background-color: var(--color-host);
+        }
+        
+        .tool-card[data-category="Genome Analysis"]::before {
+            background-color: var(--color-genome);
+        }
+        
+        .tool-card[data-category="Taxonomy"]::before {
+            background-color: var(--color-taxonomy);
+        }
+        
+        .tool-card[data-category="Functional Analysis"]::before {
+            background-color: var(--color-functional);
+        }
+        
+        .tool-card[data-category="Structural Analysis Tools"]::before {
+            background-color: var(--color-structural);
+        }
+        
+        /* Badges */
+        .badge {
+            padding: 0.4em 0.6em;
+            font-weight: 500;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            letter-spacing: 0.3px;
+            margin-right: 0.3rem;
+            margin-bottom: 0.3rem;
         }
         
         .badge-category {
-            background-color: var(--primary-color);
+            background-color: var(--color-identification);
             color: white;
+        }
+        
+        .badge-category[data-category="Host Prediction"] {
+            background-color: var(--color-host);
+        }
+        
+        .badge-category[data-category="Genome Analysis"] {
+            background-color: var(--color-genome);
+        }
+        
+        .badge-category[data-category="Taxonomy"] {
+            background-color: var(--color-taxonomy);
+        }
+        
+        .badge-category[data-category="Functional Analysis"] {
+            background-color: var(--color-functional);
+        }
+        
+        .badge-category[data-category="Structural Analysis Tools"] {
+            background-color: var(--color-structural);
         }
         
         .badge-subcategory {
@@ -82,12 +362,12 @@
         }
         
         .badge-language {
-            background-color: #6610f2;
+            background-color: var(--accent-color);
             color: white;
         }
         
         .badge-stars {
-            background-color: #fd7e14;
+            background-color: #ff9800;
             color: white;
         }
         
@@ -96,41 +376,163 @@
             color: black;
         }
         
-        .network-graph {
+        /* Graph visualization */
+        #networkGraph {
             width: 100%;
             height: 600px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            background-color: #fff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            background-color: var(--card-bg);
+            transition: height var(--transition-speed), background-color var(--transition-speed);
         }
         
+        [data-theme="dark"] #networkGraph {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Sidebar, filters and controls */
         .sidebar {
             position: sticky;
-            top: 80px;
+            top: calc(var(--nav-height) + 20px);
+            transition: top var(--transition-speed);
         }
         
         .filter-section {
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
         }
         
+        .filter-section label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        [data-theme="dark"] .filter-section label {
+            color: #cbd5e1;
+        }
+        
+        .form-select, .form-control {
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0.75rem;
+            transition: border-color var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed);
+        }
+        
+        [data-theme="dark"] .form-select, [data-theme="dark"] .form-control {
+            background-color: var(--card-bg-dark);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+        }
+        
+        .form-select:focus, .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(16, 155, 129, 0.25);
+        }
+        
+        /* Update status colors with improved visibility */
+        .update-recent {
+            color: var(--success-color);
+            font-weight: 500;
+        }
+        
+        .update-medium {
+            color: var(--warning-color);
+            font-weight: 500;
+        }
+        
+        .update-old {
+            color: var(--danger-color);
+            font-weight: 500;
+        }
+        
+        [data-theme="dark"] .update-recent {
+            color: #5BD6BC;
+        }
+        
+        [data-theme="dark"] .update-medium {
+            color: #ffd166;
+        }
+        
+        [data-theme="dark"] .update-old {
+            color: #ff6b6b;
+        }
+        
+        /* Detail views */
         .detail-view {
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            transition: background-color var(--transition-speed);
         }
         
         .tool-detail-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        [data-theme="dark"] .tool-detail-header {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
         }
         
         .tool-detail-header h2 {
             margin: 0;
+            font-weight: 700;
         }
         
+        /* Charts and data visualization */
+        .bar-chart {
+            width: 100%;
+            height: 300px;
+            position: relative;
+        }
+        
+        /* Improved buttons */
+        .btn {
+            border-radius: 8px;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: all var(--transition-speed);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        
+        .btn-outline-secondary {
+            border-color: var(--secondary-color);
+            color: var(--secondary-color);
+        }
+        
+        .btn-outline-secondary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .btn-tool {
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Focus styles for accessibility */
+        a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(16, 155, 129, 0.4);
+            border-radius: 4px;
+        }
+        
+        /* Loading states */
         .loading {
             display: flex;
             justify-content: center;
@@ -138,78 +540,139 @@
             height: 300px;
         }
         
-        .bar-chart {
-            width: 100%;
-            height: 300px;
-        }
-        
-        .btn-tool {
-            margin-right: 5px;
-            margin-bottom: 5px;
-        }
-        
-        #networkGraph {
-            width: 100%;
-            height: 600px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #fff;
-        }
-        
-        /* Update status colors */
-        .update-recent {
-            color: var(--primary-color);
-        }
-        
-        .update-medium {
-            color: var(--warning-color);
-        }
-        
-        .update-old {
-            color: var(--danger-color);
-        }
-        
-        /* Search and filter section */
-        .search-and-filters {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        
-        /* Workflow visualization section */
+        /* Workflow visualization */
         .workflow-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            transition: background-color var(--transition-speed);
         }
         
         .workflow-step {
-            padding: 10px;
-            margin: 5px 0;
-            background-color: #f8f9fa;
-            border-radius: 5px;
+            padding: 1rem;
+            margin: 0.75rem 0;
+            background-color: rgba(0, 0, 0, 0.02);
+            border-radius: 8px;
             border-left: 4px solid var(--primary-color);
+            transition: background-color var(--transition-speed);
         }
         
-        /* Footer */
+        [data-theme="dark"] .workflow-step {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .workflow-step h5 {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        [data-theme="dark"] .workflow-step h5 {
+            color: var(--primary-light);
+        }
+        
+        /* Footer styling */
         footer {
-            background-color: var(--dark-bg);
+            background: linear-gradient(135deg, var(--secondary-dark), var(--secondary-color));
             color: white;
-            padding: 20px 0;
-            margin-top: 30px;
+            padding: 2rem 0;
+            margin-top: 3rem;
         }
         
-        /* Responsive adjustments */
+        footer a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: color var(--transition-speed);
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        /* DataTables styling */
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white !important;
+        }
+        
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            background: var(--primary-light);
+            border-color: var(--primary-light);
+            color: white !important;
+        }
+        
+        /* Alerts */
+        .alert {
+            border-radius: var(--border-radius);
+            border: none;
+            box-shadow: var(--card-shadow);
+        }
+        
+        .alert-info {
+            background-color: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid var(--info-color);
+            color: var(--info-color);
+        }
+        
+        .alert-danger {
+            background-color: rgba(231, 76, 60, 0.1);
+            border-left: 4px solid var(--danger-color);
+            color: var(--danger-color);
+        }
+        
+        .alert-warning {
+            background-color: rgba(255, 193, 7, 0.1);
+            border-left: 4px solid var(--warning-color);
+            color: #876500;
+        }
+        
+        [data-theme="dark"] .alert-info {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: #7fbbeb;
+        }
+        
+        [data-theme="dark"] .alert-danger {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: #ff8b7f;
+        }
+        
+        [data-theme="dark"] .alert-warning {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffd166;
+        }
+        
+        /* Responsive design adjustments */
+        @media (max-width: 992px) {
+            :root {
+                --section-padding: 1.5rem;
+                --card-spacing: 1rem;
+            }
+            
+            .sidebar {
+                top: var(--nav-height);
+            }
+        }
+        
         @media (max-width: 768px) {
-            .network-graph {
-                height: 400px;
+            :root {
+                --section-padding: 1rem;
+                --nav-height: 3.5rem;
+            }
+            
+            #networkGraph {
+                height: 350px;
+            }
+            
+            .navbar-brand {
+                font-size: 1.1rem;
             }
             
             .sidebar {
                 position: static;
+                margin-bottom: 1.5rem;
             }
             
             .tool-detail-header {
@@ -218,7 +681,40 @@
             }
             
             .tool-detail-header .btn-group {
-                margin-top: 10px;
+                margin-top: 1rem;
+                align-self: flex-start;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .card-header {
+                padding: 0.75rem 1rem;
+            }
+            
+            .workflow-step {
+                padding: 0.75rem;
+            }
+            
+            /* Simplified network view for mobile */
+            .mobile-network-placeholder {
+                display: none;
+                padding: 1.5rem;
+                text-align: center;
+                background-color: var(--card-bg);
+                border-radius: var(--border-radius);
+                margin-bottom: 1.5rem;
+            }
+            
+            @media (max-width: 576px) {
+                #networkGraph {
+                    display: none;
+                }
+                
+                .mobile-network-placeholder {
+                    display: block;
+                }
             }
         }
     </style>
@@ -258,6 +754,11 @@
                             <i class="bi bi-file-text"></i> README
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                            <i class="bi bi-moon-fill"></i>
+                        </button>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -274,6 +775,12 @@
 
         <!-- Tool Explorer View -->
         <div id="explorerView" class="view-section">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="section-title">Tool Explorer</h2>
+                    <p class="text-muted">Browse and filter the curated collection of virome analysis tools.</p>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-3">
                     <div class="sidebar">
@@ -326,9 +833,14 @@
                                 </div>
                                 <div class="filter-section">
                                     <label for="searchTools" class="form-label">Search</label>
-                                    <input type="text" id="searchTools" class="form-control" placeholder="Search tools...">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0">
+                                            <i class="bi bi-search"></i>
+                                        </span>
+                                        <input type="text" id="searchTools" class="form-control border-start-0" placeholder="Search tools...">
+                                    </div>
                                 </div>
-                                <button id="resetFilters" class="btn btn-secondary w-100 mt-3">
+                                <button id="resetFilters" class="btn btn-primary w-100 mt-3">
                                     <i class="bi bi-arrow-counterclockwise"></i> Reset Filters
                                 </button>
                             </div>
@@ -339,15 +851,14 @@
                                 <i class="bi bi-info-circle"></i> About
                             </div>
                             <div class="card-body">
-                                <p>This dashboard visualizes the Awesome-Virome collection, helping researchers discover tools for virome analysis.</p>
-                                <p>The collection includes:</p>
-                                <ul>
-                                    <li>Viral identification tools</li>
-                                    <li>Host prediction tools</li>
-                                    <li>Genome analysis tools</li>
-                                    <li>Taxonomy and functional analysis</li>
-                                </ul>
-                                <a href="README.md" class="btn btn-outline-primary btn-sm">View Full README</a>
+                                <p>This dashboard visualizes the Awesome-Virome collection, helping researchers discover tools for viral metagenomics.</p>
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    <span class="badge" style="background-color: var(--color-identification);">Identification</span>
+                                    <span class="badge" style="background-color: var(--color-host);">Host Prediction</span>
+                                    <span class="badge" style="background-color: var(--color-genome);">Genome Analysis</span>
+                                    <span class="badge" style="background-color: var(--color-taxonomy);">Taxonomy</span>
+                                </div>
+                                <a href="README.md" class="btn btn-outline-primary btn-sm w-100">View Full README</a>
                             </div>
                         </div>
                     </div>
@@ -356,12 +867,12 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
-                                <span><i class="bi bi-tools"></i> Tool Explorer</span>
+                                <span><i class="bi bi-tools"></i> Tools Collection</span>
                                 <div>
-                                    <button class="btn btn-sm btn-outline-light" id="viewModeTable">
+                                    <button class="btn btn-sm btn-outline-light" id="viewModeTable" aria-label="Table view">
                                         <i class="bi bi-table"></i>
                                     </button>
-                                    <button class="btn btn-sm btn-outline-light active" id="viewModeCards">
+                                    <button class="btn btn-sm btn-outline-light active" id="viewModeCards" aria-label="Card view">
                                         <i class="bi bi-grid-3x3-gap"></i>
                                     </button>
                                 </div>
@@ -399,8 +910,16 @@
             </div>
         </div>
 
+        <div class="section-divider"></div>
+        
         <!-- Network Graph View -->
         <div id="networkView" class="view-section" style="display: none;">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="section-title">Network Visualization</h2>
+                    <p class="text-muted">Explore relationships between tools, categories, and workflows in an interactive network graph.</p>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-3">
                     <div class="sidebar">
@@ -425,7 +944,7 @@
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <button id="resetGraph" class="btn btn-secondary btn-sm w-100">
+                                    <button id="resetGraph" class="btn btn-primary btn-sm w-100">
                                         <i class="bi bi-arrow-repeat"></i> Reset Graph
                                     </button>
                                 </div>
@@ -438,19 +957,19 @@
                             </div>
                             <div class="card-body">
                                 <div class="mb-2">
-                                    <span class="badge" style="background-color: #343a40;">Category</span>
+                                    <span class="badge" style="background-color: var(--secondary-color);">Category</span>
                                 </div>
                                 <div class="mb-2">
-                                    <span class="badge" style="background-color: #495057;">Subcategory</span>
+                                    <span class="badge" style="background-color: var(--secondary-light);">Subcategory</span>
                                 </div>
                                 <div class="mb-2">
-                                    <span class="badge" style="background-color: #198754;">Tool</span>
+                                    <span class="badge" style="background-color: var(--primary-color);">Tool</span>
                                 </div>
                                 <div class="mb-2">
-                                    <span class="badge" style="background-color: #ffc107; color: black;">Infrequently Updated Tool</span>
+                                    <span class="badge" style="background-color: var(--warning-color); color: black;">Infrequently Updated Tool</span>
                                 </div>
                                 <div class="mb-3">
-                                    <span class="badge" style="background-color: #dc3545;">Outdated Tool</span>
+                                    <span class="badge" style="background-color: var(--danger-color);">Outdated Tool</span>
                                 </div>
                                 <div class="mt-4">
                                     <h6>Connections:</h6>
@@ -466,23 +985,43 @@
                         <div class="card-header">
                             <i class="bi bi-graph-up"></i> Tool Relationship Network
                         </div>
-                        <div class="card-body">
+                        <div class="card-body p-0 p-sm-2">
                             <div id="networkGraph"></div>
+                            <!-- Mobile alternative view -->
+                            <div class="mobile-network-placeholder">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain-wordmark.svg" 
+                                     alt="Network visualization" width="100" class="mb-3 opacity-50">
+                                <h5>Network Visualization</h5>
+                                <p class="text-muted">The interactive network visualization is optimized for larger screens. Please rotate your device or use a larger screen to view the full network.</p>
+                                <p>Try our filtered views instead:</p>
+                                <div class="d-flex flex-wrap justify-content-center gap-2">
+                                    <button class="btn btn-sm btn-outline-primary" id="mobileViewCategory">View by Category</button>
+                                    <button class="btn btn-sm btn-outline-secondary" id="mobileViewWorkflow">View by Workflow</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <div class="section-divider"></div>
 
         <!-- Statistics View -->
         <div id="statsView" class="view-section" style="display: none;">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="section-title">Data Insights</h2>
+                    <p class="text-muted">Explore statistical data about the tools in our collection with interactive charts.</p>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-6">
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="bi bi-bar-chart-fill"></i> Tools by Category
                         </div>
-                        <div class="card-body">
+                        <div class="card-body pt-3 pb-1 px-2">
                             <canvas id="categoryChart" class="bar-chart"></canvas>
                         </div>
                     </div>
@@ -492,7 +1031,7 @@
                         <div class="card-header">
                             <i class="bi bi-bar-chart-fill"></i> Tools by Language
                         </div>
-                        <div class="card-body">
+                        <div class="card-body pt-3 pb-1 px-2">
                             <canvas id="languageChart" class="bar-chart"></canvas>
                         </div>
                     </div>
@@ -502,7 +1041,7 @@
                         <div class="card-header">
                             <i class="bi bi-bar-chart-fill"></i> Top Tools by Stars
                         </div>
-                        <div class="card-body">
+                        <div class="card-body pt-3 pb-1 px-2">
                             <canvas id="starsChart" class="bar-chart"></canvas>
                         </div>
                     </div>
@@ -512,44 +1051,62 @@
                         <div class="card-header">
                             <i class="bi bi-bar-chart-fill"></i> Update Frequency
                         </div>
-                        <div class="card-body">
+                        <div class="card-body pt-3 pb-1 px-2">
                             <canvas id="updateChart" class="bar-chart"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <div class="section-divider"></div>
 
         <!-- Workflow View -->
         <div id="workflowView" class="view-section" style="display: none;">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h2 class="section-title">Workflow Templates</h2>
+                    <p class="text-muted">Explore common analysis workflows and tool combinations for different virus analysis tasks.</p>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-4">
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="bi bi-diagram-2"></i> Common Workflows
                         </div>
-                        <div class="card-body">
-                            <div class="list-group" id="workflowList">
-                                <a href="#" class="list-group-item list-group-item-action active" data-workflow="basic">
-                                    Basic Virome Analysis
+                        <div class="card-body p-0">
+                            <div class="list-group list-group-flush rounded-bottom" id="workflowList">
+                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-2 active" data-workflow="basic">
+                                    <i class="bi bi-boxes"></i> Basic Virome Analysis
                                 </a>
-                                <a href="#" class="list-group-item list-group-item-action" data-workflow="host">
-                                    Virus Host Prediction
+                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-2" data-workflow="host">
+                                    <i class="bi bi-diagram-3"></i> Virus Host Prediction
                                 </a>
-                                <a href="#" class="list-group-item list-group-item-action" data-workflow="annotation">
-                                    Viral Genome Annotation
+                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-2" data-workflow="annotation">
+                                    <i class="bi bi-pencil-square"></i> Viral Genome Annotation
                                 </a>
-                                <a href="#" class="list-group-item list-group-item-action" data-workflow="taxonomy">
-                                    Viral Taxonomy
+                                <a href="#" class="list-group-item list-group-item-action d-flex align-items-center gap-2" data-workflow="taxonomy">
+                                    <i class="bi bi-diagram-2"></i> Viral Taxonomy
                                 </a>
                             </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="bi bi-info-circle"></i> About Workflows
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-2">These templates showcase common approaches for viral analysis. They can be adapted to specific research questions and datasets.</p>
+                            <p class="mb-0 text-muted small">Click on any recommended tool in a workflow to view its details.</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <div class="card">
-                        <div class="card-header">
-                            <i class="bi bi-list-check"></i> <span id="workflowTitle">Basic Virome Analysis Workflow</span>
+                        <div class="card-header d-flex align-items-center">
+                            <i class="bi bi-list-check me-2"></i> <span id="workflowTitle">Basic Virome Analysis Workflow</span>
                         </div>
                         <div class="card-body">
                             <div id="workflowDescription" class="alert alert-info mb-4">
@@ -563,6 +1120,8 @@
                 </div>
             </div>
         </div>
+        
+        <div class="section-divider"></div>
 
         <!-- Tool Detail Modal -->
         <div class="modal fade" id="toolDetailModal" tabindex="-1" aria-labelledby="toolDetailModalLabel" aria-hidden="true">
@@ -629,6 +1188,58 @@
             let languagesData = [];
             let linksData = [];
             let network = null;
+            
+            // Dark mode toggle function
+            function initThemeToggle() {
+                const themeToggleBtn = document.getElementById('themeToggle');
+                const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const storedTheme = localStorage.getItem('theme');
+                
+                // Set initial theme based on user preference or localStorage
+                if (storedTheme === 'dark' || (!storedTheme && prefersDarkMode)) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    themeToggleBtn.innerHTML = '<i class="bi bi-sun-fill"></i>';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    themeToggleBtn.innerHTML = '<i class="bi bi-moon-fill"></i>';
+                }
+                
+                // Theme toggle button click handler
+                themeToggleBtn.addEventListener('click', () => {
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                    
+                    // Update button icon
+                    themeToggleBtn.innerHTML = newTheme === 'dark' ? 
+                        '<i class="bi bi-sun-fill"></i>' : 
+                        '<i class="bi bi-moon-fill"></i>';
+                    
+                    // Update network graph colors if it exists
+                    if (network) {
+                        try {
+                            updateNetworkColors();
+                        } catch (e) {
+                            console.error('Error updating network colors:', e);
+                        }
+                    }
+                });
+            }
+            
+            // Function to update network graph colors based on theme
+            function updateNetworkColors() {
+                const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+                if (network) {
+                    const networkBg = isDarkMode ? '#1E293B' : '#ffffff';
+                    document.getElementById('networkGraph').style.backgroundColor = networkBg;
+                    
+                    // If we need to update the nodes/edges colors for dark mode
+                    // This would require access to the network's data and a redraw
+                    // network.redraw();
+                }
+            }
             
             // Fetch data
             try {
@@ -820,6 +1431,9 @@
             function initializeUI() {
                 console.log('Initializing UI elements');
                 
+                // Setup dark mode
+                initThemeToggle();
+                
                 // Make sure at least the explorer view is visible by default
                 document.querySelectorAll('.view-section').forEach(section => {
                     section.style.display = 'none';
@@ -864,6 +1478,23 @@
                             }, 100);
                         }
                     });
+                });
+                
+                // Set up mobile network view buttons
+                document.getElementById('mobileViewCategory')?.addEventListener('click', function() {
+                    if (document.getElementById('graphTypeSelect')) {
+                        document.getElementById('graphTypeSelect').value = 'category';
+                        // Trigger the change event to update the network
+                        document.getElementById('graphTypeSelect').dispatchEvent(new Event('change'));
+                    }
+                });
+                
+                document.getElementById('mobileViewWorkflow')?.addEventListener('click', function() {
+                    if (document.getElementById('graphTypeSelect')) {
+                        document.getElementById('graphTypeSelect').value = 'workflow';
+                        // Trigger the change event to update the network
+                        document.getElementById('graphTypeSelect').dispatchEvent(new Event('change'));
+                    }
                 });
                 
                 // View mode switching (table vs cards)
@@ -959,12 +1590,12 @@
                     }
                     
                     cardCol.innerHTML = `
-                        <div class="card tool-card" data-tool-id="${tool.id}">
+                        <div class="card tool-card" data-tool-id="${tool.id}" data-category="${tool.category}">
                             <div class="card-body">
                                 <h5 class="card-title">${tool.name}</h5>
                                 <p class="card-text">${tool.description || 'No description available'}</p>
                                 <div class="mb-2">
-                                    <span class="badge badge-category">${tool.category}</span>
+                                    <span class="badge badge-category" data-category="${tool.category}">${tool.category}</span>
                                     ${tool.subcategory ? `<span class="badge badge-subcategory">${tool.subcategory}</span>` : ''}
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
@@ -1455,6 +2086,15 @@
             function createCharts() {
                 try {
                     console.log('Creating charts - starting with category chart');
+                    
+                    // Get theme colors
+                    const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
+                    const textColor = isDarkMode ? '#E2E8F0' : '#333333';
+                    const gridColor = isDarkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+                    
+                    // Global chart options
+                    Chart.defaults.color = textColor;
+                    Chart.defaults.scale.grid.color = gridColor;
                     
                     // Prepare data for category chart
                     const categoryLabels = [];
