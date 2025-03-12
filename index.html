@@ -1,0 +1,1655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome-Virome Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.1/css/dataTables.bootstrap5.min.css">
+    <style>
+        :root {
+            --primary-color: #198754;
+            --secondary-color: #495057;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --light-bg: #f8f9fa;
+            --dark-bg: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .navbar {
+            background-color: var(--dark-bg);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: #fff;
+        }
+        
+        .dashboard-container {
+            padding: 20px;
+        }
+        
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+            margin-bottom: 20px;
+            border: none;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            border-radius: 10px 10px 0 0 !important;
+            background-color: var(--dark-bg);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .tool-card {
+            height: 100%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .tool-card .card-body {
+            padding: 1.25rem;
+        }
+        
+        .badge-category {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .badge-subcategory {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .badge-language {
+            background-color: #6610f2;
+            color: white;
+        }
+        
+        .badge-stars {
+            background-color: #fd7e14;
+            color: white;
+        }
+        
+        .badge-updates {
+            background-color: var(--warning-color);
+            color: black;
+        }
+        
+        .network-graph {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        
+        .sidebar {
+            position: sticky;
+            top: 80px;
+        }
+        
+        .filter-section {
+            margin-bottom: 20px;
+        }
+        
+        .detail-view {
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tool-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .tool-detail-header h2 {
+            margin: 0;
+        }
+        
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+        }
+        
+        .bar-chart {
+            width: 100%;
+            height: 300px;
+        }
+        
+        .btn-tool {
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        
+        #networkGraph {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        
+        /* Update status colors */
+        .update-recent {
+            color: var(--primary-color);
+        }
+        
+        .update-medium {
+            color: var(--warning-color);
+        }
+        
+        .update-old {
+            color: var(--danger-color);
+        }
+        
+        /* Search and filter section */
+        .search-and-filters {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        /* Workflow visualization section */
+        .workflow-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .workflow-step {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 20px 0;
+            margin-top: 30px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .network-graph {
+                height: 400px;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+            
+            .tool-detail-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .tool-detail-header .btn-group {
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-virus"></i> Awesome-Virome Dashboard
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" data-view="explorer">Tool Explorer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-view="network">Network Graph</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-view="stats">Statistics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-view="workflow">Workflows</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/linsalrob/awesome-virome" target="_blank">
+                            <i class="bi bi-github"></i> GitHub
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="README.md" target="_blank">
+                            <i class="bi bi-file-text"></i> README
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4 dashboard-container">
+        <div class="row mb-4">
+            <div class="col">
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle-fill"></i> This dashboard visualizes the Awesome-Virome project, a curated list of tools for viral metagenomics and phage analysis. Use the navigation tabs to explore different views.
+                </div>
+            </div>
+        </div>
+
+        <!-- Tool Explorer View -->
+        <div id="explorerView" class="view-section">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="sidebar">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="bi bi-funnel"></i> Filters
+                            </div>
+                            <div class="card-body">
+                                <div class="filter-section">
+                                    <label for="categoryFilter" class="form-label">Category</label>
+                                    <select id="categoryFilter" class="form-select">
+                                        <option value="">All Categories</option>
+                                        <!-- Will be populated by JavaScript -->
+                                    </select>
+                                </div>
+                                <div class="filter-section">
+                                    <label for="subcategoryFilter" class="form-label">Subcategory</label>
+                                    <select id="subcategoryFilter" class="form-select">
+                                        <option value="">All Subcategories</option>
+                                        <!-- Will be populated by JavaScript -->
+                                    </select>
+                                </div>
+                                <div class="filter-section">
+                                    <label for="languageFilter" class="form-label">Language</label>
+                                    <select id="languageFilter" class="form-select">
+                                        <option value="">All Languages</option>
+                                        <!-- Will be populated by JavaScript -->
+                                    </select>
+                                </div>
+                                <div class="filter-section">
+                                    <label class="form-label">Update Status</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="recent" id="recentCheck" checked>
+                                        <label class="form-check-label" for="recentCheck">
+                                            <span class="update-recent"><i class="bi bi-circle-fill"></i></span> Recently Updated
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="medium" id="mediumCheck" checked>
+                                        <label class="form-check-label" for="mediumCheck">
+                                            <span class="update-medium"><i class="bi bi-circle-fill"></i></span> Updated in Last Year
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="old" id="oldCheck" checked>
+                                        <label class="form-check-label" for="oldCheck">
+                                            <span class="update-old"><i class="bi bi-circle-fill"></i></span> Not Recently Updated
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="filter-section">
+                                    <label for="searchTools" class="form-label">Search</label>
+                                    <input type="text" id="searchTools" class="form-control" placeholder="Search tools...">
+                                </div>
+                                <button id="resetFilters" class="btn btn-secondary w-100 mt-3">
+                                    <i class="bi bi-arrow-counterclockwise"></i> Reset Filters
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="bi bi-info-circle"></i> About
+                            </div>
+                            <div class="card-body">
+                                <p>This dashboard visualizes the Awesome-Virome collection, helping researchers discover tools for virome analysis.</p>
+                                <p>The collection includes:</p>
+                                <ul>
+                                    <li>Viral identification tools</li>
+                                    <li>Host prediction tools</li>
+                                    <li>Genome analysis tools</li>
+                                    <li>Taxonomy and functional analysis</li>
+                                </ul>
+                                <a href="README.md" class="btn btn-outline-primary btn-sm">View Full README</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span><i class="bi bi-tools"></i> Tool Explorer</span>
+                                <div>
+                                    <button class="btn btn-sm btn-outline-light" id="viewModeTable">
+                                        <i class="bi bi-table"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-light active" id="viewModeCards">
+                                        <i class="bi bi-grid-3x3-gap"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <!-- Table View -->
+                            <div id="tableView" style="display: none;">
+                                <table id="toolsTable" class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Tool</th>
+                                            <th>Category</th>
+                                            <th>Description</th>
+                                            <th>Language</th>
+                                            <th>Stars</th>
+                                            <th>Last Updated</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="toolsTableBody">
+                                        <!-- Will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                            <!-- Card View -->
+                            <div id="cardsView">
+                                <div class="row" id="toolsGrid">
+                                    <!-- Will be populated by JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Network Graph View -->
+        <div id="networkView" class="view-section" style="display: none;">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="sidebar">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="bi bi-diagram-3"></i> Network Controls
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label for="graphTypeSelect" class="form-label">Graph Type</label>
+                                    <select id="graphTypeSelect" class="form-select">
+                                        <option value="all">All Relationships</option>
+                                        <option value="category">Category Structure</option>
+                                        <option value="workflow">Workflow Connections</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="physicsToggle" class="form-label">Physics Simulation</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="physicsToggle" checked>
+                                        <label class="form-check-label" for="physicsToggle">Enabled</label>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <button id="resetGraph" class="btn btn-secondary btn-sm w-100">
+                                        <i class="bi bi-arrow-repeat"></i> Reset Graph
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="bi bi-info-circle"></i> Legend
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-2">
+                                    <span class="badge" style="background-color: #343a40;">Category</span>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="badge" style="background-color: #495057;">Subcategory</span>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="badge" style="background-color: #198754;">Tool</span>
+                                </div>
+                                <div class="mb-2">
+                                    <span class="badge" style="background-color: #ffc107; color: black;">Infrequently Updated Tool</span>
+                                </div>
+                                <div class="mb-3">
+                                    <span class="badge" style="background-color: #dc3545;">Outdated Tool</span>
+                                </div>
+                                <div class="mt-4">
+                                    <h6>Connections:</h6>
+                                    <p><b>Solid lines:</b> Category relationships</p>
+                                    <p><b>Dashed lines:</b> Workflow connections</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="bi bi-graph-up"></i> Tool Relationship Network
+                        </div>
+                        <div class="card-body">
+                            <div id="networkGraph"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics View -->
+        <div id="statsView" class="view-section" style="display: none;">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="bi bi-bar-chart-fill"></i> Tools by Category
+                        </div>
+                        <div class="card-body">
+                            <canvas id="categoryChart" class="bar-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="bi bi-bar-chart-fill"></i> Tools by Language
+                        </div>
+                        <div class="card-body">
+                            <canvas id="languageChart" class="bar-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="bi bi-bar-chart-fill"></i> Top Tools by Stars
+                        </div>
+                        <div class="card-body">
+                            <canvas id="starsChart" class="bar-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="bi bi-bar-chart-fill"></i> Update Frequency
+                        </div>
+                        <div class="card-body">
+                            <canvas id="updateChart" class="bar-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workflow View -->
+        <div id="workflowView" class="view-section" style="display: none;">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <i class="bi bi-diagram-2"></i> Common Workflows
+                        </div>
+                        <div class="card-body">
+                            <div class="list-group" id="workflowList">
+                                <a href="#" class="list-group-item list-group-item-action active" data-workflow="basic">
+                                    Basic Virome Analysis
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action" data-workflow="host">
+                                    Virus Host Prediction
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action" data-workflow="annotation">
+                                    Viral Genome Annotation
+                                </a>
+                                <a href="#" class="list-group-item list-group-item-action" data-workflow="taxonomy">
+                                    Viral Taxonomy
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="bi bi-list-check"></i> <span id="workflowTitle">Basic Virome Analysis Workflow</span>
+                        </div>
+                        <div class="card-body">
+                            <div id="workflowDescription" class="alert alert-info mb-4">
+                                This workflow shows the standard steps for processing metagenomic data to identify and analyze viral sequences.
+                            </div>
+                            <div id="workflowSteps">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tool Detail Modal -->
+        <div class="modal fade" id="toolDetailModal" tabindex="-1" aria-labelledby="toolDetailModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="toolDetailModalLabel">Tool Details</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="toolDetailContent">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <a id="toolRepoLink" href="#" target="_blank" class="btn btn-primary">Visit Repository</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Awesome-Virome</h5>
+                    <p>A curated list of tools for viral metagenomics and phage analysis.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>
+                        <a href="https://github.com/linsalrob/awesome-virome" class="text-white" target="_blank">
+                            <i class="bi bi-github"></i> GitHub Repository
+                        </a>
+                    </p>
+                    <p>
+                        <a href="README.md" class="text-white" target="_blank">
+                            <i class="bi bi-file-text"></i> Documentation
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <hr class="my-3 bg-light">
+            <div class="text-center">
+                <p class="mb-0">Licensed under <a href="LICENSE" class="text-white">CC0 1.0 Universal</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/vis-network.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net@1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Global data storage
+            let toolsData = [];
+            let categoriesData = [];
+            let subcategoriesData = [];
+            let languagesData = [];
+            let linksData = [];
+            let network = null;
+            
+            // Fetch data
+            try {
+                // Fetch data from data.json
+                const dataResponse = await fetch('data.json');
+                const data = await dataResponse.json();
+                
+                // Fetch additional repo data from repo_updates.json
+                const repoResponse = await fetch('repo_updates.json');
+                const repoData = await repoResponse.json();
+                
+                // Process data
+                toolsData = data.nodes.filter(node => node.type === 'tool');
+                categoriesData = data.nodes.filter(node => node.type === 'category');
+                subcategoriesData = data.nodes.filter(node => node.type === 'subcategory');
+                languagesData = [...new Set(toolsData.map(tool => tool.language))].filter(Boolean);
+                linksData = data.links;
+                
+                // Integrate repo data for more details
+                toolsData.forEach(tool => {
+                    const repoInfo = repoData.find(repo => repo.name === tool.name);
+                    if (repoInfo) {
+                        tool.lastUpdated = repoInfo.last_updated;
+                        // If we don't have stars in the tool but have it in repo data
+                        if (!tool.stars && repoInfo.stars) {
+                            tool.stars = repoInfo.stars;
+                        }
+                    }
+                });
+                
+                // Initialize views
+                initializeUI();
+                populateExplorer();
+                setupNetworkGraph();
+                createCharts();
+                setupWorkflows();
+                
+            } catch (error) {
+                console.error('Error loading data:', error);
+                alert('Failed to load data. Please try refreshing the page.');
+            }
+            
+            // Initialize UI and event listeners
+            function initializeUI() {
+                // View switching
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const viewName = this.getAttribute('data-view');
+                        
+                        // Update active tab
+                        document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+                        this.classList.add('active');
+                        
+                        // Show selected view
+                        document.querySelectorAll('.view-section').forEach(section => {
+                            section.style.display = 'none';
+                        });
+                        document.getElementById(viewName + 'View').style.display = 'block';
+                        
+                        // Special handling for network view
+                        if (viewName === 'network' && network) {
+                            setTimeout(() => network.fit(), 100);
+                        }
+                    });
+                });
+                
+                // View mode switching (table vs cards)
+                document.getElementById('viewModeTable').addEventListener('click', function() {
+                    document.getElementById('tableView').style.display = 'block';
+                    document.getElementById('cardsView').style.display = 'none';
+                    this.classList.add('active');
+                    document.getElementById('viewModeCards').classList.remove('active');
+                });
+                
+                document.getElementById('viewModeCards').addEventListener('click', function() {
+                    document.getElementById('tableView').style.display = 'none';
+                    document.getElementById('cardsView').style.display = 'block';
+                    this.classList.add('active');
+                    document.getElementById('viewModeTable').classList.remove('active');
+                });
+                
+                // Reset filters button
+                document.getElementById('resetFilters').addEventListener('click', resetFilters);
+                
+                // Filter change events
+                document.getElementById('categoryFilter').addEventListener('change', filterTools);
+                document.getElementById('subcategoryFilter').addEventListener('change', filterTools);
+                document.getElementById('languageFilter').addEventListener('change', filterTools);
+                document.getElementById('searchTools').addEventListener('input', filterTools);
+                
+                // Update status filters
+                document.getElementById('recentCheck').addEventListener('change', filterTools);
+                document.getElementById('mediumCheck').addEventListener('change', filterTools);
+                document.getElementById('oldCheck').addEventListener('change', filterTools);
+            }
+            
+            // Populate Explorer view with tools
+            function populateExplorer() {
+                // Populate filter dropdowns
+                const categorySelect = document.getElementById('categoryFilter');
+                const subcategorySelect = document.getElementById('subcategoryFilter');
+                const languageSelect = document.getElementById('languageFilter');
+                
+                // Add categories to filter
+                categoriesData.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category.name;
+                    option.textContent = category.name;
+                    categorySelect.appendChild(option);
+                });
+                
+                // Add subcategories to filter
+                const uniqueSubcats = [...new Set(subcategoriesData.map(subcat => subcat.name))];
+                uniqueSubcats.forEach(subcat => {
+                    const option = document.createElement('option');
+                    option.value = subcat;
+                    option.textContent = subcat;
+                    subcategorySelect.appendChild(option);
+                });
+                
+                // Add languages to filter
+                languagesData.forEach(language => {
+                    const option = document.createElement('option');
+                    option.value = language;
+                    option.textContent = language;
+                    languageSelect.appendChild(option);
+                });
+                
+                // Display tools
+                displayTools(toolsData);
+            }
+            
+            // Display tools based on current filters
+            function displayTools(tools) {
+                const gridContainer = document.getElementById('toolsGrid');
+                const tableBody = document.getElementById('toolsTableBody');
+                
+                // Clear existing content
+                gridContainer.innerHTML = '';
+                tableBody.innerHTML = '';
+                
+                // Sort tools by stars (descending)
+                tools.sort((a, b) => (b.stars || 0) - (a.stars || 0));
+                
+                // Add tools to grid view
+                tools.forEach(tool => {
+                    // Create card
+                    const cardCol = document.createElement('div');
+                    cardCol.className = 'col-md-6 col-lg-4 mb-4';
+                    
+                    let updateClass = 'update-recent';
+                    if (tool.updateTime > 6) {
+                        updateClass = 'update-medium';
+                    } 
+                    if (tool.updateTime > 12) {
+                        updateClass = 'update-old';
+                    }
+                    
+                    cardCol.innerHTML = `
+                        <div class="card tool-card" data-tool-id="${tool.id}">
+                            <div class="card-body">
+                                <h5 class="card-title">${tool.name}</h5>
+                                <p class="card-text">${tool.description || 'No description available'}</p>
+                                <div class="mb-2">
+                                    <span class="badge badge-category">${tool.category}</span>
+                                    ${tool.subcategory ? `<span class="badge badge-subcategory">${tool.subcategory}</span>` : ''}
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="badge badge-language">${tool.language || 'Unknown'}</span>
+                                        <span class="badge badge-stars"><i class="bi bi-star-fill"></i> ${tool.stars || 0}</span>
+                                    </div>
+                                    <div class="${updateClass}">
+                                        <i class="bi bi-clock"></i> ${getUpdateText(tool.updateTime)}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Add card to grid
+                    gridContainer.appendChild(cardCol);
+                    
+                    // Add row to table
+                    const tableRow = document.createElement('tr');
+                    tableRow.setAttribute('data-tool-id', tool.id);
+                    tableRow.innerHTML = `
+                        <td>${tool.name}</td>
+                        <td>${tool.category}${tool.subcategory ? ` / ${tool.subcategory}` : ''}</td>
+                        <td>${tool.description || 'No description available'}</td>
+                        <td>${tool.language || 'Unknown'}</td>
+                        <td>${tool.stars || 0}</td>
+                        <td class="${updateClass}">${getUpdateText(tool.updateTime)}</td>
+                    `;
+                    
+                    tableBody.appendChild(tableRow);
+                });
+                
+                // Add click event to tool cards and table rows
+                document.querySelectorAll('.tool-card, #toolsTableBody tr').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const toolId = this.getAttribute('data-tool-id');
+                        showToolDetails(toolId);
+                    });
+                });
+                
+                // Show "no results" message if no tools match
+                if (tools.length === 0) {
+                    gridContainer.innerHTML = '<div class="col-12"><div class="alert alert-info">No tools found matching your filters. Try adjusting your search criteria.</div></div>';
+                    tableBody.innerHTML = '<tr><td colspan="6" class="text-center">No tools found matching your filters. Try adjusting your search criteria.</td></tr>';
+                }
+                
+                // Initialize DataTable
+                if ($.fn.DataTable.isDataTable('#toolsTable')) {
+                    $('#toolsTable').DataTable().destroy();
+                }
+                
+                $('#toolsTable').DataTable({
+                    paging: true,
+                    searching: false, // We have our own search
+                    info: true,
+                    lengthChange: true,
+                    pageLength: 10,
+                    order: [[4, 'desc']] // Sort by stars by default
+                });
+            }
+            
+            // Helper function to get update text
+            function getUpdateText(updateTime) {
+                if (!updateTime && updateTime !== 0) return 'Unknown';
+                if (updateTime === 0) return 'This month';
+                if (updateTime === 1) return '1 month ago';
+                if (updateTime <= 6) return `${updateTime} months ago`;
+                if (updateTime <= 12) return `${updateTime} months ago`;
+                return `${updateTime} months ago`;
+            }
+            
+            // Filter tools based on user selections
+            function filterTools() {
+                const categoryValue = document.getElementById('categoryFilter').value;
+                const subcategoryValue = document.getElementById('subcategoryFilter').value;
+                const languageValue = document.getElementById('languageFilter').value;
+                const searchValue = document.getElementById('searchTools').value.toLowerCase();
+                
+                const showRecent = document.getElementById('recentCheck').checked;
+                const showMedium = document.getElementById('mediumCheck').checked;
+                const showOld = document.getElementById('oldCheck').checked;
+                
+                let filteredTools = toolsData.filter(tool => {
+                    // Filter by category
+                    if (categoryValue && tool.category !== categoryValue) {
+                        return false;
+                    }
+                    
+                    // Filter by subcategory
+                    if (subcategoryValue && tool.subcategory !== subcategoryValue) {
+                        return false;
+                    }
+                    
+                    // Filter by language
+                    if (languageValue && tool.language !== languageValue) {
+                        return false;
+                    }
+                    
+                    // Filter by update status
+                    if (!showRecent && (!tool.updateTime || tool.updateTime <= 6)) {
+                        return false;
+                    }
+                    if (!showMedium && tool.updateTime > 6 && tool.updateTime <= 12) {
+                        return false;
+                    }
+                    if (!showOld && tool.updateTime > 12) {
+                        return false;
+                    }
+                    
+                    // Filter by search text
+                    if (searchValue) {
+                        const nameMatch = tool.name.toLowerCase().includes(searchValue);
+                        const descMatch = tool.description && tool.description.toLowerCase().includes(searchValue);
+                        if (!nameMatch && !descMatch) {
+                            return false;
+                        }
+                    }
+                    
+                    return true;
+                });
+                
+                displayTools(filteredTools);
+            }
+            
+            // Reset all filters
+            function resetFilters() {
+                document.getElementById('categoryFilter').value = '';
+                document.getElementById('subcategoryFilter').value = '';
+                document.getElementById('languageFilter').value = '';
+                document.getElementById('searchTools').value = '';
+                document.getElementById('recentCheck').checked = true;
+                document.getElementById('mediumCheck').checked = true;
+                document.getElementById('oldCheck').checked = true;
+                
+                displayTools(toolsData);
+            }
+            
+            // Show details for a specific tool
+            function showToolDetails(toolId) {
+                const tool = toolsData.find(t => t.id === toolId);
+                if (!tool) return;
+                
+                // Find related tools (workflow connections)
+                const relatedLinks = linksData.filter(link => 
+                    (link.source === tool.id || link.target === tool.id) && link.isWorkflow
+                );
+                
+                const relatedTools = relatedLinks.map(link => {
+                    const relatedId = link.source === tool.id ? link.target : link.source;
+                    return toolsData.find(t => t.id === relatedId);
+                }).filter(Boolean);
+                
+                // Set up modal content
+                const modalTitle = document.getElementById('toolDetailModalLabel');
+                const modalContent = document.getElementById('toolDetailContent');
+                const repoLink = document.getElementById('toolRepoLink');
+                
+                modalTitle.textContent = tool.name;
+                repoLink.href = tool.url;
+                
+                // Format content
+                let updateClass = 'update-recent';
+                if (tool.updateTime > 6) updateClass = 'update-medium';
+                if (tool.updateTime > 12) updateClass = 'update-old';
+                
+                let modalHtml = `
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4>${tool.name}</h4>
+                            <p>${tool.description || 'No description available'}</p>
+                            
+                            <div class="mb-3">
+                                <h5>Classification</h5>
+                                <p><strong>Category:</strong> ${tool.category}</p>
+                                ${tool.subcategory ? `<p><strong>Subcategory:</strong> ${tool.subcategory}</p>` : ''}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <h5>Technical Details</h5>
+                                <p><strong>Language:</strong> ${tool.language || 'Unknown'}</p>
+                                <p><strong>Repository:</strong> <a href="${tool.url}" target="_blank">${tool.url}</a></p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mb-3">
+                                <div class="card-header">Stats</div>
+                                <div class="card-body">
+                                    <p><i class="bi bi-star-fill text-warning"></i> <strong>Stars:</strong> ${tool.stars || 0}</p>
+                                    <p class="${updateClass}"><i class="bi bi-clock"></i> <strong>Last Updated:</strong> ${getUpdateText(tool.updateTime)}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Add related tools section if any exist
+                if (relatedTools.length > 0) {
+                    modalHtml += `
+                        <div class="mt-4">
+                            <h5>Commonly Used With</h5>
+                            <div class="d-flex flex-wrap">
+                                ${relatedTools.map(relTool => 
+                                    `<button class="btn btn-outline-secondary btn-sm me-2 mb-2 btn-tool" data-tool-id="${relTool.id}">
+                                        ${relTool.name}
+                                    </button>`
+                                ).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                modalContent.innerHTML = modalHtml;
+                
+                // Add click events to related tool buttons
+                modalContent.querySelectorAll('.btn-tool').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const relatedToolId = this.getAttribute('data-tool-id');
+                        showToolDetails(relatedToolId);
+                    });
+                });
+                
+                // Show the modal
+                const modal = new bootstrap.Modal(document.getElementById('toolDetailModal'));
+                modal.show();
+            }
+            
+            // Create network graph visualization
+            function setupNetworkGraph() {
+                const container = document.getElementById('networkGraph');
+                
+                // Prepare nodes and edges for vis.js
+                const nodes = [];
+                const edges = [];
+                
+                // Add all nodes (categories, subcategories, tools)
+                categoriesData.forEach(category => {
+                    nodes.push({
+                        id: category.id,
+                        label: category.name,
+                        title: category.name,
+                        group: 'category',
+                        shape: 'diamond',
+                        size: 25,
+                        color: {
+                            background: category.color,
+                            border: '#222',
+                            highlight: {
+                                background: '#495057',
+                                border: '#222'
+                            }
+                        },
+                        font: {
+                            color: 'white'
+                        }
+                    });
+                });
+                
+                subcategoriesData.forEach(subcat => {
+                    nodes.push({
+                        id: subcat.id,
+                        label: subcat.name,
+                        title: subcat.name,
+                        group: 'subcategory',
+                        shape: 'triangle',
+                        size: 20,
+                        color: {
+                            background: subcat.color,
+                            border: '#222',
+                            highlight: {
+                                background: '#6c757d',
+                                border: '#222'
+                            }
+                        },
+                        font: {
+                            color: 'white'
+                        }
+                    });
+                });
+                
+                toolsData.forEach(tool => {
+                    let toolColor = tool.color;
+                    // Ensure color is set based on update time
+                    if (tool.updateTime > 12) {
+                        toolColor = '#dc3545'; // danger color for outdated
+                    } else if (tool.updateTime > 6) {
+                        toolColor = '#ffc107'; // warning color for medium update
+                    }
+                    
+                    nodes.push({
+                        id: tool.id,
+                        label: tool.name,
+                        title: `${tool.name}\n${tool.description || ''}`,
+                        group: 'tool',
+                        shape: 'dot',
+                        size: 15 + (tool.stars ? Math.min(Math.log(tool.stars) * 2, 15) : 0),
+                        color: {
+                            background: toolColor,
+                            border: '#222',
+                            highlight: {
+                                background: '#28a745',
+                                border: '#222'
+                            }
+                        }
+                    });
+                });
+                
+                // Add all edges (links)
+                linksData.forEach(link => {
+                    // Check for workflow connections (dashed lines)
+                    const isWorkflow = link.isWorkflow === true;
+                    
+                    edges.push({
+                        from: link.source,
+                        to: link.target,
+                        width: link.value * 2,
+                        title: isWorkflow ? 'Workflow connection' : 'Category relationship',
+                        dashes: isWorkflow,
+                        smooth: {
+                            type: 'continuous',
+                            forceDirection: 'none'
+                        }
+                    });
+                });
+                
+                // Configure network options
+                const options = {
+                    physics: {
+                        forceAtlas2Based: {
+                            gravitationalConstant: -50,
+                            centralGravity: 0.01,
+                            springLength: 150,
+                            springConstant: 0.08
+                        },
+                        maxVelocity: 50,
+                        solver: 'forceAtlas2Based',
+                        timestep: 0.5,
+                        stabilization: {
+                            enabled: true,
+                            iterations: 500
+                        }
+                    },
+                    layout: {
+                        improvedLayout: true
+                    },
+                    interaction: {
+                        tooltipDelay: 200,
+                        hover: true,
+                        hoverConnectedEdges: true,
+                        navigationButtons: true,
+                        keyboard: true
+                    },
+                    groups: {
+                        category: {
+                            shape: 'diamond',
+                            size: 25
+                        },
+                        subcategory: {
+                            shape: 'triangle',
+                            size: 20
+                        },
+                        tool: {
+                            shape: 'dot',
+                            size: 15
+                        }
+                    }
+                };
+                
+                // Create the network
+                const networkData = {
+                    nodes: new vis.DataSet(nodes),
+                    edges: new vis.DataSet(edges)
+                };
+                
+                network = new vis.Network(container, networkData, options);
+                
+                // Add click event to show tool details
+                network.on('click', function(params) {
+                    if (params.nodes.length === 1) {
+                        const nodeId = params.nodes[0];
+                        const toolNode = toolsData.find(tool => tool.id === nodeId);
+                        
+                        if (toolNode) {
+                            showToolDetails(nodeId);
+                        }
+                    }
+                });
+                
+                // Add event handlers for network controls
+                document.getElementById('graphTypeSelect').addEventListener('change', function() {
+                    const graphType = this.value;
+                    
+                    if (graphType === 'all') {
+                        // Show all nodes and edges
+                        networkData.nodes.update(nodes);
+                        networkData.edges.update(edges);
+                    } else if (graphType === 'category') {
+                        // Only show category structure (hide workflow connections)
+                        const categoryEdges = edges.filter(edge => !edge.dashes);
+                        networkData.edges.update(categoryEdges);
+                    } else if (graphType === 'workflow') {
+                        // Only show workflow connections
+                        const workflowEdges = edges.filter(edge => edge.dashes);
+                        const toolIds = new Set();
+                        
+                        // Find all tools involved in workflows
+                        workflowEdges.forEach(edge => {
+                            toolIds.add(edge.from);
+                            toolIds.add(edge.to);
+                        });
+                        
+                        // Only show those tools and their connections
+                        const workflowNodes = nodes.filter(node => 
+                            toolIds.has(node.id) || node.group === 'category' || node.group === 'subcategory'
+                        );
+                        
+                        networkData.nodes.update(workflowNodes);
+                        networkData.edges.update(workflowEdges);
+                    }
+                    
+                    network.fit();
+                });
+                
+                // Toggle physics simulation
+                document.getElementById('physicsToggle').addEventListener('change', function() {
+                    network.setOptions({ physics: { enabled: this.checked } });
+                });
+                
+                // Reset graph button
+                document.getElementById('resetGraph').addEventListener('click', function() {
+                    document.getElementById('graphTypeSelect').value = 'all';
+                    networkData.nodes.update(nodes);
+                    networkData.edges.update(edges);
+                    document.getElementById('physicsToggle').checked = true;
+                    network.setOptions({ physics: { enabled: true } });
+                    network.fit();
+                });
+            }
+            
+            // Create statistical charts
+            function createCharts() {
+                // Prepare data for category chart
+                const categoryLabels = [];
+                const categoryCounts = [];
+                
+                // Count tools by category
+                const categoryCountMap = {};
+                toolsData.forEach(tool => {
+                    if (tool.category) {
+                        categoryCountMap[tool.category] = (categoryCountMap[tool.category] || 0) + 1;
+                    }
+                });
+                
+                // Sort categories by count (descending)
+                Object.entries(categoryCountMap)
+                    .sort((a, b) => b[1] - a[1])
+                    .forEach(([category, count]) => {
+                        categoryLabels.push(category);
+                        categoryCounts.push(count);
+                    });
+                
+                // Create category chart
+                const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+                new Chart(categoryCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: categoryLabels,
+                        datasets: [{
+                            label: 'Number of Tools',
+                            data: categoryCounts,
+                            backgroundColor: '#198754',
+                            borderColor: '#0f5132',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    precision: 0
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            }
+                        }
+                    }
+                });
+                
+                // Prepare data for language chart
+                const languageLabels = [];
+                const languageCounts = [];
+                
+                // Count tools by language
+                const languageCountMap = {};
+                toolsData.forEach(tool => {
+                    if (tool.language) {
+                        languageCountMap[tool.language] = (languageCountMap[tool.language] || 0) + 1;
+                    } else {
+                        languageCountMap['Unknown'] = (languageCountMap['Unknown'] || 0) + 1;
+                    }
+                });
+                
+                // Sort languages by count (descending)
+                Object.entries(languageCountMap)
+                    .sort((a, b) => b[1] - a[1])
+                    .forEach(([language, count]) => {
+                        languageLabels.push(language);
+                        languageCounts.push(count);
+                    });
+                
+                // Create language chart
+                const languageCtx = document.getElementById('languageChart').getContext('2d');
+                new Chart(languageCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: languageLabels,
+                        datasets: [{
+                            label: 'Number of Tools',
+                            data: languageCounts,
+                            backgroundColor: '#6610f2',
+                            borderColor: '#520dc2',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    precision: 0
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            }
+                        }
+                    }
+                });
+                
+                // Prepare data for stars chart
+                const starsLabels = [];
+                const starsValues = [];
+                
+                // Get top 10 tools by stars
+                toolsData
+                    .filter(tool => tool.stars)
+                    .sort((a, b) => (b.stars || 0) - (a.stars || 0))
+                    .slice(0, 10)
+                    .forEach(tool => {
+                        starsLabels.push(tool.name);
+                        starsValues.push(tool.stars || 0);
+                    });
+                
+                // Create stars chart
+                const starsCtx = document.getElementById('starsChart').getContext('2d');
+                new Chart(starsCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: starsLabels,
+                        datasets: [{
+                            label: 'GitHub Stars',
+                            data: starsValues,
+                            backgroundColor: '#fd7e14',
+                            borderColor: '#ca6510',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    precision: 0
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            }
+                        }
+                    }
+                });
+                
+                // Prepare data for update frequency chart
+                const updateLabels = ['This month', '1-6 months', '7-12 months', 'Over 12 months', 'Unknown'];
+                const updateCounts = [0, 0, 0, 0, 0];
+                
+                toolsData.forEach(tool => {
+                    if (tool.updateTime === undefined || tool.updateTime === null) {
+                        updateCounts[4]++; // Unknown
+                    } else if (tool.updateTime === 0) {
+                        updateCounts[0]++; // This month
+                    } else if (tool.updateTime <= 6) {
+                        updateCounts[1]++; // 1-6 months
+                    } else if (tool.updateTime <= 12) {
+                        updateCounts[2]++; // 7-12 months
+                    } else {
+                        updateCounts[3]++; // Over 12 months
+                    }
+                });
+                
+                // Create update frequency chart
+                const updateCtx = document.getElementById('updateChart').getContext('2d');
+                new Chart(updateCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: updateLabels,
+                        datasets: [{
+                            label: 'Number of Tools',
+                            data: updateCounts,
+                            backgroundColor: [
+                                '#198754', // This month (green)
+                                '#20c997', // 1-6 months (teal)
+                                '#ffc107', // 7-12 months (yellow)
+                                '#dc3545', // Over 12 months (red)
+                                '#6c757d'  // Unknown (gray)
+                            ],
+                            borderColor: [
+                                '#0f5132',
+                                '#138a68',
+                                '#ca9a06',
+                                '#a71d2a',
+                                '#495057'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    precision: 0
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Set up workflow visualization
+            function setupWorkflows() {
+                // Define common workflows
+                const workflows = {
+                    basic: {
+                        title: 'Basic Virome Analysis Workflow',
+                        description: 'This workflow shows the standard steps for processing metagenomic data to identify and analyze viral sequences.',
+                        steps: [
+                            {
+                                title: '1. Quality Control',
+                                description: 'Filter low-quality reads and remove adapters.',
+                                tools: []
+                            },
+                            {
+                                title: '2. Assembly',
+                                description: 'Assemble reads into contigs.',
+                                tools: ['coronaSPAdes', 'metaviralSPAdes']
+                            },
+                            {
+                                title: '3. Viral Contig Identification',
+                                description: 'Identify viral contigs from mixed metagenomic data.',
+                                tools: ['VirSorter2', 'VIBRANT', 'geNomad', 'DeepVirFinder']
+                            },
+                            {
+                                title: '4. Quality Assessment',
+                                description: 'Check quality and completeness of viral contigs.',
+                                tools: ['CheckV']
+                            },
+                            {
+                                title: '5. Taxonomic Classification',
+                                description: 'Assign taxonomy to viral contigs.',
+                                tools: ['vConTACT2.0', 'PhaGCN']
+                            },
+                            {
+                                title: '6. Host Prediction',
+                                description: 'Predict potential hosts for viral contigs.',
+                                tools: ['iPHoP', 'CHERRY', 'WIsH']
+                            },
+                            {
+                                title: '7. Functional Annotation',
+                                description: 'Annotate genes and predict functions.',
+                                tools: ['Pharokka', 'DRAMv', 'PhANNs']
+                            }
+                        ]
+                    },
+                    host: {
+                        title: 'Virus Host Prediction Workflow',
+                        description: 'This workflow focuses on predicting the bacterial hosts for phages and other viruses.',
+                        steps: [
+                            {
+                                title: '1. Initial Host Prediction',
+                                description: 'Use sequence-based methods for initial host prediction.',
+                                tools: ['iPHoP', 'CHERRY', 'HostG']
+                            },
+                            {
+                                title: '2. Refinement by Sequence Similarity',
+                                description: 'Compare virus and host genomes for sequence similarity.',
+                                tools: ['VirHostMatcher', 'VirHostMatcher-Net', 'WIsH']
+                            },
+                            {
+                                title: '3. CRISPR-based Matching',
+                                description: 'Search for CRISPR spacers matching the viral genome.',
+                                tools: ['SpacePHARER']
+                            },
+                            {
+                                title: '4. Integration & Final Prediction',
+                                description: 'Integrate results for final host prediction.',
+                                tools: ['VirMatcher', 'VIDHOP']
+                            }
+                        ]
+                    },
+                    annotation: {
+                        title: 'Viral Genome Annotation Workflow',
+                        description: 'This workflow provides a comprehensive approach to annotating viral genomes.',
+                        steps: [
+                            {
+                                title: '1. Gene Prediction',
+                                description: 'Identify open reading frames and genes in viral genomes.',
+                                tools: ['Phanotate', 'PhANNs']
+                            },
+                            {
+                                title: '2. Functional Annotation',
+                                description: 'Assign functions to predicted genes.',
+                                tools: ['Pharokka', 'DRAMv']
+                            },
+                            {
+                                title: '3. Structural Feature Identification',
+                                description: 'Identify structural features like tRNAs and terminal repeats.',
+                                tools: ['SpikeHunter', 'PhagePromoter']
+                            },
+                            {
+                                title: '4. Completeness Check',
+                                description: 'Verify genome completeness and quality.',
+                                tools: ['CheckV', 'viralVerify']
+                            }
+                        ]
+                    },
+                    taxonomy: {
+                        title: 'Viral Taxonomy Workflow',
+                        description: 'This workflow assigns taxonomy to viral sequences using various complementary approaches.',
+                        steps: [
+                            {
+                                title: '1. Gene-sharing Network Analysis',
+                                description: 'Classify viruses based on shared gene content.',
+                                tools: ['vConTACT2.0']
+                            },
+                            {
+                                title: '2. Machine Learning Classification',
+                                description: 'Use machine learning to predict taxonomy.',
+                                tools: ['PhaGCN', 'BERTax']
+                            },
+                            {
+                                title: '3. Genome Organization Analysis',
+                                description: 'Analyze genomic organization patterns for classification.',
+                                tools: ['GraViTy', 'VIPtree']
+                            },
+                            {
+                                title: '4. Integration & Visualization',
+                                description: 'Integrate multiple taxonomic approaches and visualize results.',
+                                tools: ['VPF Tools', 'VIRify']
+                            }
+                        ]
+                    }
+                };
+                
+                // Display workflow steps
+                function displayWorkflow(workflowKey) {
+                    const workflow = workflows[workflowKey];
+                    if (!workflow) return;
+                    
+                    // Update title and description
+                    document.getElementById('workflowTitle').textContent = workflow.title;
+                    document.getElementById('workflowDescription').textContent = workflow.description;
+                    
+                    // Clear existing steps
+                    const stepsContainer = document.getElementById('workflowSteps');
+                    stepsContainer.innerHTML = '';
+                    
+                    // Add each workflow step
+                    workflow.steps.forEach(step => {
+                        const stepElement = document.createElement('div');
+                        stepElement.className = 'workflow-step mb-3';
+                        
+                        // Find actual tool objects for this step
+                        const toolObjects = step.tools.map(toolName => 
+                            toolsData.find(t => t.name === toolName)
+                        ).filter(Boolean);
+                        
+                        // Create HTML for the step
+                        let stepHtml = `
+                            <h5>${step.title}</h5>
+                            <p>${step.description}</p>
+                        `;
+                        
+                        // Add recommended tools if any
+                        if (toolObjects.length > 0) {
+                            stepHtml += `
+                                <div class="mt-2">
+                                    <strong>Recommended Tools:</strong>
+                                    <div class="d-flex flex-wrap mt-1">
+                                        ${toolObjects.map(tool => 
+                                            `<button class="btn btn-outline-primary btn-sm me-2 mb-2 btn-tool" data-tool-id="${tool.id}">
+                                                ${tool.name}
+                                            </button>`
+                                        ).join('')}
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        
+                        stepElement.innerHTML = stepHtml;
+                        stepsContainer.appendChild(stepElement);
+                    });
+                    
+                    // Add click event for tool buttons
+                    stepsContainer.querySelectorAll('.btn-tool').forEach(btn => {
+                        btn.addEventListener('click', function() {
+                            const toolId = this.getAttribute('data-tool-id');
+                            showToolDetails(toolId);
+                        });
+                    });
+                }
+                
+                // Set up workflow selection
+                document.querySelectorAll('#workflowList a').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        // Update active state
+                        document.querySelectorAll('#workflowList a').forEach(el => 
+                            el.classList.remove('active')
+                        );
+                        this.classList.add('active');
+                        
+                        // Display the selected workflow
+                        const workflowKey = this.getAttribute('data-workflow');
+                        displayWorkflow(workflowKey);
+                    });
+                });
+                
+                // Display initial workflow
+                displayWorkflow('basic');
+            }
+        });
+    </script>
+</body>
+</html>
