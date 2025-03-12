@@ -88,7 +88,7 @@ def get_github_repo_info(repo_url):
         # Extract owner/repo from URL
         match = re.search(r'github\.com/([^/]+/[^/]+)', repo_url)
         if not match:
-            return None, None, None
+            return None, None, None, None
         
         repo_path = match.group(1).rstrip('/')
         
@@ -117,7 +117,7 @@ def get_github_repo_info(repo_url):
         
         if response.status_code == 404:
             logger.warning(f"Repository not found: {repo_url}")
-            return None, "not_found", None
+            return None, "not_found", None, None
         
         if response.status_code == 429:
             logger.warning(f"Rate limit hit for {repo_url}, waiting and retrying")
@@ -128,25 +128,28 @@ def get_github_repo_info(repo_url):
         
         data = response.json()
         updated_at = data.get('updated_at') or data.get('pushed_at')
+        created_at = data.get('created_at')
+        if created_at:
+            created_at = datetime.strptime(created_at, '%Y-%m-%dT%H:%M:%SZ')
         stars = data.get('stargazers_count', 0)
         
         if updated_at:
-            return datetime.strptime(updated_at, '%Y-%m-%dT%H:%M:%SZ'), None, stars
-        return None, None, stars
+            return datetime.strptime(updated_at, '%Y-%m-%dT%H:%M:%SZ'), None, stars, created_at
+        return None, None, stars, created_at
     except requests.exceptions.RequestException as e:
         if hasattr(e, 'response') and e.response is not None:
             if e.response.status_code == 404:
                 logger.warning(f"Repository not found: {repo_url}")
-                return None, "not_found", None
+                return None, "not_found", None, None
             elif e.response.status_code == 429:
                 logger.warning(f"Rate limit hit for {repo_url}, waiting 60 seconds")
                 time.sleep(60)  # Wait 60 seconds before retrying
                 return get_github_repo_info(repo_url)  # Retry
         logger.error(f"Error fetching GitHub repo {repo_url}: {e}")
-        return None, "error", None
+        return None, "error", None, None
     except Exception as e:
         logger.error(f"Unexpected error for {repo_url}: {e}")
-        return None, "error", None
+        return None, "error", None, None
 
 def get_gitlab_repo_info(repo_url):
     """Get the last updated time and star count for a GitLab repository."""
@@ -157,7 +160,7 @@ def get_gitlab_repo_info(repo_url):
         # Extract project ID or path from URL
         match = re.search(r'gitlab\.com/([^/]+/[^/]+)', repo_url)
         if not match:
-            return None, None, None
+            return None, None, None, None
         
         project_path = match.group(1).rstrip('/')
         
@@ -172,7 +175,7 @@ def get_gitlab_repo_info(repo_url):
         
         if response.status_code == 404:
             logger.warning(f"Repository not found: {repo_url}")
-            return None, "not_found", None
+            return None, "not_found", None, None
         
         if response.status_code == 429:
             logger.warning(f"Rate limit hit for {repo_url}, waiting 60 seconds")
@@ -194,26 +197,29 @@ def get_gitlab_repo_info(repo_url):
                 
                 data = proj_response.json()
                 updated_at = data.get('last_activity_at')
+                created_at = data.get('created_at')
+                if created_at:
+                    created_at = datetime.strptime(created_at, '%Y-%m-%dT%H:%M:%SZ')
                 stars = data.get('star_count', 0)
                 
                 if updated_at:
-                    return datetime.strptime(updated_at, '%Y-%m-%dT%H:%M:%S.%fZ'), None, stars
-                return None, None, stars
-        return None, None, None
+                    return datetime.strptime(updated_at, '%Y-%m-%dT%H:%M:%S.%fZ'), None, stars, created_at
+                return None, None, stars, None
+        return None, None, None, None, None
     except requests.exceptions.RequestException as e:
         if hasattr(e, 'response') and e.response is not None:
             if e.response.status_code == 404:
                 logger.warning(f"Repository not found: {repo_url}")
-                return None, "not_found", None
+                return None, "not_found", None, None
             elif e.response.status_code == 429:
                 logger.warning(f"Rate limit hit for {repo_url}, waiting 60 seconds")
                 time.sleep(60)  # Wait 60 seconds before retrying
                 return get_gitlab_repo_info(repo_url)  # Retry
         logger.error(f"Error fetching GitLab repo {repo_url}: {e}")
-        return None, "error", None
+        return None, "error", None, None
     except Exception as e:
         logger.error(f"Unexpected error for {repo_url}: {e}")
-        return None, "error", None
+        return None, "error", None, None
 
 def get_bitbucket_repo_info(repo_url):
     """Get the last updated time and watchers count for a Bitbucket repository."""
@@ -224,7 +230,7 @@ def get_bitbucket_repo_info(repo_url):
         # Extract workspace/repo from URL
         match = re.search(r'bitbucket\.org/([^/]+/[^/]+)', repo_url)
         if not match:
-            return None, None, None
+            return None, None, None, None
         
         repo_path = match.group(1).rstrip('/')
         
@@ -236,7 +242,7 @@ def get_bitbucket_repo_info(repo_url):
         
         if response.status_code == 404:
             logger.warning(f"Repository not found: {repo_url}")
-            return None, "not_found", None
+            return None, "not_found", None, None
         
         if response.status_code == 429:
             logger.warning(f"Rate limit hit for {repo_url}, waiting 60 seconds")
@@ -247,40 +253,43 @@ def get_bitbucket_repo_info(repo_url):
         
         data = response.json()
         updated_on = data.get('updated_on')
+        created_at = data.get('created_at')
+        if created_at:
+            created_at = datetime.strptime(created_at, '%Y-%m-%dT%H:%M:%SZ')
         # Bitbucket doesn't have stars but has watchers
         watchers = data.get('watchers_count', 0)
         
         if updated_on:
-            return datetime.strptime(updated_on, '%Y-%m-%dT%H:%M:%S.%f%z'), None, watchers
-        return None, None, watchers
+            return datetime.strptime(updated_on, '%Y-%m-%dT%H:%M:%S.%f%z'), None, watchers, created_at
+        return None, None, watchers, created_at
     except requests.exceptions.RequestException as e:
         if hasattr(e, 'response') and e.response is not None:
             if e.response.status_code == 404:
                 logger.warning(f"Repository not found: {repo_url}")
-                return None, "not_found", None
+                return None, "not_found", None, None
             elif e.response.status_code == 429:
                 logger.warning(f"Rate limit hit for {repo_url}, waiting 60 seconds")
                 time.sleep(60)  # Wait 60 seconds before retrying
                 return get_bitbucket_repo_info(repo_url)  # Retry
         logger.error(f"Error fetching Bitbucket repo {repo_url}: {e}")
-        return None, "error", None
+        return None, "error", None, None
     except Exception as e:
         logger.error(f"Unexpected error for {repo_url}: {e}")
-        return None, "error", None
+        return None, "error", None, None
 
 def get_repo_last_updated(repo_name, repo_url):
     """Get the last updated time and stars for a repository based on its URL."""
     # Handle different repository hosts
     if 'github.com' in repo_url:
-        last_updated, status, stars = get_github_repo_info(repo_url)
-        return repo_name, repo_url, last_updated, status, stars
+        last_updated, status, stars, created_at = get_github_repo_info(repo_url)
+        return repo_name, repo_url, last_updated, status, stars, created_at
     elif 'gitlab.com' in repo_url:
-        last_updated, status, stars = get_gitlab_repo_info(repo_url)
-        return repo_name, repo_url, last_updated, status, stars
+        last_updated, status, stars, created_at = get_gitlab_repo_info(repo_url)
+        return repo_name, repo_url, last_updated, status, stars, created_at
     elif 'bitbucket.org' in repo_url:
-        last_updated, status, stars = get_bitbucket_repo_info(repo_url)
-        return repo_name, repo_url, last_updated, status, stars
-    return repo_name, repo_url, None, None, None
+        last_updated, status, stars, created_at = get_bitbucket_repo_info(repo_url)
+        return repo_name, repo_url, last_updated, status, stars, created_at
+    return repo_name, repo_url, None, None, None, None
 
 def batch_process_repos(repos, batch_size=5, batch_delay=10):
     """Process repositories in batches to avoid rate limiting."""
@@ -326,7 +335,7 @@ def update_readme_with_dates_status_and_stars(readme_path, repo_data):
     # Sort repositories by name for consistent processing
     sorted_repos = sorted(repo_data, key=lambda x: x[0])
     
-    for repo_name, repo_url, last_updated, status, stars in sorted_repos:
+    for repo_name, repo_url, last_updated, status, stars, created_time in sorted_repos:
         # Collect GitHub repos with stars for popular packages section
         if 'github.com' in repo_url and stars is not None and stars > 0:
             github_repos_with_stars.append((repo_name, repo_url, stars))
@@ -460,10 +469,11 @@ def main():
     # Save results to JSON for later reference
     with open(Path(__file__).parent / "repo_updates.json", 'w') as f:
         json_results = []
-        for name, url, date, status, stars in results:
+        for name, url, date, status, stars, created_at in results:
             json_results.append({
                 "name": name,
                 "url": url,
+                "created_at" : created_at,
                 "last_updated": date.isoformat() if date else None,
                 "status": status,
                 "stars": stars
