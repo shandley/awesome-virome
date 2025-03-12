@@ -20,27 +20,27 @@ Virome analysis involves studying the collection of viruses (including bacteriop
 
 ## Popular Packages
 
-Ranked by GitHub stars:
+Top tools by category, ranked by GitHub stars:
 
+### 1. Virus and Phage Identification
 1. [coronaSPAdes/metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
 2. [MetaPhlAn 4.1.0](https://github.com/biobakery/MetaPhlAn/releases/tag/4.1.0) - ⭐ 328 stars
-3. [DRAMv](https://github.com/WrightonLabCSU/DRAM) - ⭐ 267 stars
-4. [geNomad](https://github.com/apcamargo/genomad) - ⭐ 219 stars
-5. [VIBRANT](https://github.com/AnantharamanLab/VIBRANT) - ⭐ 159 stars
-6. [Pharokka](https://github.com/gbouras13/pharokka) - ⭐ 158 stars
-7. [VirFinder](https://github.com/jessieren/VirFinder) - ⭐ 137 stars
-8. [VIRify](https://github.com/EBI-Metagenomics/emg-viral-pipeline) - ⭐ 131 stars
-9. [DeepVirFinder](https://github.com/jessieren/DeepVirFinder) - ⭐ 128 stars
-10. [SNPGenie](https://github.com/chasewnelson/snpgenie) - ⭐ 111 stars
-11. [What_the_phage](https://github.com/replikation/What_the_Phage) - ⭐ 104 stars
-12. [VirSorter](https://github.com/simroux/VirSorter) - ⭐ 103 stars
-13. [Phables](https://github.com/Vini2/phables) - ⭐ 77 stars
-14. [PhiSpy](https://github.com/linsalrob/PhiSpy) - ⭐ 77 stars
-15. [Phanotate](https://github.com/deprekate/PHANOTATE) - ⭐ 72 stars
-16. [viralVerify](https://github.com/ablab/viralVerify/) - ⭐ 67 stars
-17. [COBRA](https://github.com/linxingchen/cobra) - ⭐ 65 stars
-18. [ViralMSA](https://github.com/niemasd/ViralMSA) - ⭐ 65 stars
-19. [Phanta](https://github.com/bhattlab/phanta) - ⭐ 63 stars
+3. [geNomad](https://github.com/apcamargo/genomad) - ⭐ 219 stars
+
+### 2. Host Prediction
+1. [CHERRY](https://github.com/KennthShang/CHERRY) - ⭐ 137 stars
+2. [VirHostMatcher-Net](https://github.com/WeiliWw/VirHostMatcher-Net) - ⭐ 85 stars
+3. [HostG](https://github.com/KennthShang/HostG) - ⭐ 74 stars
+
+### 3. Genome Analysis
+1. [DRAMv](https://github.com/WrightonLabCSU/DRAM) - ⭐ 267 stars
+2. [Pharokka](https://github.com/gbouras13/pharokka) - ⭐ 158 stars
+3. [CheckV](https://bitbucket.org/berkeleylab/checkv/) - ⭐ 128 stars
+
+### 4. Taxonomy
+1. [VIBRANT](https://github.com/AnantharamanLab/VIBRANT) - ⭐ 159 stars
+2. [VIRify](https://github.com/EBI-Metagenomics/emg-viral-pipeline) - ⭐ 131 stars
+3. [PhaGCN](https://github.com/KennthShang/PhaGCN) - ⭐ 106 stars
 
 ## Getting Started
 
