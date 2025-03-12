@@ -78,8 +78,26 @@ async function build() {
         
         // Replace the data placeholder with properly JSON stringified data
         // Use a clean JSON string without any HTML entities or special chars
+        // Remove spaces and newlines to avoid any formatting issues
         const jsonString = JSON.stringify(data, null, 0);
         console.log(`✅ Data serialized for embedding (${jsonString.length} characters)`);
+        console.log(`Data starts with: ${jsonString.substring(0, 50)}...`);
+        console.log(`Data ends with: ...${jsonString.substring(jsonString.length - 50)}`);
+        
+        // Log the placeholder we're looking for to confirm it exists in the HTML
+        const placeholderExists = html.includes('<!-- DATA_PLACEHOLDER -->');
+        console.log(`Placeholder exists in HTML: ${placeholderExists}`);
+        
+        // Get placeholder index for verbose logging
+        const placeholderIndex = html.indexOf('<!-- DATA_PLACEHOLDER -->');
+        console.log(`Placeholder position in HTML: ${placeholderIndex}`);
+        
+        // Get the context around the placeholder (10 chars before and after) for debugging
+        if (placeholderIndex > -1) {
+            const start = Math.max(0, placeholderIndex - 10);
+            const end = Math.min(html.length, placeholderIndex + 30);
+            console.log(`Context around placeholder: "${html.substring(start, end)}"`);
+        }
         
         // Directly replace the placeholder with the clean JSON
         html = html.replace('<!-- DATA_PLACEHOLDER -->', jsonString);
@@ -90,16 +108,63 @@ async function build() {
             throw new Error('Data placeholder was not replaced');
         }
         
-        // Double check that the replacement actually worked and the script contains valid JSON
-        const jsonStart = html.indexOf('<script id="embedded-data" type="application/json">') + 
-                         '<script id="embedded-data" type="application/json">'.length;
-        const jsonEnd = html.indexOf('</script>', jsonStart);
+        // Find the script tag that should contain our data
+        const scriptTagStart = '<script id="embedded-data" type="application/json">';
+        const scriptTagEnd = '</script>';
+        
+        console.log(`Looking for embedded-data script tag...`);
+        const jsonStart = html.indexOf(scriptTagStart) + scriptTagStart.length;
+        
+        if (jsonStart <= scriptTagStart.length) {
+            console.error('❌ Error: Could not find embedded-data script tag');
+            throw new Error('Embedded data script tag not found in HTML');
+        }
+        
+        const jsonEnd = html.indexOf(scriptTagEnd, jsonStart);
+        if (jsonEnd === -1) {
+            console.error('❌ Error: Could not find closing script tag');
+            throw new Error('Closing script tag not found after embedded data');
+        }
+        
+        console.log(`Found embedded-data script tag at position ${jsonStart - scriptTagStart.length}`);
+        console.log(`Closing script tag at position ${jsonEnd}`);
+        
+        // Extract the embedded JSON
         const extractedJson = html.substring(jsonStart, jsonEnd).trim();
+        
+        // Show some details about the extracted JSON for debugging
+        console.log(`Extracted JSON length: ${extractedJson.length} characters`);
+        if (extractedJson.length > 0) {
+            console.log(`Extracted JSON starts with: ${extractedJson.substring(0, 50)}...`);
+            console.log(`Extracted JSON ends with: ...${extractedJson.substring(extractedJson.length - 50)}`);
+        } else {
+            console.error(`❌ Error: Extracted JSON is empty`);
+            throw new Error(`Empty JSON was embedded`);
+        }
         
         // Validate the JSON
         try {
-            JSON.parse(extractedJson);
+            const parsedJson = JSON.parse(extractedJson);
             console.log('✅ Successfully verified that the embedded JSON is valid');
+            
+            // Verify data structure
+            if (parsedJson.nodes && Array.isArray(parsedJson.nodes)) {
+                console.log(`✅ JSON contains nodes array with ${parsedJson.nodes.length} items`);
+            } else {
+                console.warn(`⚠️ Warning: JSON doesn't have expected 'nodes' array`);
+            }
+            
+            if (parsedJson.links && Array.isArray(parsedJson.links)) {
+                console.log(`✅ JSON contains links array with ${parsedJson.links.length} items`);
+            } else {
+                console.warn(`⚠️ Warning: JSON doesn't have expected 'links' array`);
+            }
+            
+            if (parsedJson.categories && Array.isArray(parsedJson.categories)) {
+                console.log(`✅ JSON contains categories array with ${parsedJson.categories.length} items`);
+            } else {
+                console.warn(`⚠️ Warning: JSON doesn't have expected 'categories' array`);
+            }
         } catch (error) {
             console.error(`❌ Error: Embedded JSON is not valid: ${error.message}`);
             console.error(`JSON snippet: ${extractedJson.substring(0, 100)}...`);

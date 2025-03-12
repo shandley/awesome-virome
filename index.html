@@ -12,67 +12,101 @@
     <script>
         // Detect and set base URL for resource loading
         (function() {
-            window.baseUrl = '';
-            
-            // Check if we're on GitHub Pages with a repository name in the path
-            const pathSegments = window.location.pathname.split('/');
-            
-            // GitHub Pages pattern: username.github.io/reponame/
-            if (window.location.hostname.includes('github.io')) {
-                if (pathSegments.length > 1) {
-                    // Extract the repository name from the path (should be the first non-empty segment)
-                    for (let i = 1; i < pathSegments.length; i++) {
-                        if (pathSegments[i] !== '') {
-                            window.baseUrl = '/' + pathSegments[i];
-                            console.log('Detected GitHub Pages repo path:', window.baseUrl);
-                            break;
-                        }
-                    }
-                }
-            } 
-            // Custom domains or other hosting environments
-            else if (pathSegments.length > 1) {
-                let basePath = '';
-                // Find the path to the repository root
-                for (let i = 1; i < pathSegments.length - 1; i++) {
-                    if (pathSegments[i] !== '') {
-                        basePath += '/' + pathSegments[i];
-                    }
-                }
-                if (basePath !== '') {
-                    window.baseUrl = basePath;
-                    console.log('Detected custom base path:', window.baseUrl);
-                }
-            }
-            
-            // Ensure trailing slash is removed
-            window.baseUrl = window.baseUrl.replace(/\/+$/, '');
-            
-            // Fix script and link paths if needed
-            if (window.baseUrl) {
-                document.addEventListener('DOMContentLoaded', function() {
-                    // Fix relative script sources
-                    document.querySelectorAll('script[src^="./"]').forEach(script => {
-                        const newSrc = script.src.replace(/^\.\//, window.baseUrl + '/');
-                        console.log(`Fixing script path: ${script.src} -> ${newSrc}`);
-                        script.src = newSrc;
-                    });
-                    
-                    // Fix relative link hrefs
-                    document.querySelectorAll('link[href^="./"]').forEach(link => {
-                        const newHref = link.href.replace(/^\.\//, window.baseUrl + '/');
-                        console.log(`Fixing link path: ${link.href} -> ${newHref}`);
-                        link.href = newHref;
-                    });
-                });
-            }
-            
-            // Log the base URL detection
-            console.log('Path detection:', {
+            // For debugging - log the full location and hosting environment
+            console.log('Page URL details:', {
+                full: window.location.href,
+                protocol: window.location.protocol,
                 hostname: window.location.hostname,
                 pathname: window.location.pathname,
-                pathSegments: pathSegments,
-                detectedBaseUrl: window.baseUrl
+                search: window.location.search,
+                hash: window.location.hash
+            });
+            
+            window.baseUrl = '';
+            
+            // Parse the path segments for base URL detection
+            const pathSegments = window.location.pathname.split('/').filter(segment => segment !== '');
+            console.log('Path segments:', pathSegments);
+            
+            // GitHub Pages detection logic
+            if (window.location.hostname.includes('github.io')) {
+                console.log('Detected GitHub Pages hosting');
+                
+                // GitHub Pages pattern: username.github.io/reponame/
+                if (pathSegments.length >= 1) {
+                    // First non-empty segment should be the repository name
+                    window.baseUrl = '/' + pathSegments[0];
+                    console.log('Set GitHub Pages repo path:', window.baseUrl);
+                }
+            } 
+            // Check for potential repository subfolder deployments
+            else if (pathSegments.length >= 1) {
+                // For simplicity, assume first level is the base path
+                // This works for many hosting configurations
+                window.baseUrl = '/' + pathSegments[0];
+                console.log('Set base path from first segment:', window.baseUrl);
+                
+                // For more complex paths, you might need to adjust this logic
+                if (pathSegments.length > 1) {
+                    console.log('Multiple path segments detected, may need to adjust baseUrl logic');
+                }
+            }
+            
+            // Ensure no trailing slash
+            window.baseUrl = window.baseUrl.replace(/\/+$/, '');
+            
+            // Create a helper function to resolve relative paths against the base URL
+            window.resolvePath = function(relativePath) {
+                // Strip leading ./ if present
+                const cleanPath = relativePath.replace(/^\.\//, '');
+                // Join with baseUrl, ensuring single slash between segments
+                return (window.baseUrl + '/' + cleanPath).replace(/\/+/g, '/');
+            };
+            
+            // Inject path fixing for resources
+            document.addEventListener('DOMContentLoaded', function() {
+                console.log('DOM loaded, fixing resource paths with baseUrl:', window.baseUrl);
+                
+                if (window.baseUrl) {
+                    // Fix script paths
+                    document.querySelectorAll('script[src^="./"]').forEach(script => {
+                        const oldSrc = script.getAttribute('src');
+                        const newSrc = window.resolvePath(oldSrc);
+                        console.log(`Fixing script: ${oldSrc} -> ${newSrc}`);
+                        script.setAttribute('src', newSrc);
+                    });
+                    
+                    // Fix CSS paths
+                    document.querySelectorAll('link[rel="stylesheet"][href^="./"]').forEach(link => {
+                        const oldHref = link.getAttribute('href');
+                        const newHref = window.resolvePath(oldHref);
+                        console.log(`Fixing stylesheet: ${oldHref} -> ${newHref}`);
+                        link.setAttribute('href', newHref);
+                    });
+                    
+                    // Fix image paths
+                    document.querySelectorAll('img[src^="./"]').forEach(img => {
+                        const oldSrc = img.getAttribute('src');
+                        const newSrc = window.resolvePath(oldSrc);
+                        console.log(`Fixing image: ${oldSrc} -> ${newSrc}`);
+                        img.setAttribute('src', newSrc);
+                    });
+                    
+                    // Fix anchor hrefs
+                    document.querySelectorAll('a[href^="./"]').forEach(anchor => {
+                        const oldHref = anchor.getAttribute('href');
+                        const newHref = window.resolvePath(oldHref);
+                        console.log(`Fixing anchor: ${oldHref} -> ${newHref}`);
+                        anchor.setAttribute('href', newHref);
+                    });
+                }
+            });
+            
+            // Make it easy to debug path resolution issues
+            console.log('Path resolution examples:', {
+                './data.json': window.baseUrl ? window.resolvePath('./data.json') : './data.json',
+                './visualization.js': window.baseUrl ? window.resolvePath('./visualization.js') : './visualization.js',
+                'data.json': window.baseUrl ? window.resolvePath('data.json') : 'data.json'
             });
         })();
     </script>
@@ -337,7 +371,9 @@
     </footer>
 
     <!-- Placeholder for embedded data - will be populated by build script for GitHub Pages -->
-    <script id="embedded-data" type="application/json"><!-- DATA_PLACEHOLDER --></script>
+    <script id="embedded-data" type="application/json">
+    <!-- DATA_PLACEHOLDER -->
+    </script>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

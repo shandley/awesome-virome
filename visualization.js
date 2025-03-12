@@ -80,6 +80,37 @@ document.addEventListener('DOMContentLoaded', function() {
     function loadWithFallbacks() {
         console.log('Starting data loading process with fallbacks...');
         
+        // Define all possible data paths for GitHub Pages
+        // We'll try these in order if embedded data fails
+        const getDataPaths = () => {
+            const paths = [];
+            
+            // Add paths with baseUrl if defined
+            if (window.baseUrl) {
+                paths.push(`${window.baseUrl}/data.json`);
+                paths.push(`${window.baseUrl.replace(/\/+$/, '')}/data.json`);
+            }
+            
+            // Add absolute path from root
+            paths.push('/data.json');
+            
+            // Add relative paths
+            paths.push('./data.json');
+            paths.push('../data.json');
+            paths.push('data.json');
+            
+            // Add potential path with repository name
+            if (window.location.hostname.includes('github.io')) {
+                const repoName = window.location.pathname.split('/')[1];
+                if (repoName) {
+                    paths.push(`/${repoName}/data.json`);
+                }
+            }
+            
+            console.log('Prepared fallback data paths:', paths);
+            return paths;
+        };
+        
         // First try loading from embedded data (best for GitHub Pages)
         tryEmbeddedData()
             .then(data => {
@@ -87,59 +118,74 @@ document.addEventListener('DOMContentLoaded', function() {
                 return data;
             })
             .catch(error => {
-                console.log('No embedded data found, trying GitHub Pages path...', error);
+                console.log('No embedded data found, trying direct data file paths...', error.message);
                 
-                // Next try GitHub Pages path if applicable
-                if (window.baseUrl) {
-                    const possiblePaths = [
-                        `${window.baseUrl}/data.json`,
-                        `${window.baseUrl.replace(/\/+$/, '')}/data.json` // Ensure no trailing slash
-                    ];
-                    
-                    console.log('Trying potential GitHub Pages paths:', possiblePaths);
-                    
-                    // Try each potential path in sequence
-                    return possiblePaths.reduce(
-                        (promise, path) => promise.catch(() => tryLoadData(path)),
-                        Promise.reject()
-                    ).then(data => {
-                        console.log(`Successfully loaded data from GitHub Pages path`);
-                        return data;
-                    }).catch(error => {
-                        console.log(`Failed to load from all GitHub Pages paths, trying other paths...`);
-                        throw error; // continue to next fallback
-                    });
-                } else {
-                    throw new Error('No baseUrl defined, trying local paths'); // continue to next fallback
-                }
-            })
-            .catch(error => {
-                // Then try local paths
-                console.log('Trying local paths...', error);
-                const localPaths = ['./data.json', '../data.json', 'data.json', '/data.json'];
+                // Try all possible data paths sequentially
+                const paths = getDataPaths();
                 
-                // Try each local path in sequence
-                return localPaths.reduce(
+                console.log(`Attempting to load data from ${paths.length} different paths...`);
+                
+                // Create a sequence of promises to try each path
+                return paths.reduce(
                     (promise, path) => promise.catch(() => {
-                        console.log(`Trying local path: ${path}`);
-                        return tryLoadData(path);
+                        console.log(`Trying to load from path: ${path}`);
+                        return tryLoadData(path)
+                            .then(data => {
+                                console.log(`Successfully loaded data from ${path}`);
+                                return data;
+                            })
+                            .catch(err => {
+                                console.log(`Failed to load from ${path}: ${err.message}`);
+                                throw err; // continue to next path
+                            });
                     }),
-                    Promise.reject()
-                ).then(data => {
-                    console.log('Successfully loaded data from a local path');
-                    return data;
-                }).catch(error => {
-                    console.log('Failed all local path attempts');
-                    throw error;
-                });
+                    Promise.reject(new Error('Starting path attempts'))
+                );
             })
             .catch(error => {
-                // Finally try with fetch API as last attempt
-                console.log('Trying fetch API as last resort...', error);
-                return ['data.json', './data.json', `${window.baseUrl || ''}/data.json`].reduce(
-                    (promise, path) => promise.catch(() => tryFetchData(path)), 
-                    Promise.reject()
+                // Try with fetch API as last attempt (browser native fetch might work differently than d3.json)
+                console.log('All path attempts failed. Trying fetch API as last resort...', error.message);
+                
+                // Get all paths to try with fetch
+                const fetchPaths = getDataPaths();
+                console.log(`Attempting fetch API on ${fetchPaths.length} paths...`);
+                
+                return fetchPaths.reduce(
+                    (promise, path) => promise.catch(() => {
+                        console.log(`Trying fetch API for: ${path}`);
+                        return tryFetchData(path);
+                    }),
+                    Promise.reject(new Error('Starting fetch attempts'))
                 );
+            })
+            .catch(error => {
+                // All attempts failed, create sample data as last resort
+                console.error('All data loading methods failed:', error.message);
+                console.log('Generating sample data as final fallback option...');
+                
+                try {
+                    createSampleData();
+                    showDashboard();
+                    
+                    // Add notice that we're using sample data
+                    const dashboardContent = document.getElementById('dashboard-content');
+                    if (dashboardContent) {
+                        const notification = document.createElement('div');
+                        notification.className = 'alert alert-warning alert-dismissible fade show mb-4';
+                        notification.innerHTML = `
+                            <strong>Using Sample Data:</strong> Unable to load actual data. 
+                            This dashboard is displaying generated sample data for demonstration purposes.
+                            <p class="mt-2 mb-0 small">Error: ${error.message}</p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        `;
+                        dashboardContent.insertBefore(notification, dashboardContent.firstChild);
+                    }
+                    
+                    return Promise.resolve({ isSampleData: true });
+                } catch (sampleError) {
+                    console.error('Even sample data creation failed:', sampleError);
+                    throw error; // Re-throw the original error
+                }
             })
             .catch(error => {
                 // All loading methods failed
@@ -279,15 +325,37 @@ document.addEventListener('DOMContentLoaded', function() {
         return new Promise((resolve, reject) => {
             console.log('Attempting to load data from:', path);
             
-            d3.json(path)
+            // Add a cache-busting parameter to avoid browser caching issues
+            const cacheBustPath = path.includes('?') 
+                ? `${path}&_=${new Date().getTime()}` 
+                : `${path}?_=${new Date().getTime()}`;
+            
+            // Set a timeout to prevent hanging requests
+            const timeoutId = setTimeout(() => {
+                console.log(`Timeout reached for loading ${path}`);
+                reject(new Error(`Timeout loading ${path}`));
+            }, 5000); // 5 second timeout
+            
+            d3.json(cacheBustPath)
                 .then(data => {
+                    clearTimeout(timeoutId);
                     console.log('Data loaded successfully from:', path);
+                    
+                    // Verify we got valid data
+                    if (!data) {
+                        throw new Error('Received empty data object');
+                    }
+                    
+                    // Log data structure to help with debugging
+                    console.log('Data structure keys:', Object.keys(data));
+                    
                     processData(data);
                     showDashboard();
                     resolve(data);
                 })
                 .catch(error => {
-                    console.error(`Error loading data from ${path}:`, error);
+                    clearTimeout(timeoutId);
+                    console.error(`Error loading data from ${path}:`, error.message);
                     reject(error);
                 });
         });
@@ -298,22 +366,61 @@ document.addEventListener('DOMContentLoaded', function() {
         return new Promise((resolve, reject) => {
             console.log('Attempting to fetch data from:', path);
             
-            fetch(path)
+            // Add a cache-busting parameter
+            const cacheBustPath = path.includes('?') 
+                ? `${path}&_=${new Date().getTime()}` 
+                : `${path}?_=${new Date().getTime()}`;
+            
+            // Use AbortController for timeout
+            const controller = new AbortController();
+            const signal = controller.signal;
+            
+            const timeoutId = setTimeout(() => {
+                controller.abort();
+                console.log(`Timeout reached for fetching ${path}`);
+                reject(new Error(`Timeout fetching ${path}`));
+            }, 5000); // 5 second timeout
+            
+            fetch(cacheBustPath, { 
+                    signal, 
+                    headers: { 'Accept': 'application/json' },
+                    cache: 'no-store'
+                })
                 .then(response => {
+                    clearTimeout(timeoutId);
+                    
                     if (!response.ok) {
                         throw new Error(`HTTP error! Status: ${response.status}`);
                     }
+                    
+                    // Check content type to make sure we're getting JSON
+                    const contentType = response.headers.get('content-type');
+                    if (contentType && !contentType.includes('application/json')) {
+                        console.warn(`Warning: Response from ${path} is not JSON (${contentType})`);
+                    }
+                    
                     return response.json();
                 })
                 .then(data => {
                     console.log('Data loaded successfully with fetch from:', path);
+                    
+                    // Check for valid data
+                    if (!data) {
+                        throw new Error('Received empty data object');
+                    }
+                    
                     processData(data);
                     showDashboard();
                     resolve(data);
                 })
                 .catch(error => {
-                    console.error(`Error fetching data from ${path}:`, error);
-                    reject(error);
+                    clearTimeout(timeoutId);
+                    console.error(`Error fetching data from ${path}:`, error.message);
+                    
+                    // Add more context to the error for debugging
+                    const enhancedError = new Error(`Fetch error for ${path}: ${error.message}`);
+                    enhancedError.originalError = error;
+                    reject(enhancedError);
                 });
         });
     }
