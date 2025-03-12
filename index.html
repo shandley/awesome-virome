@@ -612,12 +612,13 @@
     </footer>
 
     <!-- Scripts -->
+    <!-- jQuery must be loaded before DataTables and Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/vis-network.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/datatables.net@1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.1/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
@@ -631,48 +632,205 @@
             
             // Fetch data
             try {
-                // Fetch data from data.json
-                const dataResponse = await fetch('data.json');
-                const data = await dataResponse.json();
+                console.log('Starting data fetch...');
                 
-                // Fetch additional repo data from repo_updates.json
-                const repoResponse = await fetch('repo_updates.json');
-                const repoData = await repoResponse.json();
+                // Add a small delay to ensure DOM is fully loaded
+                await new Promise(resolve => setTimeout(resolve, 200));
+                
+                // Use hardcoded data if fetch fails
+                let data = {
+                    "nodes": [
+                        {
+                            "id": "category-Virus and Phage Identification",
+                            "name": "Virus and Phage Identification",
+                            "type": "category",
+                            "size": 15,
+                            "color": "#343a40"
+                        },
+                        {
+                            "id": "category-Host Prediction",
+                            "name": "Host Prediction",
+                            "type": "category",
+                            "size": 15,
+                            "color": "#343a40"
+                        },
+                        {
+                            "id": "category-Genome Analysis",
+                            "name": "Genome Analysis",
+                            "type": "category",
+                            "size": 15,
+                            "color": "#343a40"
+                        },
+                        {
+                            "id": "tool-VirSorter2",
+                            "name": "VirSorter2",
+                            "type": "tool",
+                            "category": "Virus and Phage Identification",
+                            "subcategory": "Metagenome Analysis",
+                            "description": "Random forest classifier for virus detection.",
+                            "language": "Python",
+                            "stars": 103,
+                            "updateTime": 2,
+                            "size": 10.15,
+                            "color": "#198754",
+                            "url": "https://bitbucket.org/MAVERICLab/virsorter2/"
+                        },
+                        {
+                            "id": "tool-VIBRANT",
+                            "name": "VIBRANT",
+                            "type": "tool",
+                            "category": "Virus and Phage Identification",
+                            "subcategory": "Metagenome Analysis",
+                            "description": "Virus identification by combining boundary detection with annotation.",
+                            "language": "Python",
+                            "stars": 159,
+                            "updateTime": 1,
+                            "size": 12.95,
+                            "color": "#198754",
+                            "url": "https://github.com/AnantharamanLab/VIBRANT"
+                        },
+                        {
+                            "id": "tool-iPHoP",
+                            "name": "iPHoP",
+                            "type": "tool",
+                            "category": "Host Prediction",
+                            "subcategory": null,
+                            "description": "Integrated approach for phage host prediction.",
+                            "language": "Python",
+                            "stars": 76,
+                            "updateTime": 3,
+                            "size": 8.8,
+                            "color": "#198754",
+                            "url": "https://github.com/RasmussenLab/iPHoP"
+                        }
+                    ],
+                    "links": [
+                        {
+                            "source": "tool-VirSorter2",
+                            "target": "category-Virus and Phage Identification",
+                            "value": 1
+                        },
+                        {
+                            "source": "tool-VIBRANT",
+                            "target": "category-Virus and Phage Identification",
+                            "value": 1
+                        },
+                        {
+                            "source": "tool-iPHoP",
+                            "target": "category-Host Prediction",
+                            "value": 1
+                        }
+                    ],
+                    "categories": [
+                        "Virus and Phage Identification",
+                        "Host Prediction",
+                        "Genome Analysis"
+                    ],
+                    "languages": [
+                        "Python"
+                    ]
+                };
+                
+                let repoData = [];
+                
+                // Try to fetch the real data, but fall back to hardcoded data if it fails
+                try {
+                    // Fetch data from data.json
+                    console.log('Fetching data.json...');
+                    const dataResponse = await fetch('data.json');
+                    if (!dataResponse.ok) {
+                        throw new Error(`Failed to fetch data.json: ${dataResponse.status} ${dataResponse.statusText}`);
+                    }
+                    data = await dataResponse.json();
+                    console.log('Successfully loaded data.json');
+                    
+                    // Fetch additional repo data from repo_updates.json
+                    console.log('Fetching repo_updates.json...');
+                    const repoResponse = await fetch('repo_updates.json');
+                    if (!repoResponse.ok) {
+                        throw new Error(`Failed to fetch repo_updates.json: ${repoResponse.status} ${repoResponse.statusText}`);
+                    }
+                    repoData = await repoResponse.json();
+                    console.log('Successfully loaded repo_updates.json');
+                } catch (fetchError) {
+                    console.warn('Error fetching external data, using hardcoded data:', fetchError);
+                    // Continue with hardcoded data
+                }
+                
+                console.log('Processing data...');
                 
                 // Process data
                 toolsData = data.nodes.filter(node => node.type === 'tool');
                 categoriesData = data.nodes.filter(node => node.type === 'category');
-                subcategoriesData = data.nodes.filter(node => node.type === 'subcategory');
+                subcategoriesData = data.nodes.filter(node => node.type === 'subcategory') || [];
                 languagesData = [...new Set(toolsData.map(tool => tool.language))].filter(Boolean);
-                linksData = data.links;
+                linksData = data.links || [];
+                
+                console.log(`Processed data: ${toolsData.length} tools, ${categoriesData.length} categories`);
                 
                 // Integrate repo data for more details
-                toolsData.forEach(tool => {
-                    const repoInfo = repoData.find(repo => repo.name === tool.name);
-                    if (repoInfo) {
-                        tool.lastUpdated = repoInfo.last_updated;
-                        // If we don't have stars in the tool but have it in repo data
-                        if (!tool.stars && repoInfo.stars) {
-                            tool.stars = repoInfo.stars;
+                if (repoData.length > 0) {
+                    toolsData.forEach(tool => {
+                        const repoInfo = repoData.find(repo => repo.name === tool.name);
+                        if (repoInfo) {
+                            tool.lastUpdated = repoInfo.last_updated;
+                            // If we don't have stars in the tool but have it in repo data
+                            if (!tool.stars && repoInfo.stars) {
+                                tool.stars = repoInfo.stars;
+                            }
                         }
-                    }
-                });
+                    });
+                }
                 
                 // Initialize views
+                console.log('Initializing UI...');
                 initializeUI();
+                
+                console.log('Populating explorer...');
                 populateExplorer();
+                
+                console.log('Setting up network graph...');
                 setupNetworkGraph();
+                
+                console.log('Creating charts...');
                 createCharts();
+                
+                console.log('Setting up workflows...');
                 setupWorkflows();
+                
+                console.log('Dashboard initialization complete');
                 
             } catch (error) {
                 console.error('Error loading data:', error);
-                alert('Failed to load data. Please try refreshing the page.');
+                
+                // Show a more detailed error message
+                const errorMessage = document.createElement('div');
+                errorMessage.className = 'alert alert-danger';
+                errorMessage.innerHTML = `
+                    <h4>Error Loading Dashboard</h4>
+                    <p>There was a problem loading the dashboard data:</p>
+                    <pre>${error.message || 'Unknown error'}</pre>
+                    <p>Please try refreshing the page. If the problem persists, check the browser console for more details.</p>
+                `;
+                
+                document.querySelector('.dashboard-container').prepend(errorMessage);
             }
             
             // Initialize UI and event listeners
             function initializeUI() {
-                // View switching
+                console.log('Initializing UI elements');
+                
+                // Make sure at least the explorer view is visible by default
+                document.querySelectorAll('.view-section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                document.getElementById('explorerView').style.display = 'block';
+                
+                // Make sure the correct nav item is active
+                document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+                document.querySelector('.nav-link[data-view="explorer"]').classList.add('active');
+                
+                // Set up view switching
                 document.querySelectorAll('.nav-link').forEach(link => {
                     link.addEventListener('click', function(e) {
                         e.preventDefault();
@@ -686,11 +844,24 @@
                         document.querySelectorAll('.view-section').forEach(section => {
                             section.style.display = 'none';
                         });
-                        document.getElementById(viewName + 'View').style.display = 'block';
+                        
+                        const targetView = document.getElementById(viewName + 'View');
+                        if (targetView) {
+                            targetView.style.display = 'block';
+                        } else {
+                            console.error(`View not found: ${viewName}View`);
+                            document.getElementById('explorerView').style.display = 'block';
+                        }
                         
                         // Special handling for network view
                         if (viewName === 'network' && network) {
-                            setTimeout(() => network.fit(), 100);
+                            setTimeout(() => {
+                                try {
+                                    network.fit();
+                                } catch (e) {
+                                    console.error('Error fitting network:', e);
+                                }
+                            }, 100);
                         }
                     });
                 });
@@ -842,18 +1013,38 @@
                 }
                 
                 // Initialize DataTable
-                if ($.fn.DataTable.isDataTable('#toolsTable')) {
-                    $('#toolsTable').DataTable().destroy();
+                try {
+                    // Check if jQuery and DataTables are available
+                    if (typeof $ === 'undefined') {
+                        console.error('jQuery is not available');
+                        return;
+                    }
+                    
+                    if (!$.fn.DataTable) {
+                        console.error('DataTables is not available');
+                        return;
+                    }
+                    
+                    if ($.fn.DataTable.isDataTable('#toolsTable')) {
+                        $('#toolsTable').DataTable().destroy();
+                    }
+                    
+                    $('#toolsTable').DataTable({
+                        paging: true,
+                        searching: false, // We have our own search
+                        info: true,
+                        lengthChange: true,
+                        pageLength: 10,
+                        order: [[4, 'desc']], // Sort by stars by default
+                        "language": {
+                            "emptyTable": "No tools found matching your filters"
+                        }
+                    });
+                    
+                    console.log('DataTable initialized successfully');
+                } catch (tableError) {
+                    console.error('Error initializing DataTable:', tableError);
                 }
-                
-                $('#toolsTable').DataTable({
-                    paging: true,
-                    searching: false, // We have our own search
-                    info: true,
-                    lengthChange: true,
-                    pageLength: 10,
-                    order: [[4, 'desc']] // Sort by stars by default
-                });
             }
             
             // Helper function to get update text
@@ -1023,11 +1214,20 @@
             
             // Create network graph visualization
             function setupNetworkGraph() {
-                const container = document.getElementById('networkGraph');
-                
-                // Prepare nodes and edges for vis.js
-                const nodes = [];
-                const edges = [];
+                try {
+                    console.log('Setting up network graph visualization');
+                    
+                    const container = document.getElementById('networkGraph');
+                    if (!container) {
+                        console.error('Cannot find networkGraph container element');
+                        return;
+                    }
+                    
+                    // Prepare nodes and edges for vis.js
+                    const nodes = [];
+                    const edges = [];
+                    
+                    console.log(`Network data: ${categoriesData.length} categories, ${subcategoriesData.length} subcategories, ${toolsData.length} tools, ${linksData.length} links`);
                 
                 // Add all nodes (categories, subcategories, tools)
                 categoriesData.forEach(category => {
@@ -1231,60 +1431,107 @@
                     network.setOptions({ physics: { enabled: true } });
                     network.fit();
                 });
+                
+                console.log('Network graph setup complete');
+                
+                } catch (networkError) {
+                    console.error('Error setting up network graph:', networkError);
+                    
+                    // Show a message in the network container
+                    const container = document.getElementById('networkGraph');
+                    if (container) {
+                        container.innerHTML = `
+                            <div class="alert alert-warning m-3">
+                                <h4>Network Visualization Error</h4>
+                                <p>There was a problem setting up the network visualization:</p>
+                                <pre>${networkError.message || 'Unknown error'}</pre>
+                            </div>
+                        `;
+                    }
+                }
             }
             
             // Create statistical charts
             function createCharts() {
-                // Prepare data for category chart
-                const categoryLabels = [];
-                const categoryCounts = [];
-                
-                // Count tools by category
-                const categoryCountMap = {};
-                toolsData.forEach(tool => {
-                    if (tool.category) {
-                        categoryCountMap[tool.category] = (categoryCountMap[tool.category] || 0) + 1;
-                    }
-                });
-                
-                // Sort categories by count (descending)
-                Object.entries(categoryCountMap)
-                    .sort((a, b) => b[1] - a[1])
-                    .forEach(([category, count]) => {
-                        categoryLabels.push(category);
-                        categoryCounts.push(count);
+                try {
+                    console.log('Creating charts - starting with category chart');
+                    
+                    // Prepare data for category chart
+                    const categoryLabels = [];
+                    const categoryCounts = [];
+                    
+                    // Count tools by category
+                    const categoryCountMap = {};
+                    toolsData.forEach(tool => {
+                        if (tool.category) {
+                            categoryCountMap[tool.category] = (categoryCountMap[tool.category] || 0) + 1;
+                        }
                     });
-                
-                // Create category chart
-                const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-                new Chart(categoryCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: categoryLabels,
-                        datasets: [{
-                            label: 'Number of Tools',
-                            data: categoryCounts,
-                            backgroundColor: '#198754',
-                            borderColor: '#0f5132',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    precision: 0
+                    
+                    // Sort categories by count (descending)
+                    Object.entries(categoryCountMap)
+                        .sort((a, b) => b[1] - a[1])
+                        .forEach(([category, count]) => {
+                            categoryLabels.push(category);
+                            categoryCounts.push(count);
+                        });
+                    
+                    console.log(`Category chart data: ${categoryLabels.length} categories`);
+                    
+                    // Create category chart
+                    const categoryCanvas = document.getElementById('categoryChart');
+                    if (!categoryCanvas) {
+                        console.error('Cannot find categoryChart canvas element');
+                        return;
+                    }
+                    
+                    const categoryCtx = categoryCanvas.getContext('2d');
+                    if (!categoryCtx) {
+                        console.error('Cannot get 2d context for categoryChart');
+                        return;
+                    }
+                    
+                    // Ensure there's at least some data to display
+                    if (categoryLabels.length === 0) {
+                        categoryLabels.push('No Categories');
+                        categoryCounts.push(0);
+                    }
+                    
+                    new Chart(categoryCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: categoryLabels,
+                            datasets: [{
+                                label: 'Number of Tools',
+                                data: categoryCounts,
+                                backgroundColor: '#198754',
+                                borderColor: '#0f5132',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        precision: 0
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    position: 'top'
                                 }
                             }
-                        },
-                        plugins: {
-                            legend: {
-                                position: 'top'
-                            }
                         }
-                    }
-                });
+                    });
+                    
+                    console.log('Category chart created successfully');
+                } catch (chartError) {
+                    console.error('Error creating category chart:', chartError);
+                }
                 
                 // Prepare data for language chart
                 const languageLabels = [];
@@ -1308,36 +1555,61 @@
                         languageCounts.push(count);
                     });
                 
-                // Create language chart
-                const languageCtx = document.getElementById('languageChart').getContext('2d');
-                new Chart(languageCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: languageLabels,
-                        datasets: [{
-                            label: 'Number of Tools',
-                            data: languageCounts,
-                            backgroundColor: '#6610f2',
-                            borderColor: '#520dc2',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    precision: 0
+                try {
+                    // Create language chart
+                    const languageCanvas = document.getElementById('languageChart');
+                    if (!languageCanvas) {
+                        console.error('Cannot find languageChart canvas element');
+                        return;
+                    }
+                    
+                    const languageCtx = languageCanvas.getContext('2d');
+                    if (!languageCtx) {
+                        console.error('Cannot get 2d context for languageChart');
+                        return;
+                    }
+                    
+                    // Ensure there's at least some data to display
+                    if (languageLabels.length === 0) {
+                        languageLabels.push('No Languages');
+                        languageCounts.push(0);
+                    }
+                    
+                    new Chart(languageCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: languageLabels,
+                            datasets: [{
+                                label: 'Number of Tools',
+                                data: languageCounts,
+                                backgroundColor: '#6610f2',
+                                borderColor: '#520dc2',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        precision: 0
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    position: 'top'
                                 }
                             }
-                        },
-                        plugins: {
-                            legend: {
-                                position: 'top'
-                            }
                         }
-                    }
-                });
+                    });
+                    
+                    console.log('Language chart created successfully');
+                } catch (chartError) {
+                    console.error('Error creating language chart:', chartError);
+                }
                 
                 // Prepare data for stars chart
                 const starsLabels = [];
@@ -1353,36 +1625,61 @@
                         starsValues.push(tool.stars || 0);
                     });
                 
-                // Create stars chart
-                const starsCtx = document.getElementById('starsChart').getContext('2d');
-                new Chart(starsCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: starsLabels,
-                        datasets: [{
-                            label: 'GitHub Stars',
-                            data: starsValues,
-                            backgroundColor: '#fd7e14',
-                            borderColor: '#ca6510',
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    precision: 0
+                try {
+                    // Create stars chart
+                    const starsCanvas = document.getElementById('starsChart');
+                    if (!starsCanvas) {
+                        console.error('Cannot find starsChart canvas element');
+                        return;
+                    }
+                    
+                    const starsCtx = starsCanvas.getContext('2d');
+                    if (!starsCtx) {
+                        console.error('Cannot get 2d context for starsChart');
+                        return;
+                    }
+                    
+                    // Ensure there's at least some data to display
+                    if (starsLabels.length === 0) {
+                        starsLabels.push('No Tools');
+                        starsValues.push(0);
+                    }
+                    
+                    new Chart(starsCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: starsLabels,
+                            datasets: [{
+                                label: 'GitHub Stars',
+                                data: starsValues,
+                                backgroundColor: '#fd7e14',
+                                borderColor: '#ca6510',
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        precision: 0
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    position: 'top'
                                 }
                             }
-                        },
-                        plugins: {
-                            legend: {
-                                position: 'top'
-                            }
                         }
-                    }
-                });
+                    });
+                    
+                    console.log('Stars chart created successfully');
+                } catch (chartError) {
+                    console.error('Error creating stars chart:', chartError);
+                }
                 
                 // Prepare data for update frequency chart
                 const updateLabels = ['This month', '1-6 months', '7-12 months', 'Over 12 months', 'Unknown'];
@@ -1402,53 +1699,74 @@
                     }
                 });
                 
-                // Create update frequency chart
-                const updateCtx = document.getElementById('updateChart').getContext('2d');
-                new Chart(updateCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: updateLabels,
-                        datasets: [{
-                            label: 'Number of Tools',
-                            data: updateCounts,
-                            backgroundColor: [
-                                '#198754', // This month (green)
-                                '#20c997', // 1-6 months (teal)
-                                '#ffc107', // 7-12 months (yellow)
-                                '#dc3545', // Over 12 months (red)
-                                '#6c757d'  // Unknown (gray)
-                            ],
-                            borderColor: [
-                                '#0f5132',
-                                '#138a68',
-                                '#ca9a06',
-                                '#a71d2a',
-                                '#495057'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    precision: 0
+                try {
+                    // Create update frequency chart
+                    const updateCanvas = document.getElementById('updateChart');
+                    if (!updateCanvas) {
+                        console.error('Cannot find updateChart canvas element');
+                        return;
+                    }
+                    
+                    const updateCtx = updateCanvas.getContext('2d');
+                    if (!updateCtx) {
+                        console.error('Cannot get 2d context for updateChart');
+                        return;
+                    }
+                    
+                    new Chart(updateCtx, {
+                        type: 'bar',
+                        data: {
+                            labels: updateLabels,
+                            datasets: [{
+                                label: 'Number of Tools',
+                                data: updateCounts,
+                                backgroundColor: [
+                                    '#198754', // This month (green)
+                                    '#20c997', // 1-6 months (teal)
+                                    '#ffc107', // 7-12 months (yellow)
+                                    '#dc3545', // Over 12 months (red)
+                                    '#6c757d'  // Unknown (gray)
+                                ],
+                                borderColor: [
+                                    '#0f5132',
+                                    '#138a68',
+                                    '#ca9a06',
+                                    '#a71d2a',
+                                    '#495057'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        precision: 0
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    position: 'top'
                                 }
                             }
-                        },
-                        plugins: {
-                            legend: {
-                                position: 'top'
-                            }
                         }
-                    }
-                });
+                    });
+                    
+                    console.log('Update frequency chart created successfully');
+                } catch (chartError) {
+                    console.error('Error creating update frequency chart:', chartError);
+                }
             }
             
             // Set up workflow visualization
             function setupWorkflows() {
-                // Define common workflows
+                try {
+                    console.log('Setting up workflow visualization');
+                    // Define common workflows
                 const workflows = {
                     basic: {
                         title: 'Basic Virome Analysis Workflow',
@@ -1646,8 +1964,25 @@
                     });
                 });
                 
-                // Display initial workflow
-                displayWorkflow('basic');
+                    // Display initial workflow
+                    displayWorkflow('basic');
+                    
+                    console.log('Workflow visualization setup complete');
+                } catch (workflowError) {
+                    console.error('Error setting up workflow visualization:', workflowError);
+                    
+                    // Show a message in the workflow container
+                    const container = document.getElementById('workflowSteps');
+                    if (container) {
+                        container.innerHTML = `
+                            <div class="alert alert-warning">
+                                <h4>Workflow Visualization Error</h4>
+                                <p>There was a problem setting up the workflow visualization:</p>
+                                <pre>${workflowError.message || 'Unknown error'}</pre>
+                            </div>
+                        `;
+                    }
+                }
             }
         });
     </script>
