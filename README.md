@@ -81,6 +81,7 @@ For newcomers to virome analysis, here are some recommended starting points:
   - [Genome Assembly](#genome-assembly)
   - [Genome Completeness](#genome-completeness)
   - [Genome Comparison](#genome-comparison)
+  - [Gene Finding](#gene-finding)
 - [Taxonomy](#taxonomy)
 - [Databases](#databases)
 - [Sequence Databases](#sequence-databases)
@@ -262,6 +263,21 @@ For newcomers to virome analysis, here are some recommended starting points:
 
 - [mulitPHATE](https://github.com/carolzhou/multiPhATE) [Updated: 10/2022] - Multi-phage annotation and comparison tool. [Python]
 - [PhageClouds](https://doi.org/10.1089/phage.2021.0008) - Network graphs for phage comparison (website down, source code not found).
+
+### Gene Finding
+
+- [Prodigal](https://github.com/hyattpd/Prodigal) - Gene prediction program for prokaryotic genomes, effective for phage genomes. [source] [C]
+- [MetaProdigal](https://github.com/hyattpd/Prodigal) - Version of Prodigal optimized for metagenomic datasets with mixed microbial communities. [source] [C]
+- [GeneMarkS](http://exon.gatech.edu/GeneMark/) - Gene prediction tool with specific models for viral sequences. [web service] [Perl/C++]
+- [GeneMarkS-2](http://exon.gatech.edu/GeneMark/genemarks2.cgi) - Improved version of GeneMarkS with enhanced performance for phage genomes. [web service] [Perl/C++]
+- [PHANOTATE](https://github.com/deprekate/PHANOTATE) [Updated: 01/2025] - Phage gene finder using a graph-based algorithm to identify ORFs missed by other programs. [Python]
+- [PhageBoost](https://github.com/ku-cbd/PhageBoost) - Machine learning tool for identifying structural proteins in phage genomes. [R]
+- [PhiSpy](https://github.com/linsalrob/PhiSpy) [Updated: 03/2025] - While primarily for prophage identification, includes ORF prediction capabilities. [conda, pip] [Python]
+- [GLIMMER](https://ccb.jhu.edu/software/glimmer/) - Gene finder originally designed for bacteria but frequently used for phage genomes. [source] [C++]
+- [VIGOR](https://github.com/JCVI-VIRIFX/VIGOR4) - Viral genome annotation tool designed specifically for viral genomes, primarily eukaryotic viruses. [source] [Java/Perl]
+- [PhageTerm](https://sourceforge.net/projects/phageterm/) - Tool for identifying phage termini and packaging mechanisms, helpful for ORF identification. [source] [Python]
+- [Pharokka](https://github.com/gbouras13/pharokka) [Updated: 03/2025] - Dedicated phage annotation tool that includes ORF prediction. [conda] [Python]
+- [VGAS](https://github.com/tianqitang1/VGAS) - Comprehensive pipeline for viral genome annotation including gene finding. [source] [Python]
 
 ## Taxonomy
 
