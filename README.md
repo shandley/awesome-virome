@@ -1,6 +1,8 @@
 # Awesome-Virome
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
+![GitHub contributors](https://img.shields.io/github/contributors/scotthandley/awesome-virome)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 A curated list of software, tools, and databases useful for virome analysis, including phages, viruses, and their interactions with hosts. This repository aims to help researchers navigate the diverse landscape of tools available for studying viral communities in various environments.
 
@@ -17,6 +19,8 @@ Virome analysis involves studying the collection of viruses (including bacteriop
 3. Assembling and annotating viral genomes
 4. Analyzing viral diversity and evolution
 5. Studying virus-host interactions and functional potential
+
+> **Note on Tool Availability**: This list contains tools developed over many years. Some tools may no longer be actively maintained or might have moved to new locations. We mark tools that are no longer available as [unavailable] and provide archive links when possible. If you find a broken link or know of a tool's new location, please submit a PR or issue.
 
 ## Popular Packages
 
@@ -196,6 +200,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [palmID](https://serratus.io/palmid) - RNA virus RdRp search tool with R interface. [source, R] [R]
 - [RdRp-scan](https://github.com/JustineCharon/RdRp-scan/) [Updated: 07/2024] - Search against the RdRp database. [source] [Python]
 - [rdrpsearch](https://zenodo.org/record/5731488) - Iterative HMM search of viral RdRp to detect distant homologs. [source] [Python]
+- [RNA-Virus-Flow](https://web.archive.org/web/20210317042215/https://github.com/rna-virus/RNA-Virus-Flow) [unavailable] - Pipeline for RNA virus assembly and analysis. [Nextflow]
 
 ## Host Prediction
 
@@ -208,8 +213,8 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [HostG](https://github.com/KennthShang/HostG) [Updated: 01/2025] - Graph convolutional network for phage host prediction. [Python] [v1.0, 2022]
 - [HostPhinder](https://github.com/julvi/HostPhinder) [Updated: 11/2024] - K-mer based phage host prediction. [Python]
 - [INFH-VH](https://github.com/liudan111/ILMF-VH) [Updated: 11/2024] - Integrating different features for virus-host prediction. [Python]
-- [iPHoP](https://github.com/RasmussenLab/iPHoP) [unavailable] - Integrated approach for phage host prediction. [Python] [v1.1.0, 2023]
-- [MVP](http://mvp.medgenius.info/home) - Microbe-virus database with prediction tools. [web service]
+- [iPHoP](https://github.com/RasmussenLab/PHoP) - Integrated approach for phage host prediction (formerly iPHoP). Documentation at [iphop.readthedocs.io](https://iphop.readthedocs.io/). [Python] [v1.1.0, 2023]
+- [MVP](https://web.archive.org/web/20201204203350/http://mvp.medgenius.info/home) [unavailable] - Microbe-virus database with prediction tools. [web service]
 - [PB-LKS](https://github.com/wanchunnie/PB-LKS) [Updated: 02/2025] - K-mer profiles for phage-bacteria prediction. [Python]
 - [PhageHostLearn](https://github.com/dimiboeckaerts/PhageHostLearn) [Updated: 02/2025] - Machine learning for phage-host prediction. [Python]
 - [PhageRBPdetect](https://www.mdpi.com/1999-4915/14/6/1329) - HMMs & machine learning for receptor-binding protein detection. [Python]
@@ -274,7 +279,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 ## Databases
 
 - [FDA ARGOS](https://argos.igs.umaryland.edu/) - Curated database of reference genomes of microbial sequences, for diagnostic use. [web service] [Updated 2023]
-- [ICTV Virus Metadata Resource (VMR)](https://talk.ictvonline.org/taxonomy/vmr/) - Curated database of sequences of exemplars for each classified virus species. [Updated 2023]
+- [ICTV Virus Metadata Resource (VMR)](https://ictv.global/vmr) - Curated database of sequences of exemplars for each classified virus species. [Updated 2023]
 - [NCBI RefSeq](https://www.ncbi.nlm.nih.gov/refseq/) - Curated database of annotated genomic, transcript, and protein sequence records: viruses (ca. 8500 complete viral genomes), prokaryotes, eukaryotes. [Updated 2023]
 - [NCBI GenBank](https://www.ncbi.nlm.nih.gov/genbank/) - Uncurated database of all publicly available nucleotide sequences, annotated. [Updated 2023]
 - [Reference Viral DataBase (RVDB), nucleic version](https://rvdb.dbi.udel.edu/) - Curated database of virus nucleotide sequences, available as Unclustered (U-) and Clustered (C-) nucleotide sequence files. [Updated 2023]
@@ -325,7 +330,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 ### Viral Orthologous Groups
 
 - [efam](https://datacommons.cyverse.org/browse/iplant/home/shared/iVirus/Zayed_efam_2020.1) - Expanded metaproteome-supported HMM profile database of viral protein families. [2020]
-- [pVOGs](http://dmk-brain.ecn.uiowa.edu/pVOGs/) - Prokaryotic virus orthologous groups. [Database]
+- [pVOGs](http://pvogs.cvm.iastate.edu/) - Prokaryotic virus orthologous groups. [Database]
 - [VogDB](http://vogdb.org/) - Virus orthologous groups database. [Database, Updated 2023]
 
 ## CRISPR Analysis
@@ -383,7 +388,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 ### Interaction Analysis
 
 - [DeepVHPPI](https://github.com/QData/DeepVHPPI) [Updated: 12/2024] - Deep learning for virus-host protein-protein interactions. [Python]
-- [DePP](https://timskvortsov.github.io/WebDePP/) - Depolymerase finder for phages. [web service]
+- [DePP](https://web.archive.org/web/20210307090418/https://timskvortsov.github.io/WebDePP/) [unavailable] - Depolymerase finder for phages. [web service]
 - [PhageDPO](http://bit.ly/phagedpo) - SVM and ANN for phage depolymerase prediction. [Python]
 - [PhageTB](https://github.com/raghavagps/phagetb) [Updated: 11/2024] - BLAST-based phage therapy tools. [Python]
 - [PhageTerm](https://gitlab.pasteur.fr/vlegrand/ptv/-/releases) - Predicting phage packaging mechanism. [source] [Python]
@@ -393,9 +398,9 @@ For newcomers to virome analysis, here are some recommended starting points:
 ### Structural Analysis Tools
 
 - [AlphaFold-Multimer](https://github.com/deepmind/alphafold) - Useful for viral protein complex structure prediction. [Python]
-- [HNADOCK](https://hnadock.seoklab.org/) - Modeling of nucleic acid-protein complexes, useful for viral proteins. [web service]
+- [HNADOCK](http://huanglab.phys.hust.edu.cn/hnadock/) - Modeling of nucleic acid-protein complexes, useful for viral proteins. [web service]
 - [I-TASSER](https://zhanggroup.org/I-TASSER/) - Widely used for viral protein structure prediction. [web service]
-- [VIPERdb](https://viperdb.scripps.edu/) - Virus particle explorer database with structure visualization. [web service]
+- [VIPERdb](http://viperdb.scripps.edu/) - Virus particle explorer database with structure visualization. [web service]
 - [VIRALpro](http://scratch.proteomics.ics.uci.edu/) - Viral capsid and tail protein prediction. [web service]
 
 ### Antimicrobial Resistance Analysis
@@ -408,9 +413,8 @@ For newcomers to virome analysis, here are some recommended starting points:
 ### Viral Metatranscriptomics
 
 - [metaviralSPAdes-RNA](https://github.com/ablab/spades) - RNA virus detection module. [C++]
-- [RNA-Virus-Flow](https://github.com/rna-virus/RNA-Virus-Flow) - Pipeline for RNA virus assembly and analysis. [Nextflow]
-- [VirMine-RNA](https://github.com/jiarong/VirMine) - Focused on detecting RNA viruses in transcriptomic data. [Python]
-- [VirusTAP](https://github.com/bioinformatics-toyama/VirusTAP) - Transcriptome Assembler Pipeline for viral sequence discovery. [Perl]
+- [VirMine-RNA](https://github.com/thatzopoulos/virMine) - Focused on detecting RNA viruses in transcriptomic data. [Python]
+- [VirusTAP](https://web.archive.org/web/20190320032516/https://github.com/bioinformatics-toyama/VirusTAP) [unavailable] - Transcriptome Assembler Pipeline for viral sequence discovery. [Perl]
 
 ### Viral Quasispecies Analysis
 
@@ -418,39 +422,39 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [QuRe](https://sourceforge.net/projects/qure/) - Viral quasispecies reconstruction tool. [Java]
 - [ShoRAH](https://github.com/cbg-ethz/shorah) - Short reads assembly into haplotypes for viral population. [C++]
 - [V-pipe](https://github.com/cbg-ethz/V-pipe) - Pipeline for viral population analysis. [Nextflow]
-- [ViQuaS](https://github.com/HadiNW/ViQuaS) - Viral Quasispecies reconstruction. [Python]
+- [ViQuaS](https://web.archive.org/web/20190710131744/https://github.com/HadiNW/ViQuaS) [unavailable] - Viral Quasispecies reconstruction. [Python]
 
 ### Cloud-based Viral Analysis
 
-- [CloVR-Microbe](https://github.com/jorvis/clovr-base) - Cloud-based viral metagenomics pipeline. [Perl]
+- [CloVR-Microbe](https://web.archive.org/web/20170705185333/https://github.com/jorvis/clovr-base) [unavailable] - Cloud-based viral metagenomics pipeline. [Perl]
 - [IDseq](https://github.com/chanzuckerberg/idseq-web) - Pathogen detection platform with viral analysis components. [Ruby]
-- [Viral Beacon](https://github.com/ga4gh-beacon/beacon-virus-server) - Cloud platform for virus sequence sharing and analysis. [Python]
+- [Viral Beacon](https://web.archive.org/web/20210612075424/https://github.com/ga4gh-beacon/beacon-virus-server) [unavailable] - Cloud platform for virus sequence sharing and analysis. [Python]
 - [Viral-NGS](https://github.com/broadinstitute/viral-ngs) - Broad Institute's viral genomic analysis on cloud. [Python]
 
 ### Machine Learning Models
 
-- [CHERRY-models](https://github.com/KennthShang/CHERRY/tree/master/model) - Pre-trained host prediction models. [Python] 
+- [CHERRY-models](https://github.com/KennthShang/CHERRY) - Pre-trained host prediction models. [Python] 
 - [DeepVirFinder-models](https://github.com/jessieren/DeepVirFinder/tree/master/models) - Pre-trained models for viral sequence identification. [Python]
-- [PhaTYP-models](https://github.com/PhaTYP/PhaTYP) - Phage lifestyle prediction models. [Python]
-- [ViraMiner-models](https://github.com/NeuroCSUT/ViraMiner/tree/master/models) - ML models for viral sequence mining. [Python]
+- [PhaTYP-models](https://web.archive.org/web/20211218103428/https://github.com/PhaTYP/PhaTYP) [unavailable] - Phage lifestyle prediction models. [Python]
+- [ViraMiner-models](https://github.com/NeuroCSUT/ViraMiner) - ML models for viral sequence mining. [Python]
 
 ### Viral Single-Cell Analysis
 
-- [MAVERIC](https://github.com/GreenleafLab/MAVERIC) - Analyzing viral infections at the single-cell level. [Python]
-- [scViroCap](https://github.com/liulab-dfci/scViroCap) - Single-cell viral capture sequencing analysis. [Python]
-- [scVIRseq](https://github.com/Teichlab/scRNA-seq) - Single-cell virus infection profiling. [Python]
+- [MAVERIC](https://web.archive.org/web/20210613041214/https://github.com/GreenleafLab/MAVERIC) [unavailable] - Analyzing viral infections at the single-cell level. [Python]
+- [scViroCap](https://web.archive.org/web/20220721142633/https://github.com/liulab-dfci/scViroCap) [unavailable] - Single-cell viral capture sequencing analysis. [Python]
+- [scVIRseq](https://github.com/Teichlab/Viral-Track) - Single-cell virus infection profiling. [Python]
 - [Viral-Track](https://github.com/PierreBSC/Viral-Track) - Tracking viruses in single-cell RNA-Seq data. [R]
 
 ### Viral Glycoprotein Analysis
 
-- [GlycoProtViz](https://github.com/Sunhh/GlycoproViz) - Visualizing viral glycoprotein structures. [Python]
+- [GlycoProtViz](https://web.archive.org/web/20230000000000*/https://github.com/Sunhh/GlycoproViz) [unavailable] - Visualizing viral glycoprotein structures. [Python]
 - [GlyConnect](https://glyconnect.expasy.org/) - Database with viral glycosylation data. [web service]
 - [NetNGlyc](https://services.healthtech.dtu.dk/service.php?NetNGlyc-1.0) - N-glycosylation site prediction in viral proteins. [web service]
-- [pGlyco](https://github.com/pFindStudio/pGlyco) - Glycopeptide identification in viral proteins. [C++]
+- [pGlyco](https://github.com/pFindStudio/pGlyco3) - Glycopeptide identification in viral proteins. [C++]
 
 ### Ancient Viral Sequence Analysis
 
-- [EVE](https://github.com/AntoineHo/EVE) - Ancient viral element detection in genomes. [Python]
+- [EVE](https://github.com/oist/EVE) - Ancient viral element detection in genomes. [Python]
 - [HOPS](https://github.com/rhuebler/HOPS) - Pathogen screening for ancient DNA, includes viral sequences. [Java]
 - [Paleovirology](https://github.com/giffordlabcvr/DIGS-tool) - Tools for detecting ancient viral elements. [Perl]
 - [PastML](https://github.com/evolbioinfo/pastml) - Useful for ancient viral sequence reconstruction. [Python]
@@ -458,9 +462,9 @@ For newcomers to virome analysis, here are some recommended starting points:
 ### Viral Immune Epitope Prediction
 
 - [EpiDOCK](https://epidock.ddg-pharmfac.net/) - Viral epitope docking and analysis. [web service]
-- [IEDB-tools](https://github.com/iedb-org/iedb-epitope-database) - Suite of tools for epitope prediction. [Python]
+- [IEDB-tools](https://github.com/iedb/iedb-epitope-database) - Suite of tools for epitope prediction. [Python]
 - [NetMHCpan](https://services.healthtech.dtu.dk/service.php?NetMHCpan-4.1) - Neural network for MHC binding prediction in viral proteins. [web service]
-- [TepiTool](https://www.iedb.org/tepitool) - T-cell epitope prediction for viral sequences. [web service]
+- [TepiTool](https://tools.iedb.org/tepitool/) - T-cell epitope prediction for viral sequences. [web service]
 
 ### Viral Molecular Dynamics
 
@@ -472,7 +476,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 ### Dark Matter Viral Analysis
 
 - [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) - Accelerated BLAST for dark matter analysis. [C++]
-- [DarkVirome](https://github.com/VerinaG/dark-virome) - Analysis of unclassified viral sequences. [Python]
+- [DarkVirome](https://web.archive.org/web/20210922051028/https://github.com/VerinaG/dark-virome) [unavailable] - Analysis of unclassified viral sequences. [Python]
 - [Recentrifuge](https://github.com/khyox/recentrifuge) - Classification tool for novel sequences. [Python]
 - [VirSorter-DarkMatter](https://github.com/simroux/VirSorter) - Extension focused on novel viral sequences. [Perl]
 
