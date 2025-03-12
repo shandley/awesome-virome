@@ -29,52 +29,135 @@ document.addEventListener('DOMContentLoaded', function() {
         setupEventListeners();
     }
     
-    // Load data from JSON file
+    // Load data with multiple fallback strategies for GitHub Pages compatibility
     function loadData() {
-        d3.json('data.json')
-            .then(data => {
-                console.log('Data loaded successfully:', data);
-                
-                // Process the data
-                processData(data);
-                
-                // Show the dashboard content
-                showDashboard();
+        // Show loading indicator
+        document.getElementById('loading-indicator').style.display = 'block';
+        
+        // Try different data loading approaches in sequence
+        tryLoadData('./data.json')
+            .catch(error => {
+                console.log('Failed to load from ./data.json, trying relative path...');
+                return tryLoadData('data.json');
             })
             .catch(error => {
-                console.error('Error loading data:', error);
+                console.log('Failed to load from data.json, trying with fetch API...');
+                return tryFetchData('data.json');
+            })
+            .catch(error => {
+                console.log('Failed to load with fetch API, trying embedded data...');
+                return tryEmbeddedData();
+            })
+            .catch(error => {
+                console.error('All data loading methods failed:', error);
                 
-                // Add more detailed error message
+                // Add detailed error message with troubleshooting tips
                 const errorMessage = document.getElementById('error-message');
                 errorMessage.innerHTML = `
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    Error loading data: ${error.message}. 
-                    <div class="mt-2">
-                        <p>This could be due to:</p>
+                    <div class="alert-heading d-flex align-items-center mb-2">
+                        <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
+                        <h4 class="mb-0">Error Loading Dashboard Data</h4>
+                    </div>
+                    <p>We couldn't load the virome tools data. This is likely due to CORS restrictions when loading local files.</p>
+                    <div class="mt-3">
+                        <p><strong>Possible solutions:</strong></p>
                         <ul>
-                            <li>The data.json file is missing or in the wrong location</li>
-                            <li>There's a syntax error in the JSON file</li>
-                            <li>You're opening the file directly in the browser (try using a local server)</li>
+                            <li>Use the "Load Sample Data" button below to see the dashboard with example data</li>
+                            <li>Run the local server with <code>node serve.js</code> and visit <code>http://localhost:8080</code></li>
+                            <li>Host this dashboard on GitHub Pages or another web server</li>
+                            <li>If using Chrome, launch it with <code>--allow-file-access-from-files</code> flag</li>
                         </ul>
-                        <button id="use-sample-data" class="btn btn-primary mt-2">Use Sample Data Instead</button>
+                        <div class="d-flex gap-2 mt-3">
+                            <button id="use-sample-data" class="btn btn-primary">Load Sample Data</button>
+                            <button id="retry-data-load" class="btn btn-outline-secondary">Retry Loading Data</button>
+                        </div>
                     </div>
                 `;
                 
-                // Add event listener to the sample data button
+                // Add event listeners to the buttons
                 document.getElementById('use-sample-data').addEventListener('click', function() {
                     errorMessage.style.display = 'none';
                     createSampleData();
                 });
                 
+                document.getElementById('retry-data-load').addEventListener('click', function() {
+                    errorMessage.style.display = 'none';
+                    loadData();
+                });
+                
                 showError();
+                return Promise.reject(error);
             });
+    }
+    
+    // Try loading data with d3.json
+    function tryLoadData(path) {
+        return new Promise((resolve, reject) => {
+            d3.json(path)
+                .then(data => {
+                    console.log('Data loaded successfully from:', path);
+                    processData(data);
+                    showDashboard();
+                    resolve(data);
+                })
+                .catch(error => {
+                    console.error(`Error loading data from ${path}:`, error);
+                    reject(error);
+                });
+        });
+    }
+    
+    // Try loading data with fetch API (might work in cases where d3.json fails)
+    function tryFetchData(path) {
+        return new Promise((resolve, reject) => {
+            fetch(path)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Data loaded successfully with fetch from:', path);
+                    processData(data);
+                    showDashboard();
+                    resolve(data);
+                })
+                .catch(error => {
+                    console.error(`Error fetching data from ${path}:`, error);
+                    reject(error);
+                });
+        });
+    }
+    
+    // Check for embedded data in the HTML (for GitHub Pages compatibility)
+    function tryEmbeddedData() {
+        return new Promise((resolve, reject) => {
+            const embeddedDataElement = document.getElementById('embedded-data');
+            
+            if (embeddedDataElement) {
+                try {
+                    const data = JSON.parse(embeddedDataElement.textContent);
+                    console.log('Using embedded data from HTML');
+                    processData(data);
+                    showDashboard();
+                    resolve(data);
+                } catch (error) {
+                    console.error('Error parsing embedded data:', error);
+                    reject(error);
+                }
+            } else {
+                console.error('No embedded data found in HTML');
+                reject(new Error('No embedded data available'));
+            }
+        });
     }
     
     // Create sample data for when data.json fails to load
     function createSampleData() {
-        console.log('Creating sample data...');
+        console.log('Creating sample data for dashboard preview...');
         
-        // Create sample categories
+        // Define realistic categories for virome analysis
         const categories = [
             'Virus and Phage Identification',
             'Host Prediction',
@@ -83,62 +166,301 @@ document.addEventListener('DOMContentLoaded', function() {
             'Functional Analysis',
             'Structural Analysis Tools',
             'Viral Metatranscriptomics',
-            'Viral Quasispecies Analysis'
+            'Viral Quasispecies Analysis',
+            'Cloud-based Viral Analysis',
+            'Antimicrobial Resistance Analysis',
+            'Machine Learning Models',
+            'Dark Matter Viral Analysis'
         ];
         
-        // Create sample languages
-        const languages = ['Python', 'R', 'Java', 'C++', 'Perl', 'JavaScript', 'Nextflow'];
+        // Define subcategories for main categories
+        const subcategories = {
+            'Virus and Phage Identification': ['Metagenome Analysis', 'Integrated Viruses', 'RNA Virus Identification'],
+            'Genome Analysis': ['Genome Annotation', 'Genome Assembly', 'Genome Completeness', 'Genome Comparison'],
+            'Functional Analysis': ['Evolutionary Analysis', 'Lifestyle Classification', 'Phage-specific Analysis']
+        };
+        
+        // Create sample languages with realistic distribution
+        const languages = [
+            { name: 'Python', weight: 50 },
+            { name: 'R', weight: 15 },
+            { name: 'Perl', weight: 10 },
+            { name: 'C++', weight: 8 },
+            { name: 'Java', weight: 7 },
+            { name: 'Nextflow', weight: 5 },
+            { name: 'JavaScript', weight: 3 },
+            { name: 'Ruby', weight: 2 }
+        ];
+        
+        // Function to get weighted random language
+        function getRandomLanguage() {
+            const totalWeight = languages.reduce((sum, lang) => sum + lang.weight, 0);
+            let random = Math.random() * totalWeight;
+            
+            for (const lang of languages) {
+                random -= lang.weight;
+                if (random <= 0) return lang.name;
+            }
+            return languages[0].name; // Fallback
+        }
+        
+        // Get random update time with realistic distribution (more recent updates are more common)
+        function getRandomUpdateTime() {
+            // Skew towards more recent updates
+            const randomValue = Math.random();
+            if (randomValue < 0.5) {
+                // 50% chance of being updated in the last 6 months
+                return Math.floor(randomValue * 12);
+            } else if (randomValue < 0.8) {
+                // 30% chance of being updated in the last 6-12 months
+                return 6 + Math.floor((randomValue - 0.5) * 20);
+            } else {
+                // 20% chance of being updated more than a year ago
+                return 12 + Math.floor((randomValue - 0.8) * 60);
+            }
+        }
         
         // Sample tool data
         const sampleData = [];
         
-        // Add some sample tools
-        for (let i = 0; i < 50; i++) {
-            const category = categories[Math.floor(Math.random() * categories.length)];
-            const language = languages[Math.floor(Math.random() * languages.length)];
-            const stars = Math.floor(Math.random() * 200);
-            const updateTime = Math.floor(Math.random() * 24);
-            
-            sampleData.push({
-                id: `tool-${i}`,
-                name: `Sample Tool ${i + 1}`,
-                type: 'tool',
-                category: category,
-                subcategory: Math.random() > 0.5 ? `Subcategory ${Math.floor(Math.random() * 3) + 1}` : null,
-                description: `This is a sample description for a tool in the ${category} category.`,
-                language: language,
-                stars: stars,
-                updateTime: updateTime,
-                url: `https://github.com/example/sample-${i + 1}`
-            });
+        // Generate realistic tool names for each category
+        const toolNamesByCategory = {
+            'Virus and Phage Identification': [
+                'VirSorter2', 'VIBRANT', 'DeepVirFinder', 'geNomad', 'VirFinder', 
+                'PhiSpy', 'VIRify', 'MetaPhinder', 'MARVEL', 'Seeker'
+            ],
+            'Host Prediction': [
+                'iPHoP', 'CHERRY', 'WIsH', 'HostPhinder', 'PHP', 
+                'VirHostMatcher', 'PHIST', 'RaFaH', 'vHulk', 'VIDHOP'
+            ],
+            'Genome Analysis': [
+                'Pharokka', 'DRAMv', 'CheckV', 'metaviralSPAdes', 'coronaSPAdes',
+                'viralComplete', 'viralVerify', 'VEGA', 'mulitPHATE', 'PhANNs'
+            ],
+            'Taxonomy': [
+                'vConTACT2', 'PhaGCN', 'VIPtree', 'VIRIDIC', 'BERTax',
+                'GraViTy', 'VICTOR', 'VirusTaxo'
+            ],
+            'Functional Analysis': [
+                'SNPGenie', 'BACPHLIP', 'Phanotate', 'PHROGs', 'SpikeHunter',
+                'OLGenie', 'PhageAI', 'PHACTS'
+            ],
+            'Structural Analysis Tools': [
+                'AlphaFold-Multimer', 'VIRALpro', 'HNADOCK', 'VIPERdb', 'I-TASSER'
+            ],
+            'Viral Metatranscriptomics': [
+                'VirMine-RNA', 'metaviralSPAdes-RNA', 'RNA-Virus-Flow', 'VirusTAP'
+            ],
+            'Viral Quasispecies Analysis': [
+                'ViQuaS', 'CliqueSNV', 'QuRe', 'ShoRAH', 'V-pipe'
+            ],
+            'Cloud-based Viral Analysis': [
+                'Viral-NGS', 'IDseq', 'Viral Beacon', 'CloVR-Microbe'
+            ],
+            'Antimicrobial Resistance Analysis': [
+                'VirAMR', 'AMRFinder', 'PHANOTATE-AMR', 'ResFinder'
+            ],
+            'Machine Learning Models': [
+                'DeepVirFinder-models', 'ViraMiner-models', 'CHERRY-models', 'PhaTYP-models'
+            ],
+            'Dark Matter Viral Analysis': [
+                'BLAST+DIAMOND', 'VirSorter-DarkMatter', 'Recentrifuge', 'DarkVirome'
+            ]
+        };
+        
+        // Generate realistic tool descriptions for each category
+        const descriptionTemplates = {
+            'Virus and Phage Identification': [
+                'A tool for detecting viral sequences in metagenomic data using {approach}.',
+                'Machine learning approach for viral sequence identification based on {approach}.',
+                'Identifies and classifies viral sequences using {approach}.',
+                'A pipeline for virus discovery in {datatype} using {approach}.'
+            ],
+            'Host Prediction': [
+                'Predicts bacterial hosts for phages using {approach}.',
+                'Host prediction tool based on {approach}.',
+                'An integrated approach for phage-host prediction utilizing {approach}.',
+                'Machine learning method for predicting viral hosts through {approach}.'
+            ],
+            'Genome Analysis': [
+                'Annotation pipeline for viral genomes using {approach}.',
+                'Quality assessment tool for viral contigs based on {approach}.',
+                'Assembler specialized for {virustype} from {datatype}.',
+                'Genome completeness evaluation tool using {approach}.'
+            ],
+            'Taxonomy': [
+                'Virus classification method based on {approach}.',
+                'Taxonomic assignment for viruses using {approach}.',
+                'A tool for placing viral genomes in taxonomic context with {approach}.',
+                'Classifies viral sequences according to {approach}.'
+            ],
+            'Functional Analysis': [
+                'Analysis of viral gene function using {approach}.',
+                'Predicts lifestyle of phages using {approach}.',
+                'Tool for evolutionary analysis of viral genes through {approach}.',
+                'Functional prediction of viral proteins based on {approach}.'
+            ],
+            'Structural Analysis Tools': [
+                'Predicts 3D structure of viral proteins using {approach}.',
+                'Modeling tool for viral protein complexes with {approach}.',
+                'Visualization and analysis of viral protein structures using {approach}.',
+                'Structure prediction focused on viral {structuretype} through {approach}.'
+            ],
+            'Viral Metatranscriptomics': [
+                'RNA virus detection in transcriptomic data using {approach}.',
+                'Pipeline for viral RNA analysis from {datatype}.',
+                'Identification and assembly of RNA viruses through {approach}.',
+                'Specialized for viral transcript analysis in {datatype}.'
+            ],
+            'Viral Quasispecies Analysis': [
+                'Reconstruction of viral haplotypes from short reads using {approach}.',
+                'Analysis of viral population diversity through {approach}.',
+                'Tool for viral quasispecies identification and analysis using {approach}.',
+                'Detects and quantifies viral variants with {approach}.'
+            ]
+        };
+        
+        // Approaches for description templates
+        const approaches = [
+            'k-mer analysis', 'machine learning', 'neural networks', 'profile HMMs',
+            'compositional biases', 'reference mapping', 'de novo assembly',
+            'random forest models', 'graph theory', 'CRISPR spacers',
+            'sequence similarity', 'feature extraction', 'deep learning',
+            'Bayesian statistics', 'comparative genomics', 'structural analysis',
+            'metagenomic binning', 'sequence composition', 'protein domains',
+            'phylogenetic inference', 'genetic signatures', 'codon usage bias'
+        ];
+        
+        const datatypes = [
+            'metagenomic data', 'clinical samples', 'environmental samples',
+            'mixed communities', 'human microbiome', 'marine samples',
+            'soil samples', 'wastewater', 'short-read sequencing',
+            'long-read sequencing', 'Oxford Nanopore data', 'PacBio data'
+        ];
+        
+        const virustypes = [
+            'RNA viruses', 'DNA viruses', 'phages', 'bacteriophages',
+            'eukaryotic viruses', 'giant viruses', 'archaeal viruses',
+            'ssDNA viruses', 'dsRNA viruses', 'retroviruses'
+        ];
+        
+        const structuretypes = [
+            'capsids', 'surface proteins', 'glycoproteins', 'enzymes',
+            'tail fibers', 'spike proteins', 'replication complexes'
+        ];
+        
+        // Function to get random element from array
+        function getRandomElement(array) {
+            return array[Math.floor(Math.random() * array.length)];
         }
         
-        // Add some popular tools
-        [
-            {name: 'VirSorter2', category: 'Virus and Phage Identification', language: 'Python', stars: 120, updateTime: 3},
-            {name: 'VIBRANT', category: 'Virus and Phage Identification', language: 'Python', stars: 150, updateTime: 1},
-            {name: 'iPHoP', category: 'Host Prediction', language: 'Python', stars: 85, updateTime: 2},
-            {name: 'Pharokka', category: 'Genome Analysis', language: 'Python', stars: 160, updateTime: 1},
-            {name: 'CheckV', category: 'Genome Analysis', language: 'Python', stars: 95, updateTime: 8}
-        ].forEach((tool, index) => {
-            sampleData.push({
-                id: `tool-special-${index}`,
-                name: tool.name,
-                type: 'tool',
-                category: tool.category,
-                description: `This is a sample description for ${tool.name} in the ${tool.category} category.`,
-                language: tool.language,
-                stars: tool.stars,
-                updateTime: tool.updateTime,
-                url: `https://github.com/example/${tool.name.toLowerCase()}`
+        // Function to generate realistic description
+        function generateDescription(category, approach) {
+            const templates = descriptionTemplates[category] || 
+                ['Tool for {virustype} analysis using {approach}.'];
+            
+            let template = getRandomElement(templates);
+            
+            // Replace placeholders
+            return template
+                .replace('{approach}', approach || getRandomElement(approaches))
+                .replace('{datatype}', getRandomElement(datatypes))
+                .replace('{virustype}', getRandomElement(virustypes))
+                .replace('{structuretype}', getRandomElement(structuretypes));
+        }
+        
+        // Add tools for each category
+        categories.forEach(category => {
+            const toolNames = toolNamesByCategory[category] || [];
+            
+            toolNames.forEach(toolName => {
+                const language = getRandomLanguage();
+                const stars = Math.floor(5 + Math.random() * 195); // 5-200 stars
+                const updateTime = getRandomUpdateTime();
+                const approach = getRandomElement(approaches);
+                
+                // Determine if tool has subcategory
+                let subcategory = null;
+                if (subcategories[category]) {
+                    subcategory = getRandomElement(subcategories[category]);
+                }
+                
+                sampleData.push({
+                    id: `tool-${toolName.replace(/[^a-zA-Z0-9]/g, '')}`,
+                    name: toolName,
+                    type: 'tool',
+                    category: category,
+                    subcategory: subcategory,
+                    description: generateDescription(category, approach),
+                    language: language,
+                    stars: stars,
+                    updateTime: updateTime,
+                    url: `https://github.com/example/${toolName.toLowerCase().replace(/[^a-zA-Z0-9]/g, '')}`
+                });
             });
         });
+        
+        // Add some notable tools with higher star counts
+        [
+            {name: 'VirSorter2', category: 'Virus and Phage Identification', subcategory: 'Metagenome Analysis', language: 'Python', stars: 320, updateTime: 1, approach: 'machine learning and HMMs'},
+            {name: 'VIBRANT', category: 'Virus and Phage Identification', subcategory: 'Metagenome Analysis', language: 'Python', stars: 280, updateTime: 2, approach: 'neural networks and protein domain analysis'},
+            {name: 'geNomad', category: 'Virus and Phage Identification', subcategory: 'Integrated Viruses', language: 'Python', stars: 219, updateTime: 3, approach: 'comprehensive classifier combining multiple features'},
+            {name: 'iPHoP', category: 'Host Prediction', language: 'Python', stars: 185, updateTime: 2, approach: 'advanced machine learning'},
+            {name: 'Pharokka', category: 'Genome Analysis', subcategory: 'Genome Annotation', language: 'Python', stars: 230, updateTime: 1, approach: 'optimized pipeline for phage annotation'},
+            {name: 'DRAMv', category: 'Genome Analysis', subcategory: 'Genome Annotation', language: 'Python', stars: 267, updateTime: 4, approach: 'comprehensive metabolic annotation'},
+            {name: 'CheckV', category: 'Genome Analysis', subcategory: 'Genome Completeness', language: 'Python', stars: 175, updateTime: 5, approach: 'reference-based quality assessment'},
+            {name: 'vConTACT2', category: 'Taxonomy', language: 'Python', stars: 150, updateTime: 7, approach: 'gene sharing networks'},
+            {name: 'AlphaFold-Multimer', category: 'Structural Analysis Tools', language: 'Python', stars: 895, updateTime: 1, approach: 'deep learning-based structure prediction'}
+        ].forEach(tool => {
+            // Replace any existing tool with the same name
+            const existingIndex = sampleData.findIndex(t => t.name === tool.name);
+            if (existingIndex >= 0) {
+                sampleData[existingIndex] = {
+                    id: `tool-${tool.name.replace(/[^a-zA-Z0-9]/g, '')}`,
+                    name: tool.name,
+                    type: 'tool',
+                    category: tool.category,
+                    subcategory: tool.subcategory,
+                    description: generateDescription(tool.category, tool.approach),
+                    language: tool.language,
+                    stars: tool.stars,
+                    updateTime: tool.updateTime,
+                    url: `https://github.com/example/${tool.name.toLowerCase().replace(/[^a-zA-Z0-9]/g, '')}`
+                };
+            } else {
+                sampleData.push({
+                    id: `tool-${tool.name.replace(/[^a-zA-Z0-9]/g, '')}`,
+                    name: tool.name,
+                    type: 'tool',
+                    category: tool.category,
+                    subcategory: tool.subcategory,
+                    description: generateDescription(tool.category, tool.approach),
+                    language: tool.language,
+                    stars: tool.stars,
+                    updateTime: tool.updateTime,
+                    url: `https://github.com/example/${tool.name.toLowerCase().replace(/[^a-zA-Z0-9]/g, '')}`
+                });
+            }
+        });
+        
+        // Add a message to indicate this is sample data
+        console.log(`Created ${sampleData.length} sample tools across ${categories.length} categories`);
         
         // Process the sample data
         processData(sampleData);
         
-        // Show the dashboard content
+        // Show the dashboard content with a notice banner
         showDashboard();
+        
+        // Add a notification that we're using sample data
+        const dashboardContent = document.getElementById('dashboard-content');
+        const notification = document.createElement('div');
+        notification.className = 'alert alert-info alert-dismissible fade show mb-4';
+        notification.innerHTML = `
+            <strong>Using Sample Data:</strong> This dashboard is currently displaying generated sample data for demonstration purposes.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        dashboardContent.insertBefore(notification, dashboardContent.firstChild);
     }
     
     // Process the raw data
