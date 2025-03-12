@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Awesome-Virome Data Schema",
+  "description": "Schema for data.json file in Awesome-Virome repository",
+  "type": "object",
+  "required": ["nodes", "links", "categories", "languages"],
+  "properties": {
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "type", "size", "color"],
+        "properties": {
+          "id": {"type": "string"},
+          "name": {"type": "string"},
+          "type": {
+            "type": "string",
+            "enum": ["category", "subcategory", "tool"]
+          },
+          "category": {"type": "string"},
+          "subcategory": {"type": ["string", "null"]},
+          "parent": {"type": ["string", "null"]},
+          "description": {"type": ["string", "null"]},
+          "language": {"type": ["string", "null"]},
+          "stars": {"type": ["integer", "null"]},
+          "updateTime": {"type": ["integer", "null"]},
+          "size": {"type": "number"},
+          "color": {"type": "string"},
+          "url": {"type": ["string", "null"]}
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {"type": {"const": "tool"}}
+            },
+            "then": {
+              "required": ["category", "description", "language", "url"]
+            }
+          },
+          {
+            "if": {
+              "properties": {"type": {"const": "subcategory"}}
+            },
+            "then": {
+              "required": ["parent"]
+            }
+          }
+        ]
+      }
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source", "target", "value"],
+        "properties": {
+          "source": {"type": "string"},
+          "target": {"type": "string"},
+          "value": {"type": "number"},
+          "isWorkflow": {"type": "boolean"}
+        }
+      }
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
