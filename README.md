@@ -1,10 +1,12 @@
 # Awesome-Virome
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
-![GitHub contributors](https://img.shields.io/github/contributors/scotthandley/awesome-virome)
-![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 A curated list of software, tools, and databases useful for virome analysis, including phages, viruses, and their interactions with hosts. This repository aims to help researchers navigate the diverse landscape of tools available for studying viral communities in various environments.
+
+## Acknowledgments
+
+This list was originally started by [Rob Edwards](https://github.com/linsalrob) and his team at [Flinders University](https://edwards.flinders.edu.au) and would not have been possible without their original hard work and dedication.
 
 ## Contributing
 
@@ -485,10 +487,6 @@ For newcomers to virome analysis, here are some recommended starting points:
 ## License
 
 [![CC0](https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/cc-zero.svg)](https://creativecommons.org/publicdomain/zero/1.0)
-
-## Acknowledgments
-
-This list was compiled from a comprehensive dataset of phage and virus bioinformatics tools. Special thanks to all the researchers who developed and shared these valuable resources.
 
 ## Maintenance
 
