@@ -4,6 +4,10 @@
 
 A curated list of software, tools, and databases useful for virome analysis, including phages, viruses, and their interactions with hosts. This repository aims to help researchers navigate the diverse landscape of tools available for studying viral communities in various environments.
 
+## Contributing
+
+Please feel free to [contribute](CONTRIBUTING.md)!
+
 ## Introduction to Virome Analysis
 
 Virome analysis involves studying the collection of viruses (including bacteriophages) in a specific environment such as the human gut, soil, or oceans. These analyses typically include:
@@ -478,10 +482,6 @@ For newcomers to virome analysis, here are some recommended starting points:
 ## License
 
 [![CC0](https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/cc-zero.svg)](https://creativecommons.org/publicdomain/zero/1.0)
-
-## Contributing
-
-Please feel free to [contribute](CONTRIBUTING.md)!
 
 ## Acknowledgments
 
