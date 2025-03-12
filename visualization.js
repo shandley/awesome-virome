@@ -34,8 +34,46 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show loading indicator
         document.getElementById('loading-indicator').style.display = 'block';
         
+        // For debugging - show clearly that we're starting the data loading process
+        console.log('=== DASHBOARD DATA LOADING STARTED ===');
+        console.log('Browser info:', navigator.userAgent);
+        console.log('Page URL:', window.location.href);
+        console.log('Base URL:', window.baseUrl || 'none');
+        
         // Start data loading process with multiple fallbacks
         loadWithFallbacks();
+        
+        // Set a timeout to show an error message if loading takes too long
+        setTimeout(function() {
+            // If we're still showing the loading indicator after 10 seconds, something is wrong
+            if (document.getElementById('loading-indicator').style.display === 'block') {
+                console.error('Loading timeout reached - data loading is taking too long');
+                showError();
+                
+                // Replace error message with more detailed one
+                document.getElementById('error-message').innerHTML = `
+                    <div class="alert-heading d-flex align-items-center mb-2">
+                        <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
+                        <h4 class="mb-0">Loading Timeout</h4>
+                    </div>
+                    <p>The dashboard data is taking too long to load. This might be due to:</p>
+                    <ul>
+                        <li>Network connectivity issues</li>
+                        <li>Problems with the embedded data in the HTML</li>
+                        <li>JavaScript errors in the data loading process</li>
+                    </ul>
+                    <p>Please check the browser console (F12) for errors and try refreshing the page.</p>
+                    <button id="dashboard-retry-button" class="btn btn-primary mt-2">Retry Loading</button>
+                `;
+                
+                // Add a listener to the retry button
+                document.getElementById('dashboard-retry-button')?.addEventListener('click', function() {
+                    document.getElementById('error-message').style.display = 'none';
+                    document.getElementById('loading-indicator').style.display = 'block';
+                    loadWithFallbacks();
+                });
+            }
+        }, 10000); // 10 second timeout
     }
     
     // Try loading data with multiple fallback strategies
@@ -157,36 +195,68 @@ document.addEventListener('DOMContentLoaded', function() {
     // Check for embedded data in the HTML (for GitHub Pages compatibility)
     function tryEmbeddedData() {
         return new Promise((resolve, reject) => {
+            console.log('Attempting to load embedded data from script tag...');
             const embeddedDataElement = document.getElementById('embedded-data');
             
             if (embeddedDataElement) {
+                console.log('Found embedded-data element:', embeddedDataElement);
+                
                 try {
-                    // Trim whitespace and remove HTML comments
-                    let content = embeddedDataElement.textContent.trim();
+                    // Show raw content for debugging
+                    const rawContent = embeddedDataElement.textContent;
+                    console.log('Raw content length:', rawContent.length);
+                    console.log('Raw content first 100 chars:', rawContent.substring(0, 100).replace(/\n/g, '\\n'));
+                    
+                    // Trim whitespace and check for placeholder
+                    let content = rawContent.trim();
                     
                     // Check if the content still contains the placeholder
-                    if (content.includes('<!-- DATA_PLACEHOLDER -->')) {
+                    if (content.includes('DATA_PLACEHOLDER')) {
                         console.log('Embedded data element contains placeholder, not actual data');
                         reject(new Error('Data placeholder was not replaced during build'));
                         return;
                     }
                     
-                    // Double check for any remaining HTML comments and remove them
-                    content = content.replace(/<!--.*?-->/g, '').trim();
+                    // Remove any HTML comments or script tags that might have been accidentally included
+                    content = content
+                        .replace(/<!--[\s\S]*?-->/g, '')  // Remove HTML comments
+                        .replace(/<\/?script[^>]*>/g, '') // Remove script tags
+                        .trim();
                     
                     if (content && content.length > 10) { // Arbitrary minimum to avoid empty/placeholder data
-                        console.log('Found embedded data, length:', content.length, 'characters');
+                        console.log('Processed embedded data, length:', content.length, 'characters');
+                        console.log('First 50 chars:', content.substring(0, 50));
+                        console.log('Last 50 chars:', content.substring(content.length - 50));
                         
                         try {
+                            // Try to directly parse the JSON
                             const data = JSON.parse(content);
                             console.log('Successfully parsed embedded data with keys:', Object.keys(data).join(', '));
                             
+                            // If successful, show the dashboard
                             processData(data);
                             showDashboard();
                             resolve(data);
-                        } catch (parseError) {
+                        } 
+                        catch (parseError) {
                             console.error('JSON parse error:', parseError);
-                            console.log('Content starts with:', content.substring(0, 100) + '...');
+                            console.error('Parse error location:', parseError.message);
+                            
+                            // Create sample data for debugging since parse failed
+                            console.log('Loading sample data as fallback due to parse error...');
+                            createSampleData();
+                            showDashboard();
+                            
+                            // Show warning banner
+                            const dashboardContent = document.getElementById('dashboard-content');
+                            const notification = document.createElement('div');
+                            notification.className = 'alert alert-warning alert-dismissible fade show mb-4';
+                            notification.innerHTML = `
+                                <strong>Using Sample Data:</strong> Couldn't parse embedded data, showing sample data instead.
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            `;
+                            dashboardContent.insertBefore(notification, dashboardContent.firstChild);
+                            
                             reject(parseError);
                         }
                     } else {
@@ -560,31 +630,62 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Process the raw data
     function processData(data) {
-        // Extract tool nodes from the data
-        if (data.nodes) {
-            allData = data.nodes.filter(node => node.type === 'tool');
-        } else {
-            // If data is already in the right format
-            allData = data;
+        console.log('Processing data:', data);
+        
+        try {
+            // Make processData available globally for fallback loading
+            window.processData = processData;
+            
+            // Extract tool nodes from the data
+            if (data && data.nodes) {
+                allData = data.nodes.filter(node => node.type === 'tool');
+                console.log(`Extracted ${allData.length} tool nodes from data`);
+            } else if (Array.isArray(data)) {
+                // If data is already an array
+                allData = data;
+                console.log(`Using array data with ${allData.length} items`);
+            } else {
+                // If data is already in the right format
+                allData = data;
+                console.log('Using data as-is');
+            }
+            
+            // Ensure we have valid data to work with
+            if (!allData || !Array.isArray(allData) && typeof allData !== 'object') {
+                console.error('Invalid data format:', allData);
+                throw new Error('Invalid data format');
+            }
+            
+            // If allData is not an array, make it one
+            if (!Array.isArray(allData)) {
+                allData = [allData];
+            }
+            
+            // Set the filtered data initially to all data
+            filteredData = [...allData];
+            
+            // Populate filter dropdowns
+            populateFilters();
+            
+            // Initialize summary statistics
+            updateSummaryStats();
+            
+            // Create charts
+            createCharts();
+            
+            // Populate top tools
+            updateTopTools();
+            
+            // Populate data table
+            updateToolsTable();
+            
+            console.log('Data processing completed successfully');
+        } catch (error) {
+            console.error('Error processing data:', error);
+            // Fall back to sample data if all else fails
+            console.log('Falling back to sample data due to processing error');
+            createSampleData();
         }
-        
-        // Set the filtered data initially to all data
-        filteredData = [...allData];
-        
-        // Populate filter dropdowns
-        populateFilters();
-        
-        // Initialize summary statistics
-        updateSummaryStats();
-        
-        // Create charts
-        createCharts();
-        
-        // Populate top tools
-        updateTopTools();
-        
-        // Populate data table
-        updateToolsTable();
     }
     
     // Populate filter dropdowns
@@ -1817,8 +1918,15 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Show dashboard content
     function showDashboard() {
+        // Make showDashboard available globally for fallback loading
+        window.showDashboard = showDashboard;
+        
+        console.log('Showing dashboard content');
         document.getElementById('loading-indicator').style.display = 'none';
         document.getElementById('dashboard-content').style.display = 'block';
+        
+        // Dispatch resize event to ensure charts are properly sized
+        window.dispatchEvent(new Event('resize'));
     }
     
     // Show error message

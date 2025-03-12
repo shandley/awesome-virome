@@ -77,16 +77,33 @@ async function build() {
         let html = fs.readFileSync(INDEX_PATH, 'utf8');
         
         // Replace the data placeholder with properly JSON stringified data
-        const jsonString = JSON.stringify(data);
+        // Use a clean JSON string without any HTML entities or special chars
+        const jsonString = JSON.stringify(data, null, 0);
         console.log(`✅ Data serialized for embedding (${jsonString.length} characters)`);
         
-        // Make sure we're replacing the placeholder in the script tag, not just adding raw JSON
+        // Directly replace the placeholder with the clean JSON
         html = html.replace('<!-- DATA_PLACEHOLDER -->', jsonString);
         
         // Verify that the replacement was successful
         if (html.includes('<!-- DATA_PLACEHOLDER -->')) {
             console.error('❌ Error: Failed to replace data placeholder in HTML');
             throw new Error('Data placeholder was not replaced');
+        }
+        
+        // Double check that the replacement actually worked and the script contains valid JSON
+        const jsonStart = html.indexOf('<script id="embedded-data" type="application/json">') + 
+                         '<script id="embedded-data" type="application/json">'.length;
+        const jsonEnd = html.indexOf('</script>', jsonStart);
+        const extractedJson = html.substring(jsonStart, jsonEnd).trim();
+        
+        // Validate the JSON
+        try {
+            JSON.parse(extractedJson);
+            console.log('✅ Successfully verified that the embedded JSON is valid');
+        } catch (error) {
+            console.error(`❌ Error: Embedded JSON is not valid: ${error.message}`);
+            console.error(`JSON snippet: ${extractedJson.substring(0, 100)}...`);
+            throw new Error(`Invalid JSON was embedded: ${error.message}`);
         }
         
         // Write the result to the output directory
@@ -103,7 +120,7 @@ async function build() {
         }
         
         // Copy other necessary files to the output directory
-        const filesToCopy = ['styles.css', 'visualization.js'];
+        const filesToCopy = ['styles.css', 'visualization.js', 'data.json'];
         
         filesToCopy.forEach(file => {
             if (fs.existsSync(file)) {
@@ -113,6 +130,58 @@ async function build() {
                 console.warn(`⚠️ Warning: ${file} not found, skipping`);
             }
         });
+        
+        // Add a fallback data loading option with direct link to data.json
+        const fallbackScript = `
+        <script>
+        // Fallback script to handle data loading failures
+        window.addEventListener('DOMContentLoaded', function() {
+            // After 5 seconds, check if dashboard is still loading
+            setTimeout(function() {
+                var loadingIndicator = document.getElementById('loading-indicator');
+                var dashboardContent = document.getElementById('dashboard-content');
+                
+                if (loadingIndicator && loadingIndicator.style.display !== 'none' && 
+                    dashboardContent && dashboardContent.style.display === 'none') {
+                    console.warn('Dashboard still loading after 5s, adding data load fallback button');
+                    
+                    // Create fallback button
+                    var fallbackButton = document.createElement('button');
+                    fallbackButton.textContent = 'Try Loading External Data';
+                    fallbackButton.className = 'btn btn-warning mt-3';
+                    fallbackButton.onclick = function() {
+                        // Directly load data.json using fetch
+                        fetch('./data.json')
+                            .then(function(response) { return response.json(); })
+                            .then(function(data) {
+                                console.log('Successfully loaded data via fallback button');
+                                // Find visualization.js script and execute loadData function
+                                if (window.processData && window.showDashboard) {
+                                    window.processData(data);
+                                    window.showDashboard();
+                                } else {
+                                    console.error('Cannot find visualization functions');
+                                    alert('Could not process data. Please check console for errors.');
+                                }
+                            })
+                            .catch(function(error) {
+                                console.error('Fallback data loading failed:', error);
+                                alert('Failed to load data: ' + error.message);
+                            });
+                    };
+                    
+                    // Add to loading indicator
+                    loadingIndicator.appendChild(document.createElement('div')).appendChild(fallbackButton);
+                }
+            }, 5000);
+        });
+        </script>
+        `;
+        
+        // Add fallback script to output HTML
+        const outputHtmlWithFallback = fs.readFileSync(OUTPUT_INDEX, 'utf8') + fallbackScript;
+        fs.writeFileSync(OUTPUT_INDEX, outputHtmlWithFallback);
+        console.log('✅ Added fallback data loading script to output HTML');
         
         console.log('✅ Build completed successfully!');
         console.log('');
