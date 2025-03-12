@@ -43,8 +43,102 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .catch(error => {
                 console.error('Error loading data:', error);
+                
+                // Add more detailed error message
+                const errorMessage = document.getElementById('error-message');
+                errorMessage.innerHTML = `
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    Error loading data: ${error.message}. 
+                    <div class="mt-2">
+                        <p>This could be due to:</p>
+                        <ul>
+                            <li>The data.json file is missing or in the wrong location</li>
+                            <li>There's a syntax error in the JSON file</li>
+                            <li>You're opening the file directly in the browser (try using a local server)</li>
+                        </ul>
+                        <button id="use-sample-data" class="btn btn-primary mt-2">Use Sample Data Instead</button>
+                    </div>
+                `;
+                
+                // Add event listener to the sample data button
+                document.getElementById('use-sample-data').addEventListener('click', function() {
+                    errorMessage.style.display = 'none';
+                    createSampleData();
+                });
+                
                 showError();
             });
+    }
+    
+    // Create sample data for when data.json fails to load
+    function createSampleData() {
+        console.log('Creating sample data...');
+        
+        // Create sample categories
+        const categories = [
+            'Virus and Phage Identification',
+            'Host Prediction',
+            'Genome Analysis',
+            'Taxonomy',
+            'Functional Analysis',
+            'Structural Analysis Tools',
+            'Viral Metatranscriptomics',
+            'Viral Quasispecies Analysis'
+        ];
+        
+        // Create sample languages
+        const languages = ['Python', 'R', 'Java', 'C++', 'Perl', 'JavaScript', 'Nextflow'];
+        
+        // Sample tool data
+        const sampleData = [];
+        
+        // Add some sample tools
+        for (let i = 0; i < 50; i++) {
+            const category = categories[Math.floor(Math.random() * categories.length)];
+            const language = languages[Math.floor(Math.random() * languages.length)];
+            const stars = Math.floor(Math.random() * 200);
+            const updateTime = Math.floor(Math.random() * 24);
+            
+            sampleData.push({
+                id: `tool-${i}`,
+                name: `Sample Tool ${i + 1}`,
+                type: 'tool',
+                category: category,
+                subcategory: Math.random() > 0.5 ? `Subcategory ${Math.floor(Math.random() * 3) + 1}` : null,
+                description: `This is a sample description for a tool in the ${category} category.`,
+                language: language,
+                stars: stars,
+                updateTime: updateTime,
+                url: `https://github.com/example/sample-${i + 1}`
+            });
+        }
+        
+        // Add some popular tools
+        [
+            {name: 'VirSorter2', category: 'Virus and Phage Identification', language: 'Python', stars: 120, updateTime: 3},
+            {name: 'VIBRANT', category: 'Virus and Phage Identification', language: 'Python', stars: 150, updateTime: 1},
+            {name: 'iPHoP', category: 'Host Prediction', language: 'Python', stars: 85, updateTime: 2},
+            {name: 'Pharokka', category: 'Genome Analysis', language: 'Python', stars: 160, updateTime: 1},
+            {name: 'CheckV', category: 'Genome Analysis', language: 'Python', stars: 95, updateTime: 8}
+        ].forEach((tool, index) => {
+            sampleData.push({
+                id: `tool-special-${index}`,
+                name: tool.name,
+                type: 'tool',
+                category: tool.category,
+                description: `This is a sample description for ${tool.name} in the ${tool.category} category.`,
+                language: tool.language,
+                stars: tool.stars,
+                updateTime: tool.updateTime,
+                url: `https://github.com/example/${tool.name.toLowerCase()}`
+            });
+        });
+        
+        // Process the sample data
+        processData(sampleData);
+        
+        // Show the dashboard content
+        showDashboard();
     }
     
     // Process the raw data
