@@ -3,163 +3,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awesome-Virome Visualization</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <title>Awesome-Virome Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row mt-3 mb-2">
-            <div class="col-md-12">
-                <h1>Awesome-Virome Tool Visualization</h1>
-                <p>An interactive network visualization of virome analysis tools and their relationships.</p>
-                <p>
-                    <a href="README.md" class="btn btn-outline-dark btn-sm">View README</a>
-                    <a href="VISUALIZATION.md" class="btn btn-outline-info btn-sm">Visualization Guide</a>
-                    <a href="https://github.com/yourusername/awesome-virome" class="btn btn-outline-dark btn-sm" target="_blank">View on GitHub</a>
-                </p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <h5>Filters</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label for="category-filter" class="form-label">Category</label>
-                            <select id="category-filter" class="form-select">
-                                <option value="all">All Categories</option>
-                                <!-- Categories will be populated by JavaScript -->
-                            </select>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="language-filter" class="form-label">Language</label>
-                            <select id="language-filter" class="form-select">
-                                <option value="all">All Languages</option>
-                                <!-- Languages will be populated by JavaScript -->
-                            </select>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="update-filter" class="form-label">Last Updated</label>
-                            <select id="update-filter" class="form-select">
-                                <option value="all">All</option>
-                                <option value="6">Last 6 months</option>
-                                <option value="12">Last year</option>
-                                <option value="24">Last 2 years</option>
-                            </select>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="stars-filter" class="form-label">Minimum Stars</label>
-                            <input type="range" class="form-range" id="stars-filter" min="0" max="100" value="0">
-                            <small id="stars-value">0+ stars</small>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="search-input" class="form-label">Search Tools</label>
-                            <input type="text" class="form-control" id="search-input" placeholder="Type to search...">
-                        </div>
-
-                        <button id="reset-filters" class="btn btn-secondary">Reset Filters</button>
-                    </div>
+    <header class="bg-dark text-white py-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="mb-0">Awesome-Virome Dashboard</h1>
+                    <p class="lead mb-0">Interactive visualization of virome analysis tools</p>
                 </div>
-
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <h5>Legend</h5>
-                    </div>
-                    <div class="card-body">
-                        <h6>Node Size</h6>
-                        <p>Node size represents GitHub stars</p>
-                        <div class="legend-item">
-                            <svg width="50" height="20">
-                                <circle cx="10" cy="10" r="3" fill="#6c757d"></circle>
-                                <text x="20" y="14" font-size="12">Few</text>
-                            </svg>
-                            <svg width="50" height="20">
-                                <circle cx="10" cy="10" r="6" fill="#6c757d"></circle>
-                                <text x="20" y="14" font-size="12">Many</text>
-                            </svg>
-                        </div>
-
-                        <h6>Node Color</h6>
-                        <p>Color indicates update status</p>
-                        <div class="legend-item">
-                            <svg height="20" width="20">
-                                <rect width="15" height="15" fill="#198754" />
-                            </svg>
-                            <span>Updated within 6 months</span>
-                        </div>
-                        <div class="legend-item">
-                            <svg height="20" width="20">
-                                <rect width="15" height="15" fill="#ffc107" />
-                            </svg>
-                            <span>Updated within 1 year</span>
-                        </div>
-                        <div class="legend-item">
-                            <svg height="20" width="20">
-                                <rect width="15" height="15" fill="#dc3545" />
-                            </svg>
-                            <span>Not updated for over 1 year</span>
-                        </div>
-                        <div class="legend-item">
-                            <svg height="20" width="20">
-                                <rect width="15" height="15" fill="#6c757d" />
-                            </svg>
-                            <span>No update data available</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-9">
-                <div class="card">
-                    <div class="card-body">
-                        <div id="visualization"></div>
-                    </div>
+                <div class="col-md-4 text-md-end">
+                    <a href="README.md" class="btn btn-outline-light btn-sm me-2">View README</a>
+                    <a href="https://github.com/yourusername/awesome-virome" class="btn btn-outline-light btn-sm" target="_blank">
+                        <i class="bi bi-github"></i> GitHub
+                    </a>
                 </div>
             </div>
         </div>
+    </header>
 
-        <div class="row mt-3">
-            <div class="col-md-12">
-                <div class="card mb-3" id="tool-details-card" style="display: none;">
-                    <div class="card-header">
-                        <h5>Tool Details</h5>
+    <div class="container-fluid mt-4">
+        <!-- Loading indicator -->
+        <div id="loading-indicator" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Loading data...</p>
+        </div>
+
+        <!-- Error message -->
+        <div id="error-message" class="alert alert-danger" style="display: none;">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            Error loading data. Please try again later.
+        </div>
+
+        <!-- Dashboard content (hidden until data is loaded) -->
+        <div id="dashboard-content" style="display: none;">
+            <!-- Filters Section -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header bg-dark text-white">
+                            <h5 class="mb-0">
+                                <i class="bi bi-funnel me-2"></i>Filters
+                                <button id="reset-filters" class="btn btn-sm btn-outline-light float-end">Reset</button>
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-3 mb-3">
+                                    <label for="category-filter" class="form-label">Category</label>
+                                    <select id="category-filter" class="form-select">
+                                        <option value="all">All Categories</option>
+                                        <!-- Options populated by JavaScript -->
+                                    </select>
+                                </div>
+                                <div class="col-md-3 mb-3">
+                                    <label for="language-filter" class="form-label">Language</label>
+                                    <select id="language-filter" class="form-select">
+                                        <option value="all">All Languages</option>
+                                        <!-- Options populated by JavaScript -->
+                                    </select>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <label for="update-filter" class="form-label">Last Updated</label>
+                                    <select id="update-filter" class="form-select">
+                                        <option value="all">All</option>
+                                        <option value="6">Last 6 months</option>
+                                        <option value="12">Last year</option>
+                                        <option value="24">Last 2 years</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <label for="stars-filter" class="form-label">Min Stars: <span id="stars-value">0</span></label>
+                                    <input type="range" class="form-range" id="stars-filter" min="0" max="100" value="0">
+                                </div>
+                                <div class="col-md-2 mb-3">
+                                    <label for="search-input" class="form-label">Search</label>
+                                    <input type="text" class="form-control" id="search-input" placeholder="Search tools...">
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body" id="tool-details">
-                        <!-- Tool details will be populated by JavaScript when a node is clicked -->
+                </div>
+            </div>
+
+            <!-- Summary Stats Row -->
+            <div class="row mb-4">
+                <div class="col-md-3 mb-3">
+                    <div class="card h-100 bg-light">
+                        <div class="card-body text-center">
+                            <h3 class="display-4" id="total-tools">0</h3>
+                            <p class="mb-0">Total Tools</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card h-100 bg-light">
+                        <div class="card-body text-center">
+                            <h3 class="display-4" id="total-categories">0</h3>
+                            <p class="mb-0">Categories</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card h-100 bg-light">
+                        <div class="card-body text-center">
+                            <h3 class="display-4" id="avg-stars">0</h3>
+                            <p class="mb-0">Avg. Stars</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="card h-100 bg-light">
+                        <div class="card-body text-center">
+                            <h3 class="display-4" id="recently-updated">0</h3>
+                            <p class="mb-0">Recently Updated</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row 1 -->
+            <div class="row mb-4">
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0">Category Distribution</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="category-chart" class="chart-container"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0">Maintenance Status</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="maintenance-chart" class="chart-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row 2 -->
+            <div class="row mb-4">
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0">Language Usage</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="language-chart" class="chart-container"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0">Stars Distribution</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="stars-chart" class="chart-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline Chart -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Update Timeline</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="timeline-chart" class="chart-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top Tools and Details Row -->
+            <div class="row mb-4">
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0">Top Tools</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="top-tools" class="list-group">
+                                <!-- Top tools will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0">Tool Details</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="tool-details" class="tool-details">
+                                <div class="text-center text-muted py-5">
+                                    <i class="bi bi-info-circle display-4"></i>
+                                    <p class="mt-3">Select a tool to view details</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data Table -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">All Tools</h5>
+                            <span class="badge bg-primary" id="filtered-count"></span>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped" id="tools-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Language</th>
+                                            <th>Stars</th>
+                                            <th>Last Updated</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Table rows will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal for tool details -->
-    <div class="modal fade" id="toolModal" tabindex="-1" aria-labelledby="toolModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="toolModalLabel">Tool Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <footer class="bg-dark text-white py-3 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">Awesome-Virome Dashboard</p>
                 </div>
-                <div class="modal-body" id="modal-tool-details">
-                    <!-- Tool details will be populated here -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <div class="col-md-6 text-md-end">
+                    <p class="mb-0">Last updated: <span id="last-updated">March 2025</span></p>
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="visualization.js"></script>
 </body>

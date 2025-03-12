@@ -1,401 +1,145 @@
-// Main visualization logic for Awesome-Virome tool network
+// Awesome-Virome Dashboard Visualization
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize visualization parameters
-    const width = document.getElementById('visualization').clientWidth;
-    const height = document.getElementById('visualization').clientHeight;
+    // Global variables
+    let allData = null;
+    let filteredData = null;
+    let selectedTool = null;
     
-    // Create SVG container
-    const svg = d3.select('#visualization')
-        .append('svg')
-        .attr('width', width)
-        .attr('height', height);
+    // Status colors
+    const statusColors = {
+        recent: '#198754',    // green - updated within 6 months
+        moderate: '#ffc107',  // yellow - updated within 12 months
+        stale: '#dc3545',     // red - older than 12 months
+        unknown: '#6c757d'    // gray - no update data
+    };
     
-    // Add zoom functionality
-    const zoom = d3.zoom()
-        .scaleExtent([0.5, 5])
-        .on('zoom', (event) => {
-            g.attr('transform', event.transform);
-        });
+    // Color scale for categories
+    const categoryColorScale = d3.scaleOrdinal()
+        .range(d3.schemeCategory10);
     
-    svg.call(zoom);
+    // Initialize the dashboard
+    init();
     
-    // Create a group element for the entire visualization
-    const g = svg.append('g');
-    
-    // Initialize the tooltip
-    const tooltip = d3.select('body')
-        .append('div')
-        .attr('class', 'tooltip')
-        .style('opacity', 0);
-    
-    // Load data
-    loadData();
-    
-    function loadData() {
-        // Add a loading spinner
-        d3.select('#visualization')
-            .append('div')
-            .attr('class', 'spinner-container')
-            .html(`
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Loading...</span>
-                </div>
-            `);
+    // Main initialization function
+    function init() {
+        // Load data
+        loadData();
         
-        // Load data from data.json file
+        // Set up event listeners
+        setupEventListeners();
+    }
+    
+    // Load data from JSON file
+    function loadData() {
         d3.json('data.json')
             .then(data => {
-                // Remove loading spinner
-                d3.select('.spinner-container').remove();
+                console.log('Data loaded successfully:', data);
                 
-                // Process and visualize the data
+                // Process the data
                 processData(data);
+                
+                // Show the dashboard content
+                showDashboard();
             })
             .catch(error => {
                 console.error('Error loading data:', error);
-                // If we can't load the data.json file, fall back to sample data
-                console.log('Falling back to sample data...');
-                createSampleData()
-                    .then(sampleData => {
-                        d3.select('.spinner-container').remove();
-                        processData(sampleData);
-                    })
-                    .catch(sampleError => {
-                        d3.select('.spinner-container').html(`
-                            <div class="alert alert-danger">
-                                Error loading data. Please try again later.
-                            </div>
-                        `);
-                    });
+                showError();
             });
     }
     
-    function createSampleData() {
-        // This function creates sample data for demonstration
-        // In a real implementation, you would fetch this from repo_updates.json
-        return new Promise((resolve) => {
-            // Sample categories
-            const categories = [
-                'Virus and Phage Identification', 
-                'Host Prediction', 
-                'Genome Analysis', 
-                'Taxonomy', 
-                'Functional Analysis',
-                'CRISPR Analysis',
-                'Sequence Analysis',
-                'Visualization and Infrastructure',
-                'Structural Analysis Tools',
-                'Antimicrobial Resistance Analysis'
-            ];
-            
-            // Sample programming languages
-            const languages = ['Python', 'R', 'Java', 'C++', 'Perl', 'Nextflow', 'JavaScript'];
-            
-            // Sample update times (in months ago)
-            const updateTimes = [1, 2, 3, 5, 7, 10, 13, 18, 24];
-            
-            // Generate sample nodes
-            const nodes = [];
-            
-            // Add category nodes
-            categories.forEach(category => {
-                nodes.push({
-                    id: `category-${category}`,
-                    name: category,
-                    type: 'category',
-                    size: 10,
-                    color: '#343a40'
-                });
-            });
-            
-            // Add tool nodes
-            const tools = [];
-            const toolCount = 100; // Number of sample tools
-            
-            for (let i = 0; i < toolCount; i++) {
-                const category = categories[Math.floor(Math.random() * categories.length)];
-                const language = languages[Math.floor(Math.random() * languages.length)];
-                const stars = Math.floor(Math.random() * 200);
-                const updateTime = updateTimes[Math.floor(Math.random() * updateTimes.length)];
-                
-                // Determine color based on update time
-                let color;
-                if (updateTime <= 6) {
-                    color = '#198754'; // green
-                } else if (updateTime <= 12) {
-                    color = '#ffc107'; // yellow
-                } else {
-                    color = '#dc3545'; // red
-                }
-                
-                // Calculate node size based on stars
-                const size = Math.max(5, Math.min(15, 5 + stars / 20));
-                
-                const tool = {
-                    id: `tool-${i}`,
-                    name: `Tool ${i}`,
-                    type: 'tool',
-                    category: category,
-                    language: language,
-                    description: `This is a sample description for Tool ${i}, which is a ${language} tool for ${category}.`,
-                    stars: stars,
-                    updateTime: updateTime,
-                    size: size,
-                    color: color,
-                    url: `https://github.com/example/tool${i}`
-                };
-                
-                tools.push(tool);
-                nodes.push(tool);
-            }
-            
-            // Generate links
-            const links = [];
-            
-            // Connect tools to their categories
-            tools.forEach(tool => {
-                links.push({
-                    source: tool.id,
-                    target: `category-${tool.category}`,
-                    value: 1
-                });
-            });
-            
-            // Connect some tools together to show workflows
-            // Each tool has a small chance to be connected to another random tool
-            tools.forEach(tool => {
-                if (Math.random() > 0.7) {
-                    const randomTool = tools[Math.floor(Math.random() * tools.length)];
-                    if (tool.id !== randomTool.id) {
-                        links.push({
-                            source: tool.id,
-                            target: randomTool.id,
-                            value: 0.5,
-                            isWorkflow: true
-                        });
-                    }
-                }
-            });
-            
-            // Return the sample data
-            resolve({
-                nodes: nodes,
-                links: links,
-                categories: categories,
-                languages: languages
-            });
-        });
-    }
-    
+    // Process the raw data
     function processData(data) {
+        // Extract tool nodes from the data
+        if (data.nodes) {
+            allData = data.nodes.filter(node => node.type === 'tool');
+        } else {
+            // If data is already in the right format
+            allData = data;
+        }
+        
+        // Set the filtered data initially to all data
+        filteredData = [...allData];
+        
         // Populate filter dropdowns
-        populateFilterDropdowns(data);
+        populateFilters();
         
-        // Create the visualization
-        createVisualization(data);
+        // Initialize summary statistics
+        updateSummaryStats();
         
-        // Setup event listeners for filters
-        setupFilterEventListeners(data);
+        // Create charts
+        createCharts();
+        
+        // Populate top tools
+        updateTopTools();
+        
+        // Populate data table
+        updateToolsTable();
     }
     
-    function populateFilterDropdowns(data) {
-        // Populate category filter
+    // Populate filter dropdowns
+    function populateFilters() {
+        // Get unique categories
+        const categories = [...new Set(allData.map(tool => tool.category))].sort();
         const categorySelect = document.getElementById('category-filter');
-        data.categories.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category;
-            option.textContent = category;
-            categorySelect.appendChild(option);
+        
+        categories.forEach(category => {
+            if (category) {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                categorySelect.appendChild(option);
+            }
         });
         
-        // Populate language filter
+        // Get unique languages
+        const languages = [...new Set(allData.map(tool => tool.language))].sort();
         const languageSelect = document.getElementById('language-filter');
-        data.languages.forEach(language => {
-            const option = document.createElement('option');
-            option.value = language;
-            option.textContent = language;
-            languageSelect.appendChild(option);
-        });
-    }
-    
-    let simulation; // Declare simulation variable in a wider scope
-    
-    function createVisualization(data) {
-        // Clear previous visualization
-        g.selectAll('*').remove();
         
-        // Create a force simulation
-        simulation = d3.forceSimulation(data.nodes)
-            .force('link', d3.forceLink(data.links).id(d => d.id).distance(d => d.isWorkflow ? 100 : 150))
-            .force('charge', d3.forceManyBody().strength(d => d.type === 'category' ? -300 : -100))
-            .force('center', d3.forceCenter(width / 2, height / 2))
-            .force('collide', d3.forceCollide().radius(d => d.size * 2));
-        
-        // Create links
-        const link = g.append('g')
-            .attr('class', 'links')
-            .selectAll('line')
-            .data(data.links)
-            .enter()
-            .append('line')
-            .attr('class', 'link')
-            .attr('stroke-width', d => d.isWorkflow ? 2 : 1)
-            .attr('stroke-dasharray', d => d.isWorkflow ? '5,5' : '0');
-        
-        // Create nodes
-        const node = g.append('g')
-            .attr('class', 'nodes')
-            .selectAll('circle')
-            .data(data.nodes)
-            .enter()
-            .append('circle')
-            .attr('class', d => d.type === 'category' ? 'node-category' : 'node')
-            .attr('r', d => d.size)
-            .attr('fill', d => d.color)
-            .on('mouseover', handleMouseOver)
-            .on('mouseout', handleMouseOut)
-            .on('click', handleClick)
-            .call(d3.drag()
-                .on('start', dragstarted)
-                .on('drag', dragged)
-                .on('end', dragended));
-        
-        // Add node labels
-        const labels = g.append('g')
-            .attr('class', 'labels')
-            .selectAll('text')
-            .data(data.nodes)
-            .enter()
-            .append('text')
-            .text(d => d.name)
-            .attr('font-size', d => d.type === 'category' ? '12px' : '10px')
-            .attr('text-anchor', 'middle')
-            .attr('dy', d => d.type === 'category' ? -15 : -10);
-        
-        // Update positions on each tick of the simulation
-        simulation.on('tick', () => {
-            // Update link positions
-            link
-                .attr('x1', d => d.source.x)
-                .attr('y1', d => d.source.y)
-                .attr('x2', d => d.target.x)
-                .attr('y2', d => d.target.y);
-            
-            // Update node positions
-            node
-                .attr('cx', d => d.x = Math.max(d.size, Math.min(width - d.size, d.x)))
-                .attr('cy', d => d.y = Math.max(d.size, Math.min(height - d.size, d.y)));
-            
-            // Update label positions
-            labels
-                .attr('x', d => d.x)
-                .attr('y', d => d.y);
+        languages.forEach(language => {
+            if (language) {
+                const option = document.createElement('option');
+                option.value = language;
+                option.textContent = language;
+                languageSelect.appendChild(option);
+            }
         });
         
-        // Zoom to fit content
-        zoomToFit();
+        // Update the max value for stars filter based on data
+        const maxStars = Math.max(...allData.map(tool => tool.stars || 0));
+        const starsFilter = document.getElementById('stars-filter');
+        starsFilter.max = Math.min(Math.ceil(maxStars / 100) * 100, 1000); // Round up to nearest 100, max 1000
     }
     
-    function handleMouseOver(event, d) {
-        // Show tooltip with basic information
-        tooltip.transition()
-            .duration(200)
-            .style('opacity', 0.9);
-        
-        const content = d.type === 'category' 
-            ? `<h5>${d.name}</h5><p>Category</p>` 
-            : `<h5>${d.name}</h5>
-               <p><strong>Category:</strong> ${d.category}</p>
-               <p><strong>Language:</strong> ${d.language}</p>
-               <p><strong>Stars:</strong> ${d.stars}</p>
-               <p><strong>Last Updated:</strong> ${d.updateTime} months ago</p>
-               <p>Click for more details</p>`;
-        
-        tooltip.html(content)
-            .style('left', (event.pageX + 10) + 'px')
-            .style('top', (event.pageY - 28) + 'px');
-    }
-    
-    function handleMouseOut() {
-        // Hide tooltip
-        tooltip.transition()
-            .duration(500)
-            .style('opacity', 0);
-    }
-    
-    function handleClick(event, d) {
-        // Only show details for tools, not categories
-        if (d.type !== 'tool') return;
-        
-        // Display tool details in the details section
-        const toolDetails = document.getElementById('tool-details');
-        const toolDetailsCard = document.getElementById('tool-details-card');
-        
-        // Create detail content
-        const detailContent = `
-            <table class="table table-striped">
-                <tbody>
-                    <tr><td>Name</td><td>${d.name}</td></tr>
-                    <tr><td>Category</td><td>${d.category}</td></tr>
-                    <tr><td>Language</td><td>${d.language}</td></tr>
-                    <tr><td>Description</td><td>${d.description}</td></tr>
-                    <tr><td>GitHub Stars</td><td>${d.stars}</td></tr>
-                    <tr><td>Last Updated</td><td>${d.updateTime} months ago</td></tr>
-                    <tr><td>Repository</td><td><a href="${d.url}" target="_blank">${d.url}</a></td></tr>
-                </tbody>
-            </table>
-        `;
-        
-        toolDetails.innerHTML = detailContent;
-        toolDetailsCard.style.display = 'block';
-        
-        // Scroll to details
-        toolDetailsCard.scrollIntoView({ behavior: 'smooth' });
-    }
-    
-    function setupFilterEventListeners(data) {
+    // Set up event listeners
+    function setupEventListeners() {
         // Category filter
-        document.getElementById('category-filter').addEventListener('change', function() {
-            applyFilters(data);
-        });
+        document.getElementById('category-filter').addEventListener('change', applyFilters);
         
         // Language filter
-        document.getElementById('language-filter').addEventListener('change', function() {
-            applyFilters(data);
-        });
+        document.getElementById('language-filter').addEventListener('change', applyFilters);
         
-        // Update filter
-        document.getElementById('update-filter').addEventListener('change', function() {
-            applyFilters(data);
-        });
+        // Update time filter
+        document.getElementById('update-filter').addEventListener('change', applyFilters);
         
         // Stars filter
-        document.getElementById('stars-filter').addEventListener('input', function() {
-            document.getElementById('stars-value').textContent = `${this.value}+ stars`;
-            applyFilters(data);
+        const starsFilter = document.getElementById('stars-filter');
+        const starsValue = document.getElementById('stars-value');
+        
+        starsFilter.addEventListener('input', function() {
+            starsValue.textContent = this.value;
         });
+        
+        starsFilter.addEventListener('change', applyFilters);
         
         // Search input
-        document.getElementById('search-input').addEventListener('input', function() {
-            applyFilters(data);
-        });
+        document.getElementById('search-input').addEventListener('input', debounce(applyFilters, 300));
         
-        // Reset filters button
-        document.getElementById('reset-filters').addEventListener('click', function() {
-            // Reset all filter inputs
-            document.getElementById('category-filter').value = 'all';
-            document.getElementById('language-filter').value = 'all';
-            document.getElementById('update-filter').value = 'all';
-            document.getElementById('stars-filter').value = 0;
-            document.getElementById('stars-value').textContent = '0+ stars';
-            document.getElementById('search-input').value = '';
-            
-            // Apply the reset filters
-            applyFilters(data);
-        });
+        // Reset filters
+        document.getElementById('reset-filters').addEventListener('click', resetFilters);
     }
     
-    function applyFilters(data) {
+    // Apply all filters
+    function applyFilters() {
         // Get filter values
         const categoryFilter = document.getElementById('category-filter').value;
         const languageFilter = document.getElementById('language-filter').value;
@@ -403,169 +147,1180 @@ document.addEventListener('DOMContentLoaded', function() {
         const starsFilter = parseInt(document.getElementById('stars-filter').value);
         const searchTerm = document.getElementById('search-input').value.toLowerCase();
         
-        // Filter nodes
-        const filteredNodes = data.nodes.filter(node => {
-            // Always include category nodes
-            if (node.type === 'category') return true;
+        // Filter the data
+        filteredData = allData.filter(tool => {
+            // Category filter
+            if (categoryFilter !== 'all' && tool.category !== categoryFilter) {
+                return false;
+            }
             
-            // Apply category filter
-            if (categoryFilter !== 'all' && node.category !== categoryFilter) return false;
+            // Language filter
+            if (languageFilter !== 'all' && tool.language !== languageFilter) {
+                return false;
+            }
             
-            // Apply language filter
-            if (languageFilter !== 'all' && node.language !== languageFilter) return false;
+            // Update time filter
+            if (updateFilter !== 'all') {
+                if (tool.updateTime === null || tool.updateTime === undefined) {
+                    return false;
+                }
+                if (parseInt(updateFilter) < tool.updateTime) {
+                    return false;
+                }
+            }
             
-            // Apply update filter
-            if (updateFilter !== 'all' && node.updateTime > parseInt(updateFilter)) return false;
+            // Stars filter
+            if (tool.stars < starsFilter) {
+                return false;
+            }
             
-            // Apply stars filter
-            if (node.stars < starsFilter) return false;
-            
-            // Apply search filter
-            if (searchTerm && !node.name.toLowerCase().includes(searchTerm) && 
-                !node.description.toLowerCase().includes(searchTerm)) return false;
+            // Search term
+            if (searchTerm) {
+                const searchFields = [
+                    tool.name,
+                    tool.description,
+                    tool.category,
+                    tool.subcategory,
+                    tool.language
+                ].filter(Boolean).map(field => field.toLowerCase());
+                
+                return searchFields.some(field => field.includes(searchTerm));
+            }
             
             return true;
         });
         
-        // Get IDs of filtered nodes
-        const filteredNodeIds = filteredNodes.map(node => node.id);
-        
-        // Filter links to only include connections between filtered nodes
-        const filteredLinks = data.links.filter(link => {
-            const sourceId = typeof link.source === 'object' ? link.source.id : link.source;
-            const targetId = typeof link.target === 'object' ? link.target.id : link.target;
-            
-            return filteredNodeIds.includes(sourceId) && filteredNodeIds.includes(targetId);
-        });
-        
-        // Update nodes and links in the visualization
-        updateVisualization({
-            nodes: filteredNodes,
-            links: filteredLinks
-        });
+        // Update the dashboard with filtered data
+        updateDashboard();
     }
     
-    function updateVisualization(filteredData) {
-        // Create a new simulation with filtered data
-        simulation.stop();
+    // Reset all filters
+    function resetFilters() {
+        // Reset filter inputs
+        document.getElementById('category-filter').value = 'all';
+        document.getElementById('language-filter').value = 'all';
+        document.getElementById('update-filter').value = 'all';
+        document.getElementById('stars-filter').value = 0;
+        document.getElementById('stars-value').textContent = '0';
+        document.getElementById('search-input').value = '';
         
-        simulation = d3.forceSimulation(filteredData.nodes)
-            .force('link', d3.forceLink(filteredData.links).id(d => d.id).distance(d => d.isWorkflow ? 100 : 150))
-            .force('charge', d3.forceManyBody().strength(d => d.type === 'category' ? -300 : -100))
-            .force('center', d3.forceCenter(width / 2, height / 2))
-            .force('collide', d3.forceCollide().radius(d => d.size * 2));
+        // Reset filtered data
+        filteredData = [...allData];
         
-        // Update links
-        const link = g.select('.links')
-            .selectAll('line')
-            .data(filteredData.links, d => `${d.source.id || d.source}-${d.target.id || d.target}`);
+        // Update the dashboard
+        updateDashboard();
+    }
+    
+    // Update the entire dashboard
+    function updateDashboard() {
+        // Update summary statistics
+        updateSummaryStats();
         
-        link.exit().remove();
+        // Update charts
+        updateCharts();
         
-        const linkEnter = link.enter()
-            .append('line')
-            .attr('class', 'link')
-            .attr('stroke-width', d => d.isWorkflow ? 2 : 1)
-            .attr('stroke-dasharray', d => d.isWorkflow ? '5,5' : '0');
+        // Update top tools
+        updateTopTools();
         
-        // Update nodes
-        const node = g.select('.nodes')
-            .selectAll('circle')
-            .data(filteredData.nodes, d => d.id);
+        // Update data table
+        updateToolsTable();
+    }
+    
+    // Update summary statistics
+    function updateSummaryStats() {
+        // Total tools
+        document.getElementById('total-tools').textContent = filteredData.length;
         
-        node.exit().remove();
+        // Total categories
+        const categories = [...new Set(filteredData.map(tool => tool.category))];
+        document.getElementById('total-categories').textContent = categories.length;
         
-        const nodeEnter = node.enter()
-            .append('circle')
-            .attr('class', d => d.type === 'category' ? 'node-category' : 'node')
-            .attr('r', d => d.size)
-            .attr('fill', d => d.color)
-            .on('mouseover', handleMouseOver)
-            .on('mouseout', handleMouseOut)
-            .on('click', handleClick)
-            .call(d3.drag()
-                .on('start', dragstarted)
-                .on('drag', dragged)
-                .on('end', dragended));
+        // Average stars
+        const totalStars = filteredData.reduce((sum, tool) => sum + (tool.stars || 0), 0);
+        const avgStars = filteredData.length > 0 ? Math.round(totalStars / filteredData.length) : 0;
+        document.getElementById('avg-stars').textContent = avgStars;
         
-        // Update labels
-        const labels = g.select('.labels')
-            .selectAll('text')
-            .data(filteredData.nodes, d => d.id);
+        // Recently updated (within 6 months)
+        const recentlyUpdated = filteredData.filter(tool => 
+            tool.updateTime !== null && tool.updateTime !== undefined && tool.updateTime <= 6
+        ).length;
+        document.getElementById('recently-updated').textContent = recentlyUpdated;
         
-        labels.exit().remove();
+        // Update filtered count
+        document.getElementById('filtered-count').textContent = `${filteredData.length} of ${allData.length} tools`;
+    }
+    
+    // Create all charts
+    function createCharts() {
+        createCategoryChart();
+        createMaintenanceChart();
+        createLanguageChart();
+        createStarsChart();
+        createTimelineChart();
+    }
+    
+    // Update all charts
+    function updateCharts() {
+        updateCategoryChart();
+        updateMaintenanceChart();
+        updateLanguageChart();
+        updateStarsChart();
+        updateTimelineChart();
+    }
+    
+    // Create category distribution chart
+    function createCategoryChart() {
+        const chartContainer = document.getElementById('category-chart');
+        const width = chartContainer.clientWidth;
+        const height = chartContainer.clientHeight;
+        const margin = { top: 30, right: 30, bottom: 70, left: 60 };
         
-        const labelEnter = labels.enter()
-            .append('text')
-            .text(d => d.name)
-            .attr('font-size', d => d.type === 'category' ? '12px' : '10px')
+        // Create SVG
+        const svg = d3.select(chartContainer)
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', `translate(${margin.left},${margin.top})`);
+        
+        // Create scales (will be updated in updateCategoryChart)
+        const x = d3.scaleBand()
+            .range([0, width - margin.left - margin.right])
+            .padding(0.2);
+        
+        const y = d3.scaleLinear()
+            .range([height - margin.top - margin.bottom, 0]);
+        
+        // Create axes
+        svg.append('g')
+            .attr('class', 'x-axis')
+            .attr('transform', `translate(0,${height - margin.top - margin.bottom})`);
+        
+        svg.append('g')
+            .attr('class', 'y-axis');
+        
+        // Create title
+        svg.append('text')
+            .attr('class', 'chart-title')
+            .attr('x', (width - margin.left - margin.right) / 2)
+            .attr('y', -10)
             .attr('text-anchor', 'middle')
-            .attr('dy', d => d.type === 'category' ? -15 : -10);
+            .style('font-size', '14px')
+            .style('font-weight', 'bold');
         
-        // Apply search highlighting
-        const searchTerm = document.getElementById('search-input').value.toLowerCase();
-        g.selectAll('.node')
-            .classed('search-highlight', d => {
-                if (!searchTerm) return false;
-                return d.name.toLowerCase().includes(searchTerm) ||
-                       d.description.toLowerCase().includes(searchTerm);
+        // Initial update
+        updateCategoryChart();
+    }
+    
+    // Update category distribution chart
+    function updateCategoryChart() {
+        const chartContainer = document.getElementById('category-chart');
+        const width = chartContainer.clientWidth;
+        const height = chartContainer.clientHeight;
+        const margin = { top: 30, right: 30, bottom: 70, left: 60 };
+        
+        // Calculate category counts
+        const categoryCounts = {};
+        filteredData.forEach(tool => {
+            if (tool.category) {
+                categoryCounts[tool.category] = (categoryCounts[tool.category] || 0) + 1;
+            }
+        });
+        
+        // Convert to array and sort
+        const data = Object.entries(categoryCounts)
+            .map(([category, count]) => ({ category, count }))
+            .sort((a, b) => b.count - a.count);
+        
+        // Update scales
+        const x = d3.scaleBand()
+            .domain(data.map(d => d.category))
+            .range([0, width - margin.left - margin.right])
+            .padding(0.2);
+        
+        const y = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.count)])
+            .nice()
+            .range([height - margin.top - margin.bottom, 0]);
+        
+        // Update axes
+        const svg = d3.select(chartContainer).select('svg').select('g');
+        
+        svg.select('.x-axis')
+            .transition()
+            .duration(500)
+            .call(d3.axisBottom(x)
+                .tickSizeOuter(0))
+            .selectAll('text')
+            .style('text-anchor', 'end')
+            .attr('dx', '-.8em')
+            .attr('dy', '.15em')
+            .attr('transform', 'rotate(-45)');
+        
+        svg.select('.y-axis')
+            .transition()
+            .duration(500)
+            .call(d3.axisLeft(y)
+                .ticks(5)
+                .tickSizeOuter(0));
+        
+        // Update bars
+        const bars = svg.selectAll('.category-bar')
+            .data(data, d => d.category);
+        
+        // Remove old bars
+        bars.exit()
+            .transition()
+            .duration(300)
+            .attr('y', height - margin.top - margin.bottom)
+            .attr('height', 0)
+            .remove();
+        
+        // Add new bars
+        bars.enter()
+            .append('rect')
+            .attr('class', 'category-bar bar')
+            .attr('x', d => x(d.category))
+            .attr('width', x.bandwidth())
+            .attr('y', height - margin.top - margin.bottom)
+            .attr('height', 0)
+            .attr('fill', d => categoryColorScale(d.category))
+            .on('mouseover', function(event, d) {
+                showTooltip(event, `<strong>${d.category}</strong><br>${d.count} tools`);
+            })
+            .on('mouseout', hideTooltip)
+            .transition()
+            .duration(500)
+            .attr('y', d => y(d.count))
+            .attr('height', d => height - margin.top - margin.bottom - y(d.count));
+        
+        // Update existing bars
+        bars.transition()
+            .duration(500)
+            .attr('x', d => x(d.category))
+            .attr('width', x.bandwidth())
+            .attr('y', d => y(d.count))
+            .attr('height', d => height - margin.top - margin.bottom - y(d.count))
+            .attr('fill', d => categoryColorScale(d.category));
+    }
+    
+    // Create maintenance status chart (donut chart)
+    function createMaintenanceChart() {
+        const chartContainer = document.getElementById('maintenance-chart');
+        const width = chartContainer.clientWidth;
+        const height = chartContainer.clientHeight;
+        
+        // Create SVG
+        const svg = d3.select(chartContainer)
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', `translate(${width / 2},${height / 2})`);
+        
+        // Create donut chart group
+        svg.append('g')
+            .attr('class', 'donut-chart');
+        
+        // Create center text
+        svg.append('text')
+            .attr('class', 'donut-center-text')
+            .attr('text-anchor', 'middle')
+            .attr('dy', '0.35em')
+            .style('font-size', '16px')
+            .style('font-weight', 'bold');
+        
+        // Create legend
+        svg.append('g')
+            .attr('class', 'donut-legend')
+            .attr('transform', `translate(0,${height / 2 - 40})`);
+        
+        // Initial update
+        updateMaintenanceChart();
+    }
+    
+    // Update maintenance status chart
+    function updateMaintenanceChart() {
+        const chartContainer = document.getElementById('maintenance-chart');
+        const width = chartContainer.clientWidth;
+        const height = chartContainer.clientHeight;
+        const radius = Math.min(width, height) / 2 - 40;
+        
+        // Calculate status counts
+        const statusCounts = {
+            recent: 0,
+            moderate: 0,
+            stale: 0,
+            unknown: 0
+        };
+        
+        filteredData.forEach(tool => {
+            if (tool.updateTime === null || tool.updateTime === undefined) {
+                statusCounts.unknown++;
+            } else if (tool.updateTime <= 6) {
+                statusCounts.recent++;
+            } else if (tool.updateTime <= 12) {
+                statusCounts.moderate++;
+            } else {
+                statusCounts.stale++;
+            }
+        });
+        
+        // Convert to array
+        const data = [
+            { status: 'Recent (≤6mo)', count: statusCounts.recent, color: statusColors.recent },
+            { status: 'Moderate (≤12mo)', count: statusCounts.moderate, color: statusColors.moderate },
+            { status: 'Stale (>12mo)', count: statusCounts.stale, color: statusColors.stale },
+            { status: 'Unknown', count: statusCounts.unknown, color: statusColors.unknown }
+        ].filter(d => d.count > 0);
+        
+        // Create pie layout
+        const pie = d3.pie()
+            .value(d => d.count)
+            .sort(null);
+        
+        // Create arc generator
+        const arc = d3.arc()
+            .innerRadius(radius * 0.6)
+            .outerRadius(radius);
+        
+        // Create SVG and update donut chart
+        const svg = d3.select(chartContainer).select('svg').select('g');
+        
+        // Update donut segments
+        const segments = svg.select('.donut-chart')
+            .selectAll('path')
+            .data(pie(data), d => d.data.status);
+        
+        // Remove old segments
+        segments.exit().remove();
+        
+        // Add new segments
+        segments.enter()
+            .append('path')
+            .attr('class', 'donut-segment')
+            .attr('fill', d => d.data.color)
+            .attr('d', arc)
+            .on('mouseover', function(event, d) {
+                showTooltip(event, `<strong>${d.data.status}</strong><br>${d.data.count} tools (${Math.round(d.data.count / filteredData.length * 100)}%)`);
+                
+                // Update center text
+                svg.select('.donut-center-text')
+                    .text(`${d.data.count} (${Math.round(d.data.count / filteredData.length * 100)}%)`)
+                    .attr('fill', d.data.color);
+            })
+            .on('mouseout', function() {
+                hideTooltip();
+                
+                // Reset center text
+                svg.select('.donut-center-text')
+                    .text(`${filteredData.length} tools`)
+                    .attr('fill', '#212529');
+            })
+            .transition()
+            .duration(500)
+            .attrTween('d', function(d) {
+                const interpolate = d3.interpolate({ startAngle: d.startAngle, endAngle: d.startAngle }, d);
+                return function(t) {
+                    return arc(interpolate(t));
+                };
             });
         
-        // Update positions on each tick of the simulation
-        simulation.on('tick', () => {
-            // Link positions
-            g.selectAll('.links line')
-                .attr('x1', d => d.source.x)
-                .attr('y1', d => d.source.y)
-                .attr('x2', d => d.target.x)
-                .attr('y2', d => d.target.y);
-            
-            // Node positions
-            g.selectAll('.nodes circle')
-                .attr('cx', d => d.x = Math.max(d.size, Math.min(width - d.size, d.x)))
-                .attr('cy', d => d.y = Math.max(d.size, Math.min(height - d.size, d.y)));
-            
-            // Label positions
-            g.selectAll('.labels text')
-                .attr('x', d => d.x)
-                .attr('y', d => d.y);
+        // Update existing segments
+        segments.transition()
+            .duration(500)
+            .attrTween('d', function(d) {
+                const current = this._current || { startAngle: 0, endAngle: 0 };
+                const interpolate = d3.interpolate(current, d);
+                this._current = interpolate(1);
+                return function(t) {
+                    return arc(interpolate(t));
+                };
+            })
+            .attr('fill', d => d.data.color);
+        
+        // Update center text
+        svg.select('.donut-center-text')
+            .text(`${filteredData.length} tools`);
+        
+        // Update legend
+        const legend = svg.select('.donut-legend')
+            .selectAll('.legend-item')
+            .data(data);
+        
+        // Remove old legend items
+        legend.exit().remove();
+        
+        // Create legend item groups
+        const legendEnter = legend.enter()
+            .append('g')
+            .attr('class', 'legend-item')
+            .attr('transform', (d, i) => `translate(0,${i * 20})`);
+        
+        // Add legend color boxes
+        legendEnter.append('rect')
+            .attr('width', 12)
+            .attr('height', 12)
+            .attr('fill', d => d.color);
+        
+        // Add legend text
+        legendEnter.append('text')
+            .attr('x', 20)
+            .attr('y', 10)
+            .style('font-size', '12px')
+            .text(d => `${d.status} (${d.count})`);
+        
+        // Update existing legend items
+        legend.select('rect')
+            .attr('fill', d => d.color);
+        
+        legend.select('text')
+            .text(d => `${d.status} (${d.count})`);
+        
+        // Position legend
+        svg.select('.donut-legend')
+            .attr('transform', `translate(${-(width / 2 - 20)},${-(height / 4)})`);
+    }
+    
+    // Create language usage chart
+    function createLanguageChart() {
+        const chartContainer = document.getElementById('language-chart');
+        const width = chartContainer.clientWidth;
+        const height = chartContainer.clientHeight;
+        const margin = { top: 30, right: 30, bottom: 40, left: 100 };
+        
+        // Create SVG
+        const svg = d3.select(chartContainer)
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', `translate(${margin.left},${margin.top})`);
+        
+        // Create scales (will be updated in updateLanguageChart)
+        const x = d3.scaleLinear()
+            .range([0, width - margin.left - margin.right]);
+        
+        const y = d3.scaleBand()
+            .range([0, height - margin.top - margin.bottom])
+            .padding(0.2);
+        
+        // Create axes
+        svg.append('g')
+            .attr('class', 'x-axis')
+            .attr('transform', `translate(0,${height - margin.top - margin.bottom})`);
+        
+        svg.append('g')
+            .attr('class', 'y-axis');
+        
+        // Initial update
+        updateLanguageChart();
+    }
+    
+    // Update language usage chart
+    function updateLanguageChart() {
+        const chartContainer = document.getElementById('language-chart');
+        const width = chartContainer.clientWidth;
+        const height = chartContainer.clientHeight;
+        const margin = { top: 30, right: 30, bottom: 40, left: 100 };
+        
+        // Calculate language counts
+        const languageCounts = {};
+        filteredData.forEach(tool => {
+            if (tool.language) {
+                languageCounts[tool.language] = (languageCounts[tool.language] || 0) + 1;
+            }
         });
         
-        // Zoom to fit content
-        zoomToFit();
-    }
-    
-    function dragstarted(event, d) {
-        if (!event.active) simulation.alphaTarget(0.3).restart();
-        d.fx = d.x;
-        d.fy = d.y;
-    }
-    
-    function dragged(event, d) {
-        d.fx = event.x;
-        d.fy = event.y;
-    }
-    
-    function dragended(event, d) {
-        if (!event.active) simulation.alphaTarget(0);
-        d.fx = null;
-        d.fy = null;
-    }
-    
-    function zoomToFit() {
-        const bounds = g.node().getBBox();
-        const dx = bounds.width;
-        const dy = bounds.height;
-        const x = bounds.x + (bounds.width / 2);
-        const y = bounds.y + (bounds.height / 2);
+        // Convert to array and sort
+        const data = Object.entries(languageCounts)
+            .map(([language, count]) => ({ language, count }))
+            .sort((a, b) => b.count - a.count)
+            .slice(0, 10); // Show top 10 languages
         
-        const scale = 0.8 / Math.max(dx / width, dy / height);
-        const translate = [width / 2 - scale * x, height / 2 - scale * y];
+        // Update scales
+        const x = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.count)])
+            .nice()
+            .range([0, width - margin.left - margin.right]);
         
-        svg.transition()
+        const y = d3.scaleBand()
+            .domain(data.map(d => d.language))
+            .range([0, height - margin.top - margin.bottom])
+            .padding(0.2);
+        
+        // Color scale for languages
+        const languageColor = d3.scaleOrdinal()
+            .domain(data.map(d => d.language))
+            .range(d3.schemeTableau10);
+        
+        // Update axes
+        const svg = d3.select(chartContainer).select('svg').select('g');
+        
+        svg.select('.x-axis')
+            .transition()
             .duration(500)
-            .call(zoom.transform, d3.zoomIdentity
-                .translate(translate[0], translate[1])
-                .scale(scale));
+            .call(d3.axisBottom(x)
+                .ticks(5)
+                .tickSizeOuter(0));
+        
+        svg.select('.y-axis')
+            .transition()
+            .duration(500)
+            .call(d3.axisLeft(y)
+                .tickSizeOuter(0));
+        
+        // Update bars
+        const bars = svg.selectAll('.language-bar')
+            .data(data, d => d.language);
+        
+        // Remove old bars
+        bars.exit()
+            .transition()
+            .duration(300)
+            .attr('width', 0)
+            .remove();
+        
+        // Add new bars
+        bars.enter()
+            .append('rect')
+            .attr('class', 'language-bar bar')
+            .attr('x', 0)
+            .attr('y', d => y(d.language))
+            .attr('height', y.bandwidth())
+            .attr('width', 0)
+            .attr('fill', d => languageColor(d.language))
+            .on('mouseover', function(event, d) {
+                showTooltip(event, `<strong>${d.language}</strong><br>${d.count} tools (${Math.round(d.count / filteredData.length * 100)}%)`);
+            })
+            .on('mouseout', hideTooltip)
+            .transition()
+            .duration(500)
+            .attr('width', d => x(d.count));
+        
+        // Update existing bars
+        bars.transition()
+            .duration(500)
+            .attr('y', d => y(d.language))
+            .attr('height', y.bandwidth())
+            .attr('width', d => x(d.count))
+            .attr('fill', d => languageColor(d.language));
+        
+        // Add value labels
+        const labels = svg.selectAll('.language-label')
+            .data(data, d => d.language);
+        
+        // Remove old labels
+        labels.exit().remove();
+        
+        // Add new labels
+        labels.enter()
+            .append('text')
+            .attr('class', 'language-label')
+            .attr('x', d => x(d.count) + 5)
+            .attr('y', d => y(d.language) + y.bandwidth() / 2)
+            .attr('dy', '0.35em')
+            .style('font-size', '12px')
+            .text(d => d.count)
+            .style('opacity', 0)
+            .transition()
+            .duration(500)
+            .style('opacity', 1);
+        
+        // Update existing labels
+        labels.transition()
+            .duration(500)
+            .attr('x', d => x(d.count) + 5)
+            .attr('y', d => y(d.language) + y.bandwidth() / 2)
+            .text(d => d.count);
     }
+    
+    // Create stars distribution chart
+    function createStarsChart() {
+        const chartContainer = document.getElementById('stars-chart');
+        const width = chartContainer.clientWidth;
+        const height = chartContainer.clientHeight;
+        const margin = { top: 30, right: 30, bottom: 40, left: 60 };
+        
+        // Create SVG
+        const svg = d3.select(chartContainer)
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', `translate(${margin.left},${margin.top})`);
+        
+        // Create scales (will be updated in updateStarsChart)
+        const x = d3.scaleLinear()
+            .range([0, width - margin.left - margin.right]);
+        
+        const y = d3.scaleLinear()
+            .range([height - margin.top - margin.bottom, 0]);
+        
+        // Create axes
+        svg.append('g')
+            .attr('class', 'x-axis')
+            .attr('transform', `translate(0,${height - margin.top - margin.bottom})`);
+        
+        svg.append('g')
+            .attr('class', 'y-axis');
+        
+        // Initial update
+        updateStarsChart();
+    }
+    
+    // Update stars distribution chart
+    function updateStarsChart() {
+        const chartContainer = document.getElementById('stars-chart');
+        const width = chartContainer.clientWidth;
+        const height = chartContainer.clientHeight;
+        const margin = { top: 30, right: 30, bottom: 40, left: 60 };
+        
+        // Get all star values
+        const stars = filteredData.map(tool => tool.stars || 0);
+        
+        // Create histogram bins
+        const maxStars = d3.max(stars) || 100;
+        const binCount = 10;
+        const binWidth = Math.ceil(maxStars / binCount);
+        
+        // Define histogram function
+        const histogram = d3.histogram()
+            .value(d => d)
+            .domain([0, maxStars])
+            .thresholds(d3.range(0, maxStars, binWidth));
+        
+        // Generate bins
+        const bins = histogram(stars);
+        
+        // Update scales
+        const x = d3.scaleLinear()
+            .domain([0, maxStars])
+            .range([0, width - margin.left - margin.right]);
+        
+        const y = d3.scaleLinear()
+            .domain([0, d3.max(bins, d => d.length)])
+            .nice()
+            .range([height - margin.top - margin.bottom, 0]);
+        
+        // Update axes
+        const svg = d3.select(chartContainer).select('svg').select('g');
+        
+        svg.select('.x-axis')
+            .transition()
+            .duration(500)
+            .call(d3.axisBottom(x)
+                .ticks(binCount)
+                .tickFormat(d => d)
+                .tickSizeOuter(0));
+        
+        svg.select('.y-axis')
+            .transition()
+            .duration(500)
+            .call(d3.axisLeft(y)
+                .ticks(5)
+                .tickSizeOuter(0));
+        
+        // Update bars
+        const bars = svg.selectAll('.stars-bar')
+            .data(bins);
+        
+        // Remove old bars
+        bars.exit()
+            .transition()
+            .duration(300)
+            .attr('y', height - margin.top - margin.bottom)
+            .attr('height', 0)
+            .remove();
+        
+        // Add new bars
+        bars.enter()
+            .append('rect')
+            .attr('class', 'stars-bar bar')
+            .attr('x', d => x(d.x0))
+            .attr('width', d => Math.max(0, x(d.x1) - x(d.x0) - 1))
+            .attr('y', height - margin.top - margin.bottom)
+            .attr('height', 0)
+            .attr('fill', '#6610f2')
+            .on('mouseover', function(event, d) {
+                showTooltip(event, `<strong>${d.x0} - ${d.x1} stars</strong><br>${d.length} tools`);
+            })
+            .on('mouseout', hideTooltip)
+            .transition()
+            .duration(500)
+            .attr('y', d => y(d.length))
+            .attr('height', d => height - margin.top - margin.bottom - y(d.length));
+        
+        // Update existing bars
+        bars.transition()
+            .duration(500)
+            .attr('x', d => x(d.x0))
+            .attr('width', d => Math.max(0, x(d.x1) - x(d.x0) - 1))
+            .attr('y', d => y(d.length))
+            .attr('height', d => height - margin.top - margin.bottom - y(d.length));
+    }
+    
+    // Create timeline chart
+    function createTimelineChart() {
+        const chartContainer = document.getElementById('timeline-chart');
+        const width = chartContainer.clientWidth;
+        const height = chartContainer.clientHeight;
+        const margin = { top: 30, right: 30, bottom: 40, left: 60 };
+        
+        // Create SVG
+        const svg = d3.select(chartContainer)
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height)
+            .append('g')
+            .attr('transform', `translate(${margin.left},${margin.top})`);
+        
+        // Create scales (will be updated in updateTimelineChart)
+        const x = d3.scaleLinear()
+            .range([0, width - margin.left - margin.right]);
+        
+        const y = d3.scaleLinear()
+            .range([height - margin.top - margin.bottom, 0]);
+        
+        // Create axes
+        svg.append('g')
+            .attr('class', 'x-axis')
+            .attr('transform', `translate(0,${height - margin.top - margin.bottom})`);
+        
+        svg.append('g')
+            .attr('class', 'y-axis');
+        
+        // Initial update
+        updateTimelineChart();
+    }
+    
+    // Update timeline chart
+    function updateTimelineChart() {
+        const chartContainer = document.getElementById('timeline-chart');
+        const width = chartContainer.clientWidth;
+        const height = chartContainer.clientHeight;
+        const margin = { top: 30, right: 30, bottom: 40, left: 60 };
+        
+        // Filter tools with valid update times
+        const data = filteredData.filter(tool => 
+            tool.updateTime !== null && tool.updateTime !== undefined
+        );
+        
+        // Group tools by update time
+        const updateGroups = d3.group(data, d => Math.floor(d.updateTime));
+        
+        // Create data points
+        const timelineData = Array.from(updateGroups, ([month, tools]) => ({
+            month,
+            count: tools.length,
+            tools
+        })).sort((a, b) => a.month - b.month);
+        
+        // Update scales
+        const x = d3.scaleLinear()
+            .domain([0, d3.max(timelineData, d => d.month) || 24])
+            .range([0, width - margin.left - margin.right]);
+        
+        const y = d3.scaleLinear()
+            .domain([0, d3.max(timelineData, d => d.count) || 1])
+            .nice()
+            .range([height - margin.top - margin.bottom, 0]);
+        
+        // Update axes
+        const svg = d3.select(chartContainer).select('svg').select('g');
+        
+        svg.select('.x-axis')
+            .transition()
+            .duration(500)
+            .call(d3.axisBottom(x)
+                .ticks(10)
+                .tickFormat(d => `${d} mo ago`)
+                .tickSizeOuter(0));
+        
+        svg.select('.y-axis')
+            .transition()
+            .duration(500)
+            .call(d3.axisLeft(y)
+                .ticks(5)
+                .tickSizeOuter(0));
+        
+        // Create line generator
+        const line = d3.line()
+            .x(d => x(d.month))
+            .y(d => y(d.count))
+            .curve(d3.curveMonotoneX);
+        
+        // Update line
+        const path = svg.selectAll('.timeline-line')
+            .data([timelineData]);
+        
+        if (path.empty()) {
+            svg.append('path')
+                .attr('class', 'timeline-line')
+                .attr('fill', 'none')
+                .attr('stroke', '#0d6efd')
+                .attr('stroke-width', 2)
+                .attr('d', line);
+        } else {
+            path.transition()
+                .duration(500)
+                .attr('d', line);
+        }
+        
+        // Update points
+        const points = svg.selectAll('.timeline-point')
+            .data(timelineData);
+        
+        // Remove old points
+        points.exit()
+            .transition()
+            .duration(300)
+            .attr('r', 0)
+            .remove();
+        
+        // Add new points
+        points.enter()
+            .append('circle')
+            .attr('class', 'timeline-point')
+            .attr('cx', d => x(d.month))
+            .attr('cy', d => y(d.count))
+            .attr('r', 0)
+            .attr('fill', d => {
+                if (d.month <= 6) return statusColors.recent;
+                if (d.month <= 12) return statusColors.moderate;
+                return statusColors.stale;
+            })
+            .on('mouseover', function(event, d) {
+                const tooltipContent = `
+                    <strong>${d.month} months ago</strong><br>
+                    ${d.count} tools updated<br>
+                    <small>Click to see tools</small>
+                `;
+                showTooltip(event, tooltipContent);
+            })
+            .on('mouseout', hideTooltip)
+            .on('click', function(event, d) {
+                // Show tools updated in this month
+                showToolsForMonth(d.month, d.tools);
+            })
+            .transition()
+            .duration(500)
+            .attr('r', 5);
+        
+        // Update existing points
+        points.transition()
+            .duration(500)
+            .attr('cx', d => x(d.month))
+            .attr('cy', d => y(d.count))
+            .attr('fill', d => {
+                if (d.month <= 6) return statusColors.recent;
+                if (d.month <= 12) return statusColors.moderate;
+                return statusColors.stale;
+            });
+        
+        // Add axis labels
+        if (!svg.select('.x-label').size()) {
+            svg.append('text')
+                .attr('class', 'x-label')
+                .attr('text-anchor', 'middle')
+                .attr('x', (width - margin.left - margin.right) / 2)
+                .attr('y', height - margin.top)
+                .style('font-size', '12px')
+                .text('Months since last update');
+        }
+        
+        if (!svg.select('.y-label').size()) {
+            svg.append('text')
+                .attr('class', 'y-label')
+                .attr('text-anchor', 'middle')
+                .attr('transform', `translate(${-margin.left / 2},${(height - margin.top - margin.bottom) / 2}) rotate(-90)`)
+                .style('font-size', '12px')
+                .text('Number of tools');
+        }
+    }
+    
+    // Show tools updated in a specific month
+    function showToolsForMonth(month, tools) {
+        // Create modal to show the tools
+        const modal = document.createElement('div');
+        modal.className = 'modal fade';
+        modal.id = 'timelineModal';
+        modal.tabIndex = '-1';
+        modal.setAttribute('aria-labelledby', 'timelineModalLabel');
+        modal.setAttribute('aria-hidden', 'true');
+        
+        modal.innerHTML = `
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="timelineModalLabel">Tools Updated ${month} Months Ago</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="list-group">
+                            ${tools.map(tool => `
+                                <a href="${tool.url}" target="_blank" class="list-group-item list-group-item-action">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h5 class="mb-1">${tool.name}</h5>
+                                        <span class="badge bg-primary rounded-pill">${tool.stars || 0} ★</span>
+                                    </div>
+                                    <p class="mb-1">${tool.description || ''}</p>
+                                    <small>${tool.category}${tool.subcategory ? ' › ' + tool.subcategory : ''} · ${tool.language || 'Unknown language'}</small>
+                                </a>
+                            `).join('')}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Remove existing modal if any
+        const existingModal = document.getElementById('timelineModal');
+        if (existingModal) {
+            existingModal.remove();
+        }
+        
+        // Add modal to the document
+        document.body.appendChild(modal);
+        
+        // Initialize and show the modal
+        const bsModal = new bootstrap.Modal(modal);
+        bsModal.show();
+    }
+    
+    // Update top tools section
+    function updateTopTools() {
+        // Get top 10 tools by stars
+        const topTools = [...filteredData]
+            .sort((a, b) => (b.stars || 0) - (a.stars || 0))
+            .slice(0, 10);
+        
+        // Update the list
+        const topToolsList = document.getElementById('top-tools');
+        topToolsList.innerHTML = '';
+        
+        topTools.forEach(tool => {
+            const listItem = document.createElement('a');
+            listItem.href = '#';
+            listItem.className = 'list-group-item list-group-item-action';
+            listItem.dataset.id = tool.id;
+            
+            // Get update status class
+            let statusClass = 'status-unknown';
+            if (tool.updateTime !== null && tool.updateTime !== undefined) {
+                if (tool.updateTime <= 6) {
+                    statusClass = 'status-recent';
+                } else if (tool.updateTime <= 12) {
+                    statusClass = 'status-moderate';
+                } else {
+                    statusClass = 'status-stale';
+                }
+            }
+            
+            listItem.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <span class="me-2 ${statusClass}">●</span>
+                        ${tool.name}
+                    </div>
+                    <span class="tool-stars">${tool.stars || 0} ★</span>
+                </div>
+                <small>${tool.category}${tool.subcategory ? ' › ' + tool.subcategory : ''} · ${tool.language || 'Unknown language'}</small>
+            `;
+            
+            // Add click event to show details
+            listItem.addEventListener('click', function(event) {
+                event.preventDefault();
+                showToolDetails(tool);
+                
+                // Highlight selected tool
+                document.querySelectorAll('#top-tools .list-group-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+            
+            topToolsList.appendChild(listItem);
+        });
+    }
+    
+    // Update tools table
+    function updateToolsTable() {
+        const tableBody = document.querySelector('#tools-table tbody');
+        tableBody.innerHTML = '';
+        
+        // Paginate if there are many tools
+        const pageSize = 50;
+        const pageCount = Math.ceil(filteredData.length / pageSize);
+        const currentPage = 1;
+        
+        // Get tools for current page
+        const toolsToShow = filteredData.slice(0, pageSize);
+        
+        // Add rows to the table
+        toolsToShow.forEach(tool => {
+            const row = document.createElement('tr');
+            
+            // Get update status class
+            let statusClass = 'status-unknown';
+            let updateText = 'Unknown';
+            
+            if (tool.updateTime !== null && tool.updateTime !== undefined) {
+                updateText = `${tool.updateTime} months ago`;
+                
+                if (tool.updateTime <= 6) {
+                    statusClass = 'status-recent';
+                } else if (tool.updateTime <= 12) {
+                    statusClass = 'status-moderate';
+                } else {
+                    statusClass = 'status-stale';
+                }
+            }
+            
+            row.innerHTML = `
+                <td><a href="${tool.url}" target="_blank">${tool.name}</a></td>
+                <td>${tool.category}${tool.subcategory ? ' › ' + tool.subcategory : ''}</td>
+                <td>${tool.language || 'Unknown'}</td>
+                <td>${tool.stars || 0}</td>
+                <td class="${statusClass}">${updateText}</td>
+                <td>
+                    <button class="btn btn-sm btn-outline-primary view-details" data-id="${tool.id}">Details</button>
+                </td>
+            `;
+            
+            tableBody.appendChild(row);
+        });
+        
+        // Add event listeners to view details buttons
+        document.querySelectorAll('#tools-table .view-details').forEach(button => {
+            button.addEventListener('click', function() {
+                const toolId = this.dataset.id;
+                const tool = filteredData.find(t => t.id === toolId);
+                if (tool) {
+                    showToolDetails(tool);
+                }
+            });
+        });
+    }
+    
+    // Show tool details
+    function showToolDetails(tool) {
+        selectedTool = tool;
+        
+        // Get update status
+        let statusClass = 'status-unknown';
+        let updateText = 'Unknown';
+        
+        if (tool.updateTime !== null && tool.updateTime !== undefined) {
+            updateText = `${tool.updateTime} months ago`;
+            
+            if (tool.updateTime <= 6) {
+                statusClass = 'status-recent';
+            } else if (tool.updateTime <= 12) {
+                statusClass = 'status-moderate';
+            } else {
+                statusClass = 'status-stale';
+            }
+        }
+        
+        // Update details pane
+        const detailsPane = document.getElementById('tool-details');
+        
+        detailsPane.innerHTML = `
+            <h4>${tool.name}</h4>
+            <p>${tool.description || 'No description available.'}</p>
+            
+            <div class="detail-row">
+                <div class="detail-label">Category:</div>
+                <div class="detail-value">${tool.category}${tool.subcategory ? ' › ' + tool.subcategory : ''}</div>
+            </div>
+            
+            <div class="detail-row">
+                <div class="detail-label">Language:</div>
+                <div class="detail-value">${tool.language || 'Unknown'}</div>
+            </div>
+            
+            <div class="detail-row">
+                <div class="detail-label">Stars:</div>
+                <div class="detail-value">${tool.stars || 0} ★</div>
+            </div>
+            
+            <div class="detail-row">
+                <div class="detail-label">Last Updated:</div>
+                <div class="detail-value ${statusClass}">${updateText}</div>
+            </div>
+            
+            <div class="detail-row">
+                <div class="detail-label">Repository:</div>
+                <div class="detail-value">
+                    <a href="${tool.url}" target="_blank">${tool.url}</a>
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <a href="${tool.url}" target="_blank" class="btn btn-primary">
+                    <i class="bi bi-github me-2"></i>View on GitHub
+                </a>
+            </div>
+        `;
+    }
+    
+    // Show tooltip
+    function showTooltip(event, content) {
+        // Create tooltip if it doesn't exist
+        let tooltip = document.querySelector('.d3-tooltip');
+        
+        if (!tooltip) {
+            tooltip = document.createElement('div');
+            tooltip.className = 'd3-tooltip tooltip';
+            document.body.appendChild(tooltip);
+        }
+        
+        // Update content and position
+        tooltip.innerHTML = content;
+        tooltip.style.left = `${event.pageX + 10}px`;
+        tooltip.style.top = `${event.pageY - 10}px`;
+        tooltip.style.opacity = 1;
+    }
+    
+    // Hide tooltip
+    function hideTooltip() {
+        const tooltip = document.querySelector('.d3-tooltip');
+        if (tooltip) {
+            tooltip.style.opacity = 0;
+        }
+    }
+    
+    // Show dashboard content
+    function showDashboard() {
+        document.getElementById('loading-indicator').style.display = 'none';
+        document.getElementById('dashboard-content').style.display = 'block';
+    }
+    
+    // Show error message
+    function showError() {
+        document.getElementById('loading-indicator').style.display = 'none';
+        document.getElementById('error-message').style.display = 'block';
+    }
+    
+    // Helper function: Debounce
+    function debounce(func, wait) {
+        let timeout;
+        return function() {
+            const context = this;
+            const args = arguments;
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                func.apply(context, args);
+            }, wait);
+        };
+    }
+    
+    // Handle window resize
+    window.addEventListener('resize', debounce(() => {
+        updateCharts();
+    }, 200));
 });
