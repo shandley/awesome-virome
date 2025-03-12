@@ -28,6 +28,17 @@ jobs:
         run: |
           node generate_data.js > data.json
           node build.js
+          
+          # Verify that the data was properly embedded in the output HTML file
+          if grep -q "<!-- DATA_PLACEHOLDER -->" dist/index.html; then
+            echo "ERROR: Data placeholder was not replaced in dist/index.html"
+            exit 1
+          else
+            echo "SUCCESS: Data placeholder was properly replaced in dist/index.html"
+          fi
+          
+          # Copy data.json to dist for fallback loading
+          cp data.json dist/
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.5

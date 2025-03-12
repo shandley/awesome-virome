@@ -61,17 +61,46 @@ async function build() {
         await ensureDataExists();
         
         // Read the data.json file
-        const data = fs.readFileSync(DATA_PATH, 'utf8');
+        const dataRaw = fs.readFileSync(DATA_PATH, 'utf8');
+        
+        // Parse and then stringify the data to ensure proper JSON format
+        let data;
+        try {
+            data = JSON.parse(dataRaw);
+            console.log(`✅ Successfully parsed data.json (${Object.keys(data).length} keys found)`);
+        } catch (error) {
+            console.error(`❌ Error parsing data.json: ${error.message}`);
+            throw new Error(`Invalid JSON in data.json: ${error.message}`);
+        }
         
         // Read the index.html file
         let html = fs.readFileSync(INDEX_PATH, 'utf8');
         
-        // Replace the data placeholder with actual data
-        html = html.replace('<!-- DATA_PLACEHOLDER -->', data);
+        // Replace the data placeholder with properly JSON stringified data
+        const jsonString = JSON.stringify(data);
+        console.log(`✅ Data serialized for embedding (${jsonString.length} characters)`);
+        
+        // Make sure we're replacing the placeholder in the script tag, not just adding raw JSON
+        html = html.replace('<!-- DATA_PLACEHOLDER -->', jsonString);
+        
+        // Verify that the replacement was successful
+        if (html.includes('<!-- DATA_PLACEHOLDER -->')) {
+            console.error('❌ Error: Failed to replace data placeholder in HTML');
+            throw new Error('Data placeholder was not replaced');
+        }
         
         // Write the result to the output directory
         fs.writeFileSync(OUTPUT_INDEX, html);
         console.log(`✅ Created ${OUTPUT_INDEX} with embedded data`);
+        
+        // Verify the data was properly embedded
+        const outputHtml = fs.readFileSync(OUTPUT_INDEX, 'utf8');
+        if (!outputHtml.includes('"nodes":') && !outputHtml.includes('"links":') && 
+            !outputHtml.includes('"categories":')) {
+            console.warn('⚠️ Warning: Output HTML may not contain expected data structure');
+        } else {
+            console.log('✅ Data appears to be properly embedded in HTML');
+        }
         
         // Copy other necessary files to the output directory
         const filesToCopy = ['styles.css', 'visualization.js'];

@@ -34,24 +34,89 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show loading indicator
         document.getElementById('loading-indicator').style.display = 'block';
         
-        // Try different data loading approaches in sequence
-        tryLoadData('./data.json')
-            .catch(error => {
-                console.log('Failed to load from ./data.json, trying relative path...');
-                return tryLoadData('data.json');
+        // Start data loading process with multiple fallbacks
+        loadWithFallbacks();
+    }
+    
+    // Try loading data with multiple fallback strategies
+    function loadWithFallbacks() {
+        console.log('Starting data loading process with fallbacks...');
+        
+        // First try loading from embedded data (best for GitHub Pages)
+        tryEmbeddedData()
+            .then(data => {
+                console.log('Successfully loaded data from embedded script tag');
+                return data;
             })
             .catch(error => {
-                console.log('Failed to load from data.json, trying with fetch API...');
-                return tryFetchData('data.json');
+                console.log('No embedded data found, trying GitHub Pages path...', error);
+                
+                // Next try GitHub Pages path if applicable
+                if (window.baseUrl) {
+                    const possiblePaths = [
+                        `${window.baseUrl}/data.json`,
+                        `${window.baseUrl.replace(/\/+$/, '')}/data.json` // Ensure no trailing slash
+                    ];
+                    
+                    console.log('Trying potential GitHub Pages paths:', possiblePaths);
+                    
+                    // Try each potential path in sequence
+                    return possiblePaths.reduce(
+                        (promise, path) => promise.catch(() => tryLoadData(path)),
+                        Promise.reject()
+                    ).then(data => {
+                        console.log(`Successfully loaded data from GitHub Pages path`);
+                        return data;
+                    }).catch(error => {
+                        console.log(`Failed to load from all GitHub Pages paths, trying other paths...`);
+                        throw error; // continue to next fallback
+                    });
+                } else {
+                    throw new Error('No baseUrl defined, trying local paths'); // continue to next fallback
+                }
             })
             .catch(error => {
-                console.log('Failed to load with fetch API, trying embedded data...');
-                return tryEmbeddedData();
+                // Then try local paths
+                console.log('Trying local paths...', error);
+                const localPaths = ['./data.json', '../data.json', 'data.json', '/data.json'];
+                
+                // Try each local path in sequence
+                return localPaths.reduce(
+                    (promise, path) => promise.catch(() => {
+                        console.log(`Trying local path: ${path}`);
+                        return tryLoadData(path);
+                    }),
+                    Promise.reject()
+                ).then(data => {
+                    console.log('Successfully loaded data from a local path');
+                    return data;
+                }).catch(error => {
+                    console.log('Failed all local path attempts');
+                    throw error;
+                });
             })
             .catch(error => {
+                // Finally try with fetch API as last attempt
+                console.log('Trying fetch API as last resort...', error);
+                return ['data.json', './data.json', `${window.baseUrl || ''}/data.json`].reduce(
+                    (promise, path) => promise.catch(() => tryFetchData(path)), 
+                    Promise.reject()
+                );
+            })
+            .catch(error => {
+                // All loading methods failed
                 console.error('All data loading methods failed:', error);
                 
-                // Add detailed error message with troubleshooting tips
+                // Log technical details for debugging
+                console.error('Technical details:', {
+                    baseUrl: window.baseUrl || 'none',
+                    location: window.location.href,
+                    hostname: window.location.hostname,
+                    pathname: window.location.pathname,
+                    errorMessage: error.message
+                });
+                
+                // Show error message with sample data option
                 const errorMessage = document.getElementById('error-message');
                 errorMessage.innerHTML = `
                     <div class="alert-heading d-flex align-items-center mb-2">
@@ -86,13 +151,64 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
                 
                 showError();
-                return Promise.reject(error);
             });
+    }
+    
+    // Check for embedded data in the HTML (for GitHub Pages compatibility)
+    function tryEmbeddedData() {
+        return new Promise((resolve, reject) => {
+            const embeddedDataElement = document.getElementById('embedded-data');
+            
+            if (embeddedDataElement) {
+                try {
+                    // Trim whitespace and remove HTML comments
+                    let content = embeddedDataElement.textContent.trim();
+                    
+                    // Check if the content still contains the placeholder
+                    if (content.includes('<!-- DATA_PLACEHOLDER -->')) {
+                        console.log('Embedded data element contains placeholder, not actual data');
+                        reject(new Error('Data placeholder was not replaced during build'));
+                        return;
+                    }
+                    
+                    // Double check for any remaining HTML comments and remove them
+                    content = content.replace(/<!--.*?-->/g, '').trim();
+                    
+                    if (content && content.length > 10) { // Arbitrary minimum to avoid empty/placeholder data
+                        console.log('Found embedded data, length:', content.length, 'characters');
+                        
+                        try {
+                            const data = JSON.parse(content);
+                            console.log('Successfully parsed embedded data with keys:', Object.keys(data).join(', '));
+                            
+                            processData(data);
+                            showDashboard();
+                            resolve(data);
+                        } catch (parseError) {
+                            console.error('JSON parse error:', parseError);
+                            console.log('Content starts with:', content.substring(0, 100) + '...');
+                            reject(parseError);
+                        }
+                    } else {
+                        console.log('Embedded data element exists but content is empty or too short:', content);
+                        reject(new Error('Embedded data tag exists but has no content'));
+                    }
+                } catch (error) {
+                    console.error('Error processing embedded data:', error);
+                    reject(error);
+                }
+            } else {
+                console.log('No embedded data element found in HTML');
+                reject(new Error('No embedded data element in HTML'));
+            }
+        });
     }
     
     // Try loading data with d3.json
     function tryLoadData(path) {
         return new Promise((resolve, reject) => {
+            console.log('Attempting to load data from:', path);
+            
             d3.json(path)
                 .then(data => {
                     console.log('Data loaded successfully from:', path);
@@ -110,6 +226,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Try loading data with fetch API (might work in cases where d3.json fails)
     function tryFetchData(path) {
         return new Promise((resolve, reject) => {
+            console.log('Attempting to fetch data from:', path);
+            
             fetch(path)
                 .then(response => {
                     if (!response.ok) {
@@ -127,29 +245,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.error(`Error fetching data from ${path}:`, error);
                     reject(error);
                 });
-        });
-    }
-    
-    // Check for embedded data in the HTML (for GitHub Pages compatibility)
-    function tryEmbeddedData() {
-        return new Promise((resolve, reject) => {
-            const embeddedDataElement = document.getElementById('embedded-data');
-            
-            if (embeddedDataElement) {
-                try {
-                    const data = JSON.parse(embeddedDataElement.textContent);
-                    console.log('Using embedded data from HTML');
-                    processData(data);
-                    showDashboard();
-                    resolve(data);
-                } catch (error) {
-                    console.error('Error parsing embedded data:', error);
-                    reject(error);
-                }
-            } else {
-                console.error('No embedded data found in HTML');
-                reject(new Error('No embedded data available'));
-            }
         });
     }
     
@@ -498,6 +593,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const categories = [...new Set(allData.map(tool => tool.category))].sort();
         const categorySelect = document.getElementById('category-filter');
         
+        // Clear existing options except "All Categories"
+        while (categorySelect.options.length > 1) {
+            categorySelect.remove(1);
+        }
+        
         categories.forEach(category => {
             if (category) {
                 const option = document.createElement('option');
@@ -510,6 +610,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get unique languages
         const languages = [...new Set(allData.map(tool => tool.language))].sort();
         const languageSelect = document.getElementById('language-filter');
+        
+        // Clear existing options except "All Languages"
+        while (languageSelect.options.length > 1) {
+            languageSelect.remove(1);
+        }
         
         languages.forEach(language => {
             if (language) {
@@ -598,7 +703,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     tool.category,
                     tool.subcategory,
                     tool.language
-                ].filter(Boolean).map(field => field.toLowerCase());
+                ].filter(Boolean).map(field => String(field).toLowerCase());
                 
                 return searchFields.some(field => field.includes(searchTerm));
             }
@@ -1739,4 +1844,23 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', debounce(() => {
         updateCharts();
     }, 200));
+    
+    // Add better error handling for GitHub Pages
+    window.addEventListener('error', function(event) {
+        console.error('Runtime JavaScript error:', event.message, event);
+        
+        // Only show the error container if it exists and is hidden (avoid duplicate error messages)
+        const errorMessage = document.getElementById('error-message');
+        if (errorMessage && errorMessage.style.display === 'none') {
+            errorMessage.innerHTML = `
+                <div class="alert-heading d-flex align-items-center mb-2">
+                    <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
+                    <h4 class="mb-0">JavaScript Error</h4>
+                </div>
+                <p>An error occurred while running the dashboard: <strong>${event.message}</strong></p>
+                <p>Please check the browser console for details (F12 or Ctrl+Shift+J) and report this issue.</p>
+            `;
+            errorMessage.style.display = 'block';
+        }
+    });
 });

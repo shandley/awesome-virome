@@ -13,13 +13,67 @@
         // Detect and set base URL for resource loading
         (function() {
             window.baseUrl = '';
+            
             // Check if we're on GitHub Pages with a repository name in the path
             const pathSegments = window.location.pathname.split('/');
-            if (pathSegments.length > 2 && window.location.hostname.includes('github.io')) {
-                // Set the base URL to the repository name
-                window.baseUrl = '/' + pathSegments[1] + '/';
-                console.log('Detected GitHub Pages path:', window.baseUrl);
+            
+            // GitHub Pages pattern: username.github.io/reponame/
+            if (window.location.hostname.includes('github.io')) {
+                if (pathSegments.length > 1) {
+                    // Extract the repository name from the path (should be the first non-empty segment)
+                    for (let i = 1; i < pathSegments.length; i++) {
+                        if (pathSegments[i] !== '') {
+                            window.baseUrl = '/' + pathSegments[i];
+                            console.log('Detected GitHub Pages repo path:', window.baseUrl);
+                            break;
+                        }
+                    }
+                }
+            } 
+            // Custom domains or other hosting environments
+            else if (pathSegments.length > 1) {
+                let basePath = '';
+                // Find the path to the repository root
+                for (let i = 1; i < pathSegments.length - 1; i++) {
+                    if (pathSegments[i] !== '') {
+                        basePath += '/' + pathSegments[i];
+                    }
+                }
+                if (basePath !== '') {
+                    window.baseUrl = basePath;
+                    console.log('Detected custom base path:', window.baseUrl);
+                }
             }
+            
+            // Ensure trailing slash is removed
+            window.baseUrl = window.baseUrl.replace(/\/+$/, '');
+            
+            // Fix script and link paths if needed
+            if (window.baseUrl) {
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Fix relative script sources
+                    document.querySelectorAll('script[src^="./"]').forEach(script => {
+                        const newSrc = script.src.replace(/^\.\//, window.baseUrl + '/');
+                        console.log(`Fixing script path: ${script.src} -> ${newSrc}`);
+                        script.src = newSrc;
+                    });
+                    
+                    // Fix relative link hrefs
+                    document.querySelectorAll('link[href^="./"]').forEach(link => {
+                        const newHref = link.href.replace(/^\.\//, window.baseUrl + '/');
+                        console.log(`Fixing link path: ${link.href} -> ${newHref}`);
+                        link.href = newHref;
+                    });
+                });
+            }
+            
+            // Log the base URL detection
+            console.log('Path detection:', {
+                hostname: window.location.hostname,
+                pathname: window.location.pathname,
+                pathSegments: pathSegments,
+                detectedBaseUrl: window.baseUrl
+            });
         })();
     </script>
 </head>
@@ -284,17 +338,95 @@
 
     <!-- Placeholder for embedded data - will be populated by build script for GitHub Pages -->
     <script id="embedded-data" type="application/json">
-        <!-- DATA_PLACEHOLDER -->
+<!-- DATA_PLACEHOLDER -->
     </script>
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="./visualization.js"></script>
+    <script>
+        // Dynamically load visualization.js with the correct path
+        document.addEventListener('DOMContentLoaded', function() {
+            const script = document.createElement('script');
+            const baseUrlPath = window.baseUrl ? window.baseUrl + '/' : '';
+            script.src = baseUrlPath + 'visualization.js';
+            script.onerror = function() {
+                console.error(`Failed to load visualization.js from ${script.src}, trying fallback path...`);
+                // Try fallback with relative path
+                script.src = './visualization.js';
+                script.onerror = function() {
+                    console.error(`Fatal error: Failed to load visualization.js from fallback path`);
+                    document.getElementById('error-message').innerHTML = `
+                        <div class="alert-heading d-flex align-items-center mb-2">
+                            <i class="bi bi-exclamation-triangle-fill me-2 fs-4"></i>
+                            <h4 class="mb-0">Script Loading Error</h4>
+                        </div>
+                        <p>Failed to load the visualization script. This is likely due to GitHub Pages path issues.</p>
+                        <p>Please check the console for errors (F12) and try refreshing the page.</p>
+                    `;
+                    document.getElementById('error-message').style.display = 'block';
+                    document.getElementById('loading-indicator').style.display = 'none';
+                };
+            };
+            console.log(`Loading visualization.js from: ${script.src}`);
+            document.body.appendChild(script);
+        });
+    </script>
     
     <!-- GitHub Pages Analytics (optional) -->
     <script>
         // If you want to add analytics, you can do it here
+    </script>
+    
+    <!-- Debugging script for GitHub Pages -->
+    <script>
+        // Add runtime debugging information
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Dashboard initialization:');
+            console.log('- URL:', window.location.href);
+            console.log('- Pathname:', window.location.pathname);
+            console.log('- Base URL detected:', window.baseUrl || 'none');
+            
+            // Check if embedded data exists and its size
+            const embeddedData = document.getElementById('embedded-data');
+            if (embeddedData) {
+                const dataText = embeddedData.textContent.trim();
+                console.log('- Embedded data found, length:', dataText.length);
+                if (dataText.length < 100) {
+                    console.log('- WARNING: Embedded data seems too small or empty');
+                    console.log('- Content:', dataText.substring(0, 100) + '...');
+                } else if (dataText.startsWith('<!-- DATA_PLACEHOLDER -->')) {
+                    console.log('- WARNING: Data placeholder not replaced during build');
+                } else {
+                    try {
+                        const testParse = JSON.parse(dataText);
+                        console.log('- Embedded data valid JSON with structure:', 
+                            Object.keys(testParse).join(', '));
+                    } catch (e) {
+                        console.error('- ERROR: Embedded data is not valid JSON:', e.message);
+                    }
+                }
+            } else {
+                console.log('- WARNING: No embedded data element found');
+            }
+            
+            // Add an error handler for runtime visualization issues
+            window.addEventListener('error', function(event) {
+                console.error('Runtime error:', event.message);
+                const errorText = document.createElement('div');
+                errorText.className = 'alert alert-danger mt-3';
+                errorText.innerHTML = `
+                    <strong>JavaScript Error:</strong> ${event.message}<br>
+                    <small>Check browser console for details (F12)</small>
+                `;
+                
+                // Add to beginning of dashboard container
+                const dashboardContent = document.getElementById('dashboard-content');
+                if (dashboardContent) {
+                    dashboardContent.prepend(errorText);
+                }
+            });
+        });
     </script>
 </body>
 </html>
