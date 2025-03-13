@@ -7,6 +7,7 @@ Also identifies unavailable repositories (404 errors).
 import re
 import os
 import sys
+import argparse
 import time
 import json
 import logging
@@ -421,15 +422,16 @@ def update_readme_with_dates_status_and_stars(readme_path, repo_data):
     
     return updated_content, unavailable_repos, github_repos_with_stars
 
-def main():
+def main(readme):
     """Main function to check and update repository information."""
     # Check if GITHUB_TOKEN is set
     if not GITHUB_TOKEN:
         logger.warning("GITHUB_TOKEN environment variable not set. Rate limiting will be more restrictive.")
     
-    readme_path = Path(__file__).parent / "README.md"
+    readme_path = os.path.join(Path(__file__).parent, readme)
     
-    if not readme_path.exists():
+    print(f"Checking and updating repository information in {readme_path}")
+    if not os.path.exists(readme_path):
         logger.error(f"README file not found at {readme_path}")
         sys.exit(1)
     
@@ -473,4 +475,8 @@ def main():
     logger.info("Results saved to repo_updates.json")
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Check and update repository information in README")
+    parser.add_argument("-r", "--readme", type=str, help="Path to the README file", default="README.md")
+    args = parser.parse_args()
+
+    main(args.readme)
