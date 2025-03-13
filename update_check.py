@@ -65,7 +65,7 @@ bitbucket_limiter = RateLimiter(requests_per_minute=30)
 
 def extract_repos_from_readme(readme_path):
     """Extract repository URLs from the README file."""
-    with open(readme_path, 'r') as f:
+    with open(readme_path, 'r', encoding='utf-8') as f:
         content = f.read()
     
     # Regular expression to match markdown links
@@ -317,7 +317,7 @@ def batch_process_repos(repos, batch_size=5, batch_delay=10):
 
 def update_readme_with_dates_status_and_stars(readme_path, repo_data):
     """Update the README with the last updated information, availability status, and create a popular packages section."""
-    with open(readme_path, 'r') as f:
+    with open(readme_path, 'r', encoding='utf-8') as f:
         content = f.read()
     
     updated_content = content
@@ -397,7 +397,7 @@ def update_readme_with_dates_status_and_stars(readme_path, repo_data):
             )
     
     # Write the updated content back to the README
-    with open(readme_path, 'w') as f:
+    with open(readme_path, 'w', encoding='utf-8') as f:
         f.write(updated_content)
     
     # Also create a file with the list of unavailable repositories
