@@ -7,6 +7,7 @@ Also identifies unavailable repositories (404 errors).
 import re
 import os
 import sys
+import argparse
 import time
 import json
 import logging
@@ -64,7 +65,7 @@ bitbucket_limiter = RateLimiter(requests_per_minute=30)
 
 def extract_repos_from_readme(readme_path):
     """Extract repository URLs from the README file."""
-    with open(readme_path, 'r') as f:
+    with open(readme_path, 'r', encoding='utf-8') as f:
         content = f.read()
     
     # Regular expression to match markdown links
@@ -325,7 +326,7 @@ def batch_process_repos(repos, batch_size=5, batch_delay=10):
 
 def update_readme_with_dates_status_and_stars(readme_path, repo_data):
     """Update the README with the last updated information, availability status, and create a popular packages section."""
-    with open(readme_path, 'r') as f:
+    with open(readme_path, 'r', encoding='utf-8') as f:
         content = f.read()
     
     updated_content = content
@@ -405,7 +406,7 @@ def update_readme_with_dates_status_and_stars(readme_path, repo_data):
             )
     
     # Write the updated content back to the README
-    with open(readme_path, 'w') as f:
+    with open(readme_path, 'w', encoding='utf-8') as f:
         f.write(updated_content)
     
     # Also create a file with the list of unavailable repositories
@@ -430,15 +431,15 @@ def update_readme_with_dates_status_and_stars(readme_path, repo_data):
     
     return updated_content, unavailable_repos, github_repos_with_stars
 
-def main():
+def main(readme):
     """Main function to check and update repository information."""
     # Check if GITHUB_TOKEN is set
     if not GITHUB_TOKEN:
         logger.warning("GITHUB_TOKEN environment variable not set. Rate limiting will be more restrictive.")
     
-    readme_path = Path(__file__).parent / "README.md"
+    readme_path = os.path.join(Path(__file__).parent, readme)
     
-    if not readme_path.exists():
+    if not os.path.exists(readme_path):
         logger.error(f"README file not found at {readme_path}")
         sys.exit(1)
     
@@ -483,4 +484,8 @@ def main():
     logger.info("Results saved to repo_updates.json")
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description="Check and update repository information in README")
+    parser.add_argument("-r", "--readme", type=str, help="Path to the README file", default="README.md")
+    args = parser.parse_args()
+
+    main(args.readme)
