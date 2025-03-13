@@ -1534,13 +1534,29 @@
                 const subcategorySelect = document.getElementById('subcategoryFilter');
                 const languageSelect = document.getElementById('languageFilter');
                 
-                // Add categories to filter
-                categoriesData.forEach(category => {
-                    const option = document.createElement('option');
-                    option.value = category.name;
-                    option.textContent = category.name;
-                    categorySelect.appendChild(option);
-                });
+                // Clear existing options
+                categorySelect.innerHTML = '<option value="">All Categories</option>';
+                subcategorySelect.innerHTML = '<option value="">All Subcategories</option>';
+                languageSelect.innerHTML = '<option value="">All Languages</option>';
+                
+                // Add categories from data.json categories array (not just from nodes)
+                if (data.categories && data.categories.length) {
+                    data.categories.forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category;
+                        option.textContent = category;
+                        categorySelect.appendChild(option);
+                    });
+                    console.log(`Added ${data.categories.length} categories to filter`);
+                } else {
+                    // Fallback to categories from categoriesData nodes
+                    categoriesData.forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category.name;
+                        option.textContent = category.name;
+                        categorySelect.appendChild(option);
+                    });
+                }
                 
                 // Add subcategories to filter
                 const uniqueSubcats = [...new Set(subcategoriesData.map(subcat => subcat.name))];
@@ -1551,13 +1567,24 @@
                     subcategorySelect.appendChild(option);
                 });
                 
-                // Add languages to filter
-                languagesData.forEach(language => {
-                    const option = document.createElement('option');
-                    option.value = language;
-                    option.textContent = language;
-                    languageSelect.appendChild(option);
-                });
+                // Add languages to filter from data.json languages array
+                if (data.languages && data.languages.length) {
+                    data.languages.forEach(language => {
+                        const option = document.createElement('option');
+                        option.value = language;
+                        option.textContent = language;
+                        languageSelect.appendChild(option);
+                    });
+                    console.log(`Added ${data.languages.length} languages to filter`);
+                } else {
+                    // Fallback to languages from toolsData
+                    languagesData.forEach(language => {
+                        const option = document.createElement('option');
+                        option.value = language;
+                        option.textContent = language;
+                        languageSelect.appendChild(option);
+                    });
+                }
                 
                 // Display tools
                 displayTools(toolsData);
