@@ -73,7 +73,9 @@ For newcomers to virome analysis, here are some recommended starting points:
 
 ## Virome Analysis Tool History
 
-[![Click for a full size image](timeline.png)](timeline.png){:width="400px" height="400px"}
+<a href="timeline.png" target="_blank">
+    <img src="timeline.png" alt="Click for a full size image" title="Click for a full size image" width="400" height="400">
+</a>
 
 
 ## Table of Contents
