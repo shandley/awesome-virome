@@ -24,6 +24,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_UPDATE_TOKEN }}
         run: python update_check.py
+        run: python create_timeline_image.py
       - name: Commit changes if any
         run: |
           git config --local user.email "action@github.com"
