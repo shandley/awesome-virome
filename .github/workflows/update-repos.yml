@@ -5,10 +5,17 @@ on:
     - cron: '0 0 * * 0'
     # Monthly enhanced metadata updates - Runs at 02:00 UTC on 1st of each month
     - cron: '0 2 1 * *'
+    # Monthly bioinformatics metadata updates - Runs at 04:00 UTC on 15th of each month
+    - cron: '0 4 15 * *'
   workflow_dispatch: # Allows manual triggering
     inputs:
       run_metadata_enhancement:
         description: 'Run enhanced metadata collection'
+        required: false
+        default: false
+        type: boolean
+      run_bioinformatics_metadata:
+        description: 'Run bioinformatics metadata collection'
         required: false
         default: false
         type: boolean
@@ -77,5 +84,43 @@ jobs:
           git add data.json metadata/ 2>/dev/null || true
           # Only commit if there are changes
           git diff --staged --quiet || git commit -m "Monthly metadata enhancement [skip ci]"
+      - name: Push changes
+        run: git push
+
+  bioinformatics-metadata:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.schedule == '0 4 15 * *' || github.event.inputs.run_bioinformatics_metadata == 'true' }}
+    needs: update-repos
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.REPO_UPDATE_TOKEN }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      - name: Create API modules cache directories
+        run: |
+          mkdir -p scripts/cache/biotools
+          mkdir -p scripts/cache/bioconda
+      - name: Run bioinformatics metadata collection
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_UPDATE_TOKEN }}
+        run: python scripts/bioinformatics_metadata.py
+      - name: Update data.json with bioinformatics metadata
+        run: python update_data_json.py --include-metadata --include-bioinformatics-metadata
+      - name: Commit bioinformatics metadata changes if any
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          # Add all potentially changed files
+          git add data.json metadata/ scripts/cache/ 2>/dev/null || true
+          # Only commit if there are changes
+          git diff --staged --quiet || git commit -m "Monthly bioinformatics metadata enhancement [skip ci]"
       - name: Push changes
         run: git push

@@ -368,10 +368,69 @@ def save_data_json(data, data_json_path):
         json.dump(data, f, indent=2)
     logger.info(f"Updated {data_json_path}")
 
+def load_bioinformatics_metadata():
+    """Load bioinformatics metadata from the metadata/bioinformatics directory."""
+    metadata_dir = Path(__file__).parent / "metadata" / "bioinformatics"
+    summary_path = metadata_dir / "summary.json"
+    
+    if not summary_path.exists():
+        logger.warning(f"Bioinformatics metadata summary file not found at {summary_path}")
+        return {}
+    
+    try:
+        with open(summary_path, 'r', encoding='utf-8') as f:
+            summary = json.load(f)
+        
+        # Create a dictionary mapping URLs to metadata
+        metadata_by_url = {}
+        for tool in summary.get("tools", []):
+            if "url" in tool:
+                metadata_by_url[tool["url"]] = tool
+                logger.info(f"Added bioinformatics metadata for URL: {tool['url']}")
+        
+        return metadata_by_url
+    except Exception as e:
+        logger.error(f"Error loading bioinformatics metadata: {e}")
+        return {}
+
+def update_data_json_with_bioinformatics(data, bioinformatics_metadata):
+    """Update data.json with bioinformatics metadata."""
+    if not bioinformatics_metadata:
+        return data
+    
+    # Get all nodes that are tools
+    tool_nodes = [node for node in data.get("nodes", []) if node.get("type") == "tool"]
+    
+    # Count of metadata matches
+    metadata_matches = 0
+    
+    # Update tool nodes with bioinformatics metadata
+    for node in tool_nodes:
+        if node.get("url") and node.get("url") in bioinformatics_metadata:
+            metadata = bioinformatics_metadata[node.get("url")]
+            metadata_matches += 1
+            
+            # Add bioinformatics fields
+            node["input_formats"] = metadata.get("input_formats", [])
+            node["output_formats"] = metadata.get("output_formats", [])
+            node["bioinformatics_categories"] = metadata.get("bioinformatics_categories", [])
+            node["dependencies"] = metadata.get("dependencies", [])
+            
+            # Update installation methods
+            if "installation_methods" not in node:
+                node["installation_methods"] = {}
+            
+            for method, value in metadata.get("installation_methods", {}).items():
+                node["installation_methods"][method] = value
+    
+    logger.info(f"Added bioinformatics metadata to {metadata_matches} tools")
+    return data
+
 def main():
     """Main function to extract tools from README.md and update data.json."""
     parser = argparse.ArgumentParser(description="Extract tool information from README.md and update data.json")
     parser.add_argument("--include-metadata", action="store_true", help="Include enhanced metadata from metadata directory")
+    parser.add_argument("--include-bioinformatics-metadata", action="store_true", help="Include bioinformatics metadata")
     args = parser.parse_args()
     
     repo_root = Path(__file__).parent
@@ -387,6 +446,14 @@ def main():
     
     logger.info(f"Updating {data_json_path}" + (" with enhanced metadata" if args.include_metadata else ""))
     updated_data = update_data_json(data, tools_data, include_metadata=args.include_metadata)
+    
+    # Load and add bioinformatics metadata if requested
+    if args.include_bioinformatics_metadata:
+        logger.info("Loading bioinformatics metadata...")
+        bioinformatics_metadata = load_bioinformatics_metadata()
+        if bioinformatics_metadata:
+            logger.info(f"Loaded bioinformatics metadata for {len(bioinformatics_metadata)} tools")
+            updated_data = update_data_json_with_bioinformatics(updated_data, bioinformatics_metadata)
     
     logger.info(f"Saving to {data_json_path}")
     save_data_json(updated_data, data_json_path)
