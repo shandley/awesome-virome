@@ -1,0 +1,114 @@
+{
+  "name": "COBRA",
+  "url": "https://github.com/linxingchen/cobra",
+  "provider": "github",
+  "repo_path": "linxingchen/cobra",
+  "description": "A tool to raise the quality of viral genomes assembled from short-read metagenomes via resolving and joining of contigs fragmented during de novo assembly.",
+  "created_at": "2021-03-10T07:11:33Z",
+  "updated_at": "2025-02-24T12:34:09Z",
+  "pushed_at": "2024-08-08T03:58:37Z",
+  "stars": 65,
+  "watchers": 65,
+  "forks": 11,
+  "open_issues": 21,
+  "default_branch": "main",
+  "license": "MIT License",
+  "license_url": "https://api.github.com/licenses/mit",
+  "homepage": "",
+  "is_archived": false,
+  "is_disabled": false,
+  "fetch_time": "2025-03-14T02:16:32.384992",
+  "languages": {
+    "Python": 99617
+  },
+  "topics": [
+    "metagenomics",
+    "viral-metagenomics",
+    "genome-assembly",
+    "manual-curation",
+    "short-read-sequencing"
+  ],
+  "latest_release": {
+    "name": "v1.2.3",
+    "tag": "v1.2.3",
+    "published_at": "2024-02-26T17:57:52Z",
+    "url": "https://github.com/linxingchen/cobra/releases/tag/v1.2.3"
+  },
+  "dependencies": {
+    "sbom": {
+      "spdxVersion": "SPDX-2.3",
+      "dataLicense": "CC0-1.0",
+      "SPDXID": "SPDXRef-DOCUMENT",
+      "name": "com.github.linxingchen/cobra",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/6b536e8a-6a1a-4a8f-8b09-d672d798480e",
+      "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
+      "creationInfo": {
+        "creators": [
+          "Tool: protobom-v0.0.0-20250313192307-8041c25f3baf+dirty",
+          "Tool: GitHub.com-Dependency-Graph"
+        ],
+        "created": "2025-03-14T02:16:40Z"
+      },
+      "packages": [
+        {
+          "name": "biopython",
+          "SPDXID": "SPDXRef-pypi-biopython-7b26ed",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/biopython"
+            }
+          ]
+        },
+        {
+          "name": "pysam",
+          "SPDXID": "SPDXRef-pypi-pysam-d87ce5",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/pysam"
+            }
+          ]
+        },
+        {
+          "name": "com.github.linxingchen/cobra",
+          "SPDXID": "SPDXRef-github-linxingchen-cobra-main-eb064d",
+          "versionInfo": "main",
+          "downloadLocation": "git+https://github.com/linxingchen/cobra",
+          "filesAnalyzed": false,
+          "licenseDeclared": "MIT",
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:github/linxingchen/cobra@main"
+            }
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "spdxElementId": "SPDXRef-github-linxingchen-cobra-main-eb064d",
+          "relatedSpdxElement": "SPDXRef-pypi-biopython-7b26ed",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-linxingchen-cobra-main-eb064d",
+          "relatedSpdxElement": "SPDXRef-pypi-pysam-d87ce5",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-DOCUMENT",
+          "relatedSpdxElement": "SPDXRef-github-linxingchen-cobra-main-eb064d",
+          "relationshipType": "DESCRIBES"
+        }
+      ]
+    }
+  }
+}

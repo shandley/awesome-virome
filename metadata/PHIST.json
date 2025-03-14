@@ -1,0 +1,99 @@
+{
+  "name": "PHIST",
+  "url": "https://github.com/refresh-bio/phist",
+  "provider": "github",
+  "repo_path": "refresh-bio/phist",
+  "description": "Phage-Host Interaction Search Tool",
+  "created_at": "2021-08-11T20:18:23Z",
+  "updated_at": "2025-01-20T13:12:58Z",
+  "pushed_at": "2024-07-08T14:49:09Z",
+  "stars": 27,
+  "watchers": 27,
+  "forks": 2,
+  "open_issues": 3,
+  "default_branch": "master",
+  "license": "GNU General Public License v3.0",
+  "license_url": "https://api.github.com/licenses/gpl-3.0",
+  "homepage": "",
+  "is_archived": false,
+  "is_disabled": false,
+  "fetch_time": "2025-03-14T02:10:15.769796",
+  "languages": {
+    "C++": 26447,
+    "Python": 5126,
+    "Makefile": 1164
+  },
+  "topics": [
+    "bacterial-genomes",
+    "bioinformatics",
+    "genomics",
+    "host-prediction",
+    "k-mers",
+    "phages"
+  ],
+  "latest_release": {
+    "name": "v1.2.1: Updated kmer-db submodule",
+    "tag": "v1.2.1",
+    "published_at": "2024-07-08T14:49:09Z",
+    "url": "https://github.com/refresh-bio/PHIST/releases/tag/v1.2.1"
+  },
+  "dependencies": {
+    "sbom": {
+      "spdxVersion": "SPDX-2.3",
+      "dataLicense": "CC0-1.0",
+      "SPDXID": "SPDXRef-DOCUMENT",
+      "name": "com.github.refresh-bio/PHIST",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/84994605-3250-4050-97a6-3049bf1764b8",
+      "creationInfo": {
+        "creators": [
+          "Tool: protobom-v0.0.0-20250313192307-8041c25f3baf+dirty",
+          "Tool: GitHub.com-Dependency-Graph"
+        ],
+        "created": "2025-03-14T02:10:23Z"
+      },
+      "packages": [
+        {
+          "name": "actions/checkout",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-2..-7b26ed",
+          "versionInfo": "2.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/checkout@2.%2A.%2A"
+            }
+          ]
+        },
+        {
+          "name": "com.github.refresh-bio/PHIST",
+          "SPDXID": "SPDXRef-github-refresh-bio-PHIST-master-654835",
+          "versionInfo": "master",
+          "downloadLocation": "git+https://github.com/refresh-bio/PHIST",
+          "filesAnalyzed": false,
+          "licenseDeclared": "GPL-3.0",
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:github/refresh-bio/PHIST@master"
+            }
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "spdxElementId": "SPDXRef-github-refresh-bio-PHIST-master-654835",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-2..-7b26ed",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-DOCUMENT",
+          "relatedSpdxElement": "SPDXRef-github-refresh-bio-PHIST-master-654835",
+          "relationshipType": "DESCRIBES"
+        }
+      ]
+    }
+  }
+}
