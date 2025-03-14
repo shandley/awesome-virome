@@ -1,0 +1,424 @@
+{
+  "cache_date": "2025-03-14T03:28:49.652321",
+  "data": [
+    {
+      "created": "2025-01-21T16:04:00.660017+00:00",
+      "modified": "2025-01-21T16:17:52.449284+00:00",
+      "id": 14713180,
+      "conceptrecid": "13682750",
+      "doi": "10.5281/zenodo.14713180",
+      "conceptdoi": "10.5281/zenodo.13682750",
+      "doi_url": "https://doi.org/10.5281/zenodo.14713180",
+      "metadata": {
+        "title": "Exploring the global metaplasmidome: unravelling plasmid landscapes and the spread of antibiotic resistance genes across diverse ecosystems",
+        "doi": "10.5281/zenodo.14713180",
+        "publication_date": "2025-01-21",
+        "description": "<p>Plasmid content was predicted from assembled data already publicly available or constructed from reads for this study. The assembled data supplied by Pasolli and colleagues (Pasolli <em>et al.</em>, 2019) , metasub consortium (Danko <em>et al.</em>, 2020) and TARA ocean (Tully <em>et al.</em>, 2018) were used for the human microbiome, the built environment and the marine ecosystem respectively. For assembly in the current study, reads from metagenomes were selected from two main databases. For the soil ecosystem, the metagenomes were selected from the dedicated curated database &ldquo;TerrestrialMetagenomeDB&rdquo; (Corr&ecirc;a <em>et al.</em>, 2020).&nbsp;</p>\n<p>If the metagenomes were not assembled, reads were assembled by using megahit 1.2.9 with the metalarge option (Li <em>et al.</em>, 2015) after cleaning the data with bbduk2 (qtrim=rl trimq=28 minlen=25 maq=20 ktrim=r k=25 mink=11 and a list of adapters to remove) from the bbtools suite (<a href=\"https://jgi.doe.gov/data-and-tools/software-tools/bbtools/\">https://jgi.doe.gov/data-and-tools/software-tools/bbtools/</a>).</p>\n<p>Plasmids were predicted for each assembly by using both reference-based and reference-free approaches as described in previous works (Hilpert <em>et al.</em>, 2021; Hennequin <em>et al.</em>, 2022) and available on the github website (https://github.com/meb-team/PlasSuite/). The databases used for the first approach included those for chromosomes (archaea and bacteria) and plasmids from RefSeq, as well as the MOB-suite tool (Robertson and Nash, 2018), SILVA (Quast <em>et al.</em>, 2013) and phylogenetic markers hosted by chromosomes (Wu <em>et al.</em>, 2013). The database created for this purpose is available at this address <a href=\"https://github.com/meb-team/PlasSuite/?tab=readme-ov-file#1-prepare-or-download-your-databases\">https://github.com/meb-team/PlasSuite/?tab=readme-ov-file#1-prepare-or-download-your-</a><a href=\"https://github.com/meb-team/PlasSuite/?tab=readme-ov-file#1-prepare-or-download-your-databases\">databases</a>. Two reference-free methods were applied to contigs that were not affiliated with chromosomes (discarded) or plasmids (retained in the first step): PlasFlow (Krawczyk <em>et al.</em>, 2018) and PlasClass (Pellow <em>et al.</em>, 2020). Previously undetected viruses were removed by using ViralVerify (<a href=\"https://github.com/ablab/viralVerify\">https://github.com/ablab/viralVerify</a>)(Antipov <em>et al.</em>, 2020) that provides in parallel plasmid/non-plasmid classification. This step would also remove potential plasmid-phage elements as described by Pfeifer <em>et&nbsp;al.</em>&nbsp; (Pfeifer <em>et al.</em>, 2021), but would minimise false positives. Eukaryotic contamination was removed by aligning the sequences against the NT database and human chromosomes (GRCh38) using minimap2 (Li, 2018) with -x asm5 option. Contigs mapping with 95% identity for at least 80% coverage were removed. The predicted plasmids, hereafter referred as plasmid-like sequences (PLSs), were grouped by \"scientific names\" (<em>i.e.</em> 27) such as defined in the SRA metadata (air, lake, wetland&hellip;) and subsequently named ecosystems. These ecosystems were grouped in 9 biomes (Tab Supplementary 4). The data were then dereplicated by ecosystems using cd-hit-est with a threshold of 99%. The dereplicated PLSs were then clustered using MMseqs2 (Steinegger and S&ouml;ding, 2017) with 80% of coverage an 90% of identity (--min-seq-id 0.90 -c 0.8 --cov-mode 1 --cluster-mode 2 --alignment-mode 3 --kmer-per-seq-scale 0.2) to define plasmid-like clusters (PLCs).</p>\n<div>\n<p>The PLC sequences are included in the file \"predicted_PLC.fasta\" and the main features are dercribed in the file \"metadata_PLC.tsv\"</p>\n<ul>\n<li>fasta_id: fasta identification of the PLC</li>\n<li>ecosystem: ecosystem from which the PLC originates</li>\n<li>biome: biome of the ecosystem</li>\n<li>latitude, longitude: GPS coordinate of the ecosystem</li>\n<li>length: PLC length</li>\n<li>map_markers: plasmid marker genes detected by PlasSuite (Hilpert et al., 2021)</li>\n<li>map_ncbi: PLCs present in the RefSeq plasmid database(Hilpert et al., 2021)</li>\n<li>nb_genes: Number of genes detected by Prokka implemented in PlasSuite</li>\n<li>nb_args: ARGs detected by PlasSuite</li>\n<li>plascad: results from plascad (Che et al., 2021)</li>\n</ul>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>Antipov, D., Raiko, M., Lapidus, A., and Pevzner, P.A. (2020) MetaviralSPAdes: assembly of viruses from metagenomic data. <em>Bioinformatics</em> <strong>36</strong>: 4126&ndash;4129.</p>\n<p>Che, Y., Yang, Y., Xu, X., B\u0159inda, K., Polz, M.F., Hanage, W.P., and Zhang, T. (2021) Conjugative plasmids interact with insertion sequences to shape the horizontal transfer of antimicrobial resistance genes. Proceedings of the National Academy of Sciences 118: e2008731118.</p>\n<p>Corr&ecirc;a, F.B., Saraiva, J.P., Stadler, P.F., and da Rocha, U.N. (2020) TerrestrialMetagenomeDB: a public repository of curated and standardized metadata for terrestrial metagenomes.&nbsp;<em>Nucleic Acids Res</em> <strong>48</strong>: D626&ndash;D632.</p>\n<p>Danko, D., Bezdan, D., Afshinnekoo, E., Ahsanuddin, S., Bhattacharya, C., Butler, D.J., et al. (2020) Global Genetic Cartography of Urban Metagenomes and Anti-Microbial Resistance. <em>bioRxiv</em> 724526.</p>\n<p>Hennequin, C., Forestier, C., Traore, O., Debroas, D., and Bricheux, G. (2022) Plasmidome analysis of a hospital effluent biofilm: Status of antibiotic resistance. <em>Plasmid</em> <strong>122</strong>: 102638.</p>\n<p>Hilpert, C., Bricheux, G., and Debroas, D. (2021) Reconstruction of plasmids by shotgun sequencing from environmental DNA: which bioinformatic workflow? <em>Briefings in Bioinformatics</em> <strong>22</strong>: bbaa059.</p>\n<p>Krawczyk, P.S., Lipinski, L., and Dziembowski, A. (2018) PlasFlow: predicting plasmid sequences in metagenomic data using genome signatures. <em>Nucleic Acids Res</em> <strong>46</strong>: e35.</p>\n<p>Li, D., Liu, C.-M., Luo, R., Sadakane, K., and Lam, T.-W. (2015) MEGAHIT: an ultra-fast single-node solution for large and complex metagenomics assembly via succinct de Bruijn graph. <em>Bioinformatics</em> <strong>31</strong>: 1674&ndash;1676.</p>\n<p>Li, H. (2018) Minimap2: pairwise alignment for nucleotide sequences. <em>Bioinformatics</em> <strong>34</strong>: 3094&ndash;3100.</p>\n<p>Pasolli, E., Asnicar, F., Manara, S., Zolfo, M., Karcher, N., Armanini, F., et al. (2019) Extensive Unexplored Human Microbiome Diversity Revealed by Over 150,000 Genomes from Metagenomes Spanning Age, Geography, and Lifestyle. <em>Cell</em> <strong>176</strong>: 649-662.e20.</p>\n<p>Pellow, D., Mizrahi, I., and Shamir, R. (2020) PlasClass improves plasmid sequence classification. <em>PLOS Computational Biology</em> <strong>16</strong>: e1007781.</p>\n<p>Pfeifer, E., Moura de Sousa, J.A., Touchon, M., and Rocha, E.P.C. (2021) Bacteria have numerous distinctive groups of phage&ndash;plasmids with conserved phage and variable plasmid gene repertoires. <em>Nucleic Acids Res</em> <strong>49</strong>: 2655&ndash;2673.</p>\n<p>Quast, C., Pruesse, E., Yilmaz, P., Gerken, J., Schweer, T., Yarza, P., et al. (2013) The SILVA ribosomal RNA gene database project: improved data processing and web-based tools. <em>Nucleic Acids Res</em> <strong>41</strong>: D590&ndash;D596.</p>\n<p>Robertson, J. and Nash, J.H.E. (2018) MOB-suite: software tools for clustering, reconstruction and typing of plasmids from draft assemblies. <em>Microbial Genomics</em> <strong>4</strong>:.</p>\n<p>Steinegger, M. and S&ouml;ding, J. (2017) MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. <em>Nature Biotechnology</em>.</p>\n<p>Tully, B.J., Graham, E.D., and Heidelberg, J.F. (2018) The reconstruction of 2,631 draft metagenome-assembled genomes from the global oceans. <em>Scientific Data</em> <strong>5</strong>: 170203.</p>\n<p>Wu, D., Jospin, G., and Eisen, J.A. (2013) Systematic Identification of Gene Families for Use as &ldquo;Markers&rdquo; for Phylogenetic and Phylogeny-Driven Ecological Studies of Bacteria and Archaea and Their Major Subgroups. <em>PLoS One</em> <strong>8</strong>:.</p>\n</div>\n<p>&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "DEBROAS, Didier",
+            "affiliation": null,
+            "orcid": "0000-0002-9915-1268"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 1,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "13682750"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Exploring the global metaplasmidome: unravelling plasmid landscapes and the spread of antibiotic resistance genes across diverse ecosystems",
+      "links": {
+        "self": "https://zenodo.org/api/records/14713180",
+        "self_html": "https://zenodo.org/records/14713180",
+        "doi": "https://doi.org/10.5281/zenodo.14713180",
+        "self_doi": "https://doi.org/10.5281/zenodo.14713180",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14713180",
+        "parent": "https://zenodo.org/api/records/13682750",
+        "parent_html": "https://zenodo.org/records/13682750",
+        "parent_doi": "https://doi.org/10.5281/zenodo.13682750",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13682750",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14713180/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14713180/sequence/default",
+        "files": "https://zenodo.org/api/records/14713180/files",
+        "media_files": "https://zenodo.org/api/records/14713180/media-files",
+        "archive": "https://zenodo.org/api/records/14713180/files-archive",
+        "archive_media": "https://zenodo.org/api/records/14713180/media-files-archive",
+        "latest": "https://zenodo.org/api/records/14713180/versions/latest",
+        "latest_html": "https://zenodo.org/records/14713180/latest",
+        "versions": "https://zenodo.org/api/records/14713180/versions",
+        "draft": "https://zenodo.org/api/records/14713180/draft",
+        "reserve_doi": "https://zenodo.org/api/records/14713180/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/14713180/access/links",
+        "access_grants": "https://zenodo.org/api/records/14713180/access/grants",
+        "access_users": "https://zenodo.org/api/records/14713180/access/users",
+        "access_request": "https://zenodo.org/api/records/14713180/access/request",
+        "access": "https://zenodo.org/api/records/14713180/access",
+        "communities": "https://zenodo.org/api/records/14713180/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/14713180/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/14713180/requests"
+      },
+      "updated": "2025-01-21T16:17:52.449284+00:00",
+      "recid": "14713180",
+      "revision": 6,
+      "files": [
+        {
+          "id": "aa21dd4b-b788-402b-9291-43b61ea67389",
+          "key": "predicted_PLC.fasta.gz",
+          "size": 7660879939,
+          "checksum": "md5:19834991c0c7dfa730c1b860feafac2a",
+          "links": {
+            "self": "https://zenodo.org/api/records/14713180/files/predicted_PLC.fasta.gz/content"
+          }
+        },
+        {
+          "id": "d87d47c6-df0a-4c6e-8e94-3214cd177ab7",
+          "key": "metadata_PLC.tsv.gz",
+          "size": 52244479,
+          "checksum": "md5:f6a837076702b2475b9d1b5fd55bfbb7",
+          "links": {
+            "self": "https://zenodo.org/api/records/14713180/files/metadata_PLC.tsv.gz/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1105501"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 6,
+        "unique_downloads": 6,
+        "views": 59,
+        "unique_views": 49,
+        "version_downloads": 6,
+        "version_unique_downloads": 6,
+        "version_unique_views": 8,
+        "version_views": 11
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2024-08-29T19:39:25.553553+00:00",
+      "modified": "2025-02-06T23:26:56.689859+00:00",
+      "id": 13534644,
+      "conceptrecid": "13534643",
+      "doi": "10.5281/zenodo.13534644",
+      "conceptdoi": "10.5281/zenodo.13534643",
+      "doi_url": "https://doi.org/10.5281/zenodo.13534644",
+      "metadata": {
+        "title": "MetaviralSPAdes: assembly of viruses from metagenomic data",
+        "doi": "10.5281/zenodo.13534644",
+        "publication_date": "2020",
+        "description": "(Uploaded by Plazi for the Bat Literature Project) Although the set of currently known viruses has been steadily expanding, only a tiny fraction of the Earth's virome has been sequenced so far. Shotgun metagenomic sequencing provides an opportunity to reveal novel viruses but faces the computational challenge of identifying viral genomes that are often difficult to detect in metagenomic assemblies.We describe a MetaviralSPAdes tool for identifying viral genomes in metagenomic assembly graphs that is based on analyzing variations in the coverage depth between viruses and bacterial chromosomes. We benchmarked MetaviralSPAdes on diverse metagenomic datasets, verified our predictions using a set of virus-specific Hidden Markov Models and demonstrated that it improves on the state-of-the-art viral identification pipelines.MetaviralSPAdes includes ViralAssembly, ViralVerify and ViralComplete modules that are available as standalone packages: https://github.com/ablab/spades/tree/metaviral_publication, https://github.com/ablab/viralVerify/ and https://github.com/ablab/viralComplete/.d.antipov@spbu.ruSupplementary data are available at Bioinformatics online.",
+        "access_right": "restricted",
+        "creators": [
+          {
+            "name": "Antipov, Dmitry",
+            "affiliation": null
+          },
+          {
+            "name": "Raiko, Mikhail",
+            "affiliation": null
+          },
+          {
+            "name": "Lapidus, Alla",
+            "affiliation": null
+          },
+          {
+            "name": "Pevzner, Pavel A",
+            "affiliation": null
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Mammalia",
+          "Chiroptera",
+          "Chordata",
+          "Animalia",
+          "bats",
+          "bat"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "hash://md5/09128cb0dd4c36b3f16447d4bd717560",
+            "relation": "hasVersion",
+            "scheme": "url"
+          },
+          {
+            "identifier": "hash://sha256/6699d58fbf4591489bbef0409f0b81b6d74a71b147eb199149c6ef0e3ffd85c3",
+            "relation": "hasVersion",
+            "scheme": "url"
+          },
+          {
+            "identifier": "zotero://select/groups/5435545/items/HUBSSYWJ",
+            "relation": "isDerivedFrom",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zotero.org/groups/5435545/items/HUBSSYWJ",
+            "relation": "isDerivedFrom",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://linker.bio/cut:hash://md5/b1e51942e509368f84ae54545f83916e!/b76349-78946",
+            "relation": "isDerivedFrom",
+            "scheme": "url"
+          },
+          {
+            "identifier": "hash://md5/ce1e7618f237ff56e74d51f496e811a3",
+            "relation": "isPartOf",
+            "scheme": "url"
+          },
+          {
+            "identifier": "10.5281/zenodo.1410543",
+            "relation": "isCompiledBy",
+            "resource_type": "software",
+            "scheme": "doi"
+          }
+        ],
+        "custom": {
+          "dwc:class": [
+            "Mammalia"
+          ],
+          "dwc:kingdom": [
+            "Animalia"
+          ],
+          "dwc:order": [
+            "Chiroptera"
+          ],
+          "dwc:phylum": [
+            "Chordata"
+          ]
+        },
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "14",
+          "pages": "4126-4129",
+          "title": "Bioinformatics",
+          "volume": "36"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "hash://md5/09128cb0dd4c36b3f16447d4bd717560"
+          },
+          {
+            "identifier": "urn:lsid:zotero.org:groups:5435545:items:HUBSSYWJ"
+          },
+          {
+            "identifier": "10.1093/bioinformatics/btaa490"
+          }
+        ],
+        "communities": [
+          {
+            "id": "batlit"
+          },
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "13534643"
+              }
+            }
+          ]
+        }
+      },
+      "title": "MetaviralSPAdes: assembly of viruses from metagenomic data",
+      "links": {
+        "self": "https://zenodo.org/api/records/13534644",
+        "self_html": "https://zenodo.org/records/13534644",
+        "doi": "https://doi.org/10.5281/zenodo.13534644",
+        "self_doi": "https://doi.org/10.5281/zenodo.13534644",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13534644",
+        "parent": "https://zenodo.org/api/records/13534643",
+        "parent_html": "https://zenodo.org/records/13534643",
+        "parent_doi": "https://doi.org/10.5281/zenodo.13534643",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13534643",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:13534644/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:13534644/sequence/default",
+        "files": "https://zenodo.org/api/records/13534644/files",
+        "media_files": "https://zenodo.org/api/records/13534644/media-files",
+        "archive": "https://zenodo.org/api/records/13534644/files-archive",
+        "archive_media": "https://zenodo.org/api/records/13534644/media-files-archive",
+        "latest": "https://zenodo.org/api/records/13534644/versions/latest",
+        "latest_html": "https://zenodo.org/records/13534644/latest",
+        "versions": "https://zenodo.org/api/records/13534644/versions",
+        "draft": "https://zenodo.org/api/records/13534644/draft",
+        "reserve_doi": "https://zenodo.org/api/records/13534644/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/13534644/access/links",
+        "access_grants": "https://zenodo.org/api/records/13534644/access/grants",
+        "access_users": "https://zenodo.org/api/records/13534644/access/users",
+        "access_request": "https://zenodo.org/api/records/13534644/access/request",
+        "access": "https://zenodo.org/api/records/13534644/access",
+        "communities": "https://zenodo.org/api/records/13534644/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/13534644/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/13534644/requests"
+      },
+      "updated": "2025-02-06T23:26:56.689859+00:00",
+      "recid": "13534644",
+      "revision": 7,
+      "files": [],
+      "swh": {},
+      "owners": [
+        {
+          "id": "7292"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 2,
+        "unique_downloads": 2,
+        "views": 18,
+        "unique_views": 18,
+        "version_downloads": 2,
+        "version_unique_downloads": 2,
+        "version_unique_views": 18,
+        "version_views": 18
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2021-05-12T14:06:12.538310+00:00",
+      "modified": "2021-05-13T01:48:15.827231+00:00",
+      "id": 4751730,
+      "conceptrecid": "4751729",
+      "doi": "10.5281/zenodo.4751730",
+      "conceptdoi": "10.5281/zenodo.4751729",
+      "doi_url": "https://doi.org/10.5281/zenodo.4751730",
+      "metadata": {
+        "title": "metashot/prok-assembly: 2.0.0",
+        "doi": "10.5281/zenodo.4751730",
+        "publication_date": "2021-05-12",
+        "description": "<ul>\n<li>Nextflow DSL 2;</li>\n<li>SPAdes 3.15.1;</li>\n<li>assemble plasmids with plasmidSPAdes and verify them using ViralVerify (optional);</li>\n<li>minor changes;</li>\n<li>more options.</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Davide Albanese",
+            "affiliation": "Research and Innovation Centre, Fondazione Edmund Mach"
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/metashot/prok-assembly/tree/2.0.0",
+            "relation": "isSupplementTo",
+            "scheme": "url"
+          }
+        ],
+        "version": "2.0.0",
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "other-open"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "4751729"
+              }
+            }
+          ]
+        }
+      },
+      "title": "metashot/prok-assembly: 2.0.0",
+      "links": {
+        "self": "https://zenodo.org/api/records/4751730",
+        "self_html": "https://zenodo.org/records/4751730",
+        "doi": "https://doi.org/10.5281/zenodo.4751730",
+        "self_doi": "https://doi.org/10.5281/zenodo.4751730",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.4751730",
+        "parent": "https://zenodo.org/api/records/4751729",
+        "parent_html": "https://zenodo.org/records/4751729",
+        "parent_doi": "https://doi.org/10.5281/zenodo.4751729",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.4751729",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:4751730/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:4751730/sequence/default",
+        "files": "https://zenodo.org/api/records/4751730/files",
+        "media_files": "https://zenodo.org/api/records/4751730/media-files",
+        "archive": "https://zenodo.org/api/records/4751730/files-archive",
+        "archive_media": "https://zenodo.org/api/records/4751730/media-files-archive",
+        "latest": "https://zenodo.org/api/records/4751730/versions/latest",
+        "latest_html": "https://zenodo.org/records/4751730/latest",
+        "versions": "https://zenodo.org/api/records/4751730/versions",
+        "draft": "https://zenodo.org/api/records/4751730/draft",
+        "reserve_doi": "https://zenodo.org/api/records/4751730/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/4751730/access/links",
+        "access_grants": "https://zenodo.org/api/records/4751730/access/grants",
+        "access_users": "https://zenodo.org/api/records/4751730/access/users",
+        "access_request": "https://zenodo.org/api/records/4751730/access/request",
+        "access": "https://zenodo.org/api/records/4751730/access",
+        "communities": "https://zenodo.org/api/records/4751730/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/4751730/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/4751730/requests"
+      },
+      "updated": "2021-05-13T01:48:15.827231+00:00",
+      "recid": "4751730",
+      "revision": 3,
+      "files": [
+        {
+          "id": "4138bdb8-0589-4183-9a2b-f59076b04316",
+          "key": "metashot/prok-assembly-2.0.0.zip",
+          "size": 18327,
+          "checksum": "md5:79f9c25ce0692220f0d268adca8957e4",
+          "links": {
+            "self": "https://zenodo.org/api/records/4751730/files/metashot/prok-assembly-2.0.0.zip/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "90631"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 6,
+        "unique_downloads": 6,
+        "views": 47,
+        "unique_views": 46,
+        "version_downloads": 6,
+        "version_unique_downloads": 6,
+        "version_unique_views": 46,
+        "version_views": 47
+      },
+      "state": "done",
+      "submitted": true
+    }
+  ]
+}
