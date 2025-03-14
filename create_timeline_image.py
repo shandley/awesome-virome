@@ -18,6 +18,10 @@ def create_timeline_image(data, outputfile, verbose=False):
     df['end_date'] = pd.to_datetime(df['last_updated'], format='mixed', utc=True)
     df = df.dropna(subset=['start_date', 'end_date'])
     df = df.sort_values(by='start_date')
+
+    # generate a colour map
+    palette = sns.color_palette("husl", len(df['classification'].unique()))
+    color_map = {classification: palette[i] for i, classification in enumerate(df['classification'].unique())}
     
     # Create the plot
     plt.figure(figsize=(24, df.shape[0]/4)) # this adds 1/4 inch per row
@@ -30,6 +34,11 @@ def create_timeline_image(data, outputfile, verbose=False):
     plt.ylabel('')
     plt.title('Virus bioinformatics tools')
     plt.grid(True)
+    # Add a legend
+    handles = [plt.Line2D([0], [0], color=color_map[cat], lw=2) for cat in sorted(color_map)]
+    labels = [cat for cat in sorted(color_map)]
+    plt.legend(handles, labels, title='Category')
+
     plt.tight_layout()
     # Show the plot
     plt.savefig(outputfile)
