@@ -28,7 +28,7 @@ from apis.biotools_api import BioToolsAPI
 from apis.bioconda_api import BiocondaAPI
 
 # Import academic impact module
-from scripts.academic_impact import AcademicImpactCollector
+from academic_impact import AcademicImpactCollector
 
 # Set up logging
 logging.basicConfig(
@@ -41,6 +41,8 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Define globals first
+global METADATA_DIR, OUTPUT_FILE
 # Directory constants
 METADATA_DIR = os.path.join("metadata", "bioinformatics")
 OUTPUT_FILE = os.path.join(METADATA_DIR, "summary.json")
@@ -333,7 +335,6 @@ def main():
     args = parser.parse_args()
     
     # Update output directory if specified
-    global METADATA_DIR, OUTPUT_FILE
     if args.output != METADATA_DIR:
         METADATA_DIR = args.output
         OUTPUT_FILE = os.path.join(METADATA_DIR, "summary.json")
