@@ -76,6 +76,9 @@ def extract_repos_from_readme(readme_path):
     for name, url in links:
         # Filter for GitHub, GitLab, and Bitbucket repositories
         if ('github.com/' in url or 'gitlab.com/' in url or 'bitbucket.org/' in url) and not url.endswith('.md'):
+            # specifically skip the one for Rob that is in the (very kind) acknowledgement
+            if url.endswith('linsalrob'):
+                continue
             repos.append((name, url.strip()))
     
     return repos
@@ -206,7 +209,7 @@ def get_gitlab_repo_info(repo_url):
                 if updated_at:
                     return datetime.strptime(updated_at, '%Y-%m-%dT%H:%M:%S.%fZ'), None, stars, created_at
                 return None, None, stars, None
-        return None, None, None, None, None
+        return None, None, None, None
     except requests.exceptions.RequestException as e:
         if hasattr(e, 'response') and e.response is not None:
             if e.response.status_code == 404:
@@ -460,6 +463,10 @@ def main(readme):
     logger.info(f"Found {len(unavailable_repos)} unavailable repositories")
     logger.info(f"Encountered errors with {len(error_repos)} repositories")
     logger.info(f"Found {len(github_repos_with_stars)} GitHub repositories with stars")
+
+    for r in results:
+        if len(r) != 6:
+            logger.error(f"Invalid result: {r} it only has {len(r)} elements")
     
     # Update the README with the dates, availability status, and stars
     updated_content, unavailable, repos_with_stars = update_readme_with_dates_status_and_stars(readme_path, results)
@@ -474,7 +481,7 @@ def main(readme):
             json_results.append({
                 "name": name,
                 "url": url,
-                "created_at" : created_at,
+                "created_at" : created_at.isoformat() if created_at else None,
                 "last_updated": date.isoformat() if date else None,
                 "status": status,
                 "stars": stars
