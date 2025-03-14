@@ -1,650 +1,374 @@
 #!/usr/bin/env python3
 """
-Bioinformatics metadata collection script for the Awesome-Virome repository.
+Bioinformatics Metadata Collection for Awesome-Virome
 
-This script orchestrates the collection of specialized bioinformatics metadata
-for tools in the repository, using various API integrations:
-- Bio.tools: A comprehensive registry of bioinformatics tools
-- Bioconda: A channel for the conda package manager specializing in bioinformatics
-- GitHub: For repository-specific metadata
+This script collects specialized bioinformatics metadata for tools in the
+Awesome-Virome repository, including:
+- Input/output formats from Bio.tools
+- Bioinformatics operations and topics from Bio.tools
+- Package information and dependencies from Bioconda
+- Academic impact and citation information
 
-The collected data enhances the repository with:
-- Input/output data formats supported by each tool
-- Bioinformatics categories and functions
-- Installation methods (conda/bioconda)
-- Tool dependencies
-- Compatible workflows
+Usage:
+    python bioinformatics_metadata.py [--output OUTPUT] [--token TOKEN]
 """
 
 import os
-import re
+import sys
 import json
-import time
-import logging
 import argparse
-import requests
-from pathlib import Path
+import logging
 from datetime import datetime
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import Dict, List, Optional, Any, Tuple
+from concurrent.futures import ThreadPoolExecutor
+import re
 
-# Import API modules
-from apis import biotools_api, bioconda_api
+# Import our API modules
+from apis.biotools_api import BioToolsAPI
+from apis.bioconda_api import BiocondaAPI
 
-# Configure logging
+# Import academic impact module
+from scripts.academic_impact import AcademicImpactCollector
+
+# Set up logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler("bioinformatics_metadata.log"),
+        logging.FileHandler("metadata_collection.log"),
         logging.StreamHandler()
     ]
 )
 logger = logging.getLogger(__name__)
 
-# Set up constants
-REPO_ROOT = Path(__file__).parent.parent
-BIOINFO_METADATA_DIR = REPO_ROOT / "metadata" / "bioinformatics"
-BIOINFO_METADATA_SUMMARY = BIOINFO_METADATA_DIR / "summary.json"
-README_PATH = REPO_ROOT / "README.md"
-REPO_UPDATES_JSON = REPO_ROOT / "repo_updates.json"
+# Directory constants
+METADATA_DIR = os.path.join("metadata", "bioinformatics")
+OUTPUT_FILE = os.path.join(METADATA_DIR, "summary.json")
 
-# Create metadata directories if they don't exist
-BIOINFO_METADATA_DIR.mkdir(exist_ok=True, parents=True)
 
-# GitHub API token
-GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN", "")
-
-# Maximum number of concurrent requests
-MAX_WORKERS = 5
-
-def sanitize_name(name):
-    """Convert tool name to a valid filename."""
-    sanitized = re.sub(r'[^\w\-\.]', '_', name)
-    return sanitized
-
-def extract_repos_from_readme():
-    """Extract repository URLs and names from the README file."""
-    try:
-        with open(README_PATH, 'r', encoding='utf-8') as f:
-            content = f.read()
+class BioinformaticsMetadataCollector:
+    """Collects specialized bioinformatics metadata for Awesome-Virome tools."""
+    
+    def __init__(self, github_token: Optional[str] = None, 
+                 semantic_scholar_key: Optional[str] = None,
+                 contact_email: Optional[str] = None):
+        """Initialize the bioinformatics metadata collector."""
+        self.biotools_api = BioToolsAPI()
+        self.bioconda_api = BiocondaAPI()
         
-        # Regular expression to match markdown links with tool info
-        tool_pattern = r'- \[([^\]]+)\]\((https?://[^\s)]+)\)(.+?)(?:$|\n)'
+        # Initialize academic impact collector
+        self.academic_impact_collector = AcademicImpactCollector(
+            github_token=github_token,
+            semantic_scholar_key=semantic_scholar_key,
+            contact_email=contact_email
+        )
         
-        tools = []
-        lines = content.split('\n')
-        current_section = None
-        current_subsection = None
+        # Create metadata directory if it doesn't exist
+        os.makedirs(METADATA_DIR, exist_ok=True)
         
-        section_pattern = r'^## ([\w\s&\-]+)$'
-        subsection_pattern = r'^### ([\w\s&\-]+)$'
-        
-        for i, line in enumerate(lines):
-            section_match = re.match(section_pattern, line)
-            if section_match:
-                current_section = section_match.group(1)
-                current_subsection = None
-                continue
-                
-            subsection_match = re.match(subsection_pattern, line)
-            if subsection_match:
-                current_subsection = subsection_match.group(1)
-                continue
-            
-            tool_match = re.match(tool_pattern, line)
-            if tool_match and current_section and current_section not in ["Contents", "Contributing", "License"]:
-                name = tool_match.group(1)
-                url = tool_match.group(2)
-                remaining_text = tool_match.group(3).strip()
-                
-                # Extract description - often after a dash
-                description = ""
-                if " - " in remaining_text:
-                    description = remaining_text.split(" - ", 1)[1].strip()
-                else:
-                    description = remaining_text
-                
-                # Extract metadata tags like [Python] or [bioconda]
-                metadata_pattern = r'\[([\w\s]+)\]'
-                metadata_tags = re.findall(metadata_pattern, remaining_text)
-                
-                tools.append({
-                    "name": name,
-                    "url": url.strip(),
-                    "description": description,
-                    "category": current_section,
-                    "subcategory": current_subsection,
-                    "metadata_tags": metadata_tags
-                })
-        
-        logger.info(f"Extracted {len(tools)} tools from README.md")
-        return tools
-    except Exception as e:
-        logger.error(f"Error extracting tools from README: {e}")
-        return []
-
-def load_repo_data():
-    """Load repository data from repo_updates.json if available."""
-    try:
-        with open(REPO_UPDATES_JSON, 'r') as f:
-            repo_data = json.load(f)
-        
-        # Convert to a dictionary for easier lookup
-        repo_dict = {}
-        for repo in repo_data:
-            repo_dict[repo["url"]] = repo
-        
-        logger.info(f"Loaded data for {len(repo_dict)} repositories from repo_updates.json")
-        return repo_dict
-    except (FileNotFoundError, json.JSONDecodeError) as e:
-        logger.warning(f"Error loading repo_updates.json: {e}")
-        return {}
-
-def load_existing_metadata():
-    """Load existing bioinformatics metadata to avoid duplicate work."""
-    try:
-        if not BIOINFO_METADATA_SUMMARY.exists():
-            return {}
-            
-        with open(BIOINFO_METADATA_SUMMARY, 'r', encoding='utf-8') as f:
-            summary = json.load(f)
-        
-        metadata_dict = {}
-        for tool in summary.get("tools", []):
-            if "name" in tool and "url" in tool:
-                metadata_dict[tool["url"]] = tool
-        
-        logger.info(f"Loaded existing bioinformatics metadata for {len(metadata_dict)} tools")
-        return metadata_dict
-    except Exception as e:
-        logger.error(f"Error loading existing bioinformatics metadata: {e}")
-        return {}
-
-def search_biotools(tool_info):
-    """Search for a tool in Bio.tools registry."""
-    name = tool_info["name"]
-    search_terms = [name]
+        # Load existing metadata if available
+        self.existing_metadata = {}
+        if os.path.exists(OUTPUT_FILE):
+            try:
+                with open(OUTPUT_FILE, 'r') as f:
+                    self.existing_metadata = json.load(f)
+            except json.JSONDecodeError:
+                logger.warning(f"Could not parse existing metadata from {OUTPUT_FILE}")
     
-    # Add potential alternative search terms
-    if " " in name:
-        # Try without spaces
-        search_terms.append(name.replace(" ", ""))
-    
-    # Try with common prefixes/suffixes removed
-    for prefix in ["viral", "vir", "bio", "meta"]:
-        if name.lower().startswith(prefix):
-            search_terms.append(name[len(prefix):].strip())
-    
-    # For tools with dashes or underscores, try both versions
-    if "-" in name:
-        search_terms.append(name.replace("-", "_"))
-    if "_" in name:
-        search_terms.append(name.replace("_", "-"))
-    
-    # Use description keywords
-    description_words = tool_info["description"].lower().split()
-    bioinformatics_keywords = [
-        "assembly", "annotation", "alignment", "metagenome", "genome", 
-        "sequence", "sequencing", "variant", "phylogeny", "taxonomy",
-        "classification", "virus", "viral", "virome"
-    ]
-    
-    for word in description_words:
-        if word in bioinformatics_keywords and len(word) > 4:
-            search_terms.append(word)
-    
-    # Remove duplicates and sort by length (shorter terms first)
-    search_terms = sorted(set(search_terms), key=len)
-    
-    # Try each search term
-    for term in search_terms:
-        results = biotools_api.search_tool(term)
-        if results and "list" in results and results["list"]:
-            # Look for exact or close matches
-            for item in results["list"]:
-                item_name = item.get("name", "").lower()
-                biotoolsID = item.get("biotoolsID", "").lower()
-                
-                # Check for matches in name, biotoolsID, or description
-                name_lower = name.lower()
-                if (
-                    name_lower == item_name or 
-                    name_lower == biotoolsID or
-                    name_lower in item_name or
-                    item_name in name_lower
-                ):
-                    logger.info(f"Found match in Bio.tools for {name}: {item.get('biotoolsID')}")
-                    # Get detailed information
-                    details = biotools_api.get_tool_details(item.get("biotoolsID"))
-                    if details:
-                        return biotools_api.extract_tool_metadata(details)
-    
-    logger.info(f"No match found in Bio.tools for {name}")
-    return None
-
-def search_bioconda(tool_info):
-    """Search for a tool in Bioconda packages."""
-    name = tool_info["name"]
-    search_terms = [name.lower()]
-    
-    # Add variations of the name for search
-    if " " in name:
-        search_terms.append(name.lower().replace(" ", "-"))
-        search_terms.append(name.lower().replace(" ", "_"))
-    
-    # Check if there are tags suggesting conda/bioconda
-    has_conda_tag = any(tag.lower() in ["conda", "bioconda"] for tag in tool_info.get("metadata_tags", []))
-    
-    # Remove duplicates
-    search_terms = list(set(search_terms))
-    
-    # Try each search term
-    for term in search_terms:
-        package_data = bioconda_api.search_package(term)
-        if package_data:
-            logger.info(f"Found match in Bioconda for {name}: {package_data.get('name')}")
-            
-            # Get additional data
-            files_data = bioconda_api.get_package_files(package_data.get("name"))
-            recipe_data = bioconda_api.get_package_recipe(package_data.get("name"))
-            
-            return bioconda_api.extract_package_metadata(package_data, files_data, recipe_data)
-    
-    # If no direct match but has conda tag, try harder with variations
-    if has_conda_tag and not any(search_terms):
-        # Try more aggressive normalization
-        name_normalized = re.sub(r'[^\w]', '', name.lower())
-        name_variants = [
-            name_normalized,
-            "bioconda-" + name_normalized,
-            "conda-" + name_normalized
+    def search_biotools(self, tool_name: str) -> Dict[str, Any]:
+        """Search Bio.tools for a tool by name and return its metadata."""
+        # Try different search terms
+        search_terms = [
+            tool_name,
+            tool_name.replace('-', ' '),
+            tool_name.lower(),
+            tool_name.replace('_', ' ')
         ]
         
-        for variant in name_variants:
-            package_data = bioconda_api.search_package(variant)
-            if package_data:
-                logger.info(f"Found match in Bioconda for {name} (variant: {variant}): {package_data.get('name')}")
-                
-                # Get additional data
-                files_data = bioconda_api.get_package_files(package_data.get("name"))
-                recipe_data = bioconda_api.get_package_recipe(package_data.get("name"))
-                
-                return bioconda_api.extract_package_metadata(package_data, files_data, recipe_data)
-    
-    logger.info(f"No match found in Bioconda for {name}")
-    return None
-
-def extract_github_workflow_info(tool_info, repo_data):
-    """Extract GitHub Actions workflow information for compatible workflows."""
-    url = tool_info["url"]
-    if not url.startswith("https://github.com/"):
-        return None
-    
-    # Extract owner/repo from URL
-    match = re.search(r'github\.com/([^/]+/[^/]+)', url)
-    if not match:
-        return None
-    
-    repo_path = match.group(1).rstrip('/')
-    
-    # Check if we have a GitHub token
-    if not GITHUB_TOKEN:
-        logger.warning(f"No GitHub token available to check workflow info for {repo_path}")
-        return None
-    
-    try:
-        # Try to get workflow files
-        headers = {"Authorization": f"token {GITHUB_TOKEN}"}
-        workflows_url = f"https://api.github.com/repos/{repo_path}/contents/.github/workflows"
-        
-        response = requests.get(workflows_url, headers=headers)
-        if response.status_code != 200:
-            return None
+        for term in search_terms:
+            results = self.biotools_api.search_tools(term)
             
-        workflow_files = response.json()
+            if results:
+                # Try to find an exact match first
+                for result in results:
+                    name = result.get('name', '').lower()
+                    if name == tool_name.lower() or name == tool_name.lower().replace('-', ''):
+                        tool_id = result.get('biotoolsID')
+                        return self.biotools_api.get_tool_details(tool_id)
+                
+                # If no exact match, return the first result
+                tool_id = results[0].get('biotoolsID')
+                return self.biotools_api.get_tool_details(tool_id)
         
-        # Extract workflow information
-        workflows = []
-        for workflow in workflow_files:
-            if workflow["name"].endswith((".yml", ".yaml")):
-                # Get the workflow file content
-                workflow_content_response = requests.get(workflow["download_url"], headers=headers)
-                if workflow_content_response.status_code == 200:
-                    content = workflow_content_response.text
-                    
-                    # Look for common workflow patterns
-                    is_nextflow = "nextflow" in content.lower()
-                    is_snakemake = "snakemake" in content.lower()
-                    is_cwl = "cwl" in content.lower() or "common workflow language" in content.lower()
-                    is_wdl = "wdl" in content.lower() or "workflow description language" in content.lower()
-                    
-                    workflow_info = {
-                        "name": workflow["name"],
-                        "url": workflow["html_url"],
-                        "type": None
-                    }
-                    
-                    if is_nextflow:
-                        workflow_info["type"] = "Nextflow"
-                    elif is_snakemake:
-                        workflow_info["type"] = "Snakemake"
-                    elif is_cwl:
-                        workflow_info["type"] = "CWL"
-                    elif is_wdl:
-                        workflow_info["type"] = "WDL"
-                    else:
-                        workflow_info["type"] = "GitHub Actions"
-                    
-                    workflows.append(workflow_info)
+        return {}
+    
+    def search_bioconda(self, tool_name: str) -> Dict[str, Any]:
+        """Search Bioconda for a package by name and return its metadata."""
+        # Try different search terms
+        search_terms = [
+            tool_name,
+            tool_name.replace('-', ''),
+            tool_name.lower(),
+            f"bioconda/{tool_name}",
+            f"bioconda-{tool_name}"
+        ]
         
-        if workflows:
-            return {"workflows": workflows}
+        for term in search_terms:
+            results = self.bioconda_api.search_package(term)
+            
+            if results:
+                # Try to find an exact match first
+                for result in results:
+                    if result.lower() == tool_name.lower() or \
+                       result.lower() == f"bioconda-{tool_name.lower()}" or \
+                       result.lower() == tool_name.lower().replace('-', ''):
+                        return self.bioconda_api.get_package_info(result)
+                
+                # If no exact match, return the first result
+                return self.bioconda_api.get_package_info(results[0])
         
-        return None
-    except Exception as e:
-        logger.error(f"Error fetching workflow info for {repo_path}: {e}")
-        return None
-
-def collect_tool_metadata(tool_info, repo_data, existing_metadata=None):
-    """Collect comprehensive bioinformatics metadata for a tool."""
-    name = tool_info["name"]
-    url = tool_info["url"]
+        return {}
     
-    logger.info(f"Collecting bioinformatics metadata for {name} ({url})")
-    
-    # Check if we already have metadata for this tool
-    if existing_metadata and url in existing_metadata:
-        existing = existing_metadata[url]
-        # Check if the metadata is not too old (over 30 days)
-        if "updated_at" in existing:
-            try:
-                updated_time = datetime.fromisoformat(existing["updated_at"])
-                days_since_update = (datetime.now() - updated_time).days
-                if days_since_update < 30:
-                    logger.info(f"Using existing metadata for {name} (updated {days_since_update} days ago)")
-                    return existing
-            except (ValueError, TypeError):
-                pass
-    
-    # Initialize metadata with basic info
-    metadata = {
-        "name": name,
-        "url": url,
-        "description": tool_info["description"],
-        "category": tool_info["category"],
-        "subcategory": tool_info["subcategory"],
-        "metadata_tags": tool_info.get("metadata_tags", []),
-        "updated_at": datetime.now().isoformat()
-    }
-    
-    # Add repository data if available
-    if url in repo_data:
-        repo_info = repo_data[url]
-        metadata["stars"] = repo_info.get("stars")
-        metadata["last_updated"] = repo_info.get("last_updated")
-    
-    # Search Bio.tools for bioinformatics metadata
-    biotools_metadata = search_biotools(tool_info)
-    if biotools_metadata:
-        metadata["biotools"] = biotools_metadata
-    
-    # Search Bioconda for package metadata
-    bioconda_metadata = search_bioconda(tool_info)
-    if bioconda_metadata:
-        metadata["bioconda"] = bioconda_metadata
-    
-    # Extract GitHub workflow information
-    workflow_info = extract_github_workflow_info(tool_info, repo_data)
-    if workflow_info:
-        metadata["workflow_info"] = workflow_info
-    
-    # Consolidate installation methods
-    metadata["installation_methods"] = {
-        "conda": False,
-        "bioconda": False,
-        "pip": False,
-        "docker": False,
-        "singularity": False,
-        "source": True  # Default to source installation
-    }
-    
-    # Update from metadata tags
-    for tag in tool_info.get("metadata_tags", []):
-        tag_lower = tag.lower()
-        if tag_lower in ["conda", "bioconda", "pip", "docker", "singularity"]:
-            metadata["installation_methods"][tag_lower] = True
-    
-    # Update from BioTools data
-    if biotools_metadata and "installation" in biotools_metadata:
-        for method, value in biotools_metadata["installation"].items():
-            if method in metadata["installation_methods"] and value:
-                metadata["installation_methods"][method] = True
-    
-    # Update from Bioconda data
-    if bioconda_metadata and "installation" in bioconda_metadata:
-        for method, value in bioconda_metadata["installation"].items():
-            if method in metadata["installation_methods"] and value:
-                metadata["installation_methods"][method] = True
-    
-    # Consolidate input/output formats
-    metadata["input_formats"] = []
-    metadata["output_formats"] = []
-    
-    if biotools_metadata:
-        if "input_formats" in biotools_metadata:
-            metadata["input_formats"].extend(biotools_metadata["input_formats"])
-        if "output_formats" in biotools_metadata:
-            metadata["output_formats"].extend(biotools_metadata["output_formats"])
-    
-    # Remove duplicates
-    metadata["input_formats"] = list(set(metadata["input_formats"]))
-    metadata["output_formats"] = list(set(metadata["output_formats"]))
-    
-    # Consolidate dependencies
-    metadata["dependencies"] = []
-    
-    if bioconda_metadata and "dependencies" in bioconda_metadata:
-        for dep_type, deps in bioconda_metadata["dependencies"].items():
-            metadata["dependencies"].extend(deps)
-    
-    # Remove duplicates
-    metadata["dependencies"] = list(set(metadata["dependencies"]))
-    
-    # Add bioinformatics categories
-    metadata["bioinformatics_categories"] = []
-    
-    if biotools_metadata:
-        if "topics" in biotools_metadata:
-            metadata["bioinformatics_categories"].extend(biotools_metadata["topics"])
-        if "operations" in biotools_metadata:
-            metadata["bioinformatics_categories"].extend(biotools_metadata["operations"])
-    
-    # Add keywords from tags and categories
-    inferred_keywords = []
-    for tag in tool_info.get("metadata_tags", []):
-        if tag.lower() not in ["conda", "bioconda", "pip", "docker", "singularity", "python", "r", "c++", "java"]:
-            inferred_keywords.append(tag)
-    
-    inferred_keywords.append(tool_info["category"])
-    if tool_info["subcategory"]:
-        inferred_keywords.append(tool_info["subcategory"])
-    
-    metadata["keywords"] = list(set(inferred_keywords))
-    
-    # Save the metadata to a file
-    save_tool_metadata(metadata)
-    
-    return metadata
-
-def save_tool_metadata(metadata):
-    """Save tool metadata to a JSON file."""
-    name = metadata["name"]
-    sanitized_name = sanitize_name(name)
-    file_path = BIOINFO_METADATA_DIR / f"{sanitized_name}.json"
-    
-    with open(file_path, 'w', encoding='utf-8') as f:
-        json.dump(metadata, f, indent=2)
-    
-    logger.info(f"Saved bioinformatics metadata for {name} to {file_path}")
-    return file_path
-
-def generate_summary_json(metadata_list):
-    """Generate a summary JSON file with essential metadata."""
-    summary = {
-        "tools": [],
-        "generated_at": datetime.now().isoformat(),
-        "total_count": len(metadata_list),
-        "stats": {
-            "with_biotools": 0,
-            "with_bioconda": 0,
-            "installation_methods": {
-                "conda": 0,
-                "bioconda": 0,
-                "pip": 0,
-                "docker": 0,
-                "singularity": 0,
-                "source": 0
+    def collect_tool_metadata(self, tool: Dict[str, Any]) -> Dict[str, Any]:
+        """Collect bioinformatics metadata for a single tool."""
+        tool_name = tool.get('name', '')
+        tool_url = tool.get('url', '')
+        
+        logger.info(f"Collecting metadata for tool: {tool_name}")
+        
+        # Check if we already have metadata for this tool
+        if tool_name in self.existing_metadata:
+            last_updated = self.existing_metadata[tool_name].get('last_updated', '')
+            # If updated within the last 30 days, use cached data
+            if last_updated and (datetime.now() - datetime.fromisoformat(last_updated)).days < 30:
+                logger.info(f"Using cached metadata for {tool_name}")
+                return self.existing_metadata[tool_name]
+        
+        # Collect data from Bio.tools
+        biotools_data = self.search_biotools(tool_name)
+        
+        # Collect data from Bioconda
+        bioconda_data = self.search_bioconda(tool_name)
+        
+        # Collect academic impact data
+        academic_impact_data = self.academic_impact_collector.process_tool(tool)
+        
+        # Compile all metadata
+        metadata = {
+            'name': tool_name,
+            'url': tool_url,
+            'biotools': {
+                'id': biotools_data.get('biotoolsID', ''),
+                'name': biotools_data.get('name', ''),
+                'description': biotools_data.get('description', ''),
+                'homepage': biotools_data.get('homepage', ''),
+                'input_formats': self._extract_data_formats(biotools_data, 'input'),
+                'output_formats': self._extract_data_formats(biotools_data, 'output'),
+                'operations': self._extract_operations(biotools_data),
+                'topics': self._extract_topics(biotools_data)
             },
-            "input_formats": {},
-            "output_formats": {},
-            "bioinformatics_categories": {}
-        }
-    }
-    
-    for metadata in metadata_list:
-        # Extract essential information for the summary
-        tool_summary = {
-            "name": metadata.get("name"),
-            "url": metadata.get("url"),
-            "description": metadata.get("description"),
-            "category": metadata.get("category"),
-            "subcategory": metadata.get("subcategory"),
-            "stars": metadata.get("stars"),
-            "updated_at": metadata.get("updated_at"),
-            "installation_methods": metadata.get("installation_methods", {}),
-            "input_formats": metadata.get("input_formats", []),
-            "output_formats": metadata.get("output_formats", []),
-            "dependencies": metadata.get("dependencies", []),
-            "bioinformatics_categories": metadata.get("bioinformatics_categories", []),
-            "keywords": metadata.get("keywords", [])
+            'bioconda': {
+                'package': bioconda_data.get('package', ''),
+                'version': bioconda_data.get('version', ''),
+                'dependencies': bioconda_data.get('dependencies', []),
+                'installation': self._format_installation_command(bioconda_data.get('package', ''))
+            },
+            'academic_impact': {
+                'doi': academic_impact_data.get('doi', ''),
+                'citation_file': academic_impact_data.get('citation_info', {}).get('citation_file', ''),
+                'citation_format': academic_impact_data.get('citation_info', {}).get('citation_format', ''),
+                'total_citations': academic_impact_data.get('citation_metrics', {}).get('metrics', {}).get('total_citations', 0),
+                'influential_citations': academic_impact_data.get('citation_metrics', {}).get('metrics', {}).get('influential_citations', 0),
+                'citations_by_year': academic_impact_data.get('citation_metrics', {}).get('metrics', {}).get('citations_by_year', {}),
+                'formatted_citations': academic_impact_data.get('citation_metrics', {}).get('formatted_citations', {})
+            },
+            'last_updated': datetime.now().isoformat()
         }
         
-        # Update statistics
-        if "biotools" in metadata:
-            summary["stats"]["with_biotools"] += 1
-        if "bioconda" in metadata:
-            summary["stats"]["with_bioconda"] += 1
+        # Save individual tool metadata
+        tool_file = os.path.join(METADATA_DIR, f"{tool_name.replace('/', '_')}.json")
+        with open(tool_file, 'w') as f:
+            json.dump(metadata, f, indent=2)
         
-        # Count installation methods
-        for method, value in metadata.get("installation_methods", {}).items():
-            if value:
-                summary["stats"]["installation_methods"][method] += 1
-        
-        # Count input/output formats
-        for fmt in metadata.get("input_formats", []):
-            if fmt not in summary["stats"]["input_formats"]:
-                summary["stats"]["input_formats"][fmt] = 0
-            summary["stats"]["input_formats"][fmt] += 1
-        
-        for fmt in metadata.get("output_formats", []):
-            if fmt not in summary["stats"]["output_formats"]:
-                summary["stats"]["output_formats"][fmt] = 0
-            summary["stats"]["output_formats"][fmt] += 1
-        
-        # Count bioinformatics categories
-        for cat in metadata.get("bioinformatics_categories", []):
-            if cat not in summary["stats"]["bioinformatics_categories"]:
-                summary["stats"]["bioinformatics_categories"][cat] = 0
-            summary["stats"]["bioinformatics_categories"][cat] += 1
-        
-        summary["tools"].append(tool_summary)
+        return metadata
     
-    # Save the summary JSON
-    with open(BIOINFO_METADATA_SUMMARY, 'w', encoding='utf-8') as f:
-        json.dump(summary, f, indent=2)
+    def _extract_data_formats(self, tool_data: Dict[str, Any], io_type: str) -> List[str]:
+        """Extract input or output data formats from Bio.tools data."""
+        formats = []
+        
+        for function in tool_data.get('function', []):
+            for io in function.get('operation', []):
+                for data in io.get(f'{io_type}', []):
+                    data_format = data.get('data', {}).get('format', [])
+                    formats.extend([fmt.get('term', '') for fmt in data_format if fmt.get('term')])
+        
+        return list(set(formats))
     
-    logger.info(f"Generated bioinformatics metadata summary at {BIOINFO_METADATA_SUMMARY}")
-    return summary
+    def _extract_operations(self, tool_data: Dict[str, Any]) -> List[str]:
+        """Extract bioinformatics operations from Bio.tools data."""
+        operations = []
+        
+        for function in tool_data.get('function', []):
+            for operation in function.get('operation', []):
+                term = operation.get('term', '')
+                if term:
+                    operations.append(term)
+        
+        return list(set(operations))
+    
+    def _extract_topics(self, tool_data: Dict[str, Any]) -> List[str]:
+        """Extract bioinformatics topics from Bio.tools data."""
+        topics = []
+        
+        for topic in tool_data.get('topic', []):
+            term = topic.get('term', '')
+            if term:
+                topics.append(term)
+        
+        return list(set(topics))
+    
+    def _format_installation_command(self, package_name: str) -> str:
+        """Format a conda installation command for the package."""
+        if not package_name:
+            return ""
+        
+        return f"conda install -c bioconda {package_name}"
+    
+    def collect_all_metadata(self, tools: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
+        """Collect bioinformatics metadata for all tools."""
+        results = {}
+        
+        # Process tools in parallel using ThreadPoolExecutor
+        with ThreadPoolExecutor(max_workers=5) as executor:
+            # Map each tool to its metadata
+            for tool, metadata in zip(tools, executor.map(self.collect_tool_metadata, tools)):
+                tool_name = tool.get('name', '')
+                results[tool_name] = metadata
+        
+        # Save all results
+        with open(OUTPUT_FILE, 'w') as f:
+            json.dump(results, f, indent=2)
+        
+        return results
+    
+    def generate_summary(self, metadata: Dict[str, Dict[str, Any]]) -> Dict[str, Any]:
+        """Generate a summary of the collected metadata."""
+        total_tools = len(metadata)
+        
+        # Count tools with different types of metadata
+        tools_with_biotools = sum(1 for data in metadata.values() if data.get('biotools', {}).get('id'))
+        tools_with_bioconda = sum(1 for data in metadata.values() if data.get('bioconda', {}).get('package'))
+        tools_with_doi = sum(1 for data in metadata.values() if data.get('academic_impact', {}).get('doi'))
+        tools_with_citations = sum(1 for data in metadata.values() 
+                              if data.get('academic_impact', {}).get('total_citations', 0) > 0)
+        
+        # Collect input/output formats
+        all_input_formats = []
+        all_output_formats = []
+        
+        for data in metadata.values():
+            all_input_formats.extend(data.get('biotools', {}).get('input_formats', []))
+            all_output_formats.extend(data.get('biotools', {}).get('output_formats', []))
+        
+        # Count format frequencies
+        input_format_counts = {}
+        for fmt in all_input_formats:
+            input_format_counts[fmt] = input_format_counts.get(fmt, 0) + 1
+        
+        output_format_counts = {}
+        for fmt in all_output_formats:
+            output_format_counts[fmt] = output_format_counts.get(fmt, 0) + 1
+        
+        # Get most common formats
+        most_common_input = sorted(input_format_counts.items(), key=lambda x: x[1], reverse=True)[:10]
+        most_common_output = sorted(output_format_counts.items(), key=lambda x: x[1], reverse=True)[:10]
+        
+        # Collect citation statistics
+        total_citations = sum(data.get('academic_impact', {}).get('total_citations', 0) for data in metadata.values())
+        most_cited = sorted(
+            [(name, data.get('academic_impact', {}).get('total_citations', 0)) 
+             for name, data in metadata.items() if data.get('academic_impact', {}).get('total_citations', 0) > 0],
+            key=lambda x: x[1],
+            reverse=True
+        )[:10]
+        
+        summary = {
+            'total_tools': total_tools,
+            'tools_with_biotools': tools_with_biotools,
+            'tools_with_bioconda': tools_with_bioconda,
+            'tools_with_doi': tools_with_doi,
+            'tools_with_citations': tools_with_citations,
+            'total_citations': total_citations,
+            'most_cited_tools': most_cited,
+            'most_common_input_formats': most_common_input,
+            'most_common_output_formats': most_common_output,
+            'generated': datetime.now().isoformat()
+        }
+        
+        summary_file = os.path.join(METADATA_DIR, "statistics.json")
+        with open(summary_file, 'w') as f:
+            json.dump(summary, f, indent=2)
+        
+        return summary
 
-def batch_process_tools(tools, repo_data, existing_metadata, batch_size=10, batch_delay=5):
-    """Process tools in batches to avoid overloading APIs."""
-    results = []
-    total_tools = len(tools)
-    
-    for i in range(0, total_tools, batch_size):
-        batch = tools[i:i + batch_size]
-        logger.info(f"Processing batch {i//batch_size + 1}/{(total_tools + batch_size - 1)//batch_size} ({len(batch)} tools)")
-        
-        batch_results = []
-        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-            futures = {executor.submit(collect_tool_metadata, tool, repo_data, existing_metadata): tool for tool in batch}
-            
-            for future in as_completed(futures):
-                tool = futures[future]
-                try:
-                    metadata = future.result()
-                    if metadata:
-                        batch_results.append(metadata)
-                    logger.info(f"Processed {tool['name']} ({tool['url']})")
-                except Exception as e:
-                    logger.error(f"Error processing {tool['name']} ({tool['url']}): {e}")
-        
-        results.extend(batch_results)
-        
-        # If there are more batches to process, wait to avoid rate limiting
-        if i + batch_size < total_tools:
-            logger.info(f"Waiting {batch_delay} seconds before processing next batch...")
-            time.sleep(batch_delay)
-    
-    return results
+
+def load_tools_data() -> List[Dict[str, Any]]:
+    """Load tools data from data.json."""
+    try:
+        with open('data.json', 'r') as f:
+            data = json.load(f)
+            return data.get('nodes', [])
+    except (json.JSONDecodeError, FileNotFoundError) as e:
+        logger.error(f"Error loading data.json: {e}")
+        return []
+
 
 def main():
-    """Main function to collect bioinformatics metadata."""
-    parser = argparse.ArgumentParser(description="Collect bioinformatics metadata for Awesome-Virome tools")
-    parser.add_argument("--force-refresh", action="store_true", help="Force refresh all metadata even if recent")
-    parser.add_argument("--limit", type=int, help="Limit processing to N tools (for testing)")
+    """Main function to run the bioinformatics metadata collection."""
+    parser = argparse.ArgumentParser(description='Collect bioinformatics metadata for Awesome-Virome tools')
+    parser.add_argument('--output', help='Output directory for metadata', default=METADATA_DIR)
+    parser.add_argument('--github-token', help='GitHub API token')
+    parser.add_argument('--semantic-scholar-key', help='Semantic Scholar API key')
+    parser.add_argument('--contact-email', help='Contact email for API rate limiting')
     args = parser.parse_args()
     
-    # Create metadata directory if it doesn't exist
-    BIOINFO_METADATA_DIR.mkdir(exist_ok=True, parents=True)
+    # Update output directory if specified
+    global METADATA_DIR, OUTPUT_FILE
+    if args.output != METADATA_DIR:
+        METADATA_DIR = args.output
+        OUTPUT_FILE = os.path.join(METADATA_DIR, "summary.json")
     
-    # Load existing metadata (unless force refresh)
-    existing_metadata = {} if args.force_refresh else load_existing_metadata()
+    # Ensure metadata directory exists
+    os.makedirs(METADATA_DIR, exist_ok=True)
     
-    # Load repository data (stars, last update, etc.)
-    repo_data = load_repo_data()
+    # Load tools data
+    tools = load_tools_data()
+    if not tools:
+        logger.error("No tools found in data.json")
+        return
     
-    # Extract tools from README
-    tools = extract_repos_from_readme()
-    logger.info(f"Found {len(tools)} tools in the README")
+    logger.info(f"Loaded {len(tools)} tools from data.json")
     
-    # Apply limit if specified
-    if args.limit and args.limit > 0:
-        tools = tools[:args.limit]
-        logger.info(f"Limited processing to {args.limit} tools")
+    # Initialize metadata collector
+    collector = BioinformaticsMetadataCollector(
+        github_token=args.github_token,
+        semantic_scholar_key=args.semantic_scholar_key,
+        contact_email=args.contact_email
+    )
     
-    # Process tools in batches
-    logger.info("Starting bioinformatics metadata collection...")
-    metadata_results = batch_process_tools(tools, repo_data, existing_metadata)
+    # Collect metadata for all tools
+    metadata = collector.collect_all_metadata(tools)
     
-    # Generate summary JSON
-    summary = generate_summary_json(metadata_results)
+    # Generate summary statistics
+    summary = collector.generate_summary(metadata)
     
-    successful_count = len(metadata_results)
-    logger.info(f"Bioinformatics metadata collection completed. Successfully processed {successful_count}/{len(tools)} tools.")
-    
-    # Print some statistics
-    with_biotools = summary["stats"]["with_biotools"]
-    with_bioconda = summary["stats"]["with_bioconda"]
-    logger.info(f"Tools with Bio.tools metadata: {with_biotools} ({with_biotools/successful_count*100:.1f}%)")
-    logger.info(f"Tools with Bioconda metadata: {with_bioconda} ({with_bioconda/successful_count*100:.1f}%)")
-    
-    # Installation methods
-    for method, count in summary["stats"]["installation_methods"].items():
-        if count > 0:
-            logger.info(f"Tools with {method} installation: {count} ({count/successful_count*100:.1f}%)")
-    
-    return 0
+    logger.info(f"Metadata collection complete. Processed {len(metadata)} tools.")
+    logger.info(f"Found Bio.tools entries for {summary['tools_with_biotools']} tools.")
+    logger.info(f"Found Bioconda packages for {summary['tools_with_bioconda']} tools.")
+    logger.info(f"Found DOIs for {summary['tools_with_doi']} tools.")
+    logger.info(f"Found citations for {summary['tools_with_citations']} tools.")
+    logger.info(f"Total citations: {summary['total_citations']}")
+
 
 if __name__ == "__main__":
     main()

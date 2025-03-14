@@ -426,11 +426,83 @@ def update_data_json_with_bioinformatics(data, bioinformatics_metadata):
     logger.info(f"Added bioinformatics metadata to {metadata_matches} tools")
     return data
 
+def load_academic_impact_metadata():
+    """Load academic impact metadata from the metadata/academic_impact directory."""
+    metadata_dir = Path(__file__).parent / "metadata" / "academic_impact"
+    summary_file = metadata_dir / "academic_impact.json"
+    
+    if not summary_file.exists():
+        logger.warning(f"Academic impact metadata file not found at {summary_file}")
+        return {}
+    
+    try:
+        with open(summary_file, 'r', encoding='utf-8') as f:
+            metadata = json.load(f)
+        
+        # Metadata is already a dictionary with keys like "tool_name_url"
+        # Create a new dictionary mapping URLs to metadata
+        metadata_by_url = {}
+        for key, tool_data in metadata.items():
+            url = tool_data.get("url", "")
+            if url:
+                metadata_by_url[url] = tool_data
+                logger.info(f"Added academic impact metadata for URL: {url}")
+        
+        return metadata_by_url
+    except Exception as e:
+        logger.error(f"Error loading academic impact metadata: {e}")
+        return {}
+
+def update_data_json_with_academic_impact(data, academic_impact_metadata):
+    """Update data.json with academic impact metadata."""
+    if not academic_impact_metadata:
+        return data
+    
+    # Get all nodes that are tools
+    tool_nodes = [node for node in data.get("nodes", []) if node.get("type") == "tool"]
+    
+    # Count of metadata matches
+    metadata_matches = 0
+    
+    # Update tool nodes with academic impact metadata
+    for node in tool_nodes:
+        if node.get("url") and node.get("url") in academic_impact_metadata:
+            metadata = academic_impact_metadata[node.get("url")]
+            metadata_matches += 1
+            
+            # Add academic impact fields
+            node["doi"] = metadata.get("doi", "")
+            node["citation_count"] = metadata.get("citation_metrics", {}).get("metrics", {}).get("total_citations", 0)
+            node["influential_citations"] = metadata.get("citation_metrics", {}).get("metrics", {}).get("influential_citations", 0)
+            node["citations_by_year"] = metadata.get("citation_metrics", {}).get("metrics", {}).get("citations_by_year", {})
+            
+            # Add formatted citations if available
+            if "citation_metrics" in metadata and "formatted_citations" in metadata["citation_metrics"]:
+                node["formatted_citations"] = metadata["citation_metrics"]["formatted_citations"]
+            
+            # Add related papers if available
+            if "related_papers" in metadata and metadata["related_papers"]:
+                # Only include the top 5 related papers to keep the data size reasonable
+                node["related_papers"] = [
+                    {
+                        "title": paper.get("title", ""),
+                        "authors": [author.get("name", "") for author in paper.get("authors", [])[:3]],
+                        "year": paper.get("year", ""),
+                        "citation_count": paper.get("citationCount", 0),
+                        "url": paper.get("url", "")
+                    }
+                    for paper in metadata.get("related_papers", [])[:5]
+                ]
+    
+    logger.info(f"Added academic impact metadata to {metadata_matches} tools")
+    return data
+
 def main():
     """Main function to extract tools from README.md and update data.json."""
     parser = argparse.ArgumentParser(description="Extract tool information from README.md and update data.json")
     parser.add_argument("--include-metadata", action="store_true", help="Include enhanced metadata from metadata directory")
-    parser.add_argument("--include-bioinformatics-metadata", action="store_true", help="Include bioinformatics metadata")
+    parser.add_argument("--include-bioinformatics", action="store_true", help="Include bioinformatics metadata")
+    parser.add_argument("--include-academic-impact", action="store_true", help="Include academic impact metadata")
     args = parser.parse_args()
     
     repo_root = Path(__file__).parent
@@ -448,12 +520,20 @@ def main():
     updated_data = update_data_json(data, tools_data, include_metadata=args.include_metadata)
     
     # Load and add bioinformatics metadata if requested
-    if args.include_bioinformatics_metadata:
+    if args.include_bioinformatics:
         logger.info("Loading bioinformatics metadata...")
         bioinformatics_metadata = load_bioinformatics_metadata()
         if bioinformatics_metadata:
             logger.info(f"Loaded bioinformatics metadata for {len(bioinformatics_metadata)} tools")
             updated_data = update_data_json_with_bioinformatics(updated_data, bioinformatics_metadata)
+    
+    # Load and add academic impact metadata if requested
+    if args.include_academic_impact:
+        logger.info("Loading academic impact metadata...")
+        academic_impact_metadata = load_academic_impact_metadata()
+        if academic_impact_metadata:
+            logger.info(f"Loaded academic impact metadata for {len(academic_impact_metadata)} tools")
+            updated_data = update_data_json_with_academic_impact(updated_data, academic_impact_metadata)
     
     logger.info(f"Saving to {data_json_path}")
     save_data_json(updated_data, data_json_path)
