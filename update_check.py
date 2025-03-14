@@ -11,6 +11,8 @@ import argparse
 import time
 import json
 import logging
+
+import dateutil
 import requests
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -69,19 +71,48 @@ def extract_repos_from_readme(readme_path):
         content = f.read()
     
     # Regular expression to match markdown links
-    link_pattern = r'\[([^\]]+)\]\(([^)]+)\)'
-    links = re.findall(link_pattern, content)
-    
+    #links = re.findall(link_pattern, content)
+    # we need to separate this so instead of using the regex to match the links we use it to match the headers or the
+    # links, and we need to iterate the content line by line.
+    # we also store a classification for each link based on its name, and we print that out in the json file
+    headers = re.compile(r"^## (.+)")  # Match lines that start with ##
+    link_pattern = re.compile(r'\[([^\]]+)\]\(([^)]+)\)')
+    classification = {}
+    links = []
+    current_classification = None
+
+    for line in content.splitlines():
+        # Check if the line is a header
+        if headers.match(line):
+            current_classification = headers.match(line).group(1)
+        # Find all links in the line
+        newlinks = link_pattern.findall(line)
+        if newlinks:
+            links += newlinks
+            # Add the classification
+            for link in newlinks:
+                classification[link[0]] = current_classification
+
+
+
     repos = []
+    seen = {}
     for name, url in links:
         # Filter for GitHub, GitLab, and Bitbucket repositories
         if ('github.com/' in url or 'gitlab.com/' in url or 'bitbucket.org/' in url) and not url.endswith('.md'):
             # specifically skip the one for Rob that is in the (very kind) acknowledgement
             if url.endswith('linsalrob'):
                 continue
+            # skip duplicate repositories (e.g. if they are in different sections)
+            if name in seen and seen[name] != url:
+                logger.warning(f"Duplicate repository name found: {name} with different URLs. Only testing first one.")
+                continue
+            elif name in seen:
+                continue
             repos.append((name, url.strip()))
+            seen[name] = url.strip()
     
-    return repos
+    return repos, classification
 
 def get_github_repo_info(repo_url):
     """Get the last updated time and star count for a GitHub repository."""
@@ -162,7 +193,8 @@ def get_gitlab_repo_info(repo_url):
         gitlab_limiter.wait()
         
         # Extract project ID or path from URL
-        match = re.search(r'gitlab\.com/([^/]+/[^/]+)', repo_url)
+        # match = re.search(r'gitlab\.com/([^/]+/[^/]+)', repo_url) # this regexp didn't work for me. You just need the last part (the repo name)
+        match = re.search(r'gitlab\.com/[^/]+/([^/]+)', repo_url)
         if not match:
             return None, None, None, None
         
@@ -257,14 +289,14 @@ def get_bitbucket_repo_info(repo_url):
         
         data = response.json()
         updated_on = data.get('updated_on')
-        created_at = data.get('created_at')
+        created_at = data.get('created_on')
         if created_at:
-            created_at = datetime.strptime(created_at, '%Y-%m-%dT%H:%M:%SZ')
+            created_at = dateutil.parser.parse(created_at)
         # Bitbucket doesn't have stars but has watchers
         watchers = data.get('watchers_count', 0)
         
         if updated_on:
-            return datetime.strptime(updated_on, '%Y-%m-%dT%H:%M:%S.%f%z'), None, watchers, created_at
+            return dateutil.parser.parse(updated_on), None, watchers, created_at
         return None, None, watchers, created_at
     except requests.exceptions.RequestException as e:
         if hasattr(e, 'response') and e.response is not None:
@@ -349,7 +381,7 @@ def update_readme_with_dates_status_and_stars(readme_path, repo_data):
             unavailable_repos.append((repo_name, repo_url))
             
             # Check if the repo is already marked as unavailable
-            repo_pattern = re.escape(f"[{repo_name}]({repo_url})") + r".*?(\[unavailable\])?"
+            repo_pattern = re.escape(f"[{repo_name}]({repo_url})") + r".*?(\[unavailable\])"
             unavailable_match = re.search(repo_pattern, updated_content)
             
             if unavailable_match and unavailable_match.group(1):
@@ -371,11 +403,10 @@ def update_readme_with_dates_status_and_stars(readme_path, repo_data):
             date_info = f"[Updated: {month:02d}/{year}]"
             
             # Check if the repo is already in the README with a date
-            repo_pattern = re.escape(f"[{repo_name}]({repo_url})") + r".*?(\[Updated:.*?\])?"
+            repo_pattern = re.escape(f"[{repo_name}]({repo_url})") + r".*?(\[Updated:.*?\])"
             date_match = re.search(repo_pattern, updated_content)
             
             if date_match and date_match.group(1):
-                # Replace existing date
                 updated_content = updated_content.replace(
                     date_match.group(1),
                     date_info
@@ -447,7 +478,7 @@ def main(readme):
         sys.exit(1)
     
     logger.info(f"Extracting repositories from {readme_path}...")
-    repos = extract_repos_from_readme(readme_path)
+    repos, classification = extract_repos_from_readme(readme_path)
     logger.info(f"Found {len(repos)} repository URLs in the README")
     
     # Process repositories in batches
@@ -478,13 +509,16 @@ def main(readme):
     with open(Path(__file__).parent / "repo_updates.json", 'w') as f:
         json_results = []
         for name, url, date, status, stars, created_at in results:
+            if name not in classification:
+                classification[name] = "unknown"
             json_results.append({
                 "name": name,
                 "url": url,
                 "created_at" : created_at.isoformat() if created_at else None,
                 "last_updated": date.isoformat() if date else None,
                 "status": status,
-                "stars": stars
+                "stars": stars,
+                "classification": classification[name]
             })
         json.dump(json_results, f, indent=2)
     
