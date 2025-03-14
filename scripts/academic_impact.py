@@ -49,25 +49,33 @@ class AcademicImpactCollector:
     def __init__(self, github_token: Optional[str] = None, 
                  semantic_scholar_key: Optional[str] = None,
                  contact_email: Optional[str] = None,
-                 zenodo_token: Optional[str] = None):
+                 zenodo_token: Optional[str] = None,
+                 metadata_dir: str = METADATA_DIR,
+                 cache_dir: str = CACHE_DIR):
         """Initialize the academic impact collector."""
         self.github_api = GitHubAPI(token=github_token)
         self.zenodo_api = ZenodoAPI(token=zenodo_token)
         self.semantic_scholar_api = SemanticScholarAPI(api_key=semantic_scholar_key)
         self.crossref_api = CrossRefAPI(email=contact_email)
         
+        # Store directory paths as instance variables
+        self.metadata_dir = metadata_dir
+        self.cache_dir = cache_dir
+        self.output_file = os.path.join(self.metadata_dir, "academic_impact.json")
+        self.summary_file = os.path.join(self.metadata_dir, "summary.json")
+        
         # Create directories
-        os.makedirs(METADATA_DIR, exist_ok=True)
-        os.makedirs(CACHE_DIR, exist_ok=True)
+        os.makedirs(self.metadata_dir, exist_ok=True)
+        os.makedirs(self.cache_dir, exist_ok=True)
         
         # Load existing metadata if available
         self.existing_metadata = {}
-        if os.path.exists(OUTPUT_FILE):
+        if os.path.exists(self.output_file):
             try:
-                with open(OUTPUT_FILE, 'r') as f:
+                with open(self.output_file, 'r') as f:
                     self.existing_metadata = json.load(f)
             except json.JSONDecodeError:
-                logger.warning(f"Could not parse existing metadata from {OUTPUT_FILE}")
+                logger.warning(f"Could not parse existing metadata from {self.output_file}")
     
     def get_repo_citation_info(self, tool_name: str, repo_url: str) -> Dict[str, Any]:
         """Get citation information from repository files like CITATION.cff."""
@@ -258,7 +266,7 @@ class AcademicImpactCollector:
         }
         
         # Save individual tool data
-        tool_file = os.path.join(METADATA_DIR, f"{tool_name.replace('/', '_')}.json")
+        tool_file = os.path.join(self.metadata_dir, f"{tool_name.replace('/', '_')}.json")
         with open(tool_file, 'w') as f:
             json.dump(academic_impact, f, indent=2)
         
@@ -277,7 +285,7 @@ class AcademicImpactCollector:
                 results[cache_key] = result
         
         # Save all results
-        with open(OUTPUT_FILE, 'w') as f:
+        with open(self.output_file, 'w') as f:
             json.dump(results, f, indent=2)
         
         return results
@@ -322,7 +330,7 @@ class AcademicImpactCollector:
         }
         
         # Save summary
-        with open(SUMMARY_FILE, 'w') as f:
+        with open(self.summary_file, 'w') as f:
             json.dump(summary, f, indent=2)
         
         return summary
@@ -349,15 +357,11 @@ def main():
     parser.add_argument('--zenodo-token', help='Zenodo API token')
     args = parser.parse_args()
     
-    # Update output directory if specified
-    global METADATA_DIR, OUTPUT_FILE, SUMMARY_FILE
-    if args.output != METADATA_DIR:
-        METADATA_DIR = args.output
-        OUTPUT_FILE = os.path.join(METADATA_DIR, "academic_impact.json")
-        SUMMARY_FILE = os.path.join(METADATA_DIR, "summary.json")
+    # Set up directory paths
+    metadata_dir = args.output
     
     # Ensure directories exist
-    os.makedirs(METADATA_DIR, exist_ok=True)
+    os.makedirs(metadata_dir, exist_ok=True)
     
     # Load tools data
     tools = load_tools_data()
@@ -367,12 +371,13 @@ def main():
     
     logger.info(f"Loaded {len(tools)} tools from data.json")
     
-    # Initialize collector
+    # Initialize collector with custom directory paths
     collector = AcademicImpactCollector(
         github_token=args.github_token,
         semantic_scholar_key=args.semantic_scholar_key,
         contact_email=args.contact_email,
-        zenodo_token=args.zenodo_token
+        zenodo_token=args.zenodo_token,
+        metadata_dir=metadata_dir
     )
     
     # Collect academic impact data
