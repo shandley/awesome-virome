@@ -527,10 +527,15 @@ This repository includes a Python script (`update_check.py`) that automatically 
    ```
    export GITHUB_TOKEN=your_github_token
    ```
-4. Run the script:
+4. Run the script to update the timestamps:
    ```
    python update_check.py
    ```
+5. Run the script to update the timeline image:
+    ```
+    python create_timeline_image.py
+    ```
+6. Commit and push the changes to the repository
 
 The script will:
 - Check all repository URLs in the README
