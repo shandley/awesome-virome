@@ -37,4 +37,19 @@ Where:
 - For maintained tools, prefer links to repositories over papers
 - If a tool is no longer maintained, please note this in the description
 
+## Enhanced Metadata Collection
+
+This repository automatically collects enhanced metadata from GitHub, GitLab, and Bitbucket repositories:
+
+1. **Weekly Updates**: Basic repository information is updated weekly (stars, update time)
+2. **Monthly Metadata**: Detailed metadata is collected monthly including:
+   - Programming languages
+   - License information
+   - Repository topics/tags
+   - Release information
+   - Creation and update dates
+   - Dependencies (when available)
+
+If you add a tool that is hosted on GitHub, GitLab, or Bitbucket, this metadata will be automatically collected and incorporated into the data visualization. For other tools, only the information you provide in the README will be used.
+
 Thank you for your contributions!

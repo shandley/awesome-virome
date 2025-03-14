@@ -1,9 +1,17 @@
-name: Weekly Repository Updates
+name: Repository Updates
 on:
   schedule:
-    # Runs at 00:00 UTC on Sunday
+    # Weekly basic updates - Runs at 00:00 UTC on Sunday
     - cron: '0 0 * * 0'
+    # Monthly enhanced metadata updates - Runs at 02:00 UTC on 1st of each month
+    - cron: '0 2 1 * *'
   workflow_dispatch: # Allows manual triggering
+    inputs:
+      run_metadata_enhancement:
+        description: 'Run enhanced metadata collection'
+        required: false
+        default: false
+        type: boolean
 jobs:
   update-repos:
     runs-on: ubuntu-latest
@@ -24,14 +32,50 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.REPO_UPDATE_TOKEN }}
         run: python update_check.py
-      - name: Commit changes if any
+      - name: Extract data from README to data.json
+        run: python update_data_json.py
+      - name: Commit weekly changes if any
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           # Add all potentially changed files, but only if they exist
-          git add README.md
-          git add repo_data.json starred_repos.md unavailable_repos.md 2>/dev/null || true
+          git add README.md data.json
+          git add repo_updates.json starred_repos.md unavailable_repos.md 2>/dev/null || true
           # Only commit if there are changes
           git diff --staged --quiet || git commit -m "Weekly repository update [skip ci]"
+      - name: Push changes
+        run: git push
+
+  enhance-metadata:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.schedule == '0 2 1 * *' || github.event.inputs.run_metadata_enhancement == 'true' }}
+    needs: update-repos
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.REPO_UPDATE_TOKEN }}
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests PyGithub
+      - name: Run enhanced metadata collection
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_UPDATE_TOKEN }}
+        run: python scripts/enhance_metadata.py
+      - name: Update data.json with enhanced metadata
+        run: python update_data_json.py --include-metadata
+      - name: Commit metadata changes if any
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          # Add all potentially changed files
+          git add data.json metadata/ 2>/dev/null || true
+          # Only commit if there are changes
+          git diff --staged --quiet || git commit -m "Monthly metadata enhancement [skip ci]"
       - name: Push changes
         run: git push

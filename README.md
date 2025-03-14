@@ -12,6 +12,19 @@ This list was originally started by [Rob Edwards](https://github.com/linsalrob) 
 
 Please feel free to [contribute](CONTRIBUTING.md)!
 
+## Enhanced Metadata
+
+This repository features an enhanced metadata collection system that enriches tool information with details from GitHub, GitLab, and Bitbucket repositories:
+
+- **Repository Statistics**: Star counts, forks, open issues, and watchers
+- **License Information**: License type and details for each tool
+- **Programming Languages**: Primary and secondary languages used
+- **Repository Topics/Tags**: Topic classifications from repository metadata
+- **Release Information**: Latest release version and date
+- **Creation & Update Dates**: When repositories were created and last updated
+
+This metadata is updated monthly and integrated into our visualization and search capabilities, making it easier to discover tools based on popularity, language preferences, or specific features.
+
 ## Introduction to Virome Analysis
 
 Virome analysis involves studying the collection of viruses (including bacteriophages) in a specific environment such as the human gut, soil, or oceans. These analyses typically include:

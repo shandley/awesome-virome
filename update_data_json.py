@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """
 Script to extract tool information from README.md and update data.json.
+Can also incorporate enhanced metadata from the metadata directory.
 """
 
 import re
 import json
 import logging
+import argparse
 from pathlib import Path
+from datetime import datetime
 
 # Configure logging
 logging.basicConfig(
@@ -28,7 +31,8 @@ def load_data_json(data_json_path):
             "nodes": [],
             "links": [],
             "categories": [],
-            "languages": []
+            "languages": [],
+            "last_updated": datetime.now().isoformat()
         }
 
 def extract_tools_from_readme(readme_path):
@@ -39,7 +43,8 @@ def extract_tools_from_readme(readme_path):
     # Regular expressions to extract categories, subcategories, and tools
     section_pattern = r'^## ([\w\s&\-]+)$'
     subsection_pattern = r'^### ([\w\s&\-]+)$'
-    tool_pattern = r'- \[([\w\s\-\.]+)\]\((https?://[^\s)]+)\) - (.*?)(?:$|\n)'
+    # Modified pattern to be more permissive with names and capture the full line
+    tool_pattern = r'- \[([^\]]+)\]\((https?://[^\s)]+)\)(.+?)(?:$|\n)'
     
     # Additional pattern to extract metadata tags
     metadata_pattern = r'\[([\w\s]+)\]'
@@ -67,10 +72,17 @@ def extract_tools_from_readme(readme_path):
         if tool_match and current_section and current_section not in ["Contents", "Contributing", "License"]:
             name = tool_match.group(1)
             url = tool_match.group(2)
-            description = tool_match.group(3).strip()
+            remaining_text = tool_match.group(3).strip()
+            
+            # Extract description - often after a dash
+            description = ""
+            if " - " in remaining_text:
+                description = remaining_text.split(" - ", 1)[1].strip()
+            else:
+                description = remaining_text
             
             # Extract language and package manager from metadata
-            metadata_tags = re.findall(metadata_pattern, line)
+            metadata_tags = re.findall(metadata_pattern, remaining_text)
             language = None
             package_manager = None
             
@@ -80,6 +92,7 @@ def extract_tools_from_readme(readme_path):
                 elif tag in ["pip", "conda", "bioconda", "npm", "cargo", "source"]:
                     package_manager = tag
             
+            logger.debug(f"Extracted tool: {name} ({url})")
             tools_data.append({
                 "name": name,
                 "url": url,
@@ -104,8 +117,54 @@ def get_subcategory_id(subcategory):
     """Generate a subcategory ID from the subcategory name."""
     return f"subcategory-{subcategory.replace(' ', '-')}"
 
-def update_data_json(data, tools_data):
-    """Update data.json with extracted tool information."""
+def load_enhanced_metadata():
+    """Load enhanced metadata from the metadata directory."""
+    metadata_dir = Path(__file__).parent / "metadata"
+    summary_path = metadata_dir / "summary.json"
+    
+    if not summary_path.exists():
+        logger.warning(f"Metadata summary file not found at {summary_path}")
+        return {}
+    
+    try:
+        with open(summary_path, 'r', encoding='utf-8') as f:
+            summary = json.load(f)
+        
+        # Create a dictionary mapping URLs to metadata
+        metadata_by_url = {}
+        for repo in summary.get("repositories", []):
+            if "url" in repo:
+                metadata_by_url[repo["url"]] = repo
+                logger.info(f"Added metadata for URL: {repo['url']}")
+        
+        return metadata_by_url
+    except Exception as e:
+        logger.error(f"Error loading enhanced metadata: {e}")
+        return {}
+
+def sanitize_repo_name(repo_name):
+    """Convert repo name to a valid filename."""
+    sanitized = re.sub(r'[^\w\-\.]', '_', repo_name)
+    return sanitized
+
+def load_individual_metadata(repo_name, repo_url):
+    """Load detailed metadata for a specific repository."""
+    metadata_dir = Path(__file__).parent / "metadata"
+    sanitized_name = sanitize_repo_name(repo_name)
+    file_path = metadata_dir / f"{sanitized_name}.json"
+    
+    if not file_path.exists():
+        return None
+    
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception as e:
+        logger.warning(f"Error loading metadata for {repo_name}: {e}")
+        return None
+
+def update_data_json(data, tools_data, include_metadata=False):
+    """Update data.json with extracted tool information and optional enhanced metadata."""
     # Track existing tools for preservation of data
     existing_nodes_by_id = {node["id"]: node for node in data.get("nodes", [])}
     updated_node_ids = set()
@@ -125,6 +184,12 @@ def update_data_json(data, tools_data):
             all_subcategories[tool["subcategory"]] = tool["category"]
         if tool["language"]:
             all_languages.add(tool["language"])
+    
+    # Load enhanced metadata if requested
+    enhanced_metadata = {}
+    if include_metadata:
+        enhanced_metadata = load_enhanced_metadata()
+        logger.info(f"Loaded enhanced metadata for {len(enhanced_metadata)} repositories")
     
     # Add category nodes
     for category in sorted(all_categories):
@@ -176,6 +241,9 @@ def update_data_json(data, tools_data):
             "value": 1
         })
     
+    # Count of metadata matches
+    metadata_matches = 0
+    
     # Add tool nodes
     for tool in tools_data:
         tool_id = get_tool_id(tool["name"])
@@ -212,6 +280,59 @@ def update_data_json(data, tools_data):
             node_data["size"] = 10
             node_data["color"] = "#198754"  # Default color
         
+        # Add enhanced metadata if available
+        logger.info(f"Checking metadata for tool: {tool['name']} ({tool['url']})")
+        if include_metadata and tool["url"] in enhanced_metadata:
+            logger.info(f"Found enhanced metadata for {tool['name']} ({tool['url']})")
+            metadata_matches += 1
+            meta = enhanced_metadata[tool["url"]]
+            
+            # Add basic metadata from summary
+            node_data["stars"] = meta.get("stars", node_data.get("stars", 0))
+            node_data["forks"] = meta.get("forks", 0)
+            node_data["open_issues"] = meta.get("open_issues", 0)
+            node_data["license"] = meta.get("license")
+            node_data["topics"] = meta.get("topics", [])
+            node_data["lastUpdated"] = meta.get("updated_at")
+            node_data["createdAt"] = meta.get("created_at")
+            node_data["latestRelease"] = meta.get("latest_release")
+            node_data["languages"] = meta.get("languages", {})
+            
+            # If language wasn't set in README, get it from metadata
+            if not node_data.get("language") and meta.get("languages"):
+                # For GitHub, languages is a dict with language name as key
+                if isinstance(meta.get("languages"), dict):
+                    languages = list(meta.get("languages").keys())
+                    if languages:
+                        primary_language = languages[0]
+                        node_data["language"] = primary_language
+                        all_languages.add(primary_language)
+                    node_data["all_languages"] = languages
+                # For others, it might be a simple string
+                elif isinstance(meta.get("languages"), str):
+                    node_data["language"] = meta.get("languages")
+                    all_languages.add(meta.get("languages"))
+            
+            # Load full metadata for additional details
+            detailed_meta = load_individual_metadata(tool["name"], tool["url"])
+            if detailed_meta:
+                # Add any additional fields from detailed metadata that might be useful
+                node_data["provider"] = detailed_meta.get("provider")
+                node_data["repo_path"] = detailed_meta.get("repo_path")
+                node_data["is_archived"] = detailed_meta.get("is_archived", False)
+                
+                # Adjust node size based on popularity
+                stars = node_data.get("stars", 0) or 0
+                if stars:
+                    if stars > 500:
+                        node_data["size"] = 25
+                    elif stars > 100:
+                        node_data["size"] = 20
+                    elif stars > 50:
+                        node_data["size"] = 15
+                    else:
+                        node_data["size"] = 10
+        
         new_nodes.append(node_data)
         
         # Add link between tool and category/subcategory
@@ -230,11 +351,14 @@ def update_data_json(data, tools_data):
                 "value": 1
             })
     
+    logger.info(f"Added enhanced metadata to {metadata_matches} tools")
+    
     # Update the data object
     data["nodes"] = new_nodes
     data["links"] = new_links
     data["categories"] = sorted(all_categories)
     data["languages"] = sorted(all_languages)
+    data["last_updated"] = datetime.now().isoformat()
     
     return data
 
@@ -246,6 +370,10 @@ def save_data_json(data, data_json_path):
 
 def main():
     """Main function to extract tools from README.md and update data.json."""
+    parser = argparse.ArgumentParser(description="Extract tool information from README.md and update data.json")
+    parser.add_argument("--include-metadata", action="store_true", help="Include enhanced metadata from metadata directory")
+    args = parser.parse_args()
+    
     repo_root = Path(__file__).parent
     readme_path = repo_root / "README.md"
     data_json_path = repo_root / "data.json"
@@ -257,8 +385,8 @@ def main():
     tools_data = extract_tools_from_readme(readme_path)
     logger.info(f"Found {len(tools_data)} tools in README.md")
     
-    logger.info(f"Updating {data_json_path}")
-    updated_data = update_data_json(data, tools_data)
+    logger.info(f"Updating {data_json_path}" + (" with enhanced metadata" if args.include_metadata else ""))
+    updated_data = update_data_json(data, tools_data, include_metadata=args.include_metadata)
     
     logger.info(f"Saving to {data_json_path}")
     save_data_json(updated_data, data_json_path)
