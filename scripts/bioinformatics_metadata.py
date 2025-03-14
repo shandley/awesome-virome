@@ -41,7 +41,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-# Directory constants
+# Directory constants (declare at module level, no global needed)
 METADATA_DIR = os.path.join("metadata", "bioinformatics")
 OUTPUT_FILE = os.path.join(METADATA_DIR, "summary.json")
 
@@ -51,8 +51,13 @@ class BioinformaticsMetadataCollector:
     
     def __init__(self, github_token: Optional[str] = None, 
                  semantic_scholar_key: Optional[str] = None,
-                 contact_email: Optional[str] = None):
+                 contact_email: Optional[str] = None,
+                 metadata_dir: str = METADATA_DIR,
+                 output_file: str = OUTPUT_FILE):
         """Initialize the bioinformatics metadata collector."""
+        # Store directory paths
+        self.metadata_dir = metadata_dir
+        self.output_file = output_file
         
         # Initialize academic impact collector
         self.academic_impact_collector = AcademicImpactCollector(
@@ -62,16 +67,16 @@ class BioinformaticsMetadataCollector:
         )
         
         # Create metadata directory if it doesn't exist
-        os.makedirs(METADATA_DIR, exist_ok=True)
+        os.makedirs(self.metadata_dir, exist_ok=True)
         
         # Load existing metadata if available
         self.existing_metadata = {}
-        if os.path.exists(OUTPUT_FILE):
+        if os.path.exists(self.output_file):
             try:
-                with open(OUTPUT_FILE, 'r') as f:
+                with open(self.output_file, 'r') as f:
                     self.existing_metadata = json.load(f)
             except json.JSONDecodeError:
-                logger.warning(f"Could not parse existing metadata from {OUTPUT_FILE}")
+                logger.warning(f"Could not parse existing metadata from {self.output_file}")
     
     def search_biotools(self, tool_name: str) -> Dict[str, Any]:
         """Search Bio.tools for a tool by name and return its metadata."""
@@ -239,8 +244,15 @@ class BioinformaticsMetadataCollector:
             for tool, metadata in zip(tools, executor.map(self.collect_tool_metadata, tools)):
                 tool_name = tool.get('name', '')
                 results[tool_name] = metadata
+                
+                # Save individual tool metadata
+                tool_file = os.path.join(self.metadata_dir, f"{tool_name.replace('/', '_')}.json")
+                with open(tool_file, 'w') as f:
+                    json.dump(metadata, f, indent=2)
         
-        # Note: File saving is handled by the subclass
+        # Save all results
+        with open(self.output_file, 'w') as f:
+            json.dump(results, f, indent=2)
         
         return results
     
@@ -298,7 +310,10 @@ class BioinformaticsMetadataCollector:
             'generated': datetime.now().isoformat()
         }
         
-        # Note: File saving is handled by the subclass
+        # Save summary statistics
+        summary_file = os.path.join(self.metadata_dir, "statistics.json")
+        with open(summary_file, 'w') as f:
+            json.dump(summary, f, indent=2)
         
         return summary
 
@@ -316,87 +331,19 @@ def load_tools_data() -> List[Dict[str, Any]]:
 
 def main():
     """Main function to run the bioinformatics metadata collection."""
-    # Use function-local variables instead of modifying globals
-    metadata_dir = METADATA_DIR
-    output_file = OUTPUT_FILE
-    
     parser = argparse.ArgumentParser(description='Collect bioinformatics metadata for Awesome-Virome tools')
-    parser.add_argument('--output', help='Output directory for metadata', default=metadata_dir)
+    parser.add_argument('--output', help='Output directory for metadata', default=METADATA_DIR)
     parser.add_argument('--github-token', help='GitHub API token')
     parser.add_argument('--semantic-scholar-key', help='Semantic Scholar API key')
     parser.add_argument('--contact-email', help='Contact email for API rate limiting')
     args = parser.parse_args()
     
-    # Update output directory if specified
-    if args.output != metadata_dir:
-        metadata_dir = args.output
-        output_file = os.path.join(metadata_dir, "summary.json")
+    # Set up directory paths
+    metadata_dir = args.output
+    output_file = os.path.join(metadata_dir, "summary.json")
     
     # Ensure metadata directory exists
     os.makedirs(metadata_dir, exist_ok=True)
-    
-    # Create a custom metadata collector that uses our directory
-    class CustomMetadataCollector(BioinformaticsMetadataCollector):
-        def __init__(self, *args, **kwargs):
-            # Override the existing_metadata loading to use our custom directory
-            self.existing_metadata = {}
-            if os.path.exists(output_file):
-                try:
-                    with open(output_file, 'r') as f:
-                        self.existing_metadata = json.load(f)
-                except json.JSONDecodeError:
-                    logger.warning(f"Could not parse existing metadata from {output_file}")
-                    
-            # Initialize other attributes directly
-            
-            # Initialize academic impact collector
-            self.academic_impact_collector = AcademicImpactCollector(
-                github_token=kwargs.get('github_token'),
-                semantic_scholar_key=kwargs.get('semantic_scholar_key'),
-                contact_email=kwargs.get('contact_email')
-            )
-            
-            # Set custom directory paths
-            self.metadata_dir = metadata_dir
-            self.output_file = output_file
-            
-            # Create metadata directory if it doesn't exist
-            os.makedirs(self.metadata_dir, exist_ok=True)
-            
-        def collect_tool_metadata(self, tool):
-            """Override to use custom paths"""
-            metadata = super().collect_tool_metadata(tool)
-            # Save individual tool metadata using our custom path
-            tool_name = tool.get('name', '')
-            tool_file = os.path.join(self.metadata_dir, f"{tool_name.replace('/', '_')}.json")
-            with open(tool_file, 'w') as f:
-                json.dump(metadata, f, indent=2)
-            return metadata
-            
-        def collect_all_metadata(self, tools):
-            results = {}
-            
-            # Process tools in parallel using ThreadPoolExecutor
-            with ThreadPoolExecutor(max_workers=5) as executor:
-                # Map each tool to its metadata
-                for tool, metadata in zip(tools, executor.map(self.collect_tool_metadata, tools)):
-                    tool_name = tool.get('name', '')
-                    results[tool_name] = metadata
-            
-            # Save all results using our custom output file
-            with open(self.output_file, 'w') as f:
-                json.dump(results, f, indent=2)
-            
-            return results
-            
-        def generate_summary(self, metadata):
-            """Override to use custom paths"""
-            summary = super().generate_summary(metadata)
-            # Save to custom directory
-            summary_file = os.path.join(self.metadata_dir, "statistics.json")
-            with open(summary_file, 'w') as f:
-                json.dump(summary, f, indent=2)
-            return summary
     
     # Load tools data
     tools = load_tools_data()
@@ -406,11 +353,13 @@ def main():
     
     logger.info(f"Loaded {len(tools)} tools from data.json")
     
-    # Initialize custom metadata collector
-    collector = CustomMetadataCollector(
+    # Initialize metadata collector with our directory paths
+    collector = BioinformaticsMetadataCollector(
         github_token=args.github_token,
         semantic_scholar_key=args.semantic_scholar_key,
-        contact_email=args.contact_email
+        contact_email=args.contact_email,
+        metadata_dir=metadata_dir,
+        output_file=output_file
     )
     
     # Collect metadata for all tools
