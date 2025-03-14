@@ -164,6 +164,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [ViralCC](https://github.com/dyxstat/ViralCC) [Updated: 12/2024] [Updated: 12/2024] - Viral sequence identification via machine learning. [Python]
 - [ViralConsensus](https://github.com/niemasd/ViralConsensus) [Updated: 12/2024] [Updated: 12/2024] - Viral consensus sequence calling from sequencing data. [source] [Python]
 - [viralMetagenomicsPipeline](https://github.com/wclose/viralMetagenomicsPipeline) [Updated: 11/2024] [Updated: 11/2024] - Snakemake workflow combining virSorter and VirFinder. [Python]
+- [viralrecon](https://github.com/nf-core/viralrecon) - Perform assembly and intra-host/low-frequency variant calling for viral samples given a reference genome. [Nextflow]
 - [ViralWasm](https://niema-lab.github.io/ViralWasm) - WebAssembly tools for virus identification in the browser. [JavaScript]
 - [viraMiner](https://github.com/NeuroCSUT/ViraMiner) [Updated: 12/2024] [Updated: 12/2024] - CNN classifier for virus identification. [Python]
 - [virAnnot](https://github.com/marieBvr/virAnnot) [Updated: 03/2024] [Updated: 03/2024] - Pipeline for OTU assignment in viral sequences. [source] [Python]
@@ -453,7 +454,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 
 ### Machine Learning Models
 
-- [CHERRY-models](https://github.com/KennthShang/CHERRY) [Updated: 03/2025] - Pre-trained host prediction models. [Python] 
+- [CHERRY-models](https://github.com/KennthShang/CHERRY) [Updated: 03/2025] - Pre-trained host prediction models. [Python]
 - [DeepVirFinder-models](https://github.com/jessieren/DeepVirFinder/tree/master/models) [Updated: 03/2025] - Pre-trained models for viral sequence identification. [Python]
 - [PhaTYP-models](https://web.archive.org/web/20211218103428/https://github.com/PhaTYP/PhaTYP) [unavailable] [unavailable] - Phage lifestyle prediction models. [Python]
 - [ViraMiner-models](https://github.com/NeuroCSUT/ViraMiner) [Updated: 12/2024] - ML models for viral sequence mining. [Python]
