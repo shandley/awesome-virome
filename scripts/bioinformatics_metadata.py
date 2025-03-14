@@ -24,8 +24,8 @@ from concurrent.futures import ThreadPoolExecutor
 import re
 
 # Import our API modules
-from apis.biotools_api import BioToolsAPI
-from apis.bioconda_api import BiocondaAPI
+import apis.biotools_api as biotools_api
+import apis.bioconda_api as bioconda_api
 
 # Import academic impact module
 from academic_impact import AcademicImpactCollector
@@ -53,8 +53,6 @@ class BioinformaticsMetadataCollector:
                  semantic_scholar_key: Optional[str] = None,
                  contact_email: Optional[str] = None):
         """Initialize the bioinformatics metadata collector."""
-        self.biotools_api = BioToolsAPI()
-        self.bioconda_api = BiocondaAPI()
         
         # Initialize academic impact collector
         self.academic_impact_collector = AcademicImpactCollector(
@@ -86,19 +84,21 @@ class BioinformaticsMetadataCollector:
         ]
         
         for term in search_terms:
-            results = self.biotools_api.search_tools(term)
+            results = biotools_api.search_tool(term)
             
-            if results:
+            if results and 'list' in results:
+                result_list = results.get('list', [])
                 # Try to find an exact match first
-                for result in results:
+                for result in result_list:
                     name = result.get('name', '').lower()
                     if name == tool_name.lower() or name == tool_name.lower().replace('-', ''):
                         tool_id = result.get('biotoolsID')
-                        return self.biotools_api.get_tool_details(tool_id)
+                        return biotools_api.get_tool_details(tool_id)
                 
                 # If no exact match, return the first result
-                tool_id = results[0].get('biotoolsID')
-                return self.biotools_api.get_tool_details(tool_id)
+                if result_list:
+                    tool_id = result_list[0].get('biotoolsID')
+                    return biotools_api.get_tool_details(tool_id)
         
         return {}
     
@@ -114,18 +114,16 @@ class BioinformaticsMetadataCollector:
         ]
         
         for term in search_terms:
-            results = self.bioconda_api.search_package(term)
+            package_data = bioconda_api.search_package(term)
             
-            if results:
-                # Try to find an exact match first
-                for result in results:
-                    if result.lower() == tool_name.lower() or \
-                       result.lower() == f"bioconda-{tool_name.lower()}" or \
-                       result.lower() == tool_name.lower().replace('-', ''):
-                        return self.bioconda_api.get_package_info(result)
+            if package_data:
+                # Get additional information
+                package_name = package_data.get('name', '')
+                files_data = bioconda_api.get_package_files(package_name)
+                recipe_data = bioconda_api.get_package_recipe(package_name)
                 
-                # If no exact match, return the first result
-                return self.bioconda_api.get_package_info(results[0])
+                # Extract structured metadata
+                return bioconda_api.extract_package_metadata(package_data, files_data, recipe_data)
         
         return {}
     
@@ -350,8 +348,6 @@ def main():
                     logger.warning(f"Could not parse existing metadata from {output_file}")
                     
             # Initialize other attributes directly
-            self.biotools_api = BioToolsAPI()
-            self.bioconda_api = BiocondaAPI()
             
             # Initialize academic impact collector
             self.academic_impact_collector = AcademicImpactCollector(
