@@ -587,8 +587,13 @@ class GitHubAPI:
     
     def __init__(self, token: Optional[str] = None):
         self.token = token
-        self.rate_limiter = RateLimiter(calls_per_minute=30)
+        # Use a more conservative rate limit if no token is provided
+        self.rate_limiter = RateLimiter(calls_per_minute=5 if not token else 30)
         os.makedirs(self.CACHE_DIR, exist_ok=True)
+        
+        # Log warning if no token provided
+        if not token:
+            logger.warning("No GitHub token provided. Rate limits will be severely restricted (60 requests/hour).")
     
     def _get_cache_path(self, query: str) -> str:
         """Get the path for a cached result."""
@@ -641,6 +646,21 @@ class GitHubAPI:
         
         try:
             response = requests.get(url, headers=headers)
+            
+            # Check for rate limiting
+            if response.status_code == 403 and 'rate limit exceeded' in response.text.lower():
+                reset_time = int(response.headers.get('X-RateLimit-Reset', 0))
+                if reset_time > 0:
+                    wait_time = max(0, reset_time - time.time())
+                    if wait_time > 0 and wait_time < 600:  # Only wait if less than 10 minutes
+                        logger.warning(f"GitHub rate limit exceeded. Waiting {wait_time:.0f} seconds...")
+                        time.sleep(wait_time + 1)  # Add 1 second buffer
+                        # Try one more time
+                        return self.get_repo_contents(owner, repo, path)
+                
+                logger.error("GitHub rate limit exceeded and wait time too long. Skipping request.")
+                return []
+            
             response.raise_for_status()
             contents = response.json()
             self._save_to_cache(cache_path, contents)
@@ -668,6 +688,21 @@ class GitHubAPI:
         
         try:
             response = requests.get(url, headers=headers)
+            
+            # Check for rate limiting
+            if response.status_code == 403 and 'rate limit exceeded' in response.text.lower():
+                reset_time = int(response.headers.get('X-RateLimit-Reset', 0))
+                if reset_time > 0:
+                    wait_time = max(0, reset_time - time.time())
+                    if wait_time > 0 and wait_time < 600:  # Only wait if less than 10 minutes
+                        logger.warning(f"GitHub rate limit exceeded. Waiting {wait_time:.0f} seconds...")
+                        time.sleep(wait_time + 1)  # Add 1 second buffer
+                        # Try one more time
+                        return self.get_file_content(owner, repo, path)
+                
+                logger.error("GitHub rate limit exceeded and wait time too long. Skipping request.")
+                return None
+            
             response.raise_for_status()
             data = response.json()
             
@@ -682,72 +717,114 @@ class GitHubAPI:
     
     def find_citation_file(self, repo_url: str) -> Optional[Dict[str, Any]]:
         """Find CITATION.cff or other citation files in a repository."""
+        # Skip if no repo_url provided
+        if not repo_url or not isinstance(repo_url, str):
+            logger.warning("Invalid or missing repository URL")
+            return None
+            
+        # Skip non-GitHub repositories
+        if 'github.com' not in repo_url:
+            logger.info(f"Not a GitHub repository: {repo_url}")
+            return None
+        
         # Extract owner and repo from URL
         match = re.search(r'github\.com/([^/]+)/([^/]+)', repo_url)
         if not match:
             logger.error(f"Could not extract owner/repo from URL: {repo_url}")
             return None
         
-        owner, repo = match.groups()
-        repo = repo.rstrip('.git')
-        
-        # Common citation file paths to check
-        citation_paths = [
-            "CITATION.cff",
-            "CITATION",
-            "citation.cff",
-            "citation.txt",
-            "CITATION.txt",
-            "CITATION.md",
-            "citation.md",
-            "CITATION.bib",
-            "citation.bib"
-        ]
-        
-        for path in citation_paths:
-            content = self.get_file_content(owner, repo, path)
-            if content:
-                return {
-                    'path': path,
-                    'content': content,
-                    'format': path.split('.')[-1] if '.' in path else 'txt'
-                }
-        
-        # Look in .github directory
-        for path in [f".github/{p}" for p in citation_paths]:
-            content = self.get_file_content(owner, repo, path)
-            if content:
-                return {
-                    'path': path,
-                    'content': content,
-                    'format': path.split('.')[-1] if '.' in path else 'txt'
-                }
-        
-        # Check README for citation information
-        readme_content = self.get_file_content(owner, repo, "README.md")
-        if readme_content:
-            # Look for citation section in README
-            citation_section = None
-            citation_patterns = [
-                r'(?i)#+\s*citation\s*\n+(.*?)(?:\n#+\s|\Z)',
-                r'(?i)#+\s*how\s+to\s+cite\s*\n+(.*?)(?:\n#+\s|\Z)',
-                r'(?i)#+\s*citing\s+this\s+work\s*\n+(.*?)(?:\n#+\s|\Z)'
+        try:
+            owner, repo = match.groups()
+            repo = repo.rstrip('.git')
+            
+            # Cache key for the entire operation
+            cache_path = self._get_cache_path(f"citation_search_{owner}_{repo}")
+            
+            if self._cache_valid(cache_path):
+                logger.info(f"Using cached citation search results for '{owner}/{repo}'")
+                return self._get_from_cache(cache_path)
+            
+            # Common citation file paths to check
+            citation_paths = [
+                "CITATION.cff",
+                "CITATION",
+                "citation.cff",
+                "citation.txt",
+                "CITATION.txt",
+                "CITATION.md",
+                "citation.md",
+                "CITATION.bib",
+                "citation.bib"
             ]
             
-            for pattern in citation_patterns:
-                match = re.search(pattern, readme_content, re.DOTALL)
-                if match:
-                    citation_section = match.group(1).strip()
-                    break
+            # Search for citation files in a more controlled manner
+            result = None
             
-            if citation_section:
-                return {
-                    'path': 'README.md',
-                    'content': citation_section,
-                    'format': 'md'
-                }
+            # First check main citation files (most common)
+            for path in citation_paths[:3]:  # Limit to the most common ones first
+                try:
+                    content = self.get_file_content(owner, repo, path)
+                    if content:
+                        result = {
+                            'path': path,
+                            'content': content,
+                            'format': path.split('.')[-1] if '.' in path else 'txt'
+                        }
+                        break
+                except Exception as e:
+                    logger.warning(f"Error checking for citation file {path}: {e}")
+            
+            # If no result from common files, try .github directory
+            if not result:
+                try:
+                    # Only check the most common location in .github
+                    github_path = ".github/CITATION.cff"
+                    content = self.get_file_content(owner, repo, github_path)
+                    if content:
+                        result = {
+                            'path': github_path,
+                            'content': content,
+                            'format': 'cff'
+                        }
+                except Exception as e:
+                    logger.warning(f"Error checking for citation in .github directory: {e}")
+            
+            # As a last resort, check README.md
+            if not result:
+                try:
+                    readme_content = self.get_file_content(owner, repo, "README.md")
+                    if readme_content:
+                        # Look for citation section in README
+                        citation_section = None
+                        citation_patterns = [
+                            r'(?i)#+\s*citation\s*\n+(.*?)(?:\n#+\s|\Z)',
+                            r'(?i)#+\s*how\s+to\s+cite\s*\n+(.*?)(?:\n#+\s|\Z)',
+                            r'(?i)#+\s*citing\s+this\s+work\s*\n+(.*?)(?:\n#+\s|\Z)'
+                        ]
+                        
+                        for pattern in citation_patterns:
+                            match = re.search(pattern, readme_content, re.DOTALL)
+                            if match:
+                                citation_section = match.group(1).strip()
+                                break
+                        
+                        if citation_section:
+                            result = {
+                                'path': 'README.md',
+                                'content': citation_section,
+                                'format': 'md'
+                            }
+                except Exception as e:
+                    logger.warning(f"Error checking for citation in README: {e}")
+            
+            # Save result to cache, even if None
+            self._save_to_cache(cache_path, result if result else {})
+            
+            return result
         
-        return None
+        except Exception as e:
+            logger.error(f"Error in find_citation_file for {repo_url}: {e}")
+            return None
     
     def parse_citation_cff(self, content: str) -> Dict[str, Any]:
         """Parse CITATION.cff file for citation information."""
