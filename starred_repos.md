@@ -2,27 +2,65 @@
 
 | Repository | Stars |
 |------------|-------|
+| [AlphaFold-Multimer](https://github.com/deepmind/alphafold) | 13320 |
+| [AlphaFold-Multimer](https://github.com/deepmind/alphafold) | 13320 |
+| [CovidMD](https://github.com/lammps/lammps) | 2365 |
+| [CovidMD](https://github.com/lammps/lammps) | 2365 |
+| [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) | 1114 |
+| [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) | 1114 |
 | [coronaSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) | 797 |
+| [coronaSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) | 797 |
+| [coronaSPAdes/metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) | 797 |
 | [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) | 797 |
+| [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) | 797 |
+| [metaviralSPAdes-RNA](https://github.com/ablab/spades) | 797 |
+| [metaviralSPAdes-RNA](https://github.com/ablab/spades) | 797 |
+| [MetaProdigal](https://github.com/hyattpd/Prodigal) | 471 |
+| [MetaProdigal](https://github.com/hyattpd/Prodigal) | 471 |
+| [Prodigal](https://github.com/hyattpd/Prodigal) | 471 |
+| [Prodigal](https://github.com/hyattpd/Prodigal) | 471 |
 | [MetaPhlAn 4.1.0](https://github.com/biobakery/MetaPhlAn/releases/tag/4.1.0) | 328 |
+| [MetaPhlAn 4.1.0](https://github.com/biobakery/MetaPhlAn/releases/tag/4.1.0) | 328 |
+| [MetaPhlAn 4.1.0](https://github.com/biobakery/MetaPhlAn/releases/tag/4.1.0) | 328 |
+| [AMRFinder](https://github.com/ncbi/amr) | 297 |
+| [AMRFinder](https://github.com/ncbi/amr) | 297 |
+| [DRAMv](https://github.com/WrightonLabCSU/DRAM) | 267 |
+| [DRAMv](https://github.com/WrightonLabCSU/DRAM) | 267 |
 | [DRAMv](https://github.com/WrightonLabCSU/DRAM) | 267 |
 | [geNomad](https://github.com/apcamargo/genomad) | 219 |
+| [geNomad](https://github.com/apcamargo/genomad) | 219 |
+| [geNomad](https://github.com/apcamargo/genomad) | 219 |
+| [Viral-NGS](https://github.com/broadinstitute/viral-ngs) | 192 |
+| [Viral-NGS](https://github.com/broadinstitute/viral-ngs) | 192 |
+| [VIBRANT](https://github.com/AnantharamanLab/VIBRANT) | 159 |
+| [VIBRANT](https://github.com/AnantharamanLab/VIBRANT) | 159 |
 | [VIBRANT](https://github.com/AnantharamanLab/VIBRANT) | 159 |
 | [Pharokka](https://github.com/gbouras13/pharokka) | 158 |
+| [Pharokka](https://github.com/gbouras13/pharokka) | 158 |
+| [Pharokka](https://github.com/gbouras13/pharokka) | 158 |
 | [VirFinder](https://github.com/jessieren/VirFinder) | 137 |
+| [V-pipe](https://github.com/cbg-ethz/V-pipe) | 135 |
 | [VIRify](https://github.com/EBI-Metagenomics/emg-viral-pipeline) | 131 |
 | [DeepVirFinder](https://github.com/jessieren/DeepVirFinder) | 128 |
+| [DeepVirFinder-models](https://github.com/jessieren/DeepVirFinder/tree/master/models) | 128 |
 | [SNPGenie](https://github.com/chasewnelson/snpgenie) | 111 |
 | [What_the_phage](https://github.com/replikation/What_the_Phage) | 104 |
 | [VirSorter](https://github.com/simroux/VirSorter) | 103 |
+| [VirSorter-DarkMatter](https://github.com/simroux/VirSorter) | 103 |
+| [Recentrifuge](https://github.com/khyox/recentrifuge) | 88 |
+| [IDseq](https://github.com/chanzuckerberg/idseq-web) | 84 |
 | [Phables](https://github.com/Vini2/phables) | 77 |
 | [PhiSpy](https://github.com/linsalrob/PhiSpy) | 77 |
+| [PhiSpy](https://github.com/linsalrob/PhiSpy) | 77 |
+| [PHANOTATE](https://github.com/deprekate/PHANOTATE) | 72 |
+| [PHANOTATE-AMR](https://github.com/deprekate/PHANOTATE) | 72 |
 | [Phanotate](https://github.com/deprekate/PHANOTATE) | 72 |
 | [viralVerify](https://github.com/ablab/viralVerify/) | 67 |
 | [COBRA](https://github.com/linxingchen/cobra) | 65 |
 | [ViralMSA](https://github.com/niemasd/ViralMSA) | 65 |
 | [Phanta](https://github.com/bhattlab/phanta) | 63 |
 | [vRhyme](https://github.com/AnantharamanLab/vRhyme) | 61 |
+| [Viral-Track](https://github.com/PierreBSC/Viral-Track) | 57 |
 | [hecatomb](https://github.com/shandley/hecatomb) | 57 |
 | [Cenote-Taker 2](https://github.com/mtisza1/Cenote-Taker2) | 55 |
 | [MetaCerberus](https://github.com/raw-lab/MetaCerberus) | 55 |
@@ -33,15 +71,19 @@
 | [Phigaro](https://github.com/bobeobibo/phigaro) | 50 |
 | [PHAMB](https://github.com/RasmussenLab/phamb) | 48 |
 | [PPR-Meta](https://github.com/zhenchengfang/PPR-Meta) | 43 |
+| [ShoRAH](https://github.com/cbg-ethz/shorah) | 40 |
 | [Cenote-Taker 3](https://github.com/mtisza1/Cenote-Taker3) | 39 |
 | [FAVITES](https://github.com/niemasd/FAVITES) | 38 |
 | [Virion](https://github.com/viralemergence/virion) | 38 |
+| [PhageBoost](https://github.com/ku-cbd/PhageBoost) | 37 |
 | [SpacePHARER](https://github.com/soedinglab/spacepharer) | 37 |
 | [BACPHLIP](https://github.com/adamhockenberry/bacphlip) | 35 |
 | [RdRp-scan](https://github.com/JustineCharon/RdRp-scan/) | 35 |
 | [Virtus](https://github.com/yyoshiaki/VIRTUS) | 34 |
 | [INSaFLU-TELEVIR](https://github.com/INSaFLU/INSaFLU) | 33 |
+| [ViraMiner-models](https://github.com/NeuroCSUT/ViraMiner) | 33 |
 | [viraMiner](https://github.com/NeuroCSUT/ViraMiner) | 33 |
+| [PastML](https://github.com/evolbioinfo/pastml) | 32 |
 | [DBSCAN-SWA](https://github.com/HIT-ImmunologyLab/DBSCAN-SWA/) | 31 |
 | [PhaGCN](https://github.com/KennthShang/PhaGCN) | 31 |
 | [Seeker](https://github.com/gussow/seeker) | 31 |
@@ -54,23 +96,27 @@
 | [ViruSpy](https://github.com/NCBI-Hackathons/ViruSpy) | 27 |
 | [Jaeger](https://github.com/Yasas1994/Jaeger) | 26 |
 | [VIP](https://github.com/keylabivdc/VIP/) | 25 |
+| [CHERRY](https://github.com/KennthShang/CHERRY) | 24 |
+| [CHERRY-models](https://github.com/KennthShang/CHERRY) | 24 |
 | [viralComplete](https://github.com/ablab/viralComplete/) | 24 |
-| [CHERRY](https://github.com/KennthShang/CHERRY) | 23 |
 | [VStrains](https://github.com/metagentools/VStrains) | 23 |
 | [ViralConsensus](https://github.com/niemasd/ViralConsensus) | 22 |
+| [CliqueSNV](https://github.com/vtsyvina/CliqueSNV) | 21 |
 | [DePhT](https://github.com/chg60/DEPhT) | 20 |
+| [VIDHOP](https://github.com/flomock/vidhop) | 20 |
 | [DeepHost](https://github.com/deepomicslab/DeepHost) | 19 |
 | [HostG](https://github.com/KennthShang/HostG) | 19 |
 | [PhANNs](https://github.com/Adrian-Cantu/PhANNs) | 19 |
 | [VEGA](https://github.com/pauloluniyi/VGEA) | 19 |
-| [VIDHOP](https://github.com/flomock/vidhop) | 19 |
 | [VirHostMatcher-Net](https://github.com/WeiliWw/VirHostMatcher-Net) | 19 |
 | [VirMine](https://github.com/thatzopoulos/virMine) | 18 |
+| [VirMine-RNA](https://github.com/thatzopoulos/virMine) | 18 |
 | [ViromeQC](https://github.com/SegataLab/viromeqc) | 18 |
 | [virMiner](https://github.com/TingtZHENG/VirMiner) | 18 |
+| [CoCoNet](https://github.com/Puumanamana/CoCoNet) | 17 |
 | [GraViTy](https://github.com/PAiewsakun/GRAViTy) | 17 |
+| [pGlyco](https://github.com/pFindStudio/pGlyco3) | 17 |
 | [viralintegration](https://github.com/nf-core/viralintegration) | 17 |
-| [CoCoNet](https://github.com/Puumanamana/CoCoNet) | 16 |
 | [CrisprOpenDB](https://github.com/edzuf/CrisprOpenDB) | 16 |
 | [PHACTS](https://github.com/deprekate/PHACTS) | 16 |
 | [PhageHostLearn](https://github.com/dimiboeckaerts/PhageHostLearn) | 16 |
@@ -78,6 +124,7 @@
 | [ViralCC](https://github.com/dyxstat/ViralCC) | 16 |
 | [Phage tools](https://github.com/sxh1136/Phage_tools) | 15 |
 | [Virtifier](https://github.com/crazyinter/Seq2Vec) | 15 |
+| [HOPS](https://github.com/rhuebler/HOPS) | 14 |
 | [VirMet](https://github.com/medvir/VirMet) | 14 |
 | [mulitPHATE](https://github.com/carolzhou/multiPhATE) | 14 |
 | [OLGenie](https://github.com/chasewnelson/OLGenie) | 13 |
@@ -86,8 +133,10 @@
 | [hafeZ](https://github.com/Chrisjrt/hafeZ) | 12 |
 | [viralMetagenomicsPipeline](https://github.com/wclose/viralMetagenomicsPipeline) | 12 |
 | [PHP](https://github.com/congyulu-bioinfo/PHP) | 11 |
+| [Paleovirology](https://github.com/giffordlabcvr/DIGS-tool) | 11 |
 | [INHERIT](https://github.com/Celestial-Bai/INHERIT) | 10 |
 | [Prophet](https://github.com/jaumlrc/ProphET) | 10 |
+| [ResFinder](https://github.com/cadms/resfinder) | 10 |
 | [DeepVHPPI](https://github.com/QData/DeepVHPPI) | 9 |
 | [MetaPhinder](https://github.com/vanessajurtz/MetaPhinder) | 9 |
 | [Virhunter](https://github.com/cbib/virhunter) | 9 |
