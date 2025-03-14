@@ -163,7 +163,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [VIP](https://github.com/keylabivdc/VIP/) [Updated: 08/2022] [Updated: 08/2022] - Integrated pipeline for virus identification. [Python]
 - [ViralCC](https://github.com/dyxstat/ViralCC) [Updated: 12/2024] [Updated: 12/2024] - Viral sequence identification via machine learning. [Python]
 - [ViralConsensus](https://github.com/niemasd/ViralConsensus) [Updated: 12/2024] [Updated: 12/2024] - Viral consensus sequence calling from sequencing data. [source] [Python]
-- [Viralgenie](https://github.com/Joon-Klaps/viralgenie)[Updated: 03/2025] - Metagenomic NGS analysis pipeline for reconstructing consensus genomes and to identify intra-host variants using iterative refinement approach [Nextflow]
+- [Viralgenie](https://github.com/Joon-Klaps/viralgenie) [Updated: 03/2025] - Metagenomic NGS analysis pipeline for reconstructing consensus genomes and to identify intra-host variants using iterative refinement approach [Nextflow]
 - [viralMetagenomicsPipeline](https://github.com/wclose/viralMetagenomicsPipeline) [Updated: 11/2024] [Updated: 11/2024] - Snakemake workflow combining virSorter and VirFinder. [Python]
 - [ViralWasm](https://niema-lab.github.io/ViralWasm) - WebAssembly tools for virus identification in the browser. [JavaScript]
 - [viraMiner](https://github.com/NeuroCSUT/ViraMiner) [Updated: 12/2024] [Updated: 12/2024] - CNN classifier for virus identification. [Python]
