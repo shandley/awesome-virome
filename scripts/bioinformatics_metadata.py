@@ -88,22 +88,27 @@ class BioinformaticsMetadataCollector:
             tool_name.replace('_', ' ')
         ]
         
-        for term in search_terms:
-            results = biotools_api.search_tool(term)
-            
-            if results and 'list' in results:
-                result_list = results.get('list', [])
-                # Try to find an exact match first
-                for result in result_list:
-                    name = result.get('name', '').lower()
-                    if name == tool_name.lower() or name == tool_name.lower().replace('-', ''):
-                        tool_id = result.get('biotoolsID')
-                        return biotools_api.get_tool_details(tool_id)
+        try:
+            for term in search_terms:
+                results = biotools_api.search_tool(term)
                 
-                # If no exact match, return the first result
-                if result_list:
-                    tool_id = result_list[0].get('biotoolsID')
-                    return biotools_api.get_tool_details(tool_id)
+                if results and 'list' in results:
+                    result_list = results.get('list', [])
+                    # Try to find an exact match first
+                    for result in result_list:
+                        name = result.get('name', '').lower()
+                        if name == tool_name.lower() or name == tool_name.lower().replace('-', ''):
+                            tool_id = result.get('biotoolsID')
+                            tool_details = biotools_api.get_tool_details(tool_id)
+                            return tool_details if tool_details else {}
+                    
+                    # If no exact match, return the first result
+                    if result_list:
+                        tool_id = result_list[0].get('biotoolsID')
+                        tool_details = biotools_api.get_tool_details(tool_id)
+                        return tool_details if tool_details else {}
+        except Exception as e:
+            logger.error(f"Error searching Bio.tools for {tool_name}: {e}")
         
         return {}
     
@@ -118,17 +123,21 @@ class BioinformaticsMetadataCollector:
             f"bioconda-{tool_name}"
         ]
         
-        for term in search_terms:
-            package_data = bioconda_api.search_package(term)
-            
-            if package_data:
-                # Get additional information
-                package_name = package_data.get('name', '')
-                files_data = bioconda_api.get_package_files(package_name)
-                recipe_data = bioconda_api.get_package_recipe(package_name)
+        try:
+            for term in search_terms:
+                package_data = bioconda_api.search_package(term)
                 
-                # Extract structured metadata
-                return bioconda_api.extract_package_metadata(package_data, files_data, recipe_data)
+                if package_data:
+                    # Get additional information
+                    package_name = package_data.get('name', '')
+                    files_data = bioconda_api.get_package_files(package_name)
+                    recipe_data = bioconda_api.get_package_recipe(package_name)
+                    
+                    # Extract structured metadata
+                    metadata = bioconda_api.extract_package_metadata(package_data, files_data, recipe_data)
+                    return metadata if metadata else {}
+        except Exception as e:
+            logger.error(f"Error searching Bioconda for {tool_name}: {e}")
         
         return {}
     
@@ -152,10 +161,18 @@ class BioinformaticsMetadataCollector:
         
         # Collect data from Bioconda
         bioconda_data = self.search_bioconda(tool_name)
+        if bioconda_data is None:
+            bioconda_data = {}
         
         # Collect academic impact data
         academic_impact_data = self.academic_impact_collector.process_tool(tool)
+        if academic_impact_data is None:
+            academic_impact_data = {}
         
+        # Ensure biotools_data is not None
+        if biotools_data is None:
+            biotools_data = {}
+            
         # Compile all metadata
         metadata = {
             'name': tool_name,
@@ -196,11 +213,25 @@ class BioinformaticsMetadataCollector:
         """Extract input or output data formats from Bio.tools data."""
         formats = []
         
+        # Ensure tool_data is a dict and not None
+        if not tool_data or not isinstance(tool_data, dict):
+            return formats
+            
         for function in tool_data.get('function', []):
+            if not function or not isinstance(function, dict):
+                continue
+                
             for io in function.get('operation', []):
+                if not io or not isinstance(io, dict):
+                    continue
+                    
                 for data in io.get(f'{io_type}', []):
+                    if not data or not isinstance(data, dict):
+                        continue
+                        
                     data_format = data.get('data', {}).get('format', [])
-                    formats.extend([fmt.get('term', '') for fmt in data_format if fmt.get('term')])
+                    if data_format and isinstance(data_format, list):
+                        formats.extend([fmt.get('term', '') for fmt in data_format if isinstance(fmt, dict) and fmt.get('term')])
         
         return list(set(formats))
     
@@ -208,8 +239,18 @@ class BioinformaticsMetadataCollector:
         """Extract bioinformatics operations from Bio.tools data."""
         operations = []
         
+        # Ensure tool_data is a dict and not None
+        if not tool_data or not isinstance(tool_data, dict):
+            return operations
+            
         for function in tool_data.get('function', []):
+            if not function or not isinstance(function, dict):
+                continue
+                
             for operation in function.get('operation', []):
+                if not operation or not isinstance(operation, dict):
+                    continue
+                    
                 term = operation.get('term', '')
                 if term:
                     operations.append(term)
@@ -220,7 +261,14 @@ class BioinformaticsMetadataCollector:
         """Extract bioinformatics topics from Bio.tools data."""
         topics = []
         
+        # Ensure tool_data is a dict and not None
+        if not tool_data or not isinstance(tool_data, dict):
+            return topics
+            
         for topic in tool_data.get('topic', []):
+            if not topic or not isinstance(topic, dict):
+                continue
+                
             term = topic.get('term', '')
             if term:
                 topics.append(term)
