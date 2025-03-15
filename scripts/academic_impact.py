@@ -314,10 +314,12 @@ class AcademicImpactCollector:
         for data in results.values():
             yearly_citations = data.get('citation_metrics', {}).get('metrics', {}).get('citations_by_year', {})
             for year, count in yearly_citations.items():
-                if year in citations_by_year:
-                    citations_by_year[year] += count
+                # Convert year to string to ensure consistent type for keys
+                year_key = str(year)
+                if year_key in citations_by_year:
+                    citations_by_year[year_key] += count
                 else:
-                    citations_by_year[year] = count
+                    citations_by_year[year_key] = count
         
         summary = {
             'total_tools': total_tools,
