@@ -965,8 +965,8 @@
             // Fetch and process data
             fetch('data.json')
                 .then(response => response.json())
-                .then(data => {
-                    initializeDashboard(data);
+                .then(graphData => {
+                    initializeDashboard(graphData);
                 })
                 .catch(error => {
                     console.error('Error loading data:', error);
