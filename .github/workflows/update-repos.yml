@@ -2,14 +2,14 @@ name: Update Repository Information
 
 on:
   schedule:
-    # Run weekly on Sunday at 00:00 UTC
-    - cron: "0 0 * * 0"
-    # Run enhanced metadata on 1st of each month
-    - cron: "0 0 1 * *"
-    # Run bioinformatics metadata on 15th of each month
-    - cron: "0 0 15 * *"
-    # Run academic impact metadata on 5th of each month
-    - cron: "0 0 5 * *"
+    # Run weekly on Sunday at 08:00 UTC (well after repo testing and cache maintenance)
+    - cron: "0 8 * * 0"
+    # Run enhanced metadata on 2nd of each month (after workflow coordination on 1st)
+    - cron: "0 8 2 * *"
+    # Run bioinformatics metadata on 16th of each month (spreading load)
+    - cron: "0 8 16 * *"
+    # Run academic impact metadata on 5th of each month (after PubMed on 4th)
+    - cron: "0 6 5 * *"
   workflow_dispatch:
     inputs:
       update_type:

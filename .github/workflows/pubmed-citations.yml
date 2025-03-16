@@ -2,10 +2,10 @@ name: PubMed Citations Collection
 
 on:
   schedule:
-    # Run weekly on Saturday at 03:00 UTC, after repository updates
-    - cron: "0 3 * * 6"
-    # Run monthly on 4th of the month (day before academic impact)
-    - cron: "0 12 4 * *"
+    # Run weekly on Saturday at 04:00 UTC (after cache warming at 01:00)
+    - cron: "0 4 * * 6"
+    # Run monthly on 4th of the month at 10:00 UTC (after cache warming)
+    - cron: "0 10 4 * *"
   workflow_dispatch:
     inputs:
       force_refresh:

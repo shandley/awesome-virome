@@ -2,7 +2,7 @@ name: Incremental Metadata Updates
 
 on:
   schedule:
-    - cron: "0 12 * * 1-5"  # Run every weekday at noon UTC
+    - cron: "0 13 * * 2,4"  # Run Tuesday and Thursday at 1pm UTC (reduced frequency, better distribution)
   workflow_dispatch:
     inputs:
       days:

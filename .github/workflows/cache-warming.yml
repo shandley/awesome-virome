@@ -39,12 +39,12 @@ on:
   
   # Run on a schedule to keep cache warm
   schedule:
-    # Run weekly on Friday at 00:00 UTC (before weekend processing)
-    - cron: "0 0 * * 5"
+    # Run weekly on Thursday at 20:00 UTC (preparing for weekend processing)
+    - cron: "0 20 * * 4"
     # Run before PubMed citations collection on Saturday
     - cron: "0 1 * * 6"
-    # Run before academic impact on 5th of month
-    - cron: "0 22 4 * *"
+    # Run before monthly processes (3rd to prepare for both 4th and 5th)
+    - cron: "0 18 3 * *"
 
 jobs:
   warm-cache:

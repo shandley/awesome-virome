@@ -3,9 +3,11 @@ name: Workflow Coordination
 on:
   schedule:
     # Main weekly schedule - Run this early Monday to plan the week's workflow runs
-    - cron: "0 1 * * 1"  # Monday at 01:00 UTC
+    - cron: "0 2 * * 1"  # Monday at 02:00 UTC
+    # Secondary weekly schedule - Mid-week check on Wednesday
+    - cron: "0 2 * * 3"  # Wednesday at 02:00 UTC
     # Monthly coordination - Run this at the beginning of each month to coordinate monthly workflows
-    - cron: "0 1 1 * *"  # 1st day of month at 01:00 UTC
+    - cron: "0 2 1 * *"  # 1st day of month at 02:00 UTC
   
   # Allow manual triggering
   workflow_dispatch:

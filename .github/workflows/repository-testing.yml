@@ -2,10 +2,15 @@ name: Comprehensive Repository Testing
 
 on:
   schedule:
-    # Weekly full check - Runs at 00:00 UTC on Sunday
-    - cron: '0 0 * * 0'
-    # Daily quick check - Runs at 03:00 UTC Monday-Saturday
-    - cron: '0 3 * * 1-6'
+    # Weekly full check - Runs at 01:00 UTC on Sunday
+    - cron: '0 1 * * 0'
+    # Daily quick check - Run at staggered times to avoid concurrent load
+    - cron: '0 4 * * 1'  # Monday at 4:00 UTC
+    - cron: '30 4 * * 2'  # Tuesday at 4:30 UTC
+    - cron: '0 5 * * 3'  # Wednesday at 5:00 UTC
+    - cron: '30 5 * * 4'  # Thursday at 5:30 UTC
+    - cron: '0 6 * * 5'  # Friday at 6:00 UTC
+    - cron: '30 6 * * 6'  # Saturday at 6:30 UTC
   workflow_dispatch: # Allows manual triggering
     inputs:
       full_test:
