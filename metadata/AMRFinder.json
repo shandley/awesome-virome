@@ -1,0 +1,134 @@
+{
+  "name": "AMRFinder",
+  "url": "https://github.com/ncbi/amr",
+  "provider": "github",
+  "repo_path": "ncbi/amr",
+  "description": "AMRFinderPlus - Identify AMR genes and point mutations, and virulence and stress resistance genes in assembled bacterial nucleotide and protein sequence.",
+  "created_at": "2018-09-28T21:20:22Z",
+  "updated_at": "2025-03-10T15:44:22Z",
+  "pushed_at": "2025-02-21T00:44:41Z",
+  "stars": 297,
+  "watchers": 297,
+  "forks": 44,
+  "open_issues": 10,
+  "default_branch": "master",
+  "license": "Other",
+  "license_url": null,
+  "homepage": "https://www.ncbi.nlm.nih.gov/pathogens/antimicrobial-resistance/AMRFinder/",
+  "is_archived": false,
+  "is_disabled": false,
+  "fetch_time": "2025-03-14T02:17:33.134509",
+  "languages": {
+    "C++": 671374,
+    "Makefile": 7325,
+    "Shell": 4032
+  },
+  "topics": [
+    "bioinformatics",
+    "pathogen",
+    "genomics",
+    "antibiotic-resistance"
+  ],
+  "latest_release": {
+    "name": "AMRFinderPlus v4.0.19",
+    "tag": "amrfinder_v4.0.19",
+    "published_at": "2025-02-06T20:19:16Z",
+    "url": "https://github.com/ncbi/amr/releases/tag/amrfinder_v4.0.19"
+  },
+  "dependencies": {
+    "sbom": {
+      "spdxVersion": "SPDX-2.3",
+      "dataLicense": "CC0-1.0",
+      "SPDXID": "SPDXRef-DOCUMENT",
+      "name": "com.github.ncbi/amr",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/52c8773a-f337-4665-88e7-d2d74d0f4219",
+      "creationInfo": {
+        "creators": [
+          "Tool: protobom-v0.0.0-20250313192307-8041c25f3baf+dirty",
+          "Tool: GitHub.com-Dependency-Graph"
+        ],
+        "created": "2025-03-14T02:17:41Z"
+      },
+      "packages": [
+        {
+          "name": "actions/checkout",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-4..-7b26ed",
+          "versionInfo": "4.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/checkout@4.%2A.%2A"
+            }
+          ]
+        },
+        {
+          "name": "actions/upload-artifact",
+          "SPDXID": "SPDXRef-githubactions-actions-upload-artifact-4..-d87ce5",
+          "versionInfo": "4.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/upload-artifact@4.%2A.%2A"
+            }
+          ]
+        },
+        {
+          "name": "conda-incubator/setup-miniconda",
+          "SPDXID": "SPDXRef-githubactions-conda-incubator-setup-miniconda-3..-41e328",
+          "versionInfo": "3.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/conda-incubator/setup-miniconda@3.%2A.%2A"
+            }
+          ]
+        },
+        {
+          "name": "com.github.ncbi/amr",
+          "SPDXID": "SPDXRef-github-ncbi-amr-master-c9fb64",
+          "versionInfo": "master",
+          "downloadLocation": "git+https://github.com/ncbi/amr",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:github/ncbi/amr@master"
+            }
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "spdxElementId": "SPDXRef-github-ncbi-amr-master-c9fb64",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-7b26ed",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-ncbi-amr-master-c9fb64",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-upload-artifact-4..-d87ce5",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-ncbi-amr-master-c9fb64",
+          "relatedSpdxElement": "SPDXRef-githubactions-conda-incubator-setup-miniconda-3..-41e328",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-DOCUMENT",
+          "relatedSpdxElement": "SPDXRef-github-ncbi-amr-master-c9fb64",
+          "relationshipType": "DESCRIBES"
+        }
+      ]
+    }
+  }
+}

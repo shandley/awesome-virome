@@ -1,0 +1,264 @@
+name: Cache Maintenance
+
+on:
+  schedule:
+    - cron: "0 0 * * 0"  # Weekly on Sunday at midnight
+  workflow_dispatch:
+
+jobs:
+  maintain-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install matplotlib numpy
+      
+      - name: Create script for selective cleanup
+        run: |
+          cat > scripts/selective_cache_cleanup.py << 'EOF'
+          #!/usr/bin/env python3
+          """
+          Selective cache cleanup script
+          
+          This script performs smart cache maintenance by:
+          1. Preserving important cache entries
+          2. Cleaning up outdated or rarely accessed entries
+          3. Optimizing dependency tracking
+          """
+          
+          import os
+          import sys
+          import json
+          import time
+          import datetime
+          import argparse
+          from pathlib import Path
+          
+          # Try to import from the correct directory
+          script_dir = os.path.dirname(os.path.abspath(__file__))
+          root_dir = os.path.dirname(script_dir)
+          sys.path.append(script_dir)
+          
+          # Import the cache manager
+          try:
+              from apis.citations_api import cache_manager
+          except ImportError:
+              print("Error: Cache manager not found")
+              sys.exit(1)
+          
+          def get_cache_usage_stats():
+              """Get usage statistics for the cache"""
+              metrics = cache_manager.get_metrics()
+              print(f"Cache statistics:")
+              print(f"- Total entries: {metrics.get('cache_files', 0)}")
+              print(f"- Hit rate: {metrics.get('hit_rate', 0) * 100:.1f}%")
+              print(f"- Invalidations: {metrics.get('invalidations', 0)}")
+              
+              return metrics
+          
+          def identify_important_entries():
+              """Identify important cache entries that should be preserved"""
+              # Get all cache files
+              cache_files = list(Path(cache_manager.base_cache_dir).glob("*.json"))
+              
+              # Skip special directories
+              cache_files = [f for f in cache_files if not f.name.startswith("_")]
+              
+              important_entries = set()
+              frequent_usage = set()
+              recent_access = set()
+              
+              # Identify important entries based on access time and content
+              for cache_file in cache_files:
+                  try:
+                      # Check access time - keep recently accessed files
+                      access_time = datetime.datetime.fromtimestamp(cache_file.stat().st_atime)
+                      if (datetime.datetime.now() - access_time).days < 14:  # Accessed in last 14 days
+                          recent_access.add(cache_file.name)
+                      
+                      # Check content - identify important data
+                      with open(cache_file, 'r') as f:
+                          data = json.load(f)
+                          
+                          # Check if this is citation data
+                          content = data.get('data', {})
+                          if isinstance(content, dict) and 'doi' in content:
+                              important_entries.add(cache_file.name)
+                          
+                          # Check if this is heavily used data
+                          if getattr(content, 'hit_count', 0) > 5:
+                              frequent_usage.add(cache_file.name)
+                  except (json.JSONDecodeError, IOError, KeyError):
+                      # Skip problematic files
+                      pass
+              
+              return important_entries | recent_access | frequent_usage
+          
+          def cleanup_outdated_entries(important_entries, dry_run=False):
+              """Clean up outdated cache entries while preserving important ones"""
+              # Get all cache files
+              cache_files = list(Path(cache_manager.base_cache_dir).glob("*.json"))
+              
+              # Skip special directories
+              cache_files = [f for f in cache_files if not f.name.startswith("_")]
+              
+              # Set cutoff date for outdated entries (90 days)
+              cutoff_date = datetime.datetime.now() - datetime.timedelta(days=90)
+              
+              removed_count = 0
+              preserved_count = 0
+              
+              for cache_file in cache_files:
+                  # Skip important entries
+                  if cache_file.name in important_entries:
+                      preserved_count += 1
+                      continue
+                  
+                  try:
+                      # Check modification time
+                      mod_time = datetime.datetime.fromtimestamp(cache_file.stat().st_mtime)
+                      
+                      # Remove if older than cutoff
+                      if mod_time < cutoff_date:
+                          if not dry_run:
+                              cache_file.unlink()
+                          removed_count += 1
+                  except (IOError, OSError):
+                      # Skip files we can't process
+                      pass
+              
+              print(f"Cache cleanup summary:")
+              print(f"- Preserved {preserved_count} important entries")
+              print(f"- {'Would remove' if dry_run else 'Removed'} {removed_count} outdated entries")
+              
+              return removed_count
+          
+          def optimize_dependency_tracking(dry_run=False):
+              """Optimize repository dependency tracking"""
+              deps_dir = cache_manager.deps_dir
+              
+              # Get all dependency files
+              deps_files = list(deps_dir.glob("*.json"))
+              
+              optimized_count = 0
+              
+              for deps_file in deps_files:
+                  try:
+                      # Load dependency mapping
+                      with open(deps_file, 'r') as f:
+                          dependencies = json.load(f)
+                      
+                      original_count = len(dependencies)
+                      
+                      # Filter out dependencies that don't exist in the cache anymore
+                      valid_dependencies = []
+                      for dep in dependencies:
+                          cache_path = cache_manager._get_cache_path(dep)
+                          if cache_path.exists():
+                              valid_dependencies.append(dep)
+                      
+                      # Update if changed
+                      if len(valid_dependencies) != original_count:
+                          if not dry_run:
+                              with open(deps_file, 'w') as f:
+                                  json.dump(valid_dependencies, f)
+                          
+                          optimized_count += 1
+                  except (json.JSONDecodeError, IOError):
+                      # Skip problematic files
+                      pass
+              
+              print(f"Dependency tracking optimization:")
+              print(f"- {'Would optimize' if dry_run else 'Optimized'} {optimized_count} dependency maps")
+              
+              return optimized_count
+          
+          def main():
+              parser = argparse.ArgumentParser(description="Selective cache cleanup and optimization")
+              parser.add_argument("--dry-run", action="store_true", help="Show what would be done without making changes")
+              args = parser.parse_args()
+              
+              print("Starting cache maintenance...")
+              
+              # Get current cache statistics
+              before_stats = get_cache_usage_stats()
+              
+              # Identify important entries to preserve
+              print("\nIdentifying important cache entries...")
+              important_entries = identify_important_entries()
+              print(f"Found {len(important_entries)} important entries to preserve")
+              
+              # Clean up outdated entries
+              print("\nCleaning up outdated entries...")
+              cleanup_outdated_entries(important_entries, args.dry_run)
+              
+              # Optimize dependency tracking
+              print("\nOptimizing dependency tracking...")
+              optimize_dependency_tracking(args.dry_run)
+              
+              # Get updated statistics
+              if not args.dry_run:
+                  print("\nUpdated cache statistics:")
+                  after_stats = get_cache_usage_stats()
+                  
+                  # Calculate improvements
+                  size_diff = before_stats.get('cache_files', 0) - after_stats.get('cache_files', 0)
+                  print(f"Cache size reduced by {size_diff} entries")
+              
+              print("\nCache maintenance completed")
+          
+          if __name__ == "__main__":
+              main()
+          EOF
+          
+          chmod +x scripts/selective_cache_cleanup.py
+      
+      - name: Cache health check
+        run: |
+          # Generate a cache health report
+          python scripts/monitor_cache.py --graphs > cache_health.txt
+      
+      - name: Selective cache cleanup
+        run: |
+          # Run the selective cache cleanup script
+          python scripts/selective_cache_cleanup.py
+          
+      - name: Final health check
+        run: |
+          echo "## Post-Maintenance Cache Health" >> maintenance_report.md
+          echo "" >> maintenance_report.md
+          python scripts/clear_cache.py --stats >> maintenance_report.md
+          echo "" >> maintenance_report.md
+          
+          # Add summary of maintenance performed
+          echo "## Maintenance Actions Performed" >> maintenance_report.md
+          echo "" >> maintenance_report.md
+          echo "- Preserved important cache entries (citations, frequently accessed data)" >> maintenance_report.md
+          echo "- Cleaned up outdated entries (older than 90 days)" >> maintenance_report.md
+          echo "- Optimized repository dependency tracking" >> maintenance_report.md
+      
+      - name: Upload maintenance report
+        uses: actions/upload-artifact@v4
+        with:
+          name: cache-maintenance-report
+          path: |
+            maintenance_report.md
+            cache_health.txt
+            metadata/cache/_monitoring/graphs/
+          
+      - name: Commit cache changes if needed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add metadata/cache/
+          git diff --staged --quiet || git commit -m "Automated cache maintenance"
+          git push

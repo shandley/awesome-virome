@@ -1,0 +1,123 @@
+name: Data Quality Metrics
+
+on:
+  schedule:
+    - cron: "0 4 * * 1"  # Every Monday at 4am UTC
+  workflow_dispatch:
+
+jobs:
+  collect-data-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pandas matplotlib numpy
+      
+      - name: Collect data quality metrics
+        run: |
+          python scripts/data_quality_metrics.py --output-file metrics_report.json --report --report-file data_quality_report.md
+      
+      - name: Generate trend visualization
+        run: |
+          # Optional: Use pandas and matplotlib to generate trends from metrics_history.json
+          if [ -f "reports/data_quality_history.json" ]; then
+            python - <<EOF
+          import json
+          import pandas as pd
+          import matplotlib.pyplot as plt
+          import numpy as np
+          from datetime import datetime
+          
+          # Load metrics history
+          with open('reports/data_quality_history.json', 'r') as f:
+              data = json.load(f)
+          
+          if len(data.get('history', [])) > 1:
+              # Extract metrics over time
+              dates = []
+              total_tools = []
+              critical_completion = []
+              metadata_completion = []
+              tools_with_citation = []
+              
+              for entry in data['history']:
+                  try:
+                      dates.append(datetime.fromisoformat(entry['timestamp'].replace('Z', '+00:00')))
+                      total_tools.append(entry['total_tools'])
+                      critical_completion.append(entry['critical_fields_completion'])
+                      metadata_completion.append(entry['metadata_completion'])
+                      tools_with_citation.append(entry['tools_with_citation'])
+                  except (KeyError, ValueError) as e:
+                      print(f"Skipping incomplete entry: {e}")
+              
+              # Create plot with multiple subplots
+              fig, axs = plt.subplots(2, 2, figsize=(12, 10))
+              
+              # Plot total tools
+              axs[0, 0].plot(dates, total_tools, marker='o')
+              axs[0, 0].set_title('Total Tools')
+              axs[0, 0].set_ylabel('Count')
+              plt.setp(axs[0, 0].xaxis.get_majorticklabels(), rotation=45)
+              
+              # Plot critical field completion
+              axs[0, 1].plot(dates, critical_completion, marker='o', color='green')
+              axs[0, 1].set_title('Critical Fields Completion')
+              axs[0, 1].set_ylabel('Percentage (%)')
+              plt.setp(axs[0, 1].xaxis.get_majorticklabels(), rotation=45)
+              
+              # Plot metadata completion
+              axs[1, 0].plot(dates, metadata_completion, marker='o', color='orange')
+              axs[1, 0].set_title('Metadata Completion')
+              axs[1, 0].set_ylabel('Percentage (%)')
+              plt.setp(axs[1, 0].xaxis.get_majorticklabels(), rotation=45)
+              
+              # Plot tools with citation
+              axs[1, 1].plot(dates, tools_with_citation, marker='o', color='purple')
+              axs[1, 1].set_title('Tools with Citations')
+              axs[1, 1].set_ylabel('Count')
+              plt.setp(axs[1, 1].xaxis.get_majorticklabels(), rotation=45)
+              
+              plt.tight_layout()
+              plt.savefig('reports/data_quality_trends.png')
+              print("Generated trends visualization")
+          else:
+              print("Not enough history data for trend visualization")
+          EOF
+          fi
+      
+      - name: Create combined report
+        run: |
+          if [ -f "reports/data_quality_trends.png" ]; then
+            # Add the image to the report
+            echo -e "\n\n## Data Quality Trends\n\n![Data Quality Trends](data_quality_trends.png)\n\n" >> reports/data_quality_report.md
+          fi
+      
+      - name: Upload metrics report
+        uses: actions/upload-artifact@v4
+        with:
+          name: data-quality-metrics
+          path: |
+            reports/metrics_report.json
+            reports/data_quality_report.md
+            reports/data_quality_trends.png
+            reports/data_quality_history.json
+      
+      - name: Commit updated reports
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add reports/metrics_report.json reports/data_quality_report.md reports/data_quality_history.json
+          if [ -f "reports/data_quality_trends.png" ]; then
+            git add reports/data_quality_trends.png
+          fi
+          git diff --staged --quiet || git commit -m "Update data quality metrics"
+          git push
