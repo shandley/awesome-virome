@@ -51,6 +51,30 @@ Ranked by GitHub stars:
 8. [MetaProdigal](https://github.com/hyattpd/Prodigal) - ⭐ 471 stars
 
 
+## Top Packages by Category
+
+Here are the most starred packages in key categories:
+
+### Virus and Phage Identification
+1. [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) - ⭐ 1114 stars
+2. [geNomad](https://github.com/apcamargo/genomad) - ⭐ 219 stars
+3. [VIBRANT](https://github.com/AnantharamanLab/VIBRANT) - ⭐ 159 stars
+
+### Host Prediction
+1. [CHERRY](https://github.com/KennthShang/CHERRY) - ⭐ 24 stars
+2. [VirHostMatcher-Net](https://github.com/WeiliWw/VirHostMatcher-Net) - ⭐ 21 stars
+3. [DeepHost](https://github.com/deepomicslab/DeepHost) - ⭐ 17 stars
+
+### Genome Analysis
+1. [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
+2. [Prodigal/MetaProdigal](https://github.com/hyattpd/Prodigal) - ⭐ 471 stars
+3. [Pharokka](https://github.com/gbouras13/pharokka) - ⭐ 158 stars
+
+### Taxonomy
+1. [vConTACT2.0](https://bitbucket.org/MAVERICLab/vcontact2/src/master/) - ⭐ 27 stars
+2. [PhaGCN](https://github.com/KennthShang/PhaGCN) - ⭐ 25 stars
+3. [VIPtree](https://github.com/yosuken/ViPTreeGen) - ⭐ 19 stars
+
 ## Getting Started
 
 For newcomers to virome analysis, here are some recommended starting points:
