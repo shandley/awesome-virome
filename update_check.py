@@ -706,7 +706,13 @@ def main(readme):
     
     # Group repositories by category
     repos_by_category = {}
-    for name, url, _, _, stars in results:
+    for data in results:
+        # Handle both old and new format of data tuple
+        if len(data) == 6:
+            name, url, _, _, stars, _ = data
+        else:
+            name, url, _, _, stars = data
+            
         if name in repo_categories and 'github.com' in url and stars is not None and stars > 0:
             category = repo_categories[name]
             if category not in repos_by_category:
