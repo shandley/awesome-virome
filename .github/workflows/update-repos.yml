@@ -127,8 +127,49 @@ jobs:
           git diff --staged --quiet || git commit -m "Update bioinformatics metadata"
           git push
 
+  warm-cache:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' && (github.event.schedule == '0 0 1 * *' || github.event.schedule == '0 0 5 * *')
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests PyGithub pyyaml
+      
+      - name: Warm cache for important repositories
+        run: |
+          echo "Warming cache for frequently accessed repositories..."
+          python scripts/cache_warming.py --warm-important
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEMANTIC_SCHOLAR_KEY: ${{ secrets.SEMANTIC_SCHOLAR_KEY }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
+      
+      - name: Monitor cache health
+        run: |
+          python scripts/monitor_cache.py --graphs > cache_warming_report.txt
+          echo "Cache warming completed. See cache_warming_report.txt for details."
+      
+      - name: Upload cache warming report
+        uses: actions/upload-artifact@v4
+        with:
+          name: cache-warming-report
+          path: |
+            cache_warming_report.txt
+            cache_warming.log
+            metadata/cache/_monitoring/graphs/
+
   academic-impact-metadata:
     runs-on: ubuntu-latest
+    needs: warm-cache
     if: github.event_name == 'schedule' && github.event.schedule == '0 0 5 * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'academic_impact' || github.event.inputs.update_type == 'all')
     
     steps:
@@ -153,6 +194,11 @@ jobs:
       
       - name: Generate citation reports
         run: python scripts/citation_report.py
+      
+      - name: Validate data integrity
+        run: |
+          python scripts/verify_repo_metadata.py
+          python scripts/verify_readme_content.py
         
       - name: Update data.json with academic impact metadata
         run: python update_data_json.py --include-metadata --include-bioinformatics --include-academic-impact
