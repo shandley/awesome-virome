@@ -1,0 +1,81 @@
+name: PubMed Citations Collection
+
+on:
+  schedule:
+    # Run weekly on Saturday at 03:00 UTC, after repository updates
+    - cron: "0 3 * * 6"
+  workflow_dispatch:
+    inputs:
+      force_refresh:
+        description: 'Force refresh of all citation data'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  collect-pubmed-citations:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests PyGithub pyyaml
+      
+      - name: Monitor cache status before collection
+        run: |
+          python scripts/monitor_cache.py --summary > cache_before.txt
+      
+      - name: Collect PubMed citation data
+        run: python scripts/pubmed_citations.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
+      
+      - name: Monitor cache status after collection
+        run: |
+          python scripts/monitor_cache.py --summary > cache_after.txt
+      
+      - name: Validate data integrity
+        run: |
+          python scripts/verify_repo_metadata.py
+          python scripts/verify_readme_content.py
+      
+      - name: Update overall data.json with citation info
+        run: python update_data_json.py --include-metadata --include-pubmed
+      
+      - name: Generate summary report
+        run: |
+          echo "# PubMed Citations Collection Report" > pubmed_report.md
+          echo "Run completed at: $(date)" >> pubmed_report.md
+          echo "\n## Collection Summary" >> pubmed_report.md
+          jq '.' metadata/pubmed_citations/summary.json >> pubmed_report.md
+          echo "\n## Cache Impact" >> pubmed_report.md
+          echo "### Before collection:" >> pubmed_report.md
+          cat cache_before.txt >> pubmed_report.md
+          echo "\n### After collection:" >> pubmed_report.md
+          cat cache_after.txt >> pubmed_report.md
+      
+      - name: Upload report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pubmed-citations-report
+          path: |
+            pubmed_report.md
+            pubmed_citations.log
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data.json metadata/ citations.md
+          git diff --staged --quiet || git commit -m "Update PubMed citation information"
+          git push

@@ -12,7 +12,7 @@ import base64
 import re
 from datetime import datetime, timedelta
 from typing import Dict, List, Optional, Any, Tuple, Union, Set
-from urllib.parse import quote
+from urllib.parse import quote, urlencode
 from pathlib import Path
 import hashlib
 
@@ -1113,6 +1113,555 @@ class CrossRefAPI:
         except Exception as e:
             logger.error(f"Error formatting citation: {e}")
             return ""
+
+
+class PubMedAPI:
+    """
+    Integration with PubMed API (E-utilities) for citation information.
+    
+    This class handles interaction with NCBI's E-utilities API to search
+    PubMed, retrieve publication metadata, and get citation information.
+    """
+    
+    ESEARCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
+    ESUMMARY_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi"
+    EFETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
+    ELINK_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/elink.fcgi"
+    CACHE_EXPIRY = 30  # days
+    
+    def __init__(self, api_key: Optional[str] = None, email: Optional[str] = None):
+        """
+        Initialize the PubMed API client.
+        
+        Args:
+            api_key: NCBI API key for higher rate limits
+            email: Contact email for NCBI API usage
+        """
+        self.api_key = api_key
+        self.email = email
+        
+        # NCBI limits to 3 requests per second without API key, 10 with API key
+        self.rate_limiter = RateLimiter(calls_per_minute=180 if api_key else 60)
+        
+        # Log warning if no API key provided
+        if not api_key:
+            logger.warning("No NCBI API key provided. Rate limits will be restricted (3 requests/second).")
+    
+    def _get_cache_key(self, query: str) -> str:
+        """Generate a standardized cache key for the query."""
+        return f"pubmed_{base64.urlsafe_b64encode(query.encode()).decode()}"
+    
+    def _build_params(self, base_params: Dict[str, Any]) -> Dict[str, Any]:
+        """Build API parameters with API key and tool information."""
+        params = base_params.copy()
+        
+        # Add API key if available
+        if self.api_key:
+            params['api_key'] = self.api_key
+            
+        # Add tool and email information (good API citizenship)
+        params['tool'] = 'awesome-virome'
+        if self.email:
+            params['email'] = self.email
+            
+        return params
+    
+    def search_publications(self, query: str, max_results: int = 10, repo_url: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Search for publications in PubMed using the E-utilities API.
+        
+        Args:
+            query: Search query string
+            max_results: Maximum number of results to return
+            repo_url: Optional repository URL to associate this cache with
+        """
+        cache_key = self._get_cache_key(f"search_{query}_{max_results}")
+        
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
+            logger.info(f"Using cached PubMed search results for '{query}'")
+            return cached_data
+        
+        self.rate_limiter.wait()
+        
+        # Step 1: Search for PMIDs matching the query
+        search_params = self._build_params({
+            'db': 'pubmed',
+            'term': query,
+            'retmode': 'json',
+            'retmax': max_results,
+            'sort': 'relevance'
+        })
+        
+        try:
+            response = requests.get(self.ESEARCH_URL, params=search_params)
+            response.raise_for_status()
+            
+            search_results = response.json()
+            pmids = search_results.get('esearchresult', {}).get('idlist', [])
+            
+            if not pmids:
+                logger.info(f"No PubMed results found for query: {query}")
+                cache_manager.set(cache_key, [], repo_url)
+                return []
+            
+            # Step 2: Get detailed information for the found PMIDs
+            self.rate_limiter.wait()
+            pmid_string = ",".join(pmids)
+            summary_params = self._build_params({
+                'db': 'pubmed',
+                'id': pmid_string,
+                'retmode': 'json'
+            })
+            
+            summary_response = requests.get(self.ESUMMARY_URL, params=summary_params)
+            summary_response.raise_for_status()
+            
+            summary_results = summary_response.json()
+            result_list = []
+            
+            # Process the results
+            result_dict = summary_results.get('result', {})
+            for pmid in pmids:
+                if pmid in result_dict:
+                    pub_data = result_dict[pmid]
+                    
+                    # Extract the DOI if available
+                    doi = None
+                    for id_type in pub_data.get('articleids', []):
+                        if id_type.get('idtype') == 'doi':
+                            doi = id_type.get('value')
+                    
+                    # Format authors
+                    authors = []
+                    for author in pub_data.get('authors', []):
+                        authors.append(author.get('name', ''))
+                    
+                    # Extract publication data
+                    publication = {
+                        'pmid': pmid,
+                        'doi': doi,
+                        'title': pub_data.get('title', ''),
+                        'authors': authors,
+                        'journal': pub_data.get('fulljournalname', ''),
+                        'publication_date': pub_data.get('pubdate', ''),
+                        'year': pub_data.get('pubdate', '')[:4] if pub_data.get('pubdate', '') else '',
+                        'volume': pub_data.get('volume', ''),
+                        'issue': pub_data.get('issue', ''),
+                        'pages': pub_data.get('pages', ''),
+                        'pub_types': pub_data.get('pubtypes', []),
+                        'is_software': 'Software' in pub_data.get('pubtypes', []) or 'software' in pub_data.get('title', '').lower(),
+                        'is_tool': 'tool' in pub_data.get('title', '').lower() or 'pipeline' in pub_data.get('title', '').lower()
+                    }
+                    
+                    result_list.append(publication)
+            
+            # Cache the results and associate with repo_url if provided
+            cache_manager.set(cache_key, result_list, repo_url)
+            
+            return result_list
+            
+        except requests.RequestException as e:
+            logger.error(f"Error searching PubMed: {e}")
+            return []
+    
+    def get_publication_by_pmid(self, pmid: str, repo_url: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Get detailed publication information by PMID.
+        
+        Args:
+            pmid: PubMed ID
+            repo_url: Optional repository URL to associate this cache with
+        """
+        cache_key = self._get_cache_key(f"pmid_{pmid}")
+        
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
+            logger.info(f"Using cached PubMed publication data for PMID: {pmid}")
+            return cached_data
+        
+        self.rate_limiter.wait()
+        summary_params = self._build_params({
+            'db': 'pubmed',
+            'id': pmid,
+            'retmode': 'json'
+        })
+        
+        try:
+            response = requests.get(self.ESUMMARY_URL, params=summary_params)
+            response.raise_for_status()
+            
+            result = response.json().get('result', {})
+            if pmid not in result:
+                logger.warning(f"PMID {pmid} not found in PubMed")
+                cache_manager.set(cache_key, {}, repo_url)
+                return {}
+            
+            pub_data = result[pmid]
+            
+            # Extract the DOI if available
+            doi = None
+            for id_type in pub_data.get('articleids', []):
+                if id_type.get('idtype') == 'doi':
+                    doi = id_type.get('value')
+            
+            # Format authors
+            authors = []
+            for author in pub_data.get('authors', []):
+                authors.append(author.get('name', ''))
+            
+            # Extract publication data
+            publication = {
+                'pmid': pmid,
+                'doi': doi,
+                'title': pub_data.get('title', ''),
+                'authors': authors,
+                'journal': pub_data.get('fulljournalname', ''),
+                'publication_date': pub_data.get('pubdate', ''),
+                'year': pub_data.get('pubdate', '')[:4] if pub_data.get('pubdate', '') else '',
+                'volume': pub_data.get('volume', ''),
+                'issue': pub_data.get('issue', ''),
+                'pages': pub_data.get('pages', ''),
+                'pub_types': pub_data.get('pubtypes', []),
+                'abstract': self.get_abstract(pmid, repo_url)
+            }
+            
+            # Cache the results and associate with repo_url if provided
+            cache_manager.set(cache_key, publication, repo_url)
+            
+            return publication
+            
+        except requests.RequestException as e:
+            logger.error(f"Error getting publication from PubMed: {e}")
+            return {}
+    
+    def get_abstract(self, pmid: str, repo_url: Optional[str] = None) -> str:
+        """
+        Get the abstract for a publication by PMID.
+        
+        Args:
+            pmid: PubMed ID
+            repo_url: Optional repository URL to associate this cache with
+        """
+        cache_key = self._get_cache_key(f"abstract_{pmid}")
+        
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
+            logger.info(f"Using cached PubMed abstract for PMID: {pmid}")
+            return cached_data
+        
+        self.rate_limiter.wait()
+        fetch_params = self._build_params({
+            'db': 'pubmed',
+            'id': pmid,
+            'rettype': 'abstract',
+            'retmode': 'text'
+        })
+        
+        try:
+            response = requests.get(self.EFETCH_URL, params=fetch_params)
+            response.raise_for_status()
+            
+            abstract = response.text
+            
+            # Cache the results and associate with repo_url if provided
+            cache_manager.set(cache_key, abstract, repo_url)
+            
+            return abstract
+            
+        except requests.RequestException as e:
+            logger.error(f"Error getting abstract from PubMed: {e}")
+            return ""
+    
+    def get_citation_count(self, pmid: str, repo_url: Optional[str] = None) -> int:
+        """
+        Get citation count for a publication using PubMed Central.
+        
+        Args:
+            pmid: PubMed ID
+            repo_url: Optional repository URL to associate this cache with
+        """
+        cache_key = self._get_cache_key(f"citations_{pmid}")
+        
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
+            logger.info(f"Using cached PubMed citation count for PMID: {pmid}")
+            return cached_data
+        
+        self.rate_limiter.wait()
+        link_params = self._build_params({
+            'dbfrom': 'pubmed',
+            'db': 'pubmed',
+            'id': pmid,
+            'cmd': 'citation',
+            'retmode': 'json'
+        })
+        
+        try:
+            response = requests.get(self.ELINK_URL, params=link_params)
+            response.raise_for_status()
+            
+            data = response.json()
+            
+            # Extract the citation count
+            citations = 0
+            link_sets = data.get('linksets', [])
+            for link_set in link_sets:
+                if 'linksetdbs' in link_set:
+                    for link_db in link_set['linksetdbs']:
+                        if link_db.get('linkname') == 'pubmed_pubmed_citedin':
+                            citations = len(link_db.get('links', []))
+            
+            # Cache the result and associate with repo_url if provided
+            cache_manager.set(cache_key, citations, repo_url)
+            
+            return citations
+            
+        except requests.RequestException as e:
+            logger.error(f"Error getting citation count from PubMed: {e}")
+            return 0
+    
+    def format_citation(self, publication: Dict[str, Any], style: str = "apa") -> str:
+        """
+        Format a citation in the specified style.
+        
+        Args:
+            publication: Publication data
+            style: Citation style to use ('apa', 'bibtex', 'mla', 'chicago')
+        """
+        if not publication:
+            return ""
+        
+        try:
+            # Extract publication data
+            title = publication.get('title', '').rstrip('.')
+            authors = publication.get('authors', [])
+            year = publication.get('year', '')
+            journal = publication.get('journal', '')
+            volume = publication.get('volume', '')
+            issue = publication.get('issue', '')
+            pages = publication.get('pages', '')
+            doi = publication.get('doi', '')
+            pmid = publication.get('pmid', '')
+            
+            if style.lower() == "apa":
+                # Format authors for APA style
+                if len(authors) == 0:
+                    author_text = ""
+                elif len(authors) == 1:
+                    # Get last name and initials
+                    parts = authors[0].split()
+                    if len(parts) > 1:
+                        last_name = parts[-1]
+                        initials = ''.join([p[0] + '.' for p in parts[:-1]])
+                        author_text = f"{last_name}, {initials}"
+                    else:
+                        author_text = authors[0]
+                elif len(authors) < 8:
+                    # Format each author properly
+                    formatted_authors = []
+                    for author in authors:
+                        parts = author.split()
+                        if len(parts) > 1:
+                            last_name = parts[-1]
+                            initials = ''.join([p[0] + '.' for p in parts[:-1]])
+                            formatted_authors.append(f"{last_name}, {initials}")
+                        else:
+                            formatted_authors.append(author)
+                    author_text = ", ".join(formatted_authors[:-1]) + f", & {formatted_authors[-1]}"
+                else:
+                    # APA 7th edition: first 6 authors, ..., last author
+                    formatted_authors = []
+                    for author in authors[:6]:
+                        parts = author.split()
+                        if len(parts) > 1:
+                            last_name = parts[-1]
+                            initials = ''.join([p[0] + '.' for p in parts[:-1]])
+                            formatted_authors.append(f"{last_name}, {initials}")
+                        else:
+                            formatted_authors.append(author)
+                    last_author = authors[-1].split()
+                    if len(last_author) > 1:
+                        last_name = last_author[-1]
+                        initials = ''.join([p[0] + '.' for p in last_author[:-1]])
+                        formatted_last = f"{last_name}, {initials}"
+                    else:
+                        formatted_last = authors[-1]
+                    author_text = ", ".join(formatted_authors) + f", ... {formatted_last}"
+                
+                # Format APA style citation
+                citation = f"{author_text} ({year}). {title}."
+                if journal:
+                    citation += f" {journal}"
+                    if volume:
+                        citation += f", {volume}"
+                        if issue:
+                            citation += f"({issue})"
+                    if pages:
+                        citation += f", {pages}"
+                citation += f". https://doi.org/{doi}" if doi else ""
+                
+                return citation
+            
+            elif style.lower() == "bibtex":
+                # Create a BibTeX key from first author's last name and year
+                if authors and year:
+                    first_author = authors[0].split()[-1].lower() if authors[0].split() else "unknown"
+                    bibtex_key = f"{first_author}{year}"
+                else:
+                    bibtex_key = f"pubmed{pmid}"
+                
+                # Format BibTeX entry
+                bibtex = f"@article{{{bibtex_key},\n"
+                bibtex += f"  title = {{{title}}},\n"
+                
+                # Authors
+                if authors:
+                    # Format each author for BibTeX
+                    formatted_authors = []
+                    for author in authors:
+                        parts = author.split()
+                        if len(parts) > 1:
+                            last_name = parts[-1]
+                            given_names = ' '.join(parts[:-1])
+                            formatted_authors.append(f"{last_name}, {given_names}")
+                        else:
+                            formatted_authors.append(author)
+                    bibtex += f"  author = {{{' and '.join(formatted_authors)}}},\n"
+                
+                # Other fields
+                if year:
+                    bibtex += f"  year = {{{year}}},\n"
+                if journal:
+                    bibtex += f"  journal = {{{journal}}},\n"
+                if volume:
+                    bibtex += f"  volume = {{{volume}}},\n"
+                if issue:
+                    bibtex += f"  number = {{{issue}}},\n"
+                if pages:
+                    bibtex += f"  pages = {{{pages}}},\n"
+                if doi:
+                    bibtex += f"  doi = {{{doi}}},\n"
+                if pmid:
+                    bibtex += f"  pmid = {{{pmid}}},\n"
+                
+                bibtex += "}"
+                return bibtex
+            
+            # MLA style
+            elif style.lower() == "mla":
+                # Format authors for MLA style
+                if len(authors) == 0:
+                    author_text = ""
+                elif len(authors) == 1:
+                    parts = authors[0].split()
+                    if len(parts) > 1:
+                        last_name = parts[-1]
+                        first_names = ' '.join(parts[:-1])
+                        author_text = f"{last_name}, {first_names}"
+                    else:
+                        author_text = authors[0]
+                elif len(authors) == 2:
+                    parts1 = authors[0].split()
+                    if len(parts1) > 1:
+                        last_name1 = parts1[-1]
+                        first_names1 = ' '.join(parts1[:-1])
+                        author1 = f"{last_name1}, {first_names1}"
+                    else:
+                        author1 = authors[0]
+                    
+                    parts2 = authors[1].split()
+                    if len(parts2) > 1:
+                        first_names2 = ' '.join(parts2[:-1])
+                        last_name2 = parts2[-1]
+                        author2 = f"{first_names2} {last_name2}"
+                    else:
+                        author2 = authors[1]
+                    
+                    author_text = f"{author1}, and {author2}"
+                else:
+                    parts = authors[0].split()
+                    if len(parts) > 1:
+                        last_name = parts[-1]
+                        first_names = ' '.join(parts[:-1])
+                        author_text = f"{last_name}, {first_names}, et al"
+                    else:
+                        author_text = f"{authors[0]}, et al"
+                
+                # Format MLA style citation
+                citation = f"{author_text}. \"{title}.\" {journal}"
+                if volume or issue:
+                    citation += ", vol." if volume else ""
+                    citation += f" {volume}" if volume else ""
+                    citation += ", no." if issue else ""
+                    citation += f" {issue}" if issue else ""
+                citation += f", {year}" if year else ""
+                citation += f", pp. {pages}" if pages else ""
+                citation += f". DOI: {doi}" if doi else ""
+                
+                return citation
+            
+            # Default to a simple citation format
+            return f"{', '.join(authors[:3])} {'et al. ' if len(authors) > 3 else ''}({year}). {title}. {journal}. DOI: {doi}"
+        
+        except Exception as e:
+            logger.error(f"Error formatting citation: {e}")
+            return ""
+    
+    def find_best_publication_for_tool(self, tool_name: str, repo_url: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Find the best publication match for a bioinformatics tool.
+        
+        Args:
+            tool_name: Name of the tool
+            repo_url: Optional repository URL
+        """
+        # Try different search queries in order of specificity
+        search_queries = [
+            f'"{tool_name}"[Title] AND (software[Publication Type] OR tool[Title] OR pipeline[Title])',
+            f'"{tool_name}"[Title] AND (bioinformatics OR computational OR algorithm)',
+            f'"{tool_name}"[Title] AND (virus OR viral OR virome OR phage)',
+            f'"{tool_name}"[Title/Abstract] AND (software[Publication Type] OR tool OR pipeline)',
+            f'"{tool_name}"[Title/Abstract] AND (bioinformatics OR computational)',
+            f'"{tool_name.replace("-", " ")}"[Title] AND (software OR tool OR pipeline)'
+        ]
+        
+        for query in search_queries:
+            results = self.search_publications(query, max_results=5, repo_url=repo_url)
+            
+            if results:
+                # Prioritize software publications
+                software_pubs = [pub for pub in results if pub.get('is_software', False)]
+                if software_pubs:
+                    best_match = software_pubs[0]
+                    logger.info(f"Found software publication for {tool_name}: {best_match.get('title')}")
+                    
+                    # Get citation count
+                    pmid = best_match.get('pmid')
+                    if pmid:
+                        citation_count = self.get_citation_count(pmid, repo_url)
+                        best_match['citation_count'] = citation_count
+                    
+                    return best_match
+                
+                # If no software publications, return the first result
+                best_match = results[0]
+                logger.info(f"Found publication for {tool_name}: {best_match.get('title')}")
+                
+                # Get citation count
+                pmid = best_match.get('pmid')
+                if pmid:
+                    citation_count = self.get_citation_count(pmid, repo_url)
+                    best_match['citation_count'] = citation_count
+                
+                return best_match
+        
+        logger.info(f"No relevant publications found for {tool_name}")
+        return {}
 
 
 class GitHubAPI:

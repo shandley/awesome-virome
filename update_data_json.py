@@ -497,12 +497,91 @@ def update_data_json_with_academic_impact(data, academic_impact_metadata):
     logger.info(f"Added academic impact metadata to {metadata_matches} tools")
     return data
 
+def load_pubmed_citations_metadata():
+    """Load PubMed citations metadata from the metadata/pubmed_citations directory."""
+    metadata_dir = Path(__file__).parent / "metadata" / "pubmed_citations"
+    pubmed_file = metadata_dir / "pubmed_citations.json"
+    
+    if not pubmed_file.exists():
+        logger.warning(f"PubMed citations metadata file not found at {pubmed_file}")
+        return {}
+    
+    try:
+        with open(pubmed_file, 'r', encoding='utf-8') as f:
+            metadata = json.load(f)
+        
+        # Create a dictionary mapping URLs to metadata
+        metadata_by_url = {}
+        for key, tool_data in metadata.items():
+            url = tool_data.get("url", "")
+            if url:
+                metadata_by_url[url] = tool_data
+                logger.info(f"Added PubMed citation metadata for URL: {url}")
+        
+        return metadata_by_url
+    except Exception as e:
+        logger.error(f"Error loading PubMed citations metadata: {e}")
+        return {}
+
+def update_data_json_with_pubmed_citations(data, pubmed_citations_metadata):
+    """Update data.json with PubMed citations metadata."""
+    if not pubmed_citations_metadata:
+        return data
+    
+    # Get all nodes that are tools
+    tool_nodes = [node for node in data.get("nodes", []) if node.get("type") == "tool"]
+    
+    # Count of metadata matches
+    metadata_matches = 0
+    
+    # Update tool nodes with PubMed citations metadata
+    for node in tool_nodes:
+        if node.get("url") and node.get("url") in pubmed_citations_metadata:
+            metadata = pubmed_citations_metadata[node.get("url")]
+            citation_info = metadata.get("citation_info", {})
+            
+            if citation_info:
+                metadata_matches += 1
+                
+                # Initialize citations field if it doesn't exist
+                if "citations" not in node:
+                    node["citations"] = {}
+                
+                # Add publication information
+                publication = citation_info.get("publication", {})
+                if isinstance(publication, dict):
+                    if "pmid" in publication:
+                        node["citations"]["pmid"] = publication.get("pmid")
+                    if "doi" in publication:
+                        node["citations"]["doi"] = publication.get("doi")
+                    if "title" in publication:
+                        node["citations"]["title"] = publication.get("title")
+                    if "journal" in publication:
+                        node["citations"]["journal"] = publication.get("journal")
+                    if "year" in publication:
+                        node["citations"]["year"] = publication.get("year")
+                    if "citation_count" in publication:
+                        node["citations"]["citation_count"] = publication.get("citation_count")
+                    if "authors" in publication:
+                        # Store just the first 3 authors to keep the data size reasonable
+                        node["citations"]["authors"] = publication.get("authors", [])[:3]
+                
+                # Add formatted citations
+                if "formatted_citations" in citation_info:
+                    formatted = citation_info.get("formatted_citations", {})
+                    if formatted:
+                        node["citations"]["formatted_citations"] = formatted
+    
+    logger.info(f"Added PubMed citation metadata to {metadata_matches} tools")
+    return data
+
 def main():
     """Main function to extract tools from README.md and update data.json."""
     parser = argparse.ArgumentParser(description="Extract tool information from README.md and update data.json")
     parser.add_argument("--include-metadata", action="store_true", help="Include enhanced metadata from metadata directory")
     parser.add_argument("--include-bioinformatics", action="store_true", help="Include bioinformatics metadata")
     parser.add_argument("--include-academic-impact", action="store_true", help="Include academic impact metadata")
+    parser.add_argument("--include-pubmed", action="store_true", help="Include PubMed citation metadata")
     args = parser.parse_args()
     
     repo_root = Path(__file__).parent
@@ -534,6 +613,14 @@ def main():
         if academic_impact_metadata:
             logger.info(f"Loaded academic impact metadata for {len(academic_impact_metadata)} tools")
             updated_data = update_data_json_with_academic_impact(updated_data, academic_impact_metadata)
+    
+    # Load and add PubMed citation metadata if requested
+    if args.include_pubmed:
+        logger.info("Loading PubMed citation metadata...")
+        pubmed_citations_metadata = load_pubmed_citations_metadata()
+        if pubmed_citations_metadata:
+            logger.info(f"Loaded PubMed citation metadata for {len(pubmed_citations_metadata)} tools")
+            updated_data = update_data_json_with_pubmed_citations(updated_data, pubmed_citations_metadata)
     
     logger.info(f"Saving to {data_json_path}")
     save_data_json(updated_data, data_json_path)
