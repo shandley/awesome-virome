@@ -1,37 +1,212 @@
-name: Weekly Repository Updates
+name: Update Repository Information
+
 on:
   schedule:
-    # Runs at 00:00 UTC on Sunday
-    - cron: '0 0 * * 0'
-  workflow_dispatch: # Allows manual triggering
+    # Run weekly on Sunday at 00:00 UTC
+    - cron: "0 0 * * 0"
+    # Run enhanced metadata on 1st of each month
+    - cron: "0 0 1 * *"
+    # Run bioinformatics metadata on 15th of each month
+    - cron: "0 0 15 * *"
+    # Run academic impact metadata on 5th of each month
+    - cron: "0 0 5 * *"
+  workflow_dispatch:
+    inputs:
+      update_type:
+        description: 'Type of update to run'
+        required: true
+        default: 'basic'
+        type: choice
+        options:
+          - basic
+          - enhanced
+          - bioinformatics
+          - academic_impact
+          - all
+
 jobs:
   update-repos:
     runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' && github.event.schedule == '0 0 * * 0' || github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'basic' || github.event.inputs.update_type == 'all')
+    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.REPO_UPDATE_TOKEN }}
+      - uses: actions/checkout@v3
+      
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
+      
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install requests
-      - name: Run update script
-        env:
-          GITHUB_TOKEN: ${{ secrets.REPO_UPDATE_TOKEN }}
+          pip install requests PyGithub
+      
+      - name: Update repository information
         run: python update_check.py
-      - name: Commit changes if any
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Verify README content
+        run: python scripts/verify_readme_content.py
+      
+      - name: Update data.json
+        run: python update_data_json.py
+      
+      - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          # Add all potentially changed files, but only if they exist
-          git add README.md
-          git add repo_data.json starred_repos.md unavailable_repos.md 2>/dev/null || true
-          # Only commit if there are changes
-          git diff --staged --quiet || git commit -m "Weekly repository update [skip ci]"
-      - name: Push changes
-        run: git push
+          git add README.md data.json repo_updates.json update_check.log
+          git diff --staged --quiet || git commit -m "Update repository information"
+          git push
+
+  enhance-metadata:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' && github.event.schedule == '0 0 1 * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'enhanced' || github.event.inputs.update_type == 'all')
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests PyGithub
+      
+      - name: Collect enhanced metadata
+        run: python scripts/enhance_metadata.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Update data.json with enhanced metadata
+        run: python update_data_json.py --include-metadata
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data.json metadata/
+          git diff --staged --quiet || git commit -m "Update enhanced metadata"
+          git push
+
+  bioinformatics-metadata:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' && github.event.schedule == '0 0 15 * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'bioinformatics' || github.event.inputs.update_type == 'all')
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests PyGithub pyyaml
+      
+      - name: Collect bioinformatics metadata
+        run: python scripts/bioinformatics_metadata.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Update data.json with bioinformatics metadata
+        run: python update_data_json.py --include-metadata --include-bioinformatics
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data.json metadata/
+          git diff --staged --quiet || git commit -m "Update bioinformatics metadata"
+          git push
+
+  warm-cache:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' && (github.event.schedule == '0 0 1 * *' || github.event.schedule == '0 0 5 * *')
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests PyGithub pyyaml
+      
+      - name: Warm cache for important repositories
+        run: |
+          echo "Warming cache for frequently accessed repositories..."
+          python scripts/cache_warming.py --warm-important
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEMANTIC_SCHOLAR_KEY: ${{ secrets.SEMANTIC_SCHOLAR_KEY }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
+      
+      - name: Monitor cache health
+        run: |
+          python scripts/monitor_cache.py --graphs > cache_warming_report.txt
+          echo "Cache warming completed. See cache_warming_report.txt for details."
+      
+      - name: Upload cache warming report
+        uses: actions/upload-artifact@v4
+        with:
+          name: cache-warming-report
+          path: |
+            cache_warming_report.txt
+            cache_warming.log
+            metadata/cache/_monitoring/graphs/
+
+  academic-impact-metadata:
+    runs-on: ubuntu-latest
+    needs: warm-cache
+    if: github.event_name == 'schedule' && github.event.schedule == '0 0 5 * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'academic_impact' || github.event.inputs.update_type == 'all')
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests PyGithub pyyaml matplotlib networkx
+      
+      - name: Collect academic impact metadata
+        run: python scripts/academic_impact.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEMANTIC_SCHOLAR_KEY: ${{ secrets.SEMANTIC_SCHOLAR_KEY }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
+      
+      - name: Generate citation reports
+        run: python scripts/citation_report.py
+      
+      - name: Validate data integrity
+        run: |
+          python scripts/verify_repo_metadata.py
+          python scripts/verify_readme_content.py
+        
+      - name: Update data.json with academic impact metadata
+        run: python update_data_json.py --include-metadata --include-bioinformatics --include-academic-impact
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data.json metadata/ reports/
+          git diff --staged --quiet || git commit -m "Update academic impact metadata and citation reports"
+          git push

@@ -1,0 +1,110 @@
+{
+  "name": "ViralMSA",
+  "url": "https://github.com/niemasd/ViralMSA",
+  "provider": "github",
+  "repo_path": "niemasd/ViralMSA",
+  "description": "Reference-guided multiple sequence alignment of viral genomes",
+  "created_at": "2020-04-17T22:09:50Z",
+  "updated_at": "2025-01-13T15:35:04Z",
+  "pushed_at": "2025-01-09T17:23:35Z",
+  "stars": 65,
+  "watchers": 65,
+  "forks": 10,
+  "open_issues": 1,
+  "default_branch": "master",
+  "license": "GNU General Public License v3.0",
+  "license_url": "https://api.github.com/licenses/gpl-3.0",
+  "homepage": "",
+  "is_archived": false,
+  "is_disabled": false,
+  "fetch_time": "2025-03-14T02:15:49.063001",
+  "languages": {
+    "Python": 50616,
+    "Dockerfile": 4116
+  },
+  "topics": [],
+  "latest_release": {
+    "name": "ViralMSA v1.1.44",
+    "tag": "1.1.44",
+    "published_at": "2024-02-17T00:35:07Z",
+    "url": "https://github.com/niemasd/ViralMSA/releases/tag/1.1.44"
+  },
+  "dependencies": {
+    "sbom": {
+      "spdxVersion": "SPDX-2.3",
+      "dataLicense": "CC0-1.0",
+      "SPDXID": "SPDXRef-DOCUMENT",
+      "name": "com.github.niemasd/ViralMSA",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/67bdd4f2-c507-4639-b1ae-a95d91a6e43e",
+      "creationInfo": {
+        "creators": [
+          "Tool: protobom-v0.0.0-20250313192307-8041c25f3baf+dirty",
+          "Tool: GitHub.com-Dependency-Graph"
+        ],
+        "created": "2025-03-14T02:15:57Z"
+      },
+      "packages": [
+        {
+          "name": "actions/checkout",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-2-7b26ed",
+          "versionInfo": "2",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/checkout@2"
+            }
+          ]
+        },
+        {
+          "name": "svenstaro/upload-release-action",
+          "SPDXID": "SPDXRef-githubactions-svenstaro-upload-release-action-2-d87ce5",
+          "versionInfo": "2",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/svenstaro/upload-release-action@2"
+            }
+          ]
+        },
+        {
+          "name": "com.github.niemasd/ViralMSA",
+          "SPDXID": "SPDXRef-github-niemasd-ViralMSA-master-1ec1f4",
+          "versionInfo": "master",
+          "downloadLocation": "git+https://github.com/niemasd/ViralMSA",
+          "filesAnalyzed": false,
+          "licenseDeclared": "GPL-3.0",
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:github/niemasd/ViralMSA@master"
+            }
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "spdxElementId": "SPDXRef-github-niemasd-ViralMSA-master-1ec1f4",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-2-7b26ed",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-niemasd-ViralMSA-master-1ec1f4",
+          "relatedSpdxElement": "SPDXRef-githubactions-svenstaro-upload-release-action-2-d87ce5",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-DOCUMENT",
+          "relatedSpdxElement": "SPDXRef-github-niemasd-ViralMSA-master-1ec1f4",
+          "relationshipType": "DESCRIBES"
+        }
+      ]
+    }
+  }
+}
