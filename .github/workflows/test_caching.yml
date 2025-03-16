@@ -26,10 +26,10 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
         
@@ -44,7 +44,7 @@ jobs:
         pytest scripts/tests/test_cache_manager.py -v --cov=scripts/apis/citations_api --cov-report=xml
         
     - name: Upload coverage report
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         file: ./coverage.xml
         fail_ci_if_error: false
@@ -54,10 +54,10 @@ jobs:
     needs: unit-tests
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: '3.10'
         
@@ -103,7 +103,7 @@ jobs:
         echo "" >> cache_report.md
         
     - name: Upload cache report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: cache-performance-report
         path: cache_report.md
