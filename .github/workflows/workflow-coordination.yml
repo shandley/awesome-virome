@@ -1,0 +1,328 @@
+name: Workflow Coordination
+
+on:
+  schedule:
+    # Main weekly schedule - Run this early Monday to plan the week's workflow runs
+    - cron: "0 1 * * 1"  # Monday at 01:00 UTC
+    # Monthly coordination - Run this at the beginning of each month to coordinate monthly workflows
+    - cron: "0 1 1 * *"  # 1st day of month at 01:00 UTC
+  
+  # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      run_data_quality:
+        description: 'Trigger data quality workflow'
+        type: boolean
+        default: false
+      run_incremental_updates:
+        description: 'Trigger incremental updates workflow'
+        type: boolean
+        default: false
+      run_cache_warming:
+        description: 'Trigger cache warming workflow'
+        type: boolean
+        default: false
+      run_pubmed_citations:
+        description: 'Trigger PubMed citations workflow'
+        type: boolean
+        default: false
+      run_academic_impact:
+        description: 'Trigger academic impact workflow'
+        type: boolean
+        default: false
+      force_all:
+        description: 'Force run all workflows in sequence'
+        type: boolean
+        default: false
+
+jobs:
+  workflow-status:
+    runs-on: ubuntu-latest
+    outputs:
+      data_quality_needed: ${{ steps.check.outputs.data_quality_needed }}
+      incremental_update_needed: ${{ steps.check.outputs.incremental_update_needed }}
+      cache_warming_needed: ${{ steps.check.outputs.cache_warming_needed }}
+      pubmed_citations_needed: ${{ steps.check.outputs.pubmed_citations_needed }}
+      academic_impact_needed: ${{ steps.check.outputs.academic_impact_needed }}
+    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Check workflow status
+        id: check
+        run: |
+          # Default output values - will be overridden by checks
+          echo "data_quality_needed=false" >> $GITHUB_OUTPUT
+          echo "incremental_update_needed=false" >> $GITHUB_OUTPUT
+          echo "cache_warming_needed=false" >> $GITHUB_OUTPUT
+          echo "pubmed_citations_needed=false" >> $GITHUB_OUTPUT
+          echo "academic_impact_needed=false" >> $GITHUB_OUTPUT
+          
+          # Force all workflows if requested
+          if [[ "${{ github.event.inputs.force_all }}" == "true" ]]; then
+            echo "Forcing all workflows to run"
+            echo "data_quality_needed=true" >> $GITHUB_OUTPUT
+            echo "incremental_update_needed=true" >> $GITHUB_OUTPUT
+            echo "cache_warming_needed=true" >> $GITHUB_OUTPUT
+            echo "pubmed_citations_needed=true" >> $GITHUB_OUTPUT
+            echo "academic_impact_needed=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Handle direct workflow requests from manual trigger
+          if [[ "${{ github.event.inputs.run_data_quality }}" == "true" ]]; then
+            echo "Data quality workflow requested"
+            echo "data_quality_needed=true" >> $GITHUB_OUTPUT
+          fi
+          
+          if [[ "${{ github.event.inputs.run_incremental_updates }}" == "true" ]]; then
+            echo "Incremental updates workflow requested"
+            echo "incremental_update_needed=true" >> $GITHUB_OUTPUT
+          fi
+          
+          if [[ "${{ github.event.inputs.run_cache_warming }}" == "true" ]]; then
+            echo "Cache warming workflow requested"
+            echo "cache_warming_needed=true" >> $GITHUB_OUTPUT
+          fi
+          
+          if [[ "${{ github.event.inputs.run_pubmed_citations }}" == "true" ]]; then
+            echo "PubMed citations workflow requested"
+            echo "pubmed_citations_needed=true" >> $GITHUB_OUTPUT
+            # Cache warming is needed before PubMed citations
+            echo "cache_warming_needed=true" >> $GITHUB_OUTPUT
+          fi
+          
+          if [[ "${{ github.event.inputs.run_academic_impact }}" == "true" ]]; then
+            echo "Academic impact workflow requested"
+            echo "academic_impact_needed=true" >> $GITHUB_OUTPUT
+            # Cache warming and PubMed citations are needed before academic impact
+            echo "cache_warming_needed=true" >> $GITHUB_OUTPUT
+            echo "pubmed_citations_needed=true" >> $GITHUB_OUTPUT
+          fi
+          
+          # For scheduled runs, check if workflows need to run based on time since last run
+          if [[ "${{ github.event_name }}" == "schedule" ]]; then
+            TODAY=$(date +%u)  # Day of week (1-7, where 1 is Monday)
+            DAY_OF_MONTH=$(date +%d)
+            
+            # Monday run (beginning of week)
+            if [[ "$TODAY" == "1" ]]; then
+              echo "Weekly coordination run detected"
+              echo "data_quality_needed=true" >> $GITHUB_OUTPUT
+              echo "incremental_update_needed=true" >> $GITHUB_OUTPUT
+            fi
+            
+            # Beginning of month run
+            if [[ "$DAY_OF_MONTH" == "01" ]]; then
+              echo "Monthly coordination run detected"
+              echo "cache_warming_needed=true" >> $GITHUB_OUTPUT
+              echo "pubmed_citations_needed=true" >> $GITHUB_OUTPUT
+              echo "academic_impact_needed=true" >> $GITHUB_OUTPUT
+            fi
+          fi
+          
+          # Check recent updates
+          # Data quality - check if it's been more than 7 days
+          LAST_DATA_QUALITY=$(git log --since="7 days ago" --oneline | grep "Update data quality metrics" | wc -l)
+          if [[ $LAST_DATA_QUALITY -eq 0 && "${{ github.event_name }}" == "schedule" ]]; then
+            echo "Data quality workflow needed (no updates in 7 days)"
+            echo "data_quality_needed=true" >> $GITHUB_OUTPUT
+          fi
+          
+          # Don't automatically trigger PubMed before academic impact if recent
+          LAST_PUBMED=$(git log --since="48 hours ago" --oneline | grep "Update PubMed citation information" | wc -l)
+          if [[ $LAST_PUBMED -gt 0 && "${{ github.event.inputs.run_pubmed_citations }}" != "true" ]]; then
+            echo "Recent PubMed update found, not triggering again"
+            echo "pubmed_citations_needed=false" >> $GITHUB_OUTPUT
+          fi
+          
+          echo "Workflow coordination checks completed"
+      
+      - name: Summary of planned workflow runs
+        run: |
+          echo "::group::Workflow Coordination Plan"
+          echo "Data Quality: ${{ steps.check.outputs.data_quality_needed }}"
+          echo "Incremental Updates: ${{ steps.check.outputs.incremental_update_needed }}"
+          echo "Cache Warming: ${{ steps.check.outputs.cache_warming_needed }}"
+          echo "PubMed Citations: ${{ steps.check.outputs.pubmed_citations_needed }}"
+          echo "Academic Impact: ${{ steps.check.outputs.academic_impact_needed }}"
+          echo "::endgroup::"
+  
+  run-data-quality:
+    needs: workflow-status
+    if: needs.workflow-status.outputs.data_quality_needed == 'true'
+    uses: ./.github/workflows/data-quality.yml
+    secrets: inherit
+  
+  run-incremental-updates:
+    needs: [workflow-status, run-data-quality]
+    if: always() && needs.workflow-status.outputs.incremental_update_needed == 'true'
+    uses: ./.github/workflows/incremental-updates.yml
+    with:
+      days: '7'
+    secrets: inherit
+  
+  run-cache-warming:
+    needs: [workflow-status, run-incremental-updates]
+    if: always() && needs.workflow-status.outputs.cache_warming_needed == 'true'
+    uses: ./.github/workflows/cache-warming.yml
+    with:
+      scope: 'important'
+    secrets: inherit
+  
+  run-pubmed-citations:
+    needs: [workflow-status, run-cache-warming]
+    if: always() && needs.workflow-status.outputs.pubmed_citations_needed == 'true'
+    uses: ./.github/workflows/pubmed-citations.yml
+    with:
+      force_refresh: ${{ github.event.inputs.force_all || false }}
+      trigger_academic_impact: false
+    secrets: inherit
+  
+  run-academic-impact:
+    needs: [workflow-status, run-pubmed-citations]
+    if: always() && needs.workflow-status.outputs.academic_impact_needed == 'true'
+    uses: ./.github/workflows/update-repos.yml
+    with:
+      update_type: 'academic_impact'
+    secrets: inherit
+  
+  generate-workflow-summary:
+    needs: [workflow-status, run-data-quality, run-incremental-updates, run-cache-warming, run-pubmed-citations, run-academic-impact]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests PyGithub pyyaml matplotlib networkx
+      
+      - name: Generate workflow summary diagram
+        run: |
+          cat > workflow_summary.py << 'EOF'
+          import matplotlib.pyplot as plt
+          import matplotlib.patches as patches
+          import datetime
+          import os
+          import json
+          
+          # Get workflow outputs from env variables
+          data_quality_run = os.environ.get('DATA_QUALITY_RUN', 'false').lower() == 'true'
+          incremental_update_run = os.environ.get('INCREMENTAL_UPDATE_RUN', 'false').lower() == 'true'
+          cache_warming_run = os.environ.get('CACHE_WARMING_RUN', 'false').lower() == 'true'
+          pubmed_citations_run = os.environ.get('PUBMED_CITATIONS_RUN', 'false').lower() == 'true'
+          academic_impact_run = os.environ.get('ACADEMIC_IMPACT_RUN', 'false').lower() == 'true'
+          
+          # Create the figure and axis
+          fig, ax = plt.subplots(figsize=(10, 6))
+          fig.patch.set_facecolor('#f9f9f9')
+          
+          # Set up the workflow boxes
+          workflows = [
+              {"name": "Data Quality", "run": data_quality_run, "pos": (0.2, 0.8)},
+              {"name": "Incremental Updates", "run": incremental_update_run, "pos": (0.5, 0.8)},
+              {"name": "Cache Warming", "run": cache_warming_run, "pos": (0.5, 0.5)},
+              {"name": "PubMed Citations", "run": pubmed_citations_run, "pos": (0.2, 0.2)},
+              {"name": "Academic Impact", "run": academic_impact_run, "pos": (0.8, 0.2)},
+          ]
+          
+          # Set up the arrows between workflows
+          arrows = [
+              {"start": (0.25, 0.75), "end": (0.45, 0.75), "label": ""}, # Data Quality -> Incremental
+              {"start": (0.5, 0.75), "end": (0.5, 0.55), "label": ""}, # Incremental -> Cache Warming
+              {"start": (0.45, 0.5), "end": (0.25, 0.25), "label": ""}, # Cache Warming -> PubMed
+              {"start": (0.25, 0.15), "end": (0.75, 0.15), "label": ""}, # PubMed -> Academic Impact
+          ]
+          
+          # Add boxes for each workflow
+          for wf in workflows:
+              color = '#90ee90' if wf["run"] else '#f0f0f0'  # Green if run, gray if not
+              border_color = '#006400' if wf["run"] else '#a0a0a0'
+              rect = patches.FancyBboxPatch(
+                  (wf["pos"][0] - 0.15, wf["pos"][1] - 0.05),
+                  0.3, 0.1, 
+                  boxstyle=patches.BoxStyle("Round", pad=0.02),
+                  facecolor=color, edgecolor=border_color, linewidth=2
+              )
+              ax.add_patch(rect)
+              ax.text(wf["pos"][0], wf["pos"][1], wf["name"], 
+                     ha='center', va='center', fontsize=9, fontweight='bold')
+          
+          # Add arrows between workflows
+          for arrow in arrows:
+              ax.annotate("", 
+                         xy=arrow["end"], xycoords='data',
+                         xytext=arrow["start"], textcoords='data',
+                         arrowprops=dict(arrowstyle="->", color='#404040', lw=1.5,
+                                         connectionstyle="arc3,rad=.1"))
+          
+          # Add title and timestamp
+          current_time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S UTC')
+          plt.title(f"Awesome-Virome Workflow Execution Summary\n{current_time}", fontsize=12)
+          
+          # Remove axes
+          ax.set_xlim(0, 1)
+          ax.set_ylim(0, 1)
+          ax.axis('off')
+          
+          # Add a legend
+          legend_elements = [
+              patches.Patch(facecolor='#90ee90', edgecolor='#006400', label='Executed'),
+              patches.Patch(facecolor='#f0f0f0', edgecolor='#a0a0a0', label='Not Executed')
+          ]
+          ax.legend(handles=legend_elements, loc='lower center', bbox_to_anchor=(0.5, -0.05),
+                   ncol=2, frameon=False)
+          
+          # Save the figure
+          plt.tight_layout()
+          plt.savefig('workflow_summary.png', dpi=150, bbox_inches='tight')
+          print("Generated workflow summary diagram")
+          EOF
+          
+          python workflow_summary.py
+        env:
+          DATA_QUALITY_RUN: ${{ needs.workflow-status.outputs.data_quality_needed }}
+          INCREMENTAL_UPDATE_RUN: ${{ needs.workflow-status.outputs.incremental_update_needed }}
+          CACHE_WARMING_RUN: ${{ needs.workflow-status.outputs.cache_warming_needed }}
+          PUBMED_CITATIONS_RUN: ${{ needs.workflow-status.outputs.pubmed_citations_needed }}
+          ACADEMIC_IMPACT_RUN: ${{ needs.workflow-status.outputs.academic_impact_needed }}
+      
+      - name: Generate workflow summary report
+        run: |
+          echo "# Workflow Coordination Summary" > workflow_summary.md
+          echo "Run completed at: $(date)" >> workflow_summary.md
+          echo "" >> workflow_summary.md
+          echo "## Workflow Execution Status" >> workflow_summary.md
+          echo "" >> workflow_summary.md
+          echo "| Workflow | Executed |" >> workflow_summary.md
+          echo "|----------|----------|" >> workflow_summary.md
+          echo "| Data Quality | ${{ needs.workflow-status.outputs.data_quality_needed }} |" >> workflow_summary.md
+          echo "| Incremental Updates | ${{ needs.workflow-status.outputs.incremental_update_needed }} |" >> workflow_summary.md
+          echo "| Cache Warming | ${{ needs.workflow-status.outputs.cache_warming_needed }} |" >> workflow_summary.md
+          echo "| PubMed Citations | ${{ needs.workflow-status.outputs.pubmed_citations_needed }} |" >> workflow_summary.md
+          echo "| Academic Impact | ${{ needs.workflow-status.outputs.academic_impact_needed }} |" >> workflow_summary.md
+          echo "" >> workflow_summary.md
+          echo "## Workflow Diagram" >> workflow_summary.md
+          echo "" >> workflow_summary.md
+          echo "![Workflow Execution Diagram](workflow_summary.png)" >> workflow_summary.md
+          echo "" >> workflow_summary.md
+          echo "## Execution Details" >> workflow_summary.md
+          echo "" >> workflow_summary.md
+          echo "This workflow coordination run was triggered by: ${{ github.event_name }}" >> workflow_summary.md
+      
+      - name: Upload workflow summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: workflow-execution-summary
+          path: |
+            workflow_summary.md
+            workflow_summary.png
