@@ -409,7 +409,7 @@ def update_readme_with_dates_status_and_stars(readme_path, repo_data):
                 pass
             else:
                 # Mark as unavailable
-                updated_content = updated_content.replace(
+                # Replace all existing tags with the new tag\n                # First remove all existing tags\n                temp_content = re.sub(\n                    re.escape(f"[{repo_name}]({repo_url})") + r"(?:\s+\[Updated:.*?\])*",\n                    f"[{repo_name}]({repo_url})",\n                    updated_content\n                )\n                # Then add the new tag\n                updated_content = temp_content.replace(
                     f"[{repo_name}]({repo_url})",
                     f"[{repo_name}]({repo_url}) [unavailable]"
                 )
