@@ -20,7 +20,14 @@ on:
         type: boolean
 
 jobs:
+  warm-cache-for-pubmed:
+    uses: ./.github/workflows/cache-warming.yml
+    with:
+      scope: 'important'
+    secrets: inherit
+
   collect-pubmed-citations:
+    needs: warm-cache-for-pubmed
     runs-on: ubuntu-latest
     outputs:
       pubmed_data_updated: ${{ steps.commit.outputs.changes_detected }}

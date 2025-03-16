@@ -15,12 +15,21 @@ This directory contains GitHub Actions workflows that automate various tasks for
 │  cache-monitoring   │      │  data-quality       │      │  incremental-       │
 │      (daily)        │      │    (weekly)         │      │      updates        │
 └─────────────────────┘      └─────────────────────┘      └─────────────────────┘
-                                                                     │
-                                                                     ▼
-┌─────────────────────┐      ┌─────────────────────┐      ┌─────────────────────┐
+                                        │                            │
+                                        │                            │
+                                        ▼                            ▼
+                             ┌─────────────────────┐                 │
+                             │                     │                 │
+                             │   cache-warming     │◀────────────────┘
+                             │ (reusable workflow) │
+                             └─────────────────────┘
+                                   ▲         │
+                                   │         │
+                                   │         ▼
+┌─────────────────────┐      ┌─────┴───────────────┐      ┌─────────────────────┐
 │                     │      │                     │      │    update-repos     │
-│  pubmed-citations   │─────▶│    warm-cache       │─────▶│  academic-impact    │
-│  (weekly, monthly)  │      │    (monthly)        │      │     (monthly)       │
+│  pubmed-citations   │─────▶│  academic-impact    │◀─────│    (bioinformatics, │
+│  (weekly, monthly)  │      │    (monthly)        │      │      enhanced)      │
 └─────────────────────┘      └─────────────────────┘      └─────────────────────┘
 ```
 
@@ -28,16 +37,23 @@ This directory contains GitHub Actions workflows that automate various tasks for
 
 ### Citation and Academic Impact Workflows
 
-1. **PubMed Citations Collection** (`pubmed-citations.yml`)
+1. **Cache Warming** (`cache-warming.yml`)
+   - **Schedule**: Weekly (Friday at 00:00 UTC), before PubMed collection (Saturday at 01:00 UTC), before academic impact (4th at 22:00 UTC)
+   - **Purpose**: Reusable workflow that warms the cache for frequently accessed data
+   - **Integration**: Used by multiple workflows to ensure efficient data retrieval
+   - **Required secrets**: `GITHUB_TOKEN`, `SEMANTIC_SCHOLAR_KEY`, `CONTACT_EMAIL`
+   - **Features**: Configurable scope (important/random/all), reporting, monitoring
+
+2. **PubMed Citations Collection** (`pubmed-citations.yml`)
    - **Schedule**: Weekly (Saturday at 03:00 UTC) and monthly (4th at 12:00 UTC)
    - **Purpose**: Collects citation data from PubMed for all tools
-   - **Integration**: Automatically triggers academic-impact workflow when run manually or on the 4th of each month
+   - **Integration**: Uses cache-warming workflow first, then automatically triggers academic-impact workflow when run manually or on the 4th of each month
    - **Required secrets**: `GITHUB_TOKEN`, `NCBI_API_KEY`, `CONTACT_EMAIL`
 
-2. **Academic Impact Metadata** (part of `update-repos.yml`)
+3. **Academic Impact Metadata** (part of `update-repos.yml`)
    - **Schedule**: Monthly (5th at 00:00 UTC)
    - **Purpose**: Analyzes academic impact using citation data from multiple sources
-   - **Integration**: Verifies if PubMed data is recent (< 48 hours), runs PubMed collection if needed
+   - **Integration**: Uses cache-warming workflow first, verifies if PubMed data is recent (< 48 hours), runs PubMed collection if needed
    - **Required secrets**: `GITHUB_TOKEN`, `SEMANTIC_SCHOLAR_KEY`, `CONTACT_EMAIL`
 
 ### Repository Update Workflows
