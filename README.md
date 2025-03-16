@@ -42,25 +42,13 @@ Virome analysis involves studying the collection of viruses (including bacteriop
 Ranked by GitHub stars:
 
 1. [AlphaFold-Multimer](https://github.com/deepmind/alphafold) - ⭐ 13320 stars
-2. [AlphaFold-Multimer](https://github.com/deepmind/alphafold) - ⭐ 13320 stars
-3. [AlphaFold-Multimer](https://github.com/deepmind/alphafold) - ⭐ 13320 stars
-4. [CovidMD](https://github.com/lammps/lammps) - ⭐ 2365 stars
-5. [CovidMD](https://github.com/lammps/lammps) - ⭐ 2365 stars
-6. [CovidMD](https://github.com/lammps/lammps) - ⭐ 2365 stars
-7. [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) - ⭐ 1114 stars
-8. [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) - ⭐ 1114 stars
-9. [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) - ⭐ 1114 stars
-10. [coronaSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
-11. [coronaSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
-12. [coronaSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
-13. [coronaSPAdes/metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
-14. [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
-15. [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
-16. [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
-17. [metaviralSPAdes-RNA](https://github.com/ablab/spades) - ⭐ 797 stars
-18. [metaviralSPAdes-RNA](https://github.com/ablab/spades) - ⭐ 797 stars
-19. [metaviralSPAdes-RNA](https://github.com/ablab/spades) - ⭐ 797 stars
-20. [MetaProdigal](https://github.com/hyattpd/Prodigal) - ⭐ 471 stars
+2. [CovidMD](https://github.com/lammps/lammps) - ⭐ 2365 stars
+3. [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) - ⭐ 1114 stars
+4. [coronaSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
+5. [coronaSPAdes/metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
+6. [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
+7. [metaviralSPAdes-RNA](https://github.com/ablab/spades) - ⭐ 797 stars
+8. [MetaProdigal](https://github.com/hyattpd/Prodigal) - ⭐ 471 stars
 
 
 ## Getting Started
@@ -138,7 +126,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 
 ### Metagenome Analysis
 
-- [Cenote-Taker 3](https://github.com/mtisza1/Cenote-Taker3) [Updated: 03/2025] [Updated: 03/2025] [Updated: 03/2025] [Updated: 03/2025] - Hallmark gene discovery, gene annotation, flanking host gene removal. [Linux/MacOS] [conda] [v0.1.0, 2023]
+- [Cenote-Taker 3](https://github.com/mtisza1/Cenote-Taker3) [Updated: 03/2025] - Hallmark gene discovery, gene annotation, flanking host gene removal. [Linux/MacOS] [conda] [v0.1.0, 2023]
 - [Cenote-Taker 2](https://github.com/mtisza1/Cenote-Taker2) [Updated: 11/2024] [Updated: 11/2024] [Updated: 11/2024] [Updated: 11/2024] - Scans contigs for virus hallmark genes, removes flanking host DNA from prophages, makes annotated genome maps. [conda, pip] [v2.1.5, 2022]
 - [CoCoNet](https://github.com/Puumanamana/CoCoNet) [Updated: 03/2025] [Updated: 03/2025] [Updated: 03/2025] [Updated: 01/2025] - Neural networks for viral contig identification. [pip] [Python]
 - [crassus](https://github.com/dcarrillox/CrassUS) [Updated: 04/2023] [Updated: 04/2023] [Updated: 04/2023] [Updated: 04/2023] - Snakemake workflow for phage discovery. [conda] [Python]
