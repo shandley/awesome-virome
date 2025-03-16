@@ -315,6 +315,66 @@ def batch_process_repos(repos, batch_size=5, batch_delay=10):
     
     return results
 
+def extract_repo_categories(readme_path):
+    """Extract repositories and their categories from the README file."""
+    with open(readme_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    # Define the main categories we want to track
+    main_categories = {
+        "Virus and Phage Identification": [
+            "## Virus and Phage Identification",
+            "### Metagenome Analysis",
+            "### Integrated Viruses",
+            "### RNA Virus Identification"
+        ],
+        "Host Prediction": ["## Host Prediction"],
+        "Genome Analysis": [
+            "## Genome Analysis",
+            "### Genome Annotation",
+            "### Genome Assembly",
+            "### Genome Completeness",
+            "### Genome Comparison",
+            "### Gene Finding"
+        ],
+        "Taxonomy": ["## Taxonomy"]
+    }
+    
+    # Map each section header to its main category
+    section_to_category = {}
+    for main_cat, sections in main_categories.items():
+        for section in sections:
+            section_to_category[section] = main_cat
+    
+    # Initialize repo categories
+    repo_categories = {}
+    current_section = None
+    current_category = None
+    
+    # Regular expression to match markdown links
+    link_pattern = r'\[([^\]]+)\]\(([^)]+)\)'
+    
+    # Process the README line by line
+    for line in content.split('\n'):
+        # Check if this line is a section header
+        if line.startswith('#'):
+            for section, category in section_to_category.items():
+                if line.strip() == section:
+                    current_section = section
+                    current_category = category
+                    break
+        
+        # If we're in a tracked section, look for repository links
+        if current_category:
+            matches = re.findall(link_pattern, line)
+            for name, url in matches:
+                # Consider only GitHub, GitLab, and Bitbucket repositories
+                if ('github.com/' in url or 'gitlab.com/' in url or 'bitbucket.org/' in url) and not url.endswith('.md'):
+                    if name not in repo_categories:
+                        repo_categories[name] = current_category
+    
+    return repo_categories
+
 def update_readme_with_dates_status_and_stars(readme_path, repo_data):
     """Update the README with the last updated information, availability status, and create a popular packages section."""
     with open(readme_path, 'r', encoding='utf-8') as f:
@@ -324,13 +384,17 @@ def update_readme_with_dates_status_and_stars(readme_path, repo_data):
     unavailable_repos = []
     github_repos_with_stars = []
     
+    # Extract repository categories
+    repo_categories = extract_repo_categories(readme_path)
+    
     # Sort repositories by name for consistent processing
     sorted_repos = sorted(repo_data, key=lambda x: x[0])
     
     for repo_name, repo_url, last_updated, status, stars in sorted_repos:
         # Collect GitHub repos with stars for popular packages section
         if 'github.com' in repo_url and stars is not None and stars > 0:
-            github_repos_with_stars.append((repo_name, repo_url, stars))
+            category = repo_categories.get(repo_name, "Other")
+            github_repos_with_stars.append((repo_name, repo_url, stars, category))
             
         # Check if repository is unavailable
         if status == "not_found":
@@ -375,12 +439,12 @@ def update_readme_with_dates_status_and_stars(readme_path, repo_data):
                     f"[{repo_name}]({repo_url}) {date_info}"
                 )
     
-    # Create popular packages section
+    # Create overall popular packages section
     if github_repos_with_stars:
         top_repos = sorted(github_repos_with_stars, key=lambda x: x[2], reverse=True)[:20]  # Top 20 repos by stars
         
         popular_packages_section = "## Popular Packages\n\nRanked by GitHub stars:\n\n"
-        for i, (name, url, stars) in enumerate(top_repos, 1):
+        for i, (name, url, stars, _) in enumerate(top_repos, 1):
             popular_packages_section += f"{i}. [{name}]({url}) - ⭐ {stars} stars\n"
         popular_packages_section += "\n"
         
@@ -395,6 +459,57 @@ def update_readme_with_dates_status_and_stars(readme_path, repo_data):
                 "## Getting Started", 
                 f"{popular_packages_section}## Getting Started"
             )
+    
+    # Create "Top Packages by Category" section
+    if github_repos_with_stars:
+        # Group repositories by category
+        repos_by_category = {}
+        for name, url, stars, category in github_repos_with_stars:
+            if category not in repos_by_category:
+                repos_by_category[category] = []
+            repos_by_category[category].append((name, url, stars))
+        
+        # Sort repositories within each category by stars
+        for category in repos_by_category:
+            repos_by_category[category] = sorted(repos_by_category[category], key=lambda x: x[2], reverse=True)
+        
+        # Create the section content
+        top_packages_section = "## Top Packages by Category\n\nHere are the most starred packages in key categories:\n\n"
+        
+        # Include only specific categories of interest
+        categories_of_interest = [
+            "Virus and Phage Identification",
+            "Host Prediction",
+            "Genome Analysis",
+            "Taxonomy"
+        ]
+        
+        for category in categories_of_interest:
+            if category in repos_by_category and repos_by_category[category]:
+                top_packages_section += f"### {category}\n"
+                # Take top 3 from each category
+                for i, (name, url, stars) in enumerate(repos_by_category[category][:3], 1):
+                    top_packages_section += f"{i}. [{name}]({url}) - ⭐ {stars} stars\n"
+                top_packages_section += "\n"
+        
+        # Check if the section already exists
+        if "## Top Packages by Category" in updated_content:
+            # Replace existing section
+            pattern = r"## Top Packages by Category.*?(?=\n## |\Z)"
+            updated_content = re.sub(pattern, top_packages_section, updated_content, flags=re.DOTALL)
+        else:
+            # Add after Popular Packages section
+            if "## Popular Packages" in updated_content:
+                updated_content = updated_content.replace(
+                    "## Getting Started", 
+                    f"{top_packages_section}## Getting Started"
+                )
+            else:
+                # Add before Getting Started if Popular Packages doesn't exist
+                updated_content = updated_content.replace(
+                    "## Getting Started", 
+                    f"{top_packages_section}## Getting Started"
+                )
     
     # Write the updated content back to the README
     with open(readme_path, 'w', encoding='utf-8') as f:
@@ -413,10 +528,10 @@ def update_readme_with_dates_status_and_stars(readme_path, repo_data):
         
         if github_repos_with_stars:
             sorted_by_stars = sorted(github_repos_with_stars, key=lambda x: x[2], reverse=True)
-            f.write("| Repository | Stars |\n")
-            f.write("|------------|-------|\n")
-            for name, url, stars in sorted_by_stars:
-                f.write(f"| [{name}]({url}) | {stars} |\n")
+            f.write("| Repository | Category | Stars |\n")
+            f.write("|------------|----------|-------|\n")
+            for name, url, stars, category in sorted_by_stars:
+                f.write(f"| [{name}]({url}) | {category} | {stars} |\n")
         else:
             f.write("No GitHub repositories with stars found.\n")
     
@@ -439,6 +554,10 @@ def main(readme):
     repos = extract_repos_from_readme(readme_path)
     logger.info(f"Found {len(repos)} repository URLs in the README")
     
+    # Extract repository categories
+    repo_categories = extract_repo_categories(readme_path)
+    logger.info(f"Categorized {len(repo_categories)} repositories into their respective sections")
+    
     # Process repositories in batches
     results = batch_process_repos(repos, batch_size=10, batch_delay=15)
     
@@ -453,9 +572,35 @@ def main(readme):
     logger.info(f"Encountered errors with {len(error_repos)} repositories")
     logger.info(f"Found {len(github_repos_with_stars)} GitHub repositories with stars")
     
+    # Group repositories by category
+    repos_by_category = {}
+    for name, url, _, _, stars in results:
+        if name in repo_categories and 'github.com' in url and stars is not None and stars > 0:
+            category = repo_categories[name]
+            if category not in repos_by_category:
+                repos_by_category[category] = []
+            repos_by_category[category].append((name, url, stars))
+    
+    # Log information about the top repositories by category
+    logger.info("Top repositories by category:")
+    categories_of_interest = [
+        "Virus and Phage Identification",
+        "Host Prediction",
+        "Genome Analysis",
+        "Taxonomy"
+    ]
+    
+    for category in categories_of_interest:
+        if category in repos_by_category:
+            top_repos = sorted(repos_by_category[category], key=lambda x: x[2], reverse=True)[:3]
+            logger.info(f"  {category}:")
+            for name, _, stars in top_repos:
+                logger.info(f"    - {name}: {stars} stars")
+    
     # Update the README with the dates, availability status, and stars
     updated_content, unavailable, repos_with_stars = update_readme_with_dates_status_and_stars(readme_path, results)
     logger.info(f"README updated with repository information")
+    logger.info(f"Updated both Popular Packages and Top Packages by Category sections")
     logger.info(f"Created unavailable_repos.md with {len(unavailable)} unavailable repositories")
     logger.info(f"Created starred_repos.md with {len(repos_with_stars)} starred repositories")
     
@@ -463,9 +608,11 @@ def main(readme):
     with open(Path(__file__).parent / "repo_updates.json", 'w') as f:
         json_results = []
         for name, url, date, status, stars in results:
+            category = repo_categories.get(name, "Other")
             json_results.append({
                 "name": name,
                 "url": url,
+                "category": category,
                 "last_updated": date.isoformat() if date else None,
                 "status": status,
                 "stars": stars
