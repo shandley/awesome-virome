@@ -590,7 +590,7 @@
                     </li>
                 </ul>
                 <div class="d-flex align-items-center">
-                    <a href="https://github.com/yourusername/awesome-virome" class="btn btn-outline-light me-2" target="_blank">
+                    <a href="https://github.com/shandley/awesome-virome" class="btn btn-outline-light me-2" target="_blank">
                         <i class="bi bi-github me-1"></i> GitHub
                     </a>
                     <button class="theme-toggle" id="themeToggle">
@@ -965,39 +965,37 @@
                 viewTable.classList.add('active');
             });
             
+            // Define a global variable to store our data
+            let globalData = null;
+            
+            // Define a stub for any legacy functions to prevent errors
+            window.populateExplorer = function() {
+                console.log("Legacy populateExplorer function called but is no longer used");
+                return;
+            };
+            
             // Fetch and process data
             fetch('data.json')
                 .then(response => response.json())
                 .then(graphData => {
-                    initializeDashboard(graphData);
+                    globalData = graphData;
+                    initializeDashboard(globalData);
                 })
                 .catch(error => {
                     console.error('Error loading data:', error);
                     document.getElementById('toolsGrid').innerHTML = `
                         <div class="col-12 text-center py-5">
                             <i class="bi bi-exclamation-circle text-danger" style="font-size: 3rem;"></i>
-                            <p class="mt-2">Error loading data. Please try again later.</p>
+                            <p class="mt-2">Error loading data. Please try again later: ${error.message}</p>
                         </div>
                     `;
                 });
             
-            // Define a global variable to store our data
-            let globalData = null;
-            
-            // Define a stub for the populateExplorer function to prevent errors
-            window.populateExplorer = function() {
-                console.log("Legacy populateExplorer function called but is no longer used");
-                return;
-            };
-            
             function initializeDashboard(data) {
-                // Store data globally to fix reference issues
-                globalData = data;
-                
                 // Extract tools and categories
-                const tools = globalData.nodes.filter(node => node.type === 'tool');
-                const categories = globalData.nodes.filter(node => node.type === 'category');
-                const subcategories = globalData.nodes.filter(node => node.type === 'subcategory');
+                const tools = data.nodes.filter(node => node.type === 'tool');
+                const categories = data.nodes.filter(node => node.type === 'category');
+                const subcategories = data.nodes.filter(node => node.type === 'subcategory');
                 
                 // Update statistics
                 document.getElementById('totalTools').textContent = tools.length;
@@ -1066,7 +1064,6 @@
                     subcategoryFilter.appendChild(option);
                 });
                 
-
                 // Populate languages
                 const allLanguages = tools.flatMap(tool => Object.keys(tool.languages || {}));
                 const uniqueLanguages = [...new Set(allLanguages)].sort();
@@ -1076,7 +1073,6 @@
                     option.textContent = language;
                     languageFilter.appendChild(option);
                 });
-
             }
             
             function renderTools(tools) {
