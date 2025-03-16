@@ -4,6 +4,8 @@ on:
   schedule:
     # Run weekly on Saturday at 03:00 UTC, after repository updates
     - cron: "0 3 * * 6"
+    # Run monthly on 4th of the month (day before academic impact)
+    - cron: "0 12 4 * *"
   workflow_dispatch:
     inputs:
       force_refresh:
@@ -11,10 +13,17 @@ on:
         required: false
         default: false
         type: boolean
+      trigger_academic_impact:
+        description: 'Trigger academic impact workflow after completion'
+        required: false
+        default: true
+        type: boolean
 
 jobs:
   collect-pubmed-citations:
     runs-on: ubuntu-latest
+    outputs:
+      pubmed_data_updated: ${{ steps.commit.outputs.changes_detected }}
     
     steps:
       - uses: actions/checkout@v3
@@ -73,9 +82,31 @@ jobs:
             pubmed_citations.log
       
       - name: Commit changes
+        id: commit
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add data.json metadata/ citations.md
-          git diff --staged --quiet || git commit -m "Update PubMed citation information"
-          git push
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+          else
+            git commit -m "Update PubMed citation information"
+            git push
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+          fi
+  
+  trigger-academic-impact:
+    needs: collect-pubmed-citations
+    if: |
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.trigger_academic_impact == 'true') ||
+      (github.event_name == 'schedule' && github.event.schedule == '0 12 4 * *')
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Trigger academic impact workflow
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: update-repos.yml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          inputs: '{"update_type": "academic_impact"}'

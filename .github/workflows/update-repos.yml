@@ -170,10 +170,14 @@ jobs:
   academic-impact-metadata:
     runs-on: ubuntu-latest
     needs: warm-cache
-    if: github.event_name == 'schedule' && github.event.schedule == '0 0 5 * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'academic_impact' || github.event.inputs.update_type == 'all')
+    if: |
+      github.event_name == 'schedule' && github.event.schedule == '0 0 5 * *' || 
+      github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'academic_impact' || github.event.inputs.update_type == 'all')
     
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -184,6 +188,29 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install requests PyGithub pyyaml matplotlib networkx
+      
+      - name: Check for recent PubMed update
+        id: check_pubmed
+        run: |
+          # Check if PubMed data was updated in the last 48 hours
+          PUBMED_UPDATED=$(git log --since="48 hours ago" --oneline | grep "Update PubMed citation information" | wc -l)
+          if [ $PUBMED_UPDATED -gt 0 ]; then
+            echo "Recent PubMed update found, will use existing data"
+            echo "pubmed_is_current=true" >> $GITHUB_OUTPUT
+          else
+            echo "No recent PubMed update found"
+            echo "pubmed_is_current=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Run PubMed collection if needed
+        if: steps.check_pubmed.outputs.pubmed_is_current != 'true'
+        run: |
+          echo "Running PubMed citation collection as prerequisite for academic impact analysis"
+          python scripts/pubmed_citations.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
       
       - name: Collect academic impact metadata
         run: python scripts/academic_impact.py
@@ -201,12 +228,14 @@ jobs:
           python scripts/verify_readme_content.py
         
       - name: Update data.json with academic impact metadata
-        run: python update_data_json.py --include-metadata --include-bioinformatics --include-academic-impact
+        run: |
+          # Include PubMed data in the update
+          python update_data_json.py --include-metadata --include-bioinformatics --include-academic-impact --include-pubmed
       
       - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add data.json metadata/ reports/
+          git add data.json metadata/ reports/ citations.md
           git diff --staged --quiet || git commit -m "Update academic impact metadata and citation reports"
           git push
