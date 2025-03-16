@@ -15,6 +15,7 @@ import requests
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
+from typing import Tuple, Optional, Dict, List, Any
 
 # Configure logging
 logging.basicConfig(
@@ -81,7 +82,7 @@ def extract_repos_from_readme(readme_path):
     return repos
 
 def get_github_repo_info(repo_url):
-    """Get the last updated time and star count for a GitHub repository."""
+    """Get the last updated time, star count, and version info for a GitHub repository."""
     try:
         # Use rate limiter
         github_limiter.wait()
@@ -89,9 +90,12 @@ def get_github_repo_info(repo_url):
         # Extract owner/repo from URL
         match = re.search(r'github\.com/([^/]+/[^/]+)', repo_url)
         if not match:
-            return None, None, None
+            return None, None, None, None
         
         repo_path = match.group(1).rstrip('/')
+        # Handle branch or subdirectory in URL
+        if '/tree/' in repo_path:
+            repo_path = repo_path.split('/tree/')[0]
         
         # Create API URL
         api_url = f"{GITHUB_API}{repo_path}"
@@ -118,7 +122,7 @@ def get_github_repo_info(repo_url):
         
         if response.status_code == 404:
             logger.warning(f"Repository not found: {repo_url}")
-            return None, "not_found", None
+            return None, "not_found", None, None
         
         if response.status_code == 429:
             logger.warning(f"Rate limit hit for {repo_url}, waiting and retrying")
@@ -131,26 +135,58 @@ def get_github_repo_info(repo_url):
         updated_at = data.get('updated_at') or data.get('pushed_at')
         stars = data.get('stargazers_count', 0)
         
+        # Get version information from releases
+        version_info = None
+        if GITHUB_TOKEN:  # Only fetch releases if we have a token to avoid rate limits
+            try:
+                github_limiter.wait()
+                releases_url = f"{GITHUB_API}{repo_path}/releases"
+                releases_response = requests.get(
+                    releases_url, 
+                    headers=headers, 
+                    params={"per_page": 1}  # Only get the latest release
+                )
+                
+                if releases_response.status_code == 200:
+                    releases = releases_response.json()
+                    if releases:
+                        latest_release = releases[0]
+                        tag_name = latest_release.get('tag_name', '')
+                        # Clean up tag name to get version
+                        version = tag_name
+                        if version.startswith('v'):
+                            version = version  # Keep the v prefix
+                        elif version.startswith('release-'):
+                            version = 'v' + version[8:]
+                        
+                        # Get release date
+                        release_date = latest_release.get('published_at')
+                        if release_date:
+                            release_year = datetime.strptime(release_date, '%Y-%m-%dT%H:%M:%SZ').year
+                            version_info = (version, release_year)
+            except Exception as e:
+                logger.warning(f"Error fetching releases for {repo_path}: {e}")
+        
         if updated_at:
-            return datetime.strptime(updated_at, '%Y-%m-%dT%H:%M:%SZ'), None, stars
-        return None, None, stars
+            return datetime.strptime(updated_at, '%Y-%m-%dT%H:%M:%SZ'), None, stars, version_info
+        return None, None, stars, version_info
     except requests.exceptions.RequestException as e:
         if hasattr(e, 'response') and e.response is not None:
             if e.response.status_code == 404:
                 logger.warning(f"Repository not found: {repo_url}")
-                return None, "not_found", None
+                return None, "not_found", None, None
             elif e.response.status_code == 429:
                 logger.warning(f"Rate limit hit for {repo_url}, waiting 60 seconds")
                 time.sleep(60)  # Wait 60 seconds before retrying
                 return get_github_repo_info(repo_url)  # Retry
         logger.error(f"Error fetching GitHub repo {repo_url}: {e}")
-        return None, "error", None
+        return None, "error", None, None
     except Exception as e:
         logger.error(f"Unexpected error for {repo_url}: {e}")
-        return None, "error", None
+        return None, "error", None, None
 
 def get_gitlab_repo_info(repo_url):
-    """Get the last updated time and star count for a GitLab repository."""
+    """Get the last updated time, star count, and version info for a GitLab repository."""
     try:
         # Use rate limiter
         gitlab_limiter.wait()
@@ -158,10 +194,13 @@ def get_gitlab_repo_info(repo_url):
         # Extract project ID or path from URL
         match = re.search(r'gitlab\.com/([^/]+/[^/]+)', repo_url)
         if not match:
-            return None, None, None
+            return None, None, None, None
         
         project_path = match.group(1).rstrip('/')
-        
+        # Handle branch or subdirectory in URL
+        if '/tree/' in project_path:
+            project_path = project_path.split('/tree/')[0]
+            
         # URL encode the project path
         encoded_path = requests.utils.quote(project_path, safe='')
         
@@ -173,7 +212,7 @@ def get_gitlab_repo_info(repo_url):
         
         if response.status_code == 404:
             logger.warning(f"Repository not found: {repo_url}")
-            return None, "not_found", None
+            return None, "not_found", None, None
         
         if response.status_code == 429:
             logger.warning(f"Rate limit hit for {repo_url}, waiting 60 seconds")
@@ -197,27 +236,58 @@ def get_gitlab_repo_info(repo_url):
                 updated_at = data.get('last_activity_at')
                 stars = data.get('star_count', 0)
                 
+                # Get version information from tags
+                version_info = None
+                try:
+                    gitlab_limiter.wait()
+                    tags_url = f"{GITLAB_API}{project_id}/repository/tags"
+                    tags_response = requests.get(
+                        tags_url,
+                        params={"per_page": 1, "order_by": "updated", "sort": "desc"}
+                    )
+                    
+                    if tags_response.status_code == 200:
+                        tags = tags_response.json()
+                        if tags:
+                            latest_tag = tags[0]
+                            tag_name = latest_tag.get('name', '')
+                            # Clean up tag name to get version
+                            version = tag_name
+                            if version.startswith('v'):
+                                version = version  # Keep the v prefix
+                            elif version.startswith('release-'):
+                                version = 'v' + version[8:]
+                            
+                            # Get release date (use commit date as GitLab doesn't have release dates)
+                            if 'commit' in latest_tag and 'committed_date' in latest_tag['commit']:
+                                commit_date = latest_tag['commit']['committed_date']
+                                if commit_date:
+                                    commit_year = datetime.strptime(commit_date, '%Y-%m-%dT%H:%M:%S.%fZ').year
+                                    version_info = (version, commit_year)
+                except Exception as e:
+                    logger.warning(f"Error fetching tags for {project_path}: {e}")
+                
                 if updated_at:
-                    return datetime.strptime(updated_at, '%Y-%m-%dT%H:%M:%S.%fZ'), None, stars
-                return None, None, stars
-        return None, None, None
+                    return datetime.strptime(updated_at, '%Y-%m-%dT%H:%M:%S.%fZ'), None, stars, version_info
+                return None, None, stars, version_info
+        return None, None, None, None
     except requests.exceptions.RequestException as e:
         if hasattr(e, 'response') and e.response is not None:
             if e.response.status_code == 404:
                 logger.warning(f"Repository not found: {repo_url}")
-                return None, "not_found", None
+                return None, "not_found", None, None
             elif e.response.status_code == 429:
                 logger.warning(f"Rate limit hit for {repo_url}, waiting 60 seconds")
                 time.sleep(60)  # Wait 60 seconds before retrying
                 return get_gitlab_repo_info(repo_url)  # Retry
         logger.error(f"Error fetching GitLab repo {repo_url}: {e}")
-        return None, "error", None
+        return None, "error", None, None
     except Exception as e:
         logger.error(f"Unexpected error for {repo_url}: {e}")
-        return None, "error", None
+        return None, "error", None, None
 
 def get_bitbucket_repo_info(repo_url):
-    """Get the last updated time and watchers count for a Bitbucket repository."""
+    """Get the last updated time, watchers count, and version info for a Bitbucket repository."""
     try:
         # Use rate limiter
         bitbucket_limiter.wait()
@@ -225,9 +295,12 @@ def get_bitbucket_repo_info(repo_url):
         # Extract workspace/repo from URL
         match = re.search(r'bitbucket\.org/([^/]+/[^/]+)', repo_url)
         if not match:
-            return None, None, None
+            return None, None, None, None
         
         repo_path = match.group(1).rstrip('/')
+        # Handle branch or subdirectory in URL
+        if '/src/' in repo_path:
+            repo_path = repo_path.split('/src/')[0]
         
         # Create API URL
         api_url = f"{BITBUCKET_API}{repo_path}"
@@ -237,7 +310,7 @@ def get_bitbucket_repo_info(repo_url):
         
         if response.status_code == 404:
             logger.warning(f"Repository not found: {repo_url}")
-            return None, "not_found", None
+            return None, "not_found", None, None
         
         if response.status_code == 429:
             logger.warning(f"Rate limit hit for {repo_url}, waiting 60 seconds")
@@ -251,37 +324,73 @@ def get_bitbucket_repo_info(repo_url):
         # Bitbucket doesn't have stars but has watchers
         watchers = data.get('watchers_count', 0)
         
+        # Get version information from tags
+        version_info = None
+        try:
+            bitbucket_limiter.wait()
+            tags_url = f"{BITBUCKET_API}{repo_path}/refs/tags?sort=-target.date&pagelen=1"
+            tags_response = requests.get(tags_url)
+            
+            if tags_response.status_code == 200:
+                tags_data = tags_response.json()
+                if 'values' in tags_data and tags_data['values']:
+                    latest_tag = tags_data['values'][0]
+                    tag_name = latest_tag.get('name', '')
+                    # Clean up tag name to get version
+                    version = tag_name
+                    if version.startswith('v'):
+                        version = version  # Keep the v prefix
+                    elif version.startswith('release-'):
+                        version = 'v' + version[8:]
+                    
+                    # Get tag date
+                    if 'target' in latest_tag and 'date' in latest_tag['target']:
+                        tag_date = latest_tag['target']['date']
+                        if tag_date:
+                            # Bitbucket date format might vary
+                            try:
+                                tag_year = datetime.strptime(tag_date, '%Y-%m-%dT%H:%M:%S.%f%z').year
+                                version_info = (version, tag_year)
+                            except ValueError:
+                                try:
+                                    tag_year = datetime.strptime(tag_date, '%Y-%m-%dT%H:%M:%S%z').year
+                                    version_info = (version, tag_year)
+                                except ValueError:
+                                    logger.warning(f"Couldn't parse date format for {repo_path} tag: {tag_date}")
+        except Exception as e:
+            logger.warning(f"Error fetching tags for {repo_path}: {e}")
+        
         if updated_on:
-            return datetime.strptime(updated_on, '%Y-%m-%dT%H:%M:%S.%f%z'), None, watchers
-        return None, None, watchers
+            return datetime.strptime(updated_on, '%Y-%m-%dT%H:%M:%S.%f%z'), None, watchers, version_info
+        return None, None, watchers, version_info
     except requests.exceptions.RequestException as e:
         if hasattr(e, 'response') and e.response is not None:
             if e.response.status_code == 404:
                 logger.warning(f"Repository not found: {repo_url}")
-                return None, "not_found", None
+                return None, "not_found", None, None
             elif e.response.status_code == 429:
                 logger.warning(f"Rate limit hit for {repo_url}, waiting 60 seconds")
                 time.sleep(60)  # Wait 60 seconds before retrying
                 return get_bitbucket_repo_info(repo_url)  # Retry
         logger.error(f"Error fetching Bitbucket repo {repo_url}: {e}")
-        return None, "error", None
+        return None, "error", None, None
     except Exception as e:
         logger.error(f"Unexpected error for {repo_url}: {e}")
-        return None, "error", None
+        return None, "error", None, None
 
 def get_repo_last_updated(repo_name, repo_url):
-    """Get the last updated time and stars for a repository based on its URL."""
+    """Get the last updated time, stars, and version for a repository based on its URL."""
     # Handle different repository hosts
     if 'github.com' in repo_url:
-        last_updated, status, stars = get_github_repo_info(repo_url)
-        return repo_name, repo_url, last_updated, status, stars
+        last_updated, status, stars, version_info = get_github_repo_info(repo_url)
+        return repo_name, repo_url, last_updated, status, stars, version_info
     elif 'gitlab.com' in repo_url:
-        last_updated, status, stars = get_gitlab_repo_info(repo_url)
-        return repo_name, repo_url, last_updated, status, stars
+        last_updated, status, stars, version_info = get_gitlab_repo_info(repo_url)
+        return repo_name, repo_url, last_updated, status, stars, version_info
     elif 'bitbucket.org' in repo_url:
-        last_updated, status, stars = get_bitbucket_repo_info(repo_url)
-        return repo_name, repo_url, last_updated, status, stars
-    return repo_name, repo_url, None, None, None
+        last_updated, status, stars, version_info = get_bitbucket_repo_info(repo_url)
+        return repo_name, repo_url, last_updated, status, stars, version_info
+    return repo_name, repo_url, None, None, None, None
 
 def batch_process_repos(repos, batch_size=5, batch_delay=10):
     """Process repositories in batches to avoid rate limiting."""
@@ -304,7 +413,7 @@ def batch_process_repos(repos, batch_size=5, batch_delay=10):
                     logger.info(f"Processed {name} ({url})")
                 except Exception as e:
                     logger.error(f"Error processing {name} ({url}): {e}")
-                    batch_results.append((name, url, None, "error", None))
+                    batch_results.append((name, url, None, "error", None, None))
         
         results.extend(batch_results)
         
@@ -390,7 +499,14 @@ def update_readme_with_dates_status_and_stars(readme_path, repo_data):
     # Sort repositories by name for consistent processing
     sorted_repos = sorted(repo_data, key=lambda x: x[0])
     
-    for repo_name, repo_url, last_updated, status, stars in sorted_repos:
+    for data in sorted_repos:
+        # Handle both old and new format of data tuple
+        if len(data) == 6:
+            repo_name, repo_url, last_updated, status, stars, version_info = data
+        else:
+            repo_name, repo_url, last_updated, status, stars = data
+            version_info = None
+            
         # Collect GitHub repos with stars for popular packages section
         if 'github.com' in repo_url and stars is not None and stars > 0:
             category = repo_categories.get(repo_name, "Other")
@@ -409,35 +525,51 @@ def update_readme_with_dates_status_and_stars(readme_path, repo_data):
                 pass
             else:
                 # Mark as unavailable
-                # Replace all existing tags with the new tag\n                # First remove all existing tags\n                temp_content = re.sub(\n                    re.escape(f"[{repo_name}]({repo_url})") + r"(?:\s+\[Updated:.*?\])*",\n                    f"[{repo_name}]({repo_url})",\n                    updated_content\n                )\n                # Then add the new tag\n                updated_content = temp_content.replace(
+                # Replace all existing tags with the new tag
+                # First remove all existing tags
+                temp_content = re.sub(
+                    re.escape(f"[{repo_name}]({repo_url})") + r"(?:\s+\[.*?\])*",
+                    f"[{repo_name}]({repo_url})",
+                    updated_content
+                )
+                # Then add the new tag
+                updated_content = temp_content.replace(
                     f"[{repo_name}]({repo_url})",
                     f"[{repo_name}]({repo_url}) [unavailable]"
                 )
-        
-        # Add update date if available
-        elif last_updated:
-            year = last_updated.year
-            month = last_updated.month
+        else:
+            # Get existing version tag from README if it exists
+            version_pattern = re.escape(f"[{repo_name}]({repo_url})") + r".*?(\[v[\d\.]+,\s*\d{4}\])"
+            existing_version_match = re.search(version_pattern, updated_content)
             
-            # Format the date as [Updated: MM/YYYY]
-            date_info = f"[Updated: {month:02d}/{year}]"
+            # Keep track of tags to add
+            tags = []
             
-            # Check if the repo is already in the README with a date
-            repo_pattern = re.escape(f"[{repo_name}]({repo_url})") + r".*?(\[Updated:.*?\])?"
-            date_match = re.search(repo_pattern, updated_content)
+            # Add update date if available
+            if last_updated:
+                year = last_updated.year
+                month = last_updated.month
+                tags.append(f"[Updated: {month:02d}/{year}]")
             
-            if date_match and date_match.group(1):
-                # Replace existing date
-                updated_content = updated_content.replace(
-                    date_match.group(1),
-                    date_info
-                )
-            else:
-                # Add new date after the URL
-                updated_content = updated_content.replace(
-                    f"[{repo_name}]({repo_url})",
-                    f"[{repo_name}]({repo_url}) {date_info}"
-                )
+            # Add version info if available from API and not already in README
+            if version_info and not existing_version_match:
+                version, year = version_info
+                tags.append(f"[{version}, {year}]")
+            elif existing_version_match:
+                # Keep existing version tag
+                tags.append(existing_version_match.group(1))
+            
+            if tags:
+                # First remove all existing tags
+                tag_removal_pattern = re.escape(f"[{repo_name}]({repo_url})") + r"(?:\s+\[.*?\])*"
+                entry_without_tags = re.search(tag_removal_pattern, updated_content).group(0)
+                base_entry = f"[{repo_name}]({repo_url})"
+                
+                # Build new entry with all tags
+                new_entry = base_entry + " " + " ".join(tags)
+                
+                # Replace the entire entry
+                updated_content = updated_content.replace(entry_without_tags, new_entry)
     
     # Create overall popular packages section
     if github_repos_with_stars:
@@ -607,16 +739,31 @@ def main(readme):
     # Save results to JSON for later reference
     with open(Path(__file__).parent / "repo_updates.json", 'w') as f:
         json_results = []
-        for name, url, date, status, stars in results:
+        for data in results:
+            # Handle both old and new format of data tuple
+            if len(data) == 6:
+                name, url, date, status, stars, version_info = data
+            else:
+                name, url, date, status, stars = data
+                version_info = None
+                
             category = repo_categories.get(name, "Other")
-            json_results.append({
+            result_dict = {
                 "name": name,
                 "url": url,
                 "category": category,
                 "last_updated": date.isoformat() if date else None,
                 "status": status,
                 "stars": stars
-            })
+            }
+            
+            # Add version info if available
+            if version_info:
+                version, year = version_info
+                result_dict["version"] = version
+                result_dict["version_year"] = year
+                
+            json_results.append(result_dict)
         json.dump(json_results, f, indent=2)
     
     logger.info("Results saved to repo_updates.json")
