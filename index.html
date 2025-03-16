@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Awesome-Virome Dashboard</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
@@ -978,11 +981,23 @@
                     `;
                 });
             
+            // Define a global variable to store our data
+            let globalData = null;
+            
+            // Define a stub for the populateExplorer function to prevent errors
+            window.populateExplorer = function() {
+                console.log("Legacy populateExplorer function called but is no longer used");
+                return;
+            };
+            
             function initializeDashboard(data) {
+                // Store data globally to fix reference issues
+                globalData = data;
+                
                 // Extract tools and categories
-                const tools = data.nodes.filter(node => node.type === 'tool');
-                const categories = data.nodes.filter(node => node.type === 'category');
-                const subcategories = data.nodes.filter(node => node.type === 'subcategory');
+                const tools = globalData.nodes.filter(node => node.type === 'tool');
+                const categories = globalData.nodes.filter(node => node.type === 'category');
+                const subcategories = globalData.nodes.filter(node => node.type === 'subcategory');
                 
                 // Update statistics
                 document.getElementById('totalTools').textContent = tools.length;
