@@ -11,80 +11,558 @@ import logging
 import base64
 import re
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any, Tuple, Union
+from typing import Dict, List, Optional, Any, Tuple, Union, Set
 from urllib.parse import quote
+from pathlib import Path
+import hashlib
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class RateLimiter:
-    """Simple rate limiter to prevent API rate limit issues."""
+    """
+    Advanced rate limiter with adaptive behavior based on remaining API limits.
+    Implements exponential backoff on rate limit errors and automatically
+    adjusts wait times based on rate limits.
+    """
     
-    def __init__(self, calls_per_minute: int = 10):
+    def __init__(self, calls_per_minute: int = 10, max_retries: int = 3):
+        self.default_rate = calls_per_minute
         self.calls_per_minute = calls_per_minute
         self.interval = 60 / calls_per_minute
         self.last_call = 0
+        self.max_retries = max_retries
+        
+        # Track rate limit information
+        self.rate_limit_remaining = None
+        self.rate_limit_reset = None
+        self.rate_limit_total = None
+        self.last_rate_limit_check = 0
+        self.rate_limit_adjusted = False
     
     def wait(self):
         """Wait if necessary to respect the rate limit."""
-        elapsed = time.time() - self.last_call
+        current_time = time.time()
+        elapsed = current_time - self.last_call
+        
+        # If we have rate limit information, adjust dynamically
+        if self.rate_limit_remaining is not None and self.rate_limit_reset is not None:
+            # If we're close to the limit, slow down dramatically
+            if self.rate_limit_remaining < 10:
+                time_to_reset = max(0, self.rate_limit_reset - current_time)
+                if time_to_reset > 0:
+                    # Calculate a conservative interval to make the remaining requests last
+                    if self.rate_limit_remaining > 0:
+                        new_interval = time_to_reset / self.rate_limit_remaining
+                        # Don't wait more than 60 seconds
+                        if new_interval < 60:
+                            logger.info(f"Rate limit low ({self.rate_limit_remaining}/{self.rate_limit_total}). " +
+                                       f"Adjusting interval to {new_interval:.2f}s until reset " +
+                                       f"in {time_to_reset:.1f}s")
+                            self.interval = new_interval
+                            self.rate_limit_adjusted = True
+                    else:
+                        # No requests remaining, wait until reset (up to a minute)
+                        wait_time = min(time_to_reset, 60)
+                        logger.warning(f"No API requests remaining. Waiting {wait_time:.1f}s for reset.")
+                        time.sleep(wait_time)
+                        # Reset to default after waiting
+                        self.reset_rate_limit()
+                        return
+        
+        # Standard rate limiting
         if elapsed < self.interval:
             time.sleep(self.interval - elapsed)
+        
         self.last_call = time.time()
+    
+    def update_rate_limit(self, headers: Dict[str, str]):
+        """
+        Update rate limit information from API response headers.
+        
+        Args:
+            headers: Response headers containing rate limit information
+        """
+        # GitHub style rate limit headers
+        if 'X-RateLimit-Remaining' in headers and 'X-RateLimit-Reset' in headers:
+            try:
+                self.rate_limit_remaining = int(headers['X-RateLimit-Remaining'])
+                self.rate_limit_reset = int(headers['X-RateLimit-Reset'])
+                if 'X-RateLimit-Limit' in headers:
+                    self.rate_limit_total = int(headers['X-RateLimit-Limit'])
+                self.last_rate_limit_check = time.time()
+                
+                # Log if we're getting low on requests
+                if self.rate_limit_remaining < 20 and self.rate_limit_total:
+                    logger.warning(f"API rate limit low: {self.rate_limit_remaining}/{self.rate_limit_total} " +
+                                 f"requests remaining. Reset in {self.rate_limit_reset - time.time():.1f}s")
+            except (ValueError, TypeError):
+                pass
+        
+        # Zenodo style rate limit headers (Retry-After)
+        elif 'Retry-After' in headers:
+            try:
+                retry_after = int(headers['Retry-After'])
+                if retry_after > 0:
+                    logger.warning(f"API rate limited. Retry after {retry_after}s")
+                    self.rate_limit_remaining = 0
+                    self.rate_limit_reset = time.time() + retry_after
+                    self.last_rate_limit_check = time.time()
+            except (ValueError, TypeError):
+                pass
+    
+    def handle_rate_limit_response(self, response) -> bool:
+        """
+        Handle a response that indicates rate limiting.
+        Returns True if the request should be retried after waiting.
+        
+        Args:
+            response: The HTTP response object
+        """
+        self.update_rate_limit(response.headers)
+        
+        if response.status_code == 429 or (response.status_code == 403 and 'rate limit' in response.text.lower()):
+            # Get retry time
+            retry_after = None
+            if 'Retry-After' in response.headers:
+                try:
+                    retry_after = int(response.headers['Retry-After'])
+                except (ValueError, TypeError):
+                    pass
+            
+            if retry_after is None and self.rate_limit_reset:
+                retry_after = max(1, int(self.rate_limit_reset - time.time()))
+            
+            # Default to reasonable wait time
+            if retry_after is None or retry_after <= 0:
+                retry_after = 60
+            
+            # Cap to reasonable max
+            retry_after = min(retry_after, 300)
+            
+            logger.warning(f"Rate limit exceeded. Waiting {retry_after}s before retry.")
+            time.sleep(retry_after)
+            
+            # Reset our tracking
+            self.reset_rate_limit()
+            return True
+            
+        return False
+    
+    def reset_rate_limit(self):
+        """Reset rate limiting to default values."""
+        if self.rate_limit_adjusted:
+            logger.info("Resetting rate limit parameters to default values")
+            self.interval = 60 / self.default_rate
+            self.rate_limit_adjusted = False
+        
+        # Clear rate limit information
+        self.rate_limit_remaining = None
+        self.rate_limit_reset = None
 
+
+class CacheManager:
+    """
+    Advanced cache manager with smart invalidation capabilities.
+    Manages dependencies between cached items and provides selective invalidation.
+    Includes built-in instrumentation for tracking cache performance.
+    """
+    
+    def __init__(self, cache_dir: str, expiry_days: int = 30):
+        """
+        Initialize the cache manager.
+        
+        Args:
+            cache_dir: Base directory for cache storage
+            expiry_days: Default expiration time in days
+        """
+        self.base_cache_dir = Path(cache_dir)
+        self.base_cache_dir.mkdir(exist_ok=True, parents=True)
+        
+        # Create a directory for dependency tracking
+        self.deps_dir = self.base_cache_dir / "_dependencies"
+        self.deps_dir.mkdir(exist_ok=True)
+        
+        # Create a directory for performance metrics
+        self.metrics_dir = self.base_cache_dir / "_metrics"
+        self.metrics_dir.mkdir(exist_ok=True)
+        
+        self.default_expiry = timedelta(days=expiry_days)
+        
+        # Map of repo URLs to their dependency caches
+        self._dependency_map: Dict[str, Set[str]] = {}
+        self._load_dependency_maps()
+        
+        # Performance metrics
+        self._metrics = {
+            "hits": 0,
+            "misses": 0,
+            "invalidations": 0,
+            "sets": 0,
+            "start_time": datetime.now().isoformat()
+        }
+        self._load_metrics()
+    
+    def _load_dependency_maps(self):
+        """Load existing dependency maps from disk."""
+        for deps_file in self.deps_dir.glob("*.json"):
+            try:
+                with open(deps_file, 'r') as f:
+                    repo_key = deps_file.stem
+                    self._dependency_map[repo_key] = set(json.load(f))
+            except (json.JSONDecodeError, IOError) as e:
+                logger.warning(f"Failed to load dependency map {deps_file}: {e}")
+    
+    def _load_metrics(self):
+        """Load existing performance metrics from disk."""
+        metrics_file = self.metrics_dir / "cache_metrics.json"
+        if metrics_file.exists():
+            try:
+                with open(metrics_file, 'r') as f:
+                    stored_metrics = json.load(f)
+                    # Update only the metrics we track, ignore others
+                    for key in ['hits', 'misses', 'invalidations', 'sets']:
+                        if key in stored_metrics:
+                            self._metrics[key] = stored_metrics[key]
+            except (json.JSONDecodeError, IOError) as e:
+                logger.warning(f"Failed to load cache metrics: {e}")
+    
+    def _save_metrics(self):
+        """Save performance metrics to disk."""
+        metrics_file = self.metrics_dir / "cache_metrics.json"
+        try:
+            # Add calculated metrics
+            current_metrics = self._metrics.copy()
+            total_requests = current_metrics['hits'] + current_metrics['misses']
+            current_metrics['hit_rate'] = (
+                current_metrics['hits'] / total_requests if total_requests > 0 else 0
+            )
+            current_metrics['last_updated'] = datetime.now().isoformat()
+            
+            with open(metrics_file, 'w') as f:
+                json.dump(current_metrics, f, indent=2)
+        except IOError as e:
+            logger.warning(f"Failed to save cache metrics: {e}")
+    
+    def _save_dependency_map(self, repo_id: str):
+        """Save the dependency map for a repository to disk."""
+        if repo_id not in self._dependency_map:
+            return
+            
+        deps_file = self.deps_dir / f"{repo_id}.json"
+        try:
+            with open(deps_file, 'w') as f:
+                json.dump(list(self._dependency_map[repo_id]), f)
+        except IOError as e:
+            logger.warning(f"Failed to save dependency map for {repo_id}: {e}")
+    
+    def _hash_key(self, key: str) -> str:
+        """Create a filesystem-safe hash of a cache key."""
+        return hashlib.md5(key.encode()).hexdigest()
+    
+    def _get_cache_path(self, cache_key: str) -> Path:
+        """Get the path for a cached item."""
+        hashed_key = self._hash_key(cache_key)
+        return self.base_cache_dir / f"{hashed_key}.json"
+    
+    def register_dependency(self, repo_url: str, cache_key: str):
+        """
+        Register a dependency between a repository and a cache item.
+        
+        Args:
+            repo_url: Repository URL that the cache depends on
+            cache_key: The cache key to associate with this repository
+        """
+        # Create a stable identifier for the repository
+        repo_id = self._hash_key(repo_url)
+        
+        # Add the cache key to this repo's dependencies
+        if repo_id not in self._dependency_map:
+            self._dependency_map[repo_id] = set()
+        
+        self._dependency_map[repo_id].add(cache_key)
+        self._save_dependency_map(repo_id)
+    
+    def is_valid(self, cache_key: str, expiry: Optional[timedelta] = None) -> bool:
+        """
+        Check if a cache item is valid (exists and not expired).
+        
+        Args:
+            cache_key: The cache key to check
+            expiry: Optional custom expiration time
+            
+        Returns:
+            bool: True if the cache is valid, False otherwise
+        """
+        cache_path = self._get_cache_path(cache_key)
+        
+        if not cache_path.exists():
+            return False
+        
+        try:
+            # Check if expired
+            expiry = expiry or self.default_expiry
+            file_modified_time = datetime.fromtimestamp(cache_path.stat().st_mtime)
+            if datetime.now() - file_modified_time > expiry:
+                logger.debug(f"Cache for {cache_key} has expired")
+                return False
+                
+            # The cache exists and is not expired
+            with open(cache_path, 'r') as f:
+                cache_data = json.load(f)
+                
+            # Extra validation: check if the data has the expected structure
+            if not isinstance(cache_data, dict) or 'cache_date' not in cache_data:
+                logger.warning(f"Invalid cache structure for {cache_key}")
+                return False
+                
+            return True
+            
+        except (json.JSONDecodeError, ValueError, KeyError, IOError) as e:
+            logger.warning(f"Error validating cache for {cache_key}: {e}")
+            return False
+    
+    def get(self, cache_key: str, default=None):
+        """
+        Get data from cache.
+        
+        Args:
+            cache_key: The cache key to retrieve
+            default: Default value to return if cache miss
+            
+        Returns:
+            The cached data or the default value
+        """
+        cache_path = self._get_cache_path(cache_key)
+        
+        if not self.is_valid(cache_key):
+            # Track cache miss
+            self._metrics['misses'] += 1
+            self._save_metrics()
+            return default
+        
+        try:
+            with open(cache_path, 'r') as f:
+                # Track cache hit
+                self._metrics['hits'] += 1
+                self._save_metrics()
+                return json.load(f)['data']
+        except (json.JSONDecodeError, KeyError, IOError) as e:
+            # Track cache miss
+            self._metrics['misses'] += 1
+            self._save_metrics()
+            logger.warning(f"Error reading cache for {cache_key}: {e}")
+            return default
+    
+    def set(self, cache_key: str, data: Any, repo_url: Optional[str] = None):
+        """
+        Save data to cache.
+        
+        Args:
+            cache_key: The cache key to store
+            data: The data to cache
+            repo_url: Optional repository URL to register as a dependency
+            
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        cache_path = self._get_cache_path(cache_key)
+        
+        try:
+            # Track cache set
+            self._metrics['sets'] += 1
+            
+            # Add timing information to the cache
+            cache_data = {
+                'cache_date': datetime.now().isoformat(),
+                'data': data
+            }
+            
+            with open(cache_path, 'w') as f:
+                json.dump(cache_data, f, indent=2)
+            
+            # Register dependency if a repo URL was provided
+            if repo_url:
+                self.register_dependency(repo_url, cache_key)
+            
+            # Save metrics
+            self._save_metrics()
+                
+            return True
+            
+        except IOError as e:
+            logger.warning(f"Error saving cache for {cache_key}: {e}")
+            return False
+    
+    def invalidate_repo_caches(self, repo_url: str):
+        """
+        Invalidate all caches associated with a specific repository.
+        
+        Args:
+            repo_url: Repository URL whose caches should be invalidated
+            
+        Returns:
+            int: Number of cache items invalidated
+        """
+        repo_id = self._hash_key(repo_url)
+        
+        if repo_id not in self._dependency_map:
+            logger.debug(f"No cached dependencies found for repository: {repo_url}")
+            return 0
+        
+        invalidated_count = 0
+        for cache_key in list(self._dependency_map[repo_id]):  # Create a copy of the set to safely iterate
+            cache_path = self._get_cache_path(cache_key)
+            if cache_path.exists():
+                try:
+                    cache_path.unlink()
+                    invalidated_count += 1
+                    logger.debug(f"Invalidated cache: {cache_key}")
+                except IOError as e:
+                    logger.warning(f"Failed to invalidate cache {cache_key}: {e}")
+        
+        # Track invalidations
+        if invalidated_count > 0:
+            self._metrics['invalidations'] += invalidated_count
+            self._save_metrics()
+            
+        # Clear the dependency list after invalidation
+        self._dependency_map[repo_id] = set()
+        self._save_dependency_map(repo_id)
+        
+        logger.info(f"Invalidated {invalidated_count} cache items for repository: {repo_url}")
+        return invalidated_count
+    
+    def invalidate(self, cache_key: str):
+        """
+        Invalidate a specific cache item.
+        
+        Args:
+            cache_key: The cache key to invalidate
+            
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        cache_path = self._get_cache_path(cache_key)
+        
+        if not cache_path.exists():
+            return True
+            
+        try:
+            cache_path.unlink()
+            
+            # Track invalidation
+            self._metrics['invalidations'] += 1
+            self._save_metrics()
+            
+            # Remove this cache key from all dependency maps
+            for repo_id, cache_keys in self._dependency_map.items():
+                if cache_key in cache_keys:
+                    cache_keys.remove(cache_key)
+                    self._save_dependency_map(repo_id)
+                    
+            return True
+            
+        except IOError as e:
+            logger.warning(f"Failed to invalidate cache {cache_key}: {e}")
+            return False
+    
+    def clear_all(self):
+        """
+        Clear all cache data.
+        
+        Returns:
+            int: Number of cache items cleared
+        """
+        count = 0
+        for cache_file in self.base_cache_dir.glob("*.json"):
+            # Skip special directories
+            if cache_file.is_dir() or cache_file.name.startswith("_"):
+                continue
+                
+            try:
+                cache_file.unlink()
+                count += 1
+            except IOError as e:
+                logger.warning(f"Failed to clear cache file {cache_file}: {e}")
+        
+        # Clear dependency maps
+        for deps_file in self.deps_dir.glob("*.json"):
+            try:
+                deps_file.unlink()
+            except IOError:
+                pass
+                
+        self._dependency_map = {}
+        
+        # Track invalidations but preserve metrics history
+        if count > 0:
+            self._metrics['invalidations'] += count
+            self._save_metrics()
+        
+        logger.info(f"Cleared {count} cache items")
+        return count
+        
+    def get_metrics(self) -> Dict[str, Any]:
+        """
+        Get cache performance metrics.
+        
+        Returns:
+            Dict containing cache performance statistics
+        """
+        # Calculate derived metrics
+        metrics = self._metrics.copy()
+        total_requests = metrics['hits'] + metrics['misses']
+        
+        # Add calculated metrics
+        metrics['total_requests'] = total_requests
+        metrics['hit_rate'] = (
+            metrics['hits'] / total_requests if total_requests > 0 else 0
+        )
+        metrics['cache_efficiency'] = (
+            (metrics['hits'] - metrics['invalidations']) / metrics['sets'] 
+            if metrics['sets'] > 0 else 0
+        )
+        
+        # Add file count information
+        metrics['cache_files'] = len(list(self.base_cache_dir.glob("*.json")))
+        metrics['dependency_maps'] = len(self._dependency_map)
+        
+        return metrics
+
+# Create a global cache manager
+cache_manager = CacheManager(os.path.join("metadata", "cache"))
 
 class ZenodoAPI:
     """Integration with Zenodo for DOI information."""
     
     BASE_URL = "https://zenodo.org/api"
-    CACHE_DIR = os.path.join("metadata", "cache", "zenodo")
     CACHE_EXPIRY = 30  # days
     
     def __init__(self, token: Optional[str] = None):
         self.token = token
         self.rate_limiter = RateLimiter(calls_per_minute=20)
-        os.makedirs(self.CACHE_DIR, exist_ok=True)
     
-    def _get_cache_path(self, query: str) -> str:
-        """Get the path for a cached result."""
-        safe_query = base64.urlsafe_b64encode(query.encode()).decode()
-        return os.path.join(self.CACHE_DIR, f"{safe_query}.json")
+    def _get_cache_key(self, query: str) -> str:
+        """Generate a standardized cache key for the query."""
+        return f"zenodo_{base64.urlsafe_b64encode(query.encode()).decode()}"
     
-    def _cache_valid(self, cache_path: str) -> bool:
-        """Check if the cache is still valid."""
-        if not os.path.exists(cache_path):
-            return False
+    def search_records(self, query: str, repo_url: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Search Zenodo records for the given query.
         
-        try:
-            with open(cache_path, 'r') as f:
-                data = json.load(f)
-                cache_date = datetime.fromisoformat(data.get('cache_date', '2000-01-01'))
-                return datetime.now() - cache_date < timedelta(days=self.CACHE_EXPIRY)
-        except (json.JSONDecodeError, ValueError, KeyError):
-            return False
-    
-    def _save_to_cache(self, cache_path: str, data: Dict[str, Any]) -> None:
-        """Save API response to cache."""
-        cache_data = {
-            'cache_date': datetime.now().isoformat(),
-            'data': data
-        }
-        with open(cache_path, 'w') as f:
-            json.dump(cache_data, f, indent=2)
-    
-    def _get_from_cache(self, cache_path: str) -> Dict[str, Any]:
-        """Get data from cache."""
-        with open(cache_path, 'r') as f:
-            return json.load(f)['data']
-    
-    def search_records(self, query: str) -> List[Dict[str, Any]]:
-        """Search Zenodo records for the given query."""
-        cache_path = self._get_cache_path(f"search_{query}")
+        Args:
+            query: The search query string
+            repo_url: Optional repository URL to associate this cache with
+        """
+        cache_key = self._get_cache_key(f"search_{query}")
         
-        if self._cache_valid(cache_path):
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
             logger.info(f"Using cached Zenodo results for '{query}'")
-            return self._get_from_cache(cache_path)
+            return cached_data
         
         self.rate_limiter.wait()
         url = f"{self.BASE_URL}/records"
@@ -100,21 +578,36 @@ class ZenodoAPI:
         
         try:
             response = requests.get(url, params=params, headers=headers)
+            
+            # Update rate limit information from headers
+            self.rate_limiter.update_rate_limit(response.headers)
+            
             response.raise_for_status()
             results = response.json().get('hits', {}).get('hits', [])
-            self._save_to_cache(cache_path, results)
+            
+            # Cache the results and associate with repo_url if provided
+            cache_manager.set(cache_key, results, repo_url)
+            
             return results
         except requests.RequestException as e:
             logger.error(f"Error searching Zenodo: {e}")
             return []
     
-    def get_doi_metadata(self, doi: str) -> Dict[str, Any]:
-        """Get metadata for a specific DOI."""
-        cache_path = self._get_cache_path(f"doi_{doi}")
+    def get_doi_metadata(self, doi: str, repo_url: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Get metadata for a specific DOI.
         
-        if self._cache_valid(cache_path):
+        Args:
+            doi: The DOI to look up
+            repo_url: Optional repository URL to associate this cache with
+        """
+        cache_key = self._get_cache_key(f"doi_{doi}")
+        
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
             logger.info(f"Using cached Zenodo DOI metadata for '{doi}'")
-            return self._get_from_cache(cache_path)
+            return cached_data
         
         self.rate_limiter.wait()
         url = f"{self.BASE_URL}/records"
@@ -126,10 +619,16 @@ class ZenodoAPI:
         
         try:
             response = requests.get(url, params=params, headers=headers)
+            
+            # Update rate limit information from headers
+            self.rate_limiter.update_rate_limit(response.headers)
+            
             response.raise_for_status()
             results = response.json().get('hits', {}).get('hits', [])
+            
             if results:
-                self._save_to_cache(cache_path, results[0])
+                # Cache the results and associate with repo_url if provided
+                cache_manager.set(cache_key, results[0], repo_url)
                 return results[0]
             return {}
         except requests.RequestException as e:
@@ -146,7 +645,7 @@ class ZenodoAPI:
         ]
         
         for term in search_terms:
-            results = self.search_records(term)
+            results = self.search_records(term, repo_url)
             for record in results:
                 metadata = record.get('metadata', {})
                 # Check if this record matches our tool
@@ -178,53 +677,31 @@ class SemanticScholarAPI:
     """Integration with Semantic Scholar API for citation metrics."""
     
     BASE_URL = "https://api.semanticscholar.org/graph/v1"
-    CACHE_DIR = os.path.join("metadata", "cache", "semanticscholar")
     CACHE_EXPIRY = 30  # days
     
     def __init__(self, api_key: Optional[str] = None):
         self.api_key = api_key
         self.rate_limiter = RateLimiter(calls_per_minute=10)
-        os.makedirs(self.CACHE_DIR, exist_ok=True)
     
-    def _get_cache_path(self, query: str) -> str:
-        """Get the path for a cached result."""
-        safe_query = base64.urlsafe_b64encode(query.encode()).decode()
-        return os.path.join(self.CACHE_DIR, f"{safe_query}.json")
+    def _get_cache_key(self, query: str) -> str:
+        """Generate a standardized cache key for the query."""
+        return f"semanticscholar_{base64.urlsafe_b64encode(query.encode()).decode()}"
     
-    def _cache_valid(self, cache_path: str) -> bool:
-        """Check if the cache is still valid."""
-        if not os.path.exists(cache_path):
-            return False
+    def search_paper(self, query: str, repo_url: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Search for papers matching a query.
         
-        try:
-            with open(cache_path, 'r') as f:
-                data = json.load(f)
-                cache_date = datetime.fromisoformat(data.get('cache_date', '2000-01-01'))
-                return datetime.now() - cache_date < timedelta(days=self.CACHE_EXPIRY)
-        except (json.JSONDecodeError, ValueError, KeyError):
-            return False
-    
-    def _save_to_cache(self, cache_path: str, data: Dict[str, Any]) -> None:
-        """Save API response to cache."""
-        cache_data = {
-            'cache_date': datetime.now().isoformat(),
-            'data': data
-        }
-        with open(cache_path, 'w') as f:
-            json.dump(cache_data, f, indent=2)
-    
-    def _get_from_cache(self, cache_path: str) -> Dict[str, Any]:
-        """Get data from cache."""
-        with open(cache_path, 'r') as f:
-            return json.load(f)['data']
-    
-    def search_paper(self, query: str) -> List[Dict[str, Any]]:
-        """Search for papers matching a query."""
-        cache_path = self._get_cache_path(f"search_{query}")
+        Args:
+            query: The search query
+            repo_url: Optional repository URL to associate this cache with
+        """
+        cache_key = self._get_cache_key(f"search_{query}")
         
-        if self._cache_valid(cache_path):
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
             logger.info(f"Using cached Semantic Scholar results for '{query}'")
-            return self._get_from_cache(cache_path)
+            return cached_data
         
         self.rate_limiter.wait()
         url = f"{self.BASE_URL}/paper/search"
@@ -240,21 +717,36 @@ class SemanticScholarAPI:
         
         try:
             response = requests.get(url, params=params, headers=headers)
+            
+            # Update rate limit information from headers
+            self.rate_limiter.update_rate_limit(response.headers)
+            
             response.raise_for_status()
             results = response.json().get('data', [])
-            self._save_to_cache(cache_path, results)
+            
+            # Cache the results and associate with repo_url if provided
+            cache_manager.set(cache_key, results, repo_url)
+            
             return results
         except requests.RequestException as e:
             logger.error(f"Error searching Semantic Scholar: {e}")
             return []
     
-    def get_paper_by_doi(self, doi: str) -> Dict[str, Any]:
-        """Get paper information using DOI."""
-        cache_path = self._get_cache_path(f"doi_{doi}")
+    def get_paper_by_doi(self, doi: str, repo_url: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Get paper information using DOI.
         
-        if self._cache_valid(cache_path):
+        Args:
+            doi: The DOI to look up
+            repo_url: Optional repository URL to associate this cache with
+        """
+        cache_key = self._get_cache_key(f"doi_{doi}")
+        
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
             logger.info(f"Using cached Semantic Scholar DOI data for '{doi}'")
-            return self._get_from_cache(cache_path)
+            return cached_data
         
         self.rate_limiter.wait()
         url = f"{self.BASE_URL}/paper/DOI:{doi}"
@@ -270,19 +762,37 @@ class SemanticScholarAPI:
             response = requests.get(url, params=params, headers=headers)
             response.raise_for_status()
             data = response.json()
-            self._save_to_cache(cache_path, data)
+            
+            # Cache the results and associate with repo_url if provided
+            cache_manager.set(cache_key, data, repo_url)
+            
             return data
         except requests.RequestException as e:
             logger.error(f"Error getting paper by DOI from Semantic Scholar: {e}")
             return {}
     
-    def get_paper_by_title_author(self, title: str, authors: List[str]) -> Dict[str, Any]:
-        """Find a paper by its title and authors."""
+    def get_paper_by_title_author(self, title: str, authors: List[str], repo_url: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Find a paper by its title and authors.
+        
+        Args:
+            title: The paper title
+            authors: List of author names
+            repo_url: Optional repository URL to associate this cache with
+        """
         # Generate a search query with title and first author
         first_author = authors[0] if authors else ""
         query = f"{title} {first_author}"
         
-        results = self.search_paper(query)
+        cache_key = self._get_cache_key(f"title_author_{base64.urlsafe_b64encode(query.encode()).decode()}")
+        
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
+            logger.info(f"Using cached Semantic Scholar title/author data for '{title}'")
+            return cached_data
+        
+        results = self.search_paper(query, repo_url)
         
         # Try to find an exact title match
         for paper in results:
@@ -292,21 +802,35 @@ class SemanticScholarAPI:
                 # Check if at least one author matches
                 for author in authors:
                     if any(author.lower() in paper_author.lower() for paper_author in paper_authors):
+                        # Cache the results and associate with repo_url if provided
+                        cache_manager.set(cache_key, paper, repo_url)
                         return paper
         
         # If no exact match, return the top result if it seems relevant
         if results and title.lower() in results[0].get('title', '').lower():
+            # Cache the results and associate with repo_url if provided
+            cache_manager.set(cache_key, results[0], repo_url)
             return results[0]
         
+        # Cache the empty result to avoid repeated searches
+        cache_manager.set(cache_key, {}, repo_url)
         return {}
     
-    def get_citation_metrics(self, paper_id: str) -> Dict[str, Any]:
-        """Get detailed citation metrics for a paper."""
-        cache_path = self._get_cache_path(f"metrics_{paper_id}")
+    def get_citation_metrics(self, paper_id: str, repo_url: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Get detailed citation metrics for a paper.
         
-        if self._cache_valid(cache_path):
+        Args:
+            paper_id: Semantic Scholar paper ID
+            repo_url: Optional repository URL to associate this cache with
+        """
+        cache_key = self._get_cache_key(f"metrics_{paper_id}")
+        
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
             logger.info(f"Using cached Semantic Scholar metrics for '{paper_id}'")
-            return self._get_from_cache(cache_path)
+            return cached_data
         
         self.rate_limiter.wait()
         url = f"{self.BASE_URL}/paper/{paper_id}"
@@ -328,7 +852,7 @@ class SemanticScholarAPI:
             for citation in data.get('citations', []):
                 year = citation.get('year')
                 if year:
-                    citations_by_year[year] = citations_by_year.get(year, 0) + 1
+                    citations_by_year[str(year)] = citations_by_year.get(str(year), 0) + 1
             
             metrics = {
                 'total_citations': data.get('citationCount', 0),
@@ -336,23 +860,37 @@ class SemanticScholarAPI:
                 'citations_by_year': citations_by_year
             }
             
-            self._save_to_cache(cache_path, metrics)
+            # Cache the results and associate with repo_url if provided
+            cache_manager.set(cache_key, metrics, repo_url)
+            
             return metrics
         except requests.RequestException as e:
             logger.error(f"Error getting citation metrics from Semantic Scholar: {e}")
-            return {
+            default_metrics = {
                 'total_citations': 0,
                 'influential_citations': 0,
                 'citations_by_year': {}
             }
+            # Cache the default metrics to avoid repeated failures
+            cache_manager.set(cache_key, default_metrics, repo_url)
+            return default_metrics
     
-    def find_related_papers(self, paper_id: str, field: str = "virology") -> List[Dict[str, Any]]:
-        """Find related papers in a specific field."""
-        cache_path = self._get_cache_path(f"related_{paper_id}_{field}")
+    def find_related_papers(self, paper_id: str, field: str = "virology", repo_url: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Find related papers in a specific field.
         
-        if self._cache_valid(cache_path):
+        Args:
+            paper_id: Semantic Scholar paper ID
+            field: Field to filter related papers by
+            repo_url: Optional repository URL to associate this cache with
+        """
+        cache_key = self._get_cache_key(f"related_{paper_id}_{field}")
+        
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
             logger.info(f"Using cached related papers for '{paper_id}' in '{field}'")
-            return self._get_from_cache(cache_path)
+            return cached_data
         
         self.rate_limiter.wait()
         url = f"{self.BASE_URL}/paper/{paper_id}/related"
@@ -384,8 +922,11 @@ class SemanticScholarAPI:
                     'pathogen' in abstract):
                     field_related.append(paper)
             
-            self._save_to_cache(cache_path, field_related[:10])  # Store top 10
-            return field_related[:10]
+            # Cache the results and associate with repo_url if provided
+            result = field_related[:10]  # Store top 10
+            cache_manager.set(cache_key, result, repo_url)
+            
+            return result
         except requests.RequestException as e:
             logger.error(f"Error finding related papers from Semantic Scholar: {e}")
             return []
@@ -395,54 +936,32 @@ class CrossRefAPI:
     """Integration with CrossRef API for publication information."""
     
     BASE_URL = "https://api.crossref.org"
-    CACHE_DIR = os.path.join("metadata", "cache", "crossref")
     CACHE_EXPIRY = 30  # days
     
     def __init__(self, email: Optional[str] = None):
         """Initialize CrossRef API client with optional email for Polite Pool."""
         self.email = email
         self.rate_limiter = RateLimiter(calls_per_minute=10)
-        os.makedirs(self.CACHE_DIR, exist_ok=True)
     
-    def _get_cache_path(self, query: str) -> str:
-        """Get the path for a cached result."""
-        safe_query = base64.urlsafe_b64encode(query.encode()).decode()
-        return os.path.join(self.CACHE_DIR, f"{safe_query}.json")
+    def _get_cache_key(self, query: str) -> str:
+        """Generate a standardized cache key for the query."""
+        return f"crossref_{base64.urlsafe_b64encode(query.encode()).decode()}"
     
-    def _cache_valid(self, cache_path: str) -> bool:
-        """Check if the cache is still valid."""
-        if not os.path.exists(cache_path):
-            return False
+    def search_works(self, query: str, repo_url: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Search CrossRef works with the given query.
         
-        try:
-            with open(cache_path, 'r') as f:
-                data = json.load(f)
-                cache_date = datetime.fromisoformat(data.get('cache_date', '2000-01-01'))
-                return datetime.now() - cache_date < timedelta(days=self.CACHE_EXPIRY)
-        except (json.JSONDecodeError, ValueError, KeyError):
-            return False
-    
-    def _save_to_cache(self, cache_path: str, data: Dict[str, Any]) -> None:
-        """Save API response to cache."""
-        cache_data = {
-            'cache_date': datetime.now().isoformat(),
-            'data': data
-        }
-        with open(cache_path, 'w') as f:
-            json.dump(cache_data, f, indent=2)
-    
-    def _get_from_cache(self, cache_path: str) -> Dict[str, Any]:
-        """Get data from cache."""
-        with open(cache_path, 'r') as f:
-            return json.load(f)['data']
-    
-    def search_works(self, query: str) -> List[Dict[str, Any]]:
-        """Search CrossRef works with the given query."""
-        cache_path = self._get_cache_path(f"search_{query}")
+        Args:
+            query: The search query
+            repo_url: Optional repository URL to associate this cache with
+        """
+        cache_key = self._get_cache_key(f"search_{query}")
         
-        if self._cache_valid(cache_path):
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
             logger.info(f"Using cached CrossRef results for '{query}'")
-            return self._get_from_cache(cache_path)
+            return cached_data
         
         self.rate_limiter.wait()
         url = f"{self.BASE_URL}/works"
@@ -458,21 +977,36 @@ class CrossRefAPI:
         
         try:
             response = requests.get(url, params=params, headers=headers)
+            
+            # Update rate limit information from headers
+            self.rate_limiter.update_rate_limit(response.headers)
+            
             response.raise_for_status()
             results = response.json().get('message', {}).get('items', [])
-            self._save_to_cache(cache_path, results)
+            
+            # Cache the results and associate with repo_url if provided
+            cache_manager.set(cache_key, results, repo_url)
+            
             return results
         except requests.RequestException as e:
             logger.error(f"Error searching CrossRef: {e}")
             return []
     
-    def get_work_by_doi(self, doi: str) -> Dict[str, Any]:
-        """Get detailed work information by DOI."""
-        cache_path = self._get_cache_path(f"doi_{doi}")
+    def get_work_by_doi(self, doi: str, repo_url: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Get detailed work information by DOI.
         
-        if self._cache_valid(cache_path):
+        Args:
+            doi: DOI to look up
+            repo_url: Optional repository URL to associate this cache with
+        """
+        cache_key = self._get_cache_key(f"doi_{doi}")
+        
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
             logger.info(f"Using cached CrossRef DOI data for '{doi}'")
-            return self._get_from_cache(cache_path)
+            return cached_data
         
         self.rate_limiter.wait()
         url = f"{self.BASE_URL}/works/{quote(doi)}"
@@ -485,7 +1019,10 @@ class CrossRefAPI:
             response = requests.get(url, headers=headers)
             response.raise_for_status()
             data = response.json().get('message', {})
-            self._save_to_cache(cache_path, data)
+            
+            # Cache the results and associate with repo_url if provided
+            cache_manager.set(cache_key, data, repo_url)
+            
             return data
         except requests.RequestException as e:
             logger.error(f"Error getting work by DOI from CrossRef: {e}")
@@ -582,58 +1119,39 @@ class GitHubAPI:
     """Integration with GitHub API to extract citation information."""
     
     BASE_URL = "https://api.github.com"
-    CACHE_DIR = os.path.join("metadata", "cache", "github")
     CACHE_EXPIRY = 7  # days
     
     def __init__(self, token: Optional[str] = None):
         self.token = token
         # Use a more conservative rate limit if no token is provided
         self.rate_limiter = RateLimiter(calls_per_minute=5 if not token else 30)
-        os.makedirs(self.CACHE_DIR, exist_ok=True)
         
         # Log warning if no token provided
         if not token:
             logger.warning("No GitHub token provided. Rate limits will be severely restricted (60 requests/hour).")
     
-    def _get_cache_path(self, query: str) -> str:
-        """Get the path for a cached result."""
-        safe_query = base64.urlsafe_b64encode(query.encode()).decode()
-        return os.path.join(self.CACHE_DIR, f"{safe_query}.json")
+    def _get_cache_key(self, query: str) -> str:
+        """Generate a standardized cache key for the query."""
+        return f"github_{base64.urlsafe_b64encode(query.encode()).decode()}"
     
-    def _cache_valid(self, cache_path: str) -> bool:
-        """Check if the cache is still valid."""
-        if not os.path.exists(cache_path):
-            return False
+    def get_repo_contents(self, owner: str, repo: str, path: str = "", repo_url: Optional[str] = None) -> List[Dict[str, Any]]:
+        """
+        Get contents of a repository at the given path.
         
-        try:
-            with open(cache_path, 'r') as f:
-                data = json.load(f)
-                cache_date = datetime.fromisoformat(data.get('cache_date', '2000-01-01'))
-                return datetime.now() - cache_date < timedelta(days=self.CACHE_EXPIRY)
-        except (json.JSONDecodeError, ValueError, KeyError):
-            return False
-    
-    def _save_to_cache(self, cache_path: str, data: Dict[str, Any]) -> None:
-        """Save API response to cache."""
-        cache_data = {
-            'cache_date': datetime.now().isoformat(),
-            'data': data
-        }
-        with open(cache_path, 'w') as f:
-            json.dump(cache_data, f, indent=2)
-    
-    def _get_from_cache(self, cache_path: str) -> Dict[str, Any]:
-        """Get data from cache."""
-        with open(cache_path, 'r') as f:
-            return json.load(f)['data']
-    
-    def get_repo_contents(self, owner: str, repo: str, path: str = "") -> List[Dict[str, Any]]:
-        """Get contents of a repository at the given path."""
-        cache_path = self._get_cache_path(f"contents_{owner}_{repo}_{path}")
+        Args:
+            owner: Repository owner
+            repo: Repository name
+            path: Path within the repository
+            repo_url: Optional full repository URL to associate this cache with
+        """
+        cache_key = self._get_cache_key(f"contents_{owner}_{repo}_{path}")
+        repo_url = repo_url or f"https://github.com/{owner}/{repo}"
         
-        if self._cache_valid(cache_path):
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
             logger.info(f"Using cached GitHub contents for '{owner}/{repo}/{path}'")
-            return self._get_from_cache(cache_path)
+            return cached_data
         
         self.rate_limiter.wait()
         url = f"{self.BASE_URL}/repos/{owner}/{repo}/contents/{path}"
@@ -647,35 +1165,58 @@ class GitHubAPI:
         try:
             response = requests.get(url, headers=headers)
             
-            # Check for rate limiting
+            # Check for rate limiting and use the enhanced rate limiter
             if response.status_code == 403 and 'rate limit exceeded' in response.text.lower():
-                reset_time = int(response.headers.get('X-RateLimit-Reset', 0))
-                if reset_time > 0:
-                    wait_time = max(0, reset_time - time.time())
-                    if wait_time > 0 and wait_time < 600:  # Only wait if less than 10 minutes
-                        logger.warning(f"GitHub rate limit exceeded. Waiting {wait_time:.0f} seconds...")
-                        time.sleep(wait_time + 1)  # Add 1 second buffer
-                        # Try one more time
-                        return self.get_repo_contents(owner, repo, path)
+                # Update the rate limiter with the response headers
+                self.rate_limiter.update_rate_limit(response.headers)
+                
+                # Handle rate limit with intelligent retry logic
+                if self.rate_limiter.handle_rate_limit_response(response):
+                    # Retry the request after waiting
+                    return self.get_repo_contents(owner, repo, path, repo_url)
                 
                 logger.error("GitHub rate limit exceeded and wait time too long. Skipping request.")
                 return []
             
             response.raise_for_status()
             contents = response.json()
-            self._save_to_cache(cache_path, contents)
-            return contents if isinstance(contents, list) else [contents]
+            
+            # Cache the results and associate with repo_url
+            result = contents if isinstance(contents, list) else [contents]
+            cache_manager.set(cache_key, result, repo_url)
+            
+            return result
         except requests.RequestException as e:
-            logger.error(f"Error getting repo contents from GitHub: {e}")
+            if isinstance(e, requests.exceptions.HTTPError) and e.response.status_code == 404:
+                # Log 404s as info rather than error - this is expected for many repos
+                logger.info(f"File not found on GitHub: {owner}/{repo}/{path}")
+            else:
+                logger.error(f"Error getting repo contents from GitHub: {e}")
+            
+            # Cache an empty list for 404s to avoid repeated lookups
+            if isinstance(e, requests.exceptions.HTTPError) and e.response.status_code == 404:
+                cache_manager.set(cache_key, [], repo_url)
+                
             return []
     
-    def get_file_content(self, owner: str, repo: str, path: str) -> Optional[str]:
-        """Get the content of a specific file."""
-        cache_path = self._get_cache_path(f"file_{owner}_{repo}_{path}")
+    def get_file_content(self, owner: str, repo: str, path: str, repo_url: Optional[str] = None) -> Optional[str]:
+        """
+        Get the content of a specific file.
         
-        if self._cache_valid(cache_path):
+        Args:
+            owner: Repository owner
+            repo: Repository name
+            path: Path to the file within the repository
+            repo_url: Optional full repository URL to associate this cache with
+        """
+        cache_key = self._get_cache_key(f"file_{owner}_{repo}_{path}")
+        repo_url = repo_url or f"https://github.com/{owner}/{repo}"
+        
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
             logger.info(f"Using cached GitHub file for '{owner}/{repo}/{path}'")
-            return self._get_from_cache(cache_path)
+            return cached_data
         
         self.rate_limiter.wait()
         url = f"{self.BASE_URL}/repos/{owner}/{repo}/contents/{path}"
@@ -689,16 +1230,15 @@ class GitHubAPI:
         try:
             response = requests.get(url, headers=headers)
             
-            # Check for rate limiting
+            # Check for rate limiting and use the enhanced rate limiter
             if response.status_code == 403 and 'rate limit exceeded' in response.text.lower():
-                reset_time = int(response.headers.get('X-RateLimit-Reset', 0))
-                if reset_time > 0:
-                    wait_time = max(0, reset_time - time.time())
-                    if wait_time > 0 and wait_time < 600:  # Only wait if less than 10 minutes
-                        logger.warning(f"GitHub rate limit exceeded. Waiting {wait_time:.0f} seconds...")
-                        time.sleep(wait_time + 1)  # Add 1 second buffer
-                        # Try one more time
-                        return self.get_file_content(owner, repo, path)
+                # Update the rate limiter with the response headers
+                self.rate_limiter.update_rate_limit(response.headers)
+                
+                # Handle rate limit with intelligent retry logic
+                if self.rate_limiter.handle_rate_limit_response(response):
+                    # Retry the request after waiting
+                    return self.get_file_content(owner, repo, path, repo_url)
                 
                 logger.error("GitHub rate limit exceeded and wait time too long. Skipping request.")
                 return None
@@ -708,11 +1248,18 @@ class GitHubAPI:
             
             if isinstance(data, dict) and 'content' in data:
                 content = base64.b64decode(data['content']).decode('utf-8')
-                self._save_to_cache(cache_path, content)
+                
+                # Cache the content and associate with repo_url
+                cache_manager.set(cache_key, content, repo_url)
+                
                 return content
             return None
         except requests.RequestException as e:
-            logger.error(f"Error getting file content from GitHub: {e}")
+            if isinstance(e, requests.exceptions.HTTPError) and e.response.status_code == 404:
+                # Log 404s as info rather than error - this is expected for many repos
+                logger.info(f"Error getting file content from GitHub: 404 Not Found for {owner}/{repo}/{path}")
+            else:
+                logger.error(f"Error getting file content from GitHub: {e}")
             return None
     
     def find_citation_file(self, repo_url: str) -> Optional[Dict[str, Any]]:
@@ -737,12 +1284,13 @@ class GitHubAPI:
             owner, repo = match.groups()
             repo = repo.rstrip('.git')
             
-            # Cache key for the entire operation
-            cache_path = self._get_cache_path(f"citation_search_{owner}_{repo}")
+            cache_key = self._get_cache_key(f"citation_search_{owner}_{repo}")
             
-            if self._cache_valid(cache_path):
+            # Check if we have a valid cached result
+            cached_data = cache_manager.get(cache_key)
+            if cached_data is not None:
                 logger.info(f"Using cached citation search results for '{owner}/{repo}'")
-                return self._get_from_cache(cache_path)
+                return cached_data
             
             # Common citation file paths to check
             citation_paths = [
@@ -763,7 +1311,7 @@ class GitHubAPI:
             # First check main citation files (most common)
             for path in citation_paths[:3]:  # Limit to the most common ones first
                 try:
-                    content = self.get_file_content(owner, repo, path)
+                    content = self.get_file_content(owner, repo, path, repo_url)
                     if content:
                         result = {
                             'path': path,
@@ -779,7 +1327,7 @@ class GitHubAPI:
                 try:
                     # Only check the most common location in .github
                     github_path = ".github/CITATION.cff"
-                    content = self.get_file_content(owner, repo, github_path)
+                    content = self.get_file_content(owner, repo, github_path, repo_url)
                     if content:
                         result = {
                             'path': github_path,
@@ -792,7 +1340,7 @@ class GitHubAPI:
             # As a last resort, check README.md
             if not result:
                 try:
-                    readme_content = self.get_file_content(owner, repo, "README.md")
+                    readme_content = self.get_file_content(owner, repo, "README.md", repo_url)
                     if readme_content:
                         # Look for citation section in README
                         citation_section = None
@@ -817,8 +1365,8 @@ class GitHubAPI:
                 except Exception as e:
                     logger.warning(f"Error checking for citation in README: {e}")
             
-            # Save result to cache, even if None
-            self._save_to_cache(cache_path, result if result else {})
+            # Cache the result and associate with repo_url
+            cache_manager.set(cache_key, result if result else {}, repo_url)
             
             return result
         

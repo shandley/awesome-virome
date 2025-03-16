@@ -11,6 +11,9 @@ This script collects detailed metadata such as:
 - Repository creation date
 
 The metadata is stored in structured JSON files in the metadata/ directory.
+
+This script also supports smart cache invalidation, which ensures that when repository
+information is updated, all related cached API responses are automatically invalidated.
 """
 
 import os
@@ -24,6 +27,14 @@ from pathlib import Path
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from github import Github, RateLimitExceededException
+
+# Import the cache manager
+try:
+    from apis.citations_api import cache_manager
+    HAS_CACHE_MANAGER = True
+except ImportError:
+    HAS_CACHE_MANAGER = False
+    print("Warning: Smart cache system not found. Cache invalidation will be disabled.")
 
 # Configure logging
 logging.basicConfig(
@@ -202,9 +213,15 @@ def get_github_enhanced_metadata(repo_url, repo_name):
             topics_headers["Accept"] = "application/vnd.github.mercy-preview+json"
             topics_response = requests.get(topics_url, headers=topics_headers)
             if topics_response.status_code == 200:
-                metadata["topics"] = topics_response.json().get('names', [])
+                json_response = topics_response.json()
+                if isinstance(json_response, dict) and 'names' in json_response:
+                    metadata["topics"] = json_response.get('names', [])
+                else:
+                    metadata["topics"] = []
+                    logger.warning(f"Unexpected format in topics response for {repo_path}")
             else:
                 metadata["topics"] = []
+                logger.warning(f"Failed to fetch topics for {repo_path}: Status {topics_response.status_code}")
         except Exception as e:
             logger.warning(f"Error fetching topics for {repo_path}: {e}")
             metadata["topics"] = []
@@ -446,8 +463,23 @@ def save_metadata(metadata):
         return
     
     repo_name = metadata["name"]
+    repo_url = metadata.get("url", "")
     sanitized_name = sanitize_repo_name(repo_name)
     file_path = METADATA_DIR / f"{sanitized_name}.json"
+    
+    # Check if the repository was previously saved and has been updated
+    if file_path.exists():
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                old_metadata = json.load(f)
+                
+            # If repository has been updated, invalidate related caches
+            if HAS_CACHE_MANAGER and old_metadata.get("updated_at") != metadata.get("updated_at"):
+                logger.info(f"Repository {repo_name} has been updated. Invalidating related caches...")
+                invalidated = cache_manager.invalidate_repo_caches(repo_url)
+                logger.info(f"Invalidated {invalidated} cache entries for {repo_name}")
+        except Exception as e:
+            logger.warning(f"Error comparing metadata for cache invalidation: {e}")
     
     with open(file_path, 'w', encoding='utf-8') as f:
         json.dump(metadata, f, indent=2)
