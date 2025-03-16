@@ -6,12 +6,14 @@ This script provides functionality to clear caches, including:
 - Clearing all caches
 - Clearing caches related to specific repositories
 - Listing cache statistics
+- Running advanced cache monitoring
 """
 
 import os
 import sys
 import argparse
 import logging
+import subprocess
 from pathlib import Path
 
 # Import the cache manager
@@ -29,6 +31,11 @@ logging.basicConfig(
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
+
+# Script paths
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+MONITOR_SCRIPT = os.path.join(SCRIPT_DIR, "monitor_cache.py")
+CRON_MONITOR_SCRIPT = os.path.join(SCRIPT_DIR, "cron_cache_monitor.sh")
 
 def clear_all_caches():
     """Clear all caches."""
@@ -114,14 +121,52 @@ def print_cache_stats():
     
     print("============================\n")
 
+def run_monitoring(args_list):
+    """Run the cache monitoring script with the given arguments."""
+    if not os.path.exists(MONITOR_SCRIPT):
+        logger.error(f"Cache monitoring script not found at {MONITOR_SCRIPT}")
+        return 1
+    
+    cmd = [sys.executable, MONITOR_SCRIPT] + args_list
+    logger.info(f"Running monitoring: {' '.join(cmd)}")
+    
+    return subprocess.call(cmd)
+
+def run_scheduled_monitoring(mode):
+    """Run the scheduled monitoring script with the given mode."""
+    if not os.path.exists(CRON_MONITOR_SCRIPT):
+        logger.error(f"Scheduled monitoring script not found at {CRON_MONITOR_SCRIPT}")
+        return 1
+    
+    cmd = [CRON_MONITOR_SCRIPT, mode]
+    logger.info(f"Running scheduled monitoring ({mode}): {' '.join(cmd)}")
+    
+    return subprocess.call(cmd)
+
 def main():
     """Main entry point for the script."""
     parser = argparse.ArgumentParser(description="Cache management utility for awesome-virome")
     
-    # Add command line arguments
-    parser.add_argument('--clear-all', action='store_true', help='Clear all caches')
-    parser.add_argument('--clear-repo', type=str, help='Clear caches for a specific repository URL')
-    parser.add_argument('--stats', action='store_true', help='Show cache statistics')
+    # Cache management arguments
+    group1 = parser.add_argument_group('Cache Management')
+    group1.add_argument('--clear-all', action='store_true', help='Clear all caches')
+    group1.add_argument('--clear-repo', type=str, help='Clear caches for a specific repository URL')
+    group1.add_argument('--stats', action='store_true', help='Show cache statistics')
+    
+    # Monitoring arguments
+    group2 = parser.add_argument_group('Cache Monitoring')
+    group2.add_argument('--monitor', action='store_true', help='Run basic cache monitoring')
+    group2.add_argument('--continuous', action='store_true', help='Run continuous monitoring')
+    group2.add_argument('--duration', type=int, help='Duration of continuous monitoring in seconds')
+    group2.add_argument('--interval', type=int, default=60, help='Monitoring interval in seconds')
+    group2.add_argument('--graphs', action='store_true', help='Generate performance graphs')
+    group2.add_argument('--export-csv', action='store_true', help='Export metrics to CSV')
+    group2.add_argument('--csv-path', type=str, help='Path for CSV export')
+    
+    # Scheduled monitoring arguments
+    group3 = parser.add_argument_group('Scheduled Monitoring')
+    group3.add_argument('--scheduled', choices=['snapshot', 'hourly', 'daily', 'weekly'], 
+                      help='Run scheduled monitoring with specified mode')
     
     args = parser.parse_args()
     
@@ -141,6 +186,34 @@ def main():
     # Clear all caches
     if args.clear_all:
         clear_all_caches()
+    
+    # Run monitoring
+    if args.monitor or args.continuous or args.graphs or args.export_csv:
+        monitor_args = []
+        
+        if args.continuous:
+            monitor_args.append('--continuous')
+        
+        if args.duration:
+            monitor_args.extend(['--duration', str(args.duration)])
+        
+        if args.interval:
+            monitor_args.extend(['--interval', str(args.interval)])
+        
+        if args.graphs:
+            monitor_args.append('--graphs')
+        
+        if args.export_csv:
+            monitor_args.append('--export-csv')
+            
+        if args.csv_path:
+            monitor_args.extend(['--csv-path', args.csv_path])
+        
+        run_monitoring(monitor_args)
+    
+    # Run scheduled monitoring
+    if args.scheduled:
+        run_scheduled_monitoring(args.scheduled)
 
 if __name__ == "__main__":
     main()

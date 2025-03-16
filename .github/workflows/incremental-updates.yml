@@ -1,0 +1,53 @@
+name: Incremental Metadata Updates
+
+on:
+  schedule:
+    - cron: "0 12 * * 1-5"  # Run every weekday at noon UTC
+  workflow_dispatch:
+    inputs:
+      days:
+        description: 'Number of days to consider as recent'
+        required: false
+        default: '14'
+        type: string
+
+jobs:
+  incremental-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install PyGithub pyyaml
+      
+      - name: Run incremental metadata update
+        run: |
+          python scripts/incremental_metadata_update.py --recent-only --days ${{ github.event.inputs.days || 14 }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEMANTIC_SCHOLAR_KEY: ${{ secrets.SEMANTIC_SCHOLAR_KEY }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
+      
+      - name: Update data.json with incremental data
+        run: python update_data_json.py --include-metadata
+      
+      - name: Validate data integrity
+        run: |
+          python scripts/verify_repo_metadata.py
+          python scripts/verify_readme_content.py
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data.json metadata/
+          git diff --staged --quiet || git commit -m "Incremental metadata update"
+          git push
