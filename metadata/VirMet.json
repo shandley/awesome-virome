@@ -17,7 +17,7 @@
   "homepage": null,
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2025-03-17T18:16:13.278845",
+  "fetch_time": "2025-03-17T18:54:01.783261",
   "languages": {
     "Python": 99401,
     "Batchfile": 7732,
@@ -42,5 +42,116 @@
     "published_at": "2023-08-02T09:32:56Z",
     "url": "https://github.com/medvir/VirMet/releases/tag/v1.2.0"
   },
-  "dependencies": null
+  "dependencies": {
+    "sbom": {
+      "spdxVersion": "SPDX-2.3",
+      "dataLicense": "CC0-1.0",
+      "SPDXID": "SPDXRef-DOCUMENT",
+      "name": "com.github.medvir/VirMet",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/3436200b-8511-4ba8-bdc7-6924910a1667",
+      "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
+      "creationInfo": {
+        "creators": [
+          "Tool: protobom-v0.0.0-20250317171231-8d724299549d+dirty",
+          "Tool: GitHub.com-Dependency-Graph"
+        ],
+        "created": "2025-03-17T18:54:09Z"
+      },
+      "packages": [
+        {
+          "name": "flake8",
+          "SPDXID": "SPDXRef-pypi-flake8-7b26ed",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/flake8"
+            }
+          ]
+        },
+        {
+          "name": "pytest",
+          "SPDXID": "SPDXRef-pypi-pytest-d87ce5",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/pytest"
+            }
+          ]
+        },
+        {
+          "name": "setuptools-scm",
+          "SPDXID": "SPDXRef-pypi-setuptools-scm-41e328",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/setuptools-scm"
+            }
+          ]
+        },
+        {
+          "name": "pep257",
+          "SPDXID": "SPDXRef-pypi-pep257-613322",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/pep257"
+            }
+          ]
+        },
+        {
+          "name": "com.github.medvir/VirMet",
+          "SPDXID": "SPDXRef-github-medvir-VirMet-master-b6cdda",
+          "versionInfo": "master",
+          "downloadLocation": "git+https://github.com/medvir/VirMet",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:github/medvir/VirMet@master"
+            }
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "spdxElementId": "SPDXRef-github-medvir-VirMet-master-b6cdda",
+          "relatedSpdxElement": "SPDXRef-pypi-flake8-7b26ed",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-medvir-VirMet-master-b6cdda",
+          "relatedSpdxElement": "SPDXRef-pypi-pytest-d87ce5",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-medvir-VirMet-master-b6cdda",
+          "relatedSpdxElement": "SPDXRef-pypi-setuptools-scm-41e328",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-medvir-VirMet-master-b6cdda",
+          "relatedSpdxElement": "SPDXRef-pypi-pep257-613322",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-DOCUMENT",
+          "relatedSpdxElement": "SPDXRef-github-medvir-VirMet-master-b6cdda",
+          "relationshipType": "DESCRIBES"
+        }
+      ]
+    }
+  }
 }
