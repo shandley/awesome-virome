@@ -91,14 +91,15 @@ jobs:
           
           # Academic impact is usually the slowest part, so we optimize it
           echo "Collecting academic impact data..."
-          # Check the age of citation cache files
-          CACHE_AGE=$(find metadata/cache/crossref -type f -mtime -7 | wc -l)
-          if [ "$CACHE_AGE" -gt 0 ]; then
-            echo "Recent citation cache found, using cached data where possible"
-          else
-            echo "Cache may be outdated, updating citation data"
-          fi
-          python scripts/academic_impact.py
+          # Clear the academic impact cache and metadata files to force fresh data
+          echo "Clearing existing academic impact cache to force fresh citation data collection..."
+          rm -f metadata/academic_impact/academic_impact.json
+          rm -f metadata/cache/crossref/*.json
+          rm -f metadata/cache/_citations/*.json
+          find metadata/academic_impact/ -name "*.json" -not -name "summary.json" -delete
+          
+          echo "Running academic impact collection with fresh data..."
+          python scripts/academic_impact.py --force-refresh
           
           echo "Generating citation reports..."
           python scripts/citation_report.py
