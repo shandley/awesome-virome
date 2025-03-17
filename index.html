@@ -1066,6 +1066,7 @@
                     subcategoryFilter.appendChild(option);
                 });
                 
+
                 // Populate languages
                 const allLanguages = tools.flatMap(tool => Object.keys(tool.languages || {}));
                 const uniqueLanguages = [...new Set(allLanguages)].sort();
@@ -1075,6 +1076,7 @@
                     option.textContent = language;
                     languageFilter.appendChild(option);
                 });
+
             }
             
             function renderTools(tools) {
