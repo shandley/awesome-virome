@@ -147,6 +147,10 @@ jobs:
     if: |
       github.event_name == 'schedule' && github.event.schedule == '0 0 5 * *' || 
       github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'academic_impact' || github.event.inputs.update_type == 'all')
+    outputs:
+      academic_impact_pr_url: ${{ steps.create-pr.outputs.pull-request-url }}
+      changes_detected: ${{ steps.prepare.outputs.changes_detected }}
+      branch_name: ${{ steps.prepare.outputs.branch_name }}
     
     steps:
       - uses: actions/checkout@v3
@@ -228,6 +232,9 @@ jobs:
             echo "changes_detected=false" >> $GITHUB_OUTPUT
           else
             echo "changes_detected=true" >> $GITHUB_OUTPUT
+            # Create a unique branch name with timestamp and run ID
+            BRANCH_NAME="academic-impact-${{ github.run_id }}"
+            echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
           fi
           
       - name: Create Pull Request
@@ -245,12 +252,12 @@ jobs:
             This PR updates the academic impact metadata and citation reports based on the latest analysis.
             
             Changes include:
-            - Updated academic impact metadata
+            - Updated academic impact metadata with CrossRef fallback for citations 
             - Updated citation reports
             - Updated data.json with latest academic impact information
             
             Generated automatically by GitHub Actions workflow.
-          branch: academic-impact-${{ github.run_id }}
+          branch: ${{ steps.prepare.outputs.branch_name }}
           base: main
           delete-branch: false
       
@@ -265,5 +272,34 @@ jobs:
             echo "::warning::2. Enable 'Allow GitHub Actions to create and approve pull requests' in repository Settings > Actions > General"
             
             # Provide manual PR creation URL as fallback
-            echo "::notice::For now, you can create a PR manually at: https://github.com/$GITHUB_REPOSITORY/pull/new/academic-impact-${{ github.run_id }}"
+            echo "::notice::For now, you can create a PR manually at: https://github.com/$GITHUB_REPOSITORY/pull/new/${{ steps.prepare.outputs.branch_name }}"
           fi
+  
+  # This job will auto-approve and merge the academic impact PR if configured
+  auto-merge-academic-impact:
+    runs-on: ubuntu-latest
+    needs: academic-impact-metadata
+    if: |
+      needs.academic-impact-metadata.outputs.changes_detected == 'true' && 
+      needs.academic-impact-metadata.outputs.academic_impact_pr_url != ''
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Auto-approve PR
+        uses: hmarr/auto-approve-action@v3
+        with:
+          pull-request-number: ${{ needs.academic-impact-metadata.outputs.academic_impact_pr_url }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Enable auto-merge
+        run: |
+          PR_NUMBER=$(echo "${{ needs.academic-impact-metadata.outputs.academic_impact_pr_url }}" | grep -oE '[0-9]+$')
+          if [[ -n "$PR_NUMBER" ]]; then
+            gh pr merge $PR_NUMBER --auto --merge
+            echo "Auto-merge enabled for PR #$PR_NUMBER"
+          else
+            echo "Could not extract PR number from URL"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
