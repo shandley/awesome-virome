@@ -209,7 +209,9 @@ jobs:
         id: create-pr
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Use PAT_TOKEN if available, otherwise fall back to GITHUB_TOKEN
+          # You'll need to add PAT_TOKEN as a repository secret
+          token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
           commit-message: Update citation validation metrics
           title: Update citation validation metrics
           body: |
@@ -231,5 +233,10 @@ jobs:
           if [[ -n "${{ steps.create-pr.outputs.pull-request-url }}" ]]; then
             echo "::notice::PR created successfully: ${{ steps.create-pr.outputs.pull-request-url }}"
           else
-            echo "::warning::PR creation failed. Please check workflow permissions and logs."
+            echo "::warning::PR creation failed. You need to configure one of the following:"
+            echo "::warning::1. Add a Personal Access Token (PAT) with 'repo' scope as a repository secret named 'PAT_TOKEN'"
+            echo "::warning::2. Enable 'Allow GitHub Actions to create and approve pull requests' in repository Settings > Actions > General"
+            
+            # Provide manual PR creation URL as fallback
+            echo "::notice::For now, you can create a PR manually at: https://github.com/$GITHUB_REPOSITORY/pull/new/${{ steps.prepare.outputs.branch_name }}"
           fi
