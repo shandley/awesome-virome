@@ -22,11 +22,19 @@ on:
         type: boolean
         default: false
 
+# Permissions needed for creating and managing branches
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   validate-citations:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          # Fetch all history for proper branch creation
+          fetch-depth: 0
       
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -180,10 +188,33 @@ jobs:
             issues_count: ((.all_issues | length) // 0)
           }' reports/citation_validation.json > reports/citations/citation_validation_metrics.json
       
-      - name: Commit validation results
+      - name: Commit changes to branch
+        id: commit
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add reports/citations/citation_validation_metrics.json
-          git diff --staged --quiet || git commit -m "Update citation validation metrics"
-          git push
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+          else
+            # Create a unique branch name with timestamp
+            BRANCH_NAME="citation-validation-$(date +%Y%m%d-%H%M%S)"
+            git checkout -b $BRANCH_NAME
+            
+            # Commit changes to the new branch
+            git commit -m "Update citation validation metrics"
+            git push --set-upstream origin $BRANCH_NAME
+            
+            # Create PR URL for manual creation
+            PR_CREATE_URL="https://github.com/$GITHUB_REPOSITORY/pull/new/$BRANCH_NAME"
+            
+            # Output instructions
+            echo "::notice::Changes pushed to branch '$BRANCH_NAME'"
+            echo "::notice::Please create a PR manually at: $PR_CREATE_URL"
+            
+            # Set outputs
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+            echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+            echo "pr_create_url=$PR_CREATE_URL" >> $GITHUB_OUTPUT
+          fi
