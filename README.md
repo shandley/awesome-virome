@@ -4,6 +4,19 @@
 
 A curated list of software, tools, and databases useful for virome analysis, including phages, viruses, and their interactions with hosts. This repository aims to help researchers navigate the diverse landscape of tools available for studying viral communities in various environments.
 
+## Contents
+
+- [Getting Started](#getting-started)
+- [Typical Workflows](#typical-workflows)
+- [Core Analysis Tools](#virus-and-phage-identification)
+- [Data Resources](#databases)
+- [Functional Analysis](#functional-analysis)
+- [Sequence Analysis](#sequence-analysis)
+- [Visualization Tools](#visualization-and-infrastructure)
+- [Specialized Analysis Tools](#other-tools)
+- [License](#license)
+- [Contributing](#contributing)
+
 ## Acknowledgments
 
 This list was originally started by [Rob Edwards](https://github.com/linsalrob) and his team at [Flinders University](https://edwards.flinders.edu.au) and would not have been possible without their original hard work and dedication.
