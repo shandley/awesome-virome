@@ -4,6 +4,19 @@
 
 A curated list of software, tools, and databases useful for virome analysis, including phages, viruses, and their interactions with hosts. This repository aims to help researchers navigate the diverse landscape of tools available for studying viral communities in various environments.
 
+## Contents
+
+- [Getting Started](#getting-started)
+- [Typical Workflows](#typical-workflows)
+- [Core Analysis Tools](#virus-and-phage-identification)
+- [Data Resources](#databases)
+- [Functional Analysis](#functional-analysis)
+- [Sequence Analysis](#sequence-analysis)
+- [Visualization Tools](#visualization-and-infrastructure)
+- [Specialized Analysis Tools](#other-tools)
+- [License](#license)
+- [Contributing](#contributing)
+
 ## Acknowledgments
 
 This list was originally started by [Rob Edwards](https://github.com/linsalrob) and his team at [Flinders University](https://edwards.flinders.edu.au) and would not have been possible without their original hard work and dedication.
@@ -37,7 +50,7 @@ Virome analysis involves studying the collection of viruses (including bacteriop
 
 > **Note on Tool Availability**: This list contains tools developed over many years. Some tools may no longer be actively maintained or might have moved to new locations. We mark tools that are no longer available as [unavailable] and provide archive links when possible. If you find a broken link or know of a tool's new location, please submit a PR or issue.
 
-## Table of Contents
+## Contents
 
 - [Getting Started](#getting-started)
 - [Typical Workflows](#typical-workflows)
@@ -148,7 +161,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 6. Host prediction (e.g., iPHoP)
 7. Functional annotation (e.g., Pharokka, DRAMv)
 
-## Table of Contents
+## Detailed Contents
 
 - [Getting Started](#getting-started)
 - [Typical Workflows](#typical-workflows)
