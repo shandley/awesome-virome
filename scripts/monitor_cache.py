@@ -19,12 +19,21 @@ import argparse
 import logging
 import datetime
 import csv
-import matplotlib.pyplot as plt
 from pathlib import Path
 from collections import defaultdict
 from typing import Dict, List, Any, Optional, Tuple
-import numpy as np
-from matplotlib.ticker import MaxNLocator
+
+# Optional imports for visualization - make these not required for basic operation
+MATPLOTLIB_AVAILABLE = False
+NUMPY_AVAILABLE = False
+try:
+    import matplotlib.pyplot as plt
+    import numpy as np
+    from matplotlib.ticker import MaxNLocator
+    MATPLOTLIB_AVAILABLE = True
+    NUMPY_AVAILABLE = True
+except ImportError:
+    pass
 
 # Import the cache manager
 try:
@@ -474,6 +483,10 @@ class CacheMonitor:
         Args:
             output_dir: Directory to save the graphs (default: history_dir / "graphs")
         """
+        if not MATPLOTLIB_AVAILABLE or not NUMPY_AVAILABLE:
+            logger.warning("Matplotlib and/or NumPy not available. Skipping graph generation.")
+            return None
+            
         if not output_dir:
             output_dir = self.history_dir / "graphs"
         
@@ -580,7 +593,7 @@ class CacheMonitor:
             report_text = self.generate_report(snapshot, analysis)
             print(report_text)
         
-        if graphs:
+        if graphs and MATPLOTLIB_AVAILABLE and NUMPY_AVAILABLE:
             self.generate_performance_graphs()
         
         return snapshot, analysis
@@ -616,7 +629,7 @@ class CacheMonitor:
                 
                 # Generate graphs periodically
                 cycle_count += 1
-                if graphs and cycle_count % graphs_interval == 0:
+                if graphs and MATPLOTLIB_AVAILABLE and NUMPY_AVAILABLE and cycle_count % graphs_interval == 0:
                     self.generate_performance_graphs()
                 
                 # Wait for the next monitoring cycle
@@ -626,7 +639,7 @@ class CacheMonitor:
             logger.info("Monitoring stopped by user")
         
         # Generate final graphs
-        if graphs:
+        if graphs and MATPLOTLIB_AVAILABLE and NUMPY_AVAILABLE:
             self.generate_performance_graphs()
         
         logger.info(f"Monitoring completed. Collected {len(snapshots)} snapshots.")
