@@ -73,64 +73,64 @@ jobs:
           
           # Create index.html if it doesn't exist in the charts directory
           if [ ! -f "metrics_dashboard/index.html" ]; then
-            cat > metrics_dashboard/index.html << EOF
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Repository Metrics Dashboard</title>
-                <style>
-                    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
-                    .dashboard { max-width: 1200px; margin: 0 auto; }
-                    .chart-container { margin-bottom: 30px; }
-                    h1 { color: #333; }
-                    a { color: #0366d6; text-decoration: none; }
-                    a:hover { text-decoration: underline; }
-                    .back-link { margin-bottom: 20px; }
-                </style>
-            </head>
-            <body>
-                <div class="dashboard">
-                    <div class="back-link">
-                        <a href="../index.html">← Back to main site</a>
-                    </div>
-                    <h1>Repository Metrics Dashboard</h1>
-                    
-                    <div class="chart-container">
-                        <h2>Performance Trends</h2>
-                        <img src="performance_trend.svg" alt="Performance Trends" width="100%">
-                    </div>
-                    
-                    <div class="chart-container">
-                        <h2>Validation Success Rate</h2>
-                        <img src="validation_success.svg" alt="Validation Success Rate" width="100%">
-                    </div>
-                    
-                    <div class="chart-container">
-                        <h2>Link Health</h2>
-                        <img src="link_health.svg" alt="Link Health" width="100%">
-                    </div>
-                    
-                    <p>Last updated: <span id="lastUpdated"></span></p>
-                </div>
-                
-                <script>
-                    // Load the last updated timestamp from metrics_summary.json
-                    fetch('metrics_summary.json')
-                        .then(response => response.json())
-                        .then(data => {
-                            document.getElementById('lastUpdated').textContent = 
-                                new Date(data.last_updated).toLocaleString();
-                        })
-                        .catch(error => {
-                            console.error('Error loading metrics data:', error);
-                            document.getElementById('lastUpdated').textContent = 'Unknown';
-                        });
-                </script>
-            </body>
-            </html>
-            EOF
+            cat > metrics_dashboard/index.html << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repository Metrics Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        .dashboard { max-width: 1200px; margin: 0 auto; }
+        .chart-container { margin-bottom: 30px; }
+        h1 { color: #333; }
+        a { color: #0366d6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .back-link { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="back-link">
+            <a href="../index.html">← Back to main site</a>
+        </div>
+        <h1>Repository Metrics Dashboard</h1>
+        
+        <div class="chart-container">
+            <h2>Performance Trends</h2>
+            <img src="performance_trend.svg" alt="Performance Trends" width="100%">
+        </div>
+        
+        <div class="chart-container">
+            <h2>Validation Success Rate</h2>
+            <img src="validation_success.svg" alt="Validation Success Rate" width="100%">
+        </div>
+        
+        <div class="chart-container">
+            <h2>Link Health</h2>
+            <img src="link_health.svg" alt="Link Health" width="100%">
+        </div>
+        
+        <p>Last updated: <span id="lastUpdated"></span></p>
+    </div>
+    
+    <script>
+        // Load the last updated timestamp from metrics_summary.json
+        fetch('metrics_summary.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('lastUpdated').textContent = 
+                    new Date(data.last_updated).toLocaleString();
+            })
+            .catch(error => {
+                console.error('Error loading metrics data:', error);
+                document.getElementById('lastUpdated').textContent = 'Unknown';
+            });
+    </script>
+</body>
+</html>
+EOF
           fi
           
           # Add .nojekyll file to prevent Jekyll processing
