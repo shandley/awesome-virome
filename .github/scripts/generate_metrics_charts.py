@@ -38,7 +38,24 @@ def generate_performance_chart(summary, charts_dir):
     data_load_times = summary["performance_trends"].get("data_load_time", [])
     readme_parse_times = summary["performance_trends"].get("readme_parse_time", [])
     
-    if not data_load_times or not readme_parse_times:
+    # Create simple placeholder chart if there's no data yet
+    if not data_load_times and not readme_parse_times:
+        # Generate a simple empty chart with message
+        width, height = 800, 400
+        svg = [
+            f'<svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">',
+            f'  <rect width="{width}" height="{height}" fill="white"/>',
+            f'  <text x="{width/2}" y="20" text-anchor="middle" font-family="Arial" font-size="16">Performance Trends</text>',
+            f'  <text x="{width/2}" y="{height/2}" text-anchor="middle" font-family="Arial" font-size="14">No performance data available yet</text>',
+            f'  <text x="{width/2}" y="{height/2 + 30}" text-anchor="middle" font-family="Arial" font-size="12">Data will appear after workflow runs</text>',
+            '</svg>'
+        ]
+        
+        chart_path = os.path.join(charts_dir, "performance_trend.svg")
+        with open(chart_path, 'w') as f:
+            f.write('\n'.join(svg))
+        
+        print(f"Empty performance chart generated: {chart_path}")
         return
     
     # Limit to last 20 entries for readability
@@ -52,9 +69,9 @@ def generate_performance_chart(summary, charts_dir):
     chart_height = height - 2 * padding
     
     # Determine y-axis scale based on max value
-    data_max = max(point["value"] for point in data_load_times)
-    readme_max = max(point["value"] for point in readme_parse_times)
-    y_max = max(data_max, readme_max) * 1.1  # Add 10% margin
+    data_max = max((point["value"] for point in data_load_times), default=0.001)
+    readme_max = max((point["value"] for point in readme_parse_times), default=0.001)
+    y_max = max(data_max, readme_max, 0.001) * 1.1  # Add 10% margin, ensure non-zero
     
     # Generate SVG content
     svg = [
@@ -120,6 +137,22 @@ def generate_validation_chart(summary, charts_dir):
     successful_runs = summary["validation_stats"].get("successful_runs", 0)
     
     if total_runs == 0:
+        # Generate a simple empty chart with message
+        width, height = 400, 400
+        svg = [
+            f'<svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">',
+            f'  <rect width="{width}" height="{height}" fill="white"/>',
+            f'  <text x="{width/2}" y="20" text-anchor="middle" font-family="Arial" font-size="16">Validation Success Rate</text>',
+            f'  <text x="{width/2}" y="{height/2}" text-anchor="middle" font-family="Arial" font-size="14">No validation data available yet</text>',
+            f'  <text x="{width/2}" y="{height/2 + 30}" text-anchor="middle" font-family="Arial" font-size="12">Data will appear after workflow runs</text>',
+            '</svg>'
+        ]
+        
+        chart_path = os.path.join(charts_dir, "validation_success.svg")
+        with open(chart_path, 'w') as f:
+            f.write('\n'.join(svg))
+        
+        print(f"Empty validation chart generated: {chart_path}")
         return
     
     success_rate = (successful_runs / total_runs) * 100
@@ -191,6 +224,22 @@ def generate_link_health_chart(summary, charts_dir):
     
     link_history = summary["link_health"]["history"]
     if not link_history:
+        # Generate a simple empty chart with message
+        width, height = 800, 400
+        svg = [
+            f'<svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">',
+            f'  <rect width="{width}" height="{height}" fill="white"/>',
+            f'  <text x="{width/2}" y="20" text-anchor="middle" font-family="Arial" font-size="16">Link Health Trends</text>',
+            f'  <text x="{width/2}" y="{height/2}" text-anchor="middle" font-family="Arial" font-size="14">No link health data available yet</text>',
+            f'  <text x="{width/2}" y="{height/2 + 30}" text-anchor="middle" font-family="Arial" font-size="12">Data will appear after workflow runs</text>',
+            '</svg>'
+        ]
+        
+        chart_path = os.path.join(charts_dir, "link_health.svg")
+        with open(chart_path, 'w') as f:
+            f.write('\n'.join(svg))
+        
+        print(f"Empty link health chart generated: {chart_path}")
         return
     
     # Limit to last 20 entries for readability
@@ -219,7 +268,7 @@ def generate_link_health_chart(summary, charts_dir):
     ])
     
     # Find max total links for scaling
-    max_total = max(entry["total_links"] for entry in link_history)
+    max_total = max((entry["total_links"] for entry in link_history), default=1)
     
     # Draw bars
     for i, entry in enumerate(link_history):
