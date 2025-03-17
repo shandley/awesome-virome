@@ -2,14 +2,14 @@ name: Update Repository Information
 
 on:
   schedule:
-    # Run weekly on Sunday at 00:00 UTC
-    - cron: "0 0 * * 0"
-    # Run enhanced metadata on 1st of each month
-    - cron: "0 0 1 * *"
-    # Run bioinformatics metadata on 15th of each month
-    - cron: "0 0 15 * *"
-    # Run academic impact metadata on 5th of each month
-    - cron: "0 0 5 * *"
+    # Run weekly on Sunday at 08:00 UTC (well after repo testing and cache maintenance)
+    - cron: "0 8 * * 0"
+    # Run enhanced metadata on 2nd of each month (after workflow coordination on 1st)
+    - cron: "0 8 2 * *"
+    # Run bioinformatics metadata on 16th of each month (spreading load)
+    - cron: "0 8 16 * *"
+    # Run academic impact metadata on 5th of each month (after PubMed on 4th)
+    - cron: "0 6 5 * *"
   workflow_dispatch:
     inputs:
       update_type:
@@ -128,52 +128,23 @@ jobs:
           git push
 
   warm-cache:
-    runs-on: ubuntu-latest
     if: github.event_name == 'schedule' && (github.event.schedule == '0 0 1 * *' || github.event.schedule == '0 0 5 * *')
-    
-    steps:
-      - uses: actions/checkout@v3
-      
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-      
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests PyGithub pyyaml
-      
-      - name: Warm cache for important repositories
-        run: |
-          echo "Warming cache for frequently accessed repositories..."
-          python scripts/cache_warming.py --warm-important
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SEMANTIC_SCHOLAR_KEY: ${{ secrets.SEMANTIC_SCHOLAR_KEY }}
-          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
-      
-      - name: Monitor cache health
-        run: |
-          python scripts/monitor_cache.py --graphs > cache_warming_report.txt
-          echo "Cache warming completed. See cache_warming_report.txt for details."
-      
-      - name: Upload cache warming report
-        uses: actions/upload-artifact@v4
-        with:
-          name: cache-warming-report
-          path: |
-            cache_warming_report.txt
-            cache_warming.log
-            metadata/cache/_monitoring/graphs/
+    uses: ./.github/workflows/cache-warming.yml
+    with:
+      scope: 'important'
+    secrets: inherit
 
   academic-impact-metadata:
     runs-on: ubuntu-latest
     needs: warm-cache
-    if: github.event_name == 'schedule' && github.event.schedule == '0 0 5 * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'academic_impact' || github.event.inputs.update_type == 'all')
+    if: |
+      github.event_name == 'schedule' && github.event.schedule == '0 0 5 * *' || 
+      github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'academic_impact' || github.event.inputs.update_type == 'all')
     
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -184,6 +155,29 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install requests PyGithub pyyaml matplotlib networkx
+      
+      - name: Check for recent PubMed update
+        id: check_pubmed
+        run: |
+          # Check if PubMed data was updated in the last 48 hours
+          PUBMED_UPDATED=$(git log --since="48 hours ago" --oneline | grep "Update PubMed citation information" | wc -l)
+          if [ $PUBMED_UPDATED -gt 0 ]; then
+            echo "Recent PubMed update found, will use existing data"
+            echo "pubmed_is_current=true" >> $GITHUB_OUTPUT
+          else
+            echo "No recent PubMed update found"
+            echo "pubmed_is_current=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Run PubMed collection if needed
+        if: steps.check_pubmed.outputs.pubmed_is_current != 'true'
+        run: |
+          echo "Running PubMed citation collection as prerequisite for academic impact analysis"
+          python scripts/pubmed_citations.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
       
       - name: Collect academic impact metadata
         run: python scripts/academic_impact.py
@@ -201,12 +195,14 @@ jobs:
           python scripts/verify_readme_content.py
         
       - name: Update data.json with academic impact metadata
-        run: python update_data_json.py --include-metadata --include-bioinformatics --include-academic-impact
+        run: |
+          # Include PubMed data in the update
+          python update_data_json.py --include-metadata --include-bioinformatics --include-academic-impact --include-pubmed
       
       - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add data.json metadata/ reports/
+          git add data.json metadata/ reports/ citations.md
           git diff --staged --quiet || git commit -m "Update academic impact metadata and citation reports"
           git push

@@ -1,0 +1,121 @@
+name: Citation Data Validation
+
+on:
+  # Run after specific workflows complete
+  workflow_run:
+    workflows:
+      - "PubMed Citations Collection"
+      - "Data Quality Metrics"
+    types:
+      - completed
+  
+  # Run weekly
+  schedule:
+    # Run every Sunday at 12:00 UTC (after basic repository updates)
+    - cron: "0 12 * * 0"
+  
+  # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      skip_doi_check:
+        description: 'Skip DOI online validation (faster)'
+        type: boolean
+        default: false
+
+jobs:
+  validate-citations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      
+      - name: Run citation validation
+        run: |
+          if [[ "${{ github.event.inputs.skip_doi_check }}" == "true" ]]; then
+            python scripts/validate_citations.py --report --skip-doi-check
+          else
+            python scripts/validate_citations.py --report
+          fi
+          
+      - name: Upload validation report
+        uses: actions/upload-artifact@v4
+        with:
+          name: citation-validation-report
+          path: |
+            reports/citation_validation.json
+            reports/citation_validation_report.md
+      
+      - name: Check for critical issues
+        id: check_issues
+        run: |
+          ISSUES_COUNT=$(jq '.all_issues | length' reports/citation_validation.json)
+          INCONSISTENT_DOIS=$(jq '.tools_with_doi - .consistent_dois' reports/citation_validation.json)
+          
+          echo "Total issues found: $ISSUES_COUNT"
+          echo "Inconsistent DOIs: $INCONSISTENT_DOIS"
+          
+          # Set outputs for next steps
+          echo "issues_count=$ISSUES_COUNT" >> $GITHUB_OUTPUT
+          echo "inconsistent_dois=$INCONSISTENT_DOIS" >> $GITHUB_OUTPUT
+          
+          # Check if there are critical issues that need notification
+          if [[ $INCONSISTENT_DOIS -gt 5 ]]; then
+            echo "CRITICAL_ISSUES=true" >> $GITHUB_OUTPUT
+          else
+            echo "CRITICAL_ISSUES=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create GitHub issue for critical problems
+        if: steps.check_issues.outputs.CRITICAL_ISSUES == 'true'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const reportContent = fs.readFileSync('reports/citation_validation_report.md', 'utf8');
+            
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Citation Data Validation Critical Issues',
+              body: `## Citation Validation Report has identified critical issues\n\n${reportContent.substring(0, 3000)}...\n\nSee the full report in the workflow artifacts.`,
+              labels: ['citation-data', 'data-quality']
+            });
+      
+      - name: Update data quality summary
+        run: |
+          # Create a directory for citation validation metrics
+          mkdir -p reports/citations
+          
+          # Extract key metrics
+          jq '{
+            timestamp: .timestamp,
+            total_tools: .total_tools,
+            tools_with_doi: .tools_with_doi,
+            doi_percentage: .doi_percentage,
+            valid_doi_percentage: .valid_doi_percentage,
+            consistent_doi_percentage: .consistent_doi_percentage,
+            tools_with_pubmed_data: .tools_with_pubmed_data,
+            pubmed_percentage: .pubmed_percentage,
+            tools_with_academic_impact: .tools_with_academic_impact,
+            academic_impact_percentage: .academic_impact_percentage,
+            citation_format_counts: .citation_format_counts,
+            issues_count: (.all_issues | length)
+          }' reports/citation_validation.json > reports/citations/citation_validation_metrics.json
+      
+      - name: Commit validation results
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add reports/citations/citation_validation_metrics.json
+          git diff --staged --quiet || git commit -m "Update citation validation metrics"
+          git push
