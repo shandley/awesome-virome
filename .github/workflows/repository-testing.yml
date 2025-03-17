@@ -155,7 +155,7 @@ jobs:
           # Benchmark README parsing time
           README_PARSE_TIME=$(python -c "
           import timeit, re
-          result = timeit.timeit(\"re.findall(r'## (.*?)\n', content)\", setup=\"import re; content = open('README.md', encoding='utf-8').read()\", number=10)
+          result = timeit.timeit(\"re.findall(r'## (.*?)\\\\n', content)\", setup=\"import re; content = open('README.md', encoding='utf-8').read()\", number=10)
           print(f'{result/10:.4f}')  # Average time in seconds
           ")
           echo "README parsing time: ${README_PARSE_TIME}s (avg of 10 runs)"
