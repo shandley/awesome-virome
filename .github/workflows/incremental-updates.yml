@@ -11,11 +11,17 @@ on:
         default: '14'
         type: string
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   incremental-update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for better branch handling
       
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -44,10 +50,56 @@ jobs:
           python scripts/verify_repo_metadata.py
           python scripts/verify_readme_content.py
       
-      - name: Commit changes
+      - name: Prepare changes
+        id: prepare
         run: |
+          # Setup git user identity
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          
+          # Add the changed files
           git add data.json metadata/
-          git diff --staged --quiet || git commit -m "Incremental metadata update"
-          git push
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+          else
+            # Create a unique branch name with timestamp
+            BRANCH_NAME="incremental-metadata-update-$(date +%Y%m%d-%H%M%S)"
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+            echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create Pull Request
+        if: steps.prepare.outputs.changes_detected == 'true'
+        id: create-pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+          commit-message: "Incremental metadata update"
+          title: "Incremental metadata update"
+          body: |
+            ## Automated PR with incremental metadata updates
+            
+            This PR contains incremental updates to tool metadata that have been collected by the automated workflow.
+            
+            - Updated metadata for tools modified in the last ${{ github.event.inputs.days || 14 }} days
+            - Regenerated data.json with the latest metadata
+            - Validated data integrity
+            
+            Automated pull request created by the [Incremental Metadata Updates workflow](https://github.com/${{ github.repository }}/actions/workflows/incremental-updates.yml).
+          branch: ${{ steps.prepare.outputs.branch_name }}
+          base: main
+      
+      - name: Output PR URL
+        if: steps.prepare.outputs.changes_detected == 'true'
+        run: |
+          if [[ -n "${{ steps.create-pr.outputs.pull-request-url }}" ]]; then
+            echo "::notice::PR created successfully: ${{ steps.create-pr.outputs.pull-request-url }}"
+          else
+            echo "::warning::PR creation failed. You need to configure one of the following:"
+            echo "::warning::1. A PAT_TOKEN secret with 'repo' scope"
+            echo "::warning::2. Set the permissions in the workflow to: contents: write, pull-requests: write"
+            echo "::notice::For now, you can create a PR manually at: https://github.com/$GITHUB_REPOSITORY/pull/new/${{ steps.prepare.outputs.branch_name }}"
+          fi
