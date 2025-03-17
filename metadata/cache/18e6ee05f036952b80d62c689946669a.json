@@ -1,0 +1,2602 @@
+{
+  "cache_date": "2025-03-17T23:21:32.368176",
+  "data": [
+    {
+      "created": "2025-03-17T22:16:12.835103+00:00",
+      "modified": "2025-03-17T22:16:13.598372+00:00",
+      "id": 15042320,
+      "conceptrecid": "15042319",
+      "doi": "10.5281/zenodo.15042320",
+      "conceptdoi": "10.5281/zenodo.15042319",
+      "doi_url": "https://doi.org/10.5281/zenodo.15042320",
+      "metadata": {
+        "title": "Stordalen Mire estimated methane emissions maps (2014)",
+        "doi": "10.5281/zenodo.15042320",
+        "publication_date": "2025-03-17",
+        "description": "<p>Methane (CH4) emissions in Stordalen Mire (northern Sweden), estimated via two different approaches:</p>\n<ol>\n<li>\"Paint by number\" (<strong>field ch4_modified_prj.tif</strong>): CH4 emission across the landscape calculated via &ldquo;paint-by-number&rdquo; approach, using 2014 autochamber-based flux measurements (<a href=\"https://doi.org/10.5281/zenodo.14052690\" target=\"_blank\" rel=\"noopener\">https://doi.org/10.5281/zenodo.14052690</a>) mapped to landcover classifications (<a href=\"https://doi.org/10.5281/zenodo.15042233\" target=\"_blank\" rel=\"noopener\">https://doi.org/10.5281/zenodo.15042233</a>).</li>\n<li>DNDC-modelled (<strong>Modeled CH4.tif</strong>): CH4 emission across the landscape modelled via Wetland-DNDC (<a href=\"https://www.dndc.sr.unh.edu/\" target=\"_blank\" rel=\"noopener\">https://www.dndc.sr.unh.edu/</a>), driven by remotely sensed landcover classifications (<a href=\"https://doi.org/10.5281/zenodo.15042233\" target=\"_blank\" rel=\"noopener\">https://doi.org/10.5281/zenodo.15042233</a>), water table depth (<a href=\"https://doi.org/10.5281/zenodo.15042289\" target=\"_blank\" rel=\"noopener\">https://doi.org/10.5281/zenodo.15042289</a>), and climate data (provided by the Abisko Scientific Research Station).\n<ul>\n<li>These modelled emissions account for CH4 production from DOC (<strong>Randomforest_stack_epsg32634_extent_kmeansclass10_CH4 prod from DOC.tif</strong>) and from CO2 (<strong>Randomforest_stack_epsg32634_extent_kmeansclass10_CH4 prod from CO2.tif</strong>), minus oxidation (<strong>Randomforest_stack_epsg32634_extent_kmeansclass10_CH4 oxid.tif</strong>).</li>\n<li>The model also outputs a map of CH4 isotopic composition (&delta;13C-CH4) of emissions (<strong>Randomforest_stack_epsg32634_extent_kmeansclass10_Delta CH4 flux.tif</strong>).</li>\n<li><strong></strong>Landcover and water table estimates were used to do a k-means classification to get 10 examples of what to model. Those were then modeled via Wetland-DNDC and applied across the domain.</li>\n</ul>\n</li>\n</ol>\n<p>The difference between these approaches is provided as a difference map (<strong>CH4diff.tif</strong>), calculated as the \"paint-by-number\" (PBN) emissions (<strong>field ch4_modified_prj.tif</strong>) minus the Wetland-DNDC modelled emissions (<strong>Modeled CH4.tif</strong>).</p>\n<p>These images are GeoTIFFs with embedded georeferencing information.</p>\n<p><br>FUNDING:</p>\n<ul>\n<li>National Aeronautics and Space Administration, Interdisciplinary Science program: From Archaea to the Atmosphere (award # NNX17AK10G)</li>\n<li>National Science Foundation, Biology Integration Institutes Program: EMERGE Biology Integration Institute (award # 2022070)</li>\n<li>United States Department of Energy Office of Biological and Environmental Research, Genomic Science Program: The IsoGenie Project (grant #s DE-SC0004632, DE-SC0010580, and DE-SC0016440)</li>\n</ul>\n<p>We thank the Swedish Polar Research Secretariat and SITES for the support of the work done at the Abisko Scientific Research Station. SITES is supported by the Swedish Research Council's grant 4.3-2021-00164.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Palace, Michael",
+            "affiliation": "University of New Hampshire"
+          },
+          {
+            "name": "Herrick, Christina",
+            "affiliation": "University of New Hampshire"
+          },
+          {
+            "name": "Ziniti, Beth",
+            "affiliation": "Applied GeoSolutions (United States)"
+          },
+          {
+            "name": "Torbick, Nathan",
+            "affiliation": "Applied GeoSolutions (United States)"
+          },
+          {
+            "name": "Persson, Andreas",
+            "affiliation": "Lund University"
+          },
+          {
+            "name": "Deng, Jia",
+            "affiliation": "University of New Hampshire"
+          }
+        ],
+        "keywords": [
+          "EMERGE Biology Integration Institute",
+          "Stordalen Mire"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5281/zenodo.15042233",
+            "relation": "isDerivedFrom",
+            "resource_type": "dataset",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.15042289",
+            "relation": "isDerivedFrom",
+            "resource_type": "dataset",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.14052690",
+            "relation": "isDerivedFrom",
+            "resource_type": "dataset",
+            "scheme": "doi"
+          }
+        ],
+        "version": "0.0.0",
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "grants": [
+          {
+            "code": "2022070",
+            "internal_id": "10.13039/100000001::2022070",
+            "funder": {
+              "name": "U.S. National Science Foundation",
+              "doi": "10.13039/100000001",
+              "acronym": "NSF"
+            },
+            "title": "BII-Implementation: The EMERGE Institute: Identifying EMergent Ecosystem Responses through Genes-to-Ecosystems Integration",
+            "program": "BIO/OAD"
+          },
+          {
+            "code": "NNX17AK10G",
+            "internal_id": "027ka1x80::NNX17AK10G",
+            "funder": {
+              "name": "National Aeronautics and Space Administration"
+            },
+            "title": "From Archaea to the Atmosphere: Integrating Microbial, Isotopic and Landscape-Scale Observations to Quantify Methane Emissions from Global High-Latitude Ecosystems"
+          }
+        ],
+        "communities": [
+          {
+            "id": "emerge-bii"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15042319"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Stordalen Mire estimated methane emissions maps (2014)",
+      "links": {
+        "self": "https://zenodo.org/api/records/15042320",
+        "self_html": "https://zenodo.org/records/15042320",
+        "doi": "https://doi.org/10.5281/zenodo.15042320",
+        "self_doi": "https://doi.org/10.5281/zenodo.15042320",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042320",
+        "parent": "https://zenodo.org/api/records/15042319",
+        "parent_html": "https://zenodo.org/records/15042319",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15042319",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042319",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042320/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042320/sequence/default",
+        "files": "https://zenodo.org/api/records/15042320/files",
+        "media_files": "https://zenodo.org/api/records/15042320/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15042320:Randomforest_stack_epsg32634_extent_kmeansclass10_CH4%20prod%20from%20CO2.tif/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15042320:Randomforest_stack_epsg32634_extent_kmeansclass10_CH4%20prod%20from%20CO2.tif/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15042320:Randomforest_stack_epsg32634_extent_kmeansclass10_CH4%20prod%20from%20CO2.tif/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15042320:Randomforest_stack_epsg32634_extent_kmeansclass10_CH4%20prod%20from%20CO2.tif/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15042320:Randomforest_stack_epsg32634_extent_kmeansclass10_CH4%20prod%20from%20CO2.tif/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15042320:Randomforest_stack_epsg32634_extent_kmeansclass10_CH4%20prod%20from%20CO2.tif/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15042320/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15042320/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15042320/versions/latest",
+        "latest_html": "https://zenodo.org/records/15042320/latest",
+        "versions": "https://zenodo.org/api/records/15042320/versions",
+        "draft": "https://zenodo.org/api/records/15042320/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15042320/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15042320/access/links",
+        "access_grants": "https://zenodo.org/api/records/15042320/access/grants",
+        "access_users": "https://zenodo.org/api/records/15042320/access/users",
+        "access_request": "https://zenodo.org/api/records/15042320/access/request",
+        "access": "https://zenodo.org/api/records/15042320/access",
+        "communities": "https://zenodo.org/api/records/15042320/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15042320/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15042320/requests"
+      },
+      "updated": "2025-03-17T22:16:13.598372+00:00",
+      "recid": "15042320",
+      "revision": 4,
+      "files": [
+        {
+          "id": "c2ce583e-6dd7-4dba-8b76-732d762abe77",
+          "key": "Randomforest_stack_epsg32634_extent_kmeansclass10_CH4 prod from CO2.tif",
+          "size": 2790982,
+          "checksum": "md5:3c2ab4242ce6631aed8dc4062ceefd99",
+          "links": {
+            "self": "https://zenodo.org/api/records/15042320/files/Randomforest_stack_epsg32634_extent_kmeansclass10_CH4 prod from CO2.tif/content"
+          }
+        },
+        {
+          "id": "f9abe11b-a463-4642-b8db-c00703396862",
+          "key": "Randomforest_stack_epsg32634_extent_kmeansclass10_CH4 prod from DOC.tif",
+          "size": 2790982,
+          "checksum": "md5:58a9b9e31a8c68596f761380e6bb73d7",
+          "links": {
+            "self": "https://zenodo.org/api/records/15042320/files/Randomforest_stack_epsg32634_extent_kmeansclass10_CH4 prod from DOC.tif/content"
+          }
+        },
+        {
+          "id": "06523e28-595e-4400-9573-e033e1e7a015",
+          "key": "field ch4_modified_prj.tif",
+          "size": 689196,
+          "checksum": "md5:0c305e467bfe626f12b688f095a0c00e",
+          "links": {
+            "self": "https://zenodo.org/api/records/15042320/files/field ch4_modified_prj.tif/content"
+          }
+        },
+        {
+          "id": "a535b55a-9b54-4fc6-b6b8-5e91461152f6",
+          "key": "Randomforest_stack_epsg32634_extent_kmeansclass10_Delta CH4 flux.tif",
+          "size": 2790982,
+          "checksum": "md5:1d4832963d63602efaa6cf58909aa351",
+          "links": {
+            "self": "https://zenodo.org/api/records/15042320/files/Randomforest_stack_epsg32634_extent_kmeansclass10_Delta CH4 flux.tif/content"
+          }
+        },
+        {
+          "id": "4881e3ed-951a-43d7-8c51-1e9a9fbfe13d",
+          "key": "CH4diff.tif",
+          "size": 1576466,
+          "checksum": "md5:1af7675c13f71acfdb32801ed5adaeb8",
+          "links": {
+            "self": "https://zenodo.org/api/records/15042320/files/CH4diff.tif/content"
+          }
+        },
+        {
+          "id": "14390b17-a30f-4a3e-8508-4af6cc649a8a",
+          "key": "Modeled CH4.tif",
+          "size": 3148637,
+          "checksum": "md5:a97ae8afd55b371d093c7b07137bde02",
+          "links": {
+            "self": "https://zenodo.org/api/records/15042320/files/Modeled CH4.tif/content"
+          }
+        },
+        {
+          "id": "6d280883-5ce2-4b55-a9de-632379c955f0",
+          "key": "Randomforest_stack_epsg32634_extent_kmeansclass10_CH4 oxid.tif",
+          "size": 2790982,
+          "checksum": "md5:ab946f6d468ab62ce480a05275cffd5a",
+          "links": {
+            "self": "https://zenodo.org/api/records/15042320/files/Randomforest_stack_epsg32634_extent_kmeansclass10_CH4 oxid.tif/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "134353"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-17T21:40:49.324163+00:00",
+      "modified": "2025-03-17T21:40:50.161322+00:00",
+      "id": 15017908,
+      "conceptrecid": "11478467",
+      "doi": "10.5281/zenodo.15017908",
+      "conceptdoi": "10.5281/zenodo.11478467",
+      "doi_url": "https://doi.org/10.5281/zenodo.15017908",
+      "metadata": {
+        "title": "Polyadenylation landscape of in vivo long-term potentiation in the rat brain",
+        "doi": "10.5281/zenodo.15017908",
+        "publication_date": "2025-03-17",
+        "description": "<h3><strong>This repository contains data published along our corresponding manuscript and additional data resources generated/used throughout this work.&nbsp;<br>______________________________________________________________________________</strong></h3>\n<h2><strong>Source data accompanying the manuscript:<br></strong></h2>\n<p><strong>Supplementary Table 1. Key resource table. (A)&nbsp;</strong>Characteristics of analyzed material (e.g. sample identifiers, number of animals used, reads produced, accession numbers). <strong>(B)</strong> Key resources (antibodies, reagents, software).<strong><br><br>Supplementary Table 2. Summary of dentate gyri DRS data per gene. (A)</strong> Differential expression and differential adenylation data for 10 min timepoint. <strong>(B)</strong> Differential expression and differential adenylation data for 60 min timepoint. <strong>(C)</strong> GO-terms for genes with significantly elongated poly(A) tails in 10 min timepoint. <strong>(D)</strong> GO-terms for genes with significantly elongated poly(A) tails in 60 min timepoint. <strong>(E)</strong> GO-terms for upregulated genes in 10 min timepoint. <strong>(F)</strong> GO-terms for upregulated genes in 60 min timepoint. <strong>(G)</strong> GO-terms for upregulated genes with CPEB-binding motifs in 10 min timepoint. <strong>(H)</strong> GO-terms for upregulated genes with CPEB-binding motifs in 60 min timepoint.</p>\n<p><strong>Supplementary Table 3. Summary of dentate gyri cDNA data per gene. (A)</strong> Differential expression and differential adenylation data for 10 min timepoint. <strong>(B)</strong> Differential expression and differential adenylation data for 60 min timepoint. <strong>(C)</strong> GO-terms for genes with significantly elongated poly(A) tails in 10 min timepoint. <strong>(D)</strong> GO-terms for genes with significantly elongated poly(A) tails in 60 min timepoint. <strong>(E)</strong> GO-terms for upregulated genes in 10 min timepoint. <strong>(F)</strong> GO-terms for upregulated genes in 60 min timepoint. <strong>(G)</strong> GO-terms for upregulated genes with CPEB-binding motifs in 10 min timepoint. <strong>(H)</strong> GO-terms for upregulated genes with CPEB-binding motifs in 60 min timepoint.</p>\n<p><strong>Supplementary Table 4.</strong> <strong>High-confidence PASs.</strong> <strong>(A)</strong> PASs predicted for datasets obtained 10 min after LTP induction by TAPAS. <strong>(B)</strong> High confidence poly(A) clusters predicted by LAPA for datasets obtained 10 min after LTP induction. <strong>(C)</strong> PASs predicted for datasets obtained 60 min after LTP induction. <strong>(D)</strong> High confidence poly(A) clusters predicted by LAPA for datasets obtained 60 min after LTP induction.</p>\n<p><strong>Supplementary Table 5.</strong> <strong>Nonadenosine profiling upon LTP induction. (A)</strong> Summary of Ninetails pipeline for dentate gyrus. <strong>(B)</strong> List of genes containing semi-templated poly(A) tails with their adjacent nucleotide contexts.</p>\n<p><strong>Supplementary Table 6. Summary of synaptoneurosomal DRS/cDNA data per gene.</strong> <strong>(A)</strong> Differential expression and differential adenylation data for unfractionated synaptoneurosomes DRS sequencing. (B) <strong>&nbsp;</strong>Summary of Ninetails pipeline for unfractionated synaptoneurosomes DRS sequencing. (C) Differential expression and differential adenylation data for monoribosome-bound mRNA synaptoneurosomes cDNA sequencing. (D) Differential expression and differential adenylation data for polyribosome-bound mRNA synaptoneurosomes cDNA sequencing. (E) Differential expression and differential adenylation data for unfractionated synaptoneurosomes cDNA sequencing.<br><br><strong>Supplementary Information</strong> - supplementary figures and captions.<br><br><strong>______________________________________________________________________________</strong></p>\n<h2><strong>Additional data resources:</strong></h2>\n<p><strong>CPEB1_motif.meme </strong>- CPE1 motif sequence represented as position-dependent letter-probability matrice required by FIMO to make predictions.<br><strong><br>CPEB2_4_motif.meme</strong> - CPE2,4 motif sequence represented as position-dependent letter-probability matrice required by FIMO to make predictions.<strong><br></strong></p>\n<p><strong>mRatBN7.2_TAPAS_ref_flat.txt</strong> - mRatBN7.2 reference annotation in format required by TAPAS<br><br><strong>mRatBN7.2_LAPA.gtf </strong>- mRatBN7.2 reference annotation in format required by LAPA</p>\n<p><strong>FIMO_output.zip</strong> - compressed folder with motif predictions provided by FIMO software.<strong><br><br>LAPA_output_dentate_gyrus.zip </strong>- compressed folder with poly(A) clusters predicted by LAPA software. Each timepoint is represented by separate output.&nbsp;<br><strong><br>TAPAS_output_dentate_gyrus.zip </strong>- compressed folder with raw outputs produced by TAPAS software. Each timepoint is represented by separate output.&nbsp;<strong><br><br>Ninetails_output_dentate_gyrus.zip </strong>- compressed folder with raw outputs produced by Ninetails software for samples from dentate gyrus. Subfolders are named according to the sample identifiers provided in Supplementary Table 1. For each sequencing run, 2 tsv files are produced: read classification and nonadenosine residue classification.<br><strong><br>Ninetails_output_synaptoneurosomes.zip </strong>- compressed folder with raw outputs produced by Ninetails software for samples from synaptoneurosomes. Subfolders are named according to the sample identifiers provided in Supplementary Table 1. For each sequencing run, 2 tsv files are produced: read classification and nonadenosine residue classification.<strong><br><br>PolyA_clusters_high_confident.bed </strong>-&nbsp;High-confidence poly(A) clusters annotation in bed format.<strong><br></strong></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Gumi\u0144ska, Natalia",
+            "affiliation": "International Institute of Molecular and Cell Biology",
+            "orcid": "0000-0002-4599-2897"
+          },
+          {
+            "name": "Pauzin, Francois P.",
+            "affiliation": "Department of Biomedicine, University of Bergen"
+          },
+          {
+            "name": "Ku\u017aniewska, Bo\u017cena",
+            "affiliation": "Faculty of Biology, University of Warsaw"
+          },
+          {
+            "name": "Mi\u0142ek, Jacek",
+            "affiliation": "Faculty of Biology, University of Warsaw"
+          },
+          {
+            "name": "Wardaszka, Patrycja",
+            "affiliation": "Faculty of Biology, University of Warsaw"
+          },
+          {
+            "name": "Krawczyk, Pawe\u0142 S.",
+            "affiliation": "International Institute of Molecular and Cell Biology"
+          },
+          {
+            "name": "Mroczek, Seweryn",
+            "affiliation": "International Institute of Molecular and Cell Biology"
+          },
+          {
+            "name": "Jele\u0144, Sebastian",
+            "affiliation": "International Institute of Molecular and Cell Biology"
+          },
+          {
+            "name": "Pagenhart, Patrick U.",
+            "affiliation": "Department of Biomedicine, University of Bergen"
+          },
+          {
+            "name": "Bramham, Clive R.",
+            "affiliation": "Department of Biomedicine, University of Bergen"
+          },
+          {
+            "name": "Dziembowski, Andrzej",
+            "affiliation": "International Institute of Molecular and Cell Biology"
+          },
+          {
+            "name": "Dziembowska, Magdalena",
+            "affiliation": "Faculty of Biology, University of Warsaw"
+          }
+        ],
+        "keywords": [
+          "LTP",
+          "rattus norvegicus",
+          "rat",
+          "non-adenosine",
+          "synaptoneurosomes"
+        ],
+        "language": "eng",
+        "custom": {
+          "code:codeRepository": "https://github.com/LRB-IIMCB/ninetails",
+          "code:programmingLanguage": [
+            {
+              "id": "r",
+              "title": {
+                "en": "R"
+              }
+            },
+            {
+              "id": "python",
+              "title": {
+                "en": "Python"
+              }
+            }
+          ],
+          "code:developmentStatus": {
+            "id": "active",
+            "title": {
+              "en": "Active"
+            }
+          }
+        },
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 1,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "11478467"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Polyadenylation landscape of in vivo long-term potentiation in the rat brain",
+      "links": {
+        "self": "https://zenodo.org/api/records/15017908",
+        "self_html": "https://zenodo.org/records/15017908",
+        "doi": "https://doi.org/10.5281/zenodo.15017908",
+        "self_doi": "https://doi.org/10.5281/zenodo.15017908",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15017908",
+        "parent": "https://zenodo.org/api/records/11478467",
+        "parent_html": "https://zenodo.org/records/11478467",
+        "parent_doi": "https://doi.org/10.5281/zenodo.11478467",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.11478467",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15017908/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15017908/sequence/default",
+        "files": "https://zenodo.org/api/records/15017908/files",
+        "media_files": "https://zenodo.org/api/records/15017908/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15017908:Supplementary_Information.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15017908:Supplementary_Information.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15017908:Supplementary_Information.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15017908:Supplementary_Information.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15017908:Supplementary_Information.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15017908:Supplementary_Information.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15017908/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15017908/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15017908/versions/latest",
+        "latest_html": "https://zenodo.org/records/15017908/latest",
+        "versions": "https://zenodo.org/api/records/15017908/versions",
+        "draft": "https://zenodo.org/api/records/15017908/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15017908/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15017908/access/links",
+        "access_grants": "https://zenodo.org/api/records/15017908/access/grants",
+        "access_users": "https://zenodo.org/api/records/15017908/access/users",
+        "access_request": "https://zenodo.org/api/records/15017908/access/request",
+        "access": "https://zenodo.org/api/records/15017908/access",
+        "communities": "https://zenodo.org/api/records/15017908/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15017908/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15017908/requests"
+      },
+      "updated": "2025-03-17T21:40:50.161322+00:00",
+      "recid": "15017908",
+      "revision": 4,
+      "files": [
+        {
+          "id": "c357b804-3ed1-4d81-bfa0-5ac0270fb71f",
+          "key": "Supplementary_Table_6.xlsx",
+          "size": 8648705,
+          "checksum": "md5:7b038086b0c56d803608521a67684cc2",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017908/files/Supplementary_Table_6.xlsx/content"
+          }
+        },
+        {
+          "id": "6d123b00-8918-4aae-9f8f-476f05197c05",
+          "key": "Supplementary_Table_4.xlsx",
+          "size": 14714317,
+          "checksum": "md5:36530d592bb59e9989b19ab0c58ea715",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017908/files/Supplementary_Table_4.xlsx/content"
+          }
+        },
+        {
+          "id": "b83c4695-1e55-491e-a546-fe27312e39e0",
+          "key": "Supplementary_Table_3.xlsx",
+          "size": 8367890,
+          "checksum": "md5:4ccd819d842848f12cab1d4a05c7b069",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017908/files/Supplementary_Table_3.xlsx/content"
+          }
+        },
+        {
+          "id": "551a6154-3b87-47b9-80fe-a0767b9e07f1",
+          "key": "Supplementary_Table_5.xlsx",
+          "size": 5484270,
+          "checksum": "md5:977579009669ecbd044a02e3b0a6c31c",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017908/files/Supplementary_Table_5.xlsx/content"
+          }
+        },
+        {
+          "id": "7df1d06e-0fe5-40b4-ab1c-05e6784f65e0",
+          "key": "Supplementary_Table_1.xlsx",
+          "size": 21117,
+          "checksum": "md5:6c0c3240acfce8418adb1fecb3eda870",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017908/files/Supplementary_Table_1.xlsx/content"
+          }
+        },
+        {
+          "id": "7308315e-895c-46d0-8b39-c1875d123c8f",
+          "key": "Supplementary_Table_2.xlsx",
+          "size": 5354215,
+          "checksum": "md5:c9241361ea22dd0a6aa73326d224b96e",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017908/files/Supplementary_Table_2.xlsx/content"
+          }
+        },
+        {
+          "id": "5055aa2f-ba71-43db-989b-bbff2df5ed3e",
+          "key": "FIMO_output.zip",
+          "size": 114040,
+          "checksum": "md5:c4640324ea40d891364554b0b0623ec0",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017908/files/FIMO_output.zip/content"
+          }
+        },
+        {
+          "id": "31cfffc2-db46-40d8-b3dc-c76148103d0e",
+          "key": "Ninetails_output_dentate_gyrus.zip",
+          "size": 234508938,
+          "checksum": "md5:3e96864f7d79da31ea52aa8013ac4370",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017908/files/Ninetails_output_dentate_gyrus.zip/content"
+          }
+        },
+        {
+          "id": "9a7eb003-8772-487e-90d1-aa93ae68c2e9",
+          "key": "TAPAS_output_dentate_gyrus.zip",
+          "size": 2024435,
+          "checksum": "md5:7a1d73e7f5ee226e0cfac25519072e6b",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017908/files/TAPAS_output_dentate_gyrus.zip/content"
+          }
+        },
+        {
+          "id": "041a4356-4970-4097-9fad-9d04f6044fb3",
+          "key": "mRatBN7.2_TAPAS_ref_flat.txt",
+          "size": 32655585,
+          "checksum": "md5:0b1a172e52af9d144fdaafe1f7489d81",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017908/files/mRatBN7.2_TAPAS_ref_flat.txt/content"
+          }
+        },
+        {
+          "id": "def6c6b9-cc60-4fce-a1c3-a734cef7b025",
+          "key": "LAPA_output_dentate_gyrus.zip",
+          "size": 5383728,
+          "checksum": "md5:121da8f7d31b7ecf83cb2e1fa61c0845",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017908/files/LAPA_output_dentate_gyrus.zip/content"
+          }
+        },
+        {
+          "id": "4dcb87ca-0181-4262-b5c8-4c004a613fb7",
+          "key": "mRatBN7.2_LAPA.gtf",
+          "size": 746025968,
+          "checksum": "md5:414608e45462be5cc703206cd400300e",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017908/files/mRatBN7.2_LAPA.gtf/content"
+          }
+        },
+        {
+          "id": "977cfdc5-2798-4da4-b794-48f33118ddab",
+          "key": "Ninetails_output_synaptoneurosomes.zip",
+          "size": 104853529,
+          "checksum": "md5:ae18303ac3745ee2d6d8d67502e8d84d",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017908/files/Ninetails_output_synaptoneurosomes.zip/content"
+          }
+        },
+        {
+          "id": "bc7829be-95cb-4837-8a95-823d574341f3",
+          "key": "PolyA_clusters_high_confident.bed",
+          "size": 2756920,
+          "checksum": "md5:b52aa6b2ff3c7bf9405edf33bc8f9d67",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017908/files/PolyA_clusters_high_confident.bed/content"
+          }
+        },
+        {
+          "id": "430a7e8b-d466-452f-9509-c4739acd34d0",
+          "key": "Supplementary_Information.pdf",
+          "size": 5377995,
+          "checksum": "md5:02afe6da680a1f4226ab3326d8bb274c",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017908/files/Supplementary_Information.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1120076"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 72,
+        "unique_downloads": 71,
+        "views": 40,
+        "unique_views": 36,
+        "version_downloads": 2,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 2
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-17T21:27:30.977579+00:00",
+      "modified": "2025-03-17T21:27:31.195149+00:00",
+      "id": 15020368,
+      "conceptrecid": "15020367",
+      "doi": "10.5281/zenodo.15020368",
+      "conceptdoi": "10.5281/zenodo.15020367",
+      "doi_url": "https://doi.org/10.5281/zenodo.15020368",
+      "metadata": {
+        "title": "Supporting material for \"Enhancing debris flow warning via machine learning feature reduction and model selection\"",
+        "doi": "10.5281/zenodo.15020368",
+        "publication_date": "2025-03-13",
+        "description": "<p><strong>Supporting material list:</strong></p>\n<p>0, Features that calculate based on Provost et al 2017, Chmiel et al. 2021, and Zhou et al 2024;&nbsp;</p>\n<p>1, Manually labeld debris flow start and end time;</p>\n<p>2, Source code for the machine learning model that used in our work;</p>\n<p>3, Trained model that descripted in our work;</p>\n<p>&nbsp;</p>\n<p>Note: Please check our GitHub codebase for the latest changes.<br>https://github.com/Qi-Zhou-Geo/Flow-Alert.git</p>\n<p>&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Zhou, Qi",
+            "affiliation": "GFZ Helmholtz Centre for Geosciences",
+            "orcid": "0000-0002-8610-8527"
+          }
+        ],
+        "dates": [
+          {
+            "type": "created"
+          }
+        ],
+        "version": "v1.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/Qi-Zhou-Geo/Flow-Alert.git"
+        },
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "journal": {
+          "title": "Enhancing debris flow warning via machine learning feature reduction and model selection"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "10.5281/zenodo.15020368"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15020367"
+              }
+            }
+          ]
+        },
+        "notes": "<p>Provost, Floriane, Cl&eacute;ment Hibert, and J\u2010P. Malet. \"Automatic classification of endogenous landslide seismicity using the Random Forest supervised classifier.\"&nbsp;<em>Geophysical Research Letters</em> 44, no. 1 (2017): 113-120.</p>\n<p>Chmiel, Ma\u0142gorzata, Fabian Walter, Michaela Wenner, Zhen Zhang, Brian W. McArdell, and Clement Hibert. \"Machine learning improves debris flow warning.\" <em>Geophysical Research Letters</em> 48, no. 3 (2021): e2020GL090874.</p>\n<p>Zhou, Qi, Hui Tang, Jens M. Turowski, Jean Braun, Michael Dietze, Fabian Walter, Ci\u2010Jian Yang, and Sophie Lagarde. \"Benford's law as debris flow detector in seismic signals.\"&nbsp;<em>Journal of Geophysical Research: Earth Surface</em> 129, no. 9 (2024): e2024JF007691.</p>"
+      },
+      "title": "Supporting material for \"Enhancing debris flow warning via machine learning feature reduction and model selection\"",
+      "links": {
+        "self": "https://zenodo.org/api/records/15020368",
+        "self_html": "https://zenodo.org/records/15020368",
+        "doi": "https://doi.org/10.5281/zenodo.15020368",
+        "self_doi": "https://doi.org/10.5281/zenodo.15020368",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15020368",
+        "parent": "https://zenodo.org/api/records/15020367",
+        "parent_html": "https://zenodo.org/records/15020367",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15020367",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15020367",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15020368/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15020368/sequence/default",
+        "files": "https://zenodo.org/api/records/15020368/files",
+        "media_files": "https://zenodo.org/api/records/15020368/media-files",
+        "archive": "https://zenodo.org/api/records/15020368/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15020368/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15020368/versions/latest",
+        "latest_html": "https://zenodo.org/records/15020368/latest",
+        "versions": "https://zenodo.org/api/records/15020368/versions",
+        "draft": "https://zenodo.org/api/records/15020368/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15020368/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15020368/access/links",
+        "access_grants": "https://zenodo.org/api/records/15020368/access/grants",
+        "access_users": "https://zenodo.org/api/records/15020368/access/users",
+        "access_request": "https://zenodo.org/api/records/15020368/access/request",
+        "access": "https://zenodo.org/api/records/15020368/access",
+        "communities": "https://zenodo.org/api/records/15020368/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15020368/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15020368/requests"
+      },
+      "updated": "2025-03-17T21:27:31.195149+00:00",
+      "recid": "15020368",
+      "revision": 4,
+      "files": [
+        {
+          "id": "e7620fb8-63b9-4c38-b864-04a244780dd1",
+          "key": "0seismic_feature.zip",
+          "size": 765580795,
+          "checksum": "md5:44558bc7f206f203e36c43bb6030be99",
+          "links": {
+            "self": "https://zenodo.org/api/records/15020368/files/0seismic_feature.zip/content"
+          }
+        },
+        {
+          "id": "d7646e13-df08-4fc1-855b-02e5124a6be1",
+          "key": "1manually_labeled_DF.zip",
+          "size": 5279,
+          "checksum": "md5:4d9f539a3ed78b0a86bdde02059b6e1a",
+          "links": {
+            "self": "https://zenodo.org/api/records/15020368/files/1manually_labeled_DF.zip/content"
+          }
+        },
+        {
+          "id": "0ab6fe3f-fe84-42a0-b674-b0290ab341fb",
+          "key": "3trained_model.zip",
+          "size": 1838847741,
+          "checksum": "md5:70414ce1783e0daea986b2492343370c",
+          "links": {
+            "self": "https://zenodo.org/api/records/15020368/files/3trained_model.zip/content"
+          }
+        },
+        {
+          "id": "d642a755-b4a6-420c-a54d-7f1bbc76cad0",
+          "key": "2functions.zip",
+          "size": 63986,
+          "checksum": "md5:6831a6d1f9928b0186658f2d41a917d8",
+          "links": {
+            "self": "https://zenodo.org/api/records/15020368/files/2functions.zip/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1062848"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 2,
+        "unique_downloads": 2,
+        "views": 3,
+        "unique_views": 2,
+        "version_downloads": 2,
+        "version_unique_downloads": 2,
+        "version_unique_views": 2,
+        "version_views": 3
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-17T20:15:55.362696+00:00",
+      "modified": "2025-03-17T20:15:55.650509+00:00",
+      "id": 15042069,
+      "conceptrecid": "15042068",
+      "doi": "10.5281/zenodo.15042069",
+      "conceptdoi": "10.5281/zenodo.15042068",
+      "doi_url": "https://doi.org/10.5281/zenodo.15042069",
+      "metadata": {
+        "title": "A behavioral setup for capturing fine grained coordinated movements of zebrafish larvae",
+        "doi": "10.5281/zenodo.15042069",
+        "publication_date": "2025-03-17",
+        "description": "<p>Animals use their whole body to navigate their environment and solve tasks. Identification of common dynamics of body parts using quantitative methods is key to study underlying motor system organization. Zebrafish (Danio rerio) need to coordinate tail and pectoral fin movements and can serve as a model organism for the study of locomotion generation. Behavioral tracking of larval zebrafish has usually restricted itself either to track only the position and tail movements of freely swimming zebrafish larvae, or to track fine movements of body parts in immobilized fish. This precludes studies that investigate coordination or postural control.&nbsp;</p>\n<p>To study full body coordination, we built a setup that allows us to track freely swimming larval zebrafish, while acquiring high resolution images of their whole body. This enables tracking of both tail and fins using DeepLabCut with additional segmentation and classification of the tail using the Megabouts algorithm. First, we describe stereotypical fin dynamics at bout onset which show differences between modes of movements as forward swims and turns. Thereafter we show that fin dynamics can be embedded on a low dimensional manifold with axes corresponding to amplitude, vigor and frequency. Based on this embedding, fin dynamics show a degree of stereotypy with associated tail classification. Lastly, we show that a model that captures the latent dynamics underlying tail movement generation, developed using ILQR-VAE, is able to predict fin dynamics, hinting towards a coupled control mechanism. Overall, this represents an important step towards building a comprehensive dictionary of larval zebrafish locomotion that will enable better study of motion generation and coordination.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Portugues, Ruben",
+            "affiliation": "Technical University of Munich",
+            "orcid": "0000-0002-1495-9314"
+          },
+          {
+            "name": "Koetter, Katharina",
+            "affiliation": "Technical University of Munich",
+            "orcid": "0000-0003-2592-7745"
+          }
+        ],
+        "contributors": [
+          {
+            "name": "Orger, Michael",
+            "affiliation": null,
+            "type": "Supervisor",
+            "orcid": "0000-0002-9763-8902"
+          },
+          {
+            "name": "Soares Mullen, Thomas",
+            "affiliation": null,
+            "type": "Researcher",
+            "orcid": "0000-0002-3695-4477"
+          },
+          {
+            "name": "Farouj, Younes",
+            "affiliation": null,
+            "type": "Researcher",
+            "orcid": "0000-0003-3727-7524"
+          },
+          {
+            "name": "Prat, Ot",
+            "affiliation": null,
+            "type": "Researcher",
+            "orcid": "0000-0001-7925-5441"
+          },
+          {
+            "name": "van Beelen, Nathan",
+            "affiliation": null,
+            "type": "Researcher",
+            "orcid": "0009-0003-4635-4816"
+          }
+        ],
+        "dates": [
+          {
+            "type": "created",
+            "description": "Preprint Upload"
+          }
+        ],
+        "language": "eng",
+        "custom": {
+          "code:codeRepository": "https://github.com/kkoetter/Koetter-et-al-fin",
+          "code:programmingLanguage": [
+            {
+              "id": "python",
+              "title": {
+                "en": "Python"
+              }
+            }
+          ],
+          "code:developmentStatus": {
+            "id": "active",
+            "title": {
+              "en": "Active"
+            }
+          }
+        },
+        "resource_type": {
+          "title": "Preprint",
+          "type": "publication",
+          "subtype": "preprint"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15042068"
+              }
+            }
+          ]
+        }
+      },
+      "title": "A behavioral setup for capturing fine grained coordinated movements of zebrafish larvae",
+      "links": {
+        "self": "https://zenodo.org/api/records/15042069",
+        "self_html": "https://zenodo.org/records/15042069",
+        "doi": "https://doi.org/10.5281/zenodo.15042069",
+        "self_doi": "https://doi.org/10.5281/zenodo.15042069",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042069",
+        "parent": "https://zenodo.org/api/records/15042068",
+        "parent_html": "https://zenodo.org/records/15042068",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15042068",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042068",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042069/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042069/sequence/default",
+        "files": "https://zenodo.org/api/records/15042069/files",
+        "media_files": "https://zenodo.org/api/records/15042069/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15042069:Fins_and_Tail.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15042069:Fins_and_Tail.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15042069:Fins_and_Tail.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15042069:Fins_and_Tail.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15042069:Fins_and_Tail.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15042069:Fins_and_Tail.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15042069/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15042069/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15042069/versions/latest",
+        "latest_html": "https://zenodo.org/records/15042069/latest",
+        "versions": "https://zenodo.org/api/records/15042069/versions",
+        "draft": "https://zenodo.org/api/records/15042069/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15042069/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15042069/access/links",
+        "access_grants": "https://zenodo.org/api/records/15042069/access/grants",
+        "access_users": "https://zenodo.org/api/records/15042069/access/users",
+        "access_request": "https://zenodo.org/api/records/15042069/access/request",
+        "access": "https://zenodo.org/api/records/15042069/access",
+        "communities": "https://zenodo.org/api/records/15042069/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15042069/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15042069/requests"
+      },
+      "updated": "2025-03-17T20:15:55.650509+00:00",
+      "recid": "15042069",
+      "revision": 4,
+      "files": [
+        {
+          "id": "91c0d172-0c3e-43f6-9363-90ec4795f627",
+          "key": "Fins_and_Tail.pdf",
+          "size": 16011220,
+          "checksum": "md5:ce423a80edafe1f8ce0907b04cdba4ec",
+          "links": {
+            "self": "https://zenodo.org/api/records/15042069/files/Fins_and_Tail.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1283321"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 8,
+        "unique_downloads": 4,
+        "views": 4,
+        "unique_views": 4,
+        "version_downloads": 8,
+        "version_unique_downloads": 4,
+        "version_unique_views": 4,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-17T20:12:57.290449+00:00",
+      "modified": "2025-03-17T20:18:54.075228+00:00",
+      "id": 15042088,
+      "conceptrecid": "15042087",
+      "doi": "10.4314/met.v31i3.1",
+      "doi_url": "https://doi.org/10.4314/met.v31i3.1",
+      "metadata": {
+        "title": "An overview of Lepidoptera-host-parasitoid associations for southern Africa, including an illustrated report on 2 370 African Lepidoptera-host and 119 parasitoid-Lepidoptera associations",
+        "doi": "10.4314/met.v31i3.1",
+        "publication_date": "2020-11-03",
+        "description": "Staude, Hermann S., Maclean, Marion, Mecenero, Silvia, Pretorius, Rudolph J., Oberprieler, Rolf G., Van Noort, Simon, Sharp, Allison, Sharp, Ian, Balona, Julio, Bradley, Suncana, Brink, Magriet, Morton, Andrew S., Botha, Magda J., Collins, Steve C., Grobler, Quartus, Edge, David A., Williams, Mark C., Sihvonen, Pasi (2020): An overview of Lepidoptera-host-parasitoid associations for southern Africa, including an illustrated report on 2 370 African Lepidoptera-host and 119 parasitoid-Lepidoptera associations. Metamorphosis 31 (3): 1-394, DOI: 10.4314/met.v31i3.1, URL: https://doi.org/10.4314/met.v31i3.1",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Staude, Hermann S.",
+            "affiliation": null
+          },
+          {
+            "name": "Maclean, Marion",
+            "affiliation": null
+          },
+          {
+            "name": "Mecenero, Silvia",
+            "affiliation": null
+          },
+          {
+            "name": "Pretorius, Rudolph J.",
+            "affiliation": null
+          },
+          {
+            "name": "Oberprieler, Rolf G.",
+            "affiliation": null
+          },
+          {
+            "name": "Van Noort, Simon",
+            "affiliation": null
+          },
+          {
+            "name": "Sharp, Allison",
+            "affiliation": null
+          },
+          {
+            "name": "Sharp, Ian",
+            "affiliation": null
+          },
+          {
+            "name": "Balona, Julio",
+            "affiliation": null
+          },
+          {
+            "name": "Bradley, Suncana",
+            "affiliation": null
+          },
+          {
+            "name": "Brink, Magriet",
+            "affiliation": null
+          },
+          {
+            "name": "Morton, Andrew S.",
+            "affiliation": null
+          },
+          {
+            "name": "Botha, Magda J.",
+            "affiliation": null
+          },
+          {
+            "name": "Collins, Steve C.",
+            "affiliation": null
+          },
+          {
+            "name": "Grobler, Quartus",
+            "affiliation": null
+          },
+          {
+            "name": "Edge, David A.",
+            "affiliation": null
+          },
+          {
+            "name": "Williams, Mark C.",
+            "affiliation": null
+          },
+          {
+            "name": "Sihvonen, Pasi",
+            "affiliation": null
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5281/zenodo.15042090",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.15042092",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.15042094",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.15042096",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.15042098",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1111/nph.15061",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          }
+        ],
+        "references": [
+          "BARRACLOUGH, D.A. & LONDT, J.G.H. 2008. Order Diptera, pp. 283-321. In: Scholtz, C.H. & Holm, E. (Eds) Insects of Southern Africa. 2nd ed. Protea, South Africa.",
+          "BURLANDO, J. 1990. The fractal dimension of taxonomic systems. Journal of Theoretical Biology 146(2): 99-114.",
+          "CONGDON, T.C.E., BAMPTON, I. & COLLINS, S.C. 2017. An illustrated report on the larvae, adults and host associations of 424 African Lepidoptera taxa belonging to the Papilionoidea. A second report of the Caterpillar Rearing Group of LepSoc Africa. Metamorphosis 28: 57-150.",
+          "DIAL, K.P. & MARZLUFF, J.M. 1989. Nonrandom diversification within taxonomic assemblages. Systematic Zoology 38: 26-37.",
+          "EDGE, D.A. & VAN HAMBURG, H. 2009. Larval feeding behaviour and myrmecophily of the Brenton Blue, Orachrysops niobe (Trimen) (Lepidoptera: Lycaenidae) Journal of Research on the Lepidoptera 42: 21-33.",
+          "GODFRAY, H.C.J. & GODFRAY, H.C.J. 1994. Parasitoids: behavioral and evolutionary ecology (Vol. 67). Princeton University Press.",
+          "KAUFMAN, P.B., DAYANANDAN, P., FRANKLIN, C. I. & TAKEOKA, Y. 1985. Structure and function of silica bodies in the epidermal system of grass shoots. Annals of Botany 55(4): 487-507.",
+          "KROON, D.M. 1999. Lepidoptera of Southern Africa, Host-plants & Other Associations - A Catalogue. The Lepidopterists' Society of Africa, 159 pp.",
+          "KRUGER, M. 2020. Checklist of the Lepidoptera of southern Africa, Metamorphosis 31(2): 1-201.",
+          "LIVSHULTZ, T., KALTENEGGER, E., STRAUB, S.C.K., WEITEMIER, K., HIRSCH, E., KOVAL, K., MEMA, L. & LISTON, A. 2018. Evolution of pyrrolizidine alkaloid biosynthesis in Apocynaceae: revisiting the defence de-escalation hypothesis. New Phytologist 218: 762-773. doi: 10.1111/nph.15061",
+          "MILLS, N. 2009. Parasitoids, pp. 748-750. In: Resh, V.H. & Carde, R.T. (Eds) Encyclopaedia of Insects. 2nd ed. Elsevier, U.S.A.",
+          "MWINE, J.T. & VAN DAMME, P. 2011. Why do Euphorbiaceae tick as medicinal plants? A review of Euphorbiaceae family and its medicinal features. Journal of Medicinal plants Research 5: 652-662.",
+          "NIEUKERKEN et al. 2011. Order Lepidoptera. In: Zhang, Z.-Q. (Ed.) Animal biodiversity: An outline of higher-level classification and survey of taxonomic richness. Zootaxa 3148: 212-221.",
+          "PRICE, P.W. 1975. Reproductive strategies of parasitoids. In: Evolutionary strategies of parasitic insects and mites (pp. 87-111). Springer, Boston, MA.",
+          "PRICE, P.W. 2002. Resource-driven terrestrial interaction webs. Ecological Research 17: 241-247.",
+          "QUICKE, D.L. 2015. The braconid and ichneumonid parasitoid wasps: biology, systematics, evolution and ecology. John Wiley & Sons.",
+          "RICHARDSON, B.J. & OBERPRIELER, R.G. 2007. The diversity of Linnaean communities: a way of detecting invertebrate groups at risk of extinction. Journal of Insect Conservation 11: 287-297.",
+          "RICHARDSON, I.D. (Ed.) 2015. Practical Guide to the Study of Lepidoptera in Africa. 2nd edition. Lepidopterists' Society of Africa. http://www.lepsocafrica.org/?p=publications&s=pg",
+          "SCOTLAND, R.W. & SANDERSON, M.J. 2004. The significance of few versus many in the tree of life. Science 303: 643.",
+          "STAUDE, H.S. & KROON, D.M. 2012. The Great Caterpillar Moth Hunt Challenge. Newsletter of the Lepidopterists' Society of Africa. Downloadable from http://www.lepsoc.org.za/oldsite/index.php?option=c om_acymailing&ctrl=archive&task=view&listid=1- mailing_list&mailid=107-moth-challange",
+          "STAUDE, H.S., MECENERO, S., OBERPRIELER, R., SHARP, A., SHARP, I., WILLIAMS, M.C. & MACLEAN, M. 2016a. An illustrated report on the larvae and adults of 962 African Lepidoptera species. Results of the Caterpillar Rearing Group: a novel, collaborative method of rearing and recording lepidopteran life-histories. Metamorphosis 27: 46-59.",
+          "STAUDE, H.S., MECENERO, S., OBERPRIELER, R., SHARP, A., SHARP, I., WILLIAMS, M.C. & MACLEAN, M. 2016b. Supplementary material to: An illustrated report on the larvae and adults of 962 African Lepidoptera species. Results of the Caterpillar Rearing Group: a novel, collaborative method of rearing and recording lepidopteran life-histories. Metamorphosis 27 Supplement: S1-S330.",
+          "STAUDE, H.S., SIHVONEN, P. & HAUSMANN, A. 2019. A phylogenetic comparison of Afrotropical Geometridae and their host-plants. In: HAUSMANN A. & RAJAEI H. (Eds) Proceedings of the tenth Forum Herbulot 2018. Integrative taxonomy, a multidisciplinary approach to answer complicated taxonomic questions (Stuttgart, Germany, 11-16 June 2018). Spixiana 42: 291-320.",
+          "VILA, M. , ESPINAR, J.L., HEJDA, M., HULME, P.E., JAROS\u02c7I\u00b4K, V., MARON, J.L., PERGL, J, SCHAFFNER, U., SUN, Y. & PYS\u02c7EK, P. 2011. Ecological impacts of invasive alien plants: a metaanalysis of their effects on species, communities and ecosystems. Ecology Letters 14: 702-708.",
+          "VINSON, S.B. 1976. Host selection by insect parasitoids. Annual review of entomology 21(1): 109-133.",
+          "WILLIS, J.C. & UDNY YULE, G. 1922. Some statistics of evolution and geographical distribution in plants and animals and their significance. Nature 109: 177- 179."
+        ],
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "3",
+          "pages": "1-394",
+          "title": "Metamorphosis",
+          "volume": "31"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "urn:lsid:plazi.org:pub:FFE6B200FF9F7D78FFAE2B161931FF99"
+          }
+        ],
+        "license": {
+          "id": "cc-by-nc-nd-4.0"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15042087"
+              }
+            }
+          ]
+        }
+      },
+      "title": "An overview of Lepidoptera-host-parasitoid associations for southern Africa, including an illustrated report on 2 370 African Lepidoptera-host and 119 parasitoid-Lepidoptera associations",
+      "links": {
+        "self": "https://zenodo.org/api/records/15042088",
+        "self_html": "https://zenodo.org/records/15042088",
+        "doi": "https://doi.org/10.4314/met.v31i3.1",
+        "self_doi": "https://doi.org/10.4314/met.v31i3.1",
+        "self_doi_html": "https://zenodo.org/doi/10.4314/met.v31i3.1",
+        "parent": "https://zenodo.org/api/records/15042087",
+        "parent_html": "https://zenodo.org/records/15042087",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042088/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042088/sequence/default",
+        "files": "https://zenodo.org/api/records/15042088/files",
+        "media_files": "https://zenodo.org/api/records/15042088/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15042088:source.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15042088:source.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15042088:source.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15042088:source.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15042088:source.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15042088:source.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15042088/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15042088/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15042088/versions/latest",
+        "latest_html": "https://zenodo.org/records/15042088/latest",
+        "versions": "https://zenodo.org/api/records/15042088/versions",
+        "draft": "https://zenodo.org/api/records/15042088/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15042088/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15042088/access/links",
+        "access_grants": "https://zenodo.org/api/records/15042088/access/grants",
+        "access_users": "https://zenodo.org/api/records/15042088/access/users",
+        "access_request": "https://zenodo.org/api/records/15042088/access/request",
+        "access": "https://zenodo.org/api/records/15042088/access",
+        "communities": "https://zenodo.org/api/records/15042088/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15042088/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15042088/requests"
+      },
+      "updated": "2025-03-17T20:18:54.075228+00:00",
+      "recid": "15042088",
+      "revision": 7,
+      "files": [
+        {
+          "id": "1eec461c-be5c-492a-9bd9-4f72b7b182cd",
+          "key": "source.pdf",
+          "size": 56466956,
+          "checksum": "md5:e8e6b200be9f7d781dae2b161931ce99",
+          "links": {
+            "self": "https://zenodo.org/api/records/15042088/files/source.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-17T19:59:44.520923+00:00",
+      "modified": "2025-03-17T19:59:44.664362+00:00",
+      "id": 15042046,
+      "conceptrecid": "15042045",
+      "doi": "10.5281/zenodo.15042046",
+      "conceptdoi": "10.5281/zenodo.15042045",
+      "doi_url": "https://doi.org/10.5281/zenodo.15042046",
+      "metadata": {
+        "title": "Metabolights MAF files enriched with chemical classification",
+        "doi": "10.5281/zenodo.15042046",
+        "publication_date": "2025-03-17",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Mungall, Christopher",
+            "affiliation": "Lawrence Berkeley National Laboratory",
+            "orcid": "0000-0002-6601-2165"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15042045"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Metabolights MAF files enriched with chemical classification",
+      "links": {
+        "self": "https://zenodo.org/api/records/15042046",
+        "self_html": "https://zenodo.org/records/15042046",
+        "doi": "https://doi.org/10.5281/zenodo.15042046",
+        "self_doi": "https://doi.org/10.5281/zenodo.15042046",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042046",
+        "parent": "https://zenodo.org/api/records/15042045",
+        "parent_html": "https://zenodo.org/records/15042045",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15042045",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042045",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042046/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042046/sequence/default",
+        "files": "https://zenodo.org/api/records/15042046/files",
+        "media_files": "https://zenodo.org/api/records/15042046/media-files",
+        "archive": "https://zenodo.org/api/records/15042046/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15042046/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15042046/versions/latest",
+        "latest_html": "https://zenodo.org/records/15042046/latest",
+        "versions": "https://zenodo.org/api/records/15042046/versions",
+        "draft": "https://zenodo.org/api/records/15042046/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15042046/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15042046/access/links",
+        "access_grants": "https://zenodo.org/api/records/15042046/access/grants",
+        "access_users": "https://zenodo.org/api/records/15042046/access/users",
+        "access_request": "https://zenodo.org/api/records/15042046/access/request",
+        "access": "https://zenodo.org/api/records/15042046/access",
+        "communities": "https://zenodo.org/api/records/15042046/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15042046/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15042046/requests"
+      },
+      "updated": "2025-03-17T19:59:44.664362+00:00",
+      "recid": "15042046",
+      "revision": 4,
+      "files": [
+        {
+          "id": "229ac0f3-6087-42f3-b58f-06871fd5dfea",
+          "key": "metabolights-enriched.tgz",
+          "size": 238096274,
+          "checksum": "md5:5c1df3d72a2209c1632dc993e68822d2",
+          "links": {
+            "self": "https://zenodo.org/api/records/15042046/files/metabolights-enriched.tgz/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "13996"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-17T19:58:10.848759+00:00",
+      "modified": "2025-03-17T21:33:17.632235+00:00",
+      "id": 15042059,
+      "conceptrecid": "15042058",
+      "doi": "10.5281/zenodo.15042059",
+      "conceptdoi": "10.5281/zenodo.15042058",
+      "doi_url": "https://doi.org/10.5281/zenodo.15042059",
+      "metadata": {
+        "title": "Woodsia kungiana Li Bing Zhang, T. N. Lu & X. F. Gao 2019, sp. nov.",
+        "doi": "10.5281/zenodo.15042059",
+        "publication_date": "2019-03-19",
+        "description": "<p><i>Woodsia kungiana</i> Li Bing Zhang, T.N.Lu &amp; X.F.Gao, <i>sp. nov.</i> Fig. 1.</p><p>Type:&mdash; CHINA. Sichuan Province: Kangding County, Sanhe Township, Pengta Village, 30.4420766 N, 102.361078 E, elev. 4080 m, 15 August, 2017. <i>Gao Xin-Fen &amp; Yang Yan THP-KD-4887</i> (holotype CDBI!, isotype CDBI!)</p><p>Diagnosis:&mdash;This new species is most similar to <i>Woodsia cycloloba</i> Handel-Mazzetti (1929: 19) in having creeping rhizomes, stipes blackish purple, lustrous and brittle, and laminae 1-pinnate with conform apex, but the new species has rachises with articulate hairs and linear-filiform scales, adaxial laminar surface and margins with a few articulate hairs, and indusia serrated and cup-like; in contrast, the latter has rachises with articulate hairs but rarely with linear-filiform scales, adaxial laminar surface and margins with dense articulate hairs, and indusia absent.</p><p>Plants 1.5&ndash;6 cm tall. Roots to 13 cm long, 0.25&ndash;0.5 mm in diam. Rhizomes creeping, ca. 0.5 cm wide, scaly; scales often uniformly brown and bicolored with dark central stripe and pale brown margins, glossy, lanceolate, 0.1&ndash;0.5 &times; 1&ndash;2 mm, basally attached, entire to irregularly toothed, tips filiform. Fronds not clustered; stipe continuous (lacking articulation), black-purple, glossy, fragile, brittle, short, the longest 3 cm, ca. 0.4 mm wide, scales on lower part similar to those on rhizome, with sparse articulate hairs, articulate hairs on upper part linear-filiform, 0.1&ndash;0.4 &times; 1.5&ndash;2.5 mm, entire; laminae 1&ndash;pinnate, lanceolate, 1.2&ndash;2.5 &times; 0.7&ndash;1.5 cm, herbaceous, brownish-dull green when dried, not reduced at base, the biggest the lowest or middle, terminal pinna apex conform, both sides of laminae with articulate hairs; rachis with articulate hairs and linear-filiform scales; pinnae often (2&ndash;)4(&ndash;5) pairs, rounded or orbiculate, 0.6&ndash;1.9 &times; 0.4&ndash;1.5 cm, sessile, alternate to sub-opposite, base truncate-cordate, apex rounded or obtuse, margin entire to undulate, rarely slightly crenate; veins onceforked, reaching or almost reaching to margin. Sori orbicular, medial, 4&ndash;9 per pinna; sporangia large, ca. 0.5 mm in diameter, brown, membranous, globose; indusia serrated, cup-like or sometimes sori exindusiate. Spores large ca. 0.09 mm, brown to dark brown.</p><p><b>Etymology:&mdash;</b> In honor of the late Prof. Hsian-Shiu Kung based at the herbarium CDBI, a specialist of pteridophytes and the author of <i>Flora Sichuanica</i> vol. 6 (pteridophytes; Kung 1988). Together with colleagues, he also described <i>Woodsia kangdingensis</i> H. S. Kung, Li Bing Zhang &amp; X. S. Guo (1995: 421). Under his supervision the senior author L.B.Z. obtained his degree of M.Sc. in 1990.</p><p><b>Geographical distribution:&mdash;</b> <i>Woodsia kungiana</i> is currently known from three counties (Baoxing, Dujiangyan, Kangding) in Sichuan, China.</p><p><b>Notes:&mdash;</b> Morphologically, <i>Woodsia kungiana</i> is obviously a member of <i>W.</i> subg. <i>Eriosorus</i> (Ching 1932: 134) Shmakov (2003: 59). This subgenus is characterized by having stipe and rachis castaneous, stipes not articulate (but continuous), stipe scales bicolorous, lamina apex conform, and sori exindusiate or with hairy indusia, and is recognized in a recent classification (Lu <i>et al.,</i> submitted). Phylogenetically <i>W. kungiana</i> was resolved as sister to <i>W. cycloloba</i>. Zhang <i>et al.</i> (2013) described <i>W. cycloloba</i> as &ldquo;indusia absent or composed of ciliate, platelike, small lobes&rdquo;. However, our microscopic examination of three accessions of <i>W. cycloloba</i> showed that the sori of <i>W. cycloloba</i> are exindusiate, consistent with the description in the protologue (Handel-Mazzetti 1929).</p><p><b>Additional material examined:&mdash;</b> CHINA. Sichuan Province: Baoxing (Mupin), Mt. Jiajin, elev. 4050 m, <i>Liang Zhang</i> &amp; <i>J. A. van de Veire</i> 1529 (CDBI!). Sichuan Province: Dujiangyan, <i>Bo Xu et al</i>. 7302 (CDBI!).</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Lu, Ngan Thi",
+            "affiliation": "CAS Key Laboratory of Mountain Ecological Restoration and Bioresource Utilization, Chengdu Institute of Biology, Chinese Academy of Sciences, P. O. Box 416, Chengdu, Sichuan 610041, China & Department of Biology, Vietnam National Museum of Nature, Vietnam Academy of Science and Technology, 18 Hoang Quoc Viet, Hanoi, Vietnam & University of Chinese Academy of Sciences, Beijing 100049, China"
+          },
+          {
+            "name": "Peng, Yu-Lan",
+            "affiliation": "CAS Key Laboratory of Mountain Ecological Restoration and Bioresource Utilization, Chengdu Institute of Biology, Chinese Academy of Sciences, P. O. Box 416, Chengdu, Sichuan 610041, China"
+          },
+          {
+            "name": "Gao, Xin-Fen",
+            "affiliation": "CAS Key Laboratory of Mountain Ecological Restoration and Bioresource Utilization, Chengdu Institute of Biology, Chinese Academy of Sciences, P. O. Box 416, Chengdu, Sichuan 610041, China"
+          },
+          {
+            "name": "Zhang, Li-Bing",
+            "affiliation": "CAS Key Laboratory of Mountain Ecological Restoration and Bioresource Utilization, Chengdu Institute of Biology, Chinese Academy of Sciences, P. O. Box 416, Chengdu, Sichuan 610041, China & Missouri Botanical Garden, 4344 Shaw Blvd., St. Louis, Missouri 63110, U. S. A."
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Plantae",
+          "Tracheophyta",
+          "Polypodiopsida",
+          "Polypodiales",
+          "Woodsiaceae",
+          "Woodsia",
+          "Woodsia kungiana"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.11646/phytotaxa.397.3.5",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "http://zenodo.org/record/13712963",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/1C43427EFFDC9774FFC5FA261C31F900",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://biodiversitypmc.sibils.org/collections/plazi/E07A3A06FFDC9776FF4DFC17184DFBAF",
+            "relation": "isSourceOf",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://www.gbif.org/species/255913393",
+            "relation": "isSourceOf",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://www.checklistbank.org/dataset/308691/taxon/E07A3A06FFDC9776FF4DFC17184DFBAF.taxon",
+            "relation": "isSourceOf",
+            "scheme": "url"
+          },
+          {
+            "identifier": "10.5281/zenodo.13712965",
+            "relation": "cites",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          }
+        ],
+        "locations": [
+          {
+            "place": "Pengta Village",
+            "description": "CHINA. Sichuan Province: Kangding County, Sanhe Township, Pengta Village, 30.4420766 N, 102.361078 E, elev. 4080 m, 15 August, 2017. Gao Xin-Fen & Yang Yan THP-KD-4887 (holotype CDBI!",
+            "lon": 102.36108,
+            "lat": 30.442076
+          }
+        ],
+        "references": [
+          "Handel-Mazzetti, H. R. E. von (1929) Symbolae Sinicae 6: 19.",
+          "Kung, H. - S. (1988) Flora Sichuanica, vol. 6. Science & Technology Press, Chengdu.",
+          "Ching, R. - C. (1932) The Studies of Chinese Ferns VIII. Sinensia 3: 131-156.",
+          "Shmakov, A. I. (2003) Review of the family Woodsiaceae (Diels) Herter of Eurasia. In: Chandra, S. & Srivastava, M. (Eds.) Pteridology in the new millennium. Dordrecht: Kluwer Academic Publishers, pp. 49 - 64. https: // doi. org / 10.1007 / 978 - 94 - 017 - 2811 - 9 _ 5",
+          "Zhang, G. - M., Kato, M. & Shmakov, A. I. (2013) Woodsiaceae. In: Wu, Z. - Y., Raven, P. T. & Hong, D. - Y. (Eds.) Flora of China, vols. 2 - 3 (Pteridophytes). Beijing: Science Press; St. Louis: Missouri Botanical Garden Press, pp. 397 - 404."
+        ],
+        "custom": {
+          "dwc:collectionCode": [
+            "CDBI"
+          ],
+          "dwc:eventDate": [
+            "2017-08-15"
+          ],
+          "dwc:family": [
+            "Woodsiaceae"
+          ],
+          "dwc:genus": [
+            "Woodsia"
+          ],
+          "dwc:kingdom": [
+            "Plantae"
+          ],
+          "dwc:order": [
+            "Polypodiales"
+          ],
+          "dwc:phylum": [
+            "Tracheophyta"
+          ],
+          "dwc:scientificNameAuthorship": [
+            "Li Bing Zhang, T. N. Lu & X. F. Gao"
+          ],
+          "dwc:specificEpithet": [
+            "kungiana"
+          ],
+          "dwc:taxonRank": [
+            "species"
+          ],
+          "dwc:taxonomicStatus": [
+            "sp. nov."
+          ],
+          "dwc:typeStatus": [
+            "holotype",
+            "isotype"
+          ],
+          "dwc:verbatimEventDate": [
+            "2017-08-15"
+          ],
+          "openbiodiv:TaxonomicConceptLabel": [
+            "Woodsia kungiana Lu, Gao & Zhang, 2019"
+          ]
+        },
+        "resource_type": {
+          "title": "Taxonomic treatment",
+          "type": "publication",
+          "subtype": "taxonomictreatment"
+        },
+        "journal": {
+          "issue": "3",
+          "pages": "253-255",
+          "title": "Woodsia kungiana sp. nov. (Woodsiaceae), a new fern from Sichuan, China, pp. 253-256 in Phytotaxa",
+          "volume": "397"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "http://treatment.plazi.org/id/E07A3A06FFDC9776FF4DFC17184DFBAF"
+          }
+        ],
+        "license": {
+          "id": "cc-zero"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15042058"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>Lu, Ngan Thi, Peng, Yu-Lan, Gao, Xin-Fen &amp; Zhang, Li-Bing, 2019, Woodsia kungiana sp. nov. (Woodsiaceae), a new fern from Sichuan, China, pp. 253-256 in Phytotaxa 397 (3)</i> on pages 253-255, DOI: 10.11646/phytotaxa.397.3.5, <a href=\"http://zenodo.org/record/13712963\">http://zenodo.org/record/13712963</a>"
+      },
+      "title": "Woodsia kungiana Li Bing Zhang, T. N. Lu & X. F. Gao 2019, sp. nov.",
+      "links": {
+        "self": "https://zenodo.org/api/records/15042059",
+        "self_html": "https://zenodo.org/records/15042059",
+        "doi": "https://doi.org/10.5281/zenodo.15042059",
+        "self_doi": "https://doi.org/10.5281/zenodo.15042059",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042059",
+        "parent": "https://zenodo.org/api/records/15042058",
+        "parent_html": "https://zenodo.org/records/15042058",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15042058",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042058",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042059/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042059/sequence/default",
+        "files": "https://zenodo.org/api/records/15042059/files",
+        "media_files": "https://zenodo.org/api/records/15042059/media-files",
+        "archive": "https://zenodo.org/api/records/15042059/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15042059/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15042059/versions/latest",
+        "latest_html": "https://zenodo.org/records/15042059/latest",
+        "versions": "https://zenodo.org/api/records/15042059/versions",
+        "draft": "https://zenodo.org/api/records/15042059/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15042059/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15042059/access/links",
+        "access_grants": "https://zenodo.org/api/records/15042059/access/grants",
+        "access_users": "https://zenodo.org/api/records/15042059/access/users",
+        "access_request": "https://zenodo.org/api/records/15042059/access/request",
+        "access": "https://zenodo.org/api/records/15042059/access",
+        "communities": "https://zenodo.org/api/records/15042059/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15042059/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15042059/requests"
+      },
+      "updated": "2025-03-17T21:33:17.632235+00:00",
+      "recid": "15042059",
+      "revision": 11,
+      "files": [
+        {
+          "id": "280ff472-32a8-4298-b343-6233dd6eb13a",
+          "key": "treatment.html",
+          "size": 4379,
+          "checksum": "md5:87f7f58476037b0383a5040c77356984",
+          "links": {
+            "self": "https://zenodo.org/api/records/15042059/files/treatment.html/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-17T19:00:27.567618+00:00",
+      "modified": "2025-03-17T19:08:27.992129+00:00",
+      "id": 15041895,
+      "conceptrecid": "15041894",
+      "doi": "10.4314/met.v31i1.3",
+      "doi_url": "https://doi.org/10.4314/met.v31i1.3",
+      "metadata": {
+        "title": "Further data on the butterfly fauna (Lepidoptera: Papilionoidea) of Mpanga Forest, Uganda, and the role of this forest in biodiversity conservation",
+        "doi": "10.4314/met.v31i1.3",
+        "publication_date": "2020-04-10",
+        "description": "S\u00e1fi\u00e1n, Szabolcs, Pyrcz, D Tomasz W. (2020): Further data on the butterfly fauna (Lepidoptera: Papilionoidea) of Mpanga Forest, Uganda, and the role of this forest in biodiversity conservation. Metamorphosis 31 (1): 7-14, DOI: 10.4314/met.v31i1.3, URL: https://doi.org/10.4314/met.v31i1.3",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "S\u00e1fi\u00e1n, Szabolcs",
+            "affiliation": null
+          },
+          {
+            "name": "Pyrcz, D Tomasz W.",
+            "affiliation": null
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Arthropoda",
+          "Insecta",
+          "Lepidoptera",
+          "Hesperiidae",
+          "Nymphalidae",
+          "Pieridae",
+          "Lycaenidae"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0CAE6E4648B48F96",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0CAE6F2948B68E01",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0CAE6FBD48E68E9D",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0CAE682148B68909",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0CAE68B448D68864",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0CAE69074B1C8B6A",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0CAE6A154B3E8BE7",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0CAE6A9A48B68A52",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0CAE6B6E4D078DDA",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0F636CE64DF18C35",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0F636D494DF18CA0",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0F636DDC4DF18F13",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0F636EAF4C0E8F8F",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0F636F324D1F8EBF",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0F636FC24A8489E8",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0F6368934AE98839",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0F6369454AE9888B",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0F636A364AFC8B07",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0F636A9A4ADC8A52",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDE0F636B6D4DD68ACE",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C72FFDD0CAE6BF148B68D9F",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0CAE6D2348B68C0A",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0CAE6DB648B68F66",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0CAE6E1948B68FD1",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0CAE6EEC4B858E6D",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0CAE6F1048B68ED9",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0CAE6FE448B68934",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0CAE687748B689A7",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0CAE68DA48B68812",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0CAE69AD4B39888D",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0CAE6A3048498BF8",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0CAE6A8448BE8A54",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0CAE6B174B248AC7",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0CAE6BFA4CC78D9F",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0F636D234DF18C0A",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0F636DB64DCF8F66",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0F636E194D288FD0",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0F636EED4DF18E4C",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0F636F704DF48911",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0F6368AC4C0989AD",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0F6368D04C1D8818",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0F6369A34AFC8B6A",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0F636A154C718BC5",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDD0F636AF94DB88AF6",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C71FFDC0F636B8949918DDA",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0CAE6CE549908C14",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0CAE6D9E486B8F5E",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0CAE6E61498C8FEB",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0CAE6E9648588E46",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0CAE6F7948FB8EB1",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0CAE6FCD4893894E",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0CAE68714ABE8D9F",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0F636D224D7E8C14",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0F636D574AEB8CA0",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0F636DDC4C788F3D",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0F636E404D828FA8",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "10.5281/zenodo.15041905",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0F636ED34AE98E90",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0F63682B4A8C892C",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0F63685F4AEB887E",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0F6369024D6F88C8",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0F6369F44AE98B1A",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0F636AA64D8E8A6B",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDC0F636B684D4E8AE0",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C70FFDB0F636B9C48368F21",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C77FFDB0CAE6E5D48858E30",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C77FFDB0CAE6F4C4B848EEE",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C77FFDB0CAE6F924BF88938",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C77FFDB0CAE6843498C88E6",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C77FFDB0CAE699848EF8B71",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C77FFDB0CAE6A744B098B9B",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C77FFDB0CAE6B2649A58ACB",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C77FFDB0CAE6BF64C6A8DB9",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C77FFDB0F636D0B4CF98F66",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C77FFDB0F636E194AF88F96",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "10.5281/zenodo.15041907",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C77FFDB0F636F2A4CE7897B",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C77FFDB0F6368064AE9884F",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C77FFDB0F6369724A858B5E",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C77FFDA0F636A61498C8C12",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C76FFDA0CAE6DAD489F8C8D",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/03DAF3018C76FFDA0CAE6E304B438ECB",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "10.2992/007.082.0402",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1002/ece3.4704",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/s10841-010-9343-x",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          }
+        ],
+        "references": [
+          "BARON, T., AKITE, P., BARNETT, M., COLLINS, S.C., DOBSON, J., FRIC, Z.F., HENNING, G., KUHNE, L., MEY, W., OCHSE, M., PRZYBYLOWICZ, L., SAFIAN, SZ., SCHUTTE, R., SELB, H. & WARD, P. 2017. The second Afrotropical Lepidoptera Workshop in Uganda - A contribution to the Lepidoptera fauna of Kibale National Park and the Mpanga Forest Reserve Entomologische Zeitschrift 127(2): 77-105.",
+          "BOUYER, T. 2017. Descriptions de nouvelles especes africaines de Cigaritis Donzel, 1847 et note synonymique (Lepidoptera, Lycaenidae). Entomologia Africana. 22(1): 2-10.",
+          "COLLINS, S.C. 2008. Papilionoidea and Hesperioidea, Butterflies and Skippers. In: Kuhne, L. (Ed.). Butterflies and moth diversity of the Kakamega forest (Kenya). Private edition. 63-80.",
+          "CONGDON, C. & COLLINS, S. 1998. Kielland's butterflies of Tanzania. Supplement. African Butterfly Research Institute & Union des Entomologistes Belges, Nairobi & Tervuren. 143 pp.",
+          "D'ABRERA, B.L. 2009. Butterflies of the Afrotropical Region Part III: Lycaenidae, Riodinidae. Hill House Publishers, Melbourne & London. 531-880.",
+          "DAVENPORT, T., HOWARD, P. & DICKINSON, C. (ed.) 1996. Mpanga, Zika and Mpigi District Forest Reserves Biodiversity Report. Unpublished paper from the Forest Department Uganda.",
+          "DE JONG, R. 1986. Systematics, phylogeny and biogeography of the chiefly afromontane genus Chondrolepis Mabille (Lepidoptera: Hesperiidae). Zoologische Verhandelingen (Leiden) 231: 1-40.",
+          "EVANS, W.H. 1937. A catalogue of the African Hesperiidae indicating the classification and nomenclature adopted in the British Museum. London xii, 212 pp.",
+          "EVANS, W.H. 1947. Revisional notes on African Hesperiidae. Annals and Magazine of Natural History Series 11: 341-648.",
+          "HECQ, J. 2012. Catalogue des especes d'Euphaedra sousgenre Euphaedrana Hecq, 1976, groupe eleus et description de Nouvelles especes (Lepidoptera, Nymphalidae africains). Lambillionea, 112(1): 11-22.",
+          "JACKSON, T.H.E. 1961. Entomological studies from a high tower in Mpanga Forest, Uganda IX. Observations on Lepidoptera (Rhopalocera). Transactions of the Royal Entomological Society of London 113(11): 346-350.",
+          "LARSEN, T.B. 1991. The Butterflies of Kenya and their Natural History. Oxford University Press, Oxford. 490 pp. + 22 colour plates.",
+          "LARSEN, T.B. 2005. Butterflies of West Africa. Apollo Books, Svendborg, Denmark. 595 pp. + 135 colour plates.",
+          "LARSEN, T.B. & RAWLINS, J.E. 2014. A new species of skipper in the Afrotropical genus Procampta Holland (Lepidoptera: Hesperiidae: Pyrginae: Tagiadini). Annals of Carnegie Museum 82(4): 331- 335. DOI: http://dx.doi.org/10.2992/007.082.0402",
+          "LIBERT, M. 2014. Sur le taxonomie du genre Celaenorrhinus Hubner en Afrique (Lepidoptera, Hesperiidae). African Butterfly Research Institute, Nairobi. 272 pp. + 26 colour plates.",
+          "MAICHER, V., SAFIAN, SZ., MURKWE, M., PRZYBYLOWICZ, L., JANECEK, S., FOKAM, E.B., PYRCZ, T. & TROPEK, R. 2018. Flying between raindrops: Strong seasonal turnover of several Lepidoptera groups in lowland rainforests of Mount Cameroon. Ecology and Evolution. DOI: 10.1002/ece3.4704.",
+          "PYRCZ, T.W., COLLINS, S.C., ZUBEK, A., WACLAWIK, B., SAFIAN, SZ., BAKOWSKI, M. & FLORCZYK, K. In press. Previously unrecognized diversity of Afrotropical Melanitini butterflies (Nymphalidae, Satyrinae): doubling the number of species and genera. Arthropod systematics and phylogeny.",
+          "RICHARDSON, I.D. 2019. Revision of the genus Neptis Fabricius, 1807 (Lepidoptera, Nymphalidae) in the Afrotropical Region: Currently described taxa. Metamorphosis. 30: 69-221.",
+          "RILEY, N.D. 1928. Notes on Iolaus, Argiolaus and related genera, with descriptions of new species, subspecies and a genus. Novitates Zoologicae 34: 374-394.",
+          "SAFIAN, SZ. 2014. Hill-topping in some African Celaenorrhinus Hubner, 1819. Metamorphosis 25: 1- 2.",
+          "SAFIAN, SZ., CSONTOS, G. & WINKLER, D. 2010. Butterfly community recovery in degraded rainforest habitats in the Upper Guinean Forest Zone (Kakum forest, Ghana). Journal of Insect Conservation. DOI 10.1007/s10841-010-9343-x.",
+          "STEMPFFER, H. & BENNETT, N.H. 1958. Revision des genres appartenant au groupe des Iolaus (Lep. Lycaenidae). (Premiere Partie). Bulletin de la l'Institut Francais d'Afrique Noire (A) 20: 1243-1347.",
+          "STEMPFFER, H. & BENNETT, N.H. 1965. A revision of the genus Micropentila Aurivillius (Lepidoptera: Lycaenidae). Bulletin of the British Museum (Natural History) (Entomology) 15: 397-434.",
+          "VANDE WEGHE, G.R. 2010. Les Papillons du Gabon. Wildlife Conservation Society, Libreville. 424 pp.",
+          "WARREN-GASH, H. In press. A revision of the Afrotropical Pierid Genus Mylothris. ABRI, Nairobi.",
+          "WILLIAMS, M.C. 2015. Classification of the Afrotropical butterflies to generic level. Metamorphosis 26: 102-108.",
+          "WILLIAMS, M.C. 2019. Afrotropical Butterflies and"
+        ],
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "1",
+          "pages": "7-14",
+          "title": "Metamorphosis",
+          "volume": "31"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "urn:lsid:plazi.org:pub:FFE38B798C73FFDF0C2A6C28496F8D74"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/FFE38B798C73FFDF0C2A6C28496F8D74"
+          }
+        ],
+        "license": {
+          "id": "cc-by-nc-nd-4.0"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15041894"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Further data on the butterfly fauna (Lepidoptera: Papilionoidea) of Mpanga Forest, Uganda, and the role of this forest in biodiversity conservation",
+      "links": {
+        "self": "https://zenodo.org/api/records/15041895",
+        "self_html": "https://zenodo.org/records/15041895",
+        "doi": "https://doi.org/10.4314/met.v31i1.3",
+        "self_doi": "https://doi.org/10.4314/met.v31i1.3",
+        "self_doi_html": "https://zenodo.org/doi/10.4314/met.v31i1.3",
+        "parent": "https://zenodo.org/api/records/15041894",
+        "parent_html": "https://zenodo.org/records/15041894",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15041895/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15041895/sequence/default",
+        "files": "https://zenodo.org/api/records/15041895/files",
+        "media_files": "https://zenodo.org/api/records/15041895/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15041895:source.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15041895:source.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15041895:source.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15041895:source.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15041895:source.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15041895:source.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15041895/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15041895/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15041895/versions/latest",
+        "latest_html": "https://zenodo.org/records/15041895/latest",
+        "versions": "https://zenodo.org/api/records/15041895/versions",
+        "draft": "https://zenodo.org/api/records/15041895/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15041895/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15041895/access/links",
+        "access_grants": "https://zenodo.org/api/records/15041895/access/grants",
+        "access_users": "https://zenodo.org/api/records/15041895/access/users",
+        "access_request": "https://zenodo.org/api/records/15041895/access/request",
+        "access": "https://zenodo.org/api/records/15041895/access",
+        "communities": "https://zenodo.org/api/records/15041895/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15041895/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15041895/requests"
+      },
+      "updated": "2025-03-17T19:08:27.992129+00:00",
+      "recid": "15041895",
+      "revision": 7,
+      "files": [
+        {
+          "id": "f51d5c6c-b983-4230-b1dd-1689e9b68483",
+          "key": "source.pdf",
+          "size": 177541,
+          "checksum": "md5:cde38b798c7360df0c2a6c28496f8d74",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041895/files/source.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-17T18:59:54.939079+00:00",
+      "modified": "2025-03-17T18:59:55.104751+00:00",
+      "id": 15041865,
+      "conceptrecid": "15041864",
+      "doi": "10.5281/zenodo.15041865",
+      "conceptdoi": "10.5281/zenodo.15041864",
+      "doi_url": "https://doi.org/10.5281/zenodo.15041865",
+      "metadata": {
+        "title": "The use of ChatGPT in indexing Access to Information requests on Fala.BR",
+        "doi": "10.5281/zenodo.15041865",
+        "publication_date": "2025-03-17",
+        "description": "<p><span>This study aimed to analyze the indexing of requests for access to information from Federal Universities in Brazil with the aim of proposing improvements, through ChatGPT, on Fala.BR. The research was structured based on the concepts of access to information, classification and artificial intelligence for indexing Subjects, Sub-subjects and Tags in Fala.BR. This is an exploratory and explanatory research, of an applied nature, whose approach is qualitative-quantitative and the technical procedures used were bibliographic and experimental, using Fala.BR and Arquivistas users as a sample. Research instruments such as the controlled e-government vocabulary and the classification code for archival documents of the core activities of Federal Higher Education Institutions were used to generate prompts in ChatGPT. Then, the results were compared with the texts of archivists who used only the classification code and, even so, reached surprising numbers in the Subsubjects and Tags fields. To the point of inverting the values of these fields, which were negative, due to the absence of completion in the original information access requests, they became positive due to the degree of similarity of substantial agreement between man and machine.</span></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Santos J\u00fanior, Zen\u00f3bio",
+            "affiliation": "Universidade Funda\u00e7\u00e3o Mineira de Educa\u00e7\u00e3o e Cultura"
+          },
+          {
+            "name": "Dutra, Frederico Giffoni de Carvalho",
+            "affiliation": "Universidade Funda\u00e7\u00e3o Mineira de Educa\u00e7\u00e3o e Cultura"
+          },
+          {
+            "name": "Luz, Eduardo Jos\u00e9 da Silva",
+            "affiliation": "Universidade Federal de Ouro Preto"
+          }
+        ],
+        "language": "por",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "1",
+          "pages": "15-21",
+          "title": "The Advances in Knowledge Representation",
+          "volume": "1"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "2764-3743"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15041864"
+              }
+            }
+          ]
+        }
+      },
+      "title": "The use of ChatGPT in indexing Access to Information requests on Fala.BR",
+      "links": {
+        "self": "https://zenodo.org/api/records/15041865",
+        "self_html": "https://zenodo.org/records/15041865",
+        "doi": "https://doi.org/10.5281/zenodo.15041865",
+        "self_doi": "https://doi.org/10.5281/zenodo.15041865",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15041865",
+        "parent": "https://zenodo.org/api/records/15041864",
+        "parent_html": "https://zenodo.org/records/15041864",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15041864",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15041864",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15041865/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15041865/sequence/default",
+        "files": "https://zenodo.org/api/records/15041865/files",
+        "media_files": "https://zenodo.org/api/records/15041865/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15041865:2_SantoJunior.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15041865:2_SantoJunior.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15041865:2_SantoJunior.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15041865:2_SantoJunior.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15041865:2_SantoJunior.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15041865:2_SantoJunior.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15041865/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15041865/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15041865/versions/latest",
+        "latest_html": "https://zenodo.org/records/15041865/latest",
+        "versions": "https://zenodo.org/api/records/15041865/versions",
+        "draft": "https://zenodo.org/api/records/15041865/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15041865/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15041865/access/links",
+        "access_grants": "https://zenodo.org/api/records/15041865/access/grants",
+        "access_users": "https://zenodo.org/api/records/15041865/access/users",
+        "access_request": "https://zenodo.org/api/records/15041865/access/request",
+        "access": "https://zenodo.org/api/records/15041865/access",
+        "communities": "https://zenodo.org/api/records/15041865/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15041865/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15041865/requests"
+      },
+      "updated": "2025-03-17T18:59:55.104751+00:00",
+      "recid": "15041865",
+      "revision": 4,
+      "files": [
+        {
+          "id": "e7cd8e22-6808-4dc3-804d-12ec1203f0fa",
+          "key": "2_SantoJunior.pdf",
+          "size": 626527,
+          "checksum": "md5:ef6ee970e79c99de9164bcd404423680",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041865/files/2_SantoJunior.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "606230"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-17T18:26:04.093476+00:00",
+      "modified": "2025-03-17T18:26:04.636198+00:00",
+      "id": 15041754,
+      "conceptrecid": "10023413",
+      "doi": "10.5281/zenodo.15041754",
+      "conceptdoi": "10.5281/zenodo.10023413",
+      "doi_url": "https://doi.org/10.5281/zenodo.15041754",
+      "metadata": {
+        "title": "Pytorch-wildlife-model-weights",
+        "doi": "10.5281/zenodo.15041754",
+        "publication_date": "2025-03-17",
+        "description": "<p>Model weights for PyTorchWildlife classification, detection and overhead data.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Miao, Zhongqi",
+            "affiliation": "Microsoft AI for Good",
+            "orcid": "0000-0002-0439-8592"
+          },
+          {
+            "name": "Hern\u00e1ndez, Andr\u00e9s Adolfo",
+            "affiliation": "Microsoft AI for Good"
+          },
+          {
+            "name": "Vargas, Luisa Fernanda",
+            "affiliation": "Microsoft AI for Good"
+          },
+          {
+            "name": "Chac\u00f3n, Isai Daniel",
+            "affiliation": "Microsoft AI For Good"
+          },
+          {
+            "name": "Ruiz, Daniela",
+            "affiliation": "Microsoft AI For Good"
+          },
+          {
+            "name": "Chalmers, Carl",
+            "affiliation": "Microsoft AI for Good"
+          }
+        ],
+        "resource_type": {
+          "title": "Model",
+          "type": "model"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 15,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10023413"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Pytorch-wildlife-model-weights",
+      "links": {
+        "self": "https://zenodo.org/api/records/15041754",
+        "self_html": "https://zenodo.org/records/15041754",
+        "doi": "https://doi.org/10.5281/zenodo.15041754",
+        "self_doi": "https://doi.org/10.5281/zenodo.15041754",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15041754",
+        "parent": "https://zenodo.org/api/records/10023413",
+        "parent_html": "https://zenodo.org/records/10023413",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10023413",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10023413",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15041754/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15041754/sequence/default",
+        "files": "https://zenodo.org/api/records/15041754/files",
+        "media_files": "https://zenodo.org/api/records/15041754/media-files",
+        "archive": "https://zenodo.org/api/records/15041754/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15041754/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15041754/versions/latest",
+        "latest_html": "https://zenodo.org/records/15041754/latest",
+        "versions": "https://zenodo.org/api/records/15041754/versions",
+        "draft": "https://zenodo.org/api/records/15041754/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15041754/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15041754/access/links",
+        "access_grants": "https://zenodo.org/api/records/15041754/access/grants",
+        "access_users": "https://zenodo.org/api/records/15041754/access/users",
+        "access_request": "https://zenodo.org/api/records/15041754/access/request",
+        "access": "https://zenodo.org/api/records/15041754/access",
+        "communities": "https://zenodo.org/api/records/15041754/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15041754/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15041754/requests"
+      },
+      "updated": "2025-03-17T18:26:04.636198+00:00",
+      "recid": "15041754",
+      "revision": 4,
+      "files": [
+        {
+          "id": "3021b686-5cd6-4103-a98e-9bf2c370d2ca",
+          "key": "AI4GAmazonClassificationV2.onnx",
+          "size": 94245422,
+          "checksum": "md5:0bf98d7dfa08df1c63d5be5f76dd33a9",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/AI4GAmazonClassificationV2.onnx/content"
+          }
+        },
+        {
+          "id": "e06b3e38-c40e-49fd-a3f2-95a584e89de0",
+          "key": "MDV6b-yolov9c.onnx",
+          "size": 101437043,
+          "checksum": "md5:3db7988385714066c1515dde6ab56e4c",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/MDV6b-yolov9c.onnx/content"
+          }
+        },
+        {
+          "id": "7a0ce4be-b8ce-4c9f-afa5-b0272f07f606",
+          "key": "MDV6-rtdetr_x.pth",
+          "size": 1225348926,
+          "checksum": "md5:6f8855d147ef17dc123c2f21fcb554b7",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/MDV6-rtdetr_x.pth/content"
+          }
+        },
+        {
+          "id": "27c9758c-06a6-421d-87a9-c8fefa4cea54",
+          "key": "MDV6-rtdetr_s.pth",
+          "size": 322443686,
+          "checksum": "md5:3992888e26f627ee5a4ff9f116be97c3",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/MDV6-rtdetr_s.pth/content"
+          }
+        },
+        {
+          "id": "9f26e68d-27e2-49d3-8992-f9faec93448e",
+          "key": "AI4GSnapshotSerengeti.ckpt",
+          "size": 91610123,
+          "checksum": "md5:a6fc6f314cae5bd9af84650237c261f8",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/AI4GSnapshotSerengeti.ckpt/content"
+          }
+        },
+        {
+          "id": "44b37b2f-e8bf-4fdc-a7c7-66233fc0d349",
+          "key": "MDV6-yolov9e.pt",
+          "size": 117267490,
+          "checksum": "md5:e539bf16ce8f8d044294cc7571ea9035",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/MDV6-yolov9e.pt/content"
+          }
+        },
+        {
+          "id": "c3aa8b53-cd37-484f-b902-9360d776b32e",
+          "key": "MDV6-yolov10x.pt",
+          "size": 64097586,
+          "checksum": "md5:37ec2a0c959c2f8ef01e19110690eb69",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/MDV6-yolov10x.pt/content"
+          }
+        },
+        {
+          "id": "7ed0d7af-8fa3-4cda-8ac0-bb2b385d8e06",
+          "key": "MDV6-yolov10n.pt",
+          "size": 5752051,
+          "checksum": "md5:1ecc38fbe462320ea33bf3c57e9e1561",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/MDV6-yolov10n.pt/content"
+          }
+        },
+        {
+          "id": "7e0a4601-d829-4c1b-b17c-d4c2f528f7d8",
+          "key": "20220329_HerdNet_Ennedi_dataset_2023.pth",
+          "size": 219939347,
+          "checksum": "md5:44a9274ce62207c722d8c95a2afaa0b9",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/20220329_HerdNet_Ennedi_dataset_2023.pth/content"
+          }
+        },
+        {
+          "id": "4cb29dcd-349f-47bc-aa78-1f21dd45d94e",
+          "key": "MDV6b-rtdetrl.pt",
+          "size": 66147264,
+          "checksum": "md5:d683958ab09522f11daa16fd4f622a88",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/MDV6b-rtdetrl.pt/content"
+          }
+        },
+        {
+          "id": "d3eef092-812b-4cd9-b0d0-d5e80c086672",
+          "key": "MegaDetector_v5b.0.0.pt",
+          "size": 280766885,
+          "checksum": "md5:bc235e73f53c5c95e66ea0d1b2cbf542",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/MegaDetector_v5b.0.0.pt/content"
+          }
+        },
+        {
+          "id": "b984c921-7199-4a23-adc7-600c878c7047",
+          "key": "OpossumClassification_v0.0.0.ckpt",
+          "size": 196652601,
+          "checksum": "md5:9a507b9e60dc4eec5fcc844c2ca0f26e",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/OpossumClassification_v0.0.0.ckpt/content"
+          }
+        },
+        {
+          "id": "4ae784a4-251f-40b7-a1ce-8ed24e0b1467",
+          "key": "MDV6b-yolov9c.pt",
+          "size": 51572347,
+          "checksum": "md5:4ad433595f3f06e62dd67debb9329398",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/MDV6b-yolov9c.pt/content"
+          }
+        },
+        {
+          "id": "06b3d0bb-45be-42f1-bd36-653039377ea3",
+          "key": "AI4GAmazonClassification_v0.0.0.ckpt",
+          "size": 197226745,
+          "checksum": "md5:dea8931c1f50b2af40146803c3a43ac0",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/AI4GAmazonClassification_v0.0.0.ckpt/content"
+          }
+        },
+        {
+          "id": "4b4b1caf-a3e8-4e0d-b2f9-dc115c2db530",
+          "key": "md_v5a.0.0.pt",
+          "size": 280766885,
+          "checksum": "md5:ec1d7603ec8cf642d6e0cd008ba2be8c",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/md_v5a.0.0.pt/content"
+          }
+        },
+        {
+          "id": "67906470-6baf-4967-885b-5dcdab366475",
+          "key": "AI4GAmazonDeforestationv2",
+          "size": 197228074,
+          "checksum": "md5:13e17e732a084f254925a03eb685e1b7",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/AI4GAmazonDeforestationv2/content"
+          }
+        },
+        {
+          "id": "575a1b1b-d74b-46b2-9332-c6fd3f2e551b",
+          "key": "20220413_HerdNet_General_dataset_2022.pth",
+          "size": 219941651,
+          "checksum": "md5:fcc301fcb61d57579764891247de4b7b",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/20220413_HerdNet_General_dataset_2022.pth/content"
+          }
+        },
+        {
+          "id": "95583bf0-748b-46bd-82df-969f8404293e",
+          "key": "MDV6-yolov9-e-1280.pt",
+          "size": 234123421,
+          "checksum": "md5:8e54811c26225304a3f3c71b4f20f0bb",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041754/files/MDV6-yolov9-e-1280.pt/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1004776"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 6475,
+        "unique_downloads": 5712,
+        "views": 1094,
+        "unique_views": 965,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    }
+  ]
+}
