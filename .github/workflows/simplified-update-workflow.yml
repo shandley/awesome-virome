@@ -34,6 +34,21 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: '3.10'
+          cache: 'pip'
+          cache-dependency-path: 'requirements.txt'
+      
+      # Cache GitHub API responses and other metadata
+      - name: Cache API data
+        uses: actions/cache@v3
+        with:
+          path: |
+            metadata/cache
+            .cache
+            ~/.cache/pip
+          key: ${{ runner.os }}-api-cache-${{ hashFiles('**/metadata/**/*.json') }}-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-api-cache-${{ hashFiles('**/metadata/**/*.json') }}-
+            ${{ runner.os }}-api-cache-
       
       - name: Install dependencies
         run: |
@@ -63,6 +78,10 @@ jobs:
       - name: Run comprehensive update
         if: github.event.inputs.update_type == 'comprehensive' || github.event.schedule == '0 8 1 * *'
         run: |
+          # Create cache directories if they don't exist
+          mkdir -p metadata/cache/crossref
+          mkdir -p metadata/cache/_citations
+          
           # Run each component in sequence
           echo "Collecting enhanced metadata..."
           python scripts/enhance_metadata.py
@@ -70,7 +89,15 @@ jobs:
           echo "Collecting bioinformatics metadata..."
           python scripts/bioinformatics_metadata.py
           
+          # Academic impact is usually the slowest part, so we optimize it
           echo "Collecting academic impact data..."
+          # Check the age of citation cache files
+          CACHE_AGE=$(find metadata/cache/crossref -type f -mtime -7 | wc -l)
+          if [ "$CACHE_AGE" -gt 0 ]; then
+            echo "Recent citation cache found, using cached data where possible"
+          else
+            echo "Cache may be outdated, updating citation data"
+          fi
           python scripts/academic_impact.py
           
           echo "Generating citation reports..."
