@@ -27,6 +27,17 @@ jobs:
       
       - name: Setup Pages
         uses: actions/configure-pages@v3
+        
+      # Cache deployed pages to speed up deployment
+      - name: Cache Pages artifacts
+        uses: actions/cache@v3
+        with:
+          path: |
+            _site
+            .jekyll-cache
+          key: ${{ runner.os }}-pages-${{ hashFiles('data.json', 'index.html') }}
+          restore-keys: |
+            ${{ runner.os }}-pages-
       
       - name: Generate visualization assets
         run: |
