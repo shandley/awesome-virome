@@ -53,7 +53,17 @@ def load_data_json() -> Dict[str, Any]:
     """Load the current data.json file"""
     try:
         with open(DATA_JSON_PATH, 'r') as f:
-            return json.load(f)
+            data = json.load(f)
+            # Convert nodes with type "tool" into the expected tools format
+            if "nodes" in data:
+                tools = []
+                for node in data["nodes"]:
+                    if node.get("type") == "tool":
+                        tools.append(node)
+                return {"tools": tools}
+            else:
+                logger.error("Data.json does not contain the expected 'nodes' key")
+                return {"tools": []}
     except (json.JSONDecodeError, FileNotFoundError) as e:
         logger.error(f"Error loading data.json: {e}")
         return {"tools": []}
@@ -235,8 +245,23 @@ def validate_all_citations() -> Dict[str, Any]:
     tools = data.get("tools", [])
     
     if not tools:
-        logger.error("No tools found in data.json")
-        return {}
+        logger.error("No tools found in data.json (looked for 'type': 'tool' nodes)")
+        logger.info("This may happen if no tool nodes were found in the data.json structure")
+        # Return minimal results structure to prevent downstream errors
+        return {
+            "timestamp": datetime.datetime.now().isoformat(),
+            "total_tools": 0,
+            "tools_with_doi": 0,
+            "valid_dois": 0,
+            "consistent_dois": 0,
+            "tools_with_pubmed_data": 0,
+            "tools_with_academic_impact": 0,
+            "citation_format_counts": {"bibtex": 0, "apa": 0, "mla": 0},
+            "all_issues": ["No tools found in data.json"],
+            "tool_results": []
+        }
+    
+    logger.info(f"Found {len(tools)} tools in data.json")
     
     results = {
         "timestamp": datetime.datetime.now().isoformat(),
@@ -309,28 +334,61 @@ def format_validation_report(results: Dict[str, Any]) -> str:
         Formatted report as a string
     """
     report = ["# Citation Validation Report", ""]
-    report.append(f"Generated: {results['timestamp']}")
+    report.append(f"Generated: {results.get('timestamp', datetime.datetime.now().isoformat())}")
     report.append("")
     
     report.append("## Summary")
-    report.append(f"- Total Tools: {results['total_tools']}")
-    report.append(f"- Tools with DOI: {results['tools_with_doi']} ({results['doi_percentage']:.1f}%)")
-    if results['tools_with_doi'] > 0:
-        report.append(f"- Valid DOI Format: {results['valid_dois']} ({results['valid_doi_percentage']:.1f}% of tools with DOI)")
-        report.append(f"- Consistent DOIs: {results['consistent_dois']} ({results['consistent_doi_percentage']:.1f}% of tools with DOI)")
-    report.append(f"- Tools with PubMed Data: {results['tools_with_pubmed_data']} ({results['pubmed_percentage']:.1f}%)")
-    report.append(f"- Tools with Academic Impact: {results['tools_with_academic_impact']} ({results['academic_impact_percentage']:.1f}%)")
+    total_tools = results.get('total_tools', 0)
+    report.append(f"- Total Tools: {total_tools}")
+    
+    # If we have no tools, create a simplified report
+    if total_tools == 0:
+        report.append("")
+        report.append("## Issues")
+        report.append("- No tools found in data.json for validation")
+        report.append("- Check that data.json contains nodes with 'type': 'tool'")
+        report.append("- Run 'python update_data_json.py' to update data.json from README.md")
+        report.append("")
+        report.append("## Recommendation")
+        report.append("1. Verify the structure of data.json")
+        report.append("2. Ensure README.md contains properly formatted tool entries")
+        report.append("3. Run the data.json update script")
+        report.append("4. Re-run citation validation")
+        return "\n".join(report)
+
+    # Continue with normal report for when tools are found
+    tools_with_doi = results.get('tools_with_doi', 0)
+    doi_percentage = results.get('doi_percentage', 0.0)
+    report.append(f"- Tools with DOI: {tools_with_doi} ({doi_percentage:.1f}%)")
+    
+    if tools_with_doi > 0:
+        valid_dois = results.get('valid_dois', 0)
+        valid_doi_percentage = results.get('valid_doi_percentage', 0.0)
+        consistent_dois = results.get('consistent_dois', 0)
+        consistent_doi_percentage = results.get('consistent_doi_percentage', 0.0)
+        report.append(f"- Valid DOI Format: {valid_dois} ({valid_doi_percentage:.1f}% of tools with DOI)")
+        report.append(f"- Consistent DOIs: {consistent_dois} ({consistent_doi_percentage:.1f}% of tools with DOI)")
+    
+    pubmed_data = results.get('tools_with_pubmed_data', 0)
+    pubmed_percentage = results.get('pubmed_percentage', 0.0)
+    academic_impact = results.get('tools_with_academic_impact', 0)
+    academic_impact_percentage = results.get('academic_impact_percentage', 0.0)
+    
+    report.append(f"- Tools with PubMed Data: {pubmed_data} ({pubmed_percentage:.1f}%)")
+    report.append(f"- Tools with Academic Impact: {academic_impact} ({academic_impact_percentage:.1f}%)")
     report.append("")
     
     report.append("## Citation Format Coverage")
-    report.append(f"- BibTeX: {results['citation_format_counts']['bibtex']} tools")
-    report.append(f"- APA: {results['citation_format_counts']['apa']} tools")
-    report.append(f"- MLA: {results['citation_format_counts']['mla']} tools")
+    citation_counts = results.get('citation_format_counts', {'bibtex': 0, 'apa': 0, 'mla': 0})
+    report.append(f"- BibTeX: {citation_counts.get('bibtex', 0)} tools")
+    report.append(f"- APA: {citation_counts.get('apa', 0)} tools")
+    report.append(f"- MLA: {citation_counts.get('mla', 0)} tools")
     report.append("")
     
-    if results["all_issues"]:
+    all_issues = results.get('all_issues', [])
+    if all_issues:
         report.append("## Issues")
-        for issue in results["all_issues"]:
+        for issue in all_issues:
             report.append(f"- {issue}")
     else:
         report.append("## Issues")
@@ -341,9 +399,9 @@ def format_validation_report(results: Dict[str, Any]) -> str:
     
     # Find tools without any citation data
     missing_data = []
-    for tool in results["tool_results"]:
-        if not tool["has_doi"] and not tool["has_pubmed_data"] and not tool["has_academic_impact"]:
-            missing_data.append(tool["tool_id"])
+    for tool in results.get("tool_results", []):
+        if not tool.get("has_doi") and not tool.get("has_pubmed_data") and not tool.get("has_academic_impact"):
+            missing_data.append(tool.get("tool_id", "unknown"))
     
     if missing_data:
         for tool_id in missing_data[:20]:  # Limit to first 20
@@ -375,9 +433,8 @@ def main():
     logger.info("Starting citation validation...")
     results = validate_all_citations()
     
-    if not results:
-        logger.error("Failed to generate validation results. Exiting.")
-        return 1
+    # Even if no tools were found, we still want to generate an empty report
+    # rather than failing completely
     
     # Save validation results
     try:
@@ -386,6 +443,7 @@ def main():
         logger.info(f"Validation results saved to {os.path.join(REPORTS_DIR, args.output_file)}")
     except (IOError, OSError) as e:
         logger.error(f"Error saving validation results: {e}")
+        return 1
     
     # Generate human-readable report if requested
     if args.report:
@@ -398,9 +456,13 @@ def main():
             logger.error(f"Error saving report: {e}")
     
     # Log a summary of the validation results
-    logger.info(f"Citation validation completed. {len(results['all_issues'])} issues found.")
-    logger.info(f"Tools with DOI: {results['tools_with_doi']} of {results['total_tools']}")
-    logger.info(f"Tools with PubMed data: {results['tools_with_pubmed_data']} of {results['total_tools']}")
+    all_issues_count = len(results.get('all_issues', []))
+    logger.info(f"Citation validation completed. {all_issues_count} issues found.")
+    if results.get('total_tools', 0) > 0:
+        logger.info(f"Tools with DOI: {results.get('tools_with_doi', 0)} of {results.get('total_tools', 0)}")
+        logger.info(f"Tools with PubMed data: {results.get('tools_with_pubmed_data', 0)} of {results.get('total_tools', 0)}")
+    else:
+        logger.warning("No tools were found for validation. Check data.json structure.")
     
     return 0
 
