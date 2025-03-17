@@ -104,7 +104,7 @@ jobs:
           echo "Generating citation reports..."
           python scripts/citation_report.py
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           SEMANTIC_SCHOLAR_KEY: ${{ secrets.SEMANTIC_SCHOLAR_KEY }}
           CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
       
