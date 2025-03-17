@@ -23,6 +23,11 @@ on:
           - bioinformatics
           - academic_impact
           - all
+      skip_pubmed_check:
+        description: 'Skip PubMed recency check and force use of existing data'
+        required: false
+        default: false
+        type: boolean
 
 jobs:
   update-repos:
@@ -161,8 +166,15 @@ jobs:
       - name: Check for recent PubMed update
         id: check_pubmed
         run: |
-          # Check if PubMed data was updated in the last 48 hours
-          PUBMED_UPDATED=$(git log --since="48 hours ago" --oneline | grep "Update PubMed citation information" | wc -l)
+          # Check if we should skip the PubMed check based on input
+          if [[ "${{ github.event.inputs.skip_pubmed_check }}" == "true" ]]; then
+            echo "Skipping PubMed recency check as requested"
+            echo "pubmed_is_current=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Check if PubMed data was updated in the last 7 days (168 hours)
+          PUBMED_UPDATED=$(git log --since="168 hours ago" --oneline | grep "Update PubMed citation information" | wc -l)
           if [ $PUBMED_UPDATED -gt 0 ]; then
             echo "Recent PubMed update found, will use existing data"
             echo "pubmed_is_current=true" >> $GITHUB_OUTPUT
