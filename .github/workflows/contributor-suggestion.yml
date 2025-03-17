@@ -35,8 +35,11 @@ jobs:
       
       - name: Generate data preview
         run: |
-          # Create a temporary data.json based on the PR changes
-          python update_data_json.py --include-metadata --include-bioinformatics --output-path=pr_preview_data.json
+          # Create a temporary copy of data.json first
+          cp data.json data.json.backup
+          
+          # Update data.json with the PR changes (this will modify the file in place)
+          python update_data_json.py --include-metadata --include-bioinformatics
           
           # Comment on the PR with a summary of changes
           PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
@@ -71,5 +74,8 @@ jobs:
           
           # Post comment to PR
           gh pr comment $PR_NUMBER -F comment.md
+          
+          # Restore the original data.json to avoid making changes
+          mv data.json.backup data.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
