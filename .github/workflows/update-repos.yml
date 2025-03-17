@@ -286,20 +286,29 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       
-      - name: Auto-approve PR
-        uses: hmarr/auto-approve-action@v3
-        with:
-          pull-request-number: ${{ needs.academic-impact-metadata.outputs.academic_impact_pr_url }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Enable auto-merge
+      - name: Extract PR number
+        id: extract_pr
         run: |
           PR_NUMBER=$(echo "${{ needs.academic-impact-metadata.outputs.academic_impact_pr_url }}" | grep -oE '[0-9]+$')
           if [[ -n "$PR_NUMBER" ]]; then
-            gh pr merge $PR_NUMBER --auto --merge
-            echo "Auto-merge enabled for PR #$PR_NUMBER"
+            echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+            echo "Found PR number: $PR_NUMBER"
           else
             echo "Could not extract PR number from URL"
+            exit 1
           fi
+
+      - name: Auto-approve PR
+        if: steps.extract_pr.outputs.pr_number != ''
+        uses: hmarr/auto-approve-action@v3
+        with:
+          pull-request-number: ${{ steps.extract_pr.outputs.pr_number }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Enable auto-merge
+        if: steps.extract_pr.outputs.pr_number != ''
+        run: |
+          gh pr merge ${{ steps.extract_pr.outputs.pr_number }} --auto --merge
+          echo "Auto-merge enabled for PR #${{ steps.extract_pr.outputs.pr_number }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
