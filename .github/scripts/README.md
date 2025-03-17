@@ -26,19 +26,27 @@ This directory contains scripts that power the repository metrics tracking syste
 
 ## How to View Metrics
 
-Metrics are automatically published to GitHub Pages from the `metrics-history` branch. You can view them at:
+Metrics are automatically integrated with the main GitHub Pages site. You can view them at:
 
-`https://[org-name].github.io/awesome-virome/metrics/`
+`https://[org-name].github.io/awesome-virome/metrics_dashboard/`
+
+A link to the metrics dashboard is automatically added to the main site's homepage.
 
 ## How It Works
 
-1. After each workflow run, the metrics-history job executes
+1. After each workflow run, the metrics-history job executes in the repository-testing workflow
 2. It checks out the metrics-history branch
 3. Collects data from the workflow run
 4. Updates JSON files with the latest metrics
 5. Generates new charts and visualizations
 6. Commits and pushes changes back to the metrics-history branch
-7. GitHub Pages automatically deploys the updated dashboard
+
+7. When the GitHub Pages workflow runs (either automatically or manually), it:
+   - Checks out the main branch for the primary content
+   - Checks out the metrics-history branch into a temporary directory
+   - Copies the metrics dashboard files to a `/metrics_dashboard` folder in the main content
+   - Adds a link to the metrics dashboard in the main site's homepage
+   - Deploys everything together as a single GitHub Pages site
 
 ## Setting Up Metrics Tracking
 
@@ -48,15 +56,15 @@ To set up metrics tracking for the first time:
    - This will automatically create the `metrics-history` branch if it doesn't exist
    - The initial metrics will be collected and stored
 
-2. Enable GitHub Pages for the repository:
-   - Go to repository Settings > Pages
-   - Set the Source to "Deploy from a branch"
-   - Select the `metrics-history` branch
-   - Set the folder to `/metrics_history/charts`
-   - Click Save
+2. The modified GitHub Pages workflow will:
+   - Automatically detect the metrics-history branch
+   - Copy the metrics dashboard to the main site
+   - Deploy everything together
 
-3. After GitHub Pages is enabled, metrics visualizations will be automatically published with each workflow run
+3. No separate GitHub Pages configuration is needed for the metrics dashboard
 
-The URL for the metrics dashboard will be: `https://[org-name].github.io/awesome-virome/`
+The integrated approach allows for a single GitHub Pages deployment while keeping the metrics data stored in a separate branch for better organization.
+
+The URL for the metrics dashboard will be: `https://[org-name].github.io/awesome-virome/metrics_dashboard/`
 
 > Note: The metrics history system is designed to be self-initializing. Even if you don't have any data at first, it will start tracking metrics from the first workflow run where it's enabled.
