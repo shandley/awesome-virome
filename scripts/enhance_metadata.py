@@ -14,6 +14,9 @@ The metadata is stored in structured JSON files in the metadata/ directory.
 
 This script also supports smart cache invalidation, which ensures that when repository
 information is updated, all related cached API responses are automatically invalidated.
+
+Additionally, this module provides functions for extracting tool-specific metadata for
+integration with the incremental metadata update process.
 """
 
 import os
@@ -596,6 +599,101 @@ def main():
     successful_count = len([m for m in metadata_results if m is not None])
     logger.info(f"Enhanced metadata collection completed. Successfully processed {successful_count}/{len(repos)} repositories.")
     logger.info(f"Metadata summary available at {summary_path}")
+
+# Functions for incremental metadata update integration
+def get_repo_metadata(repo_url, github_api=None):
+    """
+    Get repository metadata for a given URL.
+    This is a wrapper function used by the incremental update process.
+    
+    Args:
+        repo_url: URL of the repository
+        github_api: Optional GitHub API client
+        
+    Returns:
+        Dictionary containing repository metadata
+    """
+    # Simple utility to extract repository name from URL
+    def extract_repo_name(url):
+        if 'github.com' in url:
+            match = re.search(r'github\.com/([^/]+)/([^/]+)', url)
+            if match:
+                return match.group(2).split('.')[0]
+        elif 'gitlab.com' in url:
+            match = re.search(r'gitlab\.com/([^/]+)/([^/]+)', url)
+            if match:
+                return match.group(2).split('.')[0]
+        elif 'bitbucket.org' in url:
+            match = re.search(r'bitbucket\.org/([^/]+)/([^/]+)', url)
+            if match:
+                return match.group(2).split('.')[0]
+        return None
+
+    repo_name = extract_repo_name(repo_url)
+    
+    # Get metadata based on repository host
+    if 'github.com' in repo_url:
+        return get_github_enhanced_metadata(repo_url, repo_name or "")
+    elif 'gitlab.com' in repo_url:
+        return get_gitlab_enhanced_metadata(repo_url, repo_name or "")
+    elif 'bitbucket.org' in repo_url:
+        return get_bitbucket_enhanced_metadata(repo_url, repo_name or "")
+    else:
+        return {"name": repo_name, "url": repo_url, "provider": "unknown"}
+
+def extract_tool_metadata(tool_id, repo_url, tool_name, github_api=None, semantic_scholar_api=None, crossref_api=None):
+    """
+    Extract tool-specific metadata for a given tool.
+    This function integrates with academic_impact.py to collect citation data.
+    
+    Args:
+        tool_id: Identifier for the tool
+        repo_url: URL of the repository
+        tool_name: Name of the tool
+        github_api: GitHub API client (optional)
+        semantic_scholar_api: Semantic Scholar API client (optional)
+        crossref_api: CrossRef API client (optional)
+        
+    Returns:
+        Dictionary containing tool-specific metadata
+    """
+    # Import the academic impact collector lazily to avoid circular imports
+    try:
+        from academic_impact import AcademicImpactCollector
+        academic_collector = AcademicImpactCollector(
+            github_token=os.environ.get("GITHUB_TOKEN"),
+            semantic_scholar_key=os.environ.get("SEMANTIC_SCHOLAR_KEY"),
+            contact_email=os.environ.get("CONTACT_EMAIL")
+        )
+        
+        # Create a minimal tool object for the academic impact collector
+        tool_obj = {
+            "id": tool_id,
+            "name": tool_name,
+            "url": repo_url,
+            "description": ""
+        }
+        
+        # Collect academic impact data
+        academic_impact = academic_collector.process_tool(tool_obj)
+        
+        # Extract relevant fields
+        return {
+            "academic_impact": {
+                "doi": academic_impact.get("doi"),
+                "citation_info": academic_impact.get("citation_info"),
+                "citation_metrics": academic_impact.get("citation_metrics")
+            }
+        }
+    except (ImportError, Exception) as e:
+        logger.warning(f"Error collecting academic impact data: {e}")
+        return {
+            "academic_impact": {
+                "doi": None,
+                "citation_info": {},
+                "citation_metrics": {}
+            }
+        }
 
 if __name__ == "__main__":
     main()
