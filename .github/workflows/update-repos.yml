@@ -218,7 +218,11 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add data.json metadata/ reports/ citations.md
+          git add data.json metadata/ reports/
+          # Add citations.md if it exists
+          if [ -f citations.md ]; then
+            git add citations.md
+          fi
           if git diff --staged --quiet; then
             echo "No changes to commit"
             echo "changes_detected=false" >> $GITHUB_OUTPUT

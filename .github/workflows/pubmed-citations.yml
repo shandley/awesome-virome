@@ -100,7 +100,11 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add data.json metadata/ citations.md
+          git add data.json metadata/
+          # Add citations.md if it exists
+          if [ -f citations.md ]; then
+            git add citations.md
+          fi
           if git diff --staged --quiet; then
             echo "No changes to commit"
             echo "changes_detected=false" >> $GITHUB_OUTPUT
@@ -127,8 +131,8 @@ jobs:
             
             Changes include:
             - Updated PubMed citation data in metadata directory
-            - Updated citations.md with latest citation information
             - Updated data.json with the latest PubMed information
+            - Updated citations.md if present
             
             Generated automatically by GitHub Actions workflow.
           branch: ${{ steps.commit.outputs.branch_name }}
