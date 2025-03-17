@@ -56,7 +56,36 @@ def load_data_json() -> Dict[str, Any]:
     """Load the current data.json file"""
     try:
         with open(DATA_JSON_PATH, 'r') as f:
-            return json.load(f)
+            data = json.load(f)
+            
+            # Check if we have the new format (nodes/links) or the old format (tools)
+            if "nodes" in data and "tools" not in data:
+                # Convert the new format to the expected format
+                logger.info("Converting data.json from nodes/links format to tools format")
+                tools = []
+                for node in data.get("nodes", []):
+                    if node.get("type") == "tool":
+                        # Map the node to a tool structure
+                        tool = {
+                            "id": node.get("id", "").replace("tool-", ""),
+                            "name": node.get("name", ""),
+                            "description": node.get("description", ""),
+                            "repository": node.get("url", ""),
+                            "homepage": node.get("url", ""),
+                            "language": node.get("language", ""),
+                            "stars": node.get("stars", 0),
+                            "last_updated": node.get("lastUpdated", "")
+                        }
+                        
+                        # Add any additional fields
+                        for key, value in node.items():
+                            if key not in tool and key not in ["id", "name", "type", "url", "description", "size", "color"]:
+                                tool[key] = value
+                        
+                        tools.append(tool)
+                
+                return {"tools": tools}
+            return data
     except (json.JSONDecodeError, FileNotFoundError) as e:
         logger.error(f"Error loading data.json: {e}")
         return {"tools": []}
@@ -109,8 +138,26 @@ def analyze_data_quality() -> Dict[str, Any]:
     tools = data.get("tools", [])
     
     if not tools:
-        logger.error("No tools found in data.json")
-        return {}
+        logger.warning("No tools found in data.json. This may be because the data.json file uses a different format than expected.")
+        # Return a minimal valid metrics object
+        return {
+            "timestamp": datetime.datetime.now().isoformat(),
+            "total_tools": 0,
+            "fields": {},
+            "critical_fields_completion": 0,
+            "important_fields_completion": 0,
+            "metadata_completion": 0,
+            "bioinformatics_completion": 0,
+            "academic_completion": 0,
+            "tools_with_metadata": 0,
+            "tools_with_github_repo": 0,
+            "tools_with_citation": 0,
+            "tools_by_language": {},
+            "tools_by_license": {},
+            "avg_description_length": 0,
+            "total_stars": 0,
+            "tools_updated_recently": 0
+        }
     
     metrics = {
         "timestamp": datetime.datetime.now().isoformat(),
@@ -282,11 +329,21 @@ def format_metrics_report(metrics: Dict[str, Any], comparison: Dict[str, Any]) -
     report.append(f"Generated: {metrics['timestamp']}")
     report.append("")
     
+    total_tools = metrics['total_tools']
+    
     report.append("## Summary")
-    report.append(f"- Total Tools: {metrics['total_tools']}")
-    report.append(f"- Tools with Metadata: {metrics['tools_with_metadata']} ({metrics['tools_with_metadata']/metrics['total_tools']*100:.1f}%)")
-    report.append(f"- Tools with Citations: {metrics['tools_with_citation']} ({metrics['tools_with_citation']/metrics['total_tools']*100:.1f}%)")
-    report.append(f"- Tools Updated in Last 30 Days: {metrics['tools_updated_recently']} ({metrics['tools_updated_recently']/metrics['total_tools']*100:.1f}%)")
+    report.append(f"- Total Tools: {total_tools}")
+    
+    # Avoid division by zero
+    if total_tools > 0:
+        report.append(f"- Tools with Metadata: {metrics['tools_with_metadata']} ({metrics['tools_with_metadata']/total_tools*100:.1f}%)")
+        report.append(f"- Tools with Citations: {metrics['tools_with_citation']} ({metrics['tools_with_citation']/total_tools*100:.1f}%)")
+        report.append(f"- Tools Updated in Last 30 Days: {metrics['tools_updated_recently']} ({metrics['tools_updated_recently']/total_tools*100:.1f}%)")
+    else:
+        report.append("- Tools with Metadata: 0 (0.0%)")
+        report.append("- Tools with Citations: 0 (0.0%)")
+        report.append("- Tools Updated in Last 30 Days: 0 (0.0%)")
+    
     report.append(f"- Total GitHub Stars: {metrics['total_stars']}")
     report.append("")
     
@@ -298,15 +355,27 @@ def format_metrics_report(metrics: Dict[str, Any], comparison: Dict[str, Any]) -
     report.append(f"- Academic Impact Fields: {metrics['academic_completion']:.1f}%")
     report.append("")
     
-    report.append("## Top Languages")
-    for language, count in metrics["top_languages"][:5]:
-        report.append(f"- {language}: {count}")
-    report.append("")
+    # Check if top_languages exists and has entries
+    if hasattr(metrics.get("top_languages", []), "__iter__") and len(metrics.get("top_languages", [])) > 0:
+        report.append("## Top Languages")
+        for language, count in metrics["top_languages"][:5]:
+            report.append(f"- {language}: {count}")
+        report.append("")
+    else:
+        report.append("## Top Languages")
+        report.append("- No language data available")
+        report.append("")
     
-    report.append("## Top Licenses")
-    for license_name, count in metrics["top_licenses"][:5]:
-        report.append(f"- {license_name}: {count}")
-    report.append("")
+    # Check if top_licenses exists and has entries
+    if hasattr(metrics.get("top_licenses", []), "__iter__") and len(metrics.get("top_licenses", [])) > 0:
+        report.append("## Top Licenses")
+        for license_name, count in metrics["top_licenses"][:5]:
+            report.append(f"- {license_name}: {count}")
+        report.append("")
+    else:
+        report.append("## Top Licenses")
+        report.append("- No license data available")
+        report.append("")
     
     if "first_measurement" not in comparison:
         report.append("## Changes Since Last Measurement")
@@ -319,18 +388,28 @@ def format_metrics_report(metrics: Dict[str, Any], comparison: Dict[str, Any]) -
     
     report.append("## Field Completion")
     
-    report.append("### Most Complete Fields (>80%)")
-    over_80 = [(field, count) for field, count in metrics["fields"].items() 
-               if count/metrics["total_tools"] > 0.8]
-    for field, count in sorted(over_80, key=lambda x: x[1], reverse=True)[:10]:
-        report.append(f"- {field}: {count/metrics['total_tools']*100:.1f}%")
-    report.append("")
-    
-    report.append("### Fields Needing Attention (<50%)")
-    under_50 = [(field, count) for field, count in metrics["fields"].items() 
-                if count/metrics["total_tools"] < 0.5]
-    for field, count in sorted(under_50, key=lambda x: x[1])[:10]:
-        report.append(f"- {field}: {count/metrics['total_tools']*100:.1f}%")
+    if total_tools > 0:
+        report.append("### Most Complete Fields (>80%)")
+        over_80 = [(field, count) for field, count in metrics["fields"].items() 
+                   if count/total_tools > 0.8]
+        if over_80:
+            for field, count in sorted(over_80, key=lambda x: x[1], reverse=True)[:10]:
+                report.append(f"- {field}: {count/total_tools*100:.1f}%")
+        else:
+            report.append("- No fields with >80% completion")
+        report.append("")
+        
+        report.append("### Fields Needing Attention (<50%)")
+        under_50 = [(field, count) for field, count in metrics["fields"].items() 
+                    if count/total_tools < 0.5]
+        if under_50:
+            for field, count in sorted(under_50, key=lambda x: x[1])[:10]:
+                report.append(f"- {field}: {count/total_tools*100:.1f}%")
+        else:
+            report.append("- No fields with <50% completion")
+    else:
+        report.append("### Field Completion Analysis")
+        report.append("- No tools found, field completion analysis unavailable")
     
     return "\n".join(report)
 
@@ -352,9 +431,9 @@ def main():
     logger.info("Starting data quality analysis...")
     metrics = analyze_data_quality()
     
-    if not metrics:
-        logger.error("Failed to generate metrics. Exiting.")
-        return 1
+    # Always proceed with some metrics, even if empty
+    if metrics.get("total_tools", 0) == 0:
+        logger.warning("No tools found in data.json. Proceeding with empty metrics.")
     
     # Load history and add current metrics
     history = load_metrics_history()
