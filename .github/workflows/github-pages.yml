@@ -1,4 +1,4 @@
-name: Deploy GitHub Pages
+name: Deploy GitHub Pages Site
 
 on:
   push:
@@ -8,6 +8,11 @@ on:
     inputs:
       force_metrics_update:
         description: 'Force metrics dashboard update'
+        required: false
+        default: false
+        type: boolean
+      force_deployment:
+        description: 'Force GitHub Pages deployment even if no changes detected'
         required: false
         default: false
         type: boolean
