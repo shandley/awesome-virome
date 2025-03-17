@@ -1200,27 +1200,66 @@
             }
             
             function initializeCitationCharts(tools) {
-                // Citation trends chart (placeholder)
+                // Get citation data for visualization
+                const toolsWithCitations = tools.filter(tool => tool.citation_count && tool.citation_count > 0);
+                const totalCitations = toolsWithCitations.reduce((sum, tool) => sum + tool.citation_count, 0);
+                const totalInfluentialCitations = toolsWithCitations.reduce((sum, tool) => sum + (tool.influential_citations || 0), 0);
+                
+                // Top 10 tools by citation
+                const top10Tools = [...toolsWithCitations]
+                    .sort((a, b) => (b.citation_count || 0) - (a.citation_count || 0))
+                    .slice(0, 10);
+                
+                // Citation trends chart (summary)
                 document.getElementById('citationTrendsChart').innerHTML = `
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="text-center">
-                            <i class="bi bi-graph-up mb-3" style="font-size: 3rem;"></i>
-                            <h4>Citation Trends</h4>
-                            <p class="text-muted">Chart.js visualization of citation trends would appear here.</p>
+                    <div class="text-center py-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="display-4 text-primary">${totalCitations}</div>
+                                <p class="lead">Total Citations</p>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="display-4 text-accent">${totalInfluentialCitations}</div>
+                                <p class="lead">Influential Citations</p>
+                            </div>
                         </div>
+                        <p class="mt-3 text-muted">Based on ${toolsWithCitations.length} tools with citation data</p>
+                        <p class="text-muted small">Data collected from academic databases including Semantic Scholar</p>
                     </div>
                 `;
                 
-                // Top cited tools chart (placeholder)
-                document.getElementById('topCitedToolsChart').innerHTML = `
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="text-center">
-                            <i class="bi bi-bar-chart mb-3" style="font-size: 3rem;"></i>
-                            <h4>Most Cited Tools</h4>
-                            <p class="text-muted">Chart.js visualization of top cited tools would appear here.</p>
+                // Top cited tools chart
+                const topCitedContent = top10Tools.length > 0 
+                    ? `
+                        <div class="px-3 py-3">
+                            <h5 class="text-center mb-3">Top 10 Most Cited Tools</h5>
+                            <div style="height: 350px; overflow-y: auto;">
+                                ${top10Tools.map((tool, index) => `
+                                    <div class="mb-3">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span class="fw-bold">${index + 1}. ${tool.name}</span>
+                                            <span>${tool.citation_count} citations</span>
+                                        </div>
+                                        <div class="progress" style="height: 15px;">
+                                            <div class="progress-bar" style="width: ${(tool.citation_count / top10Tools[0].citation_count) * 100}%; background-color: var(--accent-color);">
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
                         </div>
-                    </div>
-                `;
+                    `
+                    : `
+                        <div class="d-flex justify-content-center align-items-center h-100">
+                            <div class="text-center">
+                                <i class="bi bi-bar-chart mb-3" style="font-size: 3rem;"></i>
+                                <h4>Most Cited Tools</h4>
+                                <p class="text-muted">No citation data available</p>
+                            </div>
+                        </div>
+                    `;
+                
+                document.getElementById('topCitedToolsChart').innerHTML = topCitedContent;
                 
                 // Populate citations table
                 const citationsTableBody = document.querySelector('#citationsTable tbody');
