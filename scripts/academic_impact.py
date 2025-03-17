@@ -220,7 +220,7 @@ class AcademicImpactCollector:
         
         return self.semantic_scholar_api.find_related_papers(paper_id, field)
     
-    def process_tool(self, tool: Dict[str, Any]) -> Dict[str, Any]:
+    def process_tool(self, tool: Dict[str, Any], force_refresh: bool = False) -> Dict[str, Any]:
         """Process a single tool to collect academic impact metadata."""
         tool_name = tool.get('name', '')
         repo_url = tool.get('url', '')
@@ -230,7 +230,7 @@ class AcademicImpactCollector:
         
         # Check if we already have recent data for this tool
         cache_key = f"{tool_name}_{repo_url}"
-        if cache_key in self.existing_metadata:
+        if not force_refresh and cache_key in self.existing_metadata:
             last_updated = self.existing_metadata[cache_key].get('last_updated', '')
             # If updated within the last 30 days, use cached data
             if last_updated and (datetime.now() - datetime.fromisoformat(last_updated)).days < 30:
@@ -272,13 +272,17 @@ class AcademicImpactCollector:
         
         return academic_impact
     
-    def collect_academic_impact(self, tools: List[Dict[str, Any]]) -> Dict[str, Dict[str, Any]]:
+    def collect_academic_impact(self, tools: List[Dict[str, Any]], force_refresh: bool = False) -> Dict[str, Dict[str, Any]]:
         """Collect academic impact data for all tools."""
         results = {}
         
         # Process tools in parallel
         with ThreadPoolExecutor(max_workers=5) as executor:
-            for tool, result in zip(tools, executor.map(self.process_tool, tools)):
+            # Create a partial function to pass force_refresh parameter to process_tool
+            # We need to use a lambda to maintain compatibility with executor.map
+            process_func = lambda tool: self.process_tool(tool, force_refresh=force_refresh)
+            
+            for tool, result in zip(tools, executor.map(process_func, tools)):
                 tool_name = tool.get('name', '')
                 repo_url = tool.get('url', '')
                 cache_key = f"{tool_name}_{repo_url}"
@@ -357,6 +361,7 @@ def main():
     parser.add_argument('--semantic-scholar-key', help='Semantic Scholar API key')
     parser.add_argument('--contact-email', help='Contact email for API rate limiting')
     parser.add_argument('--zenodo-token', help='Zenodo API token')
+    parser.add_argument('--force-refresh', action='store_true', help='Force refresh of all citation data (ignore cache)')
     args = parser.parse_args()
     
     # Set up directory paths
@@ -383,7 +388,7 @@ def main():
     )
     
     # Collect academic impact data
-    results = collector.collect_academic_impact(tools)
+    results = collector.collect_academic_impact(tools, force_refresh=args.force_refresh)
     
     # Generate summary
     summary = collector.generate_summary(results)
