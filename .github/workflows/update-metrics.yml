@@ -54,11 +54,17 @@ jobs:
         with:
           python-version: '3.10'
       
+      - name: Checkout main for scripts
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-repo
+          
       - name: Copy scripts to metrics branch
         run: |
           mkdir -p .github/scripts
-          cp ../.github/scripts/store_metrics_history.py .github/scripts/
-          cp ../.github/scripts/generate_metrics_charts.py .github/scripts/
+          cp main-repo/.github/scripts/store_metrics_history.py .github/scripts/
+          cp main-repo/.github/scripts/generate_metrics_charts.py .github/scripts/
           chmod +x .github/scripts/store_metrics_history.py
           chmod +x .github/scripts/generate_metrics_charts.py
           
