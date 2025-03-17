@@ -99,8 +99,13 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # Add all changed files
-          git add data.json README.md repo_updates.json update_check.log metadata/ reports/
+          # Add only the specific files we want to commit
+          # Explicitly NOT including update_check.log and repo_updates.json since they're gitignored
+          git add data.json README.md
+          
+          # Add directories with wildcards to avoid errors if they don't exist
+          git add metadata/* || true
+          git add reports/* || true
           
           # Determine commit message based on update type
           if [[ "${{ github.event.inputs.update_type }}" == "comprehensive" || "${{ github.event.schedule }}" == "0 8 1 * *" ]]; then
