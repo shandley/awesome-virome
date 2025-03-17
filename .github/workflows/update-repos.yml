@@ -219,7 +219,8 @@ jobs:
         id: create-pr
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Use PAT_TOKEN if available, otherwise fall back to GITHUB_TOKEN
+          token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
           commit-message: Update academic impact metadata and citation reports
           title: Update academic impact metadata and citation reports
           body: |
@@ -243,5 +244,10 @@ jobs:
           if [[ -n "${{ steps.create-pr.outputs.pull-request-url }}" ]]; then
             echo "::notice::PR created successfully: ${{ steps.create-pr.outputs.pull-request-url }}"
           else
-            echo "::warning::PR creation failed. You may need to enable 'Allow GitHub Actions to create and approve pull requests' in repository Settings > Actions > General"
+            echo "::warning::PR creation failed. You need to configure one of the following:"
+            echo "::warning::1. Add a Personal Access Token (PAT) with 'repo' scope as a repository secret named 'PAT_TOKEN'"
+            echo "::warning::2. Enable 'Allow GitHub Actions to create and approve pull requests' in repository Settings > Actions > General"
+            
+            # Provide manual PR creation URL as fallback
+            echo "::notice::For now, you can create a PR manually at: https://github.com/$GITHUB_REPOSITORY/pull/new/academic-impact-${{ github.run_id }}"
           fi
