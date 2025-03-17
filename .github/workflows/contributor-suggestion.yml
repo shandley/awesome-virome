@@ -91,4 +91,4 @@ jobs:
           # Restore the original data.json to avoid making changes
           mv data.json.backup data.json
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
