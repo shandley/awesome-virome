@@ -22,7 +22,7 @@ import argparse
 from datetime import datetime
 from typing import Dict, List, Optional, Any, Tuple
 from pathlib import Path
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import re
 import sys
 
@@ -181,7 +181,7 @@ class PubMedCitationsCollector:
         with ThreadPoolExecutor(max_workers=5) as executor:
             future_to_tool = {executor.submit(self.get_tool_publication, tool): tool for tool in tools}
             
-            for future in ThreadPoolExecutor.as_completed(future_to_tool):
+            for future in as_completed(future_to_tool):
                 tool = future_to_tool[future]
                 tool_name = tool.get('name', '')
                 repo_url = tool.get('url', '')
