@@ -37,7 +37,7 @@ Virome analysis involves studying the collection of viruses (including bacteriop
 
 > **Note on Tool Availability**: This list contains tools developed over many years. Some tools may no longer be actively maintained or might have moved to new locations. We mark tools that are no longer available as [unavailable] and provide archive links when possible. If you find a broken link or know of a tool's new location, please submit a PR or issue.
 
-## Table of Contents
+## Contents
 
 - [Getting Started](#getting-started)
 - [Typical Workflows](#typical-workflows)
@@ -148,7 +148,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 6. Host prediction (e.g., iPHoP)
 7. Functional annotation (e.g., Pharokka, DRAMv)
 
-## Table of Contents
+## Detailed Contents
 
 - [Getting Started](#getting-started)
 - [Typical Workflows](#typical-workflows)
