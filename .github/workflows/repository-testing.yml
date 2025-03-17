@@ -483,6 +483,20 @@ jobs:
           path: ./lychee/
         continue-on-error: true
         
+      - name: Checkout main for scripts
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-repo
+          
+      - name: Copy scripts to metrics branch
+        run: |
+          mkdir -p .github/scripts
+          cp main-repo/.github/scripts/store_metrics_history.py .github/scripts/
+          cp main-repo/.github/scripts/generate_metrics_charts.py .github/scripts/
+          chmod +x .github/scripts/store_metrics_history.py
+          chmod +x .github/scripts/generate_metrics_charts.py
+          
       - name: Update metrics history
         env:
           GITHUB_RUN_ID: ${{ github.run_id }}
@@ -490,12 +504,10 @@ jobs:
           WORKFLOW_STATUS: ${{ job.status }}
           LINK_REPORT_PATH: "./lychee/out.md"
         run: |
-          chmod +x .github/scripts/store_metrics_history.py
           .github/scripts/store_metrics_history.py
           
       - name: Generate metrics visualizations
         run: |
-          chmod +x .github/scripts/generate_metrics_charts.py
           .github/scripts/generate_metrics_charts.py
           
       - name: Configure GitHub Pages
