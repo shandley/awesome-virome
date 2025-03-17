@@ -1,4 +1,7 @@
-name: Deploy GitHub Pages Site
+# CUSTOM GITHUB PAGES DEPLOYMENT WORKFLOW
+# This workflow is specifically designed to handle GitHub Pages deployment
+# with metrics dashboard integration
+name: Custom GitHub Pages Deployment
 
 on:
   push:
@@ -27,12 +30,19 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  custom_pages_deploy:
+    name: Deploy Custom Pages
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - name: Initial Setup
+        run: |
+          echo "Starting Custom GitHub Pages Deployment workflow"
+          echo "Timestamp: $(date)"
+          echo "This is a custom workflow that deploys GitHub Pages with metrics dashboard"
+      
       - name: Checkout main repository
         uses: actions/checkout@v4
       
