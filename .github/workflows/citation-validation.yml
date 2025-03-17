@@ -22,6 +22,11 @@ on:
         type: boolean
         default: false
 
+# Permissions needed for creating PRs
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   validate-citations:
     runs-on: ubuntu-latest
@@ -112,10 +117,45 @@ jobs:
             issues_count: (.all_issues | length)
           }' reports/citation_validation.json > reports/citations/citation_validation_metrics.json
       
-      - name: Commit validation results
+      - name: Prepare validation results
+        id: prepare
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add reports/citations/citation_validation_metrics.json
-          git diff --staged --quiet || git commit -m "Update citation validation metrics"
-          git push
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+          else
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Create Pull Request
+        if: steps.prepare.outputs.changes_detected == 'true'
+        id: create-pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update citation validation metrics
+          title: Update citation validation metrics
+          body: |
+            ## Automated PR with citation validation results
+            
+            This PR updates the citation validation metrics based on the latest validation run.
+            
+            Changes include:
+            - Updated citation validation metrics in `reports/citations/citation_validation_metrics.json`
+            
+            Generated automatically by GitHub Actions workflow.
+          branch: citation-validation-${{ github.run_id }}
+          base: main
+          delete-branch: false
+      
+      - name: PR Creation Result
+        if: steps.prepare.outputs.changes_detected == 'true'
+        run: |
+          if [[ -n "${{ steps.create-pr.outputs.pull-request-url }}" ]]; then
+            echo "::notice::PR created successfully: ${{ steps.create-pr.outputs.pull-request-url }}"
+          else
+            echo "::warning::PR creation failed. You may need to enable 'Allow GitHub Actions to create and approve pull requests' in repository Settings > Actions > General"
+          fi
