@@ -394,6 +394,17 @@
             color: white;
         }
         
+        /* CrossRef Indicator */
+        .crossref-indicator {
+            background-color: #FF6B6B;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.1em 0.3em;
+            border-radius: 3px;
+            margin-right: 0.3em;
+            vertical-align: middle;
+        }
+        
         /* Network visualization */
         #networkGraph {
             width: 100%;
@@ -1127,7 +1138,9 @@
                 // Create citation badge if available
                 let citationBadge = '';
                 if (tool.citation_count && tool.citation_count > 0) {
-                    citationBadge = `<span class="badge badge-citations">${tool.citation_count} Citation${tool.citation_count > 1 ? 's' : ''}</span>`;
+                    const sourceIndicator = tool.citation_data_source && tool.citation_data_source.includes('crossref') ? 
+                        '<span title="Data from CrossRef" class="crossref-indicator">CR</span> ' : '';
+                    citationBadge = `<span class="badge badge-citations">${sourceIndicator}${tool.citation_count} Citation${tool.citation_count > 1 ? 's' : ''}</span>`;
                 }
                 
                 // Special case for tools with DOIs that should have citations
@@ -1231,7 +1244,10 @@
                             </div>
                         </div>
                         <p class="mt-3 text-muted">Based on ${toolsWithCitations.length} tools with citation data</p>
-                        <p class="text-muted small">Data collected from academic databases including Semantic Scholar</p>
+                        <p class="text-muted small">
+                            Data collected from academic databases including Semantic Scholar and CrossRef
+                            <span class="crossref-indicator" style="vertical-align: text-top;">CR</span> = CrossRef data
+                        </p>
                     </div>
                 `;
                 
@@ -1293,7 +1309,11 @@
                     
                     row.innerHTML = `
                         <td>${tool.name}</td>
-                        <td>${tool.citation_count || 0}</td>
+                        <td>
+                            ${tool.citation_count || 0}
+                            ${tool.citation_data_source && tool.citation_data_source.includes('crossref') ? 
+                              '<span title="Citation data from CrossRef" class="crossref-indicator">CR</span>' : ''}
+                        </td>
                         <td>${tool.influential_citations || 0}</td>
                         <td>${cleanDoi ? `<a href="https://doi.org/${cleanDoi}" target="_blank">${cleanDoi}</a>` : 'N/A'}</td>
                         <td>${trendHtml}</td>
@@ -1520,7 +1540,11 @@
                         citationsHtml = `
                             <div class="mb-3">
                                 <p><strong>DOI:</strong> ${cleanDoi ? `<a href="https://doi.org/${cleanDoi}" target="_blank">${cleanDoi}</a>` : 'Not available'}</p>
-                                <p><strong>Total Citations:</strong> ${tool.citation_count || 0}</p>
+                                <p>
+                                    <strong>Total Citations:</strong> ${tool.citation_count || 0}
+                                    ${tool.citation_data_source && tool.citation_data_source.includes('crossref') ? 
+                                      '<span title="Citation data from CrossRef" class="crossref-indicator">CR</span>' : ''}
+                                </p>
                                 <p><strong>Influential Citations:</strong> ${tool.influential_citations || 0}</p>
                                 
                                 ${tool.formatted_citations ? `
