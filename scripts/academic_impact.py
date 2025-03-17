@@ -378,12 +378,28 @@ def main():
     
     logger.info(f"Loaded {len(tools)} tools from data.json")
     
+    # Check for environment variables if not provided as arguments
+    github_token = args.github_token or os.environ.get('GITHUB_TOKEN')
+    semantic_scholar_key = args.semantic_scholar_key or os.environ.get('SEMANTIC_SCHOLAR_KEY')
+    contact_email = args.contact_email or os.environ.get('CONTACT_EMAIL')
+    zenodo_token = args.zenodo_token or os.environ.get('ZENODO_TOKEN')
+    
+    if github_token:
+        logger.info("GitHub token found in environment variables")
+    else:
+        logger.warning("No GitHub token found - rate limits will be strict")
+    
+    if semantic_scholar_key:
+        logger.info("Semantic Scholar API key found in environment variables")
+    else:
+        logger.warning("No Semantic Scholar API key found - using unauthenticated access")
+    
     # Initialize collector with custom directory paths
     collector = AcademicImpactCollector(
-        github_token=args.github_token,
-        semantic_scholar_key=args.semantic_scholar_key,
-        contact_email=args.contact_email,
-        zenodo_token=args.zenodo_token,
+        github_token=github_token,
+        semantic_scholar_key=semantic_scholar_key,
+        contact_email=contact_email,
+        zenodo_token=zenodo_token,
         metadata_dir=metadata_dir
     )
     
