@@ -128,7 +128,9 @@ jobs:
           git push
 
   warm-cache:
-    if: github.event_name == 'schedule' && (github.event.schedule == '0 0 1 * *' || github.event.schedule == '0 0 5 * *')
+    if: |
+      github.event_name == 'schedule' && (github.event.schedule == '0 0 1 * *' || github.event.schedule == '0 0 5 * *') ||
+      github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'academic_impact' || github.event.inputs.update_type == 'all')
     uses: ./.github/workflows/cache-warming.yml
     with:
       scope: 'important'
