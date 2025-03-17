@@ -132,22 +132,22 @@ Here are the most starred packages in key categories:
 
 ### Virus and Phage Identification
 1. [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) - ⭐ 1114 stars
-2. [geNomad](https://github.com/apcamargo/genomad) - ⭐ 219 stars
+2. [geNomad](https://github.com/apcamargo/genomad) [v1.6.0, 2023] - ⭐ 219 stars
 3. [VIBRANT](https://github.com/AnantharamanLab/VIBRANT) - ⭐ 159 stars
 
 ### Host Prediction
-1. [CHERRY](https://github.com/KennthShang/CHERRY) - ⭐ 24 stars
+1. [CHERRY](https://github.com/KennthShang/CHERRY) [v1.0, 2022] - ⭐ 24 stars
 2. [VirHostMatcher-Net](https://github.com/WeiliWw/VirHostMatcher-Net) - ⭐ 21 stars
 3. [DeepHost](https://github.com/deepomicslab/DeepHost) - ⭐ 17 stars
 
 ### Genome Analysis
 1. [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
 2. [Prodigal/MetaProdigal](https://github.com/hyattpd/Prodigal) - ⭐ 471 stars
-3. [Pharokka](https://github.com/gbouras13/pharokka) - ⭐ 158 stars
+3. [Pharokka](https://github.com/gbouras13/pharokka) [v1.5.0, 2023] - ⭐ 158 stars
 
 ### Taxonomy
-1. [vConTACT2.0](https://bitbucket.org/MAVERICLab/vcontact2/src/master/) - ⭐ 27 stars
-2. [PhaGCN](https://github.com/KennthShang/PhaGCN) - ⭐ 25 stars
+1. [vConTACT2.0](https://bitbucket.org/MAVERICLab/vcontact2/src/master/) [v0.9.19, 2023] - ⭐ 27 stars
+2. [PhaGCN](https://github.com/KennthShang/PhaGCN) [v1.0, 2022] - ⭐ 25 stars
 3. [VIPtree](https://github.com/yosuken/ViPTreeGen) - ⭐ 19 stars
 
 ## Getting Started
@@ -229,8 +229,8 @@ For newcomers to virome analysis, here are some recommended starting points:
 
 ### Metagenome Analysis
 
-- [Cenote-Taker 3](https://github.com/mtisza1/Cenote-Taker3) [Updated: 03/2025] - Hallmark gene discovery, gene annotation, flanking host gene removal. [Linux/MacOS] [conda] [v0.1.0, 2023]
-- [Cenote-Taker 2](https://github.com/mtisza1/Cenote-Taker2) [Updated: 11/2024] - Scans contigs for virus hallmark genes, removes flanking host DNA from prophages, makes annotated genome maps. [conda, pip] [v2.1.5, 2022]
+- [Cenote-Taker 3](https://github.com/mtisza1/Cenote-Taker3) [v0.1.0, 2023] - Hallmark gene discovery, gene annotation, flanking host gene removal. [Linux/MacOS] [conda] [v0.1.0, 2023]
+- [Cenote-Taker 2](https://github.com/mtisza1/Cenote-Taker2) [v2.1.5, 2022] - Scans contigs for virus hallmark genes, removes flanking host DNA from prophages, makes annotated genome maps. [conda, pip] [v2.1.5, 2022]
 - [CoCoNet](https://github.com/Puumanamana/CoCoNet) [Updated: 03/2025] - Neural networks for viral contig identification. [pip] [Python]
 - [crassus](https://github.com/dcarrillox/CrassUS) [Updated: 04/2023] - Snakemake workflow for phage discovery. [conda] [Python]
 - [DBSCAN-SWA](https://github.com/HIT-ImmunologyLab/DBSCAN-SWA/) [Updated: 12/2024] - DBSCAN clustering for phage identification. [Python]
@@ -278,10 +278,10 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [VirNet](https://github.com/alyosama/virnet) [Updated: 09/2024] - Neural network for phage identification. [Python]
 - [ViroProfiler](https://github.com/deng-lab/viroprofiler) [Updated: 02/2025] - Comprehensive phage profiling pipeline. [Nextflow]
 - [VirSorter](https://github.com/simroux/VirSorter) [Updated: 01/2025] - Detection of viral sequences from microbial genomic data. [bioconda] [Perl] [legacy]
-- [VirSorter2](https://bitbucket.org/MAVERICLab/virsorter2/) [Updated: 11/2023] - Random forest classifier for virus detection. [conda] [Python] [v2.2.4, 2023]
+- [VirSorter2](https://bitbucket.org/MAVERICLab/virsorter2/) [v2.2.4, 2023] - Random forest classifier for virus detection. [conda] [Python] [v2.2.4, 2023]
 - [Virtifier](https://github.com/crazyinter/Seq2Vec) [Updated: 11/2024] - LSTM neural network for virus identification. [Python]
 - [Virtus](https://github.com/yyoshiaki/VIRTUS) [Updated: 10/2024] - Virus sequence detection workflow. [Snakemake]
-- [virus_prediction](https://github.com/rujinlong/virus_prediction) [unavailable] [unavailable] [unavailable] [unavailable] [unavailable] - Nextflow pipeline with virSorter. [Nextflow]
+- [virus_prediction](https://github.com/rujinlong/virus_prediction) [unavailable] - Nextflow pipeline with virSorter. [Nextflow]
 - [ViruSpy](https://github.com/NCBI-Hackathons/ViruSpy) [Updated: 11/2024] - Virus detection pipeline. [Python]
 - [VirusSeeker](https://wupathlabs.wustl.edu/virusseeker/) - Pipeline for virus detection from sequence data. [source] [Perl]
 - [vRhyme](https://github.com/AnantharamanLab/vRhyme) [Updated: 02/2025] - Machine learning for viral binning from metagenomes. [conda] [Python]
@@ -290,7 +290,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 ### Integrated Viruses
 
 - [DRAD](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0001193) - Dinucleotide Relative Abundance difference method (no longer available).
-- [geNomad](https://github.com/apcamargo/genomad) [Updated: 03/2025] - Tool for identifying viral sequences, including proviruses. [conda] [Python] [v1.6.0, 2023]
+- [geNomad](https://github.com/apcamargo/genomad) [v1.6.0, 2023] [Updated: 03/2025] - Tool for identifying viral sequences, including proviruses. [conda] [Python] [v1.6.0, 2023]
 - [hafeZ](https://github.com/Chrisjrt/hafeZ) [Updated: 08/2024] - Readmapping approach for integrated phage identification. [Python]
 - [LysoPhD](https://ieeexplore.ieee.org/document/8983280) - Phage identification tool (code not available).
 - [phage_finder](http://phage-finder.sourceforge.net/) - Pipeline for prophage identification. [Perl] [legacy]
@@ -298,7 +298,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [PhageWeb](http://computationalbiology.ufpa.br/phageweb/) - Web server for phage identification (API available). [web service]
 - [PHASTER](https://phaster.ca/) - Rapid identification and annotation of prophage sequences (web service only). [web service]
 - [Phigaro](https://github.com/bobeobibo/phigaro) [Updated: 12/2024] - Prophage prediction tool. (Note: downloads uncompressed file from Russian server). [Python]
-- [PhiSpy](https://github.com/linsalrob/PhiSpy) [Updated: 03/2025] - Prophage identification combining similarity and composition-based approaches. [conda, pip] [Python] [v4.2.23, 2023]
+- [PhiSpy](https://github.com/linsalrob/PhiSpy) [v4.2.23, 2023] - Prophage identification combining similarity and composition-based approaches. [conda, pip] [Python] [v4.2.23, 2023]
 - [Prophet](https://github.com/jaumlrc/ProphET) [Updated: 12/2023] - Prophage prediction tool. (Note: requires unsupported legacy software). [Perl] [legacy]
 - [Prophinder](http://aclame.ulb.ac.be/Tools/Prophinder/) - Web-based prophage detection tool. [web service]
 - [VAPiD](https://github.com/rcs333/VAPiD) [Updated: 09/2024] - Virus genome annotation and identification tool. [pip] [Python]
@@ -309,20 +309,20 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [palmID](https://serratus.io/palmid) - RNA virus RdRp search tool with R interface. [source, R] [R]
 - [RdRp-scan](https://github.com/JustineCharon/RdRp-scan/) [Updated: 07/2024] - Search against the RdRp database. [source] [Python]
 - [rdrpsearch](https://zenodo.org/record/5731488) - Iterative HMM search of viral RdRp to detect distant homologs. [source] [Python]
-- [RNA-Virus-Flow](https://web.archive.org/web/20210317042215/https://github.com/rna-virus/RNA-Virus-Flow) [unavailable] [unavailable] [unavailable] [unavailable] - Pipeline for RNA virus assembly and analysis. [Nextflow]
+- [RNA-Virus-Flow](https://web.archive.org/web/20210317042215/https://github.com/rna-virus/RNA-Virus-Flow) [unavailable] - Pipeline for RNA virus assembly and analysis. [Nextflow]
 
 ## Host Prediction
 
 - [BacteriophageHostPrediction](https://github.com/dimiboeckaerts/BacteriophageHostPrediction) [Updated: 01/2025] - Computational methods for phage-host prediction. [Python]
-- [CHERRY](https://github.com/KennthShang/CHERRY) [Updated: 03/2025] - Deep learning for phage host prediction. [Python] [v1.0, 2022]
+- [CHERRY](https://github.com/KennthShang/CHERRY) [v1.0, 2022] [Updated: 03/2025] - Deep learning for phage host prediction. [Python] [v1.0, 2022]
 - [CrisprOpenDB](https://github.com/edzuf/CrisprOpenDB) [Updated: 07/2024] - CRISPR spacer database for phage-host prediction. [Python]
 - [DeePaC](https://gitlab.com/dacs-hpi/deepac) - CNN, ResNet for detection of novel human pathogens. [conda, pip] [Python]
 - [DeePaC-Live](https://gitlab.com/dacs-hpi/deepac-live) - DeePaC plugin for real-time analysis during sequencing. [conda, pip] [Python]
 - [DeepHost](https://github.com/deepomicslab/DeepHost) [Updated: 01/2025] - CNN for phage host prediction. [Python]
-- [HostG](https://github.com/KennthShang/HostG) [Updated: 01/2025] - Graph convolutional network for phage host prediction. [Python] [v1.0, 2022]
+- [HostG](https://github.com/KennthShang/HostG) [v1.0, 2022] - Graph convolutional network for phage host prediction. [Python] [v1.0, 2022]
 - [HostPhinder](https://github.com/julvi/HostPhinder) [Updated: 11/2024] - K-mer based phage host prediction. [Python]
 - [INFH-VH](https://github.com/liudan111/ILMF-VH) [Updated: 11/2024] - Integrating different features for virus-host prediction. [Python]
-- [iPHoP](https://github.com/RasmussenLab/PHoP) [unavailable] [unavailable] [unavailable] - Integrated approach for phage host prediction (formerly iPHoP). Documentation at [iphop.readthedocs.io](https://iphop.readthedocs.io/). [Python] [v1.1.0, 2023]
+- [iPHoP](https://github.com/RasmussenLab/PHoP) [unavailable] - Integrated approach for phage host prediction (formerly iPHoP). Documentation at [iphop.readthedocs.io](https://iphop.readthedocs.io/). [Python] [v1.1.0, 2023]
 - [MVP](https://web.archive.org/web/20201204203350/http://mvp.medgenius.info/home) [unavailable] - Microbe-virus database with prediction tools. [web service]
 - [PB-LKS](https://github.com/wanchunnie/PB-LKS) [Updated: 02/2025] - K-mer profiles for phage-bacteria prediction. [Python]
 - [PhageHostLearn](https://github.com/dimiboeckaerts/PhageHostLearn) [Updated: 02/2025] - Machine learning for phage-host prediction. [Python]
@@ -339,7 +339,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [VIDHOP](https://github.com/flomock/vidhop) [Updated: 03/2025] - Deep learning for virus-host prediction. [conda] [Python]
 - [VirHostMatcher](https://github.com/jessieren/VirHostMatcher) [Updated: 01/2025] - Oligonucleotide frequency-based host prediction. [Python]
 - [VirHostMatcher-Net](https://github.com/WeiliWw/VirHostMatcher-Net) [Updated: 09/2024] - Network-based virus-host prediction. [Python]
-- [VirMatcher](https://bitbucket.org/MAVERICLab/virmatcher/src/master/) [Updated: 03/2025] - Multiple methods for phage host prediction with confidence scores. [conda] [Python] [v1.0, 2022]
+- [VirMatcher](https://bitbucket.org/MAVERICLab/virmatcher/src/master/) [v1.0, 2022] - Multiple methods for phage host prediction with confidence scores. [conda] [Python] [v1.0, 2022]
 - [Virus Host DB](https://www.genome.jp/virushostdb/) - Database for virus-host relationships. [web service]
 - [Virus Host Predict](https://github.com/youngfran/virus_host_predict) [Updated: 05/2024] - Host prediction for viral sequences. [Python]
 - [WIsH](https://github.com/soedinglab/WIsH) [Updated: 10/2024] - Phage-host prediction using genome homology. [C++]
@@ -348,10 +348,10 @@ For newcomers to virome analysis, here are some recommended starting points:
 
 ### Genome Annotation
 
-- [DRAMv](https://github.com/WrightonLabCSU/DRAM) [Updated: 03/2025] - Distilling and refining annotation of metabolism for phages. [conda, pip] [Python] [v1.4.6, 2023]
+- [DRAMv](https://github.com/WrightonLabCSU/DRAM) [v1.4.6, 2023] - Distilling and refining annotation of metabolism for phages. [conda, pip] [Python] [v1.4.6, 2023]
 - [MetaCerberus](https://github.com/raw-lab/MetaCerberus) [Updated: 03/2025] - HMM-based annotation with Ray MPP. [conda, pip] [Python]
 - [PhANNs](https://github.com/Adrian-Cantu/PhANNs) [Updated: 12/2024] - Phage annotation neural networks. (Python version available via contact) [Python]
-- [Pharokka](https://github.com/gbouras13/pharokka) [Updated: 03/2025] - Rapid phage annotation tool. [conda] [Python] [v1.5.0, 2023]
+- [Pharokka](https://github.com/gbouras13/pharokka) [v1.5.0, 2023] [Updated: 03/2025] - Rapid phage annotation tool. [conda] [Python] [v1.5.0, 2023]
 
 ### Genome Assembly
 
@@ -361,7 +361,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 
 ### Genome Completeness
 
-- [CheckV](https://bitbucket.org/berkeleylab/checkv/) [Updated: 12/2024] - Quality assessment for viral genomes. (Not recommended for prophages) [conda, pip] [Python] [v1.0.1, 2022]
+- [CheckV](https://bitbucket.org/berkeleylab/checkv/) [v1.0.1, 2022] - Quality assessment for viral genomes. (Not recommended for prophages) [conda, pip] [Python] [v1.0.1, 2022]
 - [viralComplete](https://github.com/ablab/viralComplete/) [Updated: 11/2024] - Tool for checking viral genome completeness. [Python]
 - [viralVerify](https://github.com/ablab/viralVerify/) [Updated: 01/2025] - Verification of viral contigs. [Python]
 
@@ -378,21 +378,21 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [GeneMarkS-2](http://exon.gatech.edu/GeneMark/genemarks2.cgi) - Improved version of GeneMarkS with enhanced performance for phage genomes. [web service] [Perl/C++]
 - [PHANOTATE](https://github.com/deprekate/PHANOTATE) [Updated: 01/2025] - Phage gene finder using a graph-based algorithm to identify ORFs missed by other programs. [Python]
 - [PhageBoost](https://github.com/ku-cbd/PhageBoost) [Updated: 02/2025] - Machine learning tool for identifying structural proteins in phage genomes. [R]
-- [PhiSpy](https://github.com/linsalrob/PhiSpy) [Updated: 03/2025] - While primarily for prophage identification, includes ORF prediction capabilities. [conda, pip] [Python]
+- [PhiSpy](https://github.com/linsalrob/PhiSpy) [v4.2.23, 2023] - While primarily for prophage identification, includes ORF prediction capabilities. [conda, pip] [Python]
 - [GLIMMER](https://ccb.jhu.edu/software/glimmer/) - Gene finder originally designed for bacteria but frequently used for phage genomes. [source] [C++]
-- [VIGOR](https://github.com/JCVI-VIRIFX/VIGOR4) [unavailable] [unavailable] [unavailable] - Viral genome annotation tool designed specifically for viral genomes, primarily eukaryotic viruses. [source] [Java/Perl]
+- [VIGOR](https://github.com/JCVI-VIRIFX/VIGOR4) [unavailable] - Viral genome annotation tool designed specifically for viral genomes, primarily eukaryotic viruses. [source] [Java/Perl]
 - [PhageTerm](https://sourceforge.net/projects/phageterm/) - Tool for identifying phage termini and packaging mechanisms, helpful for ORF identification. [source] [Python]
-- [Pharokka](https://github.com/gbouras13/pharokka) [Updated: 03/2025] - Dedicated phage annotation tool that includes ORF prediction. [conda] [Python]
-- [VGAS](https://github.com/tianqitang1/VGAS) [unavailable] [unavailable] [unavailable] - Comprehensive pipeline for viral genome annotation including gene finding. [source] [Python]
+- [Pharokka](https://github.com/gbouras13/pharokka) [v1.5.0, 2023] [Updated: 03/2025] - Dedicated phage annotation tool that includes ORF prediction. [conda] [Python]
+- [VGAS](https://github.com/tianqitang1/VGAS) [unavailable] - Comprehensive pipeline for viral genome annotation including gene finding. [source] [Python]
 
 ## Taxonomy
 
 - [BERTax](https://github.com/f-kretschmer/bertax) [Updated: 02/2025] - BERT-based viral taxonomy tool. [Python]
 - [Classiphages 2.0](https://www.biorxiv.org/content/10.1101/558171v1) - Artificial neural network for phage classification (code not available).
 - [GraViTy](https://github.com/PAiewsakun/GRAViTy) [Updated: 12/2024] - HMMs and genome organization models for virus taxonomy. [R]
-- [PhaGCN](https://github.com/KennthShang/PhaGCN) [Updated: 02/2025] - Graph convolutional network for phage taxonomy. [Python] [v1.0, 2022]
+- [PhaGCN](https://github.com/KennthShang/PhaGCN) [v1.0, 2022] [Updated: 02/2025] - Graph convolutional network for phage taxonomy. [Python] [v1.0, 2022]
 - [vConTACT](https://bitbucket.org/MAVERICLab/vcontact/src/master/) [Updated: 10/2016] - Whole-genome gene-sharing networks for virus taxonomy. [Python] [legacy]
-- [vConTACT2.0](https://bitbucket.org/MAVERICLab/vcontact2/src/master/) [Updated: 11/2022] - Updated version of vConTACT with improved performance. [Python] [v0.9.19, 2023]
+- [vConTACT2.0](https://bitbucket.org/MAVERICLab/vcontact2/src/master/) [v0.9.19, 2023] [Updated: 11/2022] - Updated version of vConTACT with improved performance. [Python] [v0.9.19, 2023]
 - [VICTOR](https://github.com/vdclab/vdclab-wiki/blob/master/VICTOR.md) - Genome-based phylogeny and classification of phages. [web service]
 - [VIPtree](https://github.com/yosuken/ViPTreeGen) [Updated: 02/2025] - Viral proteomic tree generation tool. [Perl]
 - [VIRIDIC](https://www.mdpi.com/1999-4915/12/11/1268) - Virus intergenomic distance calculator. [R]
@@ -440,7 +440,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 
 ### Lifestyle Classification
 
-- [BACPHLIP](https://github.com/adamhockenberry/bacphlip) [Updated: 10/2024] - Random Forest classifier for phage lifestyle. [conda, pip] [Python] [v0.9.6, 2023]
+- [BACPHLIP](https://github.com/adamhockenberry/bacphlip) [v0.9.6, 2023] - Random Forest classifier for phage lifestyle. [conda, pip] [Python] [v0.9.6, 2023]
 - [PHACTS](https://github.com/deprekate/PHACTS) [Updated: 03/2025] - Phage classification tool suite. [Python]
 - [PhageAI](https://app.phage.ai/) - NLP, ML for phage lifestyle classification. [pip] [Python]
 
@@ -532,13 +532,13 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [AMRFinder](https://github.com/ncbi/amr) [Updated: 03/2025] - NCBI's tool for identifying resistance genes, can be applied to phage genomes. [C++]
 - [PHANOTATE-AMR](https://github.com/deprekate/PHANOTATE) [Updated: 01/2025] - Extension adding AMR gene identification in phages. [Python]
 - [ResFinder](https://github.com/cadms/resfinder) [Updated: 02/2025] - Identifies resistance genes in bacteriophages. [Python]
-- [VirAMR](https://github.com/phglab/VirAMR) [unavailable] [unavailable] [unavailable] - Detects antimicrobial resistance genes in viral genomes. [Python]
+- [VirAMR](https://github.com/phglab/VirAMR) [unavailable] - Detects antimicrobial resistance genes in viral genomes. [Python]
 
 ### Viral Metatranscriptomics
 
 - [metaviralSPAdes-RNA](https://github.com/ablab/spades) [Updated: 03/2025] - RNA virus detection module. [C++]
 - [VirMine-RNA](https://github.com/thatzopoulos/virMine) [Updated: 04/2023] - Focused on detecting RNA viruses in transcriptomic data. [Python]
-- [VirusTAP](https://web.archive.org/web/20190320032516/https://github.com/bioinformatics-toyama/VirusTAP) [unavailable] [unavailable] [unavailable] [unavailable] - Transcriptome Assembler Pipeline for viral sequence discovery. [Perl]
+- [VirusTAP](https://web.archive.org/web/20190320032516/https://github.com/bioinformatics-toyama/VirusTAP) [unavailable] - Transcriptome Assembler Pipeline for viral sequence discovery. [Perl]
 
 ### Viral Quasispecies Analysis
 
@@ -546,39 +546,39 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [QuRe](https://sourceforge.net/projects/qure/) - Viral quasispecies reconstruction tool. [Java]
 - [ShoRAH](https://github.com/cbg-ethz/shorah) [Updated: 12/2024] - Short reads assembly into haplotypes for viral population. [C++]
 - [V-pipe](https://github.com/cbg-ethz/V-pipe) [Updated: 03/2025] - Pipeline for viral population analysis. [Nextflow]
-- [ViQuaS](https://web.archive.org/web/20190710131744/https://github.com/HadiNW/ViQuaS) [unavailable] [unavailable] [unavailable] [unavailable] - Viral Quasispecies reconstruction. [Python]
+- [ViQuaS](https://web.archive.org/web/20190710131744/https://github.com/HadiNW/ViQuaS) [unavailable] - Viral Quasispecies reconstruction. [Python]
 
 ### Cloud-based Viral Analysis
 
-- [CloVR-Microbe](https://web.archive.org/web/20170705185333/https://github.com/jorvis/clovr-base) [unavailable] [unavailable] [unavailable] [unavailable] - Cloud-based viral metagenomics pipeline. [Perl]
+- [CloVR-Microbe](https://web.archive.org/web/20170705185333/https://github.com/jorvis/clovr-base) [unavailable] - Cloud-based viral metagenomics pipeline. [Perl]
 - [IDseq](https://github.com/chanzuckerberg/idseq-web) [Updated: 03/2025] - Pathogen detection platform with viral analysis components. [Ruby]
-- [Viral Beacon](https://web.archive.org/web/20210612075424/https://github.com/ga4gh-beacon/beacon-virus-server) [unavailable] [unavailable] [unavailable] [unavailable] - Cloud platform for virus sequence sharing and analysis. [Python]
+- [Viral Beacon](https://web.archive.org/web/20210612075424/https://github.com/ga4gh-beacon/beacon-virus-server) [unavailable] - Cloud platform for virus sequence sharing and analysis. [Python]
 - [Viral-NGS](https://github.com/broadinstitute/viral-ngs) [Updated: 02/2025] - Broad Institute's viral genomic analysis on cloud. [Python]
 
 ### Machine Learning Models
 
 - [CHERRY-models](https://github.com/KennthShang/CHERRY) [Updated: 03/2025] - Pre-trained host prediction models. [Python] 
 - [DeepVirFinder-models](https://github.com/jessieren/DeepVirFinder/tree/master/models) [Updated: 03/2025] - Pre-trained models for viral sequence identification. [Python]
-- [PhaTYP-models](https://web.archive.org/web/20211218103428/https://github.com/PhaTYP/PhaTYP) [unavailable] [unavailable] [unavailable] [unavailable] - Phage lifestyle prediction models. [Python]
+- [PhaTYP-models](https://web.archive.org/web/20211218103428/https://github.com/PhaTYP/PhaTYP) [unavailable] - Phage lifestyle prediction models. [Python]
 - [ViraMiner-models](https://github.com/NeuroCSUT/ViraMiner) [Updated: 12/2024] - ML models for viral sequence mining. [Python]
 
 ### Viral Single-Cell Analysis
 
-- [MAVERIC](https://web.archive.org/web/20210613041214/https://github.com/GreenleafLab/MAVERIC) [unavailable] [unavailable] [unavailable] [unavailable] - Analyzing viral infections at the single-cell level. [Python]
-- [scViroCap](https://web.archive.org/web/20220721142633/https://github.com/liulab-dfci/scViroCap) [unavailable] [unavailable] [unavailable] [unavailable] - Single-cell viral capture sequencing analysis. [Python]
-- [scVIRseq](https://github.com/Teichlab/Viral-Track) [unavailable] [unavailable] [unavailable] - Single-cell virus infection profiling. [Python]
+- [MAVERIC](https://web.archive.org/web/20210613041214/https://github.com/GreenleafLab/MAVERIC) [unavailable] - Analyzing viral infections at the single-cell level. [Python]
+- [scViroCap](https://web.archive.org/web/20220721142633/https://github.com/liulab-dfci/scViroCap) [unavailable] - Single-cell viral capture sequencing analysis. [Python]
+- [scVIRseq](https://github.com/Teichlab/Viral-Track) [unavailable] - Single-cell virus infection profiling. [Python]
 - [Viral-Track](https://github.com/PierreBSC/Viral-Track) [Updated: 12/2024] - Tracking viruses in single-cell RNA-Seq data. [R]
 
 ### Viral Glycoprotein Analysis
 
-- [GlycoProtViz](https://web.archive.org/web/20230000000000*/https://github.com/Sunhh/GlycoproViz) [unavailable] [unavailable] [unavailable] [unavailable] - Visualizing viral glycoprotein structures. [Python]
+- [GlycoProtViz](https://web.archive.org/web/20230000000000*/https://github.com/Sunhh/GlycoproViz) [unavailable] - Visualizing viral glycoprotein structures. [Python]
 - [GlyConnect](https://glyconnect.expasy.org/) - Database with viral glycosylation data. [web service]
 - [NetNGlyc](https://services.healthtech.dtu.dk/service.php?NetNGlyc-1.0) - N-glycosylation site prediction in viral proteins. [web service]
 - [pGlyco](https://github.com/pFindStudio/pGlyco3) [Updated: 02/2025] - Glycopeptide identification in viral proteins. [C++]
 
 ### Ancient Viral Sequence Analysis
 
-- [EVE](https://github.com/oist/EVE) [unavailable] [unavailable] [unavailable] - Ancient viral element detection in genomes. [Python]
+- [EVE](https://github.com/oist/EVE) [unavailable] - Ancient viral element detection in genomes. [Python]
 - [HOPS](https://github.com/rhuebler/HOPS) [Updated: 10/2024] - Pathogen screening for ancient DNA, includes viral sequences. [Java]
 - [Paleovirology](https://github.com/giffordlabcvr/DIGS-tool) [Updated: 10/2024] - Tools for detecting ancient viral elements. [Perl]
 - [PastML](https://github.com/evolbioinfo/pastml) [Updated: 01/2025] - Useful for ancient viral sequence reconstruction. [Python]
@@ -586,7 +586,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 ### Viral Immune Epitope Prediction
 
 - [EpiDOCK](https://epidock.ddg-pharmfac.net/) - Viral epitope docking and analysis. [web service]
-- [IEDB-tools](https://github.com/iedb/iedb-epitope-database) [unavailable] [unavailable] [unavailable] - Suite of tools for epitope prediction. [Python]
+- [IEDB-tools](https://github.com/iedb/iedb-epitope-database) [unavailable] - Suite of tools for epitope prediction. [Python]
 - [NetMHCpan](https://services.healthtech.dtu.dk/service.php?NetMHCpan-4.1) - Neural network for MHC binding prediction in viral proteins. [web service]
 - [TepiTool](https://tools.iedb.org/tepitool/) - T-cell epitope prediction for viral sequences. [web service]
 
@@ -600,7 +600,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 ### Dark Matter Viral Analysis
 
 - [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) [Updated: 03/2025] - Accelerated BLAST for dark matter analysis. [C++]
-- [DarkVirome](https://web.archive.org/web/20210922051028/https://github.com/VerinaG/dark-virome) [unavailable] [unavailable] [unavailable] [unavailable] - Analysis of unclassified viral sequences. [Python]
+- [DarkVirome](https://web.archive.org/web/20210922051028/https://github.com/VerinaG/dark-virome) [unavailable] - Analysis of unclassified viral sequences. [Python]
 - [Recentrifuge](https://github.com/khyox/recentrifuge) [Updated: 02/2025] - Classification tool for novel sequences. [Python]
 - [VirSorter-DarkMatter](https://github.com/simroux/VirSorter) [Updated: 01/2025] - Extension focused on novel viral sequences. [Perl]
 
