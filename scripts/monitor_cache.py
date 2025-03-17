@@ -645,6 +645,7 @@ def main():
     parser.add_argument('--export-csv', action='store_true', help='Export metrics to CSV')
     parser.add_argument('--csv-path', type=str, help='Path for CSV export')
     parser.add_argument('--silent', action='store_true', help='Run without printing reports')
+    parser.add_argument('--summary', action='store_true', help='Print a short summary of the cache state')
     
     args = parser.parse_args()
     
@@ -655,6 +656,19 @@ def main():
     
     # Create the cache monitor
     monitor = CacheMonitor(cache_manager, interval=args.interval)
+    
+    # Handle summary request (simple output specifically for CI workflows)
+    if args.summary:
+        snapshot, analysis = monitor.monitor_once(report=False, graphs=False)
+        metrics = snapshot['metrics']
+        print("===== CACHE SUMMARY =====")
+        print(f"Status: {analysis['health']}")
+        print(f"Cache entries: {metrics.get('cache_files', 0)}")
+        print(f"Hit rate: {metrics.get('hit_rate', 0) * 100:.1f}%")
+        print(f"Efficiency: {metrics.get('cache_efficiency', 0) * 100:.1f}%")
+        print(f"Warnings: {len(analysis['warnings'])}")
+        print("========================")
+        return
     
     # Run monitoring based on args
     if args.continuous:
