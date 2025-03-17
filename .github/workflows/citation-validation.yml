@@ -188,8 +188,8 @@ jobs:
             issues_count: ((.all_issues | length) // 0)
           }' reports/citation_validation.json > reports/citations/citation_validation_metrics.json
       
-      - name: Commit changes to branch
-        id: commit
+      - name: Prepare changes
+        id: prepare
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -200,21 +200,36 @@ jobs:
           else
             # Create a unique branch name with timestamp
             BRANCH_NAME="citation-validation-$(date +%Y%m%d-%H%M%S)"
-            git checkout -b $BRANCH_NAME
-            
-            # Commit changes to the new branch
-            git commit -m "Update citation validation metrics"
-            git push --set-upstream origin $BRANCH_NAME
-            
-            # Create PR URL for manual creation
-            PR_CREATE_URL="https://github.com/$GITHUB_REPOSITORY/pull/new/$BRANCH_NAME"
-            
-            # Output instructions
-            echo "::notice::Changes pushed to branch '$BRANCH_NAME'"
-            echo "::notice::Please create a PR manually at: $PR_CREATE_URL"
-            
-            # Set outputs
             echo "changes_detected=true" >> $GITHUB_OUTPUT
             echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
-            echo "pr_create_url=$PR_CREATE_URL" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Create Pull Request
+        if: steps.prepare.outputs.changes_detected == 'true'
+        id: create-pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update citation validation metrics
+          title: Update citation validation metrics
+          body: |
+            ## Automated PR with citation validation results
+            
+            This PR updates the citation validation metrics based on the latest validation run.
+            
+            Changes include:
+            - Updated citation validation metrics in `reports/citations/citation_validation_metrics.json`
+            
+            Generated automatically by GitHub Actions workflow.
+          branch: ${{ steps.prepare.outputs.branch_name }}
+          base: main
+          delete-branch: false
+      
+      - name: PR Creation Result
+        if: steps.prepare.outputs.changes_detected == 'true'
+        run: |
+          if [[ -n "${{ steps.create-pr.outputs.pull-request-url }}" ]]; then
+            echo "::notice::PR created successfully: ${{ steps.create-pr.outputs.pull-request-url }}"
+          else
+            echo "::warning::PR creation failed. Please check workflow permissions and logs."
           fi
