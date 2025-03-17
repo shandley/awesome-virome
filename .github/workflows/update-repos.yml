@@ -275,7 +275,6 @@ jobs:
             echo "::notice::For now, you can create a PR manually at: https://github.com/$GITHUB_REPOSITORY/pull/new/${{ steps.prepare.outputs.branch_name }}"
           fi
   
-  # This job will auto-approve and merge the academic impact PR if configured
   auto-merge-academic-impact:
     runs-on: ubuntu-latest
     needs: academic-impact-metadata
@@ -298,12 +297,8 @@ jobs:
             exit 1
           fi
 
-      - name: Auto-approve PR
-        if: steps.extract_pr.outputs.pr_number != ''
-        uses: hmarr/auto-approve-action@v3
-        with:
-          pull-request-number: ${{ steps.extract_pr.outputs.pr_number }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+      # Note: GitHub Actions cannot auto-approve its own PRs without a separate user's PAT
+      # To use auto-approval, add a PAT_TOKEN secret from a different GitHub user
       
       - name: Enable auto-merge
         if: steps.extract_pr.outputs.pr_number != ''
