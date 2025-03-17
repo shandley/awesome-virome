@@ -1130,6 +1130,13 @@
                     citationBadge = `<span class="badge badge-citations">${tool.citation_count} Citation${tool.citation_count > 1 ? 's' : ''}</span>`;
                 }
                 
+                // Special case for tools with DOIs that should have citations
+                else if (tool.doi && tool.doi.length > 0) {
+                    // Clean up DOI (remove trailing parentheses if present)
+                    const cleanDoi = tool.doi.replace(/\)$/, '');
+                    citationBadge = `<span class="badge badge-citations" title="Has DOI: ${cleanDoi}">Academic Paper</span>`;
+                }
+                
                 // Create language badge
                 let languageBadge = '';
                 if (tool.languages && Object.keys(tool.languages).length > 0) {
@@ -1281,11 +1288,14 @@
                         trendHtml = 'No trend data';
                     }
                     
+                    // Clean up DOI if necessary
+                    const cleanDoi = tool.doi ? tool.doi.replace(/\)$/, '') : '';
+                    
                     row.innerHTML = `
                         <td>${tool.name}</td>
                         <td>${tool.citation_count || 0}</td>
                         <td>${tool.influential_citations || 0}</td>
-                        <td>${tool.doi ? `<a href="https://doi.org/${tool.doi}" target="_blank">${tool.doi}</a>` : 'N/A'}</td>
+                        <td>${cleanDoi ? `<a href="https://doi.org/${cleanDoi}" target="_blank">${cleanDoi}</a>` : 'N/A'}</td>
                         <td>${trendHtml}</td>
                     `;
                     citationsTableBody.appendChild(row);
@@ -1504,9 +1514,12 @@
                     // Format citations
                     let citationsHtml = 'No citation information available';
                     if (tool.citation_count > 0 || tool.doi) {
+                        // Clean up DOI if it has trailing parentheses
+                        const cleanDoi = tool.doi ? tool.doi.replace(/\)$/, '') : '';
+                        
                         citationsHtml = `
                             <div class="mb-3">
-                                <p><strong>DOI:</strong> ${tool.doi ? `<a href="https://doi.org/${tool.doi}" target="_blank">${tool.doi}</a>` : 'Not available'}</p>
+                                <p><strong>DOI:</strong> ${cleanDoi ? `<a href="https://doi.org/${cleanDoi}" target="_blank">${cleanDoi}</a>` : 'Not available'}</p>
                                 <p><strong>Total Citations:</strong> ${tool.citation_count || 0}</p>
                                 <p><strong>Influential Citations:</strong> ${tool.influential_citations || 0}</p>
                                 
