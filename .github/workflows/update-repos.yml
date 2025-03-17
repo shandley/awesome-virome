@@ -201,10 +201,47 @@ jobs:
           # Include PubMed data in the update
           python update_data_json.py --include-metadata --include-bioinformatics --include-academic-impact --include-pubmed
       
-      - name: Commit changes
+      - name: Prepare changes
+        id: prepare
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add data.json metadata/ reports/ citations.md
-          git diff --staged --quiet || git commit -m "Update academic impact metadata and citation reports"
-          git push
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+          else
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Create Pull Request
+        if: steps.prepare.outputs.changes_detected == 'true'
+        id: create-pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: Update academic impact metadata and citation reports
+          title: Update academic impact metadata and citation reports
+          body: |
+            ## Automated PR with academic impact data updates
+            
+            This PR updates the academic impact metadata and citation reports based on the latest analysis.
+            
+            Changes include:
+            - Updated academic impact metadata
+            - Updated citation reports
+            - Updated data.json with latest academic impact information
+            
+            Generated automatically by GitHub Actions workflow.
+          branch: academic-impact-${{ github.run_id }}
+          base: main
+          delete-branch: false
+      
+      - name: PR Creation Result
+        if: steps.prepare.outputs.changes_detected == 'true'
+        run: |
+          if [[ -n "${{ steps.create-pr.outputs.pull-request-url }}" ]]; then
+            echo "::notice::PR created successfully: ${{ steps.create-pr.outputs.pull-request-url }}"
+          else
+            echo "::warning::PR creation failed. You may need to enable 'Allow GitHub Actions to create and approve pull requests' in repository Settings > Actions > General"
+          fi
