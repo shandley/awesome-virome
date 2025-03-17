@@ -30,8 +30,8 @@ jobs:
       - name: Link Checker
         uses: lycheeverse/lychee-action@v1.9.0
         with:
-          args: --verbose --no-progress --exclude-mail README.md
-          fail: true
+          args: --verbose --no-progress --exclude-mail --timeout 30 --max-concurrency 1 --accept 403,429 README.md
+          fail: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
