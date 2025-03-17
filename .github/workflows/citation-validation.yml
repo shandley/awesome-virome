@@ -22,7 +22,7 @@ on:
         type: boolean
         default: false
 
-# Permissions needed for creating PRs
+# Permissions needed for creating and managing PRs
 permissions:
   contents: write
   pull-requests: write
@@ -32,6 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          # Fetch all history for proper branch creation
+          fetch-depth: 0
       
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -62,8 +65,34 @@ jobs:
       - name: Check for critical issues
         id: check_issues
         run: |
-          ISSUES_COUNT=$(jq '.all_issues | length' reports/citation_validation.json)
-          INCONSISTENT_DOIS=$(jq '.tools_with_doi - .consistent_dois' reports/citation_validation.json)
+          # Check if the file exists and is valid JSON
+          if [ ! -f reports/citation_validation.json ]; then
+            echo "Citation validation report file not found"
+            echo "issues_count=0" >> $GITHUB_OUTPUT
+            echo "inconsistent_dois=0" >> $GITHUB_OUTPUT
+            echo "CRITICAL_ISSUES=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Check for valid JSON
+          if ! jq empty reports/citation_validation.json 2>/dev/null; then
+            echo "Invalid JSON in citation validation report"
+            echo "issues_count=0" >> $GITHUB_OUTPUT
+            echo "inconsistent_dois=0" >> $GITHUB_OUTPUT
+            echo "CRITICAL_ISSUES=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Process the file when it exists and is valid
+          ISSUES_COUNT=$(jq '.all_issues | length // 0' reports/citation_validation.json)
+          TOOLS_WITH_DOI=$(jq '.tools_with_doi // 0' reports/citation_validation.json)
+          CONSISTENT_DOIS=$(jq '.consistent_dois // 0' reports/citation_validation.json)
+          INCONSISTENT_DOIS=$(jq "($TOOLS_WITH_DOI - $CONSISTENT_DOIS)" 2>/dev/null || echo 0)
+          
+          # Handle potential arithmetic errors
+          if [[ ! "$INCONSISTENT_DOIS" =~ ^[0-9]+$ ]]; then
+            INCONSISTENT_DOIS=0
+          fi
           
           echo "Total issues found: $ISSUES_COUNT"
           echo "Inconsistent DOIs: $INCONSISTENT_DOIS"
@@ -101,23 +130,65 @@ jobs:
           # Create a directory for citation validation metrics
           mkdir -p reports/citations
           
-          # Extract key metrics
+          # Check if the file exists and is valid JSON
+          if [ ! -f reports/citation_validation.json ]; then
+            echo "Creating empty citation validation metrics file"
+            echo '{
+              "timestamp": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'",
+              "total_tools": 0,
+              "tools_with_doi": 0,
+              "doi_percentage": 0,
+              "valid_doi_percentage": 0,
+              "consistent_doi_percentage": 0,
+              "tools_with_pubmed_data": 0,
+              "pubmed_percentage": 0,
+              "tools_with_academic_impact": 0,
+              "academic_impact_percentage": 0,
+              "citation_format_counts": {"bibtex": 0, "apa": 0, "mla": 0},
+              "issues_count": 1,
+              "error": "No validation data available"
+            }' > reports/citations/citation_validation_metrics.json
+            exit 0
+          fi
+          
+          # Verify JSON is valid
+          if ! jq empty reports/citation_validation.json 2>/dev/null; then
+            echo "Invalid JSON in citation validation report, creating error metrics"
+            echo '{
+              "timestamp": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'",
+              "total_tools": 0,
+              "tools_with_doi": 0,
+              "doi_percentage": 0,
+              "valid_doi_percentage": 0,
+              "consistent_doi_percentage": 0,
+              "tools_with_pubmed_data": 0,
+              "pubmed_percentage": 0,
+              "tools_with_academic_impact": 0,
+              "academic_impact_percentage": 0,
+              "citation_format_counts": {"bibtex": 0, "apa": 0, "mla": 0},
+              "issues_count": 1,
+              "error": "Invalid JSON in validation report"
+            }' > reports/citations/citation_validation_metrics.json
+            exit 0
+          fi
+          
+          # Extract key metrics with safe defaults for missing values
           jq '{
-            timestamp: .timestamp,
-            total_tools: .total_tools,
-            tools_with_doi: .tools_with_doi,
-            doi_percentage: .doi_percentage,
-            valid_doi_percentage: .valid_doi_percentage,
-            consistent_doi_percentage: .consistent_doi_percentage,
-            tools_with_pubmed_data: .tools_with_pubmed_data,
-            pubmed_percentage: .pubmed_percentage,
-            tools_with_academic_impact: .tools_with_academic_impact,
-            academic_impact_percentage: .academic_impact_percentage,
-            citation_format_counts: .citation_format_counts,
-            issues_count: (.all_issues | length)
+            timestamp: (.timestamp // "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'"),
+            total_tools: (.total_tools // 0),
+            tools_with_doi: (.tools_with_doi // 0),
+            doi_percentage: (.doi_percentage // 0),
+            valid_doi_percentage: (.valid_doi_percentage // 0),
+            consistent_doi_percentage: (.consistent_doi_percentage // 0),
+            tools_with_pubmed_data: (.tools_with_pubmed_data // 0),
+            pubmed_percentage: (.pubmed_percentage // 0),
+            tools_with_academic_impact: (.tools_with_academic_impact // 0),
+            academic_impact_percentage: (.academic_impact_percentage // 0),
+            citation_format_counts: (.citation_format_counts // {"bibtex": 0, "apa": 0, "mla": 0}),
+            issues_count: ((.all_issues | length) // 0)
           }' reports/citation_validation.json > reports/citations/citation_validation_metrics.json
       
-      - name: Prepare validation results
+      - name: Prepare changes
         id: prepare
         run: |
           git config --local user.email "action@github.com"
@@ -127,7 +198,10 @@ jobs:
             echo "No changes to commit"
             echo "changes_detected=false" >> $GITHUB_OUTPUT
           else
+            # Create a unique branch name with timestamp
+            BRANCH_NAME="citation-validation-$(date +%Y%m%d-%H%M%S)"
             echo "changes_detected=true" >> $GITHUB_OUTPUT
+            echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
           fi
           
       - name: Create Pull Request
@@ -135,7 +209,9 @@ jobs:
         id: create-pr
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Use PAT_TOKEN if available, otherwise fall back to GITHUB_TOKEN
+          # You'll need to add PAT_TOKEN as a repository secret
+          token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
           commit-message: Update citation validation metrics
           title: Update citation validation metrics
           body: |
@@ -147,7 +223,7 @@ jobs:
             - Updated citation validation metrics in `reports/citations/citation_validation_metrics.json`
             
             Generated automatically by GitHub Actions workflow.
-          branch: citation-validation-${{ github.run_id }}
+          branch: ${{ steps.prepare.outputs.branch_name }}
           base: main
           delete-branch: false
       
@@ -157,5 +233,10 @@ jobs:
           if [[ -n "${{ steps.create-pr.outputs.pull-request-url }}" ]]; then
             echo "::notice::PR created successfully: ${{ steps.create-pr.outputs.pull-request-url }}"
           else
-            echo "::warning::PR creation failed. You may need to enable 'Allow GitHub Actions to create and approve pull requests' in repository Settings > Actions > General"
+            echo "::warning::PR creation failed. You need to configure one of the following:"
+            echo "::warning::1. Add a Personal Access Token (PAT) with 'repo' scope as a repository secret named 'PAT_TOKEN'"
+            echo "::warning::2. Enable 'Allow GitHub Actions to create and approve pull requests' in repository Settings > Actions > General"
+            
+            # Provide manual PR creation URL as fallback
+            echo "::notice::For now, you can create a PR manually at: https://github.com/$GITHUB_REPOSITORY/pull/new/${{ steps.prepare.outputs.branch_name }}"
           fi

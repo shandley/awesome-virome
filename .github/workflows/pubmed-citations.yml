@@ -19,7 +19,7 @@ on:
         default: true
         type: boolean
 
-# Permissions needed for creating PRs
+# Permissions needed for creating and managing PRs
 permissions:
   contents: write
   pull-requests: write
@@ -39,6 +39,9 @@ jobs:
     
     steps:
       - uses: actions/checkout@v3
+        with:
+          # Fetch all history for proper branch creation
+          fetch-depth: 0
       
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -49,7 +52,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install requests PyGithub pyyaml
-      
       - name: Monitor cache status before collection
         run: |
           python scripts/monitor_cache.py --summary > cache_before.txt
@@ -103,15 +105,19 @@ jobs:
             echo "No changes to commit"
             echo "changes_detected=false" >> $GITHUB_OUTPUT
           else
+            # Create a unique branch name with timestamp
+            BRANCH_NAME="pubmed-update-$(date +%Y%m%d-%H%M%S)"
             echo "changes_detected=true" >> $GITHUB_OUTPUT
+            echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
           fi
-          
+      
       - name: Create Pull Request
         if: steps.commit.outputs.changes_detected == 'true'
         id: create-pr
         uses: peter-evans/create-pull-request@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # Use PAT_TOKEN if available, otherwise fall back to GITHUB_TOKEN
+          token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
           commit-message: Update PubMed citation information
           title: Update PubMed citation information
           body: |
@@ -125,7 +131,7 @@ jobs:
             - Updated data.json with the latest PubMed information
             
             Generated automatically by GitHub Actions workflow.
-          branch: pubmed-update-${{ github.run_id }}
+          branch: ${{ steps.commit.outputs.branch_name }}
           base: main
           delete-branch: false
       
@@ -137,14 +143,20 @@ jobs:
             # Store PR URL for use in trigger-academic-impact job
             echo "pr_url=${{ steps.create-pr.outputs.pull-request-url }}" >> $GITHUB_OUTPUT
           else
-            echo "::warning::PR creation failed. You may need to enable 'Allow GitHub Actions to create and approve pull requests' in repository Settings > Actions > General"
+            echo "::warning::PR creation failed. You need to configure one of the following:"
+            echo "::warning::1. Add a Personal Access Token (PAT) with 'repo' scope as a repository secret named 'PAT_TOKEN'"
+            echo "::warning::2. Enable 'Allow GitHub Actions to create and approve pull requests' in repository Settings > Actions > General"
+            
+            # Provide manual PR creation URL as fallback
+            echo "::notice::For now, you can create a PR manually at: https://github.com/$GITHUB_REPOSITORY/pull/new/${{ steps.commit.outputs.branch_name }}"
           fi
   
   trigger-academic-impact:
     needs: collect-pubmed-citations
     if: |
-      (github.event_name == 'workflow_dispatch' && github.event.inputs.trigger_academic_impact == 'true') ||
-      (github.event_name == 'schedule' && github.event.schedule == '0 12 4 * *')
+      needs.collect-pubmed-citations.outputs.changes_detected == 'true' &&
+      ((github.event_name == 'workflow_dispatch' && github.event.inputs.trigger_academic_impact == 'true') ||
+      (github.event_name == 'schedule' && github.event.schedule == '0 12 4 * *'))
     runs-on: ubuntu-latest
     
     steps:
@@ -154,3 +166,7 @@ jobs:
           workflow: update-repos.yml
           token: ${{ secrets.GITHUB_TOKEN }}
           inputs: '{"update_type": "academic_impact"}'
+          
+      - name: Log academic impact trigger
+        run: |
+          echo "::notice::Academic Impact workflow triggered. After creating the PR at ${{ needs.collect-pubmed-citations.outputs.pr_create_url }}, you may want to run the Academic Impact workflow again."
