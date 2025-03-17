@@ -463,6 +463,7 @@ def update_data_json_with_academic_impact(data, academic_impact_metadata):
     
     # Count of metadata matches
     metadata_matches = 0
+    crossref_fallback_count = 0
     
     # Update tool nodes with academic impact metadata
     for node in tool_nodes:
@@ -470,11 +471,27 @@ def update_data_json_with_academic_impact(data, academic_impact_metadata):
             metadata = academic_impact_metadata[node.get("url")]
             metadata_matches += 1
             
+            # Get citation metrics
+            metrics = metadata.get("citation_metrics", {}).get("metrics", {})
+            
+            # Clean the DOI (remove trailing parentheses if present)
+            doi = metadata.get("doi", "")
+            if doi and doi.endswith(")"):
+                doi = doi[:-1]
+                logger.info(f"Cleaned DOI for {node.get('name')}: {doi}")
+            
             # Add academic impact fields
-            node["doi"] = metadata.get("doi", "")
-            node["citation_count"] = metadata.get("citation_metrics", {}).get("metrics", {}).get("total_citations", 0)
-            node["influential_citations"] = metadata.get("citation_metrics", {}).get("metrics", {}).get("influential_citations", 0)
-            node["citations_by_year"] = metadata.get("citation_metrics", {}).get("metrics", {}).get("citations_by_year", {})
+            node["doi"] = doi
+            node["citation_count"] = metrics.get("total_citations", 0)
+            node["influential_citations"] = metrics.get("influential_citations", 0)
+            node["citations_by_year"] = metrics.get("citations_by_year", {})
+            
+            # Record citation data source
+            data_source = metrics.get("data_source", "")
+            if data_source and ("crossref" in data_source):
+                crossref_fallback_count += 1
+                # Add indication that fallback was used
+                node["citation_data_source"] = data_source
             
             # Add formatted citations if available
             if "citation_metrics" in metadata and "formatted_citations" in metadata["citation_metrics"]:
@@ -494,7 +511,7 @@ def update_data_json_with_academic_impact(data, academic_impact_metadata):
                     for paper in metadata.get("related_papers", [])[:5]
                 ]
     
-    logger.info(f"Added academic impact metadata to {metadata_matches} tools")
+    logger.info(f"Added academic impact metadata to {metadata_matches} tools (used CrossRef fallback for {crossref_fallback_count} tools)")
     return data
 
 def load_pubmed_citations_metadata():

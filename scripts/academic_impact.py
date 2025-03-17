@@ -182,29 +182,46 @@ class AcademicImpactCollector:
         # Get publication details from CrossRef
         publication = self.crossref_api.get_work_by_doi(doi)
         
+        # Extract the CrossRef citation count for potential fallback
+        crossref_citation_count = 0
+        if publication and 'is-referenced-by-count' in publication:
+            crossref_citation_count = publication['is-referenced-by-count']
+            logger.info(f"CrossRef citation count for DOI {doi}: {crossref_citation_count}")
+        
         # Get citation metrics from Semantic Scholar
         paper = self.semantic_scholar_api.get_paper_by_doi(doi)
         
+        # Use CrossRef data as fallback if Semantic Scholar doesn't have the paper
+        # or if Semantic Scholar returns zero citations but CrossRef has citations
         if not paper:
             logger.warning(f"Publication not found in Semantic Scholar for DOI: {doi}")
+            logger.info(f"Using CrossRef citation count as fallback: {crossref_citation_count}")
             return {
                 'publication': publication,
                 'metrics': {
-                    'total_citations': 0,
+                    'total_citations': crossref_citation_count,
                     'influential_citations': 0,
-                    'citations_by_year': {}
+                    'citations_by_year': {},
+                    'data_source': 'crossref'  # Indicate the source of citation data
                 },
-                'formatted_citations': {}
+                'formatted_citations': self._create_formatted_citations(publication)
             }
         
+        # Get detailed metrics from Semantic Scholar
         paper_id = paper.get('paperId')
         metrics = self.semantic_scholar_api.get_citation_metrics(paper_id)
         
+        # If Semantic Scholar has zero citations but CrossRef has non-zero citations,
+        # use the CrossRef citation count
+        if metrics.get('total_citations', 0) == 0 and crossref_citation_count > 0:
+            logger.info(f"Semantic Scholar has zero citations but CrossRef has {crossref_citation_count}. Using CrossRef data.")
+            metrics['total_citations'] = crossref_citation_count
+            metrics['data_source'] = 'crossref+semanticscholar'
+        else:
+            metrics['data_source'] = 'semanticscholar'
+        
         # Create formatted citations
-        formatted_citations = {}
-        if publication:
-            formatted_citations['apa'] = self.crossref_api.format_citation(publication, 'apa')
-            formatted_citations['bibtex'] = self.crossref_api.format_citation(publication, 'bibtex')
+        formatted_citations = self._create_formatted_citations(publication)
         
         return {
             'publication': publication,
@@ -212,6 +229,14 @@ class AcademicImpactCollector:
             'formatted_citations': formatted_citations,
             'paper_id': paper_id
         }
+        
+    def _create_formatted_citations(self, publication):
+        """Helper method to create formatted citations."""
+        formatted_citations = {}
+        if publication:
+            formatted_citations['apa'] = self.crossref_api.format_citation(publication, 'apa')
+            formatted_citations['bibtex'] = self.crossref_api.format_citation(publication, 'bibtex')
+        return formatted_citations
     
     def get_related_papers(self, paper_id: str, field: str = "virology") -> List[Dict[str, Any]]:
         """Get related papers in the virology field."""
