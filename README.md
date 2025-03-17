@@ -25,6 +25,16 @@ This list was originally started by [Rob Edwards](https://github.com/linsalrob) 
 
 Please feel free to [contribute](CONTRIBUTING.md)!
 
+## Repository Maintenance
+
+This repository uses a streamlined GitHub Actions workflow system to maintain data and deployments:
+
+1. **Automated Updates**: Weekly basic updates and monthly comprehensive metadata updates
+2. **Data Management**: All data is stored in `data.json` and displayed through GitHub Pages
+3. **Contribution Flow**: External contributors can propose changes via Pull Requests
+
+For technical details, see the [workflow documentation](.github/workflows/README.md).
+
 ## Enhanced Metadata
 
 This repository features an enhanced metadata collection system that enriches tool information with details from GitHub, GitLab, and Bitbucket repositories:

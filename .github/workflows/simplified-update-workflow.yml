@@ -1,0 +1,127 @@
+name: Simplified Data Update Workflow
+
+on:
+  schedule:
+    # Run weekly basic update on Sunday
+    - cron: "0 8 * * 0"
+    # Run comprehensive update on 1st of each month
+    - cron: "0 8 1 * *"
+  # Add manual trigger with options
+  workflow_dispatch:
+    inputs:
+      update_type:
+        description: 'Type of update to run'
+        required: true
+        default: 'basic'
+        type: choice
+        options:
+          - basic
+          - comprehensive
+          - readme_sync
+
+# Ensure workflow has permissions to commit changes
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      # Basic update: Always runs for all update types
+      - name: Update basic repository information
+        run: python update_check.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      # Readme sync: Runs for readme_sync or if README has changed
+      - name: Verify README content
+        id: verify_readme
+        run: |
+          python scripts/verify_readme_content.py
+          if git diff --name-only | grep -q "README.md"; then
+            echo "readme_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "readme_changed=false" >> $GITHUB_OUTPUT
+          fi
+      
+      # Comprehensive update: Enhanced metadata, bioinformatics, academic impact
+      - name: Run comprehensive update
+        if: github.event.inputs.update_type == 'comprehensive' || github.event.schedule == '0 8 1 * *'
+        run: |
+          # Run each component in sequence
+          echo "Collecting enhanced metadata..."
+          python scripts/enhance_metadata.py
+          
+          echo "Collecting bioinformatics metadata..."
+          python scripts/bioinformatics_metadata.py
+          
+          echo "Collecting academic impact data..."
+          python scripts/academic_impact.py
+          
+          echo "Generating citation reports..."
+          python scripts/citation_report.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEMANTIC_SCHOLAR_KEY: ${{ secrets.SEMANTIC_SCHOLAR_KEY }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
+      
+      # Always update data.json with appropriate flags
+      - name: Update data.json
+        run: |
+          # Determine which flags to include based on the update type
+          if [[ "${{ github.event.inputs.update_type }}" == "comprehensive" || "${{ github.event.schedule }}" == "0 8 1 * *" ]]; then
+            echo "Running comprehensive data.json update..."
+            python update_data_json.py --include-metadata --include-bioinformatics --include-academic-impact --include-pubmed
+          elif [[ "${{ github.event.inputs.update_type }}" == "readme_sync" || "${{ steps.verify_readme.outputs.readme_changed }}" == "true" ]]; then
+            echo "Running README-based data.json update..."
+            python update_data_json.py
+          else
+            echo "Running basic data.json update..."
+            python update_data_json.py
+          fi
+      
+      # Commit all changes directly to the main branch
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Add all changed files
+          git add data.json README.md repo_updates.json update_check.log metadata/ reports/
+          
+          # Determine commit message based on update type
+          if [[ "${{ github.event.inputs.update_type }}" == "comprehensive" || "${{ github.event.schedule }}" == "0 8 1 * *" ]]; then
+            COMMIT_MSG="Comprehensive data update (Enhanced, Bioinformatics, Academic Impact)"
+          elif [[ "${{ github.event.inputs.update_type }}" == "readme_sync" || "${{ steps.verify_readme.outputs.readme_changed }}" == "true" ]]; then
+            COMMIT_MSG="Update data.json from README changes"
+          else
+            COMMIT_MSG="Weekly data update"
+          fi
+          
+          # Commit only if there are changes
+          git diff --staged --quiet || git commit -m "$COMMIT_MSG"
+          
+          # Push changes directly to main
+          git push
+      
+      # Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        run: |
+          # Run any necessary pre-deployment scripts
+          # (If you have a custom static site generator or build step, it would go here)
+          
+          # GitHub Pages will automatically deploy from main branch if configured correctly
+          echo "Changes pushed to main branch. GitHub Pages will automatically update."
