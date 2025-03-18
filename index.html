@@ -1203,20 +1203,225 @@
             }
             
             function initializeNetworkGraph(data) {
-                // This is a placeholder - actual D3 network visualization would go here
-                // For now, let's just show a message
-                document.getElementById('networkGraph').innerHTML = `
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="text-center">
-                            <i class="bi bi-diagram-3 mb-3" style="font-size: 3rem;"></i>
-                            <h4>Network Visualization</h4>
-                            <p class="text-muted">D3.js force-directed graph visualization showing tool relationships would appear here.</p>
-                        </div>
-                    </div>
-                `;
+                // Clear any existing content
+                const networkContainer = document.getElementById('networkGraph');
+                networkContainer.innerHTML = '';
                 
-                // In a real implementation, this would use D3 to create a force-directed graph
-                // visualization of the network data
+                // Set up dimensions
+                const width = networkContainer.clientWidth;
+                const height = networkContainer.clientHeight || 600;
+                
+                // Create SVG element
+                const svg = d3.select('#networkGraph')
+                    .append('svg')
+                    .attr('width', width)
+                    .attr('height', height)
+                    .attr('viewBox', [0, 0, width, height])
+                    .attr('style', 'max-width: 100%; height: auto;');
+                
+                // Create a group for zoom/pan functionality
+                const g = svg.append('g');
+                
+                // Add zoom behavior
+                const zoom = d3.zoom()
+                    .scaleExtent([0.1, 3])
+                    .on('zoom', (event) => {
+                        g.attr('transform', event.transform);
+                    });
+                
+                svg.call(zoom);
+                
+                // Reset function for the reset button
+                window.resetNetworkZoom = function() {
+                    svg.transition()
+                        .duration(750)
+                        .call(zoom.transform, d3.zoomIdentity);
+                };
+                
+                // Set up the force simulation
+                const simulation = d3.forceSimulation(data.nodes)
+                    .force('link', d3.forceLink(data.links).id(d => d.id).distance(100))
+                    .force('charge', d3.forceManyBody().strength(-300))
+                    .force('center', d3.forceCenter(width / 2, height / 2))
+                    .force('collide', d3.forceCollide().radius(d => (d.size || 10) + 10));
+                
+                // Define color scales based on node type
+                const categoryColor = '#4682B4'; // Steel Blue for categories
+                const subcategoryColor = '#20B2AA'; // Light Sea Green for subcategories
+                const toolColor = '#9370DB'; // Medium Purple for tools
+                
+                // Add lines for links with arrow markers
+                const link = g.append('g')
+                    .attr('stroke', '#999')
+                    .attr('stroke-opacity', 0.6)
+                    .selectAll('line')
+                    .data(data.links)
+                    .join('line')
+                    .attr('stroke-width', d => Math.sqrt(d.value || 1));
+                
+                // Add node circles
+                const node = g.append('g')
+                    .selectAll('g')
+                    .data(data.nodes)
+                    .join('g')
+                    .attr('class', 'node-group')
+                    .call(drag(simulation));
+                
+                // Add circles to each node group
+                node.append('circle')
+                    .attr('r', d => d.size || 10)
+                    .attr('fill', d => {
+                        if (d.type === 'category') return categoryColor;
+                        if (d.type === 'subcategory') return subcategoryColor;
+                        return toolColor;
+                    })
+                    .attr('stroke', '#fff')
+                    .attr('stroke-width', 1.5);
+                
+                // Add labels for nodes
+                node.append('text')
+                    .attr('dx', d => (d.size || 10) + 5)
+                    .attr('dy', '.35em')
+                    .attr('font-size', d => {
+                        if (d.type === 'category') return '12px';
+                        if (d.type === 'subcategory') return '10px';
+                        return '9px';
+                    })
+                    .style('fill', d => {
+                        return document.documentElement.getAttribute('data-theme') === 'dark' ? '#fff' : '#333';
+                    })
+                    .text(d => d.name);
+                
+                // Set up node click behavior
+                node.on('click', (event, d) => {
+                    // If it's a tool node, show details
+                    if (d.type === 'tool') {
+                        showToolDetail(d);
+                    } else {
+                        // For categories/subcategories, filter the tools
+                        if (d.type === 'category') {
+                            document.getElementById('categoryFilter').value = d.name;
+                        } else if (d.type === 'subcategory') {
+                            document.getElementById('subcategoryFilter').value = d.name;
+                        }
+                        
+                        // Trigger filtering
+                        const changeEvent = new Event('change');
+                        document.getElementById('categoryFilter').dispatchEvent(changeEvent);
+                    }
+                });
+                
+                // Add title tooltip
+                node.append('title')
+                    .text(d => `${d.name} (${d.type})`);
+                
+                // Set up simulation tick function
+                simulation.on('tick', () => {
+                    link
+                        .attr('x1', d => d.source.x)
+                        .attr('y1', d => d.source.y)
+                        .attr('x2', d => d.target.x)
+                        .attr('y2', d => d.target.y);
+                    
+                    node.attr('transform', d => `translate(${d.x}, ${d.y})`);
+                });
+                
+                // Set up zoom buttons
+                document.getElementById('zoomIn').addEventListener('click', () => {
+                    svg.transition()
+                        .duration(300)
+                        .call(zoom.scaleBy, 1.3);
+                });
+                
+                document.getElementById('zoomOut').addEventListener('click', () => {
+                    svg.transition()
+                        .duration(300)
+                        .call(zoom.scaleBy, 0.7);
+                });
+                
+                document.getElementById('resetNetwork').addEventListener('click', resetNetworkZoom);
+                
+                // Drag function for nodes
+                function drag(simulation) {
+                    function dragstarted(event) {
+                        if (!event.active) simulation.alphaTarget(0.3).restart();
+                        event.subject.fx = event.subject.x;
+                        event.subject.fy = event.subject.y;
+                    }
+                    
+                    function dragged(event) {
+                        event.subject.fx = event.x;
+                        event.subject.fy = event.y;
+                    }
+                    
+                    function dragended(event) {
+                        if (!event.active) simulation.alphaTarget(0);
+                        event.subject.fx = null;
+                        event.subject.fy = null;
+                    }
+                    
+                    return d3.drag()
+                        .on('start', dragstarted)
+                        .on('drag', dragged)
+                        .on('end', dragended);
+                }
+                
+                // Add a legend
+                const legend = svg.append('g')
+                    .attr('class', 'legend')
+                    .attr('transform', 'translate(20, 20)');
+                
+                const legendData = [
+                    { type: 'category', color: categoryColor, label: 'Category' },
+                    { type: 'subcategory', color: subcategoryColor, label: 'Subcategory' },
+                    { type: 'tool', color: toolColor, label: 'Tool' }
+                ];
+                
+                const legendItem = legend.selectAll('.legend-item')
+                    .data(legendData)
+                    .enter()
+                    .append('g')
+                    .attr('class', 'legend-item')
+                    .attr('transform', (d, i) => `translate(0, ${i * 20})`);
+                
+                legendItem.append('circle')
+                    .attr('r', 6)
+                    .attr('fill', d => d.color);
+                
+                legendItem.append('text')
+                    .attr('x', 15)
+                    .attr('y', 4)
+                    .style('font-size', '12px')
+                    .style('fill', () => {
+                        return document.documentElement.getAttribute('data-theme') === 'dark' ? '#fff' : '#333';
+                    })
+                    .text(d => d.label);
+                
+                // Add a translucent background to the legend
+                const legendBBox = legend.node().getBBox();
+                legend.insert('rect', ':first-child')
+                    .attr('x', legendBBox.x - 5)
+                    .attr('y', legendBBox.y - 5)
+                    .attr('width', legendBBox.width + 10)
+                    .attr('height', legendBBox.height + 10)
+                    .attr('rx', 5)
+                    .attr('ry', 5)
+                    .attr('fill', 'rgba(255, 255, 255, 0.7)')
+                    .attr('fill-opacity', document.documentElement.getAttribute('data-theme') === 'dark' ? 0.2 : 0.7);
+                
+                // Handle theme changes - update text colors on theme toggle
+                const themeToggle = document.getElementById('themeToggle');
+                themeToggle.addEventListener('click', () => {
+                    // Add a small delay to allow the theme to update first
+                    setTimeout(() => {
+                        const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+                        const textColor = isDarkTheme ? '#fff' : '#333';
+                        
+                        node.selectAll('text').style('fill', textColor);
+                        legend.selectAll('text').style('fill', textColor);
+                        legend.select('rect').attr('fill-opacity', isDarkTheme ? 0.2 : 0.7);
+                    }, 50);
+                });
             }
             
             function initializeCitationCharts(tools) {
@@ -1323,51 +1528,313 @@
             }
             
             function initializeAnalyticsCharts(tools, categories) {
-                // These are placeholders for actual Chart.js implementations
+                // Get chart theme colors that match the dashboard theme
+                const isDarkTheme = document.documentElement.getAttribute('data-theme') === 'dark';
+                const textColor = isDarkTheme ? '#E2E8F0' : '#333';
+                const gridColor = isDarkTheme ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
                 
-                // Category distribution chart
-                document.getElementById('categoryDistributionChart').innerHTML = `
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="text-center">
-                            <i class="bi bi-pie-chart mb-3" style="font-size: 3rem;"></i>
-                            <h4>Category Distribution</h4>
-                            <p class="text-muted">Chart.js visualization of tool categories would appear here.</p>
-                        </div>
-                    </div>
-                `;
+                // Common chart options
+                Chart.defaults.color = textColor;
+                Chart.defaults.borderColor = gridColor;
                 
-                // Language distribution chart
-                document.getElementById('languageDistributionChart').innerHTML = `
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="text-center">
-                            <i class="bi bi-bar-chart mb-3" style="font-size: 3rem;"></i>
-                            <h4>Language Distribution</h4>
-                            <p class="text-muted">Chart.js visualization of programming languages would appear here.</p>
-                        </div>
-                    </div>
-                `;
+                // Define reusable chart configuration
+                const chartConfig = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                color: textColor,
+                                padding: 10,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: isDarkTheme ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)',
+                            titleColor: isDarkTheme ? '#fff' : '#000',
+                            bodyColor: isDarkTheme ? '#fff' : '#000',
+                            borderColor: gridColor,
+                            borderWidth: 1
+                        }
+                    }
+                };
                 
-                // Maintenance status chart
-                document.getElementById('maintenanceStatusChart').innerHTML = `
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="text-center">
-                            <i class="bi bi-clock-history mb-3" style="font-size: 3rem;"></i>
-                            <h4>Maintenance Status</h4>
-                            <p class="text-muted">Chart.js visualization of maintenance status would appear here.</p>
-                        </div>
-                    </div>
-                `;
+                // 1. Category Distribution Chart (Pie Chart)
+                const categoryCountMap = {};
+                tools.forEach(tool => {
+                    if (tool.category) {
+                        categoryCountMap[tool.category] = (categoryCountMap[tool.category] || 0) + 1;
+                    } else {
+                        categoryCountMap['Uncategorized'] = (categoryCountMap['Uncategorized'] || 0) + 1;
+                    }
+                });
                 
-                // Creation timeline chart
-                document.getElementById('creationTimelineChart').innerHTML = `
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="text-center">
-                            <i class="bi bi-calendar-date mb-3" style="font-size: 3rem;"></i>
-                            <h4>Creation Timeline</h4>
-                            <p class="text-muted">Chart.js visualization of tool creation timeline would appear here.</p>
-                        </div>
-                    </div>
-                `;
+                const categoryLabels = Object.keys(categoryCountMap);
+                const categoryData = categoryLabels.map(cat => categoryCountMap[cat]);
+                
+                // Get vibrant colors for categories
+                const categoryColors = [
+                    '#4682B4', // Steel Blue
+                    '#6A5ACD', // Slate Blue
+                    '#20B2AA', // Light Sea Green
+                    '#DB7093', // Pale Violet Red
+                    '#9370DB', // Medium Purple
+                    '#4169E1', // Royal Blue
+                    '#FF6347', // Tomato
+                    '#3CB371', // Medium Sea Green
+                    '#1E90FF', // Dodger Blue
+                    '#FF8C00'  // Dark Orange
+                ];
+                
+                // If we have more categories than colors, repeat colors
+                const catColors = categoryLabels.map((_, i) => categoryColors[i % categoryColors.length]);
+                
+                // Create category chart
+                const catCtx = document.getElementById('categoryDistributionChart').getContext('2d');
+                new Chart(catCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: categoryLabels,
+                        datasets: [{
+                            data: categoryData,
+                            backgroundColor: catColors,
+                            borderColor: isDarkTheme ? '#334155' : '#fff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        ...chartConfig,
+                        plugins: {
+                            ...chartConfig.plugins,
+                            title: {
+                                display: false,
+                                text: 'Tools by Category',
+                                color: textColor
+                            }
+                        }
+                    }
+                });
+                
+                // 2. Language Distribution Chart (Bar Chart)
+                const languageData = {};
+                tools.forEach(tool => {
+                    if (tool.languages && Object.keys(tool.languages).length > 0) {
+                        Object.keys(tool.languages).forEach(lang => {
+                            languageData[lang] = (languageData[lang] || 0) + 1;
+                        });
+                    }
+                });
+                
+                // Sort languages by frequency (descending)
+                const sortedLanguages = Object.entries(languageData)
+                    .sort((a, b) => b[1] - a[1])
+                    .slice(0, 10); // Top 10 languages
+                
+                const languageLabels = sortedLanguages.map(item => item[0]);
+                const languageCounts = sortedLanguages.map(item => item[1]);
+                
+                // Create language chart
+                const langCtx = document.getElementById('languageDistributionChart').getContext('2d');
+                new Chart(langCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: languageLabels,
+                        datasets: [{
+                            label: 'Number of Tools',
+                            data: languageCounts,
+                            backgroundColor: '#9D5EB0', // Purple accent color
+                            borderColor: '#6A3877',
+                            borderWidth: 1,
+                            borderRadius: 4,
+                            maxBarThickness: 35
+                        }]
+                    },
+                    options: {
+                        ...chartConfig,
+                        indexAxis: 'y',
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                grid: {
+                                    color: gridColor
+                                },
+                                ticks: {
+                                    color: textColor
+                                }
+                            },
+                            y: {
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: textColor
+                                }
+                            }
+                        },
+                        plugins: {
+                            ...chartConfig.plugins,
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                });
+                
+                // 3. Maintenance Status Chart (Doughnut Chart)
+                const maintenanceStatusData = {
+                    'Recently Updated': 0,
+                    'Moderately Updated': 0,
+                    'Needs Update': 0,
+                    'Unknown': 0
+                };
+                
+                tools.forEach(tool => {
+                    if (tool.lastUpdated) {
+                        const updateClass = getUpdateClass(tool.lastUpdated);
+                        if (updateClass === 'update-recent') {
+                            maintenanceStatusData['Recently Updated']++;
+                        } else if (updateClass === 'update-medium') {
+                            maintenanceStatusData['Moderately Updated']++;
+                        } else {
+                            maintenanceStatusData['Needs Update']++;
+                        }
+                    } else {
+                        maintenanceStatusData['Unknown']++;
+                    }
+                });
+                
+                const maintenanceLabels = Object.keys(maintenanceStatusData);
+                const maintenanceData = maintenanceLabels.map(status => maintenanceStatusData[status]);
+                const maintenanceColors = ['#28a745', '#ffc107', '#dc3545', '#6c757d'];
+                
+                // Create maintenance chart
+                const maintCtx = document.getElementById('maintenanceStatusChart').getContext('2d');
+                new Chart(maintCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: maintenanceLabels,
+                        datasets: [{
+                            data: maintenanceData,
+                            backgroundColor: maintenanceColors,
+                            borderColor: isDarkTheme ? '#334155' : '#fff',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        ...chartConfig,
+                        cutout: '65%'
+                    }
+                });
+                
+                // 4. Creation Timeline Chart (Line Chart)
+                const creationYears = {};
+                tools.forEach(tool => {
+                    if (tool.createdAt) {
+                        const year = new Date(tool.createdAt).getFullYear();
+                        creationYears[year] = (creationYears[year] || 0) + 1;
+                    }
+                });
+                
+                // Sort years chronologically
+                const sortedYears = Object.keys(creationYears).sort();
+                const yearCounts = sortedYears.map(year => creationYears[year]);
+                
+                // Calculate cumulative sum for each year
+                const cumulativeCounts = [];
+                let sum = 0;
+                yearCounts.forEach(count => {
+                    sum += count;
+                    cumulativeCounts.push(sum);
+                });
+                
+                // Create timeline chart
+                const timelineCtx = document.getElementById('creationTimelineChart').getContext('2d');
+                new Chart(timelineCtx, {
+                    type: 'line',
+                    data: {
+                        labels: sortedYears,
+                        datasets: [
+                            {
+                                label: 'Tools per Year',
+                                data: yearCounts,
+                                backgroundColor: 'rgba(16, 155, 129, 0.2)',
+                                borderColor: '#109b81',
+                                borderWidth: 2,
+                                pointBackgroundColor: '#109b81',
+                                pointRadius: 4,
+                                tension: 0.1,
+                                yAxisID: 'y'
+                            },
+                            {
+                                label: 'Cumulative Growth',
+                                data: cumulativeCounts,
+                                backgroundColor: 'rgba(44, 75, 124, 0.2)',
+                                borderColor: '#2C4B7C',
+                                borderWidth: 2,
+                                pointBackgroundColor: '#2C4B7C',
+                                pointRadius: 4,
+                                tension: 0.1,
+                                yAxisID: 'y1',
+                                fill: true
+                            }
+                        ]
+                    },
+                    options: {
+                        ...chartConfig,
+                        scales: {
+                            x: {
+                                grid: {
+                                    color: gridColor
+                                },
+                                ticks: {
+                                    color: textColor
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                position: 'left',
+                                grid: {
+                                    color: gridColor
+                                },
+                                ticks: {
+                                    color: textColor
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Tools per Year',
+                                    color: textColor
+                                }
+                            },
+                            y1: {
+                                beginAtZero: true,
+                                position: 'right',
+                                grid: {
+                                    display: false
+                                },
+                                ticks: {
+                                    color: textColor
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Total Tools',
+                                    color: textColor
+                                }
+                            }
+                        }
+                    }
+                });
+                
+                // Update chart colors when theme changes
+                const themeToggle = document.getElementById('themeToggle');
+                themeToggle.addEventListener('click', () => {
+                    // Wait for theme transition to complete
+                    setTimeout(() => {
+                        // Force refresh the page to update all charts with new theme
+                        window.location.reload();
+                    }, 300);
+                });
             }
             
             function setupFilters(tools) {
