@@ -76,6 +76,7 @@ Virome analysis involves studying the collection of viruses (including bacteriop
     - [Genome Completeness](#genome-completeness)
     - [Genome Comparison](#genome-comparison)
     - [Gene Finding](#gene-finding)
+    - [Genome analysis workflows](#genome-analysis-workflows)
   - [Taxonomy](#taxonomy)
   - [Quality Control](#quality-control)
 - [Data Resources](#databases)
@@ -187,6 +188,7 @@ For newcomers to virome analysis, here are some recommended starting points:
     - [Genome Completeness](#genome-completeness)
     - [Genome Comparison](#genome-comparison)
     - [Gene Finding](#gene-finding)
+    - [Genome analysis workflows](#genome-analysis-workflows)
   - [Taxonomy](#taxonomy)
   - [Quality Control](#quality-control)
 - [Data Resources](#databases)
@@ -384,6 +386,10 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [PhageTerm](https://sourceforge.net/projects/phageterm/) - Tool for identifying phage termini and packaging mechanisms, helpful for ORF identification. [source] [Python]
 - [Pharokka](https://github.com/gbouras13/pharokka) [v1.5.0, 2023] [Updated: 03/2025] - Dedicated phage annotation tool that includes ORF prediction. [conda] [Python]
 - [VGAS](https://github.com/tianqitang1/VGAS) [unavailable] - Comprehensive pipeline for viral genome annotation including gene finding. [source] [Python]
+
+### Genome analysis workflows
+
+- [Sphae](https://github.com/linsalrob/sphae) [Updated: 03/2025] - Phage toolkit to assemble and annotate phages, to identify phage therapy candidates [conda] [Snakemake]
 
 ## Taxonomy
 
