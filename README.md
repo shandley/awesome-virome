@@ -322,7 +322,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [HostG](https://github.com/KennthShang/HostG) [v1.0, 2022] - Graph convolutional network for phage host prediction. [Python] [v1.0, 2022]
 - [HostPhinder](https://github.com/julvi/HostPhinder) [Updated: 11/2024] - K-mer based phage host prediction. [Python]
 - [INFH-VH](https://github.com/liudan111/ILMF-VH) [Updated: 11/2024] - Integrating different features for virus-host prediction. [Python]
-- [iPHoP](https://github.com/RasmussenLab/PHoP) [unavailable] - Integrated approach for phage host prediction (formerly iPHoP). Documentation at [iphop.readthedocs.io](https://iphop.readthedocs.io/). [Python] [v1.1.0, 2023]
+- [iPHoP](https://bitbucket.org/srouxjgi/iphop/src/main/) [Updated: 11/2023] - Integrated approach for phage host prediction. Documentation at [https://bitbucket.org/srouxjgi/iphop/src/main/](https://bitbucket.org/srouxjgi/iphop/src/main/). [bioconda] [Python] [v1.3.3, 2023]
 - [MVP](https://web.archive.org/web/20201204203350/http://mvp.medgenius.info/home) [unavailable] - Microbe-virus database with prediction tools. [web service]
 - [PB-LKS](https://github.com/wanchunnie/PB-LKS) [Updated: 02/2025] - K-mer profiles for phage-bacteria prediction. [Python]
 - [PhageHostLearn](https://github.com/dimiboeckaerts/PhageHostLearn) [Updated: 02/2025] - Machine learning for phage-host prediction. [Python]
