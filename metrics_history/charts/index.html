@@ -1,0 +1,50 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Awesome-Virome Repository Metrics</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+            h1 { color: #333; }
+            .chart-container { margin-bottom: 30px; }
+            .chart { max-width: 100%; border: 1px solid #ddd; }
+            .metrics-info { margin-top: 10px; color: #666; }
+        </style>
+    </head>
+    <body>
+        <h1>Awesome-Virome Repository Metrics</h1>
+        <p>This page displays historical metrics for the Awesome-Virome repository.</p>
+        
+        <div class="chart-container">
+            <h2>Performance Trends</h2>
+            <img src="performance_trend.svg" alt="Performance Trends" class="chart">
+            <div class="metrics-info">
+                Shows the time taken for key operations over time. Lower is better.
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <h2>Validation Success Rate</h2>
+            <img src="validation_success.svg" alt="Validation Success Rate" class="chart">
+            <div class="metrics-info">
+                Shows the percentage of validation checks that passed.
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <h2>Link Health</h2>
+            <img src="link_health.svg" alt="Link Health" class="chart">
+            <div class="metrics-info">
+                Shows the status of links in the repository over time.
+            </div>
+        </div>
+        
+        <footer>
+            <p>Last updated: <span id="update-time"></span></p>
+            <script>
+                document.getElementById('update-time').textContent = new Date().toISOString();
+            </script>
+        </footer>
+    </body>
+    </html>
+    

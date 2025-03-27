@@ -1,0 +1,309 @@
+name: Update Repository Information
+
+on:
+  schedule:
+    # Run weekly on Sunday at 08:00 UTC (well after repo testing and cache maintenance)
+    - cron: "0 8 * * 0"
+    # Run enhanced metadata on 2nd of each month (after workflow coordination on 1st)
+    - cron: "0 8 2 * *"
+    # Run bioinformatics metadata on 16th of each month (spreading load)
+    - cron: "0 8 16 * *"
+    # Run academic impact metadata on 5th of each month (after PubMed on 4th)
+    - cron: "0 6 5 * *"
+  workflow_dispatch:
+    inputs:
+      update_type:
+        description: 'Type of update to run'
+        required: true
+        default: 'basic'
+        type: choice
+        options:
+          - basic
+          - enhanced
+          - bioinformatics
+          - academic_impact
+          - all
+      skip_pubmed_check:
+        description: 'Skip PubMed recency check and force use of existing data'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  update-repos:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' && github.event.schedule == '0 0 * * 0' || github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'basic' || github.event.inputs.update_type == 'all')
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests PyGithub
+      
+      - name: Update repository information
+        run: python update_check.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Verify README content
+        run: python scripts/verify_readme_content.py
+      
+      - name: Update data.json
+        run: python update_data_json.py
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md data.json repo_updates.json update_check.log
+          git diff --staged --quiet || git commit -m "Update repository information"
+          git push
+
+  enhance-metadata:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' && github.event.schedule == '0 0 1 * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'enhanced' || github.event.inputs.update_type == 'all')
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests PyGithub
+      
+      - name: Collect enhanced metadata
+        run: python scripts/enhance_metadata.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Update data.json with enhanced metadata
+        run: python update_data_json.py --include-metadata
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data.json metadata/
+          git diff --staged --quiet || git commit -m "Update enhanced metadata"
+          git push
+
+  bioinformatics-metadata:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule' && github.event.schedule == '0 0 15 * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'bioinformatics' || github.event.inputs.update_type == 'all')
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests PyGithub pyyaml
+      
+      - name: Collect bioinformatics metadata
+        run: python scripts/bioinformatics_metadata.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      - name: Update data.json with bioinformatics metadata
+        run: python update_data_json.py --include-metadata --include-bioinformatics
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data.json metadata/
+          git diff --staged --quiet || git commit -m "Update bioinformatics metadata"
+          git push
+
+  warm-cache:
+    if: |
+      github.event_name == 'schedule' && (github.event.schedule == '0 0 1 * *' || github.event.schedule == '0 0 5 * *') ||
+      github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'academic_impact' || github.event.inputs.update_type == 'all')
+    uses: ./.github/workflows/cache-warming.yml
+    with:
+      scope: 'important'
+    secrets: inherit
+
+  academic-impact-metadata:
+    runs-on: ubuntu-latest
+    needs: warm-cache
+    if: |
+      github.event_name == 'schedule' && github.event.schedule == '0 0 5 * *' || 
+      github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'academic_impact' || github.event.inputs.update_type == 'all')
+    outputs:
+      academic_impact_pr_url: ${{ steps.create-pr.outputs.pull-request-url }}
+      changes_detected: ${{ steps.prepare.outputs.changes_detected }}
+      branch_name: ${{ steps.prepare.outputs.branch_name }}
+    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests PyGithub pyyaml matplotlib networkx
+      
+      - name: Check for recent PubMed update
+        id: check_pubmed
+        run: |
+          # Check if we should skip the PubMed check based on input
+          if [[ "${{ github.event.inputs.skip_pubmed_check }}" == "true" ]]; then
+            echo "Skipping PubMed recency check as requested"
+            echo "pubmed_is_current=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          # Check if PubMed data was updated in the last 7 days (168 hours)
+          PUBMED_UPDATED=$(git log --since="168 hours ago" --oneline | grep "Update PubMed citation information" | wc -l)
+          if [ $PUBMED_UPDATED -gt 0 ]; then
+            echo "Recent PubMed update found, will use existing data"
+            echo "pubmed_is_current=true" >> $GITHUB_OUTPUT
+          else
+            echo "No recent PubMed update found"
+            echo "pubmed_is_current=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Run PubMed collection if needed
+        if: steps.check_pubmed.outputs.pubmed_is_current != 'true'
+        run: |
+          echo "Running PubMed citation collection as prerequisite for academic impact analysis"
+          python scripts/pubmed_citations.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
+      
+      - name: Collect academic impact metadata
+        run: python scripts/academic_impact.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEMANTIC_SCHOLAR_KEY: ${{ secrets.SEMANTIC_SCHOLAR_KEY }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
+      
+      - name: Generate citation reports
+        run: python scripts/citation_report.py
+      
+      - name: Validate data integrity
+        run: |
+          python scripts/verify_repo_metadata.py
+          python scripts/verify_readme_content.py
+        
+      - name: Update data.json with academic impact metadata
+        run: |
+          # Include PubMed data in the update
+          python update_data_json.py --include-metadata --include-bioinformatics --include-academic-impact --include-pubmed
+      
+      - name: Prepare changes
+        id: prepare
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data.json metadata/ reports/
+          # Add citations.md if it exists
+          if [ -f citations.md ]; then
+            git add citations.md
+          fi
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+          else
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+            # Create a unique branch name with timestamp and run ID
+            BRANCH_NAME="academic-impact-${{ github.run_id }}"
+            echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Create Pull Request
+        if: steps.prepare.outputs.changes_detected == 'true'
+        id: create-pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          # Use PAT_TOKEN if available, otherwise fall back to GITHUB_TOKEN
+          token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+          commit-message: Update academic impact metadata and citation reports
+          title: Update academic impact metadata and citation reports
+          body: |
+            ## Automated PR with academic impact data updates
+            
+            This PR updates the academic impact metadata and citation reports based on the latest analysis.
+            
+            Changes include:
+            - Updated academic impact metadata with CrossRef fallback for citations 
+            - Updated citation reports
+            - Updated data.json with latest academic impact information
+            
+            Generated automatically by GitHub Actions workflow.
+          branch: ${{ steps.prepare.outputs.branch_name }}
+          base: main
+          delete-branch: false
+      
+      - name: PR Creation Result
+        if: steps.prepare.outputs.changes_detected == 'true'
+        run: |
+          if [[ -n "${{ steps.create-pr.outputs.pull-request-url }}" ]]; then
+            echo "::notice::PR created successfully: ${{ steps.create-pr.outputs.pull-request-url }}"
+          else
+            echo "::warning::PR creation failed. You need to configure one of the following:"
+            echo "::warning::1. Add a Personal Access Token (PAT) with 'repo' scope as a repository secret named 'PAT_TOKEN'"
+            echo "::warning::2. Enable 'Allow GitHub Actions to create and approve pull requests' in repository Settings > Actions > General"
+            
+            # Provide manual PR creation URL as fallback
+            echo "::notice::For now, you can create a PR manually at: https://github.com/$GITHUB_REPOSITORY/pull/new/${{ steps.prepare.outputs.branch_name }}"
+          fi
+  
+  auto-merge-academic-impact:
+    runs-on: ubuntu-latest
+    needs: academic-impact-metadata
+    if: |
+      needs.academic-impact-metadata.outputs.changes_detected == 'true' && 
+      needs.academic-impact-metadata.outputs.academic_impact_pr_url != ''
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Extract PR number
+        id: extract_pr
+        run: |
+          PR_NUMBER=$(echo "${{ needs.academic-impact-metadata.outputs.academic_impact_pr_url }}" | grep -oE '[0-9]+$')
+          if [[ -n "$PR_NUMBER" ]]; then
+            echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+            echo "Found PR number: $PR_NUMBER"
+          else
+            echo "Could not extract PR number from URL"
+            exit 1
+          fi
+
+      # Note: GitHub Actions cannot auto-approve its own PRs without a separate user's PAT
+      # To use auto-approval, add a PAT_TOKEN secret from a different GitHub user
+      
+      - name: Enable auto-merge
+        if: steps.extract_pr.outputs.pr_number != ''
+        run: |
+          gh pr merge ${{ steps.extract_pr.outputs.pr_number }} --auto --merge
+          echo "Auto-merge enabled for PR #${{ steps.extract_pr.outputs.pr_number }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

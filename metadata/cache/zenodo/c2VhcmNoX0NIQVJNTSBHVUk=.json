@@ -1,0 +1,1974 @@
+{
+  "cache_date": "2025-03-14T04:05:38.827096",
+  "data": [
+    {
+      "created": "2025-03-13T12:04:07.825130+00:00",
+      "modified": "2025-03-13T12:04:08.031680+00:00",
+      "id": 15017661,
+      "conceptrecid": "13791656",
+      "doi": "10.5281/zenodo.15017661",
+      "conceptdoi": "10.5281/zenodo.13791656",
+      "doi_url": "https://doi.org/10.5281/zenodo.15017661",
+      "metadata": {
+        "title": "FishWaveAnalysis: A Toolkit for Quantitative Analysis of Collective Fish Behavior",
+        "doi": "10.5281/zenodo.15017661",
+        "publication_date": "2025-03-13",
+        "description": "<p><a href=\"https://gitlab.com/blsqr/fish-wave-analysis\" target=\"_blank\" rel=\"noopener\"><code>FishWaveAnalysis</code></a> is a Python-based toolkit for the quantitative analysis of so-called \"fish waves\" &mdash; patterns on the water surface resulting from the collective <a href=\"https://doi.org/10.1016/j.cub.2021.11.068\">predator defence</a> of large shoals of <a href=\"https://en.wikipedia.org/wiki/Sulphur_molly\" target=\"_blank\" rel=\"noopener\">sulphur mollies</a> (<em>Poecilia sulphuraria</em>). To better understand this collective-level behavior and the underlying individual-level mechanisms of the fish, this toolkit allows to annotate and process video recordings made in the field and subsequently extract quantitative observables of the waving behavior.</p>\n<p>To that end, this repository includes the following functionality:</p>\n<ul>\n<li>The <code>AnnotationTool</code> GUI tool to calibrate and annotate video recordings\n<ul>\n<li>Opening and playing field recordings with a wide range of supported formats</li>\n<li>Associating metadata with each video in a self-describing fashion</li>\n<li>Allowing to set calibration markers needed for perspective transformation</li>\n<li>Annotating events occurring throughout the recording, e.g. predator attacks or artificial stimuli, and attaching metadata to it</li>\n<li>Associating spatial labels with videos or events, which can be transformed alongside the video</li>\n</ul>\n</li>\n<li>The <code>WaveAnalysis</code> pipeline to extract quantitative properties of fish waves\n<ul>\n<li><a href=\"https://opencv.org\" target=\"_blank\" rel=\"noopener\">OpenCV</a>-based video reading and filter application</li>\n<li>Parametric perspective transformation of source video</li>\n<li>Background subtraction with a wide range of possible BGS algorithms (using <a href=\"https://pypi.org/project/pybgs/\" target=\"_blank\" rel=\"noopener\">pyBGS</a> library)</li>\n<li>3D online cluster detection to find blobs that are candidates for fish waves</li>\n<li>Wave analysis and categorization of blobs into waves or no-waves</li>\n<li>Linking detected waves to annotated events</li>\n<li>Analyzing further wave properties: timing, size, area, location, geometry, measures relative &nbsp;to the linked event, ... and much more</li>\n<li>Pipeline configuration, parallelization and evaluation via the <a href=\"https://gitlab.com/utopia-project/utopya\">utopya</a> modelling framework; massive parallelization possible</li>\n<li>Unique video output paths, depending on parameter set</li>\n<li>Saving individual wave properties and isolated time series or videos</li>\n<li>Saving aggregated wave properties</li>\n<li>Creating preview videos with detected waves overlayed on transformed video</li>\n</ul>\n</li>\n<li>The <code>FishWaveAnalysis</code> Python package which implements this functionality\n<ul>\n<li>The <code>fishvis</code> subpackage (\ud83d\udea7) assists in training and estimating fish pose from closeup video recordings using <a href=\"https://docs.ultralytics.com/models/yolo11/\" target=\"_blank\" rel=\"noopener\">YOLO11</a>-class computer vision models.</li>\n</ul>\n</li>\n<li>The <code>fwa</code> CLI to generate metadata, post-process videos, or aggregate annotations and analysis results</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Sevinchan, Yunus",
+            "affiliation": "Humboldt-Universit\u00e4t zu Berlin",
+            "orcid": "0000-0003-3858-0904"
+          }
+        ],
+        "keywords": [
+          "collective behavior",
+          "collective decision making",
+          "complex systems",
+          "collective animal behavior"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.1016/j.cub.2021.11.068",
+            "relation": "cites",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.21105/joss.02165",
+            "relation": "cites",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.21105/joss.02316",
+            "relation": "cites",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "https://gitlab.com/utopia-project/utopya",
+            "relation": "requires",
+            "resource_type": "software",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://gitlab.com/utopia-project/dantro",
+            "relation": "requires",
+            "resource_type": "software",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://pypi.org/project/pybgs/",
+            "relation": "requires",
+            "resource_type": "software",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://opencv.org",
+            "relation": "requires",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "dates": [
+          {
+            "type": "created",
+            "description": "Begin of software development"
+          },
+          {
+            "type": "available",
+            "description": "v1.0 released"
+          },
+          {
+            "type": "updated",
+            "description": "v1.2 released"
+          }
+        ],
+        "version": "1.2",
+        "language": "eng",
+        "custom": {
+          "code:codeRepository": "https://gitlab.com/blsqr/fish-wave-analysis",
+          "code:programmingLanguage": [
+            {
+              "id": "python",
+              "title": {
+                "en": "Python"
+              }
+            }
+          ],
+          "code:developmentStatus": {
+            "id": "active",
+            "title": {
+              "en": "Active"
+            }
+          }
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "gpl-3.0-or-later"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 1,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "13791656"
+              }
+            }
+          ]
+        }
+      },
+      "title": "FishWaveAnalysis: A Toolkit for Quantitative Analysis of Collective Fish Behavior",
+      "links": {
+        "self": "https://zenodo.org/api/records/15017661",
+        "self_html": "https://zenodo.org/records/15017661",
+        "doi": "https://doi.org/10.5281/zenodo.15017661",
+        "self_doi": "https://doi.org/10.5281/zenodo.15017661",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15017661",
+        "parent": "https://zenodo.org/api/records/13791656",
+        "parent_html": "https://zenodo.org/records/13791656",
+        "parent_doi": "https://doi.org/10.5281/zenodo.13791656",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13791656",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15017661/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15017661/sequence/default",
+        "files": "https://zenodo.org/api/records/15017661/files",
+        "media_files": "https://zenodo.org/api/records/15017661/media-files",
+        "archive": "https://zenodo.org/api/records/15017661/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15017661/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15017661/versions/latest",
+        "latest_html": "https://zenodo.org/records/15017661/latest",
+        "versions": "https://zenodo.org/api/records/15017661/versions",
+        "draft": "https://zenodo.org/api/records/15017661/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15017661/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15017661/access/links",
+        "access_grants": "https://zenodo.org/api/records/15017661/access/grants",
+        "access_users": "https://zenodo.org/api/records/15017661/access/users",
+        "access_request": "https://zenodo.org/api/records/15017661/access/request",
+        "access": "https://zenodo.org/api/records/15017661/access",
+        "communities": "https://zenodo.org/api/records/15017661/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15017661/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15017661/requests"
+      },
+      "updated": "2025-03-13T12:04:08.031680+00:00",
+      "recid": "15017661",
+      "revision": 4,
+      "files": [
+        {
+          "id": "aa5dd66e-882f-43a8-817a-6dfe5cd66b56",
+          "key": "fish-wave-analysis-main.zip",
+          "size": 452849,
+          "checksum": "md5:913bd7ebb4cfddcbe593a639ceb7dbff",
+          "links": {
+            "self": "https://zenodo.org/api/records/15017661/files/fish-wave-analysis-main.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:b640d7c6e4442b83d38c7e83865165aafc393902;origin=https://doi.org/10.5281/zenodo.13791656;visit=swh:1:snp:315039fdc177141ae8d28169cc2fcb60da167d91;anchor=swh:1:rel:48e52af344a1fe655d5c4f26eb3fc04cf8a66f97;path=fish-wave-analysis-main"
+      },
+      "owners": [
+        {
+          "id": "101856"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 13,
+        "unique_downloads": 12,
+        "views": 57,
+        "unique_views": 42,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 3,
+        "version_views": 7
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-13T09:14:36.733053+00:00",
+      "modified": "2025-03-13T09:15:08.542451+00:00",
+      "id": 15016954,
+      "conceptrecid": "13925517",
+      "doi": "10.5281/zenodo.15016954",
+      "conceptdoi": "10.5281/zenodo.13925517",
+      "doi_url": "https://doi.org/10.5281/zenodo.15016954",
+      "metadata": {
+        "title": "Sequence-Motor Game: A computer game-based research tool for visuomotor motor sequence learning",
+        "doi": "10.5281/zenodo.15016954",
+        "publication_date": "2025-03-13",
+        "description": "<p>The&nbsp;<strong>Sequence-Motor Game</strong> is a game-based tool designed for researchers interested in researching motor sequence learning. This computer mouse based game allows the user to adjust various parameters of the game including the sequence order, the number of non-sequenced random targets, the delay time between target appearance, the size of the targets, the length of the sequence, and the number of rounds and blocks in the game.&nbsp;</p>\n<p>The output of the game includes reaction time, total time to completion of a block (which encompasses a given number of 'rounds', where a single round is the length of the sequence + any non-sequenced random targets added on the end ), movement accuracy between the starting point and the target (where the mouse path is tracked and if the distance exceeds that of the perfectly linear path between the starting point and the target is calculated as 'movement error'), and click accuracy (where the distance in pixels from the centre most point of the target circle and the click point is calculated as 'click error'). The output from the game includes files and folders saved in BIDS (Brain Imaging Data Structure) standard format, and the results are all contained in a csv file. Additional csv files are saved for further movement analysis and figure generation if the user desires.</p>\n<p>The&nbsp;<strong>sequence_config.txt</strong> file contains game parameters that can be adjusted including the target sequence order, the wait time between targets and the number of random non-sequenced targets that get added onto the end of the sequence for each round. The sequence_config.txt file is loaded in the user setup gui that appears after running the game.</p>\n<p>This game is written in Python and is currently packaged as an executable file for Windows Operating Systems, future releases will include MacOS and Linux compatability.<br><br>********************************************************************************</p>\n<p><strong>ALWAYS USE LATEST RELEASE - EARLIER VERSIONS CONTAIN ERRORS&nbsp;</strong></p>\n<p>********************************************************************************<br><strong>UPDATE:</strong></p>\n<ul>\n<li>Results now are saved in a csv file instead of a .txt file.&nbsp;</li>\n<li>Difficulty level can now be increased to 20 elements in a sequence instead of the prior limit of 10.</li>\n<li>Corrected an issue with duplicating results from previous block. Each block now displays the correct results</li>\n<li>Integrated the figure generation into the game script, eliminating the need for a seperate .exe file to create figures. They now automatically generate at the end of a block.</li>\n</ul>\n<p><strong>UPDATE 21-10-2024: Public Release version 5</strong></p>\n<ul>\n<li>Random blocks can now be added to the start and end of a session in the user input gui.</li>\n<li>To make a session fully random switch the sequence blocks to 0 and set the random blocks to a desired number.</li>\n<li>The sequence_config.txt file now has additional optional sequences at the bottom of the page. To active one of them, replace the sequence within the 'Sequence Order:'&nbsp; brackets [].&nbsp;</li>\n</ul>\n<p><strong>UPDATE 29-11-2024: Public Release version 6</strong></p>\n<ul>\n<li>Unzip the file after downloading, and navigate to the 'dist' directory to fine the executable application file.</li>\n<li>Adjusted save options. Now the user selects where to save the data with a directory selection box. This seems to fix an issue when trying to save data to rescricted directories. Now the user can choose where to save the data to avoid this issue.</li>\n<li>Prevents random blocks from trying to generate targets that are outside of the target position range.</li>\n<li>New additional file format for results files. Now data variables are organized in columns for easier data evaluation across time for each block.</li>\n</ul>\n<p><strong>UPDATE 11-12-2024: Public Release version 7</strong></p>\n<ul>\n<li>Minor fix to ensure adding random targets at the end of each round works across random and sequence blocks.&nbsp;</li>\n</ul>\n<p><strong>UPDATE 04-02-2025: Public Release version 8</strong></p>\n<ul>\n<li>Major fix to correct a fatal error that prevented the game from working with difficulty levels/sequence lengths greater than 8.</li>\n</ul>\n<p><strong>UPDATE 13-03-2025: Public Release version 9</strong></p>\n<ul>\n<li>Adjustments to game that prevent game play until all user inputs are entered correctly, including a save directory path length that does not exceed 100 characters.</li>\n<li>Included custom configuration files as an example for using different settings to map game play across menstrual cycle.</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Andrushko, Justin W",
+            "affiliation": "Northumbria University",
+            "orcid": "0000-0003-2258-1689"
+          }
+        ],
+        "keywords": [
+          "motor learning",
+          "sequence learning",
+          "motor skill"
+        ],
+        "dates": [
+          {
+            "type": "updated"
+          }
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 8,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "13925517"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Sequence-Motor Game: A computer game-based research tool for visuomotor motor sequence learning",
+      "links": {
+        "self": "https://zenodo.org/api/records/15016954",
+        "self_html": "https://zenodo.org/records/15016954",
+        "doi": "https://doi.org/10.5281/zenodo.15016954",
+        "self_doi": "https://doi.org/10.5281/zenodo.15016954",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15016954",
+        "parent": "https://zenodo.org/api/records/13925517",
+        "parent_html": "https://zenodo.org/records/13925517",
+        "parent_doi": "https://doi.org/10.5281/zenodo.13925517",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13925517",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15016954/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15016954/sequence/default",
+        "files": "https://zenodo.org/api/records/15016954/files",
+        "media_files": "https://zenodo.org/api/records/15016954/media-files",
+        "archive": "https://zenodo.org/api/records/15016954/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15016954/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15016954/versions/latest",
+        "latest_html": "https://zenodo.org/records/15016954/latest",
+        "versions": "https://zenodo.org/api/records/15016954/versions",
+        "draft": "https://zenodo.org/api/records/15016954/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15016954/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15016954/access/links",
+        "access_grants": "https://zenodo.org/api/records/15016954/access/grants",
+        "access_users": "https://zenodo.org/api/records/15016954/access/users",
+        "access_request": "https://zenodo.org/api/records/15016954/access/request",
+        "access": "https://zenodo.org/api/records/15016954/access",
+        "communities": "https://zenodo.org/api/records/15016954/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15016954/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15016954/requests"
+      },
+      "updated": "2025-03-13T09:15:08.542451+00:00",
+      "recid": "15016954",
+      "revision": 6,
+      "files": [
+        {
+          "id": "7fe7ef93-cfc4-439e-b0de-fc039a3deef3",
+          "key": "Sequence-Motor_Game_v9.zip",
+          "size": 240165267,
+          "checksum": "md5:a52fe36c767dbd82217340653d779235",
+          "links": {
+            "self": "https://zenodo.org/api/records/15016954/files/Sequence-Motor_Game_v9.zip/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "562043"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 116,
+        "unique_downloads": 101,
+        "views": 311,
+        "unique_views": 265,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 8,
+        "version_views": 10
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-13T08:13:08.825117+00:00",
+      "modified": "2025-03-13T08:18:25.037896+00:00",
+      "id": 15016486,
+      "conceptrecid": "15016485",
+      "doi": "10.5852/ejt.2025.981.2821",
+      "doi_url": "https://doi.org/10.5852/ejt.2025.981.2821",
+      "metadata": {
+        "title": "Punctochaete murina gen. et sp. nov. (Agaricomycetes, Basidiomycota) from southwestern China",
+        "doi": "10.5852/ejt.2025.981.2821",
+        "publication_date": "2025-03-12",
+        "description": "Dong, Junhong, Li, Qi, Su, Jiangqing, Zhao, Changlin (2025): Punctochaete murina gen. et sp. nov. (Agaricomycetes, Basidiomycota) from southwestern China. European Journal of Taxonomy 981: 96-113, DOI: 10.5852/ejt.2025.981.2821, URL: https://europeanjournaloftaxonomy.eu/index.php/ejt/article/download/2821/12861",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Dong, Junhong",
+            "affiliation": "College of Forestry, Southwest Forestry University, Kunming 650224, P.R. China."
+          },
+          {
+            "name": "Li, Qi",
+            "affiliation": "College of Forestry, Southwest Forestry University, Kunming 650224, P.R. China."
+          },
+          {
+            "name": "Su, Jiangqing",
+            "affiliation": "College of Forestry, Southwest Forestry University, Kunming 650224, P.R. China."
+          },
+          {
+            "name": "Zhao, Changlin",
+            "affiliation": "College of Forestry, Southwest Forestry University, Kunming 650224, P.R. China. & Yunnan Key Laboratory of Gastrodia and Fungal Symbiotic Biology, Zhaotong University, Zhaotong 657000, P.R. China."
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "http://treatment.plazi.org/id/BF5BD60FDC5FFF89FD9A234408B2FA53",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "10.5281/zenodo.15016488",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.15016490",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.15016492",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.15016496",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5252/cryptogamie-mycologie2021v42a2",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1139/cjb-2019-0046",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.2307/2989955",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.11646/phytotaxa.441.1.8",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/s13225-019-00427-4",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/s11557-015-1084-5",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.13346/j.mycosystema.210036",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1038/nmeth.2109",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.13346/j.mycosystema.220205",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3389/fcimb.2022.1103579",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3897/mycokeys.108.128659",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5943/mycosphere/15/1/10",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.11646/phytotaxa.658.3.1",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.11646/phytotaxa.599.1.1",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1111/j.1558-5646.1985.tb00420.x",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1016/j.mycres.2007.03.004",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/978-3-642-55318-9_14",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3390/d14040239",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/s13225-022-00507-y",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/s13225-023-00532-5",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5943/mycosphere/13/1/1",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1093/bib/bbx108",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1093/bioinformatics/btu531",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/s11557-024-01968-y",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3897/mycokeys.86.76425",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5943/mycosphere/14/1/18",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3389/fmicb.2022.894641",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3732/ajb.91.10.1446",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1016/j.funbio.2017.05.001",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/s11557-018-1393-6",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1186/s43008-023-00110-z",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5735/085.049.0607",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1145/2335755.2335836",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5962/bhl.title.3752",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3176/biol.1964.1.05",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3176/biol.1966.2.06",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1080/0028825X.2024.2381734",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1093/sysbio/sys029",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.11646/phytotaxa.475.2.3",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/s11557-014-0984-0",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1111/njb.01601",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1111/njb.02394",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/s11557-019-01507-0",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1126/science.1256688",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3389/fmicb.2022.1080290",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.47371/mycosci.2021.03.002",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3390/jof7060478",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1017/S095375620100363X",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1080/00275514.1961.12017967",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/978-3-662-10189-6_4",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1080/00275514.1980.12021219",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1016/B978-0-12-372180-8.50042-1",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/s13225-019-00432-7",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.13346/j.mycosystema.200205",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3390/jof7110933",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1016/j.fecs.2022.100051",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/s13225-021-00496-4",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.11646/phytotaxa.591.1.1",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3390/jof10010055",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/s11557-020-01601-8",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/s11557-023-01903-7",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.11646/phytotaxa.592.3.1",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.11646/phytotaxa.634.1.1",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/s11557-016-1259-8",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3390/jof9030320",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1016/j.fecs.2024.100200",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.11646/phytotaxa.635.2.7",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3852/12-212",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          }
+        ],
+        "references": [
+          "Alvarenga R.L.M. & Gibertoni T.B. 2021. Crystallodon Alvarenga gen. nov., a new genus of the Auriculariales from the Neotropics. Cryptogamie Mycologie 42 (2): 17-24. https://doi.org/10.5252/cryptogamie-mycologie2021v42a2",
+          "Alvarenga R.L.M., Spirin V., Malysheva V., Gibertoni T.B. & Larsson K.H. 2019. Two new genera and six other novelties in Heterochaete sensu lato (Auriculariales, Basidiomycota). Botany 97 (8): 439-451. https://doi.org/10.1139/cjb-2019-0046",
+          "Bernicchia A. & Gorjon S.P. 2010. Fungi Europaei 12: Corticiaceae s.l. Edizioni Candusso, Lomazzo.",
+          "Burt E.A. 1915. The Thelephoraceae of North America. V. Tremellodendron, Eichleriella, and Sebacina. Annals of the Missouri Botanical Garden 2 (4): 731-770. https://doi.org/10.2307/2989955",
+          "Chen Y.L, Su M.S., Zhang L.P., Zou Q., Wu F., Zeng N.K. & Liu M. 2020. Pseudohydnum brunneiceps (Auriculariales, Basidiomycota), a new species from Central China. Phytotaxa 441 (1): 87-94. https://doi.org/10.11646/phytotaxa.441.1.8",
+          "Cui B.K., Li H.J., Ji X., Zhou J.L., Song J., Si J., Yang Z.L. & Dai Y.C. 2019. Species diversity, taxonomy and phylogeny of Polyporaceae (Basidiomycota) in China. Fungal Diversity 97: 137-392. https://doi.org/10.1007/s13225-019-00427-4",
+          "Dai Y.C., Cui B.K., Si J., He S.H., Hyde K.D., Yuan H.S., Liu X.Y. & Zhou L.W. 2015. Dynamics of the worldwide number of fungi with emphasis on fungal diversity in China. Mycological Progress 14: Art. 62. https://doi.org/10.1007/s11557-015-1084-5",
+          "Dai Y.C., Yang Z.L., Cui B.K., Wu G., Yuan H.S., Zhou L.W., He S.H., Ge Z.W., Wu F., Wei Y.L., Yuan Y. & Si J. 2021. Diversity and systematics of the important macrofungi in Chinese forests. Mycosystema 40: 770-805. https://doi.org/10.13346/j.mycosystema.210036",
+          "Darriba D., Taboada G.L., Doallo R. & Posada D. 2012. jModelTest 2: more models, new heuristics and parallel computing. Nature Methods 9 : Art. 772. https://doi.org/10.1038/nmeth.2109",
+          "Dong J.H., Gu J.Y. & Zhao C.L. 2023a. Diversity of wood-decaying fungi in Wenshan Area, Yunnan Province, China. Mycosystema 42: 638-662. https://doi.org/10.13346/j.mycosystema.220205",
+          "Dong J.H., Zhang X.C., Chen J.J., Zhu Z.L. & Zhao C.L. 2023b. A phylogenetic and taxonomic study on Steccherinum (Polyporales, Basidiomycota): focusing on three new Steccherinum species from Southern China. Frontiers in Cellular and Infection Microbiology 12 : Art. 1103579. https://doi.org/10.3389/fcimb.2022.1103579",
+          "Dong J., Zhu Y., Qian C. & Zhao C. 2024a. Taxonomy and phylogeny of Auriculariales (Agaricomycetes, Basidiomycota) with descriptions of four new species from southwestern China. MycoKeys 108: 115-146. https://doi.org/10.3897/mycokeys.108.128659",
+          "Dong J.H., Li Q., Yuan Q., Luo Y.X., Zhang X.C., Dai Y.F., Zhou Q., Liu X.F., Deng Y.L., Zhou H.M., Muhammad A. & Zhao C.L. 2024b. Species diversity, taxonomy, molecular systematics and divergence time of wood-inhabiting fungi in Yunnan-Guizhou Plateau, Asia. Mycosphere 15 (1): 1110-1293. https://doi.org/10.5943/mycosphere/15/1/10",
+          "Dong J.H., Gu Z.R., Wang Y.Y., Shi Y.M. & Zhao C.L. 2024c. A new corticioid fungus, Alloexidiopsis sinensis (Auriculariales, Basidiomycota), in China, evidenced by morphological characteristics and phylogenetic analyses. Phytotaxa 658 (3): 227-239. https://doi.org/10.11646/phytotaxa.658.3.1",
+          "Duan Z.Y., Guan Q.X., Luo K.Y. & Zhao C.L. 2023. Morphological and molecular identification of three new resupinate species of Hyphoderma (Hyphodermataceae, Agaricomycetes) from East Asia. Phytotaxa 599 (1): 1-19. https://doi.org/10.11646/phytotaxa.599.1.1",
+          "Felsenstein J. 1985. Confidence intervals on phylogenetics: an approach using bootstrap. Evolution 39 (4): 783-791. https://doi.org/10.1111/j.1558-5646.1985.tb00420.x",
+          "Redhead S., Schoch C.L., Spatafora J.W., Stalpers J.A. \u2026 & Zhang N. 2007. A higher-level phylogenetic classification of the Fungi. Mycological Research 111 (5): 509-547. ttps://doi.org/10.1016/j.mycres.2007.03.004",
+          "Hibbett D.S., Bauer R., Binder M., Giachini A.J., Hosaka K., Justo A., Larsson E., Larsson K.H., Lawrey J.D., Miettinen O., Nagy L.G., Nilsson R.H., Weiss M. & Thorn R.G. 2014. 14 Agaricomycetes. In: McLaughlin D. & Spatafora J. (eds) Systematics and Evolution. The Mycota, Vol. 7A: 373-430. Springer, Berlin, Heidelberg. https://doi.org/10.1007/978-3-642-55318-9_14",
+          "Hu Y., Karunarathna S.C., Li H., Galappaththi M.C., Zhao C.L., Kakumyan P. & Mortimer P.E. 2022. The impact of drying temperature on basidiospore size. Diversity 14 (4): Art. 239. https://doi.org/10.3390/d14040239",
+          "Hyde K.D. 2022. The numbers of fungi. Fungal Diversity 114: 1. https://doi.org/10.1007/s13225-022-00507-y",
+          "Hyde K.D., Baldrian P., Chen Y., Chethana K.W.T., Hoog S.D., Doilom M., Gomes de Farias A.R., Goncalves M.F.M., Gonkhom D., Gui H., Hilario S., Hu Y., Jayawardena R.S., Khyaju S., Kirk P.M., Kohout P., Luangharn T., Maharachchikumbura S.S.N., Manawasinghe I.S. \u2026 & Walker A. 2024. Current trends, limitations and future research in the fungi? Fungal Diversity 125: 1-71. https://doi.org/10.1007/s13225-023-00532-5",
+          "Ji X., Zhou J.L., Song C.G., Xu T.M., Wu D.M. & Cui B.K. 2022. Taxonomy, phylogeny and divergence times of Polyporus (Basidiomycota) and related genera. Mycosphere 13 (1): 1-52. https://doi.org/10.5943/mycosphere/13/1/1",
+          "Katoh K., Rozewicki J. & Yamada K.D. 2019. MAFFT online service: multiple sequence alignment, interactive sequence choice and visualization. Briefings in Bioinformatics 20 (4): 1160-1166. https://doi.org/10.1093/bib/bbx108",
+          "Larsson A. 2014. AliView: a fast and lightweight alignment viewer and editor for large data sets. Bioinformatics 30 (22): 3276-3278. https://doi.org/10.1093/bioinformatics/btu531",
+          "Li Q., Luo Y.X. & Zhao C.L. 2024. Molecular systematics and taxonomy reveal three new wood-inhabiting fungal species (Basidiomycota) from Yunnan Province, southern China. Mycological Progress 23: Art. 30. https://doi.org/10.1007/s11557-024-01968-y",
+          "Li Q.Z., Liu SL., Wang X.W., May T.W. & Zhou L.W. 2022. Redelimitation of Heteroradulum (Auriculariales, Basidiomycota) with H. australiense sp. nov. MycoKeys 86: 87-101. https://doi.org/10.3897/mycokeys.86.76425",
+          "Liu S., Shen L.L., Xu T.M., Song C.G., Gao N., Wu D.M., Sun Y.F. & Cui B.K. 2023. Global diversity, molecular phylogeny and divergence times of the brown-rot fungi within the Polyporales. Mycosphere 14 (1): 1564-1664. https://doi.org/10.5943/mycosphere/14/1/18",
+          "Liu S.L, Shen Z.Q., Li Q.Z., Liu X.Y. & Zhou L.W. 2022. Alloexidiopsis gen. nov., a revision of generic delimitation in Auriculariales (Basidiomycota). Frontiers in Microbiology 13: Art. 894641. https://doi.org/10.3389/fmicb.2022.894641",
+          "Lutzoni F., Kauff F., Cox C.J., McLaughlin D., Celio G., Dentinger B., Padamsee M., Hibbett D., James T.Y., Baloch E., Grube M., Reeb V., Hofstetter V., Schoch C., Arnold A.E., Miadlikowska J., Spatafora J., Johnson D., Hambleton S. \u2026 & Vilgalys R. 2004. Assembling the fungal tree of life: progress, classification, and evolution of subcellular traits. American Journal of Botany 91 (10): 1446- 1480. https://doi.org/10.3732/ajb.91.10.1446",
+          "Malysheva V. & Spirin V. 2017. Taxonomy and phylogeny of the Auriculariales (Agaricomycetes, Basidiomycota) with stereoid basidiocarps. Fungal Biology 121 (8): 689-715. https://doi.org/10.1016/j.funbio.2017.05.001",
+          "Malysheva V., Spirin V., Miettinen O., Motato-Vasquez V., Hernawati J.S.S.S. & Larsson K.H. 2018. Revision of Protohydnum (Auriculariales, Basidiomycota). Mycological Progress 17: 805-814. https://doi.org/10.1007/s11557-018-1393-6",
+          "Mao W.L., Wu Y.D., Liu H.G., Yuan Y. & Dai Y.C. 2023. A contribution to Porogramme (Polyporaceae, Agaricomycetes) and related genera. IMA fungus 14: Art. 5. https://doi.org/10.1186/s43008-023-00110-z",
+          "Miettinen O., Spirin V. & Niemela T. 2012. Notes on the genus Aporpium (Auriculariales, Basidiomycota), with a new species from temperate Europe. Annales Botanici Fennici 49 (5): 359-368. https://doi.org/10.5735/085.049.0607",
+          "Miller M.A., Pfeiffer W. & Schwartz T. 2012. The CIPRES science gateway: enabling high-impact science for phylogenetics researchers with limited resources. Proceedings of the 1st Conference of the Extreme Science and Engineering Discovery Environment: Bridging from the Extreme to the Campus and Beyond 39: 1-8. Chicago, IL, USA. https://doi.org/10.1145/2335755.2335836",
+          "Moller A. 1895. Protobasidiomyceten. In: Schimper A.F.W. (ed.) Botanische Mitteilungen aus den Tropen. 8: 1-180. Gustav Fischer, Jena. https://doi.org/10.5962/bhl.title.3752",
+          "Petersen J.H. 1996. Farvekort. The Danish Mycological Society's Colour-Chart. Foreningen til Svampekundskabens Fremme, Greve, Germany.",
+          "Raitviir A. 1964. Some new species and a new genus of Discomycetes and Heterobasidiomycetidae. Eesti NSV Teaduste Akadeemia Toimetised 13 (1): 28-32. https://doi.org/10.3176/biol.1964.1.05",
+          "Raitviir A. & Wells K. 1966. Two new species of Exidiopsis. Eesti NSV Teaduste Akadeemia Toimetised 15 (2): 206-209. https://doi.org/10.3176/biol.1966.2.06",
+          "Rathnayaka A.R., Tennakoon D.S., Jones G.E., Wanasinghe D.N., Bhat D.J., Priyashantha A.H., Stephenson S.L., Tibpromma S. & Karunarathna S.C. 2024. Significance of precise documentation of hosts and geospatial data of fungal collections, with an emphasis on plant-associated fungi.New Zealand Journal of Botany 62: 1-28. https://doi.org/10.1080/0028825X.2024.2381734",
+          "Ronquist F., Teslenko M., van der Mark P., Ayres D.L., Darling A., Hohna S., Larget B., Liu L., Suchard M.A. & Huelsenbeck J.P. 2012. MrBayes 3.2: Efficient Bayesian phylogenetic inference and model choice across a large model space. Molecular Systems Biology 61 (3): 539-542. https://doi.org/10.1093/sysbio/sys029",
+          "Shen Y. & Fan L. 2020. Morphological and molecular analyses reveal two new species of Guepinia from China. Phytotaxa 475 (2): 91-101. https://doi.org/10.11646/phytotaxa.475.2.3",
+          "Sotome K., Maekawa N., Nakagiri A., Lee S.S. & Hattori T. 2014. Taxonomic study of Asian species of poroid Auriculariales. Mycological Progress 13: 987-997. https://doi.org/10.1007/s11557-014-0984-0",
+          "Spirin V., Malysheva V. & Larsson K.H. 2018. On some forgotten species of Exidia and Myxarium (Auriculariales, Basidiomycota). Nordic Journal of Botany 36 (3): Art. e01601. https://doi.org/10.1111/njb.01601",
+          "Spirin V., Malysheva V., Roberts P., Trichies G., Savchenko A. & Larsson K.H. 2019a. A convolute diversity of the Auriculariales (Agaricomycetes, Basidiomycota) with sphaeropedunculate basidia.Nordic Journal of Botany 37 (7): Art. e02394. https://doi.org/10.1111/njb.02394",
+          "Spirin V., Malysheva V., Miettinen O., Vlasak J., Alvarenga R.L.M., Gibertoni T.B., Ryvarden L. & Larsson K.H. 2019b. On Protomerulius and Heterochaetella (Auriculariales, Basidiomycota).Mycological Progress 18: 1079-1099. https://doi.org/10.1007/s11557-019-01507-0",
+          "Swofford D.L. 2002. PAUP*: Phylogenetic Analysis Using parsimony (*and Other Methods), Version 4.0b10. Sinauer Associates, Sunderland, MA, USA.",
+          "Tedersoo L., Bahram M., Polme S., Koljalg U., Yorou N.S., Wijesundera R., Villarreal Ruiz L., Vasco- Palacios A.M., Thu P.Q., Suija A., Smith M.E., Sharp C., Saluveer E., Saitta A., Rosas M., Riit T., Ratkowsky D., Pritsch K., Poldmaa K. \u2026 & Abarenkov K. 2014. Fungal biogeography. Global diversity and geography of soil fungi. Science 346: Art. 1256688. https://doi.org/10.1126/science.1256688",
+          "Tohtirjap A., Hou S.X., Rivoire B., Gates G., Wu F. & Dai Y.C. 2023.Two new species of Exidia sensu lato (Auriculariales, Basidiomycota) based on morphology and DNA sequences. Frontiers in Microbiology 13: Art. 1080290. https://doi.org/10.3389/fmicb.2022.1080290",
+          "Wang S. & Thorn R.G. 2021. Exidia qinghaiensis, a new species from China. Mycoscience 62 (3): 212-216. https://doi.org/10.47371/mycosci.2021.03.002",
+          "Wang X.W., May T.W., Liu S.L. & Zhou L.W. 2021. Towards a natural classification of Hyphodontia sensu lato and the trait evolution of basidiocarps within Hymenochaetales (Basidiomycota). Journal of Fungi 7 (6): 478. https://doi.org/10.3390/jof7060478",
+          "Weiss M. & Oberwinkler F. 2001. Phylogenetic relationships in Auriculariales and related groups - hypotheses derived from nuclear ribosomal DNA sequences. Mycological Research 105 (4): 403-415. https://doi.org/10.1017/S095375620100363X",
+          "Wells K. 1961. Studies of some Tremellaceae. IV. Exidiopsis. Mycologia 53 (4): 317-370. https://doi.org/10.1080/00275514.1961.12017967",
+          "Wells K. & Bandoni R.J. 2001. Heterobasidiomycetes. In: McLaughlin D.J., McLaughlin E.G. & Lemke P.A. (eds) The Mycota. (A Comprehensive Treatise on Fungi as Experimental Systems for Basic and Applied Research), Vol. 7B: 85-120. Springer, Berlin, Heidelberg. https://doi.org/10.1007/978-3-662-10189-6_4",
+          "Wells K. & Raitviir A. 1980. The species of Eichleriella (Tremellaceae) of the USSR. Mycologia 72 (3): 564-577. https://doi.org/10.1080/00275514.1980.12021219",
+          "White T.J., Bruns T., Lee S. & Taylor J. 1990. Amplification and direct sequencing of fungal ribosomal RNA genes for phylogenetics. In: Innis M.A., Gelfand D.H., Sninsky J.J. & White T.J. (eds) PCR protocols: A guide to methods and applications: 315-322. Academic Press, San Diego. https://doi.org/10.1016/B978-0-12-372180-8.50042-1",
+          "Wu F., Zhou L.W., Yang Z.L., Bau T., Li T.H. & Dai Y.C. 2019. Resource diversity of Chinese macrofungi: edible, medicinal and poisonous species. Fungal Diversity 98: 1-76. https://doi.org/10.1007/s13225-019-00432-7",
+          "Wu F., Zhao Q., Yang Z.L., Ye S.Y., Rivoire B. & Dai Y.C. 2020. Exidia yadongensis, a new edible species from East Asia. Mycosystema 39: 1203-1214. https://doi.org/10.13346/j.mycosystema.200205",
+          "Wu F., Tohtirjap A., Fan L.F., Zhou L.W., Alvarenga R.L.M., Gibertoni T.B. & Dai Y.C. 2021. Global diversity and updated phylogeny of Auricularia (Auriculariales, Basidiomycota). Journal of Fungi 7 (11): Art. 933. https://doi.org/10.3390/jof7110933",
+          "Wu F., Man X.W., Tohtirjap A. & Dai Y.C. 2022a.A comparison of polypore funga and species composition in forest ecosystems of China, North America, and Europe. Forest Ecosystems 9: Art. 100051. https://doi.org/10.1016/j.fecs.2022.100051",
+          "Wu F., Zhou L.W., Vlasak J. & Dai Y.C. 2022b. Global diversity and systematics of Hymenochaetaceae with poroid hymenophore. Fungal Diversity 113: 1-192. https://doi.org/10.1007/s13225-021-00496-4",
+          "Yang Y., Li R., Liu C.M. & Zhao C.L. 2023. Morphological and molecular identification for two new species of wood-inhabiting macrofungi (Basidiomycota) from Yunnan-Guizhou Plateau, China.Phytotaxa 591 (1): 1-18. https://doi.org/10.11646/phytotaxa.591.1.1",
+          "Yang Y., Li R., Jiang Q.Q., Zhou H.M., Muhammad A., Wang H.J. & Zhao C.L. 2024. Phylogenetic and taxonomic analyses reveal three new wood-inhabiting fungi (Polyporales, Basidiomycota) in China. Journal of Fungi 10 (1): Art. 55. https://doi.org/10.3390/jof10010055",
+          "Ye S.Y., Zhang Y.B., Wu F. & Liu H.X. 2020. Multi-locus phylogeny reveals two new species of Exidia (Auriculariales, Basidiomycota) from China. Mycological Progress 19: 859-868. https://doi.org/10.1007/s11557-020-01601-8",
+          "Yu J., Cai J., Liu H.G. & Zhao C.L. 2023. Molecular systematics and taxonomy reveal three new taxa in Phanerochaete (Phanerochaetaceae, Polyporales) from the Yunnan -Guizhou plateau, East Asia. Mycological Progress 22: Art. 59. https://doi.org/10.1007/s11557-023-01903-7",
+          "Yuan Q., Luo K.Y., Zhang Y. & Zhao C.L. 2023. Morphological characteristics and phylogenetic analyses revealed three new wood-inhabiting fungi (Agaricomycetes, Basidiomycota) in Southern China. Phytotaxa 592 (2): 179-195. https://doi.org/10.11646/phytotaxa.592.3.1",
+          "Zhang X.C., Li Y.C., Wang Y.Y., Xu Z., Zhao C.L. & Zhou H.M. 2024.Xylodon asiaticus (Hymenochaetales, Basidiomycota), a new species of corticioid fungus from southern China. Phytotaxa 634 (1): 1-15. https://doi.org/10.11646/phytotaxa.634.1.1",
+          "Zhao C.L. & Wu Z.Q. 2017. Ceriporiopsis kunmingensis sp. nov. (Polyporales, Basidiomycota) evidenced by morphological characters and phylogenetic analysis. Mycological Progress 16: 93-100. https://doi.org/10.1007/s11557-016-1259-8",
+          "Zhao C.L., Qu M.H., Huang R.X. & Karunarathna S.C. 2023. Multi-gene phylogeny and taxonomy of the wood-rotting fungal genus Phlebia sensu lato (Polyporales, Basidiomycota). Journal of Fungi 9 (3): 320. https://doi.org/10.3390/jof9030320",
+          "Zhao H., Wu Y.D., Yang Z.R., Liu H.G., Wu F., Dai Y.C. & Yuan Y. 2024. Polypore funga and species diversity in tropical forest ecosystems of Africa, America and Asia, and a comparison with temperate and boreal regions of the Northern Hemisphere. Forestry Ecosystem s 11: Art. 100200. https://doi.org/10.1016/j.fecs.2024.100200",
+          "Zhou H.M., Gu Z.R. & Zhao C.L. 2024. Molecular phylogeny and morphology reveal a new species of Asterostroma from Guizhou Province, China. Phytotaxa 634 (2): 1-15. https://doi.org/10.11646/phytotaxa.635.2.7",
+          "Zhou L.W. & Dai Y.C. 2013. Phylogeny and taxonomy of poroid and lamellate genera in the Auriculariales (Basidiomycota). Mycologia 105 (5): 1219-1230. https://doi.org/10.3852/12-212"
+        ],
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "pages": "96-113",
+          "title": "European Journal of Taxonomy",
+          "volume": "981"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "urn:lsid:plazi.org:pub:4362AE77DC59FF83FF92266B0B03FF97"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/4362AE77DC59FF83FF92266B0B03FF97"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15016485"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Punctochaete murina gen. et sp. nov. (Agaricomycetes, Basidiomycota) from southwestern China",
+      "links": {
+        "self": "https://zenodo.org/api/records/15016486",
+        "self_html": "https://zenodo.org/records/15016486",
+        "doi": "https://doi.org/10.5852/ejt.2025.981.2821",
+        "self_doi": "https://doi.org/10.5852/ejt.2025.981.2821",
+        "self_doi_html": "https://zenodo.org/doi/10.5852/ejt.2025.981.2821",
+        "parent": "https://zenodo.org/api/records/15016485",
+        "parent_html": "https://zenodo.org/records/15016485",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15016486/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15016486/sequence/default",
+        "files": "https://zenodo.org/api/records/15016486/files",
+        "media_files": "https://zenodo.org/api/records/15016486/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15016486:source.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15016486:source.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15016486:source.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15016486:source.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15016486:source.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15016486:source.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15016486/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15016486/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15016486/versions/latest",
+        "latest_html": "https://zenodo.org/records/15016486/latest",
+        "versions": "https://zenodo.org/api/records/15016486/versions",
+        "draft": "https://zenodo.org/api/records/15016486/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15016486/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15016486/access/links",
+        "access_grants": "https://zenodo.org/api/records/15016486/access/grants",
+        "access_users": "https://zenodo.org/api/records/15016486/access/users",
+        "access_request": "https://zenodo.org/api/records/15016486/access/request",
+        "access": "https://zenodo.org/api/records/15016486/access",
+        "communities": "https://zenodo.org/api/records/15016486/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15016486/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15016486/requests"
+      },
+      "updated": "2025-03-13T08:18:25.037896+00:00",
+      "recid": "15016486",
+      "revision": 7,
+      "files": [
+        {
+          "id": "d3709cb6-2429-4cab-950e-3dd080a7dea4",
+          "key": "source.pdf",
+          "size": 3656595,
+          "checksum": "md5:4362ae77dc598183fb92266b0b035197",
+          "links": {
+            "self": "https://zenodo.org/api/records/15016486/files/source.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-13T06:04:16.336338+00:00",
+      "modified": "2025-03-13T06:04:16.539426+00:00",
+      "id": 15016064,
+      "conceptrecid": "14175302",
+      "doi": "10.5281/zenodo.15016064",
+      "conceptdoi": "10.5281/zenodo.14175302",
+      "doi_url": "https://doi.org/10.5281/zenodo.15016064",
+      "metadata": {
+        "title": "Formal-Specification-to-Code Trace Links Recovery",
+        "doi": "10.5281/zenodo.15016064",
+        "publication_date": "2025-03-13",
+        "description": "<p>The experiment data and the code used in our experiments to evaluate the performance of the proposed formal-specification-to-code trace links establishment method, and the other exsiting text-based trace links recovery methods, including Latent Semantic Indexing, Vector Space Model, Word2Vec embeddings, and LLM-based embeddings, are here. It originate from three projects. The first one is an open source VDM-SL specification of an AccountSys and its Java implementation. It comes from the book &ldquo;Formal Software Development: From VDM to Java&rdquo; written by Quentin Charatan and Aaron Kans. Both the VDM-SL formal specification and the Java implementation of the AccountSys were developed and provided by Prof. Aaron Kans from University of East London. It illustrates how to model bank accounts and transactions made on these as a series of deposits and withdrawals. Bank.java file implementing the GUI of the system in the source code is not used since it contains syntactical error and cannot build AST. The second project involves the SOFL specification and the Java implementation of an ATM system. The operations on current accounts of an ATM, such as deposit, withdraw, show balance, print out transaction records are specified by using SOFL formal language and implemented by using Java langauge.&nbsp;The third project involves an open source VDM-SL specification of a hotel system along with its C implementation. The specification describes a hotel management system where guests can check in, enter rooms, and manage cards associated with rooms and keys. The VDM-SL specification, created by Daniel Jackson and presented in his book &ldquo;Software Abstractions: Logic, Language, and Analysis&rdquo;.&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Aegean, Li",
+            "affiliation": null
+          }
+        ],
+        "contributors": [
+          {
+            "name": "Aegean, Li",
+            "affiliation": null,
+            "type": "DataCollector"
+          }
+        ],
+        "keywords": [
+          "formal specification-to-code trace links recovery"
+        ],
+        "dates": [
+          {
+            "type": "updated"
+          }
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 4,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "14175302"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Formal-Specification-to-Code Trace Links Recovery",
+      "links": {
+        "self": "https://zenodo.org/api/records/15016064",
+        "self_html": "https://zenodo.org/records/15016064",
+        "doi": "https://doi.org/10.5281/zenodo.15016064",
+        "self_doi": "https://doi.org/10.5281/zenodo.15016064",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15016064",
+        "parent": "https://zenodo.org/api/records/14175302",
+        "parent_html": "https://zenodo.org/records/14175302",
+        "parent_doi": "https://doi.org/10.5281/zenodo.14175302",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14175302",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15016064/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15016064/sequence/default",
+        "files": "https://zenodo.org/api/records/15016064/files",
+        "media_files": "https://zenodo.org/api/records/15016064/media-files",
+        "archive": "https://zenodo.org/api/records/15016064/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15016064/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15016064/versions/latest",
+        "latest_html": "https://zenodo.org/records/15016064/latest",
+        "versions": "https://zenodo.org/api/records/15016064/versions",
+        "draft": "https://zenodo.org/api/records/15016064/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15016064/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15016064/access/links",
+        "access_grants": "https://zenodo.org/api/records/15016064/access/grants",
+        "access_users": "https://zenodo.org/api/records/15016064/access/users",
+        "access_request": "https://zenodo.org/api/records/15016064/access/request",
+        "access": "https://zenodo.org/api/records/15016064/access",
+        "communities": "https://zenodo.org/api/records/15016064/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15016064/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15016064/requests"
+      },
+      "updated": "2025-03-13T06:04:16.539426+00:00",
+      "recid": "15016064",
+      "revision": 4,
+      "files": [
+        {
+          "id": "a0a9debd-d6ff-4448-b923-3b60f174944c",
+          "key": "Formal-Specificaiont-to-Code Trace Links Recovery.zip",
+          "size": 1757819,
+          "checksum": "md5:7b963bd952c6b0db14b2c61ffdf39934",
+          "links": {
+            "self": "https://zenodo.org/api/records/15016064/files/Formal-Specificaiont-to-Code Trace Links Recovery.zip/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1221099"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 5,
+        "unique_downloads": 5,
+        "views": 70,
+        "unique_views": 47,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 2,
+        "version_views": 3
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-12T17:04:35.268396+00:00",
+      "modified": "2025-03-12T17:04:35.481602+00:00",
+      "id": 15010986,
+      "conceptrecid": "15010985",
+      "doi": "10.5281/zenodo.15010986",
+      "conceptdoi": "10.5281/zenodo.15010985",
+      "doi_url": "https://doi.org/10.5281/zenodo.15010986",
+      "metadata": {
+        "title": "Advantages And Challenges Of A Gitlab CI/CD Pipeline Architecture For The Build And Release System Of A Multi-project Satellite Simulation Software",
+        "doi": "10.5281/zenodo.15010986",
+        "publication_date": "2025-03-12",
+        "description": "<p>The aim of this presentation is to demonstrate the benefits and constraints of using a Continuous Integration and Continuous Development (CI/CD) for the testing, documentation, build and release of numerous Gitlab projects (science modules) as well as the desktop GUI application at DLR (German Aerospace Centre) Institute of Satellite Geodesy and Inertial Sensing. The objective is to provide a satellite simulation toolchain for the advanced orbital propagation and test mass dynamics of novel sensors with a software library of science modules developed in various programming languages over the past two decades.</p>\n<p>With such diverse and large legacy research code, it was crucial to plan standardized workflows to develop, test, document and publish modules with a module versioning and dependency management system. Consequently, the modules were grouped in packages such that the package constituents are inter-compatible for a given development environment. The defined structure and development processes accelerate the development of new additions to the library. The users can view, which modules can be selected and downloaded together in a desktop GUI application called VENQS that is developed in Python. The CI/CD in Gitlab is a powerful tool for the aforementioned facets of the project but involves several challenges.</p>\n<p>Firstly, it was essential to automate the process with build scripts at a single source of truth for traceability and agile development. Hence, a separate project in the parent Gitlab Group was created with modular CI/CD scripts that are imported to all the modules (individual Gitlabb projects).&nbsp;Secondly, two release architectures were needed for a multi-project pipeline. In the down-to-top scenario, modules are built and released individually. In the top-to-down approach, for an existing package, all modules need to be re-built in a new version, e.g. for a new OS system. This requires one parent CI/CD script that triggers all the module pipelines to re-run to add a release for an existing package in the Package registry. Concluding, an objective in this talk is to shed light on the multi-faceted benefits we achieved in automating the build and release of research software in Gitlab CI/CD. Moreover, the lessons learned with the challenges in the design and implementation will be discussed with the hope to generate a fruitful discussion.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Chand, Suditi",
+            "affiliation": "Deutsches Zentrum f\u00fcr Luft- und Raumfahrt e. V. (DLR)",
+            "orcid": "0009-0002-3373-226X"
+          },
+          {
+            "name": "Bremer, Stefanie",
+            "affiliation": "Deutsches Zentrum f\u00fcr Luft- und Raumfahrt e. V. (DLR)"
+          },
+          {
+            "name": "Pfannenstiel, Mike",
+            "affiliation": "Deutsches Zentrum f\u00fcr Luft- und Raumfahrt e. V. (DLR)"
+          }
+        ],
+        "keywords": [
+          "CI/CD",
+          "Automation",
+          "Satellite simulation toolchain",
+          "CI/CD architectures"
+        ],
+        "dates": [
+          {
+            "type": "submitted"
+          }
+        ],
+        "language": "eng",
+        "custom": {
+          "code:programmingLanguage": [
+            {
+              "id": "python",
+              "title": {
+                "en": "Python"
+              }
+            },
+            {
+              "id": "matlab",
+              "title": {
+                "en": "MATLAB"
+              }
+            },
+            {
+              "id": "c++",
+              "title": {
+                "en": "C++"
+              }
+            },
+            {
+              "id": "c",
+              "title": {
+                "en": "C"
+              }
+            }
+          ],
+          "code:developmentStatus": {
+            "id": "active",
+            "title": {
+              "en": "Active"
+            }
+          }
+        },
+        "resource_type": {
+          "title": "Presentation",
+          "type": "presentation"
+        },
+        "meeting": {
+          "title": "deRSE25 - 5th Conference for Research Software Engineering in Germany",
+          "acronym": "deRSE",
+          "dates": "25 - 27 Feb 2025",
+          "place": "Karlsruhe Institute of Technology, Karlsruhe",
+          "url": "https://events.hifis.net/event/2050/",
+          "session": "Facets of large Software Infrastructures",
+          "session_part": "1"
+        },
+        "communities": [
+          {
+            "id": "derse25"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15010985"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Advantages And Challenges Of A Gitlab CI/CD Pipeline Architecture For The Build And Release System Of A Multi-project Satellite Simulation Software",
+      "links": {
+        "self": "https://zenodo.org/api/records/15010986",
+        "self_html": "https://zenodo.org/records/15010986",
+        "doi": "https://doi.org/10.5281/zenodo.15010986",
+        "self_doi": "https://doi.org/10.5281/zenodo.15010986",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15010986",
+        "parent": "https://zenodo.org/api/records/15010985",
+        "parent_html": "https://zenodo.org/records/15010985",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15010985",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15010985",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15010986/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15010986/sequence/default",
+        "files": "https://zenodo.org/api/records/15010986/files",
+        "media_files": "https://zenodo.org/api/records/15010986/media-files",
+        "archive": "https://zenodo.org/api/records/15010986/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15010986/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15010986/versions/latest",
+        "latest_html": "https://zenodo.org/records/15010986/latest",
+        "versions": "https://zenodo.org/api/records/15010986/versions",
+        "draft": "https://zenodo.org/api/records/15010986/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15010986/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15010986/access/links",
+        "access_grants": "https://zenodo.org/api/records/15010986/access/grants",
+        "access_users": "https://zenodo.org/api/records/15010986/access/users",
+        "access_request": "https://zenodo.org/api/records/15010986/access/request",
+        "access": "https://zenodo.org/api/records/15010986/access",
+        "communities": "https://zenodo.org/api/records/15010986/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15010986/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15010986/requests"
+      },
+      "updated": "2025-03-12T17:04:35.481602+00:00",
+      "recid": "15010986",
+      "revision": 4,
+      "files": [
+        {
+          "id": "db6f81a5-f2fb-4894-9889-50f871a6df53",
+          "key": "deRSE_Advantages_and_Challenges_of_CICD_Pipeline_SuditiChand.pptx",
+          "size": 16103899,
+          "checksum": "md5:44566adb95c383e8fb84fde0a4b0a34f",
+          "links": {
+            "self": "https://zenodo.org/api/records/15010986/files/deRSE_Advantages_and_Challenges_of_CICD_Pipeline_SuditiChand.pptx/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1278459"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 5,
+        "unique_downloads": 5,
+        "views": 20,
+        "unique_views": 20,
+        "version_downloads": 5,
+        "version_unique_downloads": 5,
+        "version_unique_views": 20,
+        "version_views": 20
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-12T10:01:46.405559+00:00",
+      "modified": "2025-03-12T10:01:46.951326+00:00",
+      "id": 15011261,
+      "conceptrecid": "15011260",
+      "doi": "10.5281/zenodo.15011261",
+      "conceptdoi": "10.5281/zenodo.15011260",
+      "doi_url": "https://doi.org/10.5281/zenodo.15011261",
+      "metadata": {
+        "title": "Research of mineral composition of Populus angulate ait.",
+        "doi": "10.5281/zenodo.15011261",
+        "publication_date": "2025-03-12",
+        "description": "<p><strong><span>Introduction.</span></strong><span> In recent years, the significance of forest plantations and restored forests has been steadily increasing, as poplar raw materials (<em>Populus</em> spp., family <em>Salicaceae</em> Mirb.) have become an increasingly attractive source of bioenergy and a promising renewable resource for biotechnology and bioprocessing projects.</span><span> </span><span>Particular attention is given to poplars of the Aigeiros Duby section, as species, clones, and varieties from this group are most commonly used in plantation cultivation. This creates promising opportunities for the rational and sustainable use of poplar-derived medicinal plant raw materials. Consequently, pharmacognostic studies of \"black poplars,\" including research on the mineral composition of <em>Populus angulata</em> Ait. raw materials, are highly relevant. Such studies play a crucial role in standardization the raw materials.</span><span> </span><strong><span>Aim</span></strong><span>. Study of the mineral composition of shoots, leaves and buds of <em>Populus angulata</em> Ait, and to determine total ash content in this raw material.</span><span> </span><strong><span>Materials and methods</span></strong><span>. The objects of the study were shoots, leaves, buds of <em>Populus angulata</em> Ait. section black poplar <em>Aigeiros</em> Duby, family <em>Salicaceae</em> Mirb. The mineral composition analysis was carried out on the basis of the State Scientific Institution \"Institute for Single Crystals\" of the National Academy of Sciences of Ukraine (Kharkiv). Macro- and microelement composition of the raw material was determined by atomic emission spectrometry with photographic registration. The total ash content in the raw material <em>Populus angulata</em> Ait. by the gravimetric method according to the State Pharmacopoeia of Ukraine</span><span> </span><span>2.0.</span><span> </span><strong><span>Results</span></strong><span>. For the first time, the content of 19 mineral elements was determined by atomic absorption spectrometry in the raw material of <em>Populus angulata</em> Ait., cultivated in Ukraine, 5 of which are classified as macro- (K, Na, Ca, P, Mg) and 14 as microelements (Fe, Mn, Al, Si, Zn, Mo, Cu, Pb, Sr, Co, Ni, As, Cr, Hg), 10 of which are essential. It was established that the raw material of <em>Populus angulata</em> Ait. in terms of the content of heavy metals and total ash meets the requirements of the State Pharmacopoeia of Ukraine 2.0. The obtained data will <span>contribute to further research and the development of quality control methods for poplar raw materials.</span></span></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Borodina, Nataliia",
+            "affiliation": null
+          },
+          {
+            "name": "Goncharov, Oleksandr",
+            "affiliation": null
+          },
+          {
+            "name": "Hryshyna, Olena",
+            "affiliation": null,
+            "orcid": "0009-0003-4543-5067"
+          }
+        ],
+        "keywords": [
+          "Populus angulata Ait.,",
+          "atomic emission spectrometry",
+          "mineral elements"
+        ],
+        "references": [
+          "1.\tFAO. 2020. Global Forest Resources Assessment Key findings. Rome 2020; 165. https://doi.org/10.4060/ca8753en",
+          "2.\tRonald S., Zalesny, Jr., Pilipovi\u0441 A. Growth and Development of Short-Rotation Woody Crops for Rural and Urban Applications Forests 2022; 13(6), 867; https://doi.org/10.3390/f13060867",
+          "3.\tFuchylo, Y. D., Lys, N. M., Tkachuk, N. L., & Solovka, V. I. \u0420\u0456\u0441\u0442 \u0406 \u041f\u0440\u043e\u0434\u0443\u043a\u0442\u0438\u0432\u043d\u0456\u0441\u0442\u044c \u0415\u043d\u0435\u0440\u0433\u0435\u0442\u0438\u0447\u043d\u0438\u0445 \u041f\u043b\u0430\u043d\u0442\u0430\u0446\u0456\u0439 \u0422\u043e\u043f\u043e\u043b\u0456 \u0412 \u0423\u043c\u043e\u0432\u0430\u0445 \u041f\u0440\u0438\u043a\u0430\u0440\u043f\u0430\u0442\u0442\u044f. \u041d\u043e\u0432\u0456\u0442\u043d\u0456 \u0430\u0433\u0440\u043e\u0442\u0435\u0445\u043d\u043e\u043b\u043e\u0433\u0456\u0457. 2019. (7), 11\u201311. https://doi.org/10.47414/na.7.2019.204825",
+          "4.\tSolomon B., Ghezehei, A., Dennis W., Ronald S. Zalesny, Jr., Nichols. E. Productivity and Profitability of Poplars on Fertile and Marginal Sandy Soils under Different Density and Fertilization Treatments Forests 2021; 12(7), 869; https://doi.org/10.3390/f12070869",
+          "5.\tFuertes A., Oliveira N., Canellas I., Sixto H., Rodr\u00edguez-Soalleiro R., Hanewinkel M., Sperlich D., Assessing the Potential Of Poplar Short Rotation Plantations To Contribute To A Low-Carbon Bioeconomy Under Water-Limited Conditions, Journal of Environmental Management. 2023; Vol. 347: 119062. https://doi.org/10.1016/j.jenvman.2023.119062",
+          "6.\tD'Amico G., Francini S., Giannetti F., Vangi E., Travaglini D., Chianucci F., Chirici G. A Deep Learning Approach for Automatic Mapping of Poplar Plantations Using Sentinel-2 Imagery. GI Science & Remote Sensing, 2021; 58(8); 1352\u20131368. https://doi.org/10.1080/15481603.2021.1988427",
+          "7.\tHamrouni, Y., Paillassa, E., Ch\u0435ret, V., Monteil, C., & Sheeren, D. Sentinel-2 Poplar Index for Operational Mapping of Poplar Plantations over Large Areas. Remote Sensing. 2022; 14(16), 3975. https://doi.org/10.3390/rs14163975.",
+          "8.\tZaidi, S., Benaida-Debbache, N., Tebbi, S.O. et al. Optimization of ultrasound-assisted extraction of phenolic compounds from Populus nigra as potential myeloperoxidase inhibitors. Chem. Pap. 2024; 78, 2841\u20132854. https://doi.org/10.1007/s11696-023-03275-4",
+          "9.\tPastierovi\u0441 F, Kalyniukova A, Hradecky J, Dvorak O, V\u00edtfmvfs J, Mogilicherla K, Tomaskova I. Biochemical Responses in Populus tremula: Defending against Sucking and Leaf-Chewing Insect Herbivores. Plants. 2024; 13(9):1243. https://doi.org/10.3390/plants13091243",
+          "10.\tLaffon, M., Bruat, M., Chefdor, F. et al. Hairy root induction in hybrid poplar (Populus tremula \u00d7 Populus alba) for sustainable growth and specialized metabolites production with antioxidant activities. Plant Cell Tiss Organ Cult. 2024; 156, 2. https://doi.org/10.1007/s11240-023-02634-z",
+          "11.\tUllah C, Unsicker SB, Reichelt M et al. Accumulation of catechin and proanthocyanidins in Black Poplar stems after infection by Plectosphaerella populi: hormonal regulation, biosynthesis and antifungal activity. Front Plant Sci. 2019; 15(10):1441. https://doi.org/10.3389/fpls.2019.01441",
+          "12.\tG\u0105secka M, Drzewiecka K, Magdziak Z, Krzesi\u0144ski W, Proch J, Niedzielski P. Early Response of the Populus nigra L. \u00d7 Populus maximowiczii Hybrid to Soil Enrichment with Metals. International Journal of Molecular Sciences. 2024; 25(23):12520. https://doi.org/10.3390/ijms252312520",
+          "13.\tAtia A., Atmani-Kilani D., Atmani D., Ayouni K., Belkhir S. et al. Wound Healing Potential of a Formula Based on Populus nigra L. Flower Buds Extract With Anti-inflammatory Activity. Journal of Ethnopharmacology, 2024; Vol. 331, 118319, https://doi.org/10.1016/j.jep.2024.118319.",
+          "14.\tWang, S.; Yang, C.; Luo, Y.; Chen, Q.; Xu, M.; Ji, Y.; Jiang, X.; Qu, C. Poplar Bud (Populus) Extraction and Chinese Propolis Counteract Oxidative Stress in Caenorhabditis elegans via Insulin/IGF-1 Signaling Pathway. Antioxidants 2024, 13, 860. https://doi.org/10.3390/antiox13070860",
+          "15.\tPob\u0142ocka-Olech L, Isidorov VA, Krauze-Baranowska M. Characterization of Secondary Metabolites of Leaf Buds from Some Species and Hybrids of Populus by Gas Chromatography Coupled with Mass Detection and Two-Dimensional High-Performance Thin-Layer Chromatography Methods with Assessment of Their Antioxidant Activity. International Journal of Molecular Sciences. 2024; 25(7):3971. https://doi.org/10.3390/ijms25073971",
+          "16.\tPannucci E., D'Eliseo D., Ieri F., Romani A., Santi L., Bernini R., \u2026 Velotti F. Perspectives on Populus spp. (Salicaceae) bud extracts as antioxidant and anti-inflammatory agents. Natural Product Research, 2021; 36(6), 1648\u20131652. https://doi.org/10.1080/14786419.2021.1896512",
+          "17.\tPob\u0142ocka-Olech L, Inkielewicz-Stepniak I, Krauze-Baranowska M. Anti-inflammatory and antioxidative effects of the buds from different species of Populus in human gingival fibroblast cells: Role of bioflavanones. Phytomedicine. 2019 Mar 15;56: 1-9. doi: 10.1016/j.phymed.2018.08.015. Epub 2018 Aug 10. PMID: 30668329.",
+          "18.\tStanciauskaite M, Marksa M, Babickaite L et al. Comparison of Ethanolic and Aqueous Populus balsamifera L. Bud Extracts by Different Extraction Methods: Chemical Composition, Antioxidant and Antibacterial Activities. Pharmaceuticals 2021; 14(10):1018. https://doi.org/10.3390/ph14101018",
+          "19.\tVaysi, R. Identification and Comparison of the Phenolic Chemical Components in Populus nigra and Populus deltoides wood by GC-MS Methods. Iranian Journal of Wood and Paper Science Research, 2024; 39(2), 121-132. doi: 10.22092/ijwpr.2024.364731.1767",
+          "20.\tG\u0430l\u0430\u0163anu M., Pan\u0163uroiu M., Cima L., Neculai A., P\u0430nu\u015f E., Bleotu C., Enescu C., Mircioiu I., Gavriloaia R., Auric\u0430 S., R\u0456mbu M. Colette Sandulovici, R. 2025; Polyphenolic Composition, Antioxidant Activity, and Cytotoxic Effect of Male Floral Buds from Three Populus Species Growing in the South of Romania. Molecules, 30(4), 913. https://doi.org/10.3390/molecules30040913",
+          "21.\tBorodina N., Raal A., Kovalyov V., Koshovyi \u041e., Ilina T. Macro- and Microelements in the Branches of some Salix Genus Species in the Flora of Ukraine. International Journal of Pharmaceutical Research & Allied Sciences. 2020; Vol. 9, \u2116 3: 71\u201380. ISSN: 2277-3657 CODEN(USA): IJPRPM",
+          "22.\tBorodina N.V. Pharmacognostic study of willow plants and creation of medicines based on them. Abstract of the dissertation of the Doctor of Pharmaceutical Sciences: 15.00.02. Pharmaceutical Chemistry and Pharmacognosy. Kharkiv. 2021; 42 https://dspace.nuph.edu.ua/bitstream/123456789/27573/1/avtoreferat-borodina-n.v..pdf.",
+          "23.\tGalovic V, Kebert M, Popovic BM, Kovacevic B, Vasic V, Joseph MP, Orlovic S, Szabados L. Biochemical and Gene Expression Analyses in Different Poplar Clones: The Selection Tools For Afforestation Of Halomorphic Environments. Forests. 2021; 12(5):636. https://doi.org/10.3390/f12050636",
+          "24.\tKaya, Z., Ta\u015fk\u0131ran, B., Ulu\u011f, A. et al. Association Genetics of Wood Traits in European Black Poplar (Populus nigra L.). Tree Genetics & Genomes 2023; 19, 38. https://doi.org/10.1007/s11295-023-01612-y",
+          "25.\tLiu C, Yan J, Zhang Z, Pei L, Li C, Zhang X, Shi S. Genetic Variation Analysis and Development of Kasp Marker For Leaf Area And Hight In Southern-Type Populus deltoides. Plants. 2025; 14(3):330. https://doi.org/10.3390/plants14030330",
+          "26.\tLuo J, Shao P, Sun Z, Li S, Cao D, Dong L, Wei J, Liu J. PdPLR1 Effectively Enhances Resistance of Populus Deltoides 'Shalinyang' To Anoplophora Glabripennis By Positive Regulation Of Lignan Synthesis. Plant Physiol Biochem. 2024 Sep; 214:108944. doi: 10.1016/j.plaphy.2024.108944. Epub 2024 Jul 17. PMID: 39033651",
+          "27.\tDhillon GPS, Sandhu J. S, Singh P. Variation among Poplar (Populus deltoides Bartr.) Clones for Growth, Wood Traits and Tolerance to Leaf Spot Diseases. Curr Agri Res 2020; 8(2). doi: http://dx.doi.org/10.12944/CARJ.8.2.08",
+          "28.\tPoplars And Other Fast-Growing Trees for Climate Change Mitigation And Adaptation \u2013 Pathways To Climate Resilience And Carbon. In27th Session of the International Poplar Commission: Book of Abstracts: IPC27, October 22-25 2024, Bordeaux, France 220. https://www.plantedforests.org/wp-content/uploads/2024/11/IPC-27th-Session_Book-of-Abstract_version-5_V2.pdf",
+          "29.\tVysotska N. Drought resistance of ten poplar clones in eastern Ukraine. Forestry and Forest Melioration, 2023; 142, 47\u201358. https://doi.org/10.33220/1026-3365.142.2023.47",
+          "30.\tAli H, Khan E. What are heavy metals? Long-Standing Controversy Over the Scientific Use Of The Term 'Heavy Metals' \u2013 Proposal of a Comprehensive Definition. Toxicol Environ Chem. 2018; 100:6\u201319. doi: 10.1080/02772248.2017.1413652",
+          "31.\tMarzilli, M., Di Santo, P., Palumbo, G. et al. Cd And Cu Accumulation, Translocation And Tolerance In Populus Alba Clone (Villafranca) In Autotrophic In Vitro Screening. Environ Sci Pollut Res 2018; 25, 10058\u201310068. https://doi.org/10.1007/s11356-018-1299-5.",
+          "32.\tPloyet R., Feng K., Zhang J., Baxter I., Glasgow D., Andrews H., Rodriguez M., Chen Jin-Gui, Tuskan G., Tschaplinski T., Weston D., Martin M., Muchero W. Elemental Profiling and Genome-Wide Association Studies Reveal Genomic Variants Modulating Ionomic Composition in Populus trichocarpa Leaves. Frontiers in Plant Science. 2024; vol.15. doi:10.3389/fpls.2024.1450646",
+          "33.\tKosti\u0441 O., Jari\u0441 S., Pavlovi\u0441 D., Mati\u0441 M., Radulovi\u0441 N., Mitrovi\u0441 M., Pavlovi\u0441 P. Ecophysiological Response of Populus alba L. to Multiple Stress Factors During the Revitalisation of Coal Fly Ash Lagoons at Different Stages of Weathering. Frontiers in Plant Science. 2024; Vol. 14. doi:10.3389/fpls.2023.1337700",
+          "34.\tNeri \u0410., Francini \u0410., Giovannelli \u0410., Traversari S., Sebastiani L. Differences in Mineral and Osmotic Balances Enhance Zinc Translocation in an Aquaporin Overexpressing Poplar. Plant Physiology and Biochemistry, 2024; Vol. 208. 108528, https://doi.org/10.1016/j.plaphy.2024.108528",
+          "35.\tMeng-Xue Niu, Cong-Hua Feng, Meiying Liu, Xiao Liu, Shujing Liu, Chao Liu, Weilun Yin, Xinli Xia Genome-Wide Identification of Poplar GSTU Gene Family and its PtrGSTU23 and PtrGSTU40 to Improve Salt Tolerance in Poplar. Industrial Crops and Products. 2024; Vol. 209, 117945. https://doi.org/10.1016/j.indcrop.2023.117945",
+          "36.\tSalehi \u0410., Shariat \u0410. Comparative Performance of Populus spp. and Salix spp. for Growth, Nutrition, and Heavy Metal Uptake in a Wastewater Hydroponic System. International Journal of Phytoremediation. 2024; 26(9), 1369-1378 https://doi.org/10.1080/15226514.2024.2321597",
+          "37.\tWang, S., Lv, C., Tang, B., Wang, M., Cao, B., & Wu, K. Dynamics of Soil N and P Nutrient Heterogeneity in Mixed Forest of Populus \u00d7 Euramercana 'Neva' and Robinia pseucdoacacia in Coastal Saline\u2013Alkali Land. Forests, 2024; 15(12), 2226. https://doi.org/10.3390/f15122226",
+          "38.\tKulac, S., Cikili, Y., Samet, H., & Filiz, E. Alleviating Effects of Nitric Oxide on Cadmium Toxicity in White Poplar (Populus alba). Journal of Forest and Environmental Science, 2024; 40(1), 43\u201352. https://doi.org/10.7747/JFES.2024.40.1.43",
+          "39.\tMileti\u0441 Z. Jonjev M., Jari\u0441 S., Kosti\u0441 O., Sekuli\u0441 D., Mitrovi\u0441 M., Pavlovi\u0441 P. Green solution to riparian pollution: Populus alba L. potential for phytoremediation and bioindication of PTEs along the Sava river. Heliyon, Volume 10, Issue 7, e28183. https://doi.org/10.1016/j.heliyon.2024.e28183",
+          "40.\tLan, K., Li, Y., Shuai, Y. et al. Phosphorus (P) Mobilisation From Inorganic and Organic P Sources Depends on P-Acquisition Strategies in Dioecious Populus euphratica. Biol Fertil Soils 60, 393\u2013406 (2024). https://doi.org/10.1007/s00374-024-01799-9",
+          "41.\tProuzov\u0430, N., Kub\u00e1tov\u0430, P., Mercl, F. et al. Biomass Yield and Metal Phytoextraction Efficiency of Salix and Populus Clones Harvested at Different Rotation Lengths in the Field Experiment. Chem. Biol. Technol. Agric. 2024; 11, 78. https://doi.org/10.1186/s40538-024-00600-1",
+          "42.\tLovynska, V., Sytnyk, S., Montzka, C., Samarska, A., Heilmeier, H., Belleflamme, A., \u2026 Wiche, O. Interaction Between Soil Water Saturation and Toxic Element Accumulation in Woody Plants (Freiberg region, Germany). International Journal of Environmental Studies, 2024; 81(2), 570\u2013586. https://doi.org/10.1080/00207233.2024.2322891.",
+          "43.\tState Pharmacopoeia of Ukraine: in 3 volumes / SE \"Ukrainian Scientific Pharmacopoeia Center for Quality of Medicinal Products\". 2nd ed. Kharkiv: SE \"Ukrainian Scientific Pharmacopoeia Center for Quality of Medicines\". 2015. 1. 1130 p.",
+          "44.\tThor K. Calcium- Nutrient and Messenger. Frontiers in Plant Science. 2019; vol.10. 440. https://doi.org/10.3389/fpls.2019.00440"
+        ],
+        "language": "ukr",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "1",
+          "pages": "69-66",
+          "title": "Annals of Mechnikov Institute"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15011260"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Research of mineral composition of Populus angulate ait.",
+      "links": {
+        "self": "https://zenodo.org/api/records/15011261",
+        "self_html": "https://zenodo.org/records/15011261",
+        "doi": "https://doi.org/10.5281/zenodo.15011261",
+        "self_doi": "https://doi.org/10.5281/zenodo.15011261",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15011261",
+        "parent": "https://zenodo.org/api/records/15011260",
+        "parent_html": "https://zenodo.org/records/15011260",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15011260",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15011260",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15011261/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15011261/sequence/default",
+        "files": "https://zenodo.org/api/records/15011261/files",
+        "media_files": "https://zenodo.org/api/records/15011261/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15011261:BorodinaPopulFIN.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15011261:BorodinaPopulFIN.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15011261:BorodinaPopulFIN.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15011261:BorodinaPopulFIN.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15011261:BorodinaPopulFIN.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15011261:BorodinaPopulFIN.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15011261/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15011261/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15011261/versions/latest",
+        "latest_html": "https://zenodo.org/records/15011261/latest",
+        "versions": "https://zenodo.org/api/records/15011261/versions",
+        "draft": "https://zenodo.org/api/records/15011261/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15011261/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15011261/access/links",
+        "access_grants": "https://zenodo.org/api/records/15011261/access/grants",
+        "access_users": "https://zenodo.org/api/records/15011261/access/users",
+        "access_request": "https://zenodo.org/api/records/15011261/access/request",
+        "access": "https://zenodo.org/api/records/15011261/access",
+        "communities": "https://zenodo.org/api/records/15011261/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15011261/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15011261/requests"
+      },
+      "updated": "2025-03-12T10:01:46.951326+00:00",
+      "recid": "15011261",
+      "revision": 4,
+      "files": [
+        {
+          "id": "1dce2642-02bf-434e-a232-83ebf58dd5c1",
+          "key": "BorodinaPopulFIN.pdf",
+          "size": 351100,
+          "checksum": "md5:aeb46a7e9c58fbfa36456f97ff1f801d",
+          "links": {
+            "self": "https://zenodo.org/api/records/15011261/files/BorodinaPopulFIN.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "25772"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 6,
+        "unique_downloads": 5,
+        "views": 3,
+        "unique_views": 3,
+        "version_downloads": 6,
+        "version_unique_downloads": 5,
+        "version_unique_views": 3,
+        "version_views": 3
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-12T08:43:44.572294+00:00",
+      "modified": "2025-03-12T08:43:44.761467+00:00",
+      "id": 15010884,
+      "conceptrecid": "7885728",
+      "doi": "10.5281/zenodo.15010884",
+      "conceptdoi": "10.5281/zenodo.7885728",
+      "doi_url": "https://doi.org/10.5281/zenodo.15010884",
+      "metadata": {
+        "title": "siibra-python",
+        "doi": "10.5281/zenodo.15010884",
+        "publication_date": "2025-03-12",
+        "description": "siibra is a Python client to a brain atlas framework that integrates brain\nparcellations and reference spaces at different spatial scales, and connects\nthem with a broad range of multimodal regional data features. It aims to\nfacilitate programmatic and reproducible incorporation of brain parcellations\nand brain region features from different sources into neuroscience workflows.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Dickscheid, Timo",
+            "affiliation": null,
+            "orcid": "0000-0002-9051-3701"
+          },
+          {
+            "name": "Gui, Xiaoyun",
+            "affiliation": null
+          },
+          {
+            "name": "Simsek, Ahmet Nihat",
+            "affiliation": null
+          },
+          {
+            "name": "Koehnen, Louisa",
+            "affiliation": null
+          },
+          {
+            "name": "Marcenko, Vadim",
+            "affiliation": null
+          },
+          {
+            "name": "Schiffer, Christian",
+            "affiliation": null
+          },
+          {
+            "name": "Bludau, Sebastian",
+            "affiliation": null
+          },
+          {
+            "name": "Amunts, Katrin",
+            "affiliation": null
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/FZJ-INM1-BDA/siibra-python/tree/v1.0.1-alpha.2",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v1.0.1-alpha.2",
+        "custom": {
+          "code:codeRepository": "https://github.com/FZJ-INM1-BDA/siibra-python"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "apache2.0"
+        },
+        "communities": [
+          {
+            "id": "eu"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 28,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "7885728"
+              }
+            }
+          ]
+        },
+        "notes": "If you use this software, please cite it as below."
+      },
+      "title": "siibra-python",
+      "links": {
+        "self": "https://zenodo.org/api/records/15010884",
+        "self_html": "https://zenodo.org/records/15010884",
+        "doi": "https://doi.org/10.5281/zenodo.15010884",
+        "self_doi": "https://doi.org/10.5281/zenodo.15010884",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15010884",
+        "parent": "https://zenodo.org/api/records/7885728",
+        "parent_html": "https://zenodo.org/records/7885728",
+        "parent_doi": "https://doi.org/10.5281/zenodo.7885728",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.7885728",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15010884/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15010884/sequence/default",
+        "files": "https://zenodo.org/api/records/15010884/files",
+        "media_files": "https://zenodo.org/api/records/15010884/media-files",
+        "archive": "https://zenodo.org/api/records/15010884/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15010884/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15010884/versions/latest",
+        "latest_html": "https://zenodo.org/records/15010884/latest",
+        "versions": "https://zenodo.org/api/records/15010884/versions",
+        "draft": "https://zenodo.org/api/records/15010884/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15010884/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15010884/access/links",
+        "access_grants": "https://zenodo.org/api/records/15010884/access/grants",
+        "access_users": "https://zenodo.org/api/records/15010884/access/users",
+        "access_request": "https://zenodo.org/api/records/15010884/access/request",
+        "access": "https://zenodo.org/api/records/15010884/access",
+        "communities": "https://zenodo.org/api/records/15010884/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15010884/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15010884/requests"
+      },
+      "updated": "2025-03-12T08:43:44.761467+00:00",
+      "recid": "15010884",
+      "revision": 4,
+      "files": [
+        {
+          "id": "f0638914-0a0c-479c-b4c1-711d6daae758",
+          "key": "FZJ-INM1-BDA/siibra-python-v1.0.1-alpha.2.zip",
+          "size": 1496516,
+          "checksum": "md5:41306627a6a189fab4a763f720247b1c",
+          "links": {
+            "self": "https://zenodo.org/api/records/15010884/files/FZJ-INM1-BDA/siibra-python-v1.0.1-alpha.2.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:8f72103961b5e77dbde79b8fb34086abbad9aeab;origin=https://doi.org/10.5281/zenodo.7885728;visit=swh:1:snp:c6fd6e41fbf170e3131a1f77e09feb792c5595c3;anchor=swh:1:rel:37059fbc48d05ba51d58f6eef4c82372589acc17;path=FZJ-INM1-BDA-siibra-python-01dc0a9"
+      },
+      "owners": [
+        {
+          "id": "540856"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 195,
+        "unique_downloads": 188,
+        "views": 1247,
+        "unique_views": 1147,
+        "version_downloads": 16,
+        "version_unique_downloads": 16,
+        "version_unique_views": 24,
+        "version_views": 25
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-12T03:32:13.105169+00:00",
+      "modified": "2025-03-12T03:32:13.330025+00:00",
+      "id": 15009561,
+      "conceptrecid": "10995499",
+      "doi": "10.5281/zenodo.15009561",
+      "conceptdoi": "10.5281/zenodo.10995499",
+      "doi_url": "https://doi.org/10.5281/zenodo.15009561",
+      "metadata": {
+        "title": "Pooltool: A Python package for realistic billiards simulation",
+        "doi": "10.5281/zenodo.15009561",
+        "publication_date": "2025-03-12",
+        "description": "<h2>What's Changed</h2>\n<ul>\n<li>Add simple frictional inelastic ball-ball collision model by @derek-mcblane in https://github.com/ekiefl/pooltool/pull/155</li>\n<li>Fix Error in Ball-Ball Frictional Inelastic No-Slip Velocity Calculation by @derek-mcblane in https://github.com/ekiefl/pooltool/pull/157</li>\n<li>Fixes for Cuestick-Ball Collision by @derek-mcblane in https://github.com/ekiefl/pooltool/pull/163</li>\n<li>Safeguard cue ball ID mismatch by @ekiefl in https://github.com/ekiefl/pooltool/pull/164</li>\n<li>Fix example by @ekiefl in https://github.com/ekiefl/pooltool/pull/165</li>\n<li>Two players by default by @ekiefl in https://github.com/ekiefl/pooltool/pull/168</li>\n<li>Visualisation carom balls by @erdo100 in https://github.com/ekiefl/pooltool/pull/169</li>\n<li>Add is_point to three_cushion ruleset by @ekiefl in https://github.com/ekiefl/pooltool/pull/172</li>\n<li>Fix is_point in ruleset.three_cushion by @erdo100 in https://github.com/ekiefl/pooltool/pull/173</li>\n<li>Add some get_* methods to API by @ekiefl in https://github.com/ekiefl/pooltool/pull/174</li>\n<li>Update examples by @ekiefl in https://github.com/ekiefl/pooltool/pull/175</li>\n<li>Fix Error in Ball-Ball Frictional Inelastic No-Slip Velocity Calculation (Again) by @derek-mcblane in https://github.com/ekiefl/pooltool/pull/177</li>\n<li>Refactor Resolver serialization + ball ball friction sub models by @ekiefl in https://github.com/ekiefl/pooltool/pull/171</li>\n<li>Account for Tip Geometry to Determine Contact Point by @derek-mcblane in https://github.com/ekiefl/pooltool/pull/182</li>\n<li>Fix cue contact point offset coordinate system mismatch between GUI and physics by @derek-mcblane in https://github.com/ekiefl/pooltool/pull/181</li>\n<li>Add Mathavan 2010 as WIP by @ekiefl in https://github.com/ekiefl/pooltool/pull/183</li>\n<li>Fix 184 by @ekiefl in https://github.com/ekiefl/pooltool/pull/185</li>\n<li>Catch near-zero case in quadratic solver by @ekiefl in https://github.com/ekiefl/pooltool/pull/186</li>\n</ul>\n<h2>New Contributors</h2>\n<ul>\n<li>@erdo100 made their first contribution in https://github.com/ekiefl/pooltool/pull/169</li>\n</ul>\n<p><strong>Full Changelog</strong>: https://github.com/ekiefl/pooltool/compare/v0.4.2...v0.4.3</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Kiefl, Evan",
+            "affiliation": "Independent Researcher, Canada",
+            "orcid": "0000-0002-6473-0921"
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/ekiefl/pooltool/tree/v0.4.3",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v0.4.3",
+        "custom": {
+          "code:codeRepository": "https://github.com/ekiefl/pooltool"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "apache2.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 7,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10995499"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Pooltool: A Python package for realistic billiards simulation",
+      "links": {
+        "self": "https://zenodo.org/api/records/15009561",
+        "self_html": "https://zenodo.org/records/15009561",
+        "doi": "https://doi.org/10.5281/zenodo.15009561",
+        "self_doi": "https://doi.org/10.5281/zenodo.15009561",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15009561",
+        "parent": "https://zenodo.org/api/records/10995499",
+        "parent_html": "https://zenodo.org/records/10995499",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10995499",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10995499",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15009561/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15009561/sequence/default",
+        "files": "https://zenodo.org/api/records/15009561/files",
+        "media_files": "https://zenodo.org/api/records/15009561/media-files",
+        "archive": "https://zenodo.org/api/records/15009561/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15009561/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15009561/versions/latest",
+        "latest_html": "https://zenodo.org/records/15009561/latest",
+        "versions": "https://zenodo.org/api/records/15009561/versions",
+        "draft": "https://zenodo.org/api/records/15009561/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15009561/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15009561/access/links",
+        "access_grants": "https://zenodo.org/api/records/15009561/access/grants",
+        "access_users": "https://zenodo.org/api/records/15009561/access/users",
+        "access_request": "https://zenodo.org/api/records/15009561/access/request",
+        "access": "https://zenodo.org/api/records/15009561/access",
+        "communities": "https://zenodo.org/api/records/15009561/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15009561/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15009561/requests"
+      },
+      "updated": "2025-03-12T03:32:13.330025+00:00",
+      "recid": "15009561",
+      "revision": 4,
+      "files": [
+        {
+          "id": "4459111d-6020-497b-a491-73787cfa0923",
+          "key": "ekiefl/pooltool-v0.4.3.zip",
+          "size": 192858802,
+          "checksum": "md5:5da231457680b276e6cac07be1d4d910",
+          "links": {
+            "self": "https://zenodo.org/api/records/15009561/files/ekiefl/pooltool-v0.4.3.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:0bb6e278d15bf49e229a2776d14fdeb3dd86d218;origin=https://doi.org/10.5281/zenodo.10995499;visit=swh:1:snp:48ea42eea4e1f2570a8122b66ce56992696090e4;anchor=swh:1:rel:3346383c39636925c3e5a8270f7a03b682516c3f;path=ekiefl-pooltool-f78ea4d"
+      },
+      "owners": [
+        {
+          "id": "1100296"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 51,
+        "unique_downloads": 51,
+        "views": 399,
+        "unique_views": 360,
+        "version_downloads": 3,
+        "version_unique_downloads": 3,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-12T00:42:06.355718+00:00",
+      "modified": "2025-03-12T00:42:06.493379+00:00",
+      "id": 15009280,
+      "conceptrecid": "6998625",
+      "doi": "10.5281/zenodo.15009280",
+      "conceptdoi": "10.5281/zenodo.6998625",
+      "doi_url": "https://doi.org/10.5281/zenodo.15009280",
+      "metadata": {
+        "title": "Pose2Sim - Markerless kinematics, from OpenPose to OpenSim",
+        "doi": "10.5281/zenodo.15009280",
+        "publication_date": "2025-03-12",
+        "description": "<p>Better Pose2Sim.py structure by @AurelienCoppee</p>\n<p>Synchronization_gui by @hunminkim98:\nThis parameter in Config.toml to let the user determine synchronization parameters:</p>\n<ul>\n<li>target person id</li>\n<li>keypoints_to_consider</li>\n<li>approx_time_maxspeed</li>\n<li>time_range_around_maxspeed</li>\n</ul>\n<p>Edits by @davidpagnon:</p>\n<ul>\n<li>The person selected was not passed to the synchronization algorithm, which kind of defeats the purpose :D Fixed</li>\n<li>Keypoints are now retrieved from the configuration by default instead of set to none at the start</li>\n<li>Added Neck, Head, Nose to keypoint GUI</li>\n<li>Handles all, right, left keypoints to consider</li>\n<li>Caught various potential errors the user could face (no valid values from keypoint IDs, no selected keypoints in the GUI, ...)</li>\n<li>Made the textboxes not greyed out, as the user could think they are not clickable, set OK button in bold font, and few other color details</li>\n<li>set synchronization_gui to true in multiperson cases</li>\n</ul>\n<p>One last thing that would make it an even better user experience, although not mandatory, would be to to let the user go from one box to another with tab, and confirm with Enter.</p>\n<p>Clamped right ankle angle.</p>\n<h2>What's Changed</h2>\n<ul>\n<li>New pipeline by @AurelienCoppee in https://github.com/perfanalytics/pose2sim/pull/164</li>\n<li>Pull Request for Synchronization UI by @hunminkim98 in https://github.com/perfanalytics/pose2sim/pull/163</li>\n</ul>\n<p><strong>Full Changelog</strong>: https://github.com/perfanalytics/pose2sim/compare/v0.10.13...v0.10.14</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Pagnon, David",
+            "affiliation": null,
+            "orcid": "0000-0002-6891-8331"
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/perfanalytics/pose2sim/tree/v0.10.14",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v0.10.14",
+        "custom": {
+          "code:codeRepository": "https://github.com/perfanalytics/pose2sim"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "bsd-3-clause"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 72,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "6998625"
+              }
+            }
+          ]
+        },
+        "notes": "If you use Pose2Sim, please cite it as below."
+      },
+      "title": "Pose2Sim - Markerless kinematics, from OpenPose to OpenSim",
+      "links": {
+        "self": "https://zenodo.org/api/records/15009280",
+        "self_html": "https://zenodo.org/records/15009280",
+        "doi": "https://doi.org/10.5281/zenodo.15009280",
+        "self_doi": "https://doi.org/10.5281/zenodo.15009280",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15009280",
+        "parent": "https://zenodo.org/api/records/6998625",
+        "parent_html": "https://zenodo.org/records/6998625",
+        "parent_doi": "https://doi.org/10.5281/zenodo.6998625",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.6998625",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15009280/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15009280/sequence/default",
+        "files": "https://zenodo.org/api/records/15009280/files",
+        "media_files": "https://zenodo.org/api/records/15009280/media-files",
+        "archive": "https://zenodo.org/api/records/15009280/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15009280/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15009280/versions/latest",
+        "latest_html": "https://zenodo.org/records/15009280/latest",
+        "versions": "https://zenodo.org/api/records/15009280/versions",
+        "draft": "https://zenodo.org/api/records/15009280/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15009280/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15009280/access/links",
+        "access_grants": "https://zenodo.org/api/records/15009280/access/grants",
+        "access_users": "https://zenodo.org/api/records/15009280/access/users",
+        "access_request": "https://zenodo.org/api/records/15009280/access/request",
+        "access": "https://zenodo.org/api/records/15009280/access",
+        "communities": "https://zenodo.org/api/records/15009280/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15009280/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15009280/requests"
+      },
+      "updated": "2025-03-12T00:42:06.493379+00:00",
+      "recid": "15009280",
+      "revision": 4,
+      "files": [
+        {
+          "id": "eed6634a-5d60-4bcd-8b3e-64b3a5cedc15",
+          "key": "perfanalytics/pose2sim-v0.10.14.zip",
+          "size": 47699251,
+          "checksum": "md5:a095a239dddae8cc3c6f0a9cefb264dd",
+          "links": {
+            "self": "https://zenodo.org/api/records/15009280/files/perfanalytics/pose2sim-v0.10.14.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:598c2bc5e90d9b0e05e33e5067c009b270b25ada;origin=https://doi.org/10.5281/zenodo.6998625;visit=swh:1:snp:c4e9e06887b8a9e0d1ccbbacd7fb8e4ab5efaa8e;anchor=swh:1:rel:f5232164c1a8e2a81eebd78f165ec8680363c74f;path=perfanalytics-pose2sim-1c62ad1"
+      },
+      "owners": [
+        {
+          "id": "391026"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 164,
+        "unique_downloads": 164,
+        "views": 1389,
+        "unique_views": 1321,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 8,
+        "version_views": 8
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-11T13:44:08.819917+00:00",
+      "modified": "2025-03-11T13:44:08.941105+00:00",
+      "id": 15006489,
+      "conceptrecid": "14200303",
+      "doi": "10.5281/zenodo.15006489",
+      "conceptdoi": "10.5281/zenodo.14200303",
+      "doi_url": "https://doi.org/10.5281/zenodo.15006489",
+      "metadata": {
+        "title": "qutil",
+        "doi": "10.5281/zenodo.15006489",
+        "publication_date": "2025-03-11",
+        "description": "<h1>qutil / qutech_util</h1>\n<p>This package is a collection of various utilities used in the <a href=\"https://www.quantuminfo.physik.rwth-aachen.de\">Quantum Technology\nGroup</a> at RWTH Aachen University. These range from tools specific to\nthe work in the group (<code>matlab</code>, <code>qi</code>,\n<code>hardware</code>, \u2026) to tools helpful when coding Python\n(<code>functools</code>, <code>misc</code>, <code>io</code>, \u2026).</p>\n<p>The original name was <code>qutil</code> but we included the\nadditional alias <code>qutech_util</code> so you can install it via <a href=\"https://pypi.org/project/qutech-util\">pipy</a>. It is not meant as\na lightweight package but some heavy dependencies like qcodes are\nfeature gated.</p>\n<p>For an (incomplete) feature overview, navigate to <a href=\"#module-overview\">the module overview section</a>.</p>\n<h2>Installation</h2>\n<p>If you don't have a reason for a lightweight install you should\ninstall all features i.e.\u00a0<code>qutil[complete]</code>. If you just want\nto use it you can install the latest \"released\" version via</p>\n<div><pre><code><span><a href=\"#cb1-1\"></a><span>python</span> <span>-m</span> pip install qutech-util<span>[</span><span>complete</span><span>]</span></span></code></pre></div>\n<p>However, this package profits from everybody's work and the releases\nare infrequent. Please make a development install and contribute your\nchanges. You can do this via</p>\n<div><pre><code><span><a href=\"#cb2-1\"></a><span>python</span> <span>-m</span> pip install <span>-e</span> git+https://git.rwth-aachen.de/qutech/qutil.git#egg=qutech-util<span>[</span><span>complete</span><span>]</span></span></code></pre></div>\n<p>This will download the source code (i.e.\u00a0clone the git repository)\ninto a subdirectory of the <code>./src</code> argument and link the\nfiles into your environment instead of copying them. If you are on\nwindows you can use <a href=\"https://www.sourcetreeapp.com/\">SourceTree</a> which is a nice GUI\nfor git. You can specify the source code directory with the\n<code>--src</code> argument (which needs to be BEFORE\n<code>-e</code>):</p>\n<div><pre><code><span><a href=\"#cb3-1\"></a><span>python</span> <span>-m</span> pip install <span>--src</span> some_directory/my_python_source <span>-e</span> git+https://git.rwth-aachen.de/qutech/qutil.git#egg=qutech-util<span>[</span><span>complete</span><span>]</span></span></code></pre></div>\n<p>If you have already downloaded/cloned the package yourself you can\nuse <code>python -m pip install -e .[complete]</code>.</p>\n<p>Please file an issue if any of these instructions does not work.</p>\n<h2>Tests</h2>\n<p>Except for the <code>plotting.live_view</code> module, there is no\nplan for writing extensive tests for the code in this package but please\ntry to write proper docstrings for your functions and include examples\nin them which can be checked via <a href=\"https://docs.python.org/3/library/doctest.html\"><code>doctest</code></a>.\nFollow the link for an example for an example :)</p>\n<p>You can run the tests either via</p>\n<div><pre><code><span><a href=\"#cb4-1\"></a><span>python</span> <span>-m</span> pytest <span>--doctest-modules</span></span></code></pre></div>\n<p>or to check if everything works for a clean install (requires hatch\nto be installed)</p>\n<div><pre><code><span><a href=\"#cb5-1\"></a><span>python</span> <span>-m</span> hatch run test:run</span></code></pre></div>\n<h3><code>plotting.live_view</code></h3>\n<p>By default, tests for live views running in a separate process (using\nthe <code>LiveView.in_process()</code> classmethod) are only executed\nonce as they take a long time to run on Windows. To run them for the\nfull parameter matrix, pass the <code>--runall-inprocess</code> option\nto <code>pytest</code>:</p>\n<pre><code>python -m pytest --runall-inprocess tests</code></pre>\n<h2>Documentation</h2>\n<p>The auto-generated documentation can be found at <a href=\"https://qutech.pages.rwth-aachen.de/qutil/index.html\">the Gitlab\nPages</a>.</p>\n<p>To build the documentation locally, navigate to <code>doc/</code> and\nrun either</p>\n<div><pre><code><span><a href=\"#cb7-1\"></a>.\\make.bat html</span></code></pre></div>\n<p>(on Windows),</p>\n<div><pre><code><span><a href=\"#cb8-1\"></a><span>make</span> html</span></code></pre></div>\n<p>(on Unix), or</p>\n<div><pre><code><span><a href=\"#cb9-1\"></a>sphinx-build <span>-b</span> html source build</span></code></pre></div>\n<p>Make sure the dependencies are installed via</p>\n<div><pre><code><span><a href=\"#cb10-1\"></a><span>python</span> <span>-m</span> pip install <span>-e</span> .<span>[</span><span>doc</span><span>]</span></span></code></pre></div>\n<p>in the top-level directory.</p>\n<h2>Releases</h2>\n<p>Releases on Gitlab, PyPI, and Zenodo are automatically created and\npushed whenever a commit is tagged matching <a href=\"https://calver.org/\">CalVer</a> in the form\n<code>vYYYY.MM.MICRO</code> or <code>vYYYY.0M.MICRO</code>.</p>\n<h2>Module overview</h2>\n<p>This section gives an incomplete overview over the modules included\nin <code>qutil</code> and the tools they provide. If you contribute\nsomething you think is worth showing off, add it here.</p>\n<h3>qutil.plotting</h3>\n<p>This module contains useful classes and functions surrounding\n<code>maptlotlib</code> plots.</p>\n<p><code>cycle_plots</code> helps you cycling through many plots with\nthe arrow keys (there are probably much better functions for this out\nthere) <code>plot_2d_dataframe</code> helps you plot 2d data frames with\nnumeric indices <code>BlitManager</code> can be used to significantly\nspeed up plotting when certain parts of the plot, such as the artists on\nthe canvas (lines, annotations, etc.) change but others do not (axes,\nlabels, etc.) does not. <code>CoordClicker</code> and\n<code>LineClicker</code> allow some interactive selection of data.\n<code>get_rwth_color_cycle</code> and the predefined\n<code>rwth_color_cycle</code> are cycler instances with the official\nRWTH corporate design colors:</p>\n\n\n\n\ncycler example\n\n<p>The module also exports matplotlib style sheets that can be used to\nset style preferences either globally or locally within a context\nmanager. See <a href=\"https://matplotlib.org/stable/users/explain/customizing.html#customizing-with-style-sheets\">the\nmatplotlib documentation</a> for more details.</p>\n<h4>live_view</h4>\n<p>This module provides pretty (<code>matplotlib</code>) but fast\nlive-plotting. While possibly not as fast as a well-designed\n<code>pyqtgraph</code> plot, it has sufficiently low overhead to provide\nresponsive video-like plots of continuously arriving data. Data sources\nare pushed to a background thread so that the interpreter and figure\nremain responsive. Alternatively, the figure can be run in a separate\nprocess to allow responsive figures even when the interpreter is\nblocked.</p>\n<p>The module is object-oriented and should in principle allow users to\nimplement their own live plots. Currently provided are classes that\nhandle incrementally arriving 1- and 2d data as well as batched versions\n(data that arrives in chunks of 1d or 2d arrays).</p>\n<p> </p>\n<h3>qutil.matlab</h3>\n<p>In this module there are functions that are helpful for reading\n<code>.mat</code> files, especially those created with special measure.\nIt depends on the optional <code>matlab</code> feature which is included\nin the complete install. If you simply want to open a random\n<code>.mat</code> file you can use <code>hdf5storage.loadmat</code>.\nSome functionality requires the matlab engine python interface to work,\ni.e.\u00a0python will use a MATLAB instance to open files. However, the\nmatlab engine interface is <em>not</em> installed by default because the\ninstall process depends on the version and fails if MATLAB is not\ninstalled. For older MATLAB versions navigate to\n<code>$MATLAB_INSTALL_FOLDER/extern/engines/python</code> and execute\n<code>python setup.py install</code>. For newer MATLAB versions you can\ninstall the engine interface via\n<code>python -m pip install matlabengine</code>.</p>\n<p>Loading matlab files with \"newer\" MATLAB classes like\n<code>table</code> requires connecting (and starting) MATLAB instance.\nThe function <code>load_special_measure_with_matlab_engine</code> can\nload most special measure scans by utilizing the MATLAB engine\ninterface. To use it you require a \"sufficiently new\" version of MATLAB\nand then navigate to\n<code>C:\\Program Files\\MATLAB\\$VERSION\\extern\\engines\\python</code> and\ncall <code>python setup.py install</code>.</p>\n<p>Recommended: There are dataclasses like <code>SimpleScan</code> or\n<code>VirtualScan</code> that are a python representation of certain\ncommon scan types and have a convenience <code>to_xarray</code> method.\nUse <code>load_simple_scan_with_matlab_engine</code> or\n<code>load_virtual_scan_with_matlab_engine</code> to load them.</p>\n<p>There are the dataclasses <code>FigureData</code>,\n<code>AxesData</code> and <code>PlotData</code> that represent matlab\nfigure data. They help inspecting saved matlab figures with the help of\na matlab engine.</p>\n<h3>qutil.const</h3>\n<p>This module defines all the constants you could wish for as well as\nfunctions to convert temperatures (<code>convert_temperature</code>) or\nbetween wavelengths and energies (<code>lambda2eV</code>,\n<code>eV2lambda</code>). For an overview, see the module docstring.</p>\n<h3>qutil.linalg</h3>\n<p>This module provides several handy linear algebra functions. While\nsome are implemented elsewhere, the implementation here is typically\nspeedier for large arrays. For example, <code>pauli_expm</code> exploits\nthe fact that a matrix exponential of Pauli matrices can be written as a\ncosine times the identity matrix plus a sine times the Paulis to speed\nup the calculation.</p>\n<p>For an overview of the included functions, see the module\ndocstring.</p>\n<h3>qutil.math</h3>\n<p>Contains functions like <code>cexp()</code> and <code>abs2()</code>,\nwhich are fast versions of <code>np.exp(1j*x)</code> and\n<code>np.abs()**2</code>, respectively.</p>\n<h3>qutil.ui</h3>\n<p>This module collects UI helpers, such as a progress bar for loops\nthat can be used like so:</p>\n<div><pre><code><span><a href=\"#cb11-1\"></a><span>for</span> i <span>in</span> qutil.ui.progressbar(<span>range</span>(n)):</span>\n<span><a href=\"#cb11-2\"></a>    do_something()</span></code></pre></div>\n<p>It also contains a <code>gate_layout</code> module that can be used\nto display gate voltages by plotting and coloring in <code>.dxf</code>\nfiles of gate layouts.</p>\n<h3>qutil.qi</h3>\n<p>In this module there are some quantities and functions related to\nquantum information, like the Pauli matrices in different data\ntypes.</p>\n<h3>qutil.random</h3>\n<p>Here we collect functions for random numbers like\n<code>random_hermitian</code> to generate random Hermitian matrices.</p>\n<h3>qutil.itertools</h3>\n<p>This module contains everything from <code>itertools</code>,\n<code>more_itertools</code> and custom functions.</p>\n<h3>qutil.functools</h3>\n<p>This module contains everything from <code>functools</code> as well\nas custom functions and classes, for instance\n<code>FunctionChain</code>, which iterates over a list of functions and\npasses the return value(s) on to the next function as positional\narguments.</p>\n<h3>qutil.caching</h3>\n<p>Here you find decorators, functions and classes that help you\nimplement caching like <code>file_cache</code> and\n<code>lru_cache</code>. This is helpful if you need to call\ncomputationally expensive functions with the same arguments\nrepeatedly.</p>\n<h3>qutil.io</h3>\n<p>User input related functions like <code>query_yes_no</code> or a\n<code>CsvLogger</code> interface (for reading use pandas.read_csv).</p>\n<p><code>to_global_path</code> resolves all network drive mappings (such\nas <code>Z:\\</code>) as well as domain names (such as\n<code>\\\\janeway</code>) to their global address\n(<code>\\\\janeway.physik.rwth-aachen.de</code> in this case).</p>\n<h3>qutil.parallel</h3>\n<p>Functions and classes related to parallel execution\ni.e.\u00a0multi-threading, multi-processing and asyncio. There is a class for\nperiodic callbacks from another thread\n<code>ThreadedPeriodicCallback</code>.</p>\n<h3>qutil.hardware</h3>\n<p>This package contains little scripts to talk to various hardware\ndevices. For example reading the leak tester via serial interface.</p>\n<h3>qutil.electronics</h3>\n<h4>lumped_elements</h4>\n<p>Exposes the contents of <a href=\"https://github.com/whileman133/fastZ\">fastz</a>, a package for\nsimple lumped-elements calculations. Overloads <code>+</code> and\n<code>//</code> to implement series and parallel connections,\nrespectively.</p>\n<p>See the <code>fastz</code> documentation for more information.</p>\n<h3>qutil.qcodes</h3>\n<p>Functions to convert from and to qcodes data sets. Currently only\nfrom <code>pandas.DataFrame</code> to\n<code>qcodes.data.data_set.DataSet</code></p>\n<h3>qutil.measurement</h3>\n<p>This package is supposed to contain measurement-related\nfunctionality. It is currently empty besides some backward compatibility\nimports.</p>\n<h4>spectrometer</h4>\n<p>Moved to https://git.rwth-aachen.de/qutech/python-spectrometer.</p>\n<h3>qutil.typecheck</h3>\n<p>Functions and decorators to help with runtime typechecking. Notably\nthe <code>@check_literals</code> decorator to ensure that arguments\nmatch an annotated literal. Imports the <a href=\"https://typeguard.readthedocs.io/en/latest/userguide.html\"><code>typeguard</code></a>\nwhich provides the powerful <code>@typechecked</code> decorator.</p>\n<div><pre><code><span><a href=\"#cb12-1\"></a><span>from</span> typing <span>import</span> Literal, Sequence</span>\n<span><a href=\"#cb12-2\"></a><span>from</span> qutil.typecheck <span>import</span> check_literals</span>\n<span><a href=\"#cb12-3\"></a><span>@check_literals</span></span>\n<span><a href=\"#cb12-4\"></a><span>def</span> my_function(a: Sequence[<span>int</span>], b: Literal[<span>&#39;forward&#39;</span>, <span>&#39;backward&#39;</span>]):</span>\n<span><a href=\"#cb12-5\"></a>    <span>pass</span> <span># do something</span></span>\n<span><a href=\"#cb12-6\"></a></span>\n<span><a href=\"#cb12-7\"></a><span># works</span></span>\n<span><a href=\"#cb12-8\"></a>my_function([<span>1</span>, <span>2</span>, <span>3</span>], <span>&#39;backward&#39;</span>)</span>\n<span><a href=\"#cb12-9\"></a></span>\n<span><a href=\"#cb12-10\"></a><span># works because the first arguement is not checked at runtime</span></span>\n<span><a href=\"#cb12-11\"></a>my_function({<span>&#39;no&#39;</span>: <span>&#39;sequence&#39;</span>}, <span>&#39;backward&#39;</span>)</span>\n<span><a href=\"#cb12-12\"></a></span>\n<span><a href=\"#cb12-13\"></a><span># runtime error because of typo in &#39;backward&#39;</span></span>\n<span><a href=\"#cb12-14\"></a>my_function(<span>&#39;wrong&#39;</span>, <span>&#39;backwardd&#39;</span>)</span></code></pre></div>\n<h3>qutil.pandas_tools</h3>\n<p>Pandas utility functions for common code patterns.\n<code>consecutive_groupby</code> is like\n<code>pandas.DataFrame.groupby</code> but only groups consecutive\nrows.</p>\n<h3>qutil.image</h3>\n<p>Image and video processing tools. <code>convert_tiff</code> converts\na multipage <code>.tif</code> image to a video with a format of choice\nusing <code>moviepy</code>.</p>\n<h3>qutil.signal_processing</h3>\n<p>This module is split into functionality that works with signals in\nreal space (time domain) and fourier space (frequency domain). Both\nsubmodules adhere to a common function signature so that they can be\nchained using <code>qutil.functools.FunctionChain</code>. Functionality\nincludes: - <code>real_space.rms()</code>: Compute the RMS -\n<code>real_space.butter()</code>: Butter filter -\n<code>fourier_space.derivative()</code>: Compute the (anti-)derivative -\n<code>fourier_space.rms()</code>: Compute the RMS</p>\n<h3>qutil.domains</h3>\n<p>This module defines classes representing mathematical domains and\nintervals. Currently used by <a href=\"https://git.rwth-aachen.de/qutech/python-spectrometer\">pyspeck</a>.</p>\n<h3>qutil.misc</h3>\n<p>Includes various miscallaneous utilities like context managers to\nsuppress warnings (<code>filter_warnings()</code>) or temporarily set a\nkey of a dictionary (<code>key_set_to()</code>).</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Hangleiter, Tobias",
+            "affiliation": "RWTH Aachen University",
+            "orcid": "0000-0002-5177-6162"
+          },
+          {
+            "name": "Humpohl, Simon",
+            "affiliation": "RWTH Aachen University",
+            "orcid": "0000-0002-9399-1055"
+          },
+          {
+            "name": "Surrey, Paul",
+            "affiliation": "RWTH Aachen University"
+          },
+          {
+            "name": "We, Han Na",
+            "affiliation": "RWTH Aachen University"
+          }
+        ],
+        "keywords": [
+          "utility",
+          "quantum physics",
+          "quantum computing",
+          "quantum information",
+          "quantum control",
+          "research software",
+          "research utilities"
+        ],
+        "version": "2025.03.1",
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "gpl-3.0"
+        },
+        "communities": [
+          {
+            "id": "ml4q"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 5,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "14200303"
+              }
+            }
+          ]
+        }
+      },
+      "title": "qutil",
+      "links": {
+        "self": "https://zenodo.org/api/records/15006489",
+        "self_html": "https://zenodo.org/records/15006489",
+        "doi": "https://doi.org/10.5281/zenodo.15006489",
+        "self_doi": "https://doi.org/10.5281/zenodo.15006489",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15006489",
+        "parent": "https://zenodo.org/api/records/14200303",
+        "parent_html": "https://zenodo.org/records/14200303",
+        "parent_doi": "https://doi.org/10.5281/zenodo.14200303",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14200303",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15006489/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15006489/sequence/default",
+        "files": "https://zenodo.org/api/records/15006489/files",
+        "media_files": "https://zenodo.org/api/records/15006489/media-files",
+        "archive": "https://zenodo.org/api/records/15006489/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15006489/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15006489/versions/latest",
+        "latest_html": "https://zenodo.org/records/15006489/latest",
+        "versions": "https://zenodo.org/api/records/15006489/versions",
+        "draft": "https://zenodo.org/api/records/15006489/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15006489/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15006489/access/links",
+        "access_grants": "https://zenodo.org/api/records/15006489/access/grants",
+        "access_users": "https://zenodo.org/api/records/15006489/access/users",
+        "access_request": "https://zenodo.org/api/records/15006489/access/request",
+        "access": "https://zenodo.org/api/records/15006489/access",
+        "communities": "https://zenodo.org/api/records/15006489/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15006489/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15006489/requests"
+      },
+      "updated": "2025-03-11T13:44:08.941105+00:00",
+      "recid": "15006489",
+      "revision": 4,
+      "files": [
+        {
+          "id": "7d53a414-3fc3-4e29-9da6-24db963dd27a",
+          "key": "v2025.03.1.zip",
+          "size": 417289,
+          "checksum": "md5:149b2790aaa1f8d2bd6acd2e6edea834",
+          "links": {
+            "self": "https://zenodo.org/api/records/15006489/files/v2025.03.1.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:2bf02b4205750df12a19290deeb09f254cfa5eb7;origin=https://doi.org/10.5281/zenodo.14200303;visit=swh:1:snp:385c44719030392432046360e77bad314fe2fd81;anchor=swh:1:rel:128147945449f7f869c87bc4fd8172d39831f24d;path=/"
+      },
+      "owners": [
+        {
+          "id": "200742"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 71,
+        "unique_downloads": 71,
+        "views": 90,
+        "unique_views": 87,
+        "version_downloads": 13,
+        "version_unique_downloads": 13,
+        "version_unique_views": 20,
+        "version_views": 20
+      },
+      "state": "done",
+      "submitted": true
+    }
+  ]
+}

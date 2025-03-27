@@ -1,0 +1,355 @@
+{
+  "cache_date": "2025-03-17T23:26:28.754368",
+  "data": [
+    {
+      "created": "2024-11-19T09:14:46.423819+00:00",
+      "modified": "2024-11-19T09:14:46.703803+00:00",
+      "id": 14184158,
+      "conceptrecid": "10674273",
+      "doi": "10.5281/zenodo.14184158",
+      "conceptdoi": "10.5281/zenodo.10674273",
+      "doi_url": "https://doi.org/10.5281/zenodo.14184158",
+      "metadata": {
+        "title": "An updated catalog of genes and species of the pig gut microbiota",
+        "doi": "10.5281/zenodo.14184158",
+        "publication_date": "2024-11-19",
+        "description": "<p></p><h1>Dataset overview</h1><br>We built an updated catalog of 9.3M genes found in the pig gut microbiota.<br>Co-abundant genes were binned in 1523 Metagenomic Species Pan-genomes (MSPs) for which we provide taxonomic labels and a phylogenetic tree. In addition, we reconstituted 7059 Metagenome-Assembled Genomes (MAGs) covering of 760 Metagenomic Species and we extracted 7331 viral genomes from assemblies.<br>Finally, we used Pairwise Comparative Modelling to predict 6140 antibiotic resistance genes.<br><br>This dataset can be used to analyze shotgun sequencing data of the pig gut microbiota.<br><h1>Methods</h1><br><h2>Sequencing data availability</h2><br>Sequencing data from Xiao et al. (PRJEB11755, n=287) and Kim et al. (PRJEB32496, n=36) was downloaded from the European Nucleotide Archive.<br><h2>Sequencing data quality control</h2><br>Illumina adapters removal and read trimming was performed with fastp . Reads mapped on the host genome (GCF_000003025.6) with bowtie2 were removed with samtools.<br><h2>Metagenomic assembly</h2><br>Metagenomic assembly was performed with metaSPAdes. Contigs of less than 1500 bp were removed.<br><h2>MAGs creation</h2><br>Reads of each sample were aligned to their respective assembly with bowtie2 and results were indexed in sorted bam files with samtools. Then, contigs coverage was computed in each sample with jgi_summarize_bam_contig_depths. MAGs were generated with MetaBAT 2 and MaxBin2. Finally, results of both tools were combined with DAS Tool and MAGs quality was assessed with checkM. MAGs with completeness &lt; 70% or contamination &gt; 5% were discarded.<br><h2>Extraction of viral genomes</h2><br>Candidates viral sequences were identified in assemblies with VirFinder. Then, viral genomes quality was assessed with checkV and those low or undetermined quality were discarded.<br><h2>Non-redundant gene catalog</h2><br>Genes were predicted on all contigs with Prodigal (parameters : -m -p meta ). Genes with missing start codon or shorter than 99 bp were discarded.<br>Then, partial and complete genes were separately clustered with cd-hit-est (parameters -c 0.95 -aS 0.90 -G 0 -d 0 -M 0 -T 0 ). The two non-redundant gene sets were merged by considering at first complete genes from the longest contigs (contact us for futher details).<br><h2>MSPs creation</h2><br>Using the Meteor software suite, reads from each sample were mapped against the non redundant catalog to build a raw gene abundance table (9.3 million genes quantified in 323 samples). This table was submitted to MSPminer that reconstituted 1523 clusters of co-abundant genes named Metagenomic-Species Pangenomes (MSPs).<br>Quality control of each MSP was manually performed by visualizing heatmaps representative of the normalized gene abundance profiles.<br><h2>Taxonomic annotation</h2><br>MAGs and MSPs were annotated with GTDB-Tk based on GTDB Release 05-RS95.<br><h2>Construction of the phylogenetic tree</h2><br>39 universal phylogenetic markers genes were extracted from the 1523 MSPs (or the corresponding MAGs if available) with fetchMGs. Then, the markers were separately aligned with MUSCLE. The 40 alignments were merged and trimmed with trimAl (parameters: -automated1). Finally, the phylogenetic tree was computed with FastTreeMP (parameters: -gamma -pseudo -spr -mlacc 3 -slownni).<br><h2>Prediction of antibiotic resistance genes</h2><br>Antibiotic resistance genes were predicted with the Pairwise Comparative Modelling approach (last version available here).<p></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Plaza Onate, Florian",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "Ghozlane, Amine",
+            "affiliation": "Universit\u00e9 Paris-Cit\u00e9, Institut Pasteur"
+          },
+          {
+            "name": "Almeida, Mathieu",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-zero"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 7,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10674273"
+              }
+            }
+          ]
+        }
+      },
+      "title": "An updated catalog of genes and species of the pig gut microbiota",
+      "links": {
+        "self": "https://zenodo.org/api/records/14184158",
+        "self_html": "https://zenodo.org/records/14184158",
+        "doi": "https://doi.org/10.5281/zenodo.14184158",
+        "self_doi": "https://doi.org/10.5281/zenodo.14184158",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14184158",
+        "parent": "https://zenodo.org/api/records/10674273",
+        "parent_html": "https://zenodo.org/records/10674273",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10674273",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10674273",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14184158/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14184158/sequence/default",
+        "files": "https://zenodo.org/api/records/14184158/files",
+        "media_files": "https://zenodo.org/api/records/14184158/media-files",
+        "archive": "https://zenodo.org/api/records/14184158/files-archive",
+        "archive_media": "https://zenodo.org/api/records/14184158/media-files-archive",
+        "latest": "https://zenodo.org/api/records/14184158/versions/latest",
+        "latest_html": "https://zenodo.org/records/14184158/latest",
+        "versions": "https://zenodo.org/api/records/14184158/versions",
+        "draft": "https://zenodo.org/api/records/14184158/draft",
+        "reserve_doi": "https://zenodo.org/api/records/14184158/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/14184158/access/links",
+        "access_grants": "https://zenodo.org/api/records/14184158/access/grants",
+        "access_users": "https://zenodo.org/api/records/14184158/access/users",
+        "access_request": "https://zenodo.org/api/records/14184158/access/request",
+        "access": "https://zenodo.org/api/records/14184158/access",
+        "communities": "https://zenodo.org/api/records/14184158/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/14184158/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/14184158/requests"
+      },
+      "updated": "2024-11-19T09:14:46.703803+00:00",
+      "recid": "14184158",
+      "revision": 4,
+      "files": [
+        {
+          "id": "93b5512d-ad66-44d3-b45b-9799b853d520",
+          "key": "ssc_9_3_gut.tar.xz",
+          "size": 11403997320,
+          "checksum": "md5:9b0df528d4c74662393b4c7358f69121",
+          "links": {
+            "self": "https://zenodo.org/api/records/14184158/files/ssc_9_3_gut.tar.xz/content"
+          }
+        },
+        {
+          "id": "0e3fb0ea-586a-4946-9953-283be5a007e6",
+          "key": "ssc_9_3_gut_taxo.tar.xz",
+          "size": 806447812,
+          "checksum": "md5:8cbdb0bb7cbbdcd90981ed9d7fc4ad38",
+          "links": {
+            "self": "https://zenodo.org/api/records/14184158/files/ssc_9_3_gut_taxo.tar.xz/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "258127"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 94,
+        "unique_downloads": 94,
+        "views": 263,
+        "unique_views": 258,
+        "version_downloads": 12,
+        "version_unique_downloads": 12,
+        "version_unique_views": 23,
+        "version_views": 24
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2024-01-03T01:51:22.108982+00:00",
+      "modified": "2024-01-03T01:51:22.604158+00:00",
+      "id": 10452879,
+      "conceptrecid": "10279115",
+      "doi": "10.5281/zenodo.10452879",
+      "conceptdoi": "10.5281/zenodo.10279115",
+      "doi_url": "https://doi.org/10.5281/zenodo.10452879",
+      "metadata": {
+        "title": "The vOTUs collected in the anaerobic digestion system",
+        "doi": "10.5281/zenodo.10452879",
+        "publication_date": "2024-01-03",
+        "description": "<p>The contigs &gt;5.0 kb were collected, de-replicated and then piped through VirSorter2 (based on sequence similarity and other viral-like features such as GC skew) and VirFinder (based on <i>k</i>-mer signatures) for the identification of viral sequences. The identified viral contigs from VirSorter2 and VirFinder were merged and de-replicated with CD-HIT v4.7 at local identity of 100%. The valid 21,518 viral contigs were subjected to species-level clustering to create viral operational taxonomic units (vOTUs) using the ClusterGenomes scripts, following the MIUViG recommended criteria of 95% average nucleotide identity (ANI) and 85% alignment fraction (AF), resulting in the identification of 13,895 vOTUs.&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Zhang, Junya",
+            "affiliation": "Research Center for Eco-Environmental Sciences",
+            "orcid": "0000-0002-7959-2701"
+          }
+        ],
+        "dates": [
+          {
+            "type": "available"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 1,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10279115"
+              }
+            }
+          ]
+        }
+      },
+      "title": "The vOTUs collected in the anaerobic digestion system",
+      "links": {
+        "self": "https://zenodo.org/api/records/10452879",
+        "self_html": "https://zenodo.org/records/10452879",
+        "doi": "https://doi.org/10.5281/zenodo.10452879",
+        "self_doi": "https://doi.org/10.5281/zenodo.10452879",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10452879",
+        "parent": "https://zenodo.org/api/records/10279115",
+        "parent_html": "https://zenodo.org/records/10279115",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10279115",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10279115",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:10452879/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:10452879/sequence/default",
+        "files": "https://zenodo.org/api/records/10452879/files",
+        "media_files": "https://zenodo.org/api/records/10452879/media-files",
+        "archive": "https://zenodo.org/api/records/10452879/files-archive",
+        "archive_media": "https://zenodo.org/api/records/10452879/media-files-archive",
+        "latest": "https://zenodo.org/api/records/10452879/versions/latest",
+        "latest_html": "https://zenodo.org/records/10452879/latest",
+        "versions": "https://zenodo.org/api/records/10452879/versions",
+        "draft": "https://zenodo.org/api/records/10452879/draft",
+        "reserve_doi": "https://zenodo.org/api/records/10452879/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/10452879/access/links",
+        "access_grants": "https://zenodo.org/api/records/10452879/access/grants",
+        "access_users": "https://zenodo.org/api/records/10452879/access/users",
+        "access_request": "https://zenodo.org/api/records/10452879/access/request",
+        "access": "https://zenodo.org/api/records/10452879/access",
+        "communities": "https://zenodo.org/api/records/10452879/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/10452879/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/10452879/requests"
+      },
+      "updated": "2024-01-03T01:51:22.604158+00:00",
+      "recid": "10452879",
+      "revision": 4,
+      "files": [
+        {
+          "id": "7b30e39c-4e6d-4d42-870f-6c63be9508be",
+          "key": "Supplementary material (Additional file 3)-03012024.fasta",
+          "size": 146690933,
+          "checksum": "md5:0f23b9b81f6867de6407fd5828a1165f",
+          "links": {
+            "self": "https://zenodo.org/api/records/10452879/files/Supplementary material (Additional file 3)-03012024.fasta/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1038837"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 7,
+        "unique_downloads": 7,
+        "views": 35,
+        "unique_views": 32,
+        "version_downloads": 2,
+        "version_unique_downloads": 2,
+        "version_unique_views": 17,
+        "version_views": 17
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2018-04-10T17:32:39.210794+00:00",
+      "modified": "2020-01-24T19:27:38.826834+00:00",
+      "id": 1216165,
+      "conceptrecid": "1216164",
+      "doi": "10.5281/zenodo.1216165",
+      "conceptdoi": "10.5281/zenodo.1216164",
+      "doi_url": "https://doi.org/10.5281/zenodo.1216165",
+      "metadata": {
+        "title": "jessieren/VirFinder: VirFinder v1.0.0",
+        "doi": "10.5281/zenodo.1216165",
+        "publication_date": "2018-04-10",
+        "description": "VirFinder: a novel k-mer based tool for identifying viral sequences from assembled metagenomic data",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Jessie Jie Ren",
+            "affiliation": null
+          },
+          {
+            "name": "Morgan Langille",
+            "affiliation": "Dalhousie University"
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/jessieren/VirFinder/tree/v1.0.0",
+            "relation": "isSupplementTo",
+            "scheme": "url"
+          }
+        ],
+        "version": "v1.0.0",
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "other-open"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "1216164"
+              }
+            }
+          ]
+        }
+      },
+      "title": "jessieren/VirFinder: VirFinder v1.0.0",
+      "links": {
+        "self": "https://zenodo.org/api/records/1216165",
+        "self_html": "https://zenodo.org/records/1216165",
+        "doi": "https://doi.org/10.5281/zenodo.1216165",
+        "self_doi": "https://doi.org/10.5281/zenodo.1216165",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.1216165",
+        "parent": "https://zenodo.org/api/records/1216164",
+        "parent_html": "https://zenodo.org/records/1216164",
+        "parent_doi": "https://doi.org/10.5281/zenodo.1216164",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.1216164",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:1216165/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:1216165/sequence/default",
+        "files": "https://zenodo.org/api/records/1216165/files",
+        "media_files": "https://zenodo.org/api/records/1216165/media-files",
+        "archive": "https://zenodo.org/api/records/1216165/files-archive",
+        "archive_media": "https://zenodo.org/api/records/1216165/media-files-archive",
+        "latest": "https://zenodo.org/api/records/1216165/versions/latest",
+        "latest_html": "https://zenodo.org/records/1216165/latest",
+        "versions": "https://zenodo.org/api/records/1216165/versions",
+        "draft": "https://zenodo.org/api/records/1216165/draft",
+        "reserve_doi": "https://zenodo.org/api/records/1216165/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/1216165/access/links",
+        "access_grants": "https://zenodo.org/api/records/1216165/access/grants",
+        "access_users": "https://zenodo.org/api/records/1216165/access/users",
+        "access_request": "https://zenodo.org/api/records/1216165/access/request",
+        "access": "https://zenodo.org/api/records/1216165/access",
+        "communities": "https://zenodo.org/api/records/1216165/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/1216165/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/1216165/requests"
+      },
+      "updated": "2020-01-24T19:27:38.826834+00:00",
+      "recid": "1216165",
+      "revision": 7,
+      "files": [
+        {
+          "id": "69dba03b-41c9-493a-8676-d197b726315d",
+          "key": "jessieren/VirFinder-v1.0.0.zip",
+          "size": 72311051,
+          "checksum": "md5:9e73a30c127a27210924c8eb8072ec98",
+          "links": {
+            "self": "https://zenodo.org/api/records/1216165/files/jessieren/VirFinder-v1.0.0.zip/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "44739"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 88,
+        "unique_downloads": 76,
+        "views": 370,
+        "unique_views": 335,
+        "version_downloads": 88,
+        "version_unique_downloads": 76,
+        "version_unique_views": 335,
+        "version_views": 370
+      },
+      "state": "done",
+      "submitted": true
+    }
+  ]
+}

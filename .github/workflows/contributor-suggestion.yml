@@ -1,0 +1,94 @@
+name: Process Contributor Suggestions
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'README.md'
+      - 'data.json'
+      - 'metadata/**'
+
+jobs:
+  validate-suggestions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+          cache-dependency-path: 'requirements.txt'
+      
+      # Cache validation results to speed up PR checks
+      - name: Cache validation data
+        uses: actions/cache@v3
+        with:
+          path: |
+            .cache
+            ~/.cache/pip
+          key: ${{ runner.os }}-validation-cache-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-validation-cache-
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Validate README content
+        run: python scripts/verify_readme_content.py
+      
+      - name: Validate metadata
+        run: python scripts/verify_repo_metadata.py
+      
+      - name: Generate data preview
+        run: |
+          # Create a temporary copy of data.json first
+          cp data.json data.json.backup
+          
+          # Update data.json with the PR changes (this will modify the file in place)
+          python update_data_json.py --include-metadata --include-bioinformatics
+          
+          # Comment on the PR with a summary of changes
+          PR_NUMBER=$(echo $GITHUB_REF | awk 'BEGIN { FS = "/" } ; { print $3 }')
+          
+          # Get list of changed files
+          CHANGED_FILES=$(git diff --name-only origin/main HEAD)
+          
+          # Create a summary comment
+          echo "## Contributor Suggestion Review" > comment.md
+          echo "" >> comment.md
+          echo "Thank you for your contribution! Here's a summary of the changes:" >> comment.md
+          echo "" >> comment.md
+          echo "### Changed Files:" >> comment.md
+          echo '```' >> comment.md
+          echo "$CHANGED_FILES" >> comment.md
+          echo '```' >> comment.md
+          
+          # If README was changed, add info about new tools
+          if [[ "$CHANGED_FILES" == *"README.md"* ]]; then
+            echo "" >> comment.md
+            echo "### README Changes:" >> comment.md
+            # Extract and list the tools added/modified
+            # This is a simplified placeholder - you'd need to implement actual diff logic
+            echo "Changes detected in the README file. Please check for any new tools or categories." >> comment.md
+          fi
+          
+          # Add validation result summary
+          echo "" >> comment.md
+          echo "### Validation Results:" >> comment.md
+          echo "- README validation: ✅ Passed" >> comment.md
+          echo "- Metadata validation: ✅ Passed" >> comment.md
+          
+          # Post comment to PR
+          gh pr comment $PR_NUMBER -F comment.md
+          
+          # Restore the original data.json to avoid making changes
+          mv data.json.backup data.json
+        env:
+          GITHUB_TOKEN: ${{ github.token }}

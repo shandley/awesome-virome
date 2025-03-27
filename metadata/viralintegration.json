@@ -1,0 +1,370 @@
+{
+  "name": "viralintegration",
+  "url": "https://github.com/nf-core/viralintegration",
+  "provider": "github",
+  "repo_path": "nf-core/viralintegration",
+  "description": "Analysis pipeline for the identification of viral integration events in genomes using a chimeric read approach.",
+  "created_at": "2022-04-01T19:30:55Z",
+  "updated_at": "2024-12-20T01:43:08Z",
+  "pushed_at": "2024-05-09T17:18:21Z",
+  "stars": 17,
+  "watchers": 17,
+  "forks": 9,
+  "open_issues": 21,
+  "default_branch": "master",
+  "license": "MIT License",
+  "license_url": "https://api.github.com/licenses/mit",
+  "homepage": "https://nf-co.re/viralintegration",
+  "is_archived": false,
+  "is_disabled": false,
+  "fetch_time": "2025-03-17T23:08:19.606491",
+  "languages": {
+    "Python": 124093,
+    "Nextflow": 100302,
+    "Groovy": 26675,
+    "HTML": 13487,
+    "R": 13419
+  },
+  "topics": [
+    "nextflow",
+    "nf-core",
+    "pipeline",
+    "workflow",
+    "chimeric-alignment",
+    "ctat",
+    "virus",
+    "viral-integration",
+    "virusintegrationfinder"
+  ],
+  "latest_release": {
+    "name": "v0.1.1 - Caladrius",
+    "tag": "0.1.1",
+    "published_at": "2023-07-19T17:24:36Z",
+    "url": "https://github.com/nf-core/viralintegration/releases/tag/0.1.1"
+  },
+  "dependencies": {
+    "sbom": {
+      "spdxVersion": "SPDX-2.3",
+      "dataLicense": "CC0-1.0",
+      "SPDXID": "SPDXRef-DOCUMENT",
+      "name": "com.github.nf-core/viralintegration",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/fe28c8cb-3d0f-43e6-83cc-0aa0935f4c34",
+      "creationInfo": {
+        "creators": [
+          "Tool: protobom-v0.0.0-20250317171231-8d724299549d+dirty",
+          "Tool: GitHub.com-Dependency-Graph"
+        ],
+        "created": "2025-03-17T23:08:27Z"
+      },
+      "packages": [
+        {
+          "name": "actions/upload-artifact",
+          "SPDXID": "SPDXRef-githubactions-actions-upload-artifact-3-7b26ed",
+          "versionInfo": "3",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/upload-artifact@3"
+            }
+          ]
+        },
+        {
+          "name": "seqeralabs/action-tower-launch",
+          "SPDXID": "SPDXRef-githubactions-seqeralabs-action-tower-launch-2-d87ce5",
+          "versionInfo": "2",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/seqeralabs/action-tower-launch@2"
+            }
+          ]
+        },
+        {
+          "name": "mshick/add-pr-comment",
+          "SPDXID": "SPDXRef-githubactions-mshick-add-pr-comment-1-41e328",
+          "versionInfo": "1",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/mshick/add-pr-comment@1"
+            }
+          ]
+        },
+        {
+          "name": "actions/checkout",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-3-613322",
+          "versionInfo": "3",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/checkout@3"
+            }
+          ]
+        },
+        {
+          "name": "actions/cache",
+          "SPDXID": "SPDXRef-githubactions-actions-cache-3-c8865b",
+          "versionInfo": "3",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/cache@3"
+            }
+          ]
+        },
+        {
+          "name": "conda-incubator/setup-miniconda",
+          "SPDXID": "SPDXRef-githubactions-conda-incubator-setup-miniconda-2-58cb0d",
+          "versionInfo": "2",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/conda-incubator/setup-miniconda@2"
+            }
+          ]
+        },
+        {
+          "name": "nf-core/setup-nextflow",
+          "SPDXID": "SPDXRef-githubactions-nf-core-setup-nextflow-1-447376",
+          "versionInfo": "1",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/nf-core/setup-nextflow@1"
+            }
+          ]
+        },
+        {
+          "name": "pcolby/tap-summary",
+          "SPDXID": "SPDXRef-githubactions-pcolby-tap-summary-1-91a7d4",
+          "versionInfo": "1",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/pcolby/tap-summary@1"
+            }
+          ]
+        },
+        {
+          "name": "eWaterCycle/setup-singularity",
+          "SPDXID": "SPDXRef-githubactions-eWaterCycle-setup-singularity-5-892651",
+          "versionInfo": "5",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/eWaterCycle/setup-singularity@5"
+            }
+          ]
+        },
+        {
+          "name": "actions/stale",
+          "SPDXID": "SPDXRef-githubactions-actions-stale-7-fc0b53",
+          "versionInfo": "7",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/stale@7"
+            }
+          ]
+        },
+        {
+          "name": "actions/setup-node",
+          "SPDXID": "SPDXRef-githubactions-actions-setup-node-3-6ce22e",
+          "versionInfo": "3",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/setup-node@3"
+            }
+          ]
+        },
+        {
+          "name": "actions/setup-python",
+          "SPDXID": "SPDXRef-githubactions-actions-setup-python-4-d8263e",
+          "versionInfo": "4",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/setup-python@4"
+            }
+          ]
+        },
+        {
+          "name": "psf/black",
+          "SPDXID": "SPDXRef-githubactions-psf-black-stable-665fca",
+          "versionInfo": "stable",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/psf/black@stable"
+            }
+          ]
+        },
+        {
+          "name": "marocchino/sticky-pull-request-comment",
+          "SPDXID": "SPDXRef-githubactions-marocchino-sticky-pull-request-comment-2-b58159",
+          "versionInfo": "2",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/marocchino/sticky-pull-request-comment@2"
+            }
+          ]
+        },
+        {
+          "name": "dawidd6/action-download-artifact",
+          "SPDXID": "SPDXRef-githubactions-dawidd6-action-download-artifact-2-2e9f19",
+          "versionInfo": "2",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/dawidd6/action-download-artifact@2"
+            }
+          ]
+        },
+        {
+          "name": "com.github.nf-core/viralintegration",
+          "SPDXID": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "versionInfo": "master",
+          "downloadLocation": "git+https://github.com/nf-core/viralintegration",
+          "filesAnalyzed": false,
+          "licenseDeclared": "MIT",
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:github/nf-core/viralintegration@master"
+            }
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-upload-artifact-3-7b26ed",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relatedSpdxElement": "SPDXRef-githubactions-seqeralabs-action-tower-launch-2-d87ce5",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relatedSpdxElement": "SPDXRef-githubactions-mshick-add-pr-comment-1-41e328",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-3-613322",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-cache-3-c8865b",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relatedSpdxElement": "SPDXRef-githubactions-conda-incubator-setup-miniconda-2-58cb0d",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relatedSpdxElement": "SPDXRef-githubactions-nf-core-setup-nextflow-1-447376",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relatedSpdxElement": "SPDXRef-githubactions-pcolby-tap-summary-1-91a7d4",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relatedSpdxElement": "SPDXRef-githubactions-eWaterCycle-setup-singularity-5-892651",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-stale-7-fc0b53",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-setup-node-3-6ce22e",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-setup-python-4-d8263e",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relatedSpdxElement": "SPDXRef-githubactions-psf-black-stable-665fca",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relatedSpdxElement": "SPDXRef-githubactions-marocchino-sticky-pull-request-comment-2-b58159",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relatedSpdxElement": "SPDXRef-githubactions-dawidd6-action-download-artifact-2-2e9f19",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-DOCUMENT",
+          "relatedSpdxElement": "SPDXRef-github-nf-core-viralintegration-master-e3ad62",
+          "relationshipType": "DESCRIBES"
+        }
+      ]
+    }
+  }
+}

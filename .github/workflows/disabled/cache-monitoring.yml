@@ -1,0 +1,47 @@
+name: Cache Monitoring
+
+on:
+  schedule:
+    - cron: "0 10 * * *"  # Daily at 10am UTC (better distributed)
+  workflow_dispatch:
+
+jobs:
+  monitor-cache:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install matplotlib numpy
+          
+      - name: Run cache monitoring
+        run: |
+          python scripts/monitor_cache.py --continuous --duration 300 --interval 30 --graphs --export-csv --csv-path cache_metrics.csv
+          
+      - name: Analyze cache performance
+        run: |
+          echo "## Cache Performance Report" > cache_report.md
+          echo "Generated: $(date)" >> cache_report.md
+          echo "" >> cache_report.md
+          echo "### Key Metrics" >> cache_report.md
+          python scripts/clear_cache.py --stats >> cache_report.md
+          
+      - name: Upload performance graphs as artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: cache-performance-graphs
+          path: metadata/cache/_monitoring/graphs/
+          
+      - name: Upload performance report
+        uses: actions/upload-artifact@v4
+        with:
+          name: cache-performance-report
+          path: cache_report.md

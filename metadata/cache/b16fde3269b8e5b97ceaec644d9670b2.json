@@ -1,0 +1,520 @@
+{
+  "cache_date": "2025-03-17T23:32:26.605553",
+  "data": [
+    {
+      "created": "2024-08-01T17:57:27.686086+00:00",
+      "modified": "2024-08-01T17:57:28.346803+00:00",
+      "id": 13152735,
+      "conceptrecid": "13152734",
+      "doi": "10.5281/zenodo.13152735",
+      "conceptdoi": "10.5281/zenodo.13152734",
+      "doi_url": "https://doi.org/10.5281/zenodo.13152735",
+      "metadata": {
+        "title": "Differences in the genomic potential of soil bacterial and phage communities between urban greenspaces and natural arid soils.",
+        "doi": "10.5281/zenodo.13152735",
+        "publication_date": "2024-08-01",
+        "description": "<p>This repository holds the final data products from metagenomics processing of bacteria and viruses from the article : \"Differences in the genomic potential of soil bacterial and phage communities between urban greenspaces and natural arid soils\"</p>\n<p>Contents:&nbsp;</p>\n<ul>\n<li>LU_metadata.csv: information on the samples</li>\n<li>soil_chemistry.txt: physicochemical information on samples</li>\n<li>*_len.csv: tables containing the length information for annotated genes, divided by database. These are used to calculate RPKM abundances from count tables.&nbsp;</li>\n<li>BACTERIA</li>\n<li>ko_table, ko_unknown, ko2level, ko_description: count table of KEGG annotations, total counts for unnanotated genes, match of ko number to level and description</li>\n<li>all_bracken.csv: count table of taxonomic bacterial annotations using kraken2 and bracken</li>\n<li>mags_tax.csv: taxonomy assignments to MAGs (metagenome assembled genomes)</li>\n<li>mags_count_table.csv: abundante table of MAGs in counts</li>\n<li>ags_result, gc_mean, gc_variance: functional traits results, average genome size, and gc content</li>\n<li>lu_c_count, lu_n_count, card_d0, metals_count_table: abundance tables of genes annotated with Cazy (carbon), Ncydb (nitrogen), CARD (antibiotic resistance genes), and Bacmet (heavy metal resistance genes)</li>\n<li>VIRUS</li>\n<li>amg_summary.csv: results from AMG annotation with DRAM-V, filtered to keep genes of interest</li>\n<li>genomad_virus_summary.tsv: viral taxonomy annotations with geNomad</li>\n<li>virus_len.txt: length of inferred viruses (used for calculation of RPKM from count tables)</li>\n<li>all_host_prediction_to_genus.csv: virus host annotation with IPhop</li>\n<li>final_checkv.tsv: table of final viral inferences with quality estimates</li>\n<li>viral_species_count_table.txt: abundance table of infered viral contigs in counts</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Maria Touceda Suarez",
+            "affiliation": "University of Arizona",
+            "orcid": "0000-0002-3765-1240"
+          }
+        ],
+        "keywords": [
+          "metagenomics"
+        ],
+        "dates": [
+          {
+            "type": "submitted"
+          }
+        ],
+        "language": "eng",
+        "custom": {
+          "code:codeRepository": "https://github.com/merytouceda/urban_greenspaces_aridcities",
+          "code:programmingLanguage": [
+            {
+              "id": "r",
+              "title": {
+                "en": "R"
+              }
+            }
+          ],
+          "code:developmentStatus": {
+            "id": "active",
+            "title": {
+              "en": "Active"
+            }
+          }
+        },
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "13152734"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Differences in the genomic potential of soil bacterial and phage communities between urban greenspaces and natural arid soils.",
+      "links": {
+        "self": "https://zenodo.org/api/records/13152735",
+        "self_html": "https://zenodo.org/records/13152735",
+        "doi": "https://doi.org/10.5281/zenodo.13152735",
+        "self_doi": "https://doi.org/10.5281/zenodo.13152735",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13152735",
+        "parent": "https://zenodo.org/api/records/13152734",
+        "parent_html": "https://zenodo.org/records/13152734",
+        "parent_doi": "https://doi.org/10.5281/zenodo.13152734",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13152734",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:13152735/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:13152735/sequence/default",
+        "files": "https://zenodo.org/api/records/13152735/files",
+        "media_files": "https://zenodo.org/api/records/13152735/media-files",
+        "archive": "https://zenodo.org/api/records/13152735/files-archive",
+        "archive_media": "https://zenodo.org/api/records/13152735/media-files-archive",
+        "latest": "https://zenodo.org/api/records/13152735/versions/latest",
+        "latest_html": "https://zenodo.org/records/13152735/latest",
+        "versions": "https://zenodo.org/api/records/13152735/versions",
+        "draft": "https://zenodo.org/api/records/13152735/draft",
+        "reserve_doi": "https://zenodo.org/api/records/13152735/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/13152735/access/links",
+        "access_grants": "https://zenodo.org/api/records/13152735/access/grants",
+        "access_users": "https://zenodo.org/api/records/13152735/access/users",
+        "access_request": "https://zenodo.org/api/records/13152735/access/request",
+        "access": "https://zenodo.org/api/records/13152735/access",
+        "communities": "https://zenodo.org/api/records/13152735/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/13152735/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/13152735/requests"
+      },
+      "updated": "2024-08-01T17:57:28.346803+00:00",
+      "recid": "13152735",
+      "revision": 4,
+      "files": [
+        {
+          "id": "63ed0970-dc57-4c4d-bdf1-4c4dc91a6cc6",
+          "key": "lu_c_count.csv",
+          "size": 27757197,
+          "checksum": "md5:84474e454007ddba6ce44bc12d5c0de6",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/lu_c_count.csv/content"
+          }
+        },
+        {
+          "id": "57eeb84d-5441-4cd4-9f48-ea8295e9f524",
+          "key": "all_host_prediction_to_genus.csv",
+          "size": 176697,
+          "checksum": "md5:8e7e7656b366fcade3b881f77b5e6a5c",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/all_host_prediction_to_genus.csv/content"
+          }
+        },
+        {
+          "id": "6eeee61f-34a7-412f-bd02-342e4210ea4a",
+          "key": "final_checkv.tsv",
+          "size": 507765,
+          "checksum": "md5:186fa273aa588371dcaacf1d71381d07",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/final_checkv.tsv/content"
+          }
+        },
+        {
+          "id": "0c3e8f7d-f418-40a1-80f2-80f818b8416d",
+          "key": "bacmet_len.csv",
+          "size": 97778,
+          "checksum": "md5:7531bd3b84b7087f98c142db93bf3534",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/bacmet_len.csv/content"
+          }
+        },
+        {
+          "id": "9ca4e6ed-c329-400f-bfb5-965f75aaff03",
+          "key": "lu_n_count.csv",
+          "size": 5013854,
+          "checksum": "md5:84f1d95032f9d619606c2f8e538eaba6",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/lu_n_count.csv/content"
+          }
+        },
+        {
+          "id": "fe67ffa0-94f2-43b1-88b5-57c6691a8c57",
+          "key": "all_bracken.csv",
+          "size": 8751438,
+          "checksum": "md5:d4cbcdc1e1a32837bd3ad6cd9b78b324",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/all_bracken.csv/content"
+          }
+        },
+        {
+          "id": "d7a4663a-f438-4c1f-a897-e9ff578fad9a",
+          "key": "mags_count_table.txt",
+          "size": 16978,
+          "checksum": "md5:caf968600f7c51be9dbb815c9df3a252",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/mags_count_table.txt/content"
+          }
+        },
+        {
+          "id": "d05487b8-d24f-4044-bf29-b61ae159704e",
+          "key": "ko_description.txt",
+          "size": 384723,
+          "checksum": "md5:56cab1d82e9d17aa2dd8ff7692332ffc",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/ko_description.txt/content"
+          }
+        },
+        {
+          "id": "e832cf0f-39ab-4dde-837a-d20f721518c2",
+          "key": "mags_tax.txt",
+          "size": 6807,
+          "checksum": "md5:4f4b06e095f475cfd8057809b2a6c29e",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/mags_tax.txt/content"
+          }
+        },
+        {
+          "id": "5fd3103e-b434-4122-ba2f-645ac60beddc",
+          "key": "virus_len.txt",
+          "size": 152907,
+          "checksum": "md5:d66a6e926b2e058bbd72092c93861f97",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/virus_len.txt/content"
+          }
+        },
+        {
+          "id": "03dd552d-d545-43e3-80a6-23cd396f8b1a",
+          "key": "amg_summary.tsv",
+          "size": 4737,
+          "checksum": "md5:0c43cdc3399b3f53e8282642fa7f5a28",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/amg_summary.tsv/content"
+          }
+        },
+        {
+          "id": "76b6f5e3-8aa2-478d-aff9-1d6ad7c4f21d",
+          "key": "genomad_virus_summary.tsv",
+          "size": 78217,
+          "checksum": "md5:d989bcdc5a82d97edce8072024b1a1a5",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/genomad_virus_summary.tsv/content"
+          }
+        },
+        {
+          "id": "b5ffe4d6-03bb-4f71-8f85-55bcf1cdc47b",
+          "key": "viral_species_count_table.txt",
+          "size": 364245,
+          "checksum": "md5:3e96beaadd0715bd5347643aa1756fc8",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/viral_species_count_table.txt/content"
+          }
+        },
+        {
+          "id": "786b4eeb-c2b6-4ceb-8052-767006e7e6a0",
+          "key": "metals_count_table.txt",
+          "size": 73313,
+          "checksum": "md5:e788dbcd932ced9d57b778b4c275b928",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/metals_count_table.txt/content"
+          }
+        },
+        {
+          "id": "7955516b-7e9d-403f-9aab-69f68e6bad1a",
+          "key": "card_d0.csv",
+          "size": 371075916,
+          "checksum": "md5:0a879f7ee44c509e06e61f7b65e751cd",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/card_d0.csv/content"
+          }
+        },
+        {
+          "id": "6c6b7c5e-e525-4ce2-9ec8-90fbf8b4f1ee",
+          "key": "ko_unknown.txt",
+          "size": 1330,
+          "checksum": "md5:c78936590797b187ff5174125afd3bd5",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/ko_unknown.txt/content"
+          }
+        },
+        {
+          "id": "9d2b67b1-7bb2-48a7-8972-8825456e04ef",
+          "key": "gc_var.txt",
+          "size": 190,
+          "checksum": "md5:7fa52214c84e33c5cc948b3f9d626da5",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/gc_var.txt/content"
+          }
+        },
+        {
+          "id": "c77bbfda-b9eb-4852-bde7-1b2e28be0d24",
+          "key": "ncyc_100_len.csv",
+          "size": 10197291,
+          "checksum": "md5:bd0982611d1f3a6b4ac775dd6f0692a5",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/ncyc_100_len.csv/content"
+          }
+        },
+        {
+          "id": "9178ea9b-7fc3-424b-9c68-07b8f76c676e",
+          "key": "gc_mean.txt",
+          "size": 190,
+          "checksum": "md5:a0986b94ac2232512b26dc00ce013ccb",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/gc_mean.txt/content"
+          }
+        },
+        {
+          "id": "936f35b8-8e84-475d-b731-233cfc646c15",
+          "key": "cazy_len.csv",
+          "size": 44245917,
+          "checksum": "md5:629e88de44f41f1d7cfa3fd933e612cc",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/cazy_len.csv/content"
+          }
+        },
+        {
+          "id": "3c318df9-8d89-4cc3-9b97-8b0c096eb426",
+          "key": "soil_chemistry.txt",
+          "size": 2234,
+          "checksum": "md5:9bb344cf60fb9455433bd2848a0088f1",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/soil_chemistry.txt/content"
+          }
+        },
+        {
+          "id": "a81da02e-ce8f-49fc-bfc3-3a6b28960f55",
+          "key": "ko_table.txt",
+          "size": 567069,
+          "checksum": "md5:8e627961704ea7a1665d6288edcef34d",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/ko_table.txt/content"
+          }
+        },
+        {
+          "id": "e8319357-02d7-4859-abd4-d6d204f36c23",
+          "key": "card_len.csv",
+          "size": 310159,
+          "checksum": "md5:b3fa2b48e6f7018ce10098ab31525312",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/card_len.csv/content"
+          }
+        },
+        {
+          "id": "f0dc169a-6b62-4916-8c9b-988021f908bf",
+          "key": "LU_metadata.csv",
+          "size": 3967,
+          "checksum": "md5:1fd505ed337742dcff65dcee888fe0ea",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/LU_metadata.csv/content"
+          }
+        },
+        {
+          "id": "80eeaa1b-2b3a-490e-9ef4-3cb88d2e7c3e",
+          "key": "ko2level_Jan2021.txt",
+          "size": 7418381,
+          "checksum": "md5:c63402598d87189c8e909427f4d3a8c1",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/ko2level_Jan2021.txt/content"
+          }
+        },
+        {
+          "id": "80cca077-a36d-46d1-8dea-72e1097b9880",
+          "key": "dram_product_filtered.csv",
+          "size": 19161,
+          "checksum": "md5:80979821110a70f826492635800f768e",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/dram_product_filtered.csv/content"
+          }
+        },
+        {
+          "id": "2dd625ff-a927-4f88-9a9a-d23d0ff27184",
+          "key": "ags_result.txt",
+          "size": 1306,
+          "checksum": "md5:e4d5c8064c6b37742b78d18d04a85fb4",
+          "links": {
+            "self": "https://zenodo.org/api/records/13152735/files/ags_result.txt/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1163133"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 19,
+        "unique_downloads": 19,
+        "views": 64,
+        "unique_views": 60,
+        "version_downloads": 19,
+        "version_unique_downloads": 19,
+        "version_unique_views": 60,
+        "version_views": 64
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2023-03-09T02:43:28.427896+00:00",
+      "modified": "2023-03-10T02:26:54.617854+00:00",
+      "id": 7709817,
+      "conceptrecid": "7709816",
+      "doi": "10.5281/zenodo.7709817",
+      "conceptdoi": "10.5281/zenodo.7709816",
+      "doi_url": "https://doi.org/10.5281/zenodo.7709817",
+      "metadata": {
+        "title": "Supplementary Tables and Datasets for publication: Spatial and finely tuned temporal metagenomics of river compartments reveals viral community dynamics in an urban stream",
+        "doi": "10.5281/zenodo.7709817",
+        "publication_date": "2023-03-08",
+        "description": "<p>This is a data dump of the tables, genomes, and .faa files that were too large to submit as part of the publication titled:&nbsp;Spatial and finely tuned temporal metagenomics of river compartments reveals viral community dynamics in an urban stream</p>\n\n<p>&nbsp;</p>\n\n<p>Files here include:</p>\n\n<p>-Fasta file containing 1230 vMAGs.</p>\n\n<p>-Zip file containing individual fasta files for 125 MAGs</p>\n\n<p>-Annotations output for DRAM and DRAM-v for all MAGs and vMAGs</p>\n\n<p>-.faa proteins file for the full Freshwater / Wastewater / TARA Oceans dataset that was used for vContact2 biogeography analyses</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Josu\u00e9 Rodr\u00edguez-Ramos",
+            "affiliation": null,
+            "orcid": "0000-0002-2049-2765"
+          },
+          {
+            "name": "Kelly C. Wrighton",
+            "affiliation": null,
+            "orcid": "0000-0003-0434-4217"
+          }
+        ],
+        "version": "1",
+        "language": "eng",
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "7709816"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Supplementary Tables and Datasets for publication: Spatial and finely tuned temporal metagenomics of river compartments reveals viral community dynamics in an urban stream",
+      "links": {
+        "self": "https://zenodo.org/api/records/7709817",
+        "self_html": "https://zenodo.org/records/7709817",
+        "doi": "https://doi.org/10.5281/zenodo.7709817",
+        "self_doi": "https://doi.org/10.5281/zenodo.7709817",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.7709817",
+        "parent": "https://zenodo.org/api/records/7709816",
+        "parent_html": "https://zenodo.org/records/7709816",
+        "parent_doi": "https://doi.org/10.5281/zenodo.7709816",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.7709816",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:7709817/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:7709817/sequence/default",
+        "files": "https://zenodo.org/api/records/7709817/files",
+        "media_files": "https://zenodo.org/api/records/7709817/media-files",
+        "archive": "https://zenodo.org/api/records/7709817/files-archive",
+        "archive_media": "https://zenodo.org/api/records/7709817/media-files-archive",
+        "latest": "https://zenodo.org/api/records/7709817/versions/latest",
+        "latest_html": "https://zenodo.org/records/7709817/latest",
+        "versions": "https://zenodo.org/api/records/7709817/versions",
+        "draft": "https://zenodo.org/api/records/7709817/draft",
+        "reserve_doi": "https://zenodo.org/api/records/7709817/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/7709817/access/links",
+        "access_grants": "https://zenodo.org/api/records/7709817/access/grants",
+        "access_users": "https://zenodo.org/api/records/7709817/access/users",
+        "access_request": "https://zenodo.org/api/records/7709817/access/request",
+        "access": "https://zenodo.org/api/records/7709817/access",
+        "communities": "https://zenodo.org/api/records/7709817/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/7709817/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/7709817/requests"
+      },
+      "updated": "2023-03-10T02:26:54.617854+00:00",
+      "recid": "7709817",
+      "revision": 2,
+      "files": [
+        {
+          "id": "fff592f3-ed87-4763-aaa4-ffb7f67bcc32",
+          "key": "all_erpe_vMAGs_1230_95-85.fna",
+          "size": 24817060,
+          "checksum": "md5:06cc9c3ad270ad8541c75d0b14912a26",
+          "links": {
+            "self": "https://zenodo.org/api/records/7709817/files/all_erpe_vMAGs_1230_95-85.fna/content"
+          }
+        },
+        {
+          "id": "21263af8-4832-4160-b6f2-7ee12345334f",
+          "key": "Zenodo_Table_1_JGI_IMG-VR_mined_datasets.xlsx",
+          "size": 1511006,
+          "checksum": "md5:2fc4760f12a575362c72a9d0116e75e9",
+          "links": {
+            "self": "https://zenodo.org/api/records/7709817/files/Zenodo_Table_1_JGI_IMG-VR_mined_datasets.xlsx/content"
+          }
+        },
+        {
+          "id": "9371f061-ab9e-4276-b8cb-120ba302b9e4",
+          "key": "erpe_river_full_vContact2_db.faa",
+          "size": 221538931,
+          "checksum": "md5:7ef26376f4f95af3d8c92b355d177ea6",
+          "links": {
+            "self": "https://zenodo.org/api/records/7709817/files/erpe_river_full_vContact2_db.faa/content"
+          }
+        },
+        {
+          "id": "dfd45de6-656a-4b75-abdd-9ad87b31cf7c",
+          "key": "MAGs_fasta_files.zip",
+          "size": 68424705,
+          "checksum": "md5:9e236543878f76420222ffc7b3869b1c",
+          "links": {
+            "self": "https://zenodo.org/api/records/7709817/files/MAGs_fasta_files.zip/content"
+          }
+        },
+        {
+          "id": "1dfa3ac3-d5cf-4965-a32a-9238922805f2",
+          "key": "Zenodo_Table_2_MAG_vMAG_annotations.xlsx",
+          "size": 45369256,
+          "checksum": "md5:9907556d3c4292ca91b0973e3e152b7c",
+          "links": {
+            "self": "https://zenodo.org/api/records/7709817/files/Zenodo_Table_2_MAG_vMAG_annotations.xlsx/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "244125"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 71,
+        "unique_downloads": 49,
+        "views": 133,
+        "unique_views": 125,
+        "version_downloads": 71,
+        "version_unique_downloads": 49,
+        "version_unique_views": 125,
+        "version_views": 133
+      },
+      "state": "done",
+      "submitted": true
+    }
+  ]
+}

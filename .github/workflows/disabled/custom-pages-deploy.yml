@@ -1,0 +1,169 @@
+# CUSTOM GITHUB PAGES DEPLOYMENT WORKFLOW
+# This workflow is specifically designed to handle GitHub Pages deployment
+# with metrics dashboard integration
+name: Custom GitHub Pages Deployment
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      force_metrics_update:
+        description: 'Force metrics dashboard update'
+        required: false
+        default: false
+        type: boolean
+      force_deployment:
+        description: 'Force GitHub Pages deployment even if no changes detected'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  custom_pages_deploy:
+    name: Deploy Custom Pages
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Initial Setup
+        run: |
+          echo "Starting Custom GitHub Pages Deployment workflow"
+          echo "Timestamp: $(date)"
+          echo "This is a custom workflow that deploys GitHub Pages with metrics dashboard"
+      
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Check if metrics-history branch exists
+        id: check_branch
+        run: |
+          if git ls-remote --heads origin metrics-history | grep metrics-history; then
+            echo "Branch exists"
+            echo "branch_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Branch does not exist"
+            echo "branch_exists=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create temporary directory for metrics
+        run: mkdir -p metrics_dashboard
+      
+      - name: Checkout metrics-history branch
+        if: steps.check_branch.outputs.branch_exists == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: metrics-history
+          path: metrics-temp
+      
+      - name: Copy metrics data to main content
+        if: steps.check_branch.outputs.branch_exists == 'true'
+        run: |
+          # Create metrics dashboard directory
+          mkdir -p metrics_dashboard
+          
+          # Copy charts and necessary files
+          if [ -d "metrics-temp/metrics_history/charts" ]; then
+            cp -r metrics-temp/metrics_history/charts/* metrics_dashboard/
+          fi
+          
+          # Copy JSON data for potential dynamic rendering
+          if [ -d "metrics-temp/metrics_history" ]; then
+            cp -r metrics-temp/metrics_history/*.json metrics_dashboard/ 2>/dev/null || true
+          fi
+          
+          # Create index.html if it doesn't exist in the charts directory
+          if [ ! -f "metrics_dashboard/index.html" ]; then
+            cat > metrics_dashboard/index.html << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repository Metrics Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
+        .dashboard { max-width: 1200px; margin: 0 auto; }
+        .chart-container { margin-bottom: 30px; }
+        h1 { color: #333; }
+        a { color: #0366d6; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .back-link { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="back-link">
+            <a href="../index.html">← Back to main site</a>
+        </div>
+        <h1>Repository Metrics Dashboard</h1>
+        
+        <div class="chart-container">
+            <h2>Performance Trends</h2>
+            <img src="performance_trend.svg" alt="Performance Trends" width="100%">
+        </div>
+        
+        <div class="chart-container">
+            <h2>Validation Success Rate</h2>
+            <img src="validation_success.svg" alt="Validation Success Rate" width="100%">
+        </div>
+        
+        <div class="chart-container">
+            <h2>Link Health</h2>
+            <img src="link_health.svg" alt="Link Health" width="100%">
+        </div>
+        
+        <p>Last updated: <span id="lastUpdated"></span></p>
+    </div>
+    
+    <script>
+        // Load the last updated timestamp from metrics_summary.json
+        fetch('metrics_summary.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('lastUpdated').textContent = 
+                    new Date(data.last_updated).toLocaleString();
+            })
+            .catch(error => {
+                console.error('Error loading metrics data:', error);
+                document.getElementById('lastUpdated').textContent = 'Unknown';
+            });
+    </script>
+</body>
+</html>
+EOF
+          fi
+          
+          # Add .nojekyll file to prevent Jekyll processing
+          touch metrics_dashboard/.nojekyll
+      
+      - name: Add link to metrics dashboard in main index.html
+        run: |
+          # Check if the metrics dashboard link already exists
+          if ! grep -q "metrics_dashboard" index.html; then
+            # Insert link to metrics dashboard before the closing body tag
+            sed -i 's|</body>|<div style="text-align: center; margin-top: 20px; margin-bottom: 20px;"><a href="metrics_dashboard/index.html">View Repository Metrics Dashboard</a></div></body>|' index.html
+          fi
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
