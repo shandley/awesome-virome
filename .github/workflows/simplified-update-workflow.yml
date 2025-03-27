@@ -1,0 +1,162 @@
+name: Simplified Data Update Workflow
+
+on:
+  schedule:
+    # Run weekly basic update on Sunday
+    - cron: "0 8 * * 0"
+    # Run comprehensive update on 1st of each month
+    - cron: "0 8 1 * *"
+  # Add manual trigger with options
+  workflow_dispatch:
+    inputs:
+      update_type:
+        description: 'Type of update to run'
+        required: true
+        default: 'basic'
+        type: choice
+        options:
+          - basic
+          - comprehensive
+          - readme_sync
+
+# Ensure workflow has permissions to commit changes
+permissions:
+  contents: write
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+          cache-dependency-path: 'requirements.txt'
+      
+      # Cache GitHub API responses and other metadata
+      - name: Cache API data
+        uses: actions/cache@v3
+        with:
+          path: |
+            metadata/cache
+            .cache
+            ~/.cache/pip
+          key: ${{ runner.os }}-api-cache-${{ hashFiles('**/metadata/**/*.json') }}-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-api-cache-${{ hashFiles('**/metadata/**/*.json') }}-
+            ${{ runner.os }}-api-cache-
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          # Install additional packages needed for comprehensive updates
+          pip install networkx matplotlib requests PyGithub pyyaml
+      
+      # Basic update: Always runs for all update types
+      - name: Update basic repository information
+        run: python update_check.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+      # Readme sync: Runs for readme_sync or if README has changed
+      - name: Verify README content
+        id: verify_readme
+        run: |
+          python scripts/verify_readme_content.py
+          if git diff --name-only | grep -q "README.md"; then
+            echo "readme_changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "readme_changed=false" >> $GITHUB_OUTPUT
+          fi
+      
+      # Comprehensive update: Enhanced metadata, bioinformatics, academic impact
+      - name: Run comprehensive update
+        if: github.event.inputs.update_type == 'comprehensive' || github.event.schedule == '0 8 1 * *'
+        run: |
+          # Create cache directories if they don't exist
+          mkdir -p metadata/cache/crossref
+          mkdir -p metadata/cache/_citations
+          
+          # Run each component in sequence
+          echo "Collecting enhanced metadata..."
+          python scripts/enhance_metadata.py
+          
+          echo "Collecting bioinformatics metadata..."
+          python scripts/bioinformatics_metadata.py
+          
+          # Academic impact is usually the slowest part, so we optimize it
+          echo "Collecting academic impact data..."
+          # Clear the academic impact cache and metadata files to force fresh data
+          echo "Clearing existing academic impact cache to force fresh citation data collection..."
+          rm -f metadata/academic_impact/academic_impact.json
+          rm -f metadata/cache/crossref/*.json
+          rm -f metadata/cache/_citations/*.json
+          find metadata/academic_impact/ -name "*.json" -not -name "summary.json" -delete
+          
+          echo "Running academic impact collection with fresh data..."
+          python scripts/academic_impact.py --force-refresh
+          
+          echo "Generating citation reports..."
+          python scripts/citation_report.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          SEMANTIC_SCHOLAR_KEY: ${{ secrets.SEMANTIC_SCHOLAR_KEY }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
+      
+      # Always update data.json with appropriate flags
+      - name: Update data.json
+        run: |
+          # Determine which flags to include based on the update type
+          if [[ "${{ github.event.inputs.update_type }}" == "comprehensive" || "${{ github.event.schedule }}" == "0 8 1 * *" ]]; then
+            echo "Running comprehensive data.json update..."
+            python update_data_json.py --include-metadata --include-bioinformatics --include-academic-impact --include-pubmed
+          elif [[ "${{ github.event.inputs.update_type }}" == "readme_sync" || "${{ steps.verify_readme.outputs.readme_changed }}" == "true" ]]; then
+            echo "Running README-based data.json update..."
+            python update_data_json.py
+          else
+            echo "Running basic data.json update..."
+            python update_data_json.py
+          fi
+      
+      # Commit all changes directly to the main branch
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Add only the specific files we want to commit
+          # Explicitly NOT including update_check.log and repo_updates.json since they're gitignored
+          git add data.json README.md
+          
+          # Add directories with wildcards to avoid errors if they don't exist
+          git add metadata/* || true
+          git add reports/* || true
+          
+          # Determine commit message based on update type
+          if [[ "${{ github.event.inputs.update_type }}" == "comprehensive" || "${{ github.event.schedule }}" == "0 8 1 * *" ]]; then
+            COMMIT_MSG="Comprehensive data update (Enhanced, Bioinformatics, Academic Impact)"
+          elif [[ "${{ github.event.inputs.update_type }}" == "readme_sync" || "${{ steps.verify_readme.outputs.readme_changed }}" == "true" ]]; then
+            COMMIT_MSG="Update data.json from README changes"
+          else
+            COMMIT_MSG="Weekly data update"
+          fi
+          
+          # Commit only if there are changes
+          git diff --staged --quiet || git commit -m "$COMMIT_MSG"
+          
+          # Push changes directly to main
+          git push
+      
+      # Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        run: |
+          # Run any necessary pre-deployment scripts
+          # (If you have a custom static site generator or build step, it would go here)
+          
+          # GitHub Pages will automatically deploy from main branch if configured correctly
+          echo "Changes pushed to main branch. GitHub Pages will automatically update."

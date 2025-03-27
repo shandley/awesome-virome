@@ -1,0 +1,1503 @@
+{
+  "cache_date": "2025-03-17T23:32:04.517155",
+  "data": [
+    {
+      "created": "2025-03-17T18:54:21.609644+00:00",
+      "modified": "2025-03-17T18:54:21.727749+00:00",
+      "id": 15041866,
+      "conceptrecid": "5513927",
+      "doi": "10.5281/zenodo.15041866",
+      "conceptdoi": "10.5281/zenodo.5513927",
+      "doi_url": "https://doi.org/10.5281/zenodo.15041866",
+      "metadata": {
+        "title": "Jdaviz",
+        "doi": "10.5281/zenodo.15041866",
+        "publication_date": "2025-03-17",
+        "description": "<h1>4.2 (2025-03-17)</h1>\n<h2>New Features</h2>\n<ul>\n<li><p>Added API and UI for renaming subsets to Subset Tools plugin. [#3356, #3392]</p>\n</li>\n<li><p>Added API for updating subsets to Subset Tools plugin. [#3484]</p>\n</li>\n<li><p>Viewer data-menus are now found in the legend on the right of the viewer. [#3281]</p>\n</li>\n<li><p>Added 'select_rows' method to plugin tables to enable changing\ncurent selection by indicies or slice. Also added 'select_all' and 'select_none'\nmethods to change active selection to all table items or clear all selected\nitems without clearing the table. [#3381]</p>\n</li>\n<li><p>Plugin API methods and attributes are now searchable from the plugin tray (and visible when API hints are enabled). [#3384]</p>\n</li>\n<li><p>Snackbar history logger has been moved from an overlay to a separate tab in the right sidebar tray. [#3466]</p>\n</li>\n</ul>\n<h3>Cubeviz</h3>\n<ul>\n<li>Enhancements for the cube sonification plugin. [#3377, #3387]</li>\n</ul>\n<h3>Imviz</h3>\n<ul>\n<li><p>Catalog Search now supports importing Astropy table object via <code>import_catalog</code> method. [#3425]</p>\n</li>\n<li><p>Enhance the Catalog Search plugin to support additional columns when loading catalog data from files. [#3359]</p>\n</li>\n<li><p>Catalog Search <code>clear_table</code> now removes all associated markers from the viewer. [#3359]</p>\n</li>\n<li><p>Catalog Search now shows a table of selected entries and allows selecting/deselecting via a tool in the image viewer. [#3429]</p>\n</li>\n<li><p>Virtual Observatory plugin to query resources and download data products. [#2872, #3470]</p>\n</li>\n</ul>\n<h3>Specviz2d</h3>\n<ul>\n<li>Implement the Unit Conversion plugin in Specviz2D. [#3253]</li>\n</ul>\n<h2>API Changes</h2>\n<ul>\n<li><p><code>jdaviz.test()</code> is no longer available. Use <code>pytest --pyargs jdaviz &lt;options&gt;</code>\ndirectly if you wish to test your copy of <code>jdaviz</code>. [#3451]</p>\n</li>\n<li><p><code>**kwargs</code> from <code>viz.plugins['Subset Tools'].import_region(..., **kwargs)</code> is removed, <code>region_format=None</code>\nis now explicitly supported. The default value for <code>max_num_regions</code> option\nis now 20 instead of <code>None</code> (load everything). [#3453, #3474]</p>\n</li>\n</ul>\n<h3>Cubeviz</h3>\n<ul>\n<li><p><code>cubeviz.load_regions()</code> and <code>cubeviz.load_regions_from_file()</code> are deprecated.\nUse <code>cubeviz.plugins['Subset Tools'].import_region()</code> instead. [#3474]</p>\n</li>\n<li><p>Cubeviz-specific helper-level methods are deprecated and will be removed in the future in favor of plugin APIs as configs are centralized. [#3388]</p>\n</li>\n</ul>\n<h3>Imviz</h3>\n<ul>\n<li><p>Orientation plugin: <code>link_type</code> and <code>wcs_use_affine</code> (previously deprecated) have now been removed. [#3385]</p>\n</li>\n<li><p><code>imviz.load_regions()</code> and <code>imviz.load_regions_from_file()</code> are deprecated.\nUse <code>imviz.plugins['Subset Tools'].import_region()</code> instead. [#3474]</p>\n</li>\n<li><p><code>imviz.get_catalog_source_results()</code> is deprecated.\nUse <code>imviz.plugins['Catalog Search'].export_table()</code> instead. [#3497]</p>\n</li>\n<li><p><code>get_aperture_photometry_results</code> helper-level method is deprecated and will be removed in the future in favor of plugin APIs as configs are centralized. [#3388]</p>\n</li>\n</ul>\n<h3>Specviz</h3>\n<ul>\n<li>Specviz-specific helper-level methods are deprecated and will be removed in the future in favor of plugin APIs as configs are centralized. [#3388]</li>\n</ul>\n<h3>Specviz2d</h3>\n<ul>\n<li>Specviz2d-specific helper-level methods are deprecated and will be removed in the future in favor of plugin APIs as configs are centralized. [#3388]</li>\n</ul>\n<h2>Bug Fixes</h2>\n<ul>\n<li><p>Fix showing dataset dropdown in cubeviz's spectral extraction for flux-cube products from other plugins. [#3411]</p>\n</li>\n<li><p>SDSS line list now in vacuum, and SDSS IV in air. Previously, they were incorrectly categorized.\nTo keep categorization correct, SDSS IV list no longer carries wavelengths less than 2000 Angstrom. [#3458]</p>\n</li>\n<li><p>Fixed some broken flux conversions that were dropping the factor of solid angle. [#3457]</p>\n</li>\n<li><p>subset_tools.get_regions uses app.get_subsets under the hood, which fixes retrieving composite subsets when sky linked as\nwell as an errant snackbar message when a mix of spectral/spatial subsets are present. [#3476]</p>\n</li>\n</ul>\n<h3>Cubeviz</h3>\n<ul>\n<li><p>Fixed copious warnings from spectrum-at-spaxel tool when data has INF. [#3368]</p>\n</li>\n<li><p>Hide spectral subset layer visibility in flux/uncertainty viewers when slice indicator\nis within the spectral subset bounds. [#3437]</p>\n</li>\n</ul>\n<h3>Imviz</h3>\n<ul>\n<li><p>Improve performance of re-rendering during orientation change. [#3452]</p>\n</li>\n<li><p>Fix incorrect matching between RA/Dec and pixel coordinates in Catalog search results. [#3464]</p>\n</li>\n<li><p>Fixed &quot;zoom to selected&quot; in Catalog Search plugin when multiple sources are selected. [#3482]</p>\n</li>\n</ul>\n<h3>Specviz</h3>\n<ul>\n<li>Fixed traceback in model fitting due to units not being represented as strings. [#3412]</li>\n</ul>\n<h3>Specviz2d</h3>\n<ul>\n<li><p>Fix subset linking/displaying between pixel/wavelength in Specviz2d viewers. [#2736]</p>\n</li>\n<li><p>Fixes missing API entry for spectral extraction's export_bg_spectrum.  [#3447]</p>\n</li>\n<li><p>Fixes default location of trace in spectral extraction when some columns are filled with all zeros or nans. [#3475]</p>\n</li>\n</ul>\n<h2>Other Changes and Additions</h2>\n<ul>\n<li><p>Bumped minimum version of <code>photutils</code> to v1.12.1. [#3432]</p>\n</li>\n<li><p>Refactored flux conversion to use a single function for all plugin/viewer flux/surface brightness\nconversions. [#3457]</p>\n</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "JDADF Developers",
+            "affiliation": null
+          },
+          {
+            "name": "Averbukh, Jesse",
+            "affiliation": null,
+            "orcid": "0000-0002-0041-0363"
+          },
+          {
+            "name": "Bradley, Larry",
+            "affiliation": null,
+            "orcid": "0000-0002-7908-9284"
+          },
+          {
+            "name": "Buikhuizen, Mario",
+            "affiliation": null
+          },
+          {
+            "name": "Busko, Ivo",
+            "affiliation": null
+          },
+          {
+            "name": "Cherinka, Brian",
+            "affiliation": null,
+            "orcid": "0000-0002-4289-7923"
+          },
+          {
+            "name": "Conroy, Kyle",
+            "affiliation": null,
+            "orcid": "0000-0002-5442-8550"
+          },
+          {
+            "name": "Earl, Nicholas",
+            "affiliation": null,
+            "orcid": "0000-0003-1714-7415"
+          },
+          {
+            "name": "Fox, Ori",
+            "affiliation": null,
+            "orcid": "0000-0003-2238-1572"
+          },
+          {
+            "name": "Geda, Robel",
+            "affiliation": null,
+            "orcid": "0000-0003-1509-9966"
+          },
+          {
+            "name": "Green, Gilbert",
+            "affiliation": null,
+            "orcid": "0009-0004-2370-0699"
+          },
+          {
+            "name": "Jones, Craig",
+            "affiliation": null
+          },
+          {
+            "name": "Karatay, Hatice",
+            "affiliation": null,
+            "orcid": "0009-0003-9872-9384"
+          },
+          {
+            "name": "Kotler, Jenn",
+            "affiliation": null,
+            "orcid": "0000-0002-1294-7862"
+          },
+          {
+            "name": "Lim, Pey Lian",
+            "affiliation": null,
+            "orcid": "0000-0003-0079-4114"
+          },
+          {
+            "name": "Morris, Brett",
+            "affiliation": null,
+            "orcid": "0000-0003-2528-3409"
+          },
+          {
+            "name": "Nguyen, Duy",
+            "affiliation": null,
+            "orcid": "0000-0002-1534-336X"
+          },
+          {
+            "name": "O'Steen, Richard",
+            "affiliation": null,
+            "orcid": "0000-0002-2432-8946"
+          },
+          {
+            "name": "Ogaz, Sara",
+            "affiliation": null
+          },
+          {
+            "name": "Ogle, Patrick",
+            "affiliation": null,
+            "orcid": "0000-0002-3471-981X"
+          },
+          {
+            "name": "Otor, O. Justin",
+            "affiliation": null,
+            "orcid": "0000-0002-4679-5692"
+          },
+          {
+            "name": "Pacifici, Camilla",
+            "affiliation": null,
+            "orcid": "0000-0003-4196-0617"
+          },
+          {
+            "name": "Robitaille, Thomas",
+            "affiliation": null,
+            "orcid": "0000-0002-8642-1329"
+          },
+          {
+            "name": "Shanahan, Clare",
+            "affiliation": null,
+            "orcid": "0009-0008-4112-7418"
+          },
+          {
+            "name": "Tollerud, Erik",
+            "affiliation": null,
+            "orcid": "0000-0002-9599-310X"
+          },
+          {
+            "name": "Volfman, Sabrina",
+            "affiliation": null
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/spacetelescope/jdaviz/tree/v4.2.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v4.2.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/spacetelescope/jdaviz"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "bsd-3-clause"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 46,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "5513927"
+              }
+            }
+          ]
+        },
+        "notes": "If you use this software, please cite it as below."
+      },
+      "title": "Jdaviz",
+      "links": {
+        "self": "https://zenodo.org/api/records/15041866",
+        "self_html": "https://zenodo.org/records/15041866",
+        "doi": "https://doi.org/10.5281/zenodo.15041866",
+        "self_doi": "https://doi.org/10.5281/zenodo.15041866",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15041866",
+        "parent": "https://zenodo.org/api/records/5513927",
+        "parent_html": "https://zenodo.org/records/5513927",
+        "parent_doi": "https://doi.org/10.5281/zenodo.5513927",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.5513927",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15041866/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15041866/sequence/default",
+        "files": "https://zenodo.org/api/records/15041866/files",
+        "media_files": "https://zenodo.org/api/records/15041866/media-files",
+        "archive": "https://zenodo.org/api/records/15041866/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15041866/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15041866/versions/latest",
+        "latest_html": "https://zenodo.org/records/15041866/latest",
+        "versions": "https://zenodo.org/api/records/15041866/versions",
+        "draft": "https://zenodo.org/api/records/15041866/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15041866/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15041866/access/links",
+        "access_grants": "https://zenodo.org/api/records/15041866/access/grants",
+        "access_users": "https://zenodo.org/api/records/15041866/access/users",
+        "access_request": "https://zenodo.org/api/records/15041866/access/request",
+        "access": "https://zenodo.org/api/records/15041866/access",
+        "communities": "https://zenodo.org/api/records/15041866/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15041866/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15041866/requests"
+      },
+      "updated": "2025-03-17T18:54:21.727749+00:00",
+      "recid": "15041866",
+      "revision": 4,
+      "files": [
+        {
+          "id": "5a870a57-ff14-4a0b-a0ef-46f658937c75",
+          "key": "spacetelescope/jdaviz-v4.2.0.zip",
+          "size": 7241637,
+          "checksum": "md5:aa05cbb8bb7bed74d83fa612512cf8f2",
+          "links": {
+            "self": "https://zenodo.org/api/records/15041866/files/spacetelescope/jdaviz-v4.2.0.zip/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "21062"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 234,
+        "unique_downloads": 230,
+        "views": 2605,
+        "unique_views": 2407,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 3,
+        "version_views": 3
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-15T07:21:36.991291+00:00",
+      "modified": "2025-03-15T07:23:49.504408+00:00",
+      "id": 15030508,
+      "conceptrecid": "15030507",
+      "doi": "10.5281/zenodo.15030508",
+      "conceptdoi": "10.5281/zenodo.15030507",
+      "doi_url": "https://doi.org/10.5281/zenodo.15030508",
+      "metadata": {
+        "title": "Assessment and Learning Depiction of teachers' views The case of Second Chance Schools",
+        "doi": "10.5281/zenodo.15030508",
+        "publication_date": "2025-02-20",
+        "description": "<p><strong><span>Abstract</span></strong></p>\n<p><em><span>The institution of assessment is an integral part of the educational function and is connected with various parameters of education such as the identification of positive elements and weaknesses, the identification of problems, the prioritization of objectives, the assessment of educational planning, the utilization of the research efforts of the scientific and educational community, the assessment of educational work, and the professional development of teachers. Learning is an interrelated concept of assessment. In adult education, it has some special aspects in relation to the learning of children or adolescents, due to the differences in the experience, needs and motivations of adult learners. Adult education focuses on making learning more practical, connected with real needs and their daily lives, while teaching methods are adapted to be more flexible and encourage active participation. Through the present research and the formulation of the questionnaire, we wish to capture the views of teachers in second chance schools that are part of adult education regarding assessment. In this article, we examine the aspects of learning and assessment. The reference population is the entire teaching staff - hourly and seconded - of all Second Chance Schools in Greece.</span></em></p>\n<p><strong><span>Keywords:</span></strong><em><span> assessment, learning, second chance schools, adult education</span></em></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "\u0391nastasia Papadopoulou1*, Antonios Bouras, DR2",
+            "affiliation": null
+          }
+        ],
+        "keywords": [
+          "assessment, learning, second chance schools, adult education"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "I",
+          "pages": "87-96",
+          "title": "ISRG Journal of Education, Humanities and Literature (ISRGJEHL)",
+          "volume": "II"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15030507"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Assessment and Learning Depiction of teachers' views The case of Second Chance Schools",
+      "links": {
+        "self": "https://zenodo.org/api/records/15030508",
+        "self_html": "https://zenodo.org/records/15030508",
+        "doi": "https://doi.org/10.5281/zenodo.15030508",
+        "self_doi": "https://doi.org/10.5281/zenodo.15030508",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15030508",
+        "parent": "https://zenodo.org/api/records/15030507",
+        "parent_html": "https://zenodo.org/records/15030507",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15030507",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15030507",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15030508/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15030508/sequence/default",
+        "files": "https://zenodo.org/api/records/15030508/files",
+        "media_files": "https://zenodo.org/api/records/15030508/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15030508:ISRGJEHL1292025I.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15030508:ISRGJEHL1292025I.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15030508:ISRGJEHL1292025I.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15030508:ISRGJEHL1292025I.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15030508:ISRGJEHL1292025I.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15030508:ISRGJEHL1292025I.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15030508/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15030508/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15030508/versions/latest",
+        "latest_html": "https://zenodo.org/records/15030508/latest",
+        "versions": "https://zenodo.org/api/records/15030508/versions",
+        "draft": "https://zenodo.org/api/records/15030508/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15030508/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15030508/access/links",
+        "access_grants": "https://zenodo.org/api/records/15030508/access/grants",
+        "access_users": "https://zenodo.org/api/records/15030508/access/users",
+        "access_request": "https://zenodo.org/api/records/15030508/access/request",
+        "access": "https://zenodo.org/api/records/15030508/access",
+        "communities": "https://zenodo.org/api/records/15030508/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15030508/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15030508/requests"
+      },
+      "updated": "2025-03-15T07:23:49.504408+00:00",
+      "recid": "15030508",
+      "revision": 6,
+      "files": [
+        {
+          "id": "1fd646c2-ad04-4925-aeaa-5e045296f635",
+          "key": "ISRGJEHL1292025I.pdf",
+          "size": 976620,
+          "checksum": "md5:95d1739b8c4ee3fcfd2823ede7be95a9",
+          "links": {
+            "self": "https://zenodo.org/api/records/15030508/files/ISRGJEHL1292025I.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "587322"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 15,
+        "unique_downloads": 1,
+        "views": 5,
+        "unique_views": 3,
+        "version_downloads": 15,
+        "version_unique_downloads": 1,
+        "version_unique_views": 3,
+        "version_views": 5
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-15T07:17:20.727402+00:00",
+      "modified": "2025-03-15T07:17:20.922369+00:00",
+      "id": 15030453,
+      "conceptrecid": "15030452",
+      "doi": "10.5281/zenodo.15030453",
+      "conceptdoi": "10.5281/zenodo.15030452",
+      "doi_url": "https://doi.org/10.5281/zenodo.15030453",
+      "metadata": {
+        "title": "Assessment and Learning Depiction of teachers' views The case of Second Chance Schools",
+        "doi": "10.5281/zenodo.15030453",
+        "publication_date": "2025-03-15",
+        "description": "<p><strong><span>Abstract</span></strong></p>\n<p><em><span>The institution of assessment is an integral part of the educational function and is connected with various parameters of education such as the identification of positive elements and weaknesses, the identification of problems, the prioritization of objectives, the assessment of educational planning, the utilization of the research efforts of the scientific and educational community, the assessment of educational work, and the professional development of teachers. Learning is an interrelated concept of assessment. In adult education, it has some special aspects in relation to the learning of children or adolescents, due to the differences in the experience, needs and motivations of adult learners. Adult education focuses on making learning more practical, connected with real needs and their daily lives, while teaching methods are adapted to be more flexible and encourage active participation. Through the present research and the formulation of the questionnaire, we wish to capture the views of teachers in second chance schools that are part of adult education regarding assessment. In this article, we examine the aspects of learning and assessment. The reference population is the entire teaching staff - hourly and seconded - of all Second Chance Schools in Greece.</span></em></p>\n<p><strong><span>Keywords:</span></strong><em><span> assessment, learning, second chance schools, adult education</span></em></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "\u0391nastasia Papadopoulou1*, Antonios Bouras, DR2",
+            "affiliation": null
+          }
+        ],
+        "keywords": [
+          "assessment, learning, second chance schools, adult education"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "I",
+          "pages": "79-88",
+          "title": "ISRG Journal of Education, Humanities and Literature (ISRGJEHL)",
+          "volume": "II"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15030452"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Assessment and Learning Depiction of teachers' views The case of Second Chance Schools",
+      "links": {
+        "self": "https://zenodo.org/api/records/15030453",
+        "self_html": "https://zenodo.org/records/15030453",
+        "doi": "https://doi.org/10.5281/zenodo.15030453",
+        "self_doi": "https://doi.org/10.5281/zenodo.15030453",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15030453",
+        "parent": "https://zenodo.org/api/records/15030452",
+        "parent_html": "https://zenodo.org/records/15030452",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15030452",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15030452",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15030453/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15030453/sequence/default",
+        "files": "https://zenodo.org/api/records/15030453/files",
+        "media_files": "https://zenodo.org/api/records/15030453/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15030453:ISRGJEHL1292025I.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15030453:ISRGJEHL1292025I.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15030453:ISRGJEHL1292025I.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15030453:ISRGJEHL1292025I.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15030453:ISRGJEHL1292025I.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15030453:ISRGJEHL1292025I.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15030453/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15030453/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15030453/versions/latest",
+        "latest_html": "https://zenodo.org/records/15030453/latest",
+        "versions": "https://zenodo.org/api/records/15030453/versions",
+        "draft": "https://zenodo.org/api/records/15030453/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15030453/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15030453/access/links",
+        "access_grants": "https://zenodo.org/api/records/15030453/access/grants",
+        "access_users": "https://zenodo.org/api/records/15030453/access/users",
+        "access_request": "https://zenodo.org/api/records/15030453/access/request",
+        "access": "https://zenodo.org/api/records/15030453/access",
+        "communities": "https://zenodo.org/api/records/15030453/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15030453/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15030453/requests"
+      },
+      "updated": "2025-03-15T07:17:20.922369+00:00",
+      "recid": "15030453",
+      "revision": 4,
+      "files": [
+        {
+          "id": "cb71d53d-48ff-4d7b-8aba-cc072da1bdf2",
+          "key": "ISRGJEHL1292025I.pdf",
+          "size": 976932,
+          "checksum": "md5:7287ba702c874f8ec75b805c2a736bd0",
+          "links": {
+            "self": "https://zenodo.org/api/records/15030453/files/ISRGJEHL1292025I.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "587322"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 15,
+        "unique_downloads": 5,
+        "views": 4,
+        "unique_views": 3,
+        "version_downloads": 15,
+        "version_unique_downloads": 5,
+        "version_unique_views": 3,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-14T19:01:58.178366+00:00",
+      "modified": "2025-03-14T20:25:21.201661+00:00",
+      "id": 15028053,
+      "conceptrecid": "15028052",
+      "doi": "10.5281/zenodo.15028053",
+      "conceptdoi": "10.5281/zenodo.15028052",
+      "doi_url": "https://doi.org/10.5281/zenodo.15028053",
+      "metadata": {
+        "title": "Consort Yu",
+        "doi": "10.5281/zenodo.15028053",
+        "publication_date": "2025-03-14",
+        "description": "In the piece 'Consort Yu' (with Max/MSP), I was inspired by the traditional Chinese Peking Opera 'The Hegemon-King Bids His Lady Farewell', which is about the fight between two kings, Xiang Yu and Liu Bang. In the opera, Xiang Yu is surrounded by Liu Bang's forces and on the verge of total defeat. Realizing the dire situation that has befallen them, Xiang Yu's wife, Consort Yu, begs to die alongside her husband, but he strongly refuses her wish. Afterwards, as he is distracted, Yu commits suicide with Xiang Yu's own sword. I tried to create connections between traditional Peking opera and contemporary electronic music. First, I used timbres and rhythms similar to those used by 'The Hegemon-King Bids His Lady Farewell'. Also, the musical use of unstable pulses, such as tempo rubato and voice glissando in Peking opera, can relate to the color of contemporary music. Second, I used traditional Peking opera singing style throughout the vocal part. I also used some similar lines from the Peking opera but changed some notes to add different harmonic colors. In the electronics, I sometimes imitated the rhythms the Peking opera, and at other times made different granulated layers of various singing styles in Peking opera. Moreover, I used Leap Motion to better control the gestures of Peking opera in a live performance setting.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Hsiao, Yao",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Conference paper",
+          "type": "publication",
+          "subtype": "conferencepaper"
+        },
+        "journal": {},
+        "meeting": {
+          "title": "International Conference on New Interfaces for Musical Expression",
+          "acronym": "NIME",
+          "dates": "4 September - 6 September, 2024",
+          "place": "Utrecht, Netherlands",
+          "url": "https://nime.org"
+        },
+        "imprint": {},
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "nime_conference"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15028052"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Consort Yu",
+      "links": {
+        "self": "https://zenodo.org/api/records/15028053",
+        "self_html": "https://zenodo.org/records/15028053",
+        "doi": "https://doi.org/10.5281/zenodo.15028053",
+        "self_doi": "https://doi.org/10.5281/zenodo.15028053",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15028053",
+        "parent": "https://zenodo.org/api/records/15028052",
+        "parent_html": "https://zenodo.org/records/15028052",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15028052",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15028052",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15028053/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15028053/sequence/default",
+        "files": "https://zenodo.org/api/records/15028053/files",
+        "media_files": "https://zenodo.org/api/records/15028053/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15028053:nime2024_music_25.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15028053:nime2024_music_25.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15028053:nime2024_music_25.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15028053:nime2024_music_25.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15028053:nime2024_music_25.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15028053:nime2024_music_25.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15028053/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15028053/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15028053/versions/latest",
+        "latest_html": "https://zenodo.org/records/15028053/latest",
+        "versions": "https://zenodo.org/api/records/15028053/versions",
+        "draft": "https://zenodo.org/api/records/15028053/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15028053/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15028053/access/links",
+        "access_grants": "https://zenodo.org/api/records/15028053/access/grants",
+        "access_users": "https://zenodo.org/api/records/15028053/access/users",
+        "access_request": "https://zenodo.org/api/records/15028053/access/request",
+        "access": "https://zenodo.org/api/records/15028053/access",
+        "communities": "https://zenodo.org/api/records/15028053/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15028053/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15028053/requests"
+      },
+      "updated": "2025-03-14T20:25:21.201661+00:00",
+      "recid": "15028053",
+      "revision": 7,
+      "files": [
+        {
+          "id": "b7d60d7c-6693-4f4d-8ccd-0e2da959a320",
+          "key": "nime2024_music_25.pdf",
+          "size": 130136,
+          "checksum": "md5:1943ed9122fb103fb8c8e8330ebb83ea",
+          "links": {
+            "self": "https://zenodo.org/api/records/15028053/files/nime2024_music_25.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1186130"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 4,
+        "unique_downloads": 3,
+        "views": 4,
+        "unique_views": 4,
+        "version_downloads": 4,
+        "version_unique_downloads": 3,
+        "version_unique_views": 4,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-14T19:01:10.223791+00:00",
+      "modified": "2025-03-14T20:22:55.133627+00:00",
+      "id": 15028005,
+      "conceptrecid": "15028004",
+      "doi": "10.5281/zenodo.15028005",
+      "conceptdoi": "10.5281/zenodo.15028004",
+      "doi_url": "https://doi.org/10.5281/zenodo.15028005",
+      "metadata": {
+        "title": "Three is a crowd? A prompt driven human-bot performance",
+        "doi": "10.5281/zenodo.15028005",
+        "publication_date": "2025-03-14",
+        "description": "This performance is an improvisational collaboration between a vocalist, an electronic musician, and a musical agent based on self organizing maps from curated music corpora. The back-and-forth in this musical conversation is based around the concept of a very simple control algorithm that controls the conversation through generated prompts. Each element of this performance controls and is controlled by the tightly regimented constraints around making musical meaning together. 'Three is a crowd?' is a continuation of Co-Creative Spaces presented at NIME 2023 and builds on both the experiences and software (CCCP) from that project. The agents in Co-Creative Spaces generate sound by picking from a corpus of recorded material from the human musicians. How these collections were curated and put together was an important artistic decision for the co-creation process. This gave the musicians a closeness to the material that was seen as positive, but at the same time there was a recurring wish that the agents could have their own voice to a greater extent. \"Three is a crowd?\" is the first step in exploring other ways of giving the non-human agents more explicit agency in a performance by introducing a simple control algorithm that will guide the musical performance through text-based prompts.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "W\u00e6rstad, Bernt Isak",
+            "affiliation": null
+          },
+          {
+            "name": "Kelkar, Tejaswinee",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Conference paper",
+          "type": "publication",
+          "subtype": "conferencepaper"
+        },
+        "journal": {},
+        "meeting": {
+          "title": "International Conference on New Interfaces for Musical Expression",
+          "acronym": "NIME",
+          "dates": "4 September - 6 September, 2024",
+          "place": "Utrecht, Netherlands",
+          "url": "https://nime.org"
+        },
+        "imprint": {},
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "nime_conference"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15028004"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Three is a crowd? A prompt driven human-bot performance",
+      "links": {
+        "self": "https://zenodo.org/api/records/15028005",
+        "self_html": "https://zenodo.org/records/15028005",
+        "doi": "https://doi.org/10.5281/zenodo.15028005",
+        "self_doi": "https://doi.org/10.5281/zenodo.15028005",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15028005",
+        "parent": "https://zenodo.org/api/records/15028004",
+        "parent_html": "https://zenodo.org/records/15028004",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15028004",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15028004",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15028005/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15028005/sequence/default",
+        "files": "https://zenodo.org/api/records/15028005/files",
+        "media_files": "https://zenodo.org/api/records/15028005/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15028005:nime2024_music_14.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15028005:nime2024_music_14.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15028005:nime2024_music_14.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15028005:nime2024_music_14.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15028005:nime2024_music_14.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15028005:nime2024_music_14.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15028005/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15028005/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15028005/versions/latest",
+        "latest_html": "https://zenodo.org/records/15028005/latest",
+        "versions": "https://zenodo.org/api/records/15028005/versions",
+        "draft": "https://zenodo.org/api/records/15028005/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15028005/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15028005/access/links",
+        "access_grants": "https://zenodo.org/api/records/15028005/access/grants",
+        "access_users": "https://zenodo.org/api/records/15028005/access/users",
+        "access_request": "https://zenodo.org/api/records/15028005/access/request",
+        "access": "https://zenodo.org/api/records/15028005/access",
+        "communities": "https://zenodo.org/api/records/15028005/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15028005/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15028005/requests"
+      },
+      "updated": "2025-03-14T20:22:55.133627+00:00",
+      "recid": "15028005",
+      "revision": 7,
+      "files": [
+        {
+          "id": "fd24e748-33d3-4ddd-8ef4-17f4f987354e",
+          "key": "nime2024_music_14.pdf",
+          "size": 176360,
+          "checksum": "md5:2ec8837f1df38b31880ed1a2a9827129",
+          "links": {
+            "self": "https://zenodo.org/api/records/15028005/files/nime2024_music_14.pdf/content"
+          }
+        },
+        {
+          "id": "057649f9-d752-408c-9262-c40d1c941c1a",
+          "key": "nime2024_music_14_file01.mp3",
+          "size": 19172943,
+          "checksum": "md5:7430d40a9d50c2cba908fefb04cbe064",
+          "links": {
+            "self": "https://zenodo.org/api/records/15028005/files/nime2024_music_14_file01.mp3/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1186130"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 8,
+        "unique_downloads": 5,
+        "views": 4,
+        "unique_views": 4,
+        "version_downloads": 8,
+        "version_unique_downloads": 5,
+        "version_unique_views": 4,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-14T16:11:45.450083+00:00",
+      "modified": "2025-03-14T16:11:45.587265+00:00",
+      "id": 15026066,
+      "conceptrecid": "13819430",
+      "doi": "10.5281/zenodo.15026066",
+      "conceptdoi": "10.5281/zenodo.13819430",
+      "doi_url": "https://doi.org/10.5281/zenodo.15026066",
+      "metadata": {
+        "title": "Meson spectroscopy in the Sp(4) gauge theory with three antisymmetric fermions\u2014Analysis workflow",
+        "doi": "10.5281/zenodo.15026066",
+        "publication_date": "2025-03-14",
+        "description": "<p>The workflow in this repository performs the analyses presented in the paper <a href=\"https://doi.org/10.48550/arXiv.2412.01170\">Meson spectroscopy in the Sp(4) gauge theory with three antisymmetric fermions</a>.</p>\n<h2>Requirements</h2>\n<ul>\n<li>Conda, for example, installed from <a href=\"https://github.com/conda-forge/miniforge\">Miniforge</a></li>\n<li><a href=\"https://snakemake.github.io/\">Snakemake</a>, which may be installed using Conda</li>\n<li>LaTeX, for example, from <a href=\"https://tug.org/texlive/\">TeX Live</a></li>\n</ul>\n<h3>Notes for Apple silicon users</h3>\n<p>This project uses Julia, installed via a Conda environment, which at time of writing is not available on Apple silicon. To automate the environment setup process for the workflow, an x86-64 version of Snakemake must be used.</p>\n<p>To set this up, create a new x86-64 Conda environment with Snakemake, using</p>\n<pre><code>conda create -n snakemake_x86 -c conda-forge -c bioconda snakemake\n</code></pre>\n<p>then activate this and install Mamba. At time of writing, Snakemake is not compatible with versions of Mamba from 2.0.0 onwards, so this version must be constrained for the Conda integration to work correctly:</p>\n<pre><code>conda activate snakemake_x86\nconda install -c conda-forge 'mamba&lt;2.0.0'\n</code></pre>\n<p>With this environment active, the steps below involving running <code>snakemake</code> should work correctly.</p>\n<h2>Setup</h2>\n<ol>\n<li>\n<p>Install the dependencies above.</p>\n</li>\n<li>\n<p>Clone this repository including submodules (or download its Zenodo release and <code>unzip</code> it) and <code>cd</code> into it:</p>\n<pre><code>git clone --recurse-submodules https://github.com/telos-collaboration/antisymmetric_analysis_2024\ncd antisymmetric_analysis_2024\n</code></pre>\n</li>\n<li>\n<p>Either:</p>\n<ol>\n<li>\n<p>Download the <code>raw_data.zip</code> file from <a href=\"https://doi.org/10.5281/zenodo.13819562\">the data release</a>, and extract it into the root of the repository, or</p>\n</li>\n<li>\n<p>Download the <code>correlators_smear.h5</code>, <code>correlators_wall.h5</code>, <code>flows.h5</code>, and <code>hmc.h5</code> files from <a href=\"https://doi.org/10.5281/zenodo.13819562\">the data release</a>, and place them into the <code>data_assets</code> directory. Instruct Snakemake that these files are up to date by running</p>\n<pre><code>snakemake --touch data_assets/{correlators_smear,correlators_wall,flows,hmc}.h5\n</code></pre>\n</li>\n</ol>\n</li>\n<li>\n<p>Download the <code>ensemble_metadata.csv</code> file from <a href=\"https://doi.org/10.5281/zenodo.13819562\">the data release</a>, and place it into the <code>metadata</code> directory.</p>\n</li>\n</ol>\n<h2>Running the workflow</h2>\n<p>The workflow is run using Snakemake:</p>\n<pre><code>snakemake --cores 1 --use-conda\n</code></pre>\n<p>where the number <code>1</code> may be replaced by the number of CPU cores you wish to allocate to the computation.</p>\n<p>Snakemake will automatically download and install all required Python packages. This requires an Internet connection; if you are running in an HPC environment where you would need to run the workflow without Internet access, details on how to preinstall the environment can be found in the <a href=\"https://snakemake.readthedocs.io/en/stable/snakefiles/deployment.html\">Snakemake documentation</a>.</p>\n<p>Using <code>--cores 6</code> on a MacBook Pro with an M1 Pro processor, the analysis takes around 13 minutes starting from HDF5 files, and around 5 hours starting from raw data.</p>\n<h2>Output</h2>\n<p>Output plots, tables, and definitions are placed in the <code>assets/plots</code>, <code>assets/tables</code>, and <code>assets/definitions</code>directories.</p>\n<p>Output data assets are placed into the <code>data_assets</code> directory.</p>\n<p>Intermediary data are placed in the <code>intermediary_data</code> directory.</p>\n<h2>Reusability</h2>\n<p>This workflow is relatively tailored to the data which it was originally written to analyse. Additional ensembles may be added to the analysis by adding relevant files to the <code>raw_data</code> directory, and adding corresponding entries to the files in the <code>metadata</code> directory. Tools present in the <code>tools</code> directory may be used to help determine some inputs for the latter; for example, the plateaux positions and lengths. However, extending the analysis in this way has not been as fully tested as the rest of the workflow, and is not guaranteed to be trivial for someone not already familiar with the code.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Bennett, Ed",
+            "affiliation": "Swansea University",
+            "orcid": "0000-0002-1678-6701"
+          },
+          {
+            "name": "Hong, Deog Ki",
+            "affiliation": "Pusan National University",
+            "orcid": "0000-0002-3923-4184"
+          },
+          {
+            "name": "Hsiao, Ho",
+            "affiliation": "University of Tsukuba",
+            "orcid": "0000-0002-8522-5190"
+          },
+          {
+            "name": "Lee, Jong-Wan",
+            "affiliation": "Institute for Basic Science",
+            "orcid": "0000-0002-4616-2422"
+          },
+          {
+            "name": "Lin, C.-J. David",
+            "affiliation": "Chung Yuan Christian University",
+            "orcid": "0000-0003-3743-0840"
+          },
+          {
+            "name": "Lucini, Biagio",
+            "affiliation": "Swansea University",
+            "orcid": "0000-0001-8974-8266"
+          },
+          {
+            "name": "Piai, Maurizio",
+            "affiliation": "Swansea University",
+            "orcid": "0000-0002-2251-0111"
+          },
+          {
+            "name": "Vadacchino, Davide",
+            "affiliation": "University of Plymouth",
+            "orcid": "0000-0002-5783-5602"
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5281/zenodo.13819562",
+            "relation": "requires",
+            "resource_type": "dataset",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.48550/arXiv.2412.01170",
+            "relation": "isReferencedBy",
+            "resource_type": "publication-preprint",
+            "scheme": "doi"
+          }
+        ],
+        "version": "v1.1.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/telos-collaboration/antisymmetric_analysis_2024",
+          "code:programmingLanguage": [
+            {
+              "id": "python",
+              "title": {
+                "en": "Python"
+              }
+            },
+            {
+              "id": "snakemake",
+              "title": {
+                "en": "Snakemake"
+              }
+            },
+            {
+              "id": "julia",
+              "title": {
+                "en": "Julia"
+              }
+            }
+          ],
+          "code:developmentStatus": {
+            "id": "inactive",
+            "title": {
+              "en": "Inactive"
+            }
+          }
+        },
+        "resource_type": {
+          "title": "Workflow",
+          "type": "workflow"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "grants": [
+          {
+            "code": "EP/X017168/1",
+            "internal_id": "10.13039/100014013::EP/X017168/1",
+            "funder": {
+              "name": "UK Research and Innovation",
+              "doi": "10.13039/100014013",
+              "acronym": "UKRI"
+            },
+            "title": "Theoretical and Experimental Particle Physics at the Exascale Frontier",
+            "program": "EPSRC"
+          },
+          {
+            "code": "ST/X000648/1",
+            "internal_id": "10.13039/100014013::ST/X000648/1",
+            "funder": {
+              "name": "UK Research and Innovation",
+              "doi": "10.13039/100014013",
+              "acronym": "UKRI"
+            },
+            "title": "Theoretical Particle Physics and Cosmology",
+            "program": "STFC"
+          },
+          {
+            "code": "EP/V052489/1",
+            "internal_id": "10.13039/100014013::EP/V052489/1",
+            "funder": {
+              "name": "UK Research and Innovation",
+              "doi": "10.13039/100014013",
+              "acronym": "UKRI"
+            },
+            "title": "Reproducible analysis frameworks in Lattice Field Theory and STFC-enabled computational research in Wales",
+            "program": "EPSRC"
+          },
+          {
+            "code": "813942",
+            "internal_id": "10.13039/501100000780::813942",
+            "funder": {
+              "name": "European Commission",
+              "doi": "10.13039/501100000780",
+              "acronym": "EC"
+            },
+            "title": "European network for Particle physics, Lattice field theory and Extreme computing",
+            "acronym": "EuroPLEx",
+            "program": "H2020-EU.1.3.",
+            "url": "https://cordis.europa.eu/projects/813942"
+          },
+          {
+            "code": "ST/X000680/1",
+            "internal_id": "10.13039/100014013::ST/X000680/1",
+            "funder": {
+              "name": "UK Research and Innovation",
+              "doi": "10.13039/100014013",
+              "acronym": "UKRI"
+            },
+            "title": "Lattice investigations of strongly Interacting theories in the Standard Model and beyond.",
+            "program": "STFC"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 1,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "13819430"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Meson spectroscopy in the Sp(4) gauge theory with three antisymmetric fermions\u2014Analysis workflow",
+      "links": {
+        "self": "https://zenodo.org/api/records/15026066",
+        "self_html": "https://zenodo.org/records/15026066",
+        "doi": "https://doi.org/10.5281/zenodo.15026066",
+        "self_doi": "https://doi.org/10.5281/zenodo.15026066",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15026066",
+        "parent": "https://zenodo.org/api/records/13819430",
+        "parent_html": "https://zenodo.org/records/13819430",
+        "parent_doi": "https://doi.org/10.5281/zenodo.13819430",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13819430",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15026066/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15026066/sequence/default",
+        "files": "https://zenodo.org/api/records/15026066/files",
+        "media_files": "https://zenodo.org/api/records/15026066/media-files",
+        "archive": "https://zenodo.org/api/records/15026066/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15026066/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15026066/versions/latest",
+        "latest_html": "https://zenodo.org/records/15026066/latest",
+        "versions": "https://zenodo.org/api/records/15026066/versions",
+        "draft": "https://zenodo.org/api/records/15026066/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15026066/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15026066/access/links",
+        "access_grants": "https://zenodo.org/api/records/15026066/access/grants",
+        "access_users": "https://zenodo.org/api/records/15026066/access/users",
+        "access_request": "https://zenodo.org/api/records/15026066/access/request",
+        "access": "https://zenodo.org/api/records/15026066/access",
+        "communities": "https://zenodo.org/api/records/15026066/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15026066/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15026066/requests"
+      },
+      "updated": "2025-03-14T16:11:45.587265+00:00",
+      "recid": "15026066",
+      "revision": 4,
+      "files": [
+        {
+          "id": "91ef6e0b-1407-482a-8e1e-76520c56e6c2",
+          "key": "antisymmetric_analysis_2024.zip",
+          "size": 153696,
+          "checksum": "md5:a2450a93b0107095e64a3cd3c77a099c",
+          "links": {
+            "self": "https://zenodo.org/api/records/15026066/files/antisymmetric_analysis_2024.zip/content"
+          }
+        },
+        {
+          "id": "9510c6ae-a3b8-416a-9374-fa92cb8d2c47",
+          "key": "README.md",
+          "size": 4394,
+          "checksum": "md5:f55fabc23e32d5e5fa304782372f9132",
+          "links": {
+            "self": "https://zenodo.org/api/records/15026066/files/README.md/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "201137"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 24,
+        "unique_downloads": 23,
+        "views": 37,
+        "unique_views": 35,
+        "version_downloads": 7,
+        "version_unique_downloads": 7,
+        "version_unique_views": 5,
+        "version_views": 5
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-14T16:02:40.614720+00:00",
+      "modified": "2025-03-14T16:02:40.850696+00:00",
+      "id": 15025940,
+      "conceptrecid": "15025939",
+      "doi": "10.5281/zenodo.15025940",
+      "conceptdoi": "10.5281/zenodo.15025939",
+      "doi_url": "https://doi.org/10.5281/zenodo.15025940",
+      "metadata": {
+        "title": "The Allegorical Study of William Golding's Lord of the Flies and Its Significance",
+        "doi": "10.5281/zenodo.15025940",
+        "publication_date": "2025-03-10",
+        "description": "<p><span>In the words of Jesus in St. Mathew, 18:4, &ldquo;The greatest in the kingdom of heaven is the one who humbled himself and becomes like this child,&rdquo; childhood is presented as a state of innocent goodness, a state which may be regarded as the kingdom of heaven on earth. As adults, fallen from this happy state, we may hanker after a return to it and the possibility of such a conversion is held out to us by Jesus in the Biblical passage, St. Mathew, 18:3, &ldquo;I assure you that unless you change and become like children, you will never enter the Kingdom of Heaven.&rdquo; There is room for optimism about human nature of our Universe, for the speaker is the Creator and loving ruler of the Universe who came down to earth to suffer and die so that we might be redeemed or rescued from our wickedness and restored to the original purity and happiness as we see in children and remember as our experiences of childhood.</span></p>\n<p><span>But we live in a cruel world which can only be governed by malevolent demons whose delight is to torture us. If we wish to see an image of these dark gods or devils we need to look no further than children or our childhood, need only examine the ghastly and ferocious play of children, where we see how little devils torture and kill insects for fun, playing God with flies. From within and without we are beset by evil-in our human. The nature there is a terrifying propensity towards wanton cruelty which is evident even in children. There are number of occasions in the Bible which highlights that every inclination of man&rsquo;s heart is evil from childhood. David confesses before the Lord in Psalm, 51:5, &ldquo;I have been evil from the day I was born; from the time I was conceived I have been sinful.&rdquo;</span></p>\n<p><strong><span>Keywords:</span></strong><span> kingdom, humbled, conversion, nature, children.</span></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "1Devesh Rao Bouddha , 2Dr. M.S. Rathore",
+            "affiliation": "1Research Scholar, Deptt. of English Jiwaji University, Gwalior (M.P.)"
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "2456-6713",
+            "relation": "isSupplementTo",
+            "resource_type": "publication-article",
+            "scheme": "eissn"
+          }
+        ],
+        "dates": [
+          {
+            "type": "accepted",
+            "description": "OK"
+          }
+        ],
+        "language": "ang",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "03",
+          "pages": "9-14",
+          "title": "International Educational Applied Research Journal",
+          "volume": "09"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "2456-6713"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "2456-6713"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15025939"
+              }
+            }
+          ]
+        }
+      },
+      "title": "The Allegorical Study of William Golding's Lord of the Flies and Its Significance",
+      "links": {
+        "self": "https://zenodo.org/api/records/15025940",
+        "self_html": "https://zenodo.org/records/15025940",
+        "doi": "https://doi.org/10.5281/zenodo.15025940",
+        "self_doi": "https://doi.org/10.5281/zenodo.15025940",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15025940",
+        "parent": "https://zenodo.org/api/records/15025939",
+        "parent_html": "https://zenodo.org/records/15025939",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15025939",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15025939",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15025940/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15025940/sequence/default",
+        "files": "https://zenodo.org/api/records/15025940/files",
+        "media_files": "https://zenodo.org/api/records/15025940/media-files",
+        "archive": "https://zenodo.org/api/records/15025940/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15025940/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15025940/versions/latest",
+        "latest_html": "https://zenodo.org/records/15025940/latest",
+        "versions": "https://zenodo.org/api/records/15025940/versions",
+        "draft": "https://zenodo.org/api/records/15025940/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15025940/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15025940/access/links",
+        "access_grants": "https://zenodo.org/api/records/15025940/access/grants",
+        "access_users": "https://zenodo.org/api/records/15025940/access/users",
+        "access_request": "https://zenodo.org/api/records/15025940/access/request",
+        "access": "https://zenodo.org/api/records/15025940/access",
+        "communities": "https://zenodo.org/api/records/15025940/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15025940/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15025940/requests"
+      },
+      "updated": "2025-03-14T16:02:40.850696+00:00",
+      "recid": "15025940",
+      "revision": 4,
+      "files": [
+        {
+          "id": "579bdb37-ff1b-4e2c-834d-01fe7a9907ca",
+          "key": "03-Mar-2025.docx",
+          "size": 145056,
+          "checksum": "md5:4b280aecab0c3236cc8d0f077b734e4f",
+          "links": {
+            "self": "https://zenodo.org/api/records/15025940/files/03-Mar-2025.docx/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "504696"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 2,
+        "unique_downloads": 2,
+        "views": 3,
+        "unique_views": 3,
+        "version_downloads": 2,
+        "version_unique_downloads": 2,
+        "version_unique_views": 3,
+        "version_views": 3
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-14T15:16:14.525998+00:00",
+      "modified": "2025-03-14T15:16:14.734548+00:00",
+      "id": 15025646,
+      "conceptrecid": "15025645",
+      "doi": "10.5281/zenodo.15025646",
+      "conceptdoi": "10.5281/zenodo.15025645",
+      "doi_url": "https://doi.org/10.5281/zenodo.15025646",
+      "metadata": {
+        "title": "Antisemitism on X: A Dataset Tracking Trends in Counter-Speech and Israel-Related Discourse Before and After October 7",
+        "doi": "10.5281/zenodo.15025646",
+        "publication_date": "2025-03-14",
+        "description": "<p><strong># Social Media &amp; Hate Research Lab, Institute for the Study of Contemporary Antisemitism (ISCA) at Indiana University</strong></p>\n<p><strong>&nbsp;</strong></p>\n<h1>Dataset Description</h1>\n<p>This dataset comprises 292 Top Tweets containing the keyword &ldquo;Jews,&rdquo; spanning various topics related to Jews, Israel, and antisemitism from September 2023 to May 2024. The annotation process was carried out using our annotation portal (<a href=\"https://annotate.osome.iu.edu/\" target=\"_new\">https://annotate.osome.iu.edu/</a>), which allows for the annotation of live data in its full context&mdash;including images and threads. The dataset includes tweet ID numbers, usernames, creation dates, tweet text, and classifications that indicate whether a tweet is antisemitic and/or calls out antisemitism.</p>\n<p><span>&nbsp;</span></p>\n<p>&nbsp;</p>\n<h1>Sampling</h1>\n<p>The dataset consists of four subsamples from different time periods. The samples were manually compiled using X&rsquo;s Advanced Search tool with two newly registered accounts to ensure that no prior search history influenced the results. The Advanced Search feature allowed keyword searches within specific time frames, and the keyword &ldquo;Jews&rdquo; was used across four distinct sampling periods: Period 1: September 7&ndash;13, 2023; Period 2: October 7&ndash;13, 2023; Period 3: May 1&ndash;6, 2024; Period 4: September 7&ndash;13, 2024. For each period, we collected the first 75 Top Tweets, totaling 300 tweets, of which 292 remained live after annotation. To capture a more complete dataset, searches were adjusted to two-day intervals, starting with Top Tweets before switching to Latest Tweets with a minimum threshold of 200 views per tweet. However, due to platform inconsistencies, some tweets with fewer than 200 views were included while others with significantly higher view counts appeared lower in the ranking.<a title=\"\" href=\"#_ftn1\" name=\"_ftnref1\"><span><span><span>[1]</span></span></span></a></p>\n<h1>Annotation Process</h1>\n<p>Each sample was annotated by three independent annotators. The annotators were students of the class &ldquo;Israel on Social Media. Conceptions, Misconceptions, and Controversies&rdquo; at Indiana University in the fall of 2024. The course included training on recognizing online antisemitism.</p>\n<p>Annotations included:</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>Classification of tweets as antisemitic based on the Working Definition of Antisemitism by the International Holocaust Remembrance Alliance (IHRA).</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>Identification of tweets that denounce or call out antisemitism.</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>Thematic analysis and categorization of accusations against Israel.</p>\n<p>Discrepancies in classification of antisemitism and calling out antisemitism were resolved through discussion among annotators, which increases the annotation quality.<a title=\"\" href=\"#_ftn2\" name=\"_ftnref2\"><span><span><span>[2]</span></span></span></a> <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>\n<h1>File Description</h1>\n<p>The dataset is provided in CSV format, with each row representing a single tweet, including replies, quotes, and retweets. The file contains the following columns:</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>TweetID: Unique identifier for the tweet.</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>Username: Account that published the tweet.</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>Text: Full, unprocessed tweet text.</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>CreateDate: Date the tweet was posted.</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>Biased: Label indicating whether the tweet is antisemitic or non-antisemitic.</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>Keyword: The keyword used in the query, which may appear in the tweet text, a mention, or the username.</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>CallingOut: Tweets represent instances of \"calling out\" antisemitism</p>\n<p>&nbsp;</p>\n<h1>Observations</h1>\n<h2>1. Trends in Antisemitic and Counter-Speech Content</h2>\n<p>The dataset shows fluctuations in the prevalence of antisemitism and counter-speech in top tweets about Jews:<a title=\"\" href=\"#_ftn3\" name=\"_ftnref3\"><span><span><span>[3]</span></span></span></a></p>\n<p>&nbsp;</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>Before October 7, 2023, antisemitism in top tweets was already high, with over a quarter of tweets (25%+) classified as antisemitic. However, tweets calling out antisemitism were equally prevalent.</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>During the week after the Hamas attacks in Israel (October 7&ndash;13, 2023), the level of antisemitic tweets remained stable, but counter-speech increased to nearly 40% of tweets.</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>By May 2024, more than half of the tweets were antisemitic, while tweets denouncing antisemitism dropped to 12%.</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>In September 2024, antisemitism in top tweets had increased significantly compared to a year earlier (43%), yet counter-speech engagement also remained relatively high, making up one-third of all top tweets containing the word &ldquo;Jews&rdquo;.</p>\n<p>&nbsp;</p>\n<h2>2. Thematic Analysis</h2>\n<p>The topics covered in top tweets about Jews varied significantly across different periods:</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>Before October 7, 2023, discussions about Jews focused twice as much on general themes (e.g., religion, U.S. politics) compared to the Middle East conflict.</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>During the week following October 7, 75% of all top tweets were related to wars involving Israel, predominantly the war with Hamas.</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>One year later (May 2024), the war in Gaza remained the dominant theme but fell below 40% of tweets.</p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span>Notably, tweets covering anti-Israel protests increased significantly after October 7. While they accounted for only 6% of tweets before 10/7, in all subsequent sampled periods, their share more than doubled.</p>\n<p>A key discussion in early May 2024 centered around the Antisemitism Awareness Act, which was passed by the U.S. House of Representatives on May 1, 2024. Many tweets referenced the bill, including a widely circulated post by Republican Representative Marjorie Taylor Greene, which amassed nearly 5 million views.<span> <a title=\"\" href=\"#_ftn4\" name=\"_ftnref4\"><span><span>[4]</span></span></a></span> In her tweet, she explained her reasons for voting against the bill and made a statement that could be interpreted as echoing the antisemitic accusation that Jews were responsible for the death of Jesus.</p>\n<p>&nbsp;</p>\n<h1>Acknowledgements&nbsp;</h1>\n<p>We wish to acknowledge the Advanced Cyberinfrastructure Curriculum Fellows Program for their exceptional support, with particular appreciation to Yu Ma and Tony Walker for the outstanding resources and assistance they provided.</p>\n<p>This work used Jetestream2 at Indiana University through allocation HUM200003 from the Advanced Cyberinfrastructure Coordination Ecosystem: Services &amp; Support (ACCESS) program, which is supported by U.S. National Science Foundation grants #2138259, #2138286, #2138307, #2137603, and #2138296.<a title=\"\" href=\"#_ftn5\" name=\"_ftnref5\"><span><span><span>[5]</span></span></span></a></p>\n<div><br>\n\n<div>\n<p><a title=\"\" href=\"#_ftnref1\" name=\"_ftn1\"><span><span><span>[1]</span></span></span></a> Due to platform limitations, the Advanced Search option stopped functioning after 40&ndash;45 minutes, even when alternating between two newly registered accounts. After approximately 20 minutes of use, search functionality frequently ceased, requiring several hours of waiting before resuming data collection. This issue, combined with inconsistencies in the &ldquo;Top Tweets&rdquo; ranking, may have influenced tweet selection.</p>\n</div>\n<div>\n<p><a title=\"\" href=\"#_ftnref2\" name=\"_ftn2\"><span><span><span>[2]</span></span></span></a> <span>Gunther Jikeli et al., &ldquo;Differences between Antisemitic and Non-Antisemitic English Language Tweets,&rdquo; <em>Computational and Mathematical Organization Theory</em>, September 9, 2022, https://doi.org/10.1007/s10588-022-09363-2.</span></p>\n</div>\n<div>\n<p><a title=\"\" href=\"#_ftnref3\" name=\"_ftn3\"><span><span><span>[3]</span></span></span></a> Please find more details in the research report <span>Myles Behar et al., &ldquo;The Image of Israel on X and TikTok After 10/7. Research Report, December 2024&rdquo; (Research Lab Social Media &amp; Hate at the Institute for the Study of Contemporary Antisemitism at Indiana University, December 2024), https://isca.indiana.edu/publication-research/social-media-project/documents-soc-media-proj/research-report-2024-the-image-of-israel-on-social-media-after-10-7-1.pdf.</span></p>\n</div>\n<div>\n<p><a title=\"\" href=\"#_ftnref4\" name=\"_ftn4\"><span><span><span>[4]</span></span></span></a> Antisemitism Awareness Act. Roll Call 172, Bill Number: H. R. 6090, 118th Congress, 2nd Session,&rdquo; Office of the Clerk, U.S. House of Representatives, May 1, 2024, https://clerk.house.gov/Votes/2024172.</p>\n</div>\n<div>\n<p><a title=\"\" href=\"#_ftnref5\" name=\"_ftn5\"><span><span><span>[5]</span></span></span></a> Timothy J. Boerner et al., &ldquo;ACCESS: Advancing Innovation: NSF&rsquo;s Advanced Cyberinfrastructure Coordination Ecosystem: Services &amp; Support,&rdquo; in <em>Practice and Experience in Advanced Research Computing </em>(PEARC &rsquo;23: Practice and Experience in Advanced Research Computing, Portland OR USA: ACM, 2023), 173&ndash;76, https://doi.org/10.1145/3569951.3597559.</p>\n</div>\n</div>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Jikeli, Guenther",
+            "affiliation": "Indiana University",
+            "orcid": "0000-0002-6897-2565"
+          },
+          {
+            "name": "Miehling, Daniel",
+            "affiliation": "Indiana University",
+            "orcid": "0000-0002-8728-379X"
+          },
+          {
+            "name": "Soemer, Katharina",
+            "affiliation": "Goethe University Frankfurt",
+            "orcid": "0000-0003-2304-8106"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15025645"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Antisemitism on X: A Dataset Tracking Trends in Counter-Speech and Israel-Related Discourse Before and After October 7",
+      "links": {
+        "self": "https://zenodo.org/api/records/15025646",
+        "self_html": "https://zenodo.org/records/15025646",
+        "doi": "https://doi.org/10.5281/zenodo.15025646",
+        "self_doi": "https://doi.org/10.5281/zenodo.15025646",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15025646",
+        "parent": "https://zenodo.org/api/records/15025645",
+        "parent_html": "https://zenodo.org/records/15025645",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15025645",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15025645",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15025646/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15025646/sequence/default",
+        "files": "https://zenodo.org/api/records/15025646/files",
+        "media_files": "https://zenodo.org/api/records/15025646/media-files",
+        "archive": "https://zenodo.org/api/records/15025646/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15025646/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15025646/versions/latest",
+        "latest_html": "https://zenodo.org/records/15025646/latest",
+        "versions": "https://zenodo.org/api/records/15025646/versions",
+        "draft": "https://zenodo.org/api/records/15025646/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15025646/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15025646/access/links",
+        "access_grants": "https://zenodo.org/api/records/15025646/access/grants",
+        "access_users": "https://zenodo.org/api/records/15025646/access/users",
+        "access_request": "https://zenodo.org/api/records/15025646/access/request",
+        "access": "https://zenodo.org/api/records/15025646/access",
+        "communities": "https://zenodo.org/api/records/15025646/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15025646/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15025646/requests"
+      },
+      "updated": "2025-03-14T15:16:14.734548+00:00",
+      "recid": "15025646",
+      "revision": 4,
+      "files": [
+        {
+          "id": "e1df4a94-21fe-406d-8f08-e1787f4d2bc3",
+          "key": "dataset_14_03_25.csv",
+          "size": 93821,
+          "checksum": "md5:c24595353113e56b91b4c4023ea34b4e",
+          "links": {
+            "self": "https://zenodo.org/api/records/15025646/files/dataset_14_03_25.csv/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1187384"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 26,
+        "unique_downloads": 21,
+        "views": 24,
+        "unique_views": 22,
+        "version_downloads": 26,
+        "version_unique_downloads": 21,
+        "version_unique_views": 22,
+        "version_views": 24
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-14T14:44:23.308515+00:00",
+      "modified": "2025-03-14T14:46:00.240994+00:00",
+      "id": 15025529,
+      "conceptrecid": "15015686",
+      "doi": "10.5281/zenodo.15025529",
+      "conceptdoi": "10.5281/zenodo.15015686",
+      "doi_url": "https://doi.org/10.5281/zenodo.15025529",
+      "metadata": {
+        "title": "Iris",
+        "doi": "10.5281/zenodo.15025529",
+        "publication_date": "2025",
+        "description": "<h1>Artifact for ASPLOS 2026 Submission#135</h1>\n<h3>&nbsp;</h3>\n<h2><strong>Table of Contents</strong></h2>\n<ul>\n<li>Background</li>\n<li>Install</li>\n<li>Usage</li>\n</ul>\n<h2><strong>Background</strong></h2>\n<p><em><strong>Iris</strong></em> is a validation tool designed for Optimization Modulo Theories (OMT) solvers, such as Z3 and OptiMathSAT. It enables users to validating OMT solvers by transforming existing SMT files, parallelizing solver runs for multiple files, and experimenting with different theories, including Integer and Real.&nbsp;</p>\n<p>&nbsp;</p>\n<h2><strong>Install</strong></h2>\n<div>\n<div><strong>Pre-requisites</strong>: Ensure your system has the following dependencies installed for Iris to operate smoothly:</div>\n<br>\n<div>&nbsp;</div>\n<div>1. <strong>Python Packages</strong>: Certain functionalities of Aries require specific Python package. Install it via:</div>\n<div>\n<pre><code>pip install antlr4-python3-runtime==4.9.2</code></pre>\n</div>\n<div>2. <strong>Solvers</strong>: Direct interaction with the solvers is a cornerstone of Iris' testing process. Please build the solvers you wish to test, such as <a href=\"https://github.com/Z3Prover/z3\" target=\"_new\">Z3</a> and <a href=\"https://optimathsat.disi.unitn.it\">OptiMathSAT</a>, as per their installation manuals.</div>\n<div>3. <strong>SMT-LIB</strong>: Iris performs mutations on seed files to unearth bugs. These seeds can be generated by <a href=\"https://github.com/wintered/ET\">ET</a>.</div>\n<div>&nbsp;</div>\n</div>\n<h2><strong>Usage</strong></h2>\n<div>\n<div>&nbsp;</div>\n<div>&nbsp;</div>\n<div>Iris is executed via the command line with the following structure:</div>\n<div>\n<ul>\n<li>Navigate to Aries's source directory:</li>\n</ul>\n<div>\n<pre><code>cd Iris-v1.0/src</code></pre>\n</div>\n<ul>\n<li>To start validating with a solver, execute:</li>\n</ul>\n</div>\n<div>\n<pre><code>python3 __main__.py --seed_dir &lt;path_to_seed_files&gt; --solver &lt;z3|optimathsat&gt;\\<br> --solver_bin &lt;path_to_solver_executable&gt; --temp_dir &lt;path_to_temp_directory&gt;\\<br> --theory &lt;int|real&gt; --core_num &lt;number_of_cores&gt;</code></pre>\n</div>\n</div>\n<div>For example:</div>\n<div>&nbsp;</div>\n<div>To run Iris with Z3, using a sample directory and 4 CPU cores:</div>\n<div>\n<pre><code>python3 __main__.py --seed_dir samples/ --solver z3\\<br> --solver_bin /usr/local/bin/z3 --temp_dir ./temp --theory int --core_num 4</code></pre>\n</div>\n<div>\n<pre><br><br></pre>\n</div>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Anonymous",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 1,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15015686"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Iris",
+      "links": {
+        "self": "https://zenodo.org/api/records/15025529",
+        "self_html": "https://zenodo.org/records/15025529",
+        "doi": "https://doi.org/10.5281/zenodo.15025529",
+        "self_doi": "https://doi.org/10.5281/zenodo.15025529",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15025529",
+        "parent": "https://zenodo.org/api/records/15015686",
+        "parent_html": "https://zenodo.org/records/15015686",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15015686",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15015686",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15025529/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15025529/sequence/default",
+        "files": "https://zenodo.org/api/records/15025529/files",
+        "media_files": "https://zenodo.org/api/records/15025529/media-files",
+        "archive": "https://zenodo.org/api/records/15025529/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15025529/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15025529/versions/latest",
+        "latest_html": "https://zenodo.org/records/15025529/latest",
+        "versions": "https://zenodo.org/api/records/15025529/versions",
+        "draft": "https://zenodo.org/api/records/15025529/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15025529/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15025529/access/links",
+        "access_grants": "https://zenodo.org/api/records/15025529/access/grants",
+        "access_users": "https://zenodo.org/api/records/15025529/access/users",
+        "access_request": "https://zenodo.org/api/records/15025529/access/request",
+        "access": "https://zenodo.org/api/records/15025529/access",
+        "communities": "https://zenodo.org/api/records/15025529/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15025529/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15025529/requests"
+      },
+      "updated": "2025-03-14T14:46:00.240994+00:00",
+      "recid": "15025529",
+      "revision": 6,
+      "files": [
+        {
+          "id": "fea95246-da15-4c41-84db-f4c2d065433e",
+          "key": "Iris-1.0.zip",
+          "size": 2081800,
+          "checksum": "md5:c8b5413bf564d0e4c89454e98beca533",
+          "links": {
+            "self": "https://zenodo.org/api/records/15025529/files/Iris-1.0.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:09bb3ee87e3865c13dbabcbdbc23014727749c1a;origin=https://doi.org/10.5281/zenodo.15015686;visit=swh:1:snp:48cb4f893310308af33f195ace69269821b6e0d8;anchor=swh:1:rel:3dc05e25036524f699e588ee35c1ce772d8b488a;path=Iris-1.0"
+      },
+      "owners": [
+        {
+          "id": "251748"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 5,
+        "unique_downloads": 5,
+        "views": 11,
+        "unique_views": 8,
+        "version_downloads": 2,
+        "version_unique_downloads": 2,
+        "version_unique_views": 3,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-03-14T14:42:55.617706+00:00",
+      "modified": "2025-03-14T14:42:55.741140+00:00",
+      "id": 15025368,
+      "conceptrecid": "10785276",
+      "doi": "10.5281/zenodo.15025368",
+      "conceptdoi": "10.5281/zenodo.10785276",
+      "doi_url": "https://doi.org/10.5281/zenodo.15025368",
+      "metadata": {
+        "title": "ICON Mesh Splitter version 1.3 -  A program to create irregular computational meshes for ICON-O",
+        "doi": "10.5281/zenodo.15025368",
+        "publication_date": "2025-03-14",
+        "description": "<p>Icon Mesh Splitter (IMS) is a simple Linux console tool for generating meshes for the ICON-O ocean model<br>(Korn et al. 2022). The resulting NetCDF mesh file can be read and used directly by ICON-O.<br>In this version of the program, only global grids are generated. These are based on the ETOPO_2022 topography<br>(NOAA 2022) with manipulated values in the area of the southeastern North Sea to obtain a more<br>accurate land-sea mask.</p>\n<p>The other base is the icosahedron, a polyhedron formed by 20 equilateral triangles. This rather coarse<br>global mesh is refined using the bisectional method. Here, 3 new vertices are introduced at half the length<br>of the 3 sides of the triangle. If these three new vertices are connected by three new sides, 4 new equilateral<br>triangles are created from the old triangle.</p>\n<p>IMS always starts with a uniform icosahedral grid of the global sphere with a resolution of about 160 km.<br>This grid is created by a fivefold bisectional refinement of the original 20 sided icosahedron.<br>The number of cells in this grid is therefore 20*4*4*4*4*4 = 20480. This grid, with optionally removed land cells, is the<br>first mesh that the IMS offers, if the user does not wish to refine it further.</p>\n<p>However, the user must define a global matrix of the desired grid refinements using a so-called \"levelmap\".<br>With this, IMS can be instructed to refine the grid only regionally, and thus generates an irregular grid.</p>\n<p>In addition, the user can activate \"coastal refinement\" for the different refinement levels.</p>\n<p>You find more information about the mesh generation technique in Logemann et al. (2021).</p>\n<p>&nbsp;</p>\n<p>Korn, P., Br&uuml;ggemann, N., Jungclaus, J. H., Lorenz, S. J., Gutjahr, O., Haak, H., et al. (2022). ICON-O: The ocean<br>component of the ICON Earth system model&mdash;Global simulation characteristics and local telescoping capability. Journal<br>of Advances in Modeling Earth Systems, 14, e2021MS002952. https://doi.org/10.1029/2021MS002952</p>\n<p>Logemann, K., Linardakis, L., Korn, P., &amp; Schrum, C. (2021). Global tide simulations with ICON-O: Testing the model<br>performance on highly irregular meshes. Ocean Dynamics, 21(1), 43&ndash;57. https://doi.org/10.1007/s10236-020-01428-7</p>\n<p>NOAA National Centers for Environmental Information. (2022): ETOPO 2022 15 Arc-Second Global Relief Model.<br>NOAA National Centers for Environmental Information. DOI: 10.25921/fd45-gt74</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Logemann, Kai",
+            "affiliation": "Helmholtz-Zentrum Hereon",
+            "orcid": "0000-0002-7341-0073"
+          },
+          {
+            "name": "Klockmann, Marlene",
+            "affiliation": "Institute of Oceanography, University of Hamburg",
+            "orcid": "0000-0003-1012-830X"
+          }
+        ],
+        "references": [
+          "Logemann, K., Linardakis, L., Korn, P., & Schrum, C. (2021). Global tide simulations with ICON-O: Testing the model performance on highly irregular meshes. Ocean Dynamics, 21(1), 43\u201357. https://doi.org/10.1007/s10236-020-01428-7"
+        ],
+        "custom": {
+          "code:programmingLanguage": [
+            {
+              "id": "fortran_free_form",
+              "title": {
+                "en": "Fortran Free Form"
+              }
+            }
+          ],
+          "code:developmentStatus": {
+            "id": "active",
+            "title": {
+              "en": "Active"
+            }
+          }
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 4,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10785276"
+              }
+            }
+          ]
+        }
+      },
+      "title": "ICON Mesh Splitter version 1.3 -  A program to create irregular computational meshes for ICON-O",
+      "links": {
+        "self": "https://zenodo.org/api/records/15025368",
+        "self_html": "https://zenodo.org/records/15025368",
+        "doi": "https://doi.org/10.5281/zenodo.15025368",
+        "self_doi": "https://doi.org/10.5281/zenodo.15025368",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15025368",
+        "parent": "https://zenodo.org/api/records/10785276",
+        "parent_html": "https://zenodo.org/records/10785276",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10785276",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10785276",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15025368/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15025368/sequence/default",
+        "files": "https://zenodo.org/api/records/15025368/files",
+        "media_files": "https://zenodo.org/api/records/15025368/media-files",
+        "archive": "https://zenodo.org/api/records/15025368/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15025368/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15025368/versions/latest",
+        "latest_html": "https://zenodo.org/records/15025368/latest",
+        "versions": "https://zenodo.org/api/records/15025368/versions",
+        "draft": "https://zenodo.org/api/records/15025368/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15025368/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15025368/access/links",
+        "access_grants": "https://zenodo.org/api/records/15025368/access/grants",
+        "access_users": "https://zenodo.org/api/records/15025368/access/users",
+        "access_request": "https://zenodo.org/api/records/15025368/access/request",
+        "access": "https://zenodo.org/api/records/15025368/access",
+        "communities": "https://zenodo.org/api/records/15025368/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15025368/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15025368/requests"
+      },
+      "updated": "2025-03-14T14:42:55.741140+00:00",
+      "recid": "15025368",
+      "revision": 4,
+      "files": [
+        {
+          "id": "398748e1-6535-498a-910c-75075d17ce49",
+          "key": "ims1.3.zip",
+          "size": 8081647163,
+          "checksum": "md5:c46105b59ce88a53c1669cf61dabf17e",
+          "links": {
+            "self": "https://zenodo.org/api/records/15025368/files/ims1.3.zip/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1079365"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 28,
+        "unique_downloads": 26,
+        "views": 273,
+        "unique_views": 250,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 2,
+        "version_views": 2
+      },
+      "state": "done",
+      "submitted": true
+    }
+  ]
+}

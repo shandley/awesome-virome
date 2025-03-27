@@ -1,0 +1,83 @@
+name: Sync data.json from README
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'README.md'
+  workflow_dispatch:  # Allow manual triggering
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-data-json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Full history for better branch handling
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 # Add any other required packages
+          
+      - name: Update data.json from README
+        run: python update_data_json.py
+        
+      - name: Prepare changes
+        id: prepare
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data.json
+          
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+          else
+            # Create a unique branch name with timestamp
+            BRANCH_NAME="update-data-json-$(date +%Y%m%d-%H%M%S)"
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+            echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create Pull Request
+        if: steps.prepare.outputs.changes_detected == 'true'
+        id: create-pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Update data.json from README"
+          title: "Update data.json from README"
+          body: |
+            ## Automated PR to update data.json
+            
+            This PR updates the data.json file based on the current README content.
+            
+            Changes include:
+            - Regenerated data.json with the latest data from README
+            - Updated citation data with CrossRef fallback support
+            
+            Generated automatically by GitHub Actions workflow.
+          branch: ${{ steps.prepare.outputs.branch_name }}
+          base: main
+          
+      - name: Output PR URL
+        if: steps.prepare.outputs.changes_detected == 'true'
+        run: |
+          if [[ -n "${{ steps.create-pr.outputs.pull-request-url }}" ]]; then
+            echo "::notice::PR created successfully: ${{ steps.create-pr.outputs.pull-request-url }}"
+          else
+            echo "::warning::PR creation failed. Please check repository permissions."
+            echo "::notice::For now, you can create a PR manually at: https://github.com/$GITHUB_REPOSITORY/pull/new/${{ steps.prepare.outputs.branch_name }}"
+          fi

@@ -1,0 +1,527 @@
+name: Comprehensive Repository Testing
+
+on:
+  schedule:
+    # Weekly full check - Runs at 01:00 UTC on Sunday
+    - cron: '0 1 * * 0'
+    # Daily quick check - Run at staggered times to avoid concurrent load
+    - cron: '0 4 * * 1'  # Monday at 4:00 UTC
+    - cron: '30 4 * * 2'  # Tuesday at 4:30 UTC
+    - cron: '0 5 * * 3'  # Wednesday at 5:00 UTC
+    - cron: '30 5 * * 4'  # Thursday at 5:30 UTC
+    - cron: '0 6 * * 5'  # Friday at 6:00 UTC
+    - cron: '30 6 * * 6'  # Saturday at 6:30 UTC
+  workflow_dispatch: # Allows manual triggering
+    inputs:
+      full_test:
+        description: 'Run full test suite'
+        required: false
+        default: false
+        type: boolean
+      update_metrics:
+        description: 'Update metrics history'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  # Check GitHub API rate limits before running tests
+  rate-limit-check:
+    name: Check GitHub API Rate Limits
+    runs-on: ubuntu-latest
+    outputs:
+      rate_limits: ${{ steps.check_rate_limits.outputs.rate_limits }}
+      core_remaining: ${{ steps.check_rate_limits.outputs.core_remaining }}
+      search_remaining: ${{ steps.check_rate_limits.outputs.search_remaining }}
+    steps:
+      - name: Check rate limits
+        id: check_rate_limits
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          RATE_LIMIT_INFO=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/rate_limit)
+          CORE_LIMIT=$(echo $RATE_LIMIT_INFO | jq -r '.resources.core.limit')
+          CORE_REMAINING=$(echo $RATE_LIMIT_INFO | jq -r '.resources.core.remaining')
+          CORE_RESET=$(echo $RATE_LIMIT_INFO | jq -r '.resources.core.reset')
+          SEARCH_LIMIT=$(echo $RATE_LIMIT_INFO | jq -r '.resources.search.limit')
+          SEARCH_REMAINING=$(echo $RATE_LIMIT_INFO | jq -r '.resources.search.remaining')
+          SEARCH_RESET=$(echo $RATE_LIMIT_INFO | jq -r '.resources.search.reset')
+          
+          CORE_RESET_TIME=$(date -d @$CORE_RESET)
+          SEARCH_RESET_TIME=$(date -d @$SEARCH_RESET)
+          
+          echo "Core Rate Limit: $CORE_REMAINING/$CORE_LIMIT (resets at $CORE_RESET_TIME)"
+          echo "Search Rate Limit: $SEARCH_REMAINING/$SEARCH_LIMIT (resets at $SEARCH_RESET_TIME)"
+          
+          # Save outputs
+          RATE_LIMITS="Core: $CORE_REMAINING/$CORE_LIMIT, Search: $SEARCH_REMAINING/$SEARCH_LIMIT"
+          echo "rate_limits=$RATE_LIMITS" >> $GITHUB_OUTPUT
+          echo "core_remaining=$CORE_REMAINING" >> $GITHUB_OUTPUT
+          echo "search_remaining=$SEARCH_REMAINING" >> $GITHUB_OUTPUT
+          
+          # Warn if limits are low
+          if [ $CORE_REMAINING -lt 100 ]; then
+            echo "::warning::Low GitHub API rate limit: Only $CORE_REMAINING/$CORE_LIMIT core requests remaining"
+          fi
+          
+          if [ $SEARCH_REMAINING -lt 5 ]; then
+            echo "::warning::Low GitHub API search rate limit: Only $SEARCH_REMAINING/$SEARCH_LIMIT search requests remaining"
+          fi
+
+  link-checker:
+    name: Check Links
+    runs-on: ubuntu-latest
+    needs: rate-limit-check
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Link Checker
+        uses: lycheeverse/lychee-action@v1.9.0
+        with:
+          args: --verbose --no-progress --exclude-mail --timeout 30 --max-concurrency 1 --accept 403,429 README.md
+          fail: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Create Link Check Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: link-check-report
+          path: ./lychee/out.md
+
+  validate-data:
+    name: Validate Data Structure
+    runs-on: ubuntu-latest
+    continue-on-error: true  # Allow this job to succeed even with schema issues
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install jsonschema
+
+      - name: Check if schema file exists
+        id: check_schema
+        run: |
+          if [ -f "scripts/schema.json" ]; then
+            echo "schema_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "schema_exists=false" >> $GITHUB_OUTPUT
+            echo "Schema file not found, skipping validation"
+          fi
+
+      - name: Validate data.json against schema
+        if: steps.check_schema.outputs.schema_exists == 'true'
+        run: |
+          python -c "import jsonschema, json; jsonschema.validate(json.load(open('data.json', encoding='utf-8')), json.load(open('scripts/schema.json', encoding='utf-8')))" || echo "Schema validation issues found but continuing"
+
+  # Performance benchmarking to catch performance regressions
+  performance-benchmarking:
+    name: Performance Benchmarking
+    runs-on: ubuntu-latest
+    outputs:
+      benchmark_results: ${{ steps.run_benchmarks.outputs.benchmark_results }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests jsonschema
+
+      - name: Run benchmarks
+        id: run_benchmarks
+        run: |
+          echo "Running performance benchmarks..."
+          
+          # Benchmark data.json loading time
+          DATA_LOAD_TIME=$(python -c "
+          import timeit, json
+          result = timeit.timeit(\"json.load(open('data.json', encoding='utf-8'))\", setup=\"import json\", number=10)
+          print(f'{result/10:.4f}')  # Average time in seconds
+          ")
+          echo "Data loading time: ${DATA_LOAD_TIME}s (avg of 10 runs)"
+          
+          # Benchmark README parsing time
+          README_PARSE_TIME=$(python -c "
+          import timeit, re
+          result = timeit.timeit(\"re.findall(r'## (.*?)\\\\n', content)\", setup=\"import re; content = open('README.md', encoding='utf-8').read()\", number=10)
+          print(f'{result/10:.4f}')  # Average time in seconds
+          ")
+          echo "README parsing time: ${README_PARSE_TIME}s (avg of 10 runs)"
+          
+          # Store results as output
+          BENCHMARK_RESULTS="Data load: ${DATA_LOAD_TIME}s, README parse: ${README_PARSE_TIME}s"
+          echo "benchmark_results=$BENCHMARK_RESULTS" >> $GITHUB_OUTPUT
+          
+          # Add benchmark results to job summary
+          echo "## Performance Benchmark Results" >> $GITHUB_STEP_SUMMARY
+          echo "| Operation | Time (seconds) |" >> $GITHUB_STEP_SUMMARY
+          echo "| --- | --- |" >> $GITHUB_STEP_SUMMARY
+          echo "| Data.json load | ${DATA_LOAD_TIME} |" >> $GITHUB_STEP_SUMMARY
+          echo "| README parse | ${README_PARSE_TIME} |" >> $GITHUB_STEP_SUMMARY
+
+  content-verification:
+    name: Verify README Content
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Verify README content matches data.json
+        run: python scripts/verify_readme_content.py
+        
+      - name: Check for duplicates in README
+        run: python scripts/verify_readme_content.py --check-duplicates
+
+  # Enhanced documentation validation
+  documentation-validation:
+    name: Documentation Validation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests markdown linkify-it-py
+
+      - name: Verify README structure
+        run: |
+          python -c "
+          import re, sys
+          readme = open('README.md', encoding='utf-8').read()
+          
+          # Check required sections
+          required_sections = ['# Awesome-Virome', '## Contents', '## License', '## Contributing']
+          missing_sections = []
+          for section in required_sections:
+              if section not in readme:
+                  missing_sections.append(section)
+          
+          if missing_sections:
+              print(f'ERROR: Missing required sections in README: {missing_sections}')
+              sys.exit(1)
+          
+          # Check section ordering
+          headings = re.findall(r'^(#+ .+)$', readme, re.MULTILINE)
+          if len(headings) < 3:
+              print('ERROR: README does not have enough headings')
+              sys.exit(1)
+              
+          # Check that first heading is the title
+          if not headings[0].startswith('# Awesome-Virome'):
+              print('ERROR: First heading should be the repository title')
+              sys.exit(1)
+          
+          # Verify Contents section exists and is near the top
+          contents_pos = next((i for i, h in enumerate(headings) if 'Contents' in h), None)
+          if contents_pos is None or contents_pos > 3:
+              print('ERROR: Contents section missing or not near the top of the README')
+              sys.exit(1)
+          
+          print('README structure validation passed')
+          "
+
+      - name: Check for orphaned links
+        run: |
+          python -c "
+          import re, sys
+          readme = open('README.md', encoding='utf-8').read()
+          
+          # Find all link references
+          link_refs = set(re.findall(r'\\[([^\\[\\]]+)\\]\\[([^\\[\\]]+)\\]', readme))
+          link_defs = set(re.findall(r'\\[([^\\[\\]]+)\\]:\\s*(http[s]?://[^\\s]+)', readme))
+          
+          # Extract reference IDs
+          ref_ids = {ref_id for _, ref_id in link_refs}
+          def_ids = {def_id for def_id, _ in link_defs}
+          
+          # Find orphaned references or definitions
+          orphaned_refs = ref_ids - def_ids
+          orphaned_defs = def_ids - ref_ids
+          
+          if orphaned_refs:
+              print(f'WARNING: Found link references without definitions: {orphaned_refs}')
+          
+          if orphaned_defs:
+              print(f'WARNING: Found link definitions not used: {orphaned_defs}')
+          
+          print('Link reference check completed')
+          "
+
+      - name: Validate workflow documentation
+        if: hashFiles('.github/workflows/README.md') != ''
+        run: |
+          python -c "
+          import re, sys, os
+          
+          # Check if workflows README exists
+          if not os.path.exists('.github/workflows/README.md'):
+              print('No workflows README found')
+              sys.exit(0)
+              
+          workflow_readme = open('.github/workflows/README.md', encoding='utf-8').read()
+          
+          # Get list of actual workflow files
+          workflow_files = [f for f in os.listdir('.github/workflows') if f.endswith('.yml')]
+          
+          # Check if all workflows are documented
+          missing_docs = []
+          for workflow in workflow_files:
+              workflow_name = workflow.replace('.yml', '')
+              if workflow_name not in workflow_readme:
+                  missing_docs.append(workflow)
+          
+          if missing_docs:
+              print(f'WARNING: The following workflows are not documented in .github/workflows/README.md: {missing_docs}')
+          else:
+              print('All workflows are documented')
+          "
+
+  repo-metadata:
+    name: Check Repository Metadata
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Verify repository metadata
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/verify_repo_metadata.py
+
+  version-check:
+    name: Check Version Information
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Check version formatting
+        run: python scripts/check_version_info.py
+
+  workflow-validation:
+    name: Validate Workflow Definitions
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 0 * * 0' || github.event.inputs.full_test == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Validate workflow definitions
+        run: python scripts/validate_workflow_definitions.py
+
+  cross-platform-checks:
+    name: Cross-Platform Testing
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ['3.8', '3.10']
+    
+    if: ${{ github.event_name == 'schedule' && github.event.schedule == '0 0 * * 0' || github.event.inputs.full_test == 'true' }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests jsonschema
+
+      - name: Run basic tests
+        run: |
+          python -c "import json; json.load(open('data.json', encoding='utf-8'))"
+          python -c "import re; import os; content = open('README.md', encoding='utf-8').read(); assert 'Awesome-Virome' in content, 'README missing title'"
+
+  code-quality:
+    name: Code Quality Checks
+    runs-on: ubuntu-latest
+    continue-on-error: true  # Allow this job to succeed even with code quality issues
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 black
+
+      - name: Run flake8
+        run: flake8 --max-line-length=100 --exclude=.git,__pycache__,*.md,*.json --ignore=E501,E203,W503,E402 update_check.py scripts/ || echo "Flake8 issues found but continuing"
+
+      - name: Check formatting with black
+        run: black --check --diff update_check.py scripts/ || echo "Black formatting issues found but continuing"
+        
+  metrics-history:
+    name: Update Metrics History
+    runs-on: ubuntu-latest
+    needs: [performance-benchmarking, link-checker, validate-data, content-verification, documentation-validation]
+    if: ${{ always() && (github.event_name == 'schedule' || github.event.inputs.update_metrics == 'true') }}
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          
+      - name: Check if metrics-history branch exists
+        id: check_branch
+        run: |
+          if git ls-remote --heads origin metrics-history | grep metrics-history; then
+            echo "Branch exists"
+            echo "branch_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Branch does not exist"
+            echo "branch_exists=false" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Create metrics-history branch if it doesn't exist
+        if: steps.check_branch.outputs.branch_exists == 'false'
+        run: |
+          git checkout -b metrics-history
+          mkdir -p metrics_history/charts
+          touch metrics_history/charts/.nojekyll
+          echo "# Repository Metrics" > metrics_history/README.md
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add metrics_history/
+          git commit -m "Initialize metrics-history branch"
+          git push -u origin metrics-history
+          
+      - name: Checkout repository (metrics-history branch)
+        uses: actions/checkout@v4
+        with:
+          ref: metrics-history
+          fetch-depth: 1
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          
+      - name: Download link checker artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: link-check-report
+          path: ./lychee/
+        continue-on-error: true
+        
+      - name: Checkout main for scripts
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-repo
+          
+      - name: Copy scripts to metrics branch
+        run: |
+          mkdir -p .github/scripts
+          cp main-repo/.github/scripts/store_metrics_history.py .github/scripts/
+          cp main-repo/.github/scripts/generate_metrics_charts.py .github/scripts/
+          chmod +x .github/scripts/store_metrics_history.py
+          chmod +x .github/scripts/generate_metrics_charts.py
+          
+      - name: Update metrics history
+        env:
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          BENCHMARK_RESULTS: ${{ needs.performance-benchmarking.outputs.benchmark_results || 'Data load: 0.0s, README parse: 0.0s' }}
+          WORKFLOW_STATUS: ${{ job.status }}
+          LINK_REPORT_PATH: "./lychee/out.md"
+        run: |
+          .github/scripts/store_metrics_history.py
+          
+      - name: Generate metrics visualizations
+        run: |
+          .github/scripts/generate_metrics_charts.py
+          
+      - name: Configure GitHub Pages
+        run: |
+          # Create a .nojekyll file to disable GitHub Pages Jekyll processing
+          touch metrics_history/charts/.nojekyll
+          
+          # Create CNAME file if needed for custom domain
+          # echo "metrics.your-domain.com" > metrics_history/charts/CNAME
+          
+      - name: Push changes and deploy to GitHub Pages
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add metrics_history/
+          git commit -m "Update metrics history - Run ${{ github.run_id }}" || echo "No changes to commit"
+          git push

@@ -1,0 +1,176 @@
+name: PubMed Citations Collection
+
+on:
+  schedule:
+    # Run weekly on Saturday at 04:00 UTC (after cache warming at 01:00)
+    - cron: "0 4 * * 6"
+    # Run monthly on 4th of the month at 10:00 UTC (after cache warming)
+    - cron: "0 10 4 * *"
+  workflow_dispatch:
+    inputs:
+      force_refresh:
+        description: 'Force refresh of all citation data'
+        required: false
+        default: false
+        type: boolean
+      trigger_academic_impact:
+        description: 'Trigger academic impact workflow after completion'
+        required: false
+        default: true
+        type: boolean
+
+# Permissions needed for creating and managing PRs
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  warm-cache-for-pubmed:
+    uses: ./.github/workflows/cache-warming.yml
+    with:
+      scope: 'important'
+    secrets: inherit
+
+  collect-pubmed-citations:
+    needs: warm-cache-for-pubmed
+    runs-on: ubuntu-latest
+    outputs:
+      pubmed_data_updated: ${{ steps.commit.outputs.changes_detected }}
+    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # Fetch all history for proper branch creation
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests PyGithub pyyaml
+      - name: Monitor cache status before collection
+        run: |
+          python scripts/monitor_cache.py --summary > cache_before.txt
+      
+      - name: Collect PubMed citation data
+        run: python scripts/pubmed_citations.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NCBI_API_KEY: ${{ secrets.NCBI_API_KEY }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
+      
+      - name: Monitor cache status after collection
+        run: |
+          python scripts/monitor_cache.py --summary > cache_after.txt
+      
+      - name: Validate data integrity
+        run: |
+          python scripts/verify_repo_metadata.py
+          python scripts/verify_readme_content.py
+      
+      - name: Update overall data.json with citation info
+        run: python update_data_json.py --include-metadata --include-pubmed
+      
+      - name: Generate summary report
+        run: |
+          echo "# PubMed Citations Collection Report" > pubmed_report.md
+          echo "Run completed at: $(date)" >> pubmed_report.md
+          echo "\n## Collection Summary" >> pubmed_report.md
+          jq '.' metadata/pubmed_citations/summary.json >> pubmed_report.md
+          echo "\n## Cache Impact" >> pubmed_report.md
+          echo "### Before collection:" >> pubmed_report.md
+          cat cache_before.txt >> pubmed_report.md
+          echo "\n### After collection:" >> pubmed_report.md
+          cat cache_after.txt >> pubmed_report.md
+      
+      - name: Upload report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pubmed-citations-report
+          path: |
+            pubmed_report.md
+            pubmed_citations.log
+      
+      - name: Prepare changes
+        id: commit
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data.json metadata/
+          # Add citations.md if it exists
+          if [ -f citations.md ]; then
+            git add citations.md
+          fi
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+          else
+            # Create a unique branch name with timestamp
+            BRANCH_NAME="pubmed-update-$(date +%Y%m%d-%H%M%S)"
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+            echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create Pull Request
+        if: steps.commit.outputs.changes_detected == 'true'
+        id: create-pr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          # Use PAT_TOKEN if available, otherwise fall back to GITHUB_TOKEN
+          token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
+          commit-message: Update PubMed citation information
+          title: Update PubMed citation information
+          body: |
+            ## Automated PR with PubMed citation updates
+            
+            This PR updates the PubMed citation information based on the latest collection.
+            
+            Changes include:
+            - Updated PubMed citation data in metadata directory
+            - Updated data.json with the latest PubMed information
+            - Updated citations.md if present
+            
+            Generated automatically by GitHub Actions workflow.
+          branch: ${{ steps.commit.outputs.branch_name }}
+          base: main
+          delete-branch: false
+      
+      - name: PR Creation Result
+        if: steps.commit.outputs.changes_detected == 'true'
+        run: |
+          if [[ -n "${{ steps.create-pr.outputs.pull-request-url }}" ]]; then
+            echo "::notice::PR created successfully: ${{ steps.create-pr.outputs.pull-request-url }}"
+            # Store PR URL for use in trigger-academic-impact job
+            echo "pr_url=${{ steps.create-pr.outputs.pull-request-url }}" >> $GITHUB_OUTPUT
+          else
+            echo "::warning::PR creation failed. You need to configure one of the following:"
+            echo "::warning::1. Add a Personal Access Token (PAT) with 'repo' scope as a repository secret named 'PAT_TOKEN'"
+            echo "::warning::2. Enable 'Allow GitHub Actions to create and approve pull requests' in repository Settings > Actions > General"
+            
+            # Provide manual PR creation URL as fallback
+            echo "::notice::For now, you can create a PR manually at: https://github.com/$GITHUB_REPOSITORY/pull/new/${{ steps.commit.outputs.branch_name }}"
+          fi
+  
+  trigger-academic-impact:
+    needs: collect-pubmed-citations
+    if: |
+      needs.collect-pubmed-citations.outputs.changes_detected == 'true' &&
+      ((github.event_name == 'workflow_dispatch' && github.event.inputs.trigger_academic_impact == 'true') ||
+      (github.event_name == 'schedule' && github.event.schedule == '0 12 4 * *'))
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Trigger academic impact workflow
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: update-repos.yml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          inputs: '{"update_type": "academic_impact"}'
+          
+      - name: Log academic impact trigger
+        run: |
+          echo "::notice::Academic Impact workflow triggered. After creating the PR at ${{ needs.collect-pubmed-citations.outputs.pr_create_url }}, you may want to run the Academic Impact workflow again."

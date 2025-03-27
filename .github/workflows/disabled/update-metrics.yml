@@ -1,0 +1,95 @@
+name: Update Repository Metrics
+
+on:
+  workflow_dispatch: # Manual trigger only
+    inputs:
+      regenerate_charts:
+        description: 'Regenerate all charts without new data'
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  update-metrics:
+    name: Update Metrics History
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          
+      - name: Check if metrics-history branch exists
+        id: check_branch
+        run: |
+          if git ls-remote --heads origin metrics-history | grep metrics-history; then
+            echo "Branch exists"
+            echo "branch_exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "Branch does not exist"
+            echo "branch_exists=false" >> $GITHUB_OUTPUT
+          fi
+          
+      - name: Create metrics-history branch if it doesn't exist
+        if: steps.check_branch.outputs.branch_exists == 'false'
+        run: |
+          git checkout -b metrics-history
+          mkdir -p metrics_history/charts
+          touch metrics_history/charts/.nojekyll
+          echo "# Repository Metrics" > metrics_history/README.md
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add metrics_history/
+          git commit -m "Initialize metrics-history branch"
+          git push -u origin metrics-history
+          
+      - name: Checkout metrics-history branch
+        uses: actions/checkout@v4
+        with:
+          ref: metrics-history
+          fetch-depth: 1
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Checkout main for scripts
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-repo
+          
+      - name: Copy scripts to metrics branch
+        run: |
+          mkdir -p .github/scripts
+          cp main-repo/.github/scripts/store_metrics_history.py .github/scripts/
+          cp main-repo/.github/scripts/generate_metrics_charts.py .github/scripts/
+          chmod +x .github/scripts/store_metrics_history.py
+          chmod +x .github/scripts/generate_metrics_charts.py
+          
+      - name: Update metrics (if not just regenerating)
+        if: ${{ github.event.inputs.regenerate_charts == 'false' }}
+        env:
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          BENCHMARK_RESULTS: "Data load: 0.0s, README parse: 0.0s"
+          WORKFLOW_STATUS: "success"
+        run: |
+          .github/scripts/store_metrics_history.py
+          
+      - name: Generate metrics visualizations
+        run: |
+          .github/scripts/generate_metrics_charts.py
+          
+      - name: Configure GitHub Pages
+        run: |
+          # Create a .nojekyll file to disable GitHub Pages Jekyll processing
+          touch metrics_history/charts/.nojekyll
+          
+      - name: Push changes
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add metrics_history/
+          git commit -m "Update metrics visualizations - Run ${{ github.run_id }}" || echo "No changes to commit"
+          git push

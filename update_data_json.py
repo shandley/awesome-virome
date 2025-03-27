@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """
 Script to extract tool information from README.md and update data.json.
+Can also incorporate enhanced metadata from the metadata directory.
 """
 
 import re
 import json
 import logging
+import argparse
 from pathlib import Path
+from datetime import datetime
 
 # Configure logging
 logging.basicConfig(
@@ -28,7 +31,8 @@ def load_data_json(data_json_path):
             "nodes": [],
             "links": [],
             "categories": [],
-            "languages": []
+            "languages": [],
+            "last_updated": datetime.now().isoformat()
         }
 
 def extract_tools_from_readme(readme_path):
@@ -39,7 +43,8 @@ def extract_tools_from_readme(readme_path):
     # Regular expressions to extract categories, subcategories, and tools
     section_pattern = r'^## ([\w\s&\-]+)$'
     subsection_pattern = r'^### ([\w\s&\-]+)$'
-    tool_pattern = r'- \[([\w\s\-\.]+)\]\((https?://[^\s)]+)\) - (.*?)(?:$|\n)'
+    # Modified pattern to be more permissive with names and capture the full line
+    tool_pattern = r'- \[([^\]]+)\]\((https?://[^\s)]+)\)(.+?)(?:$|\n)'
     
     # Additional pattern to extract metadata tags
     metadata_pattern = r'\[([\w\s]+)\]'
@@ -67,10 +72,17 @@ def extract_tools_from_readme(readme_path):
         if tool_match and current_section and current_section not in ["Contents", "Contributing", "License"]:
             name = tool_match.group(1)
             url = tool_match.group(2)
-            description = tool_match.group(3).strip()
+            remaining_text = tool_match.group(3).strip()
+            
+            # Extract description - often after a dash
+            description = ""
+            if " - " in remaining_text:
+                description = remaining_text.split(" - ", 1)[1].strip()
+            else:
+                description = remaining_text
             
             # Extract language and package manager from metadata
-            metadata_tags = re.findall(metadata_pattern, line)
+            metadata_tags = re.findall(metadata_pattern, remaining_text)
             language = None
             package_manager = None
             
@@ -80,6 +92,7 @@ def extract_tools_from_readme(readme_path):
                 elif tag in ["pip", "conda", "bioconda", "npm", "cargo", "source"]:
                     package_manager = tag
             
+            logger.debug(f"Extracted tool: {name} ({url})")
             tools_data.append({
                 "name": name,
                 "url": url,
@@ -104,8 +117,54 @@ def get_subcategory_id(subcategory):
     """Generate a subcategory ID from the subcategory name."""
     return f"subcategory-{subcategory.replace(' ', '-')}"
 
-def update_data_json(data, tools_data):
-    """Update data.json with extracted tool information."""
+def load_enhanced_metadata():
+    """Load enhanced metadata from the metadata directory."""
+    metadata_dir = Path(__file__).parent / "metadata"
+    summary_path = metadata_dir / "summary.json"
+    
+    if not summary_path.exists():
+        logger.warning(f"Metadata summary file not found at {summary_path}")
+        return {}
+    
+    try:
+        with open(summary_path, 'r', encoding='utf-8') as f:
+            summary = json.load(f)
+        
+        # Create a dictionary mapping URLs to metadata
+        metadata_by_url = {}
+        for repo in summary.get("repositories", []):
+            if "url" in repo:
+                metadata_by_url[repo["url"]] = repo
+                logger.info(f"Added metadata for URL: {repo['url']}")
+        
+        return metadata_by_url
+    except Exception as e:
+        logger.error(f"Error loading enhanced metadata: {e}")
+        return {}
+
+def sanitize_repo_name(repo_name):
+    """Convert repo name to a valid filename."""
+    sanitized = re.sub(r'[^\w\-\.]', '_', repo_name)
+    return sanitized
+
+def load_individual_metadata(repo_name, repo_url):
+    """Load detailed metadata for a specific repository."""
+    metadata_dir = Path(__file__).parent / "metadata"
+    sanitized_name = sanitize_repo_name(repo_name)
+    file_path = metadata_dir / f"{sanitized_name}.json"
+    
+    if not file_path.exists():
+        return None
+    
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except Exception as e:
+        logger.warning(f"Error loading metadata for {repo_name}: {e}")
+        return None
+
+def update_data_json(data, tools_data, include_metadata=False):
+    """Update data.json with extracted tool information and optional enhanced metadata."""
     # Track existing tools for preservation of data
     existing_nodes_by_id = {node["id"]: node for node in data.get("nodes", [])}
     updated_node_ids = set()
@@ -125,6 +184,12 @@ def update_data_json(data, tools_data):
             all_subcategories[tool["subcategory"]] = tool["category"]
         if tool["language"]:
             all_languages.add(tool["language"])
+    
+    # Load enhanced metadata if requested
+    enhanced_metadata = {}
+    if include_metadata:
+        enhanced_metadata = load_enhanced_metadata()
+        logger.info(f"Loaded enhanced metadata for {len(enhanced_metadata)} repositories")
     
     # Add category nodes
     for category in sorted(all_categories):
@@ -176,6 +241,9 @@ def update_data_json(data, tools_data):
             "value": 1
         })
     
+    # Count of metadata matches
+    metadata_matches = 0
+    
     # Add tool nodes
     for tool in tools_data:
         tool_id = get_tool_id(tool["name"])
@@ -212,6 +280,59 @@ def update_data_json(data, tools_data):
             node_data["size"] = 10
             node_data["color"] = "#198754"  # Default color
         
+        # Add enhanced metadata if available
+        logger.info(f"Checking metadata for tool: {tool['name']} ({tool['url']})")
+        if include_metadata and tool["url"] in enhanced_metadata:
+            logger.info(f"Found enhanced metadata for {tool['name']} ({tool['url']})")
+            metadata_matches += 1
+            meta = enhanced_metadata[tool["url"]]
+            
+            # Add basic metadata from summary
+            node_data["stars"] = meta.get("stars", node_data.get("stars", 0))
+            node_data["forks"] = meta.get("forks", 0)
+            node_data["open_issues"] = meta.get("open_issues", 0)
+            node_data["license"] = meta.get("license")
+            node_data["topics"] = meta.get("topics", [])
+            node_data["lastUpdated"] = meta.get("updated_at")
+            node_data["createdAt"] = meta.get("created_at")
+            node_data["latestRelease"] = meta.get("latest_release")
+            node_data["languages"] = meta.get("languages", {})
+            
+            # If language wasn't set in README, get it from metadata
+            if not node_data.get("language") and meta.get("languages"):
+                # For GitHub, languages is a dict with language name as key
+                if isinstance(meta.get("languages"), dict):
+                    languages = list(meta.get("languages").keys())
+                    if languages:
+                        primary_language = languages[0]
+                        node_data["language"] = primary_language
+                        all_languages.add(primary_language)
+                    node_data["all_languages"] = languages
+                # For others, it might be a simple string
+                elif isinstance(meta.get("languages"), str):
+                    node_data["language"] = meta.get("languages")
+                    all_languages.add(meta.get("languages"))
+            
+            # Load full metadata for additional details
+            detailed_meta = load_individual_metadata(tool["name"], tool["url"])
+            if detailed_meta:
+                # Add any additional fields from detailed metadata that might be useful
+                node_data["provider"] = detailed_meta.get("provider")
+                node_data["repo_path"] = detailed_meta.get("repo_path")
+                node_data["is_archived"] = detailed_meta.get("is_archived", False)
+                
+                # Adjust node size based on popularity
+                stars = node_data.get("stars", 0) or 0
+                if stars:
+                    if stars > 500:
+                        node_data["size"] = 25
+                    elif stars > 100:
+                        node_data["size"] = 20
+                    elif stars > 50:
+                        node_data["size"] = 15
+                    else:
+                        node_data["size"] = 10
+        
         new_nodes.append(node_data)
         
         # Add link between tool and category/subcategory
@@ -230,11 +351,14 @@ def update_data_json(data, tools_data):
                 "value": 1
             })
     
+    logger.info(f"Added enhanced metadata to {metadata_matches} tools")
+    
     # Update the data object
     data["nodes"] = new_nodes
     data["links"] = new_links
     data["categories"] = sorted(all_categories)
     data["languages"] = sorted(all_languages)
+    data["last_updated"] = datetime.now().isoformat()
     
     return data
 
@@ -244,8 +368,239 @@ def save_data_json(data, data_json_path):
         json.dump(data, f, indent=2)
     logger.info(f"Updated {data_json_path}")
 
+def load_bioinformatics_metadata():
+    """Load bioinformatics metadata from the metadata/bioinformatics directory."""
+    metadata_dir = Path(__file__).parent / "metadata" / "bioinformatics"
+    summary_path = metadata_dir / "summary.json"
+    
+    if not summary_path.exists():
+        logger.warning(f"Bioinformatics metadata summary file not found at {summary_path}")
+        return {}
+    
+    try:
+        with open(summary_path, 'r', encoding='utf-8') as f:
+            summary = json.load(f)
+        
+        # Create a dictionary mapping URLs to metadata
+        metadata_by_url = {}
+        for tool in summary.get("tools", []):
+            if "url" in tool:
+                metadata_by_url[tool["url"]] = tool
+                logger.info(f"Added bioinformatics metadata for URL: {tool['url']}")
+        
+        return metadata_by_url
+    except Exception as e:
+        logger.error(f"Error loading bioinformatics metadata: {e}")
+        return {}
+
+def update_data_json_with_bioinformatics(data, bioinformatics_metadata):
+    """Update data.json with bioinformatics metadata."""
+    if not bioinformatics_metadata:
+        return data
+    
+    # Get all nodes that are tools
+    tool_nodes = [node for node in data.get("nodes", []) if node.get("type") == "tool"]
+    
+    # Count of metadata matches
+    metadata_matches = 0
+    
+    # Update tool nodes with bioinformatics metadata
+    for node in tool_nodes:
+        if node.get("url") and node.get("url") in bioinformatics_metadata:
+            metadata = bioinformatics_metadata[node.get("url")]
+            metadata_matches += 1
+            
+            # Add bioinformatics fields
+            node["input_formats"] = metadata.get("input_formats", [])
+            node["output_formats"] = metadata.get("output_formats", [])
+            node["bioinformatics_categories"] = metadata.get("bioinformatics_categories", [])
+            node["dependencies"] = metadata.get("dependencies", [])
+            
+            # Update installation methods
+            if "installation_methods" not in node:
+                node["installation_methods"] = {}
+            
+            for method, value in metadata.get("installation_methods", {}).items():
+                node["installation_methods"][method] = value
+    
+    logger.info(f"Added bioinformatics metadata to {metadata_matches} tools")
+    return data
+
+def load_academic_impact_metadata():
+    """Load academic impact metadata from the metadata/academic_impact directory."""
+    metadata_dir = Path(__file__).parent / "metadata" / "academic_impact"
+    summary_file = metadata_dir / "academic_impact.json"
+    
+    if not summary_file.exists():
+        logger.warning(f"Academic impact metadata file not found at {summary_file}")
+        return {}
+    
+    try:
+        with open(summary_file, 'r', encoding='utf-8') as f:
+            metadata = json.load(f)
+        
+        # Metadata is already a dictionary with keys like "tool_name_url"
+        # Create a new dictionary mapping URLs to metadata
+        metadata_by_url = {}
+        for key, tool_data in metadata.items():
+            url = tool_data.get("url", "")
+            if url:
+                metadata_by_url[url] = tool_data
+                logger.info(f"Added academic impact metadata for URL: {url}")
+        
+        return metadata_by_url
+    except Exception as e:
+        logger.error(f"Error loading academic impact metadata: {e}")
+        return {}
+
+def update_data_json_with_academic_impact(data, academic_impact_metadata):
+    """Update data.json with academic impact metadata."""
+    if not academic_impact_metadata:
+        return data
+    
+    # Get all nodes that are tools
+    tool_nodes = [node for node in data.get("nodes", []) if node.get("type") == "tool"]
+    
+    # Count of metadata matches
+    metadata_matches = 0
+    crossref_fallback_count = 0
+    
+    # Update tool nodes with academic impact metadata
+    for node in tool_nodes:
+        if node.get("url") and node.get("url") in academic_impact_metadata:
+            metadata = academic_impact_metadata[node.get("url")]
+            metadata_matches += 1
+            
+            # Get citation metrics
+            metrics = metadata.get("citation_metrics", {}).get("metrics", {})
+            
+            # Clean the DOI (remove trailing parentheses if present)
+            doi = metadata.get("doi", "")
+            if doi and doi.endswith(")"):
+                doi = doi[:-1]
+                logger.info(f"Cleaned DOI for {node.get('name')}: {doi}")
+            
+            # Add academic impact fields
+            node["doi"] = doi
+            node["citation_count"] = metrics.get("total_citations", 0)
+            node["influential_citations"] = metrics.get("influential_citations", 0)
+            node["citations_by_year"] = metrics.get("citations_by_year", {})
+            
+            # Record citation data source
+            data_source = metrics.get("data_source", "")
+            if data_source and ("crossref" in data_source):
+                crossref_fallback_count += 1
+                # Add indication that fallback was used
+                node["citation_data_source"] = data_source
+            
+            # Add formatted citations if available
+            if "citation_metrics" in metadata and "formatted_citations" in metadata["citation_metrics"]:
+                node["formatted_citations"] = metadata["citation_metrics"]["formatted_citations"]
+            
+            # Add related papers if available
+            if "related_papers" in metadata and metadata["related_papers"]:
+                # Only include the top 5 related papers to keep the data size reasonable
+                node["related_papers"] = [
+                    {
+                        "title": paper.get("title", ""),
+                        "authors": [author.get("name", "") for author in paper.get("authors", [])[:3]],
+                        "year": paper.get("year", ""),
+                        "citation_count": paper.get("citationCount", 0),
+                        "url": paper.get("url", "")
+                    }
+                    for paper in metadata.get("related_papers", [])[:5]
+                ]
+    
+    logger.info(f"Added academic impact metadata to {metadata_matches} tools (used CrossRef fallback for {crossref_fallback_count} tools)")
+    return data
+
+def load_pubmed_citations_metadata():
+    """Load PubMed citations metadata from the metadata/pubmed_citations directory."""
+    metadata_dir = Path(__file__).parent / "metadata" / "pubmed_citations"
+    pubmed_file = metadata_dir / "pubmed_citations.json"
+    
+    if not pubmed_file.exists():
+        logger.warning(f"PubMed citations metadata file not found at {pubmed_file}")
+        return {}
+    
+    try:
+        with open(pubmed_file, 'r', encoding='utf-8') as f:
+            metadata = json.load(f)
+        
+        # Create a dictionary mapping URLs to metadata
+        metadata_by_url = {}
+        for key, tool_data in metadata.items():
+            url = tool_data.get("url", "")
+            if url:
+                metadata_by_url[url] = tool_data
+                logger.info(f"Added PubMed citation metadata for URL: {url}")
+        
+        return metadata_by_url
+    except Exception as e:
+        logger.error(f"Error loading PubMed citations metadata: {e}")
+        return {}
+
+def update_data_json_with_pubmed_citations(data, pubmed_citations_metadata):
+    """Update data.json with PubMed citations metadata."""
+    if not pubmed_citations_metadata:
+        return data
+    
+    # Get all nodes that are tools
+    tool_nodes = [node for node in data.get("nodes", []) if node.get("type") == "tool"]
+    
+    # Count of metadata matches
+    metadata_matches = 0
+    
+    # Update tool nodes with PubMed citations metadata
+    for node in tool_nodes:
+        if node.get("url") and node.get("url") in pubmed_citations_metadata:
+            metadata = pubmed_citations_metadata[node.get("url")]
+            citation_info = metadata.get("citation_info", {})
+            
+            if citation_info:
+                metadata_matches += 1
+                
+                # Initialize citations field if it doesn't exist
+                if "citations" not in node:
+                    node["citations"] = {}
+                
+                # Add publication information
+                publication = citation_info.get("publication", {})
+                if isinstance(publication, dict):
+                    if "pmid" in publication:
+                        node["citations"]["pmid"] = publication.get("pmid")
+                    if "doi" in publication:
+                        node["citations"]["doi"] = publication.get("doi")
+                    if "title" in publication:
+                        node["citations"]["title"] = publication.get("title")
+                    if "journal" in publication:
+                        node["citations"]["journal"] = publication.get("journal")
+                    if "year" in publication:
+                        node["citations"]["year"] = publication.get("year")
+                    if "citation_count" in publication:
+                        node["citations"]["citation_count"] = publication.get("citation_count")
+                    if "authors" in publication:
+                        # Store just the first 3 authors to keep the data size reasonable
+                        node["citations"]["authors"] = publication.get("authors", [])[:3]
+                
+                # Add formatted citations
+                if "formatted_citations" in citation_info:
+                    formatted = citation_info.get("formatted_citations", {})
+                    if formatted:
+                        node["citations"]["formatted_citations"] = formatted
+    
+    logger.info(f"Added PubMed citation metadata to {metadata_matches} tools")
+    return data
+
 def main():
     """Main function to extract tools from README.md and update data.json."""
+    parser = argparse.ArgumentParser(description="Extract tool information from README.md and update data.json")
+    parser.add_argument("--include-metadata", action="store_true", help="Include enhanced metadata from metadata directory")
+    parser.add_argument("--include-bioinformatics", action="store_true", help="Include bioinformatics metadata")
+    parser.add_argument("--include-academic-impact", action="store_true", help="Include academic impact metadata")
+    parser.add_argument("--include-pubmed", action="store_true", help="Include PubMed citation metadata")
+    args = parser.parse_args()
+    
     repo_root = Path(__file__).parent
     readme_path = repo_root / "README.md"
     data_json_path = repo_root / "data.json"
@@ -257,8 +612,32 @@ def main():
     tools_data = extract_tools_from_readme(readme_path)
     logger.info(f"Found {len(tools_data)} tools in README.md")
     
-    logger.info(f"Updating {data_json_path}")
-    updated_data = update_data_json(data, tools_data)
+    logger.info(f"Updating {data_json_path}" + (" with enhanced metadata" if args.include_metadata else ""))
+    updated_data = update_data_json(data, tools_data, include_metadata=args.include_metadata)
+    
+    # Load and add bioinformatics metadata if requested
+    if args.include_bioinformatics:
+        logger.info("Loading bioinformatics metadata...")
+        bioinformatics_metadata = load_bioinformatics_metadata()
+        if bioinformatics_metadata:
+            logger.info(f"Loaded bioinformatics metadata for {len(bioinformatics_metadata)} tools")
+            updated_data = update_data_json_with_bioinformatics(updated_data, bioinformatics_metadata)
+    
+    # Load and add academic impact metadata if requested
+    if args.include_academic_impact:
+        logger.info("Loading academic impact metadata...")
+        academic_impact_metadata = load_academic_impact_metadata()
+        if academic_impact_metadata:
+            logger.info(f"Loaded academic impact metadata for {len(academic_impact_metadata)} tools")
+            updated_data = update_data_json_with_academic_impact(updated_data, academic_impact_metadata)
+    
+    # Load and add PubMed citation metadata if requested
+    if args.include_pubmed:
+        logger.info("Loading PubMed citation metadata...")
+        pubmed_citations_metadata = load_pubmed_citations_metadata()
+        if pubmed_citations_metadata:
+            logger.info(f"Loaded PubMed citation metadata for {len(pubmed_citations_metadata)} tools")
+            updated_data = update_data_json_with_pubmed_citations(updated_data, pubmed_citations_metadata)
     
     logger.info(f"Saving to {data_json_path}")
     save_data_json(updated_data, data_json_path)

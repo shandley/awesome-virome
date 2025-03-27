@@ -1,0 +1,144 @@
+name: Cache Warming
+
+on:
+  # Allow this workflow to be called by other workflows
+  workflow_call:
+    inputs:
+      scope:
+        description: 'Scope of cache warming'
+        type: string
+        default: 'important'
+        required: false
+      count:
+        description: 'Number of random repositories to warm (for random scope)'
+        type: number
+        default: 10
+        required: false
+    outputs:
+      cache_status:
+        description: "Cache warming status"
+        value: ${{ jobs.warm-cache.outputs.cache_status }}
+  
+  # Allow this workflow to be manually triggered
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: 'Scope of cache warming'
+        type: choice
+        options:
+          - important
+          - random
+          - all
+        default: 'important'
+        required: true
+      count:
+        description: 'Number of random repositories to warm (for random scope)'
+        type: number
+        default: 10
+        required: false
+  
+  # Run on a schedule to keep cache warm
+  schedule:
+    # Run weekly on Thursday at 20:00 UTC (preparing for weekend processing)
+    - cron: "0 20 * * 4"
+    # Run before PubMed citations collection on Saturday
+    - cron: "0 1 * * 6"
+    # Run before monthly processes (3rd to prepare for both 4th and 5th)
+    - cron: "0 18 3 * *"
+
+jobs:
+  warm-cache:
+    runs-on: ubuntu-latest
+    outputs:
+      cache_status: ${{ steps.cache_results.outputs.status }}
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests PyGithub pyyaml
+          # Only install matplotlib for full graph generation (not needed for --summary mode)
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "${{ github.event_name }}" == "schedule" ]]; then
+            pip install matplotlib numpy
+          fi
+      
+      - name: Monitor cache status before warming
+        run: |
+          python scripts/monitor_cache.py --summary > cache_before.txt
+      
+      - name: Determine cache warming parameters
+        id: params
+        run: |
+          if [[ "${{ github.event.inputs.scope || inputs.scope }}" == "random" ]]; then
+            echo "WARM_FLAG=--warm-random" >> $GITHUB_ENV
+            echo "COUNT_FLAG=--count ${{ github.event.inputs.count || inputs.count || 10 }}" >> $GITHUB_ENV
+          elif [[ "${{ github.event.inputs.scope || inputs.scope }}" == "all" ]]; then
+            echo "WARM_FLAG=--warm-important --warm-random" >> $GITHUB_ENV
+            echo "COUNT_FLAG=--count 20" >> $GITHUB_ENV
+          else
+            echo "WARM_FLAG=--warm-important" >> $GITHUB_ENV
+            echo "COUNT_FLAG=" >> $GITHUB_ENV
+          fi
+      
+      - name: Warm cache
+        run: |
+          echo "Warming cache with parameters: $WARM_FLAG $COUNT_FLAG"
+          python scripts/cache_warming.py $WARM_FLAG $COUNT_FLAG
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SEMANTIC_SCHOLAR_KEY: ${{ secrets.SEMANTIC_SCHOLAR_KEY }}
+          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
+      
+      - name: Monitor cache status after warming
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "${{ github.event_name }}" == "schedule" ]]; then
+            # Generate graphs for manually triggered or scheduled runs
+            python scripts/monitor_cache.py --graphs > cache_after.txt
+          else
+            # Just generate summary for workflow_call (when called from other workflows)
+            python scripts/monitor_cache.py --summary > cache_after.txt
+          fi
+      
+      - name: Generate cache warming report
+        run: |
+          echo "# Cache Warming Report" > cache_warming_report.md
+          echo "Run completed at: $(date)" >> cache_warming_report.md
+          echo "\n## Scope: ${{ github.event.inputs.scope || inputs.scope || 'important' }}" >> cache_warming_report.md
+          echo "\n## Before Warming" >> cache_warming_report.md
+          cat cache_before.txt >> cache_warming_report.md
+          echo "\n## After Warming" >> cache_warming_report.md
+          cat cache_after.txt >> cache_warming_report.md
+          echo "\n## Cache Warming Log" >> cache_warming_report.md
+          if [ -f cache_warming.log ]; then
+            cat cache_warming.log >> cache_warming_report.md
+          else
+            echo "No log file found" >> cache_warming_report.md
+          fi
+      
+      - name: Record cache warming results
+        id: cache_results
+        run: |
+          echo "status=success" >> $GITHUB_OUTPUT
+      
+      - name: Upload cache warming report
+        uses: actions/upload-artifact@v4
+        with:
+          name: cache-warming-report
+          path: |
+            cache_warming_report.md
+            cache_warming.log
+            ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'schedule') && 'metadata/cache/_monitoring/graphs/' || '' }}
+      
+      - name: Cache Performance Summary
+        run: |
+          echo "::group::Cache Warming Summary"
+          echo "Cache warming completed successfully."
+          echo "See artifact 'cache-warming-report' for details."
+          echo "::endgroup::"

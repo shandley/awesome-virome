@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Awesome-Virome Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.6/css/dataTables.bootstrap5.min.css">
+    <style>
+        :root {
+            /* Modern virology-themed color palette */
+            --primary-color: #109b81; /* Teal green */
+            --primary-light: #6FC3BA;
+            --primary-dark: #097362;
+            --secondary-color: #2C4B7C; /* Deep blue */
+            --secondary-light: #557EBF;
+            --secondary-dark: #193152;
+            --accent-color: #9D5EB0; /* Purple for viruses */
+            --accent-light: #C89AD3;
+            --accent-dark: #6A3877;
+            --info-color: #3498db; /* Blue for info */
+            --success-color: #28a745; /* Green for success */
+            --warning-color: #ffc107; /* Yellow for warnings */
+            --danger-color: #e74c3c; /* Red for errors */
+            --light-bg: #f8f9fa;
+            --dark-bg: #1E293B; /* Dark slate blue */
+            --card-bg: #ffffff;
+            --card-bg-dark: #334155;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --card-shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+            --border-radius: 12px;
+            --section-padding: 2rem;
+            --card-spacing: 1.5rem;
+            --nav-height: 4rem;
+            
+            /* Category-specific colors */
+            --color-identification: #4682B4; /* Steel Blue */
+            --color-host: #6A5ACD; /* Slate Blue */
+            --color-genome: #20B2AA; /* Light Sea Green */
+            --color-taxonomy: #DB7093; /* Pale Violet Red */
+            --color-functional: #9370DB; /* Medium Purple */
+            --color-structural: #4169E1; /* Royal Blue */
+            --color-crispr: #FF6347; /* Tomato */
+            --color-database: #3CB371; /* Medium Sea Green */
+            --color-sequence: #1E90FF; /* Dodger Blue */
+            --color-visualization: #FF8C00; /* Dark Orange */
+        }
+        
+        /* Dark mode variables */
+        [data-theme="dark"] {
+            --primary-color: #1AB394;
+            --primary-light: #5BD6BC;
+            --primary-dark: #0D8A70;
+            --light-bg: #1E293B;
+            --dark-bg: #0F172A;
+            --card-bg: #334155;
+            --card-bg-dark: #1E293B;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            --card-shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.3);
+            color: #E2E8F0;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+        
+        [data-theme="dark"] body {
+            color: #E2E8F0;
+        }
+        
+        /* Dark mode toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            margin-left: 1rem;
+            outline: none;
+            position: relative;
+            transition: all var(--transition-speed);
+        }
+        
+        .theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .theme-toggle:focus-visible {
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+            outline: none;
+        }
+        
+        .theme-toggle i {
+            font-size: 1.2rem;
+        }
+        
+        /* Navbar styling */
+        .navbar {
+            background: linear-gradient(135deg, var(--secondary-dark), var(--secondary-color));
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.75rem 1rem;
+            height: var(--nav-height);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.3rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .navbar-brand i {
+            background: linear-gradient(135deg, #5BD6BC, #109b81);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-right: 0.3rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            transition: color var(--transition-speed);
+        }
+        
+        .nav-link:hover, .nav-link:focus {
+            color: #ffffff !important;
+        }
+        
+        .nav-link.active {
+            color: #ffffff !important;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 1rem;
+            right: 1rem;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px 3px 0 0;
+        }
+        
+        /* Section containers */
+        .dashboard-container {
+            padding: var(--section-padding);
+        }
+        
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1), transparent);
+            margin: 2rem 0;
+        }
+        
+        [data-theme="dark"] .section-divider {
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+        
+        .section-title {
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+            display: inline-block;
+        }
+        
+        [data-theme="dark"] .section-title {
+            color: var(--primary-light);
+        }
+        
+        /* Cards styling */
+        .card {
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            transition: transform var(--transition-speed), 
+                      box-shadow var(--transition-speed),
+                      background-color var(--transition-speed);
+            margin-bottom: var(--card-spacing);
+            border: none;
+            background-color: var(--card-bg);
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+        }
+        
+        .card-header {
+            border-radius: var(--border-radius) var(--border-radius) 0 0 !important;
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark));
+            color: white;
+            font-weight: 600;
+            padding: 1rem 1.25rem;
+            border-bottom: none;
+        }
+        
+        /* Tool cards */
+        .tool-card {
+            height: 100%;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        [data-theme="dark"] .tool-card {
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .tool-card:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--primary-color);
+            opacity: 0;
+            transition: opacity var(--transition-speed);
+        }
+        
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+        
+        .tool-card .card-body {
+            padding: 1.5rem;
+        }
+        
+        .tool-card .card-title {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        [data-theme="dark"] .tool-card .card-title {
+            color: #fff;
+        }
+        
+        /* Dynamic category colors */
+        .tool-card[data-category="Virus and Phage Identification"]::before {
+            background-color: var(--color-identification);
+        }
+        
+        .tool-card[data-category="Host Prediction"]::before {
+            background-color: var(--color-host);
+        }
+        
+        .tool-card[data-category="Genome Analysis"]::before {
+            background-color: var(--color-genome);
+        }
+        
+        .tool-card[data-category="Taxonomy"]::before {
+            background-color: var(--color-taxonomy);
+        }
+        
+        .tool-card[data-category="Functional Analysis"]::before {
+            background-color: var(--color-functional);
+        }
+        
+        .tool-card[data-category="Structural Analysis Tools"]::before {
+            background-color: var(--color-structural);
+        }
+        
+        .tool-card[data-category="CRISPR Analysis"]::before {
+            background-color: var(--color-crispr);
+        }
+        
+        .tool-card[data-category="Databases"]::before,
+        .tool-card[data-category="Sequence Databases"]::before {
+            background-color: var(--color-database);
+        }
+        
+        .tool-card[data-category="Sequence Analysis"]::before {
+            background-color: var(--color-sequence);
+        }
+        
+        .tool-card[data-category="Visualization and Infrastructure"]::before {
+            background-color: var(--color-visualization);
+        }
+        
+        /* Badges */
+        .badge {
+            padding: 0.4em 0.6em;
+            font-weight: 500;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            letter-spacing: 0.3px;
+            margin-right: 0.3rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .badge-category {
+            background-color: var(--color-identification);
+            color: white;
+        }
+        
+        .badge-category[data-category="Host Prediction"] {
+            background-color: var(--color-host);
+        }
+        
+        .badge-category[data-category="Genome Analysis"] {
+            background-color: var(--color-genome);
+        }
+        
+        .badge-category[data-category="Taxonomy"] {
+            background-color: var(--color-taxonomy);
+        }
+        
+        .badge-category[data-category="Functional Analysis"] {
+            background-color: var(--color-functional);
+        }
+        
+        .badge-category[data-category="Structural Analysis Tools"] {
+            background-color: var(--color-structural);
+        }
+        
+        .badge-category[data-category="CRISPR Analysis"] {
+            background-color: var(--color-crispr);
+        }
+        
+        .badge-category[data-category="Databases"],
+        .badge-category[data-category="Sequence Databases"] {
+            background-color: var(--color-database);
+        }
+        
+        .badge-category[data-category="Sequence Analysis"] {
+            background-color: var(--color-sequence);
+        }
+        
+        .badge-category[data-category="Visualization and Infrastructure"] {
+            background-color: var(--color-visualization);
+        }
+        
+        .badge-subcategory {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .badge-language {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .badge-stars {
+            background-color: #ff9800;
+            color: white;
+        }
+        
+        .badge-updates {
+            background-color: var(--warning-color);
+            color: black;
+        }
+        
+        .badge-citations {
+            background-color: #4285F4;
+            color: white;
+        }
+        
+        .badge-impact {
+            background-color: #0F9D58;
+            color: white;
+        }
+        
+        /* Network visualization */
+        #networkGraph {
+            width: 100%;
+            height: 600px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--border-radius);
+            background-color: var(--card-bg);
+            transition: height var(--transition-speed), background-color var(--transition-speed);
+        }
+        
+        [data-theme="dark"] #networkGraph {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Citation graph styles */
+        #citationTrendsChart, #topCitedToolsChart {
+            width: 100%;
+            height: 400px;
+            border-radius: var(--border-radius);
+            background-color: var(--card-bg);
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Dashboard charts */
+        .chart-container {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Sidebar and filters */
+        .sidebar {
+            position: sticky;
+            top: calc(var(--nav-height) + 20px);
+            transition: top var(--transition-speed);
+        }
+        
+        .filter-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .filter-section label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        [data-theme="dark"] .filter-section label {
+            color: #cbd5e1;
+        }
+        
+        .form-select, .form-control {
+            border-radius: 8px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0.75rem;
+            transition: border-color var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed);
+        }
+        
+        [data-theme="dark"] .form-select, [data-theme="dark"] .form-control {
+            background-color: var(--card-bg-dark);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+        }
+        
+        .form-select:focus, .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(16, 155, 129, 0.25);
+        }
+        
+        /* DataTables customization */
+        .dataTables_wrapper .dataTables_length,
+        .dataTables_wrapper .dataTables_filter {
+            margin-bottom: 1rem;
+        }
+        
+        .dataTables_wrapper .dataTables_info,
+        .dataTables_wrapper .dataTables_paginate {
+            margin-top: 1rem;
+        }
+        
+        .dataTables_wrapper .dataTables_paginate .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .dataTables_wrapper .dataTables_paginate .page-link {
+            color: var(--primary-color);
+        }
+        
+        [data-theme="dark"] .dataTables_wrapper .dataTables_paginate .page-link {
+            background-color: var(--card-bg-dark);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+        }
+        
+        [data-theme="dark"] .dataTables_wrapper .dataTables_paginate .page-item.active .page-link {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* Tool detail modal */
+        .detail-modal .modal-content {
+            border-radius: var(--border-radius);
+            border: none;
+            box-shadow: var(--card-shadow-hover);
+            background-color: var(--card-bg);
+        }
+        
+        [data-theme="dark"] .detail-modal .modal-content {
+            background-color: var(--card-bg-dark);
+            color: #cbd5e1;
+        }
+        
+        .detail-modal .modal-header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark));
+            color: white;
+            border-bottom: none;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+        
+        .detail-modal .modal-title {
+            font-weight: 700;
+        }
+        
+        .detail-modal .modal-body {
+            padding: 1.5rem;
+        }
+        
+        .citation-table {
+            font-size: 0.9rem;
+        }
+        
+        .citation-table pre {
+            white-space: pre-wrap;
+            font-size: 0.8rem;
+            background-color: rgba(0, 0, 0, 0.03);
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin: 0;
+        }
+        
+        [data-theme="dark"] .citation-table pre {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .sidebar {
+                position: relative;
+                top: 0;
+            }
+            
+            #networkGraph {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-virus me-2"></i>Awesome-Virome
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#tools-section">Tools</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#network-section">Network</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#citations-section">Citations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#analytics-section">Analytics</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <a href="https://github.com/shandley/awesome-virome" class="btn btn-outline-light me-2" target="_blank">
+                        <i class="bi bi-github me-1"></i> GitHub
+                    </a>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="bi bi-sun"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Dashboard Container -->
+    <div class="container-fluid dashboard-container">
+        <div class="row">
+            <!-- Sidebar with Filters -->
+            <div class="col-lg-3 mb-4">
+                <div class="sidebar">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span>Filter Tools</span>
+                            <button class="btn btn-sm btn-outline-light" id="resetFilters">
+                                <i class="bi bi-arrow-counterclockwise"></i> Reset
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="filter-section">
+                                <label for="categoryFilter">Category</label>
+                                <select class="form-select" id="categoryFilter">
+                                    <option value="">All Categories</option>
+                                    <!-- Populated by JavaScript -->
+                                </select>
+                            </div>
+                            
+                            <div class="filter-section">
+                                <label for="subcategoryFilter">Subcategory</label>
+                                <select class="form-select" id="subcategoryFilter">
+                                    <option value="">All Subcategories</option>
+                                    <!-- Populated by JavaScript -->
+                                </select>
+                            </div>
+                            
+                            <div class="filter-section">
+                                <label for="languageFilter">Programming Language</label>
+                                <select class="form-select" id="languageFilter">
+                                    <option value="">All Languages</option>
+                                    <!-- Populated by JavaScript -->
+                                </select>
+                            </div>
+                            
+                            <div class="filter-section">
+                                <label for="maintenanceFilter">Maintenance Status</label>
+                                <select class="form-select" id="maintenanceFilter">
+                                    <option value="">All</option>
+                                    <option value="recent">Recently Updated</option>
+                                    <option value="medium">Moderately Updated</option>
+                                    <option value="old">Needs Update</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-section">
+                                <label for="citationsFilter">Academic Impact</label>
+                                <select class="form-select" id="citationsFilter">
+                                    <option value="">All</option>
+                                    <option value="high">High Impact (10+ citations)</option>
+                                    <option value="medium">Medium Impact (5-9 citations)</option>
+                                    <option value="low">Low Impact (1-4 citations)</option>
+                                    <option value="none">No Citations</option>
+                                </select>
+                            </div>
+                            
+                            <div class="filter-section">
+                                <label for="searchFilter">Search</label>
+                                <input type="text" class="form-control" id="searchFilter" placeholder="Tool name, description...">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">Statistics</div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Total Tools:</span>
+                                <span class="fw-bold" id="totalTools">0</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Categories:</span>
+                                <span class="fw-bold" id="totalCategories">0</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Recently Updated:</span>
+                                <span class="fw-bold text-success" id="recentlyUpdated">0</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Total Citations:</span>
+                                <span class="fw-bold text-primary" id="totalCitations">0</span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Average Citations:</span>
+                                <span class="fw-bold text-primary" id="avgCitations">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="col-lg-9">
+                <!-- Tools Section -->
+                <section id="tools-section" class="mb-5">
+                    <h2 class="section-title">Virome Analysis Tools</h2>
+                    <p class="lead mb-4">
+                        Browse and discover tools for viral metagenomics analysis, phage identification, 
+                        host prediction, and more.
+                    </p>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span>Tools Library</span>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-sm btn-outline-light active" id="viewGrid">
+                                    <i class="bi bi-grid"></i>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-outline-light" id="viewTable">
+                                    <i class="bi bi-list"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <!-- Grid View -->
+                            <div id="toolsGrid" class="row g-4">
+                                <!-- Tools will be populated by JavaScript -->
+                                <div class="col-12 text-center py-5">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <p class="mt-2">Loading tools...</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Table View (hidden by default) -->
+                            <div id="toolsTable" class="table-responsive" style="display: none;">
+                                <table class="table table-hover" id="toolsDataTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Category</th>
+                                            <th>Language</th>
+                                            <th>Stars</th>
+                                            <th>Updated</th>
+                                            <th>Citations</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Network Visualization Section -->
+                <section id="network-section" class="mb-5">
+                    <h2 class="section-title">Tool Relationship Network</h2>
+                    <p class="lead mb-4">
+                        Explore the relationships between different tools, categories, and subcategories in the virome analysis ecosystem.
+                    </p>
+                    
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <span>Network Graph</span>
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-sm btn-outline-light" id="zoomIn">
+                                    <i class="bi bi-zoom-in"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-light" id="zoomOut">
+                                    <i class="bi bi-zoom-out"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-light" id="resetNetwork">
+                                    <i class="bi bi-arrow-counterclockwise"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div id="networkGraph"></div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">
+                                <i class="bi bi-info-circle me-1"></i>
+                                Drag nodes to rearrange. Click on a node to see details.
+                            </small>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Citations Section -->
+                <section id="citations-section" class="mb-5">
+                    <h2 class="section-title">Academic Impact</h2>
+                    <p class="lead mb-4">
+                        Track the academic influence of virome analysis tools through citation metrics and trends.
+                    </p>
+                    
+                    <div class="row">
+                        <div class="col-lg-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header">Citation Trends</div>
+                                <div class="card-body">
+                                    <div id="citationTrendsChart"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header">Most Cited Tools</div>
+                                <div class="card-body">
+                                    <div id="topCitedToolsChart"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-header">Citation Details</div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover" id="citationsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Tool</th>
+                                            <th>Citations</th>
+                                            <th>Influential Citations</th>
+                                            <th>DOI</th>
+                                            <th>Citation Trend</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Analytics Section -->
+                <section id="analytics-section">
+                    <h2 class="section-title">Ecosystem Analytics</h2>
+                    <p class="lead mb-4">
+                        Insights and analytics about the virome analysis tool ecosystem.
+                    </p>
+                    
+                    <div class="row">
+                        <div class="col-lg-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header">Tools by Category</div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="categoryDistributionChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header">Language Distribution</div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="languageDistributionChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-lg-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header">Maintenance Status</div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="maintenanceStatusChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header">Creation Timeline</div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <canvas id="creationTimelineChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool Detail Modal -->
+    <div class="modal fade detail-modal" id="toolDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalToolName">Tool Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalContent">
+                    <div class="d-flex justify-content-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-primary" id="modalToolLink" target="_blank">Visit Tool <i class="bi bi-box-arrow-up-right ms-1"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net@1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        // Main application code
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggling
+            const themeToggle = document.getElementById('themeToggle');
+            const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // Set initial theme based on user preference
+            if (prefersDarkMode) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<i class="bi bi-moon"></i>';
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    themeToggle.innerHTML = '<i class="bi bi-sun"></i>';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    themeToggle.innerHTML = '<i class="bi bi-moon"></i>';
+                }
+            });
+            
+            // View switching
+            const viewGrid = document.getElementById('viewGrid');
+            const viewTable = document.getElementById('viewTable');
+            const toolsGrid = document.getElementById('toolsGrid');
+            const toolsTable = document.getElementById('toolsTable');
+            
+            viewGrid.addEventListener('click', function() {
+                toolsGrid.style.display = 'flex';
+                toolsTable.style.display = 'none';
+                viewGrid.classList.add('active');
+                viewTable.classList.remove('active');
+            });
+            
+            viewTable.addEventListener('click', function() {
+                toolsGrid.style.display = 'none';
+                toolsTable.style.display = 'block';
+                viewGrid.classList.remove('active');
+                viewTable.classList.add('active');
+            });
+            
+            // Define a global variable to store our data
+            let globalData = null;
+            
+            // Define a stub for any legacy functions to prevent errors
+            window.populateExplorer = function() {
+                console.log("Legacy populateExplorer function called but is no longer used");
+                return;
+            };
+            
+            // Fetch and process data
+            fetch('data.json')
+                .then(response => response.json())
+                .then(graphData => {
+                    globalData = graphData;
+                    initializeDashboard(globalData);
+                })
+                .catch(error => {
+                    console.error('Error loading data:', error);
+                    document.getElementById('toolsGrid').innerHTML = `
+                        <div class="col-12 text-center py-5">
+                            <i class="bi bi-exclamation-circle text-danger" style="font-size: 3rem;"></i>
+                            <p class="mt-2">Error loading data. Please try again later: ${error.message}</p>
+                        </div>
+                    `;
+                });
+            
+            function initializeDashboard(data) {
+                // Extract tools and categories
+                const tools = data.nodes.filter(node => node.type === 'tool');
+                const categories = data.nodes.filter(node => node.type === 'category');
+                const subcategories = data.nodes.filter(node => node.type === 'subcategory');
+                
+                // Update statistics
+                document.getElementById('totalTools').textContent = tools.length;
+                document.getElementById('totalCategories').textContent = categories.length;
+                
+                // Calculate recently updated count (last 6 months)
+                const sixMonthsAgo = new Date();
+                sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
+                const recentlyUpdated = tools.filter(tool => {
+                    return tool.lastUpdated && new Date(tool.lastUpdated) > sixMonthsAgo;
+                }).length;
+                document.getElementById('recentlyUpdated').textContent = recentlyUpdated;
+                
+                // Calculate citation statistics
+                const totalCitations = tools.reduce((sum, tool) => sum + (tool.citation_count || 0), 0);
+                document.getElementById('totalCitations').textContent = totalCitations;
+                
+                const avgCitations = totalCitations / tools.length;
+                document.getElementById('avgCitations').textContent = avgCitations.toFixed(2);
+                
+                // Populate filter dropdowns
+                populateFilterDropdowns(tools, categories, subcategories);
+                
+                // Render tools
+                renderTools(tools);
+                
+                // Initialize DataTable
+                initializeDataTable(tools);
+                
+                // Initialize network visualization
+                initializeNetworkGraph(data);
+                
+                // Initialize citation charts
+                initializeCitationCharts(tools);
+                
+                // Initialize analytics charts
+                initializeAnalyticsCharts(tools, categories);
+                
+                // Set up filter functionality
+                setupFilters(tools);
+                
+                // Set up modal functionality
+                setupToolModal(tools);
+            }
+            
+            function populateFilterDropdowns(tools, categories, subcategories) {
+                const categoryFilter = document.getElementById('categoryFilter');
+                const subcategoryFilter = document.getElementById('subcategoryFilter');
+                const languageFilter = document.getElementById('languageFilter');
+                
+                // Populate categories
+                const uniqueCategories = [...new Set(categories.map(cat => cat.name))].sort();
+                uniqueCategories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category;
+                    option.textContent = category;
+                    categoryFilter.appendChild(option);
+                });
+                
+                // Populate subcategories
+                const uniqueSubcategories = [...new Set(subcategories.map(subcat => subcat.name))].sort();
+                uniqueSubcategories.forEach(subcategory => {
+                    const option = document.createElement('option');
+                    option.value = subcategory;
+                    option.textContent = subcategory;
+                    subcategoryFilter.appendChild(option);
+                });
+                
+                // Populate languages
+                const allLanguages = tools.flatMap(tool => Object.keys(tool.languages || {}));
+                const uniqueLanguages = [...new Set(allLanguages)].sort();
+                uniqueLanguages.forEach(language => {
+                    const option = document.createElement('option');
+                    option.value = language;
+                    option.textContent = language;
+                    languageFilter.appendChild(option);
+                });
+            }
+            
+            function renderTools(tools) {
+                const toolsGrid = document.getElementById('toolsGrid');
+                const toolsTableBody = document.querySelector('#toolsDataTable tbody');
+                
+                // Clear existing content
+                toolsGrid.innerHTML = '';
+                toolsTableBody.innerHTML = '';
+                
+                // Sort tools alphabetically by name
+                tools.sort((a, b) => a.name.localeCompare(b.name));
+                
+                // Render each tool
+                tools.forEach(tool => {
+                    // Grid view
+                    const gridItem = createToolCard(tool);
+                    toolsGrid.appendChild(gridItem);
+                    
+                    // Table view
+                    const tableRow = document.createElement('tr');
+                    tableRow.innerHTML = `
+                        <td>${tool.name}</td>
+                        <td>${tool.category || 'N/A'}</td>
+                        <td>${getMainLanguage(tool.languages)}</td>
+                        <td>${tool.stars || 0}</td>
+                        <td class="${getUpdateClass(tool.lastUpdated)}">${formatDate(tool.lastUpdated)}</td>
+                        <td>${tool.citation_count || 0}</td>
+                    `;
+                    tableRow.addEventListener('click', () => showToolDetail(tool));
+                    toolsTableBody.appendChild(tableRow);
+                });
+            }
+            
+            function createToolCard(tool) {
+                const col = document.createElement('div');
+                col.className = 'col-md-6 col-lg-4 fade-in';
+                
+                // Create maintenance status badge
+                let updateStatus = '';
+                if (tool.lastUpdated) {
+                    const updateClass = getUpdateClass(tool.lastUpdated);
+                    const updateText = updateClass === 'update-recent' ? 'Recently Updated' : 
+                                        updateClass === 'update-medium' ? 'Moderately Updated' : 'Needs Update';
+                    updateStatus = `<span class="badge badge-updates">${updateText}</span>`;
+                }
+                
+                // Create citation badge if available
+                let citationBadge = '';
+                if (tool.citation_count && tool.citation_count > 0) {
+                    citationBadge = `<span class="badge badge-citations">${tool.citation_count} Citation${tool.citation_count > 1 ? 's' : ''}</span>`;
+                }
+                
+                // Create language badge
+                let languageBadge = '';
+                if (tool.languages && Object.keys(tool.languages).length > 0) {
+                    const mainLanguage = getMainLanguage(tool.languages);
+                    languageBadge = `<span class="badge badge-language">${mainLanguage}</span>`;
+                }
+                
+                // Create stars badge if available
+                let starsBadge = '';
+                if (tool.stars && tool.stars > 0) {
+                    starsBadge = `<span class="badge badge-stars"><i class="bi bi-star-fill me-1"></i>${tool.stars}</span>`;
+                }
+                
+                col.innerHTML = `
+                    <div class="card tool-card" data-category="${tool.category || ''}">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                ${tool.name}
+                                ${starsBadge ? `<span>${starsBadge}</span>` : ''}
+                            </h5>
+                            <p class="card-text">${tool.description || 'No description available.'}</p>
+                            <div class="mb-3">
+                                <span class="badge badge-category" data-category="${tool.category || ''}">${tool.category || 'Uncategorized'}</span>
+                                ${tool.subcategory ? `<span class="badge badge-subcategory">${tool.subcategory}</span>` : ''}
+                                ${languageBadge}
+                                ${updateStatus}
+                                ${citationBadge}
+                            </div>
+                            <button class="btn btn-sm btn-outline-primary view-detail">View Details</button>
+                        </div>
+                    </div>
+                `;
+                
+                col.querySelector('.view-detail').addEventListener('click', () => showToolDetail(tool));
+                
+                return col;
+            }
+            
+            function initializeDataTable(tools) {
+                $('#toolsDataTable').DataTable({
+                    paging: true,
+                    searching: false, // We have our own search filter
+                    ordering: true,
+                    info: true,
+                    lengthChange: true,
+                    pageLength: 10,
+                    language: {
+                        emptyTable: "No tools match the current filters"
+                    }
+                });
+            }
+            
+            function initializeNetworkGraph(data) {
+                // This is a placeholder - actual D3 network visualization would go here
+                // For now, let's just show a message
+                document.getElementById('networkGraph').innerHTML = `
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-center">
+                            <i class="bi bi-diagram-3 mb-3" style="font-size: 3rem;"></i>
+                            <h4>Network Visualization</h4>
+                            <p class="text-muted">D3.js force-directed graph visualization showing tool relationships would appear here.</p>
+                        </div>
+                    </div>
+                `;
+                
+                // In a real implementation, this would use D3 to create a force-directed graph
+                // visualization of the network data
+            }
+            
+            function initializeCitationCharts(tools) {
+                // Citation trends chart (placeholder)
+                document.getElementById('citationTrendsChart').innerHTML = `
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-center">
+                            <i class="bi bi-graph-up mb-3" style="font-size: 3rem;"></i>
+                            <h4>Citation Trends</h4>
+                            <p class="text-muted">Chart.js visualization of citation trends would appear here.</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Top cited tools chart (placeholder)
+                document.getElementById('topCitedToolsChart').innerHTML = `
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-center">
+                            <i class="bi bi-bar-chart mb-3" style="font-size: 3rem;"></i>
+                            <h4>Most Cited Tools</h4>
+                            <p class="text-muted">Chart.js visualization of top cited tools would appear here.</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Populate citations table
+                const citationsTableBody = document.querySelector('#citationsTable tbody');
+                citationsTableBody.innerHTML = '';
+                
+                // Sort tools by citation count (descending)
+                const toolsByCitation = [...tools]
+                    .filter(tool => tool.citation_count && tool.citation_count > 0)
+                    .sort((a, b) => (b.citation_count || 0) - (a.citation_count || 0));
+                
+                toolsByCitation.forEach(tool => {
+                    const row = document.createElement('tr');
+                    
+                    // Create a simple citation trend visualization
+                    let trendHtml = '';
+                    if (tool.citations_by_year && Object.keys(tool.citations_by_year).length > 0) {
+                        trendHtml = 'Trend data available'; // Placeholder - real implementation would create a mini sparkline
+                    } else {
+                        trendHtml = 'No trend data';
+                    }
+                    
+                    row.innerHTML = `
+                        <td>${tool.name}</td>
+                        <td>${tool.citation_count || 0}</td>
+                        <td>${tool.influential_citations || 0}</td>
+                        <td>${tool.doi ? `<a href="https://doi.org/${tool.doi}" target="_blank">${tool.doi}</a>` : 'N/A'}</td>
+                        <td>${trendHtml}</td>
+                    `;
+                    citationsTableBody.appendChild(row);
+                });
+            }
+            
+            function initializeAnalyticsCharts(tools, categories) {
+                // These are placeholders for actual Chart.js implementations
+                
+                // Category distribution chart
+                document.getElementById('categoryDistributionChart').innerHTML = `
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-center">
+                            <i class="bi bi-pie-chart mb-3" style="font-size: 3rem;"></i>
+                            <h4>Category Distribution</h4>
+                            <p class="text-muted">Chart.js visualization of tool categories would appear here.</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Language distribution chart
+                document.getElementById('languageDistributionChart').innerHTML = `
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-center">
+                            <i class="bi bi-bar-chart mb-3" style="font-size: 3rem;"></i>
+                            <h4>Language Distribution</h4>
+                            <p class="text-muted">Chart.js visualization of programming languages would appear here.</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Maintenance status chart
+                document.getElementById('maintenanceStatusChart').innerHTML = `
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-center">
+                            <i class="bi bi-clock-history mb-3" style="font-size: 3rem;"></i>
+                            <h4>Maintenance Status</h4>
+                            <p class="text-muted">Chart.js visualization of maintenance status would appear here.</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Creation timeline chart
+                document.getElementById('creationTimelineChart').innerHTML = `
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-center">
+                            <i class="bi bi-calendar-date mb-3" style="font-size: 3rem;"></i>
+                            <h4>Creation Timeline</h4>
+                            <p class="text-muted">Chart.js visualization of tool creation timeline would appear here.</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            function setupFilters(tools) {
+                // Get filter elements
+                const categoryFilter = document.getElementById('categoryFilter');
+                const subcategoryFilter = document.getElementById('subcategoryFilter');
+                const languageFilter = document.getElementById('languageFilter');
+                const maintenanceFilter = document.getElementById('maintenanceFilter');
+                const citationsFilter = document.getElementById('citationsFilter');
+                const searchFilter = document.getElementById('searchFilter');
+                const resetFilters = document.getElementById('resetFilters');
+                
+                // Function to apply filters
+                function applyFilters() {
+                    const category = categoryFilter.value;
+                    const subcategory = subcategoryFilter.value;
+                    const language = languageFilter.value;
+                    const maintenance = maintenanceFilter.value;
+                    const citations = citationsFilter.value;
+                    const search = searchFilter.value.toLowerCase();
+                    
+                    const filteredTools = tools.filter(tool => {
+                        // Category filter
+                        if (category && tool.category !== category) return false;
+                        
+                        // Subcategory filter
+                        if (subcategory && tool.subcategory !== subcategory) return false;
+                        
+                        // Language filter
+                        if (language && (!tool.languages || !tool.languages[language])) return false;
+                        
+                        // Maintenance filter
+                        if (maintenance) {
+                            const updateClass = getUpdateClass(tool.lastUpdated);
+                            if (maintenance === 'recent' && updateClass !== 'update-recent') return false;
+                            if (maintenance === 'medium' && updateClass !== 'update-medium') return false;
+                            if (maintenance === 'old' && updateClass !== 'update-old') return false;
+                        }
+                        
+                        // Citations filter
+                        if (citations) {
+                            const count = tool.citation_count || 0;
+                            if (citations === 'high' && count < 10) return false;
+                            if (citations === 'medium' && (count < 5 || count > 9)) return false;
+                            if (citations === 'low' && (count < 1 || count > 4)) return false;
+                            if (citations === 'none' && count > 0) return false;
+                        }
+                        
+                        // Search filter
+                        if (search) {
+                            const nameMatch = tool.name.toLowerCase().includes(search);
+                            const descMatch = tool.description && tool.description.toLowerCase().includes(search);
+                            if (!nameMatch && !descMatch) return false;
+                        }
+                        
+                        return true;
+                    });
+                    
+                    // Render filtered tools
+                    renderTools(filteredTools);
+                    
+                    // Update DataTable
+                    const dataTable = $('#toolsDataTable').DataTable();
+                    dataTable.clear();
+                    
+                    filteredTools.forEach(tool => {
+                        dataTable.row.add([
+                            tool.name,
+                            tool.category || 'N/A',
+                            getMainLanguage(tool.languages),
+                            tool.stars || 0,
+                            formatDate(tool.lastUpdated),
+                            tool.citation_count || 0
+                        ]);
+                    });
+                    
+                    dataTable.draw();
+                }
+                
+                // Set up event listeners
+                [categoryFilter, subcategoryFilter, languageFilter, maintenanceFilter, citationsFilter].forEach(filter => {
+                    filter.addEventListener('change', applyFilters);
+                });
+                
+                // Search with debounce
+                let debounceTimeout;
+                searchFilter.addEventListener('input', function() {
+                    clearTimeout(debounceTimeout);
+                    debounceTimeout = setTimeout(applyFilters, 300);
+                });
+                
+                // Reset filters
+                resetFilters.addEventListener('click', function() {
+                    categoryFilter.value = '';
+                    subcategoryFilter.value = '';
+                    languageFilter.value = '';
+                    maintenanceFilter.value = '';
+                    citationsFilter.value = '';
+                    searchFilter.value = '';
+                    applyFilters();
+                });
+            }
+            
+            function setupToolModal(tools) {
+                // Get modal elements
+                const modal = document.getElementById('toolDetailModal');
+                const modalTitle = document.getElementById('modalToolName');
+                const modalContent = document.getElementById('modalContent');
+                const modalToolLink = document.getElementById('modalToolLink');
+                
+                // Bootstrap modal instance
+                const modalInstance = new bootstrap.Modal(modal);
+                
+                // Show tool detail in modal
+                window.showToolDetail = function(tool) {
+                    modalTitle.textContent = tool.name;
+                    modalToolLink.href = tool.url || '#';
+                    
+                    // Format last update date
+                    let updateInfo = 'Unknown';
+                    if (tool.lastUpdated) {
+                        const updateDate = new Date(tool.lastUpdated);
+                        updateInfo = `${updateDate.toLocaleDateString()} (${getRelativeTimeString(updateDate)})`;
+                    }
+                    
+                    // Format creation date
+                    let creationInfo = 'Unknown';
+                    if (tool.createdAt) {
+                        const creationDate = new Date(tool.createdAt);
+                        creationInfo = `${creationDate.toLocaleDateString()} (${getRelativeTimeString(creationDate)})`;
+                    }
+                    
+                    // Format languages
+                    let languagesHtml = 'No language information available';
+                    if (tool.languages && Object.keys(tool.languages).length > 0) {
+                        const languageEntries = Object.entries(tool.languages);
+                        languageEntries.sort((a, b) => b[1] - a[1]); // Sort by percentage (descending)
+                        
+                        languagesHtml = `
+                            <div class="language-bars">
+                                ${languageEntries.map(([lang, percentage]) => `
+                                    <div class="mb-1">
+                                        <div class="d-flex justify-content-between mb-1">
+                                            <span>${lang}</span>
+                                            <span>${percentage}%</span>
+                                        </div>
+                                        <div class="progress" style="height: 8px;">
+                                            <div class="progress-bar" style="width: ${percentage}%; background-color: var(--accent-color);"></div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                    }
+                    
+                    // Format citations
+                    let citationsHtml = 'No citation information available';
+                    if (tool.citation_count > 0 || tool.doi) {
+                        citationsHtml = `
+                            <div class="mb-3">
+                                <p><strong>DOI:</strong> ${tool.doi ? `<a href="https://doi.org/${tool.doi}" target="_blank">${tool.doi}</a>` : 'Not available'}</p>
+                                <p><strong>Total Citations:</strong> ${tool.citation_count || 0}</p>
+                                <p><strong>Influential Citations:</strong> ${tool.influential_citations || 0}</p>
+                                
+                                ${tool.formatted_citations ? `
+                                    <div class="accordion mt-3" id="citationAccordion">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header">
+                                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#citationFormats">
+                                                    Citation Formats
+                                                </button>
+                                            </h2>
+                                            <div id="citationFormats" class="accordion-collapse collapse" data-bs-parent="#citationAccordion">
+                                                <div class="accordion-body">
+                                                    <div class="citation-table">
+                                                        <h6>APA Format</h6>
+                                                        <p>${tool.formatted_citations.apa || 'Not available'}</p>
+                                                        
+                                                        <h6 class="mt-3">BibTeX</h6>
+                                                        <pre>${tool.formatted_citations.bibtex || 'Not available'}</pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `;
+                    }
+                    
+                    // Build modal content
+                    modalContent.innerHTML = `
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Overview</h6>
+                                <p>${tool.description || 'No description available.'}</p>
+                                
+                                <h6 class="mt-4">Classification</h6>
+                                <p><strong>Category:</strong> ${tool.category || 'Uncategorized'}</p>
+                                <p><strong>Subcategory:</strong> ${tool.subcategory || 'None'}</p>
+                                
+                                <h6 class="mt-4">Repository</h6>
+                                <p><strong>Provider:</strong> ${tool.provider || 'Unknown'}</p>
+                                <p><strong>Stars:</strong> ${tool.stars || 0}</p>
+                                <p><strong>Forks:</strong> ${tool.forks || 0}</p>
+                                <p><strong>Open Issues:</strong> ${tool.open_issues || 0}</p>
+                                <p><strong>License:</strong> ${tool.license || 'Unknown'}</p>
+                                <p><strong>Created:</strong> ${creationInfo}</p>
+                                <p><strong>Last Updated:</strong> ${updateInfo}</p>
+                                <p><strong>Latest Release:</strong> ${tool.latestRelease || 'No release information'}</p>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h6>Languages</h6>
+                                ${languagesHtml}
+                                
+                                <h6 class="mt-4">Topics</h6>
+                                <div class="mb-3">
+                                    ${tool.topics && tool.topics.length > 0 ? 
+                                        tool.topics.map(topic => `<span class="badge bg-secondary me-1 mb-1">${topic}</span>`).join('') : 
+                                        'No topics available'
+                                    }
+                                </div>
+                                
+                                <h6 class="mt-4">Academic Impact</h6>
+                                ${citationsHtml}
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Show modal
+                    modalInstance.show();
+                };
+            }
+            
+            // Helper functions
+            function getMainLanguage(languages) {
+                if (!languages || Object.keys(languages).length === 0) return 'Unknown';
+                
+                // Get the language with the highest percentage
+                const topLanguage = Object.entries(languages)
+                    .sort((a, b) => b[1] - a[1])[0];
+                
+                return topLanguage[0];
+            }
+            
+            function getUpdateClass(lastUpdatedStr) {
+                if (!lastUpdatedStr) return 'update-old';
+                
+                const lastUpdated = new Date(lastUpdatedStr);
+                const now = new Date();
+                const monthsDiff = (now.getFullYear() - lastUpdated.getFullYear()) * 12 + 
+                                   now.getMonth() - lastUpdated.getMonth();
+                
+                if (monthsDiff < 6) return 'update-recent';
+                if (monthsDiff < 12) return 'update-medium';
+                return 'update-old';
+            }
+            
+            function formatDate(dateStr) {
+                if (!dateStr) return 'Unknown';
+                
+                const date = new Date(dateStr);
+                return date.toLocaleDateString();
+            }
+            
+            function getRelativeTimeString(date) {
+                const now = new Date();
+                const diffMs = now - date;
+                const diffSec = Math.round(diffMs / 1000);
+                const diffMin = Math.round(diffSec / 60);
+                const diffHour = Math.round(diffMin / 60);
+                const diffDay = Math.round(diffHour / 24);
+                const diffMonth = Math.round(diffDay / 30);
+                const diffYear = Math.round(diffMonth / 12);
+                
+                if (diffSec < 60) return `${diffSec} seconds ago`;
+                if (diffMin < 60) return `${diffMin} minutes ago`;
+                if (diffHour < 24) return `${diffHour} hours ago`;
+                if (diffDay < 30) return `${diffDay} days ago`;
+                if (diffMonth < 12) return `${diffMonth} months ago`;
+                return `${diffYear} years ago`;
+            }
+        });
+    </script>
+</body>
+</html>

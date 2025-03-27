@@ -26,7 +26,22 @@
           "updateTime": {"type": ["integer", "null"]},
           "size": {"type": "number"},
           "color": {"type": "string"},
-          "url": {"type": ["string", "null"]}
+          "url": {"type": ["string", "null"]},
+          "input_formats": {"type": ["array", "null"], "items": {"type": "string"}},
+          "output_formats": {"type": ["array", "null"], "items": {"type": "string"}},
+          "bioinformatics_categories": {"type": ["array", "null"], "items": {"type": "string"}},
+          "dependencies": {"type": ["array", "null"], "items": {"type": "string"}},
+          "installation_methods": {
+            "type": ["object", "null"],
+            "properties": {
+              "conda": {"type": "boolean"},
+              "bioconda": {"type": "boolean"},
+              "pip": {"type": "boolean"},
+              "docker": {"type": "boolean"},
+              "singularity": {"type": "boolean"},
+              "source": {"type": "boolean"}
+            }
+          }
         },
         "allOf": [
           {
