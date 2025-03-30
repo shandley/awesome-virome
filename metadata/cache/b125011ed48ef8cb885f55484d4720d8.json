@@ -1,0 +1,45 @@
+{
+  "cache_date": "2025-03-30T08:29:24.527025",
+  "data": [
+    {
+      "url": "https://api.github.com/repos/Joon-Klaps/viralgenie/releases/203043397",
+      "assets_url": "https://api.github.com/repos/Joon-Klaps/viralgenie/releases/203043397/assets",
+      "upload_url": "https://uploads.github.com/repos/Joon-Klaps/viralgenie/releases/203043397/assets{?name,label}",
+      "html_url": "https://github.com/Joon-Klaps/viralgenie/releases/tag/0.1.2",
+      "id": 203043397,
+      "author": {
+        "login": "Joon-Klaps",
+        "id": 61584065,
+        "node_id": "MDQ6VXNlcjYxNTg0MDY1",
+        "avatar_url": "https://avatars.githubusercontent.com/u/61584065?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/Joon-Klaps",
+        "html_url": "https://github.com/Joon-Klaps",
+        "followers_url": "https://api.github.com/users/Joon-Klaps/followers",
+        "following_url": "https://api.github.com/users/Joon-Klaps/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Joon-Klaps/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/Joon-Klaps/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Joon-Klaps/subscriptions",
+        "organizations_url": "https://api.github.com/users/Joon-Klaps/orgs",
+        "repos_url": "https://api.github.com/users/Joon-Klaps/repos",
+        "events_url": "https://api.github.com/users/Joon-Klaps/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/Joon-Klaps/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "node_id": "RE_kwDOIw-IrM4MGjJF",
+      "tag_name": "0.1.2",
+      "target_commitish": "master",
+      "name": "0.1.2 - Snow goose",
+      "draft": false,
+      "prerelease": true,
+      "created_at": "2025-02-28T14:51:03Z",
+      "published_at": "2025-02-28T14:53:46Z",
+      "assets": [],
+      "tarball_url": "https://api.github.com/repos/Joon-Klaps/viralgenie/tarball/0.1.2",
+      "zipball_url": "https://api.github.com/repos/Joon-Klaps/viralgenie/zipball/0.1.2",
+      "body": "Second release of the viralgenie pipeline. Focusing on user experience and bug fixes.\r\n\r\n### `Enhancement`\r\n\r\n- Set default umitools dedup strategy to cluster ([#126](https://github.com/Joon-Klaps/viralgenie/pull/126))\r\n- Include both krakenreport &nodes.dmp in taxonomy filtering ([#128](https://github.com/Joon-Klaps/viralgenie/pull/128))\r\n- Add Sspace indiv to each assembler seperatly ([#132](https://github.com/Joon-Klaps/viralgenie/pull/132))\r\n- Add read & contig decomplexification using prinseq++  ([#133](https://github.com/Joon-Klaps/viralgenie/pull/133))\r\n- Add option to filter contig clusters based on cumulative read coverage ([#138](https://github.com/Joon-Klaps/viralgenie/pull/138))\r\n- Reffurbish mqc implementation ([#139](https://github.com/Joon-Klaps/viralgenie/pull/139))\r\n- Adding mash-screen output to result table ([#140](https://github.com/Joon-Klaps/viralgenie/pull/140))\r\n- Add logic to allow samples with no reference hits to be analysed ([#141](https://github.com/Joon-Klaps/viralgenie/pull/141))\r\n- Add visualisation for hybrid scaffold ([#143](https://github.com/Joon-Klaps/viralgenie/pull/143))\r\n- Add new module to inculde custom mpileup-vcf file for intra-host analyses ([#151](https://github.com/Joon-Klaps/viralgenie/pull/151))\r\n- Update docs ([#150](https://github.com/Joon-Klaps/viralgenie/pull/150))\r\n- Make custom-mpileup.py postion 1 index based and not 0 index to follow bcftools ([#153](https://github.com/Joon-Klaps/viralgenie/pull/153))\r\n- Update docs for more streamlined docs & figures ([#154](https://github.com/Joon-Klaps/viralgenie/pull/154))\r\n- Add column in custom mpileup - Shannon entropy ([#156](https://github.com/Joon-Klaps/viralgenie/pull/156))\r\n- Constrain -> Constraint & further python script debugging ([#161](https://github.com/Joon-Klaps/viralgenie/pull/161))\r\n- include empty samples in multiqc sample overview ([#162](https://github.com/Joon-Klaps/viralgenie/pull/162))\r\n- Include samtools stats pre dedup & post dedup in overview tables ([#163](https://github.com/Joon-Klaps/viralgenie/pull/163))\r\n- adding prokka for gene detection & annotation ([#165](https://github.com/Joon-Klaps/viralgenie/pull/165))\r\n\r\n\r\n### `Fixed`\r\n\r\n- OOM with longer contigs for nocov_to_reference, uses more RAM now ([#125](https://github.com/Joon-Klaps/viralgenie/pull/125))\r\n- fixing null output from global prefix ([#147](https://github.com/Joon-Klaps/viralgenie/pull/147))\r\n- Fix empty filtered clusters ([#148](https://github.com/Joon-Klaps/viralgenie/pull/148))\r\n- Fixing missing columns from general stats & add general stats sample filtering ([#149](https://github.com/Joon-Klaps/viralgenie/pull/149))\r\n- process.shell template fix ([#157](https://github.com/Joon-Klaps/viralgenie/pull/157)) - see also [nf-core/tools #3416](https://github.com/nf-core/tools/pull/3416)\r\n\r\n### `Parameters`\r\n- __DEPRECATED__- New parameter mmseqs_cluster_mode default to 0 ([#130](https://github.com/Joon-Klaps/viralgenie/pull/130)) \r\n- Refactor module arguments to pipeline arguments ([#166](https://github.com/Joon-Klaps/viralgenie/pull/166))\r\n"
+    }
+  ]
+}
