@@ -142,6 +142,14 @@
       "color": "#495057"
     },
     {
+      "id": "subcategory-Genome-analysis-workflows",
+      "name": "Genome analysis workflows",
+      "type": "subcategory",
+      "parent": "Genome Analysis",
+      "size": 10,
+      "color": "#495057"
+    },
+    {
       "id": "subcategory-Evolutionary-Analysis",
       "name": "Evolutionary Analysis",
       "type": "subcategory",
@@ -3066,12 +3074,12 @@
       "id": "tool-iPHoP",
       "name": "iPHoP",
       "type": "tool",
-      "url": "https://github.com/RasmussenLab/PHoP",
-      "description": "Integrated approach for phage host prediction (formerly iPHoP). Documentation at [iphop.readthedocs.io](https://iphop.readthedocs.io/). [Python] [v1.1.0, 2023]",
+      "url": "https://bitbucket.org/srouxjgi/iphop/src/main/",
+      "description": "Integrated approach for phage host prediction. Documentation at [https://bitbucket.org/srouxjgi/iphop/src/main/](https://bitbucket.org/srouxjgi/iphop/src/main/) [v1.3.3, 2023]. [bioconda] [Python] [v1.3.3, 2023]",
       "category": "Host Prediction",
       "subcategory": null,
       "language": "Python",
-      "package_manager": null,
+      "package_manager": "bioconda",
       "stars": 0,
       "updateTime": 0,
       "size": 10,
@@ -4515,6 +4523,21 @@
       "influential_citations": 0,
       "citations_by_year": {},
       "formatted_citations": {}
+    },
+    {
+      "id": "tool-Sphae",
+      "name": "Sphae",
+      "type": "tool",
+      "url": "https://github.com/linsalrob/sphae",
+      "description": "Phage toolkit to assemble and annotate phages, to identify phage therapy candidates [conda] [Snakemake]",
+      "category": "Genome Analysis",
+      "subcategory": "Genome analysis workflows",
+      "language": null,
+      "package_manager": "conda",
+      "stars": 0,
+      "updateTime": 0,
+      "size": 10,
+      "color": "#198754"
     },
     {
       "id": "tool-BERTax",
@@ -8138,6 +8161,11 @@
       "value": 1
     },
     {
+      "source": "subcategory-Genome-analysis-workflows",
+      "target": "category-Genome-Analysis",
+      "value": 1
+    },
+    {
       "source": "subcategory-Evolutionary-Analysis",
       "target": "category-Functional-Analysis",
       "value": 1
@@ -8913,6 +8941,11 @@
       "value": 1
     },
     {
+      "source": "tool-Sphae",
+      "target": "subcategory-Genome-analysis-workflows",
+      "value": 1
+    },
+    {
       "source": "tool-BERTax",
       "target": "category-Taxonomy",
       "value": 1
@@ -9540,5 +9573,5 @@
     "R",
     "Ruby"
   ],
-  "last_updated": "2025-03-23T08:28:29.997460"
+  "last_updated": "2025-03-30T08:28:49.429965"
 }
