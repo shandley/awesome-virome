@@ -1,0 +1,45 @@
+{
+  "cache_date": "2025-04-06T08:23:46.627160",
+  "data": [
+    {
+      "url": "https://api.github.com/repos/biobakery/MetaPhlAn/releases/157163863",
+      "assets_url": "https://api.github.com/repos/biobakery/MetaPhlAn/releases/157163863/assets",
+      "upload_url": "https://uploads.github.com/repos/biobakery/MetaPhlAn/releases/157163863/assets{?name,label}",
+      "html_url": "https://github.com/biobakery/MetaPhlAn/releases/tag/4.1.1",
+      "id": 157163863,
+      "author": {
+        "login": "fasnicar",
+        "id": 5664022,
+        "node_id": "MDQ6VXNlcjU2NjQwMjI=",
+        "avatar_url": "https://avatars.githubusercontent.com/u/5664022?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/fasnicar",
+        "html_url": "https://github.com/fasnicar",
+        "followers_url": "https://api.github.com/users/fasnicar/followers",
+        "following_url": "https://api.github.com/users/fasnicar/following{/other_user}",
+        "gists_url": "https://api.github.com/users/fasnicar/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/fasnicar/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/fasnicar/subscriptions",
+        "organizations_url": "https://api.github.com/users/fasnicar/orgs",
+        "repos_url": "https://api.github.com/users/fasnicar/repos",
+        "events_url": "https://api.github.com/users/fasnicar/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/fasnicar/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "node_id": "RE_kwDODmnxFc4JXiFX",
+      "tag_name": "4.1.1",
+      "target_commitish": "master",
+      "name": "4.1.1",
+      "draft": false,
+      "prerelease": false,
+      "created_at": "2024-05-23T12:02:35Z",
+      "published_at": "2024-05-23T16:04:44Z",
+      "assets": [],
+      "tarball_url": "https://api.github.com/repos/biobakery/MetaPhlAn/tarball/4.1.1",
+      "zipball_url": "https://api.github.com/repos/biobakery/MetaPhlAn/zipball/4.1.1",
+      "body": "# Version 4.1.1 (Mar 11th, 2024)\r\n\r\n## Database updates\r\n* We just released the new vJun23_202403 and vOct22_202403 databases\r\n  * Same SGBs as for the vJun23_202307 and vOct22_202212 versions, respectively, but the NCBI taxonomy assignment has been fixed to keep the taxa consistent across the MetaPhlAn taxonomic tree, allowing accurate relative abundance estimation also at higher taxonomic levels\r\n\r\n## New features\r\n* [MetaPhlAn] The new `fix_relab_mpa4.py` script enables to fix errors in the relative abundances in profiles generated with previous databases\r\n* [MetaPhlAn] Implementation of the option `--subsampling_paired [N_PAIRED_READS]` to subsample paired-end input reads. It needs to be used in conjunction with `-1 [FORWARD_READS_FILE]` and `-2 [REVERSE_READS_FILE]`\r\n\r\n## Fixes\r\n* [MetaPhlAn] Fixed a bug that would halt MetaPhlAn execution when the option `--profile_vsc` was used but had no viral hits\r\n* [MetaPhlAn] Fixed a bug that would halt MetaPhlAn execution when the number of reads to map was zero\r\n* [StrainPhlAn] Fixed a bug in the new implementation (since v4.1) of `\u2013-print_clades_only`"
+    }
+  ]
+}
