@@ -1,0 +1,127 @@
+name: Cache Maintenance
+
+on:
+  schedule:
+    # Run daily at midnight UTC
+    - cron: '0 0 * * *'
+  # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Maintenance mode (snapshot, hourly, daily, weekly)'
+        required: true
+        default: 'daily'
+        type: choice
+        options:
+          - snapshot
+          - hourly
+          - daily
+          - weekly
+      max_size:
+        description: 'Maximum cache size in MB'
+        required: false
+        default: '500'
+        type: string
+
+jobs:
+  cache-maintenance:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install matplotlib numpy requests pyyaml
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      
+      - name: Make scripts executable
+        run: |
+          chmod +x scripts/cache_maintenance.sh
+      
+      - name: Run cache maintenance
+        run: |
+          # Use manually specified mode if provided, otherwise use default based on day
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            MODE="${{ github.event.inputs.mode }}"
+            MAX_SIZE="${{ github.event.inputs.max_size }}"
+          else
+            # Default to weekly on Sundays, daily otherwise
+            if [ "$(date +%u)" = "7" ]; then
+              MODE="weekly"
+            else
+              MODE="daily"
+            fi
+            MAX_SIZE="500"
+          fi
+          
+          # Run maintenance script
+          ./scripts/cache_maintenance.sh "$MODE"
+      
+      - name: Upload maintenance log
+        uses: actions/upload-artifact@v4
+        with:
+          name: cache-maintenance-logs
+          path: logs/cache_maintenance_*.log
+          retention-days: 14
+      
+      - name: Upload monitoring graphs
+        uses: actions/upload-artifact@v4
+        with:
+          name: cache-monitoring-graphs
+          path: metadata/cache/_monitoring/enhanced/graphs/*.png
+          retention-days: 14
+          
+      - name: Generate cache status badge
+        run: |
+          # Run a snapshot to get current status
+          STATUS=$(python scripts/enhanced_monitor_cache.py --summary | grep "Status:" | cut -d ' ' -f 2)
+          
+          # Convert to badge color
+          case "$STATUS" in
+            GOOD)
+              COLOR="brightgreen"
+              ;;
+            FAIR)
+              COLOR="yellow"
+              ;;
+            POOR)
+              COLOR="red"
+              ;;
+            *)
+              COLOR="lightgrey"
+              ;;
+          esac
+          
+          # Create badge JSON
+          mkdir -p .github/badges
+          cat > .github/badges/cache-status.json << EOL
+          {
+            "schemaVersion": 1,
+            "label": "cache",
+            "message": "$STATUS",
+            "color": "$COLOR"
+          }
+          EOL
+          
+      - name: Commit badge if changed
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          
+          git add .github/badges/cache-status.json
+          
+          # Only commit if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update cache status badge [skip ci]"
+            git push
+          fi
