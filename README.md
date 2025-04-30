@@ -2,7 +2,7 @@
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 [![Data Update Status](https://github.com/shandley/awesome-virome/actions/workflows/simplified-update-workflow.yml/badge.svg)](https://github.com/shandley/awesome-virome/actions/workflows/simplified-update-workflow.yml)
-[![Pages Deployment](https://github.com/shandley/awesome-virome/actions/workflows/simplified-pages-deploy.yml/badge.svg)](https://github.com/shandley/awesome-virome/actions/workflows/simplified-pages-deploy.yml)
+[![Pages Deployment](https://github.com/shandley/awesome-virome/actions/workflows/simplified-pages-deploy.yml/badge.svg?branch=main)](https://github.com/shandley/awesome-virome/actions/workflows/simplified-pages-deploy.yml)
 
 A curated list of software, tools, and databases useful for virome analysis, including phages, viruses, and their interactions with hosts. This repository aims to help researchers navigate the diverse landscape of tools available for studying viral communities in various environments.
 
