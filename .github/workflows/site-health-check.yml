@@ -1,0 +1,106 @@
+name: Site Health Check
+
+on:
+  schedule:
+    # Run every day at 12:00 UTC
+    - cron: '0 12 * * *'
+  # Allow manual triggering for testing
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check site availability
+        id: site-check
+        run: |
+          # Get the site URL
+          SITE_URL="https://$(echo "$GITHUB_REPOSITORY" | sed 's/.*\///' | tr '[:upper:]' '[:lower:]').github.io/$(echo "$GITHUB_REPOSITORY" | cut -d '/' -f 2 | tr '[:upper:]' '[:lower:]')"
+          
+          echo "Checking site: $SITE_URL"
+          
+          # Check if the site is accessible
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$SITE_URL")
+          
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "Site is accessible (HTTP 200)"
+            echo "status=success" >> $GITHUB_OUTPUT
+          else
+            echo "Site returned HTTP status $HTTP_STATUS"
+            echo "status=failure" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check data.json availability
+        id: data-check
+        run: |
+          # Get the site URL
+          SITE_URL="https://$(echo "$GITHUB_REPOSITORY" | sed 's/.*\///' | tr '[:upper:]' '[:lower:]').github.io/$(echo "$GITHUB_REPOSITORY" | cut -d '/' -f 2 | tr '[:upper:]' '[:lower:]')"
+          DATA_URL="$SITE_URL/data.json"
+          
+          echo "Checking data file: $DATA_URL"
+          
+          # Check if data.json is accessible
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$DATA_URL")
+          
+          if [ "$HTTP_STATUS" -eq 200 ]; then
+            echo "data.json is accessible (HTTP 200)"
+            echo "status=success" >> $GITHUB_OUTPUT
+          else
+            echo "data.json returned HTTP status $HTTP_STATUS"
+            echo "status=failure" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Verify data.json structure
+        id: data-structure
+        if: steps.data-check.outputs.status == 'success'
+        run: |
+          # Get the site URL
+          SITE_URL="https://$(echo "$GITHUB_REPOSITORY" | sed 's/.*\///' | tr '[:upper:]' '[:lower:]').github.io/$(echo "$GITHUB_REPOSITORY" | cut -d '/' -f 2 | tr '[:upper:]' '[:lower:]')"
+          DATA_URL="$SITE_URL/data.json"
+          
+          # Check if data.json has the expected structure
+          curl -s "$DATA_URL" | jq -e '.nodes and .links' > /dev/null
+          
+          if [ $? -eq 0 ]; then
+            echo "data.json has the expected structure"
+            echo "status=success" >> $GITHUB_OUTPUT
+          else
+            echo "data.json does not have the expected structure"
+            echo "status=failure" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Check site content
+        id: content-check
+        run: |
+          # Get the site URL
+          SITE_URL="https://$(echo "$GITHUB_REPOSITORY" | sed 's/.*\///' | tr '[:upper:]' '[:lower:]').github.io/$(echo "$GITHUB_REPOSITORY" | cut -d '/' -f 2 | tr '[:upper:]' '[:lower:]')"
+          
+          # Check if the site has essential content
+          CONTENT=$(curl -s "$SITE_URL")
+          
+          if echo "$CONTENT" | grep -q "Awesome Virome"; then
+            echo "Site contains expected content"
+            echo "status=success" >> $GITHUB_OUTPUT
+          else
+            echo "Site is missing expected content"
+            echo "status=failure" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Create status report
+        id: status-report
+        run: |
+          echo "### Site Health Check Results" > health_report.md
+          echo "- Site accessibility: ${{ steps.site-check.outputs.status }}" >> health_report.md
+          echo "- data.json availability: ${{ steps.data-check.outputs.status }}" >> health_report.md
+          echo "- data.json structure: ${{ steps.data-structure.outputs.status }}" >> health_report.md
+          echo "- Content verification: ${{ steps.content-check.outputs.status }}" >> health_report.md
+          echo "" >> health_report.md
+          echo "Check completed at $(date -u)" >> health_report.md
+          cat health_report.md
+      
+      - name: Upload health report
+        uses: actions/upload-artifact@v3
+        with:
+          name: site-health-report
+          path: health_report.md
+          retention-days: 7
