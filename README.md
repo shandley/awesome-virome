@@ -620,6 +620,18 @@ For newcomers to virome analysis, here are some recommended starting points:
 
 [![CC0](https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/cc-zero.svg)](https://creativecommons.org/publicdomain/zero/1.0)
 
+## Interactive Dashboard
+
+Explore the [Interactive Dashboard](dashboard.html) to visualize tool relationships, citation trends, and adoption patterns in the virome analysis ecosystem. 
+
+The dashboard provides:
+- Network visualization of tool relationships
+- Citation growth and impact charts
+- Tool adoption timeline
+- Ecosystem analytics
+
+See the [dashboard documentation](DASHBOARD.md) for more information.
+
 ## Maintenance
 
 ### Automated Update Checking
