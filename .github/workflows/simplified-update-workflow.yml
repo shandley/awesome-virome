@@ -123,6 +123,10 @@ jobs:
             python update_data_json.py
           fi
       
+      # Generate API endpoints
+      - name: Generate API endpoints
+        run: python scripts/generate_api.py
+          
       # Commit all changes directly to the main branch
       - name: Commit and push changes
         run: |
@@ -131,11 +135,12 @@ jobs:
           
           # Add only the specific files we want to commit
           # Explicitly NOT including update_check.log and repo_updates.json since they're gitignored
-          git add data.json README.md
+          git add data.json README.md API.md
           
           # Add directories with wildcards to avoid errors if they don't exist
           git add metadata/* || true
           git add reports/* || true
+          git add api/* || true
           
           # Determine commit message based on update type
           if [[ "${{ github.event.inputs.update_type }}" == "comprehensive" || "${{ github.event.schedule }}" == "0 8 1 * *" ]]; then

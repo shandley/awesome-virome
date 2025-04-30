@@ -1,0 +1,56 @@
+{
+  "api_name": "Awesome Virome API",
+  "api_version": "1.0",
+  "generated_at": "2025-04-30T16:05:27.765727",
+  "description": "API for accessing the awesome-virome database of virus and phage analysis tools",
+  "documentation_url": "https://github.com/shandley/awesome-virome/blob/main/API.md",
+  "endpoints": [
+    {
+      "path": "/api/v1/tools.json",
+      "description": "Complete list of tools",
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/v1/categories.json",
+      "description": "List of available categories",
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/v1/categories/{category_name}.json",
+      "description": "Tools filtered by category",
+      "methods": [
+        "GET"
+      ],
+      "parameters": {
+        "category_name": "The category slug (e.g., 'virus-identification')"
+      }
+    },
+    {
+      "path": "/api/v1/search.json",
+      "description": "Search index for client-side filtering",
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/v1/stats.json",
+      "description": "Statistics about the tools database",
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/v1/metadata.json",
+      "description": "API metadata and documentation",
+      "methods": [
+        "GET"
+      ]
+    }
+  ],
+  "license": "CC0",
+  "repository": "https://github.com/shandley/awesome-virome"
+}
