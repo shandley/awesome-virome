@@ -1,0 +1,96 @@
+name: New Tool Submission
+description: Submit a new tool to be added to awesome-virome
+title: "[NEW TOOL]: "
+labels: ["new-tool"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for contributing to awesome-virome! Please provide details about the tool you'd like to add."
+  - type: input
+    id: tool-name
+    attributes:
+      label: Tool Name
+      description: Name of the tool
+    validations:
+      required: true
+  - type: input
+    id: repo-url
+    attributes:
+      label: Repository URL
+      description: GitHub/GitLab/Bitbucket URL
+      placeholder: "https://github.com/user/tool"
+    validations:
+      required: true
+  - type: input
+    id: website
+    attributes:
+      label: Website
+      description: Tool website if different from repository
+  - type: dropdown
+    id: category
+    attributes:
+      label: Primary Tool Category
+      description: Primary category for this tool
+      options:
+        - Virus and Phage Identification
+        - Metagenome Analysis
+        - Integrated Viruses
+        - RNA Virus Identification
+        - Host Prediction
+        - Genome Analysis
+        - Genome Annotation
+        - Genome Assembly
+        - Genome Completeness
+        - Genome Comparison
+        - Gene Finding
+        - Taxonomy
+        - Quality Control
+        - Functional Analysis
+        - Evolutionary Analysis
+        - Lifestyle Classification
+        - Phage-specific Analysis
+        - Viral Orthologous Groups
+        - CRISPR Analysis
+        - Sequence Analysis
+        - Visualization and Infrastructure
+        - Machine Learning Models
+        - Other (specify in description)
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Brief description of what the tool does (1-2 sentences)
+      placeholder: "This tool..."
+    validations:
+      required: true
+  - type: textarea
+    id: installation
+    attributes:
+      label: Installation Methods
+      description: How can the tool be installed? (e.g., pip, conda, docker)
+      placeholder: "conda install -c bioconda tool"
+  - type: textarea
+    id: citation
+    attributes:
+      label: Citation
+      description: Publication or DOI if available
+      placeholder: "Author et al., Journal Name (Year). DOI: 10.xxxx/xxxxx"
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Information
+      description: Programming language, special requirements, or other notable features
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission Checklist
+      description: Please confirm the following
+      options:
+        - label: I have verified this tool is relevant for virome analysis
+          required: true
+        - label: I have checked that this tool is not already in the list
+          required: true
+        - label: This tool has publicly available code or documentation
+          required: true

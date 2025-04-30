@@ -1,0 +1,45 @@
+name: Feature Request
+description: Suggest an enhancement for awesome-virome
+title: "[FEATURE]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thanks for suggesting an improvement to awesome-virome!"
+  - type: dropdown
+    id: feature-type
+    attributes:
+      label: Feature Type
+      options:
+        - Website enhancement
+        - Filtering/sorting capability
+        - New metadata field
+        - New visualization
+        - New tool category
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the feature you'd like to see
+      placeholder: "I'd like to see..."
+    validations:
+      required: true
+  - type: textarea
+    id: value
+    attributes:
+      label: Value Proposition
+      description: How would this feature benefit users of awesome-virome?
+      placeholder: "This would help researchers to..."
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Have you considered any alternative solutions or features?
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Any other information, examples from other projects, mockups, etc.
