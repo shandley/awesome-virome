@@ -153,8 +153,13 @@ class VisualizationManager {
         const container = document.getElementById('citationTrendsChart');
         if (!container) return;
 
-        // Extract citation data by year
-        const citationsByYear = this.extractCitationsByYear();
+        // Use impact_data.json for citation trends instead of extracting from node data
+        if (!window.impactData || !window.impactData.citations || !window.impactData.citations.by_year) {
+            this.showEmptyChart(container, 'Citation Trends', 'No citation trend data available.');
+            return;
+        }
+        
+        const citationsByYear = window.impactData.citations.by_year;
         
         if (Object.keys(citationsByYear).length === 0) {
             this.showEmptyChart(container, 'Citation Trends', 'No citation trend data available.');
@@ -258,9 +263,18 @@ class VisualizationManager {
         const container = document.getElementById('topCitedToolsChart');
         if (!container) return;
 
-        // Extract top cited tools
-        const toolsWithCitations = this.data.nodes
-            .filter(node => node.type === 'tool' && node.citation_count && node.citation_count > 0)
+        // Use impact_data.json for top cited tools instead of extracting from node data
+        if (!window.impactData || !window.impactData.tools || !window.impactData.tools.length) {
+            this.showEmptyChart(container, 'Most Cited Tools', 'No citation data available.');
+            return;
+        }
+        
+        // Get top tools from impact_data.json
+        const toolsWithCitations = window.impactData.tools
+            .map(tool => ({
+                name: tool.name,
+                citation_count: Object.values(tool.citations_by_year || {}).reduce((sum, count) => sum + count, 0)
+            }))
             .sort((a, b) => (b.citation_count || 0) - (a.citation_count || 0))
             .slice(0, 10); // Top 10
         
@@ -665,20 +679,22 @@ document.addEventListener('DOMContentLoaded', function() {
             // Call the original dashboard initialization
             originalInitializeDashboard(data);
             
-            // Initialize enhanced visualizations
-            window.visualizationManager.initialize(data);
-            
-            console.log('Enhanced visualizations initialized');
+            // Load impact data first, then initialize visualizations
+            fetch('impact_data.json')
+                .then(response => response.json())
+                .then(impactData => {
+                    window.impactData = impactData;
+                    console.log('Impact data loaded successfully');
+                    
+                    // Initialize enhanced visualizations with both data sources
+                    window.visualizationManager.initialize(data);
+                    console.log('Enhanced visualizations initialized');
+                })
+                .catch(error => {
+                    console.warn('Could not load impact data:', error);
+                    // Initialize visualizations anyway, they'll show placeholders for missing data
+                    window.visualizationManager.initialize(data);
+                });
         };
     }
-    
-    // Load impact data if needed
-    fetch('impact_data.json')
-        .then(response => response.json())
-        .then(impactData => {
-            window.impactData = impactData;
-        })
-        .catch(error => {
-            console.warn('Could not load impact data:', error);
-        });
 });
