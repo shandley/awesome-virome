@@ -1030,8 +1030,8 @@
                 // Initialize network visualization
                 initializeNetworkGraph(data);
                 
-                // Initialize citation charts
-                initializeCitationCharts(tools);
+                // Citation charts are now handled by visualization.js
+                // initializeCitationCharts(tools);
                 
                 // Initialize analytics charts
                 initializeAnalyticsCharts(tools, categories);
@@ -1197,28 +1197,12 @@
                 // visualization of the network data
             }
             
+            // Legacy function replaced by visualization.js
             function initializeCitationCharts(tools) {
-                // Citation trends chart (placeholder)
-                document.getElementById('citationTrendsChart').innerHTML = `
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="text-center">
-                            <i class="bi bi-graph-up mb-3" style="font-size: 3rem;"></i>
-                            <h4>Citation Trends</h4>
-                            <p class="text-muted">Chart.js visualization of citation trends would appear here.</p>
-                        </div>
-                    </div>
-                `;
-                
-                // Top cited tools chart (placeholder)
-                document.getElementById('topCitedToolsChart').innerHTML = `
-                    <div class="d-flex justify-content-center align-items-center h-100">
-                        <div class="text-center">
-                            <i class="bi bi-bar-chart mb-3" style="font-size: 3rem;"></i>
-                            <h4>Most Cited Tools</h4>
-                            <p class="text-muted">Chart.js visualization of top cited tools would appear here.</p>
-                        </div>
-                    </div>
-                `;
+                // This function is kept as a no-op for backwards compatibility
+                console.log("Legacy initializeCitationCharts function called but is no longer used");
+                // DO NOT reset the chart containers as visualization.js will handle them
+                return;
                 
                 // Populate citations table
                 const citationsTableBody = document.querySelector('#citationsTable tbody');
