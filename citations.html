@@ -79,6 +79,18 @@
         .card-body {
             /* Ensure card body has a minimum height to prevent layout shifts */
             min-height: 400px;
+            padding: 1rem; /* Reduce padding to give more space to charts */
+        }
+        
+        /* Give more height to the Most Cited Tools chart */
+        #topCitedToolsChart {
+            height: 400px !important;
+            max-height: 400px !important;
+            min-height: 400px !important;
+        }
+        
+        #topCitedToolsChartContainer {
+            height: 400px !important;
         }
         
         .section-title {
@@ -223,12 +235,12 @@
                 <div class="card h-100">
                     <div class="card-header">Most Cited Tools</div>
                     <div class="card-body">
-                        <div class="loading-placeholder" id="topCitedToolsChartContainer" style="height: 350px; width: 100%;">
+                        <div class="loading-placeholder" id="topCitedToolsChartContainer" style="height: 400px; width: 100%;">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        <canvas id="topCitedToolsChart" height="350" width="700" style="display: none;"></canvas>
+                        <canvas id="topCitedToolsChart" height="400" width="700" style="display: none;"></canvas>
                     </div>
                 </div>
             </div>
@@ -496,10 +508,18 @@
                         indexAxis: 'y',
                         responsive: false, // Prevent responsive resizing
                         maintainAspectRatio: true, // Maintain fixed aspect ratio
-                        aspectRatio: 2, // Set fixed aspect ratio
+                        aspectRatio: 1.5, // Lower aspect ratio to fit better in container
                         resizeDelay: 0, // Disable resize delay
                         animation: {
                             duration: 0 // Disable animations for faster rendering
+                        },
+                        layout: {
+                            padding: {
+                                left: 10,
+                                right: 30,
+                                top: 0,
+                                bottom: 0
+                            }
                         },
                         scales: {
                             x: {
@@ -507,6 +527,18 @@
                                 title: {
                                     display: true,
                                     text: 'Citations'
+                                }
+                            },
+                            y: {
+                                ticks: {
+                                    font: {
+                                        size: 11 // Smaller font for tool names
+                                    },
+                                    callback: function(value) {
+                                        // Truncate long tool names
+                                        const label = this.getLabelForValue(value);
+                                        return label.length > 20 ? label.substr(0, 18) + '...' : label;
+                                    }
                                 }
                             }
                         },
