@@ -1,6 +1,488 @@
 {
-  "cache_date": "2025-03-17T23:22:33.905815",
+  "cache_date": "2025-05-01T09:29:09.138633",
   "data": [
+    {
+      "created": "2025-04-25T09:55:28.709814+00:00",
+      "modified": "2025-04-25T09:55:28.887017+00:00",
+      "id": 15212462,
+      "conceptrecid": "15212461",
+      "doi": "10.5281/zenodo.15212462",
+      "conceptdoi": "10.5281/zenodo.15212461",
+      "doi_url": "https://doi.org/10.5281/zenodo.15212462",
+      "metadata": {
+        "title": "DBSCAN 3D Clusters of SPEI-90 Days Values \u2013 Italian NUTS3 (ITH10, 20, 31, 32, 33, 34, 35, 36, 37), 1981\u20132023",
+        "doi": "10.5281/zenodo.15212462",
+        "publication_date": "2025-04-14",
+        "description": "<table style=\"border-collapse: collapse; width: 99.958%; height: 1258.06px;\">\n<tbody>\n<tr style=\"height: 47.5972px;\">\n<td style=\"padding: 5pt; height: 47.5972px; width: 15.9985%;\">\n<p><strong>Science Case Name</strong></p>\n</td>\n<td style=\"padding: 5pt; height: 47.5972px; width: 81.271%;\">\n<p><span lang=\"EN-US\">Multi-Hazards in the Downstream Area of the Adige River Basin.</span></p>\n</td>\n</tr>\n<tr style=\"height: 47.5972px;\">\n<td style=\"padding: 5pt; height: 47.5972px; width: 15.9985%;\">\n<p><strong>Dataset Name/Title</strong></p>\n</td>\n<td style=\"padding: 5pt; height: 47.5972px; width: 81.271%;\">\n<p><span lang=\"EN-US\">DBSCAN 3D Clusters of SPEI-90 Days Values &ndash; Italian NUTS3 (ITH10, 20, 31, 32, 33, 34, 35, 36, 37), 1981&ndash;2023</span></p>\n</td>\n</tr>\n<tr style=\"height: 67.1944px;\">\n<td style=\"padding: 5pt; height: 67.1944px; width: 15.9985%;\">\n<p><strong>Dataset Description</strong></p>\n</td>\n<td style=\"padding: 5pt; height: 67.1944px; width: 81.271%;\">\n<p><span lang=\"EN-US\">Density-Based Spatial Clustering of Applications with Noise (DBSCAN) algorithm output based on the daily Standardized Precipitation Evapotranspiration Index (SPEI) with a timescale of 90 days applying the threshold SPEI-90 days &le; -1.</span></p>\n</td>\n</tr>\n<tr style=\"height: 237.972px;\">\n<td style=\"padding: 5pt; height: 237.972px; width: 15.9985%;\">\n<p><strong>Key Methodologies</strong></p>\n</td>\n<td style=\"padding: 5pt; height: 237.972px; width: 81.271%;\">\n<p><span lang=\"EN-US\">The DBSCAN algorithm included in the scikit-learn package in Python environment (https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html) was applied to detect spatio-temporal drought clusters, using the SPEI-90 days values as input. Three parameters guide the DBSCAN clustering procedure: the neighbourhood parameter (</span><em>&epsilon;</em><span lang=\"EN-US\">), which defines the search radius around a point (a SPEI value); the spatio-temporal ratio (<em>r</em>), which controls the importance of spatial distance relative to temporal lag when computing the Euclidean distance between data points; the density threshold parameter (</span><em>&mu;</em><span lang=\"EN-US\">), representing the minimum number of neighbours required for a point to be considered as a core point (a point representing a suitable point to generate a new cluster).</span></p>\n<p><span lang=\"EN-US\">The selected parameter values are: neighbourhood parameter (</span><em>&epsilon;</em><span lang=\"EN-US\">) = 20, spatio-temporal ratio (<em>r</em>) = 4 and density threshold (</span><em>&mu;</em><span lang=\"EN-US\">) = 20. These values were selected based on their physical significance and through the comparison with drought historical events retrieved from newspapers, official regional bulletins and technical reports.</span></p>\n</td>\n</tr>\n<tr style=\"height: 48.3264px;\">\n<td style=\"padding: 5pt; height: 48.3264px; width: 15.9985%;\">\n<p><strong>Temporal Domain</strong></p>\n</td>\n<td style=\"padding: 5pt; height: 48.3264px; width: 81.271%;\">\n<p>1981&ndash;2023</p>\n</td>\n</tr>\n<tr style=\"height: 72.3056px;\">\n<td style=\"padding: 5pt; height: 72.3056px; width: 15.9985%;\">\n<p><strong>Spatial Domain</strong></p>\n</td>\n<td style=\"padding: 5pt; height: 72.3056px; width: 81.271%;\">\n<p><span lang=\"EN-US\">The spatial domain of the dataset is represented by grid points within the Italian Provinces identified by the NUTS3 codes ITH10 (South-Tyrol), ITH20 (Trento), ITH31 (Verona), ITH32 (Vicenza), ITH33 (Belluno), ITH34 (Treviso), ITH35 (Venezia), ITH36 (Padova), ITH37 (Rovigo).</span></p>\n</td>\n</tr>\n<tr style=\"height: 47.5972px;\">\n<td style=\"padding: 5pt; height: 47.5972px; width: 15.9985%;\">\n<p><strong>Key Variables/Indicators</strong></p>\n</td>\n<td style=\"padding: 5pt; height: 47.5972px; width: 81.271%;\">\n<p><span lang=\"EN-US\">Spatio-temporal clusters with SPEI-90 days &le; -1 </span></p>\n</td>\n</tr>\n<tr style=\"height: 47.5972px;\">\n<td style=\"padding: 5pt; height: 47.5972px; width: 15.9985%;\">\n<p><strong>Data Format</strong></p>\n</td>\n<td style=\"padding: 5pt; height: 47.5972px; width: 81.271%;\">\n<p>Comma Separated Values (CSV)</p>\n</td>\n</tr>\n<tr style=\"height: 47.5972px;\">\n<td style=\"padding: 5pt; height: 47.5972px; width: 15.9985%;\">\n<p><strong>Source Data</strong></p>\n</td>\n<td style=\"padding: 5pt; height: 47.5972px; width: 81.271%;\">\n<p><span lang=\"EN-US\">SCIA dataset (the Italian National System for the collection, processing and dissemination of climate data, www.scia.isprambiente.it)</span></p>\n</td>\n</tr>\n<tr style=\"height: 47.5972px;\">\n<td style=\"padding: 5pt; height: 47.5972px; width: 15.9985%;\">\n<p><strong>Accessibility</strong></p>\n</td>\n<td style=\"padding: 5pt; height: 47.5972px; width: 81.271%;\">\n<p>https://doi.org/10.5281/zenodo.15212462</p>\n</td>\n</tr>\n<tr style=\"height: 145.583px;\">\n<td style=\"padding: 5pt; height: 145.583px; width: 15.9985%;\">\n<p><strong>Stakeholder Relevance</strong></p>\n</td>\n<td style=\"padding: 5pt; height: 145.583px; width: 81.271%;\">\n<p><span lang=\"EN-US\">Both the daily SPEI index and its use as an input to the DBSCAN algorithm for identifying spatio-temporal drought clusters represent a key step in detecting the spatial and temporal footprints of hazard events. The cluster identification enables a greater understanding of hazard dynamics, facilitates integration with other hazard footprints and fosters the use of Earth Observation (EO) data. This approach, based on observed meteorological data, provides a robust method for identifying hazard events, which can be further refined through the use of higher spatial resolution EO data capable of capturing finer spatial variations (e.g., drought induced changes in soil moisture or variations in land surface temperature in response to different land uses during extreme hot conditions).</span></p>\n</td>\n</tr>\n<tr style=\"height: 47.5972px;\">\n<td style=\"padding: 5pt; height: 47.5972px; width: 15.9985%;\">\n<p><strong>Limitations/Assumptions</strong></p>\n</td>\n<td style=\"padding: 5pt; height: 47.5972px; width: 81.271%;\">\n<p><span lang=\"EN-US\">None.</span></p>\n</td>\n</tr>\n<tr style=\"height: 67.1944px;\">\n<td style=\"padding: 5pt; height: 67.1944px; width: 15.9985%;\">\n<p><strong>Additional Outputs/information</strong></p>\n</td>\n<td style=\"padding: 5pt; height: 67.1944px; width: 81.271%;\">\n<p><span lang=\"EN-US\">The dataset access is currently restricted due to pending related publication.</span></p>\n</td>\n</tr>\n<tr style=\"height: 286.306px;\">\n<td style=\"padding: 5pt; height: 286.306px; width: 15.9985%;\">\n<p><strong>Contact Information</strong></p>\n</td>\n<td style=\"padding: 5pt; height: 286.306px; width: 81.271%;\">\n<p><span lang=\"EN-US\">Masina, Marinella (CMCC Foundation - Euro-Mediterranean Center on Climate Change; Department of Environmental Sciences, Informatics and Statistics, Ca' Foscari University of Venice) - Data manager</span></p>\n<p><span lang=\"EN-US\">Ferrario, Davide Mauro (CMCC Foundation - Euro-Mediterranean Center on Climate Change; Department of Environmental Sciences, Informatics and Statistics, Ca' Foscari University of Venice) - Data manager</span></p>\n<p><span lang=\"EN-US\">Maraschini, Margherita (CMCC Foundation - Euro-Mediterranean Center on Climate Change; Department of Environmental Sciences, Informatics and Statistics, Ca' Foscari University of Venice) - Data manager</span></p>\n<p><span lang=\"EN-US\">Furlanetto, Jacopo (CMCC Foundation - Euro-Mediterranean Center on Climate Change; Department of Environmental Sciences, Informatics and Statistics, Ca' Foscari University of Venice; National Biodiversity Future Center) - Data manager</span></p>\n<p><span lang=\"EN-US\">Torresan, Silvia (CMCC Foundation - Euro-Mediterranean Center on Climate Change; Department of Environmental Sciences, Informatics and Statistics, Ca' Foscari University of Venice, National Biodiversity Future Center) - Data manager</span></p>\n</td>\n</tr>\n</tbody>\n</table>\n<p>&nbsp;</p>\n<p>&nbsp;</p>",
+        "access_right": "restricted",
+        "creators": [
+          {
+            "name": "Masina, Marinella",
+            "affiliation": "CMCC Foundation - Euro-Mediterranean Center on Climate Change",
+            "orcid": "0000-0003-3028-1918"
+          },
+          {
+            "name": "Ferrario, Davide Mauro",
+            "affiliation": "Istituto Universitario di Studi Superiori di Pavia",
+            "orcid": "0000-0001-5200-0430"
+          },
+          {
+            "name": "Maraschini, Margherita",
+            "affiliation": "Ca' Foscari University of Venice",
+            "orcid": "0000-0003-2435-9141"
+          },
+          {
+            "name": "FURLANETTO, JACOPO",
+            "affiliation": "CMCC Foundation - Euro-Mediterranean Center on Climate Change",
+            "orcid": "0000-0002-9004-5733"
+          },
+          {
+            "name": "TORRESAN, Silvia",
+            "affiliation": "CMCC Foundation - Euro-Mediterranean Center on Climate Change",
+            "orcid": "0000-0002-9758-7084"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "eo4multihazards"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15212461"
+              }
+            }
+          ]
+        }
+      },
+      "title": "DBSCAN 3D Clusters of SPEI-90 Days Values \u2013 Italian NUTS3 (ITH10, 20, 31, 32, 33, 34, 35, 36, 37), 1981\u20132023",
+      "links": {
+        "self": "https://zenodo.org/api/records/15212462",
+        "self_html": "https://zenodo.org/records/15212462",
+        "preview_html": "https://zenodo.org/records/15212462?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15212462",
+        "self_doi": "https://doi.org/10.5281/zenodo.15212462",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15212462",
+        "parent": "https://zenodo.org/api/records/15212461",
+        "parent_html": "https://zenodo.org/records/15212461",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15212461",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15212461",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15212462/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15212462/sequence/default",
+        "files": "https://zenodo.org/api/records/15212462/files",
+        "media_files": "https://zenodo.org/api/records/15212462/media-files",
+        "archive": "https://zenodo.org/api/records/15212462/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15212462/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15212462/versions/latest",
+        "latest_html": "https://zenodo.org/records/15212462/latest",
+        "versions": "https://zenodo.org/api/records/15212462/versions",
+        "draft": "https://zenodo.org/api/records/15212462/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15212462/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15212462/access/links",
+        "access_grants": "https://zenodo.org/api/records/15212462/access/grants",
+        "access_users": "https://zenodo.org/api/records/15212462/access/users",
+        "access_request": "https://zenodo.org/api/records/15212462/access/request",
+        "access": "https://zenodo.org/api/records/15212462/access",
+        "communities": "https://zenodo.org/api/records/15212462/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15212462/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15212462/requests"
+      },
+      "updated": "2025-04-25T09:55:28.887017+00:00",
+      "recid": "15212462",
+      "revision": 4,
+      "files": [],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1190659"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 11,
+        "unique_downloads": 8,
+        "views": 10,
+        "unique_views": 10,
+        "version_downloads": 11,
+        "version_unique_downloads": 8,
+        "version_unique_views": 10,
+        "version_views": 10
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-04-14T16:56:20.943034+00:00",
+      "modified": "2025-04-17T11:58:29.650120+00:00",
+      "id": 15212719,
+      "conceptrecid": "15212718",
+      "doi": "10.5281/zenodo.15212719",
+      "conceptdoi": "10.5281/zenodo.15212718",
+      "doi_url": "https://doi.org/10.5281/zenodo.15212719",
+      "metadata": {
+        "title": "DBSCAN 3D Clusters of Heatwaves \u2013  Linguere, Senegal, 1950-2023",
+        "doi": "10.5281/zenodo.15212719",
+        "publication_date": "2025-04-14",
+        "description": "<table style=\"width: 99.9748%; height: 998.2px;\">\n<tbody>\n<tr style=\"height: 47.6px;\">\n<td style=\"width: 23.3527%; height: 47.6px;\">\n<p><strong>Science Case Name</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 47.6px;\">\n<p>Multi-Hazards in Senegal.</p>\n</td>\n</tr>\n<tr style=\"height: 47.6px;\">\n<td style=\"width: 23.3527%; height: 47.6px;\">\n<p><strong>Dataset Name/Title</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 47.6px;\">\n<p>DBSCAN 3D Clusters of Heatwaves &ndash; Linguere, Senegal, 1950-2023</p>\n</td>\n</tr>\n<tr style=\"height: 29.4px;\">\n<td style=\"width: 23.3527%; height: 29.4px;\">\n<p><strong>Dataset Description</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 29.4px;\">\n<p>The dataset contains gridded data on heatwaves over Linguere area of Senegal.</p>\n</td>\n</tr>\n<tr style=\"height: 271.6px;\">\n<td style=\"width: 23.3527%; height: 271.6px;\">\n<p><strong>Key Methodologies</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 271.6px;\">\n<p>Heatwaves were defined as at least 3-day-long events on which daily maximum air temperature exceeded the 95$^{th}$ percentile of the 15-day moving average daily maximum air temperature. Daily maximum air temperature at 2 meters was downloaded from ERA5-Land dataset.</p>\n<p>Spatio-temporal DBSCAN was conducted with Python packages st_dbscan <a href=\"https://github.com/eren-ck/st_dbscan\" target=\"_blank\" rel=\"noopener\">https://github.com/eren-ck/st_dbscan</a> (Cakmak et al., <a href=\"https://doi.org/10.1145/3486637.3489487\" target=\"_blank\" rel=\"noopener\">2021</a>). Spatial proximity (epsilon 1) was set to 0.5 (0.5 degree), temporal proximity (epsilon 2) was set to 1.5 (1.5 days); min number of samples was set to 30.</p>\n<p>The values in the NetCDF files represent cluster numbers (from 0 to 11), with values -1 (negative 1) representing outliers.</p>\n<p>A summary table in CSV represents rows for each cluster with start and end dates, average severity and intensity, and maximum number of affected cells, starting from 1981.</p>\n</td>\n</tr>\n<tr style=\"height: 47.6px;\">\n<td style=\"width: 23.3527%; height: 47.6px;\">\n<p><strong>Temporal Domain</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 47.6px;\">\n<p>1950&ndash;2023, daily</p>\n</td>\n</tr>\n<tr style=\"height: 81.2px;\">\n<td style=\"width: 23.3527%; height: 81.2px;\">\n<p><strong>Spatial Domain</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 81.2px;\">\n<p>Linguere, Senegal, West Africa</p>\n<p>Spatial resolution ca 0.1&deg;x0.1&deg; (EPGS:4326)</p>\n</td>\n</tr>\n<tr style=\"height: 47.6px;\">\n<td style=\"width: 23.3527%; height: 47.6px;\">\n<p><strong>Key Variables/Indicators</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 47.6px;\">\n<p>Spatio-temporal clusters of heatwave events</p>\n</td>\n</tr>\n<tr style=\"height: 47.6px;\">\n<td style=\"width: 23.3527%; height: 47.6px;\">\n<p><strong>Data Format</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 47.6px;\">\n<p>netCDF</p>\n<p>CSV&nbsp;</p>\n</td>\n</tr>\n<tr style=\"height: 47.6px;\">\n<td style=\"width: 23.3527%; height: 47.6px;\">\n<p><strong>Source Data</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 47.6px;\">\n<p>ERA5-Land daily max air temperature</p>\n</td>\n</tr>\n<tr style=\"height: 47.6px;\">\n<td style=\"width: 23.3527%; height: 47.6px;\">\n<p><strong>Accessibility</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 47.6px;\">\n<p>Zenodo, <a href=\"https://doi.org/10.5281/zenodo.15212719\" target=\"_blank\" rel=\"noopener\">https://doi.org/10.5281/zenodo.15212719</a></p>\n</td>\n</tr>\n<tr style=\"height: 67.2px;\">\n<td style=\"width: 23.3527%; height: 67.2px;\">\n<p><strong>Stakeholder Relevance</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 67.2px;\">\n<p>Identifying and assessing past heatwave events for multi-hazard events monitoring, prediction and preparedness.</p>\n</td>\n</tr>\n<tr style=\"height: 81.2px;\">\n<td style=\"width: 23.3527%; height: 81.2px;\">\n<p><strong>Limitations/Assumptions</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 81.2px;\">\n<p>The clustering was done over the specified region only.</p>\n<p>Each calendar year was clustered independently.</p>\n</td>\n</tr>\n<tr style=\"height: 67.2px;\">\n<td style=\"width: 23.3527%; height: 67.2px;\">\n<p><strong>Additional Outputs/information</strong></p>\n</td>\n<td style=\"width: 76.6221%; height: 67.2px;\">\n<p>The dataset access is currently restricted due to pending related publication.</p>\n</td>\n</tr>\n<tr style=\"height: 67.2px;\">\n<td style=\"width: 23.3527%; height: 67.2px;\">\n<p><strong>Contact Information&nbsp;</strong></p>\n</td>\n<td style=\"width: 76.6221%; height: 67.2px;\">\n<p>Egor Prikaziuk (UT-ITC, Faculty of Geo-Information Science and Earth Observation, ITC, University of Twente, the Netherlands)</p>\n</td>\n</tr>\n</tbody>\n</table>",
+        "access_right": "restricted",
+        "creators": [
+          {
+            "name": "Prikaziuk, Egor",
+            "affiliation": "University of Twente",
+            "orcid": "0000-0002-7331-7004"
+          },
+          {
+            "name": "University of Twente",
+            "affiliation": null
+          },
+          {
+            "name": "Van Westen, Cees",
+            "affiliation": "University of Twente",
+            "orcid": "0000-0002-2992-902X"
+          },
+          {
+            "name": "Manzella, Irene",
+            "affiliation": "University of Plymouth",
+            "orcid": "0000-0001-7518-819X"
+          }
+        ],
+        "references": [
+          "Cakmak, E., Plank, M., Calovi, D. S., Jordan, A., & Keim, D. (2021). Spatio-temporal clustering benchmark for collective animal behavior. Proceedings of the 1st ACM SIGSPATIAL International Workshop on Animal Movement Ecology and Human Mobility, 5\u20138. https://doi.org/10.1145/3486637.3489487"
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "eo4multihazards"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15212718"
+              }
+            }
+          ]
+        }
+      },
+      "title": "DBSCAN 3D Clusters of Heatwaves \u2013  Linguere, Senegal, 1950-2023",
+      "links": {
+        "self": "https://zenodo.org/api/records/15212719",
+        "self_html": "https://zenodo.org/records/15212719",
+        "preview_html": "https://zenodo.org/records/15212719?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15212719",
+        "self_doi": "https://doi.org/10.5281/zenodo.15212719",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15212719",
+        "parent": "https://zenodo.org/api/records/15212718",
+        "parent_html": "https://zenodo.org/records/15212718",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15212718",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15212718",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15212719/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15212719/sequence/default",
+        "files": "https://zenodo.org/api/records/15212719/files",
+        "media_files": "https://zenodo.org/api/records/15212719/media-files",
+        "archive": "https://zenodo.org/api/records/15212719/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15212719/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15212719/versions/latest",
+        "latest_html": "https://zenodo.org/records/15212719/latest",
+        "versions": "https://zenodo.org/api/records/15212719/versions",
+        "draft": "https://zenodo.org/api/records/15212719/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15212719/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15212719/access/links",
+        "access_grants": "https://zenodo.org/api/records/15212719/access/grants",
+        "access_users": "https://zenodo.org/api/records/15212719/access/users",
+        "access_request": "https://zenodo.org/api/records/15212719/access/request",
+        "access": "https://zenodo.org/api/records/15212719/access",
+        "communities": "https://zenodo.org/api/records/15212719/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15212719/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15212719/requests"
+      },
+      "updated": "2025-04-17T11:58:29.650120+00:00",
+      "recid": "15212719",
+      "revision": 12,
+      "files": [],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1253160"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 18,
+        "unique_downloads": 7,
+        "views": 28,
+        "unique_views": 18,
+        "version_downloads": 18,
+        "version_unique_downloads": 7,
+        "version_unique_views": 18,
+        "version_views": 28
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-04-14T16:56:00.379968+00:00",
+      "modified": "2025-04-17T11:59:00.645663+00:00",
+      "id": 15212446,
+      "conceptrecid": "15212445",
+      "doi": "10.5281/zenodo.15212446",
+      "conceptdoi": "10.5281/zenodo.15212445",
+      "doi_url": "https://doi.org/10.5281/zenodo.15212446",
+      "metadata": {
+        "title": "DBSCAN 3D Clusters of SPEI-90 days \u2013  Linguere, Senegal, 1981-2023",
+        "doi": "10.5281/zenodo.15212446",
+        "publication_date": "2025-04-14",
+        "description": "<table style=\"width: 99.9748%; height: 998.2px;\">\n<tbody>\n<tr style=\"height: 47.6px;\">\n<td style=\"width: 23.3527%; height: 47.6px;\">\n<p><strong>Science Case Name</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 47.6px;\">\n<p>Multi-Hazards in Senegal.</p>\n</td>\n</tr>\n<tr style=\"height: 47.6px;\">\n<td style=\"width: 23.3527%; height: 47.6px;\">\n<p><strong>Dataset Name/Title</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 47.6px;\">\n<p>DBSCAN 3D Clusters of SPEI-90 days &ndash; Linguere, Senegal, 1981-2023</p>\n</td>\n</tr>\n<tr style=\"height: 29.4px;\">\n<td style=\"width: 23.3527%; height: 29.4px;\">\n<p><strong>Dataset Description</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 29.4px;\">\n<p>The dataset contains gridded data on SPEI-90 days over Linguere area of Senegal.</p>\n</td>\n</tr>\n<tr style=\"height: 271.6px;\">\n<td style=\"width: 23.3527%; height: 271.6px;\">\n<p><strong>Key Methodologies</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 271.6px;\">\n<p><span lang=\"EN-GB\">Droughts were computed with SPEI-90, with daily precipitation from Climate Hazards Group InfraRed Precipitation with Station data (CHIRPS) (1981-2023) and daily maximum, average and minimum air temperature from ERA5-Land. Potential evapotranspiration (PET) was computed with the Hargreaves equation from the SPEI </span><a href=\"https://github.com/sbegueria/SPEI/blob/5772c1754fd0988aab81d09667bf13959bf116ac/R/hargreaves.R#L490\" target=\"_blank\" rel=\"noreferrer noopener\"><span lang=\"EN-GB\">R package</span></a><span lang=\"EN-GB\">. Water balance, the difference between precipitation and PET, was aggregated to 90-day rolling sums and Z-scores were computed from distributions of values from day of year (43 points).&nbsp; Days with Z-scores below or equal to &ndash;1 were marked as droughts.</span></p>\n<p>Spatio-temporal DBSCAN was conducted with Python packages st_dbscan <a href=\"https://github.com/eren-ck/st_dbscan\" target=\"_blank\" rel=\"noopener\">https://github.com/eren-ck/st_dbscan</a> (Cakmak et al., <a href=\"https://doi.org/10.1145/3486637.3489487\" target=\"_blank\" rel=\"noopener\">2021</a>). Spatial proximity (epsilon 1) was set to 0.5 (0.5 degree), temporal proximity (epsilon 2) was set to 1.5 (1.5 days); min number of samples was set to 30.</p>\n<p>The values in the NetCDF files represent cluster numbers (from 0 to 11), with values -1 (negative 1) representing outliers.</p>\n<p>A summary table in CSV represents rows for each cluster with start and end dates, average severity and intensity, and maximum number of affected cells.</p>\n</td>\n</tr>\n<tr style=\"height: 47.6px;\">\n<td style=\"width: 23.3527%; height: 47.6px;\">\n<p><strong>Temporal Domain</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 47.6px;\">\n<p>1981&ndash;2023, daily</p>\n</td>\n</tr>\n<tr style=\"height: 81.2px;\">\n<td style=\"width: 23.3527%; height: 81.2px;\">\n<p><strong>Spatial Domain</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 81.2px;\">\n<p>Linguere, Senegal, West Africa</p>\n<p>Spatial resolution ca 0.1&deg;x0.1&deg; (EPGS:4326)</p>\n</td>\n</tr>\n<tr style=\"height: 47.6px;\">\n<td style=\"width: 23.3527%; height: 47.6px;\">\n<p><strong>Key Variables/Indicators</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 47.6px;\">\n<p>Spatio-temporal clusters of dry/drought events</p>\n</td>\n</tr>\n<tr style=\"height: 47.6px;\">\n<td style=\"width: 23.3527%; height: 47.6px;\">\n<p><strong>Data Format</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 47.6px;\">\n<p>netCDF</p>\n<p>CSV&nbsp;</p>\n</td>\n</tr>\n<tr style=\"height: 47.6px;\">\n<td style=\"width: 23.3527%; height: 47.6px;\">\n<p><strong>Source Data</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 47.6px;\">\n<p>ERA5-Land daily min, max and average air temperature and CHIRPS daily precipitation</p>\n</td>\n</tr>\n<tr style=\"height: 47.6px;\">\n<td style=\"width: 23.3527%; height: 47.6px;\">\n<p><strong>Accessibility</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 47.6px;\">\n<p>Zenodo, <a href=\"https://doi.org/10.5281/zenodo.15212446\" target=\"_blank\" rel=\"noopener\">https://doi.org/10.5281/zenodo.15212446</a></p>\n</td>\n</tr>\n<tr style=\"height: 67.2px;\">\n<td style=\"width: 23.3527%; height: 67.2px;\">\n<p><strong>Stakeholder Relevance</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 67.2px;\">\n<p>Identifying and assessing past drought events for multi-hazard events monitoring, prediction and preparedness.</p>\n</td>\n</tr>\n<tr style=\"height: 81.2px;\">\n<td style=\"width: 23.3527%; height: 81.2px;\">\n<p><strong>Limitations/Assumptions</strong>&nbsp;</p>\n</td>\n<td style=\"width: 76.6221%; height: 81.2px;\">\n<p>The clustering was done over the specified region only.</p>\n<p>Each calendar year was clustered independetly.</p>\n</td>\n</tr>\n<tr style=\"height: 67.2px;\">\n<td style=\"width: 23.3527%; height: 67.2px;\">\n<p><strong>Additional Outputs/information</strong></p>\n</td>\n<td style=\"width: 76.6221%; height: 67.2px;\">\n<p>The dataset access is currently restricted due to pending related publication.</p>\n</td>\n</tr>\n<tr style=\"height: 67.2px;\">\n<td style=\"width: 23.3527%; height: 67.2px;\">\n<p><strong>Contact Information&nbsp;</strong></p>\n</td>\n<td style=\"width: 76.6221%; height: 67.2px;\">\n<p>Egor Prikaziuk (UT-ITC, Faculty of Geo-Information Science and Earth Observation, ITC, University of Twente, the Netherlands)</p>\n</td>\n</tr>\n</tbody>\n</table>",
+        "access_right": "restricted",
+        "creators": [
+          {
+            "name": "Prikaziuk, Egor",
+            "affiliation": "University of Twente",
+            "orcid": "0000-0002-7331-7004"
+          },
+          {
+            "name": "University of Twente",
+            "affiliation": null
+          },
+          {
+            "name": "Van Westen, Cees",
+            "affiliation": "University of Twente",
+            "orcid": "0000-0002-2992-902X"
+          },
+          {
+            "name": "Manzella, Irene",
+            "affiliation": "University of Plymouth",
+            "orcid": "0000-0001-7518-819X"
+          }
+        ],
+        "references": [
+          "Cakmak, E., Plank, M., Calovi, D. S., Jordan, A., & Keim, D. (2021). Spatio-temporal clustering benchmark for collective animal behavior. Proceedings of the 1st ACM SIGSPATIAL International Workshop on Animal Movement Ecology and Human Mobility, 5\u20138. https://doi.org/10.1145/3486637.3489487"
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "eo4multihazards"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15212445"
+              }
+            }
+          ]
+        }
+      },
+      "title": "DBSCAN 3D Clusters of SPEI-90 days \u2013  Linguere, Senegal, 1981-2023",
+      "links": {
+        "self": "https://zenodo.org/api/records/15212446",
+        "self_html": "https://zenodo.org/records/15212446",
+        "preview_html": "https://zenodo.org/records/15212446?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15212446",
+        "self_doi": "https://doi.org/10.5281/zenodo.15212446",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15212446",
+        "parent": "https://zenodo.org/api/records/15212445",
+        "parent_html": "https://zenodo.org/records/15212445",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15212445",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15212445",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15212446/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15212446/sequence/default",
+        "files": "https://zenodo.org/api/records/15212446/files",
+        "media_files": "https://zenodo.org/api/records/15212446/media-files",
+        "archive": "https://zenodo.org/api/records/15212446/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15212446/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15212446/versions/latest",
+        "latest_html": "https://zenodo.org/records/15212446/latest",
+        "versions": "https://zenodo.org/api/records/15212446/versions",
+        "draft": "https://zenodo.org/api/records/15212446/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15212446/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15212446/access/links",
+        "access_grants": "https://zenodo.org/api/records/15212446/access/grants",
+        "access_users": "https://zenodo.org/api/records/15212446/access/users",
+        "access_request": "https://zenodo.org/api/records/15212446/access/request",
+        "access": "https://zenodo.org/api/records/15212446/access",
+        "communities": "https://zenodo.org/api/records/15212446/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15212446/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15212446/requests"
+      },
+      "updated": "2025-04-17T11:59:00.645663+00:00",
+      "recid": "15212446",
+      "revision": 8,
+      "files": [],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1253160"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 13,
+        "unique_downloads": 6,
+        "views": 22,
+        "unique_views": 16,
+        "version_downloads": 13,
+        "version_unique_downloads": 6,
+        "version_unique_views": 16,
+        "version_views": 22
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-04-14T16:53:30.900669+00:00",
+      "modified": "2025-04-14T16:53:31.041421+00:00",
+      "id": 15212520,
+      "conceptrecid": "15212519",
+      "doi": "10.5281/zenodo.15212520",
+      "conceptdoi": "10.5281/zenodo.15212519",
+      "doi_url": "https://doi.org/10.5281/zenodo.15212520",
+      "metadata": {
+        "title": "DBSCAN 3D Clusters of hot conditions \u2013 Italian NUTS3 (ITH10, 20, 31, 32, 33, 34, 35, 36, 37), 1981\u20132023",
+        "doi": "10.5281/zenodo.15212520",
+        "publication_date": "2025-04-14",
+        "description": "<table style=\"border-collapse: collapse;\">\n<tbody>\n<tr style=\"height: 49.75pt;\">\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 49.75pt;\">\n<p><strong><span>Science Case Name</span></strong></p>\n</td>\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 49.75pt;\">\n<p><span lang=\"EN-US\">Multi-Hazards in the Downstream Area of the Adige River Basin.</span></p>\n</td>\n</tr>\n<tr style=\"height: 64.75pt;\">\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 64.75pt;\">\n<p><strong><span>Dataset Name/Title</span></strong></p>\n</td>\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 64.75pt;\">\n<p><span lang=\"EN-US\">DBSCAN 3D Clusters of hot conditions &ndash; Italian NUTS3 (ITH10, 20, 31, 32, 33, 34, 35, 36, 37), 1981&ndash;2023</span></p>\n</td>\n</tr>\n<tr style=\"height: 124.75pt;\">\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 124.75pt;\">\n<p><strong><span>Dataset Description</span></strong></p>\n</td>\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 124.75pt;\">\n<p><span lang=\"EN-US\">Density-Based Spatial Clustering of Applications with Noise (DBSCAN) algorithm output based on the daily maximum temperature (T<sub>max</sub>) exceeding the calendar day 90<sup>th</sup> percentile of the reference 1991-2020 long-term climatological distribution for at least three consecutive days. The 90<sup>th</sup> percentile of T<sub>max</sub> for each calendar day was calculated using a centered 15-day running window (i.e., 7 days before and after each calendar day).</span></p>\n</td>\n</tr>\n<tr style=\"height: 345.25pt;\">\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 345.25pt;\">\n<p><strong><span>Key Methodologies</span></strong></p>\n</td>\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 345.25pt;\">\n<p><span lang=\"EN-US\">The DBSCAN algorithm included in the scikit-learn package in Python environment (https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html) was applied to detect spatio-temporal clusters of hot weather conditions. Three parameters guide the DBSCAN clustering procedure: the neighbourhood parameter (</span><em><span>&epsilon;</span></em><span lang=\"EN-US\">), which defines the search radius around a point; the spatio-temporal ratio (<em>r</em>), which controls the importance of spatial distance relative to temporal lag when computing the Euclidean distance between data points; the density threshold parameter (</span><em><span>&mu;</span></em><span lang=\"EN-US\">), representing the minimum number of neighbours required for a point to be considered as a core point (a point representing a suitable point to generate a new cluster).</span></p>\n<p><span lang=\"EN-US\">The selected parameter values are: neighbourhood parameter (</span><em><span>&epsilon;</span></em><span lang=\"EN-US\">) = 20, spatio-temporal ratio (<em>r</em>) = 10 and density threshold (</span><em><span>&mu;</span></em><span lang=\"EN-US\">) = 10. These values were selected based on their physical significance and through the comparison with heatwave historical events retrieved from newspapers, official regional bulletins and technical reports.</span></p>\n</td>\n</tr>\n<tr style=\"height: 49.75pt;\">\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 49.75pt;\">\n<p><strong><span>Temporal Domain</span></strong></p>\n</td>\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 49.75pt;\">\n<p><span>1981&ndash;2023</span></p>\n</td>\n</tr>\n<tr style=\"height: 94.75pt;\">\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 94.75pt;\">\n<p><strong><span>Spatial Domain</span></strong></p>\n</td>\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 94.75pt;\">\n<p><span lang=\"EN-US\">The spatial domain of the dataset is represented by grid points within the Italian Provinces identified by the NUTS3 codes ITH10, ITH20, ITH31, ITH32, ITH33, ITH34, ITH35, ITH36, ITH37.</span></p>\n</td>\n</tr>\n<tr style=\"height: 49.75pt;\">\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 49.75pt;\">\n<p><strong><span>Key Variables/Indicators</span></strong></p>\n</td>\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 49.75pt;\">\n<p><span lang=\"EN-US\">Spatio-temporal clusters of hot weather conditions, identified through the daily maximum temperature </span></p>\n</td>\n</tr>\n<tr style=\"height: 49.75pt;\">\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 49.75pt;\">\n<p><strong><span>Data Format</span></strong></p>\n</td>\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 49.75pt;\">\n<p><span>Comma Separated Values (CSV)</span></p>\n</td>\n</tr>\n<tr style=\"height: 49.75pt;\">\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 49.75pt;\">\n<p><strong><span>Source Data</span></strong></p>\n</td>\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 49.75pt;\">\n<p><span lang=\"EN-US\">SCIA dataset (the Italian National System for the collection, processing and dissemination of climate data, www.scia.isprambiente.it)</span></p>\n</td>\n</tr>\n<tr style=\"height: 49.75pt;\">\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 49.75pt;\">\n<p><strong><span>Accessibility</span></strong></p>\n</td>\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 49.75pt;\">\n<p><span>NA</span></p>\n</td>\n</tr>\n<tr style=\"height: 214.75pt;\">\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 214.75pt;\">\n<p><strong><span>Stakeholder Relevance</span></strong></p>\n</td>\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 214.75pt;\">\n<p><span lang=\"EN-US\">The use of daily maximum temperature as an input to the DBSCAN algorithm for identifying spatio-temporal clusters of hot weather conditions represent a key step in detecting the spatial and temporal footprints of hazard events. The cluster identification enables a greater understanding of hazard dynamics, facilitates integration with other hazard footprints and fosters the use of Earth Observation (EO) data. This approach, based on observed meteorological data, provides a robust method for identifying hazard events, which can be further refined through the use of higher spatial resolution EO data capable of capturing finer spatial variations (e.g., drought induced changes in soil moisture or variations in land surface temperature in response to different land uses during extreme hot conditions).</span></p>\n</td>\n</tr>\n<tr style=\"height: 49.75pt;\">\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 49.75pt;\">\n<p><strong><span>Limitations/Assumptions</span></strong></p>\n</td>\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 49.75pt;\">\n<p><span lang=\"EN-US\">None.</span></p>\n</td>\n</tr>\n<tr style=\"height: 109.75pt;\">\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 109.75pt;\">\n<p><strong><span>Additional Outputs/information</span></strong></p>\n</td>\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 109.75pt;\">\n<p><span lang=\"EN-US\">The dataset access is currently restricted due to pending related publication.</span></p>\n</td>\n</tr>\n<tr style=\"height: 214.75pt;\">\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 214.75pt;\">\n<p><strong><span>Contact Information</span></strong></p>\n</td>\n<td style=\"padding: 5.0pt 5.0pt 5.0pt 5.0pt; height: 214.75pt;\">\n<p><span lang=\"EN-US\">Masina, Marinella (CMCC Foundation - Euro-Mediterranean Center on Climate Change; Department of Environmental Sciences, Informatics and Statistics, Ca' Foscari University of Venice) - Data manager</span></p>\n<p><span lang=\"EN-US\">Ferrario, Davide Mauro (CMCC Foundation - Euro-Mediterranean Center on Climate Change; Department of Environmental Sciences, Informatics and Statistics, Ca' Foscari University of Venice) - Data manager</span></p>\n<p><span lang=\"EN-US\">Maraschini, Margherita (CMCC Foundation - Euro-Mediterranean Center on Climate Change; Department of Environmental Sciences, Informatics and Statistics, Ca' Foscari University of Venice) - Data manager</span></p>\n<p><span lang=\"EN-US\">Furlanetto, Jacopo (CMCC Foundation - Euro-Mediterranean Center on Climate Change; Department of Environmental Sciences, Informatics and Statistics, Ca' Foscari University of Venice; National Biodiversity Future Center) - Data manager</span></p>\n<p><span lang=\"EN-US\">Torresan, Silvia (CMCC Foundation - Euro-Mediterranean Center on Climate Change; Department of Environmental Sciences, Informatics and Statistics, Ca' Foscari University of Venice, National Biodiversity Future Center) - Data manager</span></p>\n</td>\n</tr>\n</tbody>\n</table>\n<p><span lang=\"EN-US\">&nbsp;</span></p>",
+        "access_right": "restricted",
+        "creators": [
+          {
+            "name": "Masina, Marinella",
+            "affiliation": "CMCC Foundation - Euro-Mediterranean Center on Climate Change",
+            "orcid": "0000-0003-3028-1918"
+          },
+          {
+            "name": "Ferrario, Davide Mauro",
+            "affiliation": "Istituto Universitario di Studi Superiori di Pavia",
+            "orcid": "0000-0001-5200-0430"
+          },
+          {
+            "name": "Maraschini, Margherita",
+            "affiliation": "Ca' Foscari University of Venice",
+            "orcid": "0000-0003-2435-9141"
+          },
+          {
+            "name": "FURLANETTO, JACOPO",
+            "affiliation": "CMCC Foundation - Euro-Mediterranean Center on Climate Change",
+            "orcid": "0000-0002-9004-5733"
+          },
+          {
+            "name": "TORRESAN, Silvia",
+            "affiliation": "CMCC Foundation - Euro-Mediterranean Center on Climate Change",
+            "orcid": "0000-0002-9758-7084"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "eo4multihazards"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15212519"
+              }
+            }
+          ]
+        }
+      },
+      "title": "DBSCAN 3D Clusters of hot conditions \u2013 Italian NUTS3 (ITH10, 20, 31, 32, 33, 34, 35, 36, 37), 1981\u20132023",
+      "links": {
+        "self": "https://zenodo.org/api/records/15212520",
+        "self_html": "https://zenodo.org/records/15212520",
+        "preview_html": "https://zenodo.org/records/15212520?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15212520",
+        "self_doi": "https://doi.org/10.5281/zenodo.15212520",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15212520",
+        "parent": "https://zenodo.org/api/records/15212519",
+        "parent_html": "https://zenodo.org/records/15212519",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15212519",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15212519",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15212520/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15212520/sequence/default",
+        "files": "https://zenodo.org/api/records/15212520/files",
+        "media_files": "https://zenodo.org/api/records/15212520/media-files",
+        "archive": "https://zenodo.org/api/records/15212520/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15212520/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15212520/versions/latest",
+        "latest_html": "https://zenodo.org/records/15212520/latest",
+        "versions": "https://zenodo.org/api/records/15212520/versions",
+        "draft": "https://zenodo.org/api/records/15212520/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15212520/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15212520/access/links",
+        "access_grants": "https://zenodo.org/api/records/15212520/access/grants",
+        "access_users": "https://zenodo.org/api/records/15212520/access/users",
+        "access_request": "https://zenodo.org/api/records/15212520/access/request",
+        "access": "https://zenodo.org/api/records/15212520/access",
+        "communities": "https://zenodo.org/api/records/15212520/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15212520/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15212520/requests"
+      },
+      "updated": "2025-04-14T16:53:31.041421+00:00",
+      "recid": "15212520",
+      "revision": 4,
+      "files": [],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1190659"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 7,
+        "unique_downloads": 6,
+        "views": 17,
+        "unique_views": 14,
+        "version_downloads": 7,
+        "version_unique_downloads": 6,
+        "version_unique_views": 14,
+        "version_views": 17
+      },
+      "state": "done",
+      "submitted": true
+    },
     {
       "created": "2025-03-13T02:25:19.510827+00:00",
       "modified": "2025-03-13T02:25:19.715455+00:00",
@@ -69,6 +551,7 @@
       "links": {
         "self": "https://zenodo.org/api/records/15015507",
         "self_html": "https://zenodo.org/records/15015507",
+        "preview_html": "https://zenodo.org/records/15015507?preview=1",
         "doi": "https://doi.org/10.5281/zenodo.15015507",
         "self_doi": "https://doi.org/10.5281/zenodo.15015507",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15015507",
@@ -126,14 +609,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 4,
-        "unique_downloads": 1,
-        "views": 3,
-        "unique_views": 3,
-        "version_downloads": 4,
-        "version_unique_downloads": 1,
-        "version_unique_views": 3,
-        "version_views": 3
+        "downloads": 10,
+        "unique_downloads": 7,
+        "views": 5,
+        "unique_views": 5,
+        "version_downloads": 10,
+        "version_unique_downloads": 7,
+        "version_unique_views": 5,
+        "version_views": 5
       },
       "state": "done",
       "submitted": true
@@ -206,6 +689,7 @@
       "links": {
         "self": "https://zenodo.org/api/records/14975430",
         "self_html": "https://zenodo.org/records/14975430",
+        "preview_html": "https://zenodo.org/records/14975430?preview=1",
         "doi": "https://doi.org/10.5281/zenodo.14975430",
         "self_doi": "https://doi.org/10.5281/zenodo.14975430",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14975430",
@@ -281,14 +765,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 63,
-        "unique_downloads": 26,
-        "views": 53,
-        "unique_views": 38,
-        "version_downloads": 33,
-        "version_unique_downloads": 21,
-        "version_unique_views": 4,
-        "version_views": 4
+        "downloads": 127,
+        "unique_downloads": 71,
+        "views": 90,
+        "unique_views": 69,
+        "version_downloads": 96,
+        "version_unique_downloads": 65,
+        "version_unique_views": 32,
+        "version_views": 38
       },
       "state": "done",
       "submitted": true
@@ -361,6 +845,7 @@
       "links": {
         "self": "https://zenodo.org/api/records/14956849",
         "self_html": "https://zenodo.org/records/14956849",
+        "preview_html": "https://zenodo.org/records/14956849?preview=1",
         "doi": "https://doi.org/10.5281/zenodo.14956849",
         "self_doi": "https://doi.org/10.5281/zenodo.14956849",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14956849",
@@ -418,14 +903,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 22,
-        "unique_downloads": 19,
-        "views": 13,
-        "unique_views": 12,
-        "version_downloads": 22,
-        "version_unique_downloads": 19,
-        "version_unique_views": 12,
-        "version_views": 13
+        "downloads": 23,
+        "unique_downloads": 20,
+        "views": 14,
+        "unique_views": 13,
+        "version_downloads": 23,
+        "version_unique_downloads": 20,
+        "version_unique_views": 13,
+        "version_views": 14
       },
       "state": "done",
       "submitted": true
@@ -498,6 +983,7 @@
       "links": {
         "self": "https://zenodo.org/api/records/14929918",
         "self_html": "https://zenodo.org/records/14929918",
+        "preview_html": "https://zenodo.org/records/14929918?preview=1",
         "doi": "https://doi.org/10.5281/zenodo.14929918",
         "self_doi": "https://doi.org/10.5281/zenodo.14929918",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14929918",
@@ -557,12 +1043,12 @@
       "stats": {
         "downloads": 16,
         "unique_downloads": 14,
-        "views": 12,
-        "unique_views": 12,
+        "views": 13,
+        "unique_views": 13,
         "version_downloads": 16,
         "version_unique_downloads": 14,
-        "version_unique_views": 12,
-        "version_views": 12
+        "version_unique_views": 13,
+        "version_views": 13
       },
       "state": "done",
       "submitted": true
@@ -672,6 +1158,7 @@
       "links": {
         "self": "https://zenodo.org/api/records/14837663",
         "self_html": "https://zenodo.org/records/14837663",
+        "preview_html": "https://zenodo.org/records/14837663?preview=1",
         "doi": "https://doi.org/10.1016/j.clinph.2024.12.023",
         "self_doi": "https://doi.org/10.1016/j.clinph.2024.12.023",
         "self_doi_html": "https://zenodo.org/doi/10.1016/j.clinph.2024.12.023",
@@ -723,12 +1210,12 @@
       "stats": {
         "downloads": 9,
         "unique_downloads": 9,
-        "views": 46,
-        "unique_views": 44,
+        "views": 50,
+        "unique_views": 48,
         "version_downloads": 2,
         "version_unique_downloads": 2,
-        "version_unique_views": 3,
-        "version_views": 3
+        "version_unique_views": 4,
+        "version_views": 4
       },
       "state": "done",
       "submitted": true
@@ -836,6 +1323,7 @@
       "links": {
         "self": "https://zenodo.org/api/records/14848612",
         "self_html": "https://zenodo.org/records/14848612",
+        "preview_html": "https://zenodo.org/records/14848612?preview=1",
         "doi": "https://doi.org/10.15587/978-617-8360-03-0.ch1",
         "self_doi": "https://doi.org/10.15587/978-617-8360-03-0.ch1",
         "self_doi_html": "https://zenodo.org/doi/10.15587/978-617-8360-03-0.ch1",
@@ -891,760 +1379,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 8,
-        "unique_downloads": 7,
-        "views": 12,
-        "unique_views": 11,
-        "version_downloads": 8,
-        "version_unique_downloads": 7,
-        "version_unique_views": 11,
-        "version_views": 12
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-02-10T15:05:22.290875+00:00",
-      "modified": "2025-02-10T15:05:22.571375+00:00",
-      "id": 14845170,
-      "conceptrecid": "14845169",
-      "doi": "10.15587/978-617-8360-03-0",
-      "doi_url": "https://doi.org/10.15587/978-617-8360-03-0",
-      "metadata": {
-        "title": "PROJECT MANAGEMENT: INDUSTRY SPECIFICS",
-        "doi": "10.15587/978-617-8360-03-0",
-        "publication_date": "2024-12-30",
-        "description": "<p>The object of this monograph is the scope of implementation and individual project management processes in various fields of human activity.</p>\n<p>In the first section, the problem of identifying configuration elements (CE) of an IT product has been solved. To solve the problem of identifying functional CEs, it is proposed to use hierarchical and non-hierarchical clustering methods. As examples of hierarchical clustering methods, the agglomerative clustering method AGNES using the nearest neighbor algorithm and the divisive clustering method DIANA have been proposed. As an example of non-hierarchical clustering methods, the k-means algorithm is proposed. For comparison with these methods, one of the graph-analytic clustering methods has been used, which has been developed to solve the problem of decomposition of the description of the monolithic architecture of a software product into separate microservices. A comparative analysis of the solution progress and the obtained results of solving the problem of identifying functional CEs using all four selected clustering methods has been carried out. It has been established that the best alternative is to use hierarchical clustering methods to solve this problem.</p>\n<p>In the second section, methodological foundations and scientific and applied solutions of multi-mode adaptive intelligent data analysis for food industry enterprises have been developed. During the study of the methodological foundations of multi-mode adaptive intelligent data analysis, the effectiveness of using this analysis in the management of competitive food enterprises has been established. The main advantages, difficulties, challenges and problems of using the proposed analysis have been identified. A list of main corporate tasks has been formed, for the solution of which it is advisable to use this type of analysis. A list of main results of using this analysis for an effective and competitive food enterprise in dynamic and crisis conditions has been determined. During the study of scientific and applied solutions of multi-mode adaptive intelligent data analysis, the features, methods and main applied solutions of the following types of analysis have been determined: High Dimensional big data analysis, Ad-Hoc Data Mining, Anomaly &amp; Fraud Detection, Hybrid Data Mining, Crisis Data Mining. The results of the study can be effective for enterprises and companies in which management decisions have been made in unstable or crisis conditions.</p>\n<p>The third section analyzes the management aspects of the integration of Ukrainian railways into the international transport infrastructure. In the process of this analysis, the experience of planning and implementing high-speed railway projects in Europe, Asia and other regions has been studied. Particular attention has been paid to the adaptation of world practices to Ukrainian conditions, taking into account the specifics of the national infrastructure, economic and political factors. The features of the project for the integration of Ukrainian railways into the Trans-European Transport Network have been considered using the example of the Lviv railway junction. For this type of project, the stages of its implementation have been described, including technical, organizational and financial aspects, and an analysis of problems and achievements is conducted. The impact of this type of project on the development of regional infrastructure and the economy has been studied. Using the example of a project for the automatic identification of rolling stock and large-tonnage containers on Ukrainian railways, practical aspects of management processes, including planning, implementation, and monitoring of projects at the system level, have been explored. Examples of successful and problematic projects have been considered, illustrating the opportunities and challenges of the project management process in the context of Ukrainian railway transport.</p>\n<p>The fourth section considers the application of the differential-symbolic approach to planning medical projects for supporting the population of communities. This approach involves the use of differential equations to describe the dynamics of projects as a separate system and the use of symbolic expressions to represent individual parameters and their description. Mathematical models for differential-symbolic planning of projects for improving the health of the population of communities and assessing the risks of projects for medical support of the population of communities have been developed. To implement the proposed models, code has been written in the Python programming language using libraries for solving differential equations, optimizing and visualizing results. Based on the use of the developed and implemented models for the given conditions of the project environment, the results of optimizing the configuration of projects for improving the health of the population in the community and assessing the risks of projects for medical support of the population of communities have been obtained.</p>\n<p>The fifth section considers theoretical approaches, models and methods for assessing the quality of transportation projects as a means of increasing the efficiency of providing transport services in cargo transportation projects of a project-oriented enterprise. An N-model for making an optimal decision regarding the importance of a set of criteria that determine the quality of transport services, taking into account expert information, has been developed. It allows determining the advantages of one criterion over another based on the theory of the importance of criteria, which can be applied in project process management. A model for ensuring the relationship between the quality indicators of cargo transportation projects and determining the attractiveness of international routes has been developed. The effectiveness of applying the developed methods and models at project-oriented enterprises in the transport industry has been proven by testing them at motor transport enterprises.</p>\n<p>This monograph can be useful to researchers, teachers, postgraduate students and higher education students in the field of project management, as well as specialists in applied project management in various spheres of human activity.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Ievlanov, Maksym",
-            "affiliation": "Kharkiv National University of Radio Electronics",
-            "orcid": "0000-0002-6703-5166"
-          },
-          {
-            "name": "Vasiltcova, Nataliya",
-            "affiliation": "Kharkiv National University of Radio Electronics",
-            "orcid": "0000-0002-4043-487X"
-          },
-          {
-            "name": "Neumyvakina, Olga",
-            "affiliation": "Kharkiv National University of Radio Electronics",
-            "orcid": "0000-0001-6936-6543"
-          },
-          {
-            "name": "Panforova, Iryna",
-            "affiliation": "Kharkiv National University of Radio Electronics",
-            "orcid": "0000-0001-7032-9109"
-          },
-          {
-            "name": "Naumenko, Maksym",
-            "affiliation": "Charitable Foundation \"Ukrainians Together\"",
-            "orcid": "0009-0006-7590-572X"
-          },
-          {
-            "name": "Hrashchenko, Iryna",
-            "affiliation": "National Aviation University",
-            "orcid": "0000-0002-8735-9061"
-          },
-          {
-            "name": "Tsalko, Tetiana",
-            "affiliation": "Kyiv National University of Technologies and Design",
-            "orcid": "0000-0002-4609-8846"
-          },
-          {
-            "name": "Nevmerzhytska, Svitlana",
-            "affiliation": "Kyiv National University of Technologies and Design",
-            "orcid": "0000-0001-5392-9030"
-          },
-          {
-            "name": "Krasniuk, Svitlana",
-            "affiliation": null,
-            "orcid": "0000-0002-5987-8681"
-          },
-          {
-            "name": "Kulynych, Yurii",
-            "affiliation": "National University of Food Technologies",
-            "orcid": "0000-0002-9018-0708"
-          },
-          {
-            "name": "Myronenko, Viktor",
-            "affiliation": "State University of Infrastructure and Technologies",
-            "orcid": "0000-0002-6088-3867"
-          },
-          {
-            "name": "Pozdniakov, Andrii",
-            "affiliation": "State University of Infrastructure and Technologies",
-            "orcid": "0000-0002-3359-586X"
-          },
-          {
-            "name": "Ziubryk, Yaroslav",
-            "affiliation": "State University of Infrastructure and Technologies",
-            "orcid": "0009-0003-4078-0611"
-          },
-          {
-            "name": "Samsonkin, Valerii",
-            "affiliation": "State University of Infrastructure and Technologies",
-            "orcid": "0000-0002-1521-2263"
-          },
-          {
-            "name": "Riabushko, Ivan",
-            "affiliation": "Kharkiv National Automobile and Highway University",
-            "orcid": "0009-0007-2492-6886"
-          },
-          {
-            "name": "Malanchuk, Oksana",
-            "affiliation": "Danylo Halytsky Lviv National Medical University",
-            "orcid": "0000-0001-7518-7824"
-          },
-          {
-            "name": "\u0422ryhuba, \u0410natoliy",
-            "affiliation": "Lviv National Environmental University",
-            "orcid": "0000-0001-8014-5661"
-          },
-          {
-            "name": "Rogovskii, Ivan",
-            "affiliation": "National University of Life and Environmental Sciences of Ukraine",
-            "orcid": "0000-0002-6957-1616"
-          },
-          {
-            "name": "Titova, Liudmyla",
-            "affiliation": "National University of Life and Environmental Sciences of Ukraine",
-            "orcid": "0000-0001-7313-1253"
-          },
-          {
-            "name": "Berezova, Liudmyla",
-            "affiliation": "National University of Life and Environmental Sciences of Ukraine",
-            "orcid": "0000-0002-8443-8442"
-          },
-          {
-            "name": "Korobko, Mykola",
-            "affiliation": "National University of Life and Environmental Sciences of Ukraine",
-            "orcid": "0000-0002-1138-7701"
-          },
-          {
-            "name": "Prokudin, Georgii",
-            "affiliation": "National Transport University",
-            "orcid": "0000-0001-9701-8511"
-          },
-          {
-            "name": "Lebid, Viktoriia",
-            "affiliation": "National Transport University",
-            "orcid": "0000-0002-1260-3760"
-          },
-          {
-            "name": "Chupaylenko, Oleksii",
-            "affiliation": "National Transport University",
-            "orcid": "0000-0002-4837-0727"
-          },
-          {
-            "name": "Khobotnia, Tetiana",
-            "affiliation": "National Transport University",
-            "orcid": "0000-0001-7094-6297"
-          },
-          {
-            "name": "Roi, Maksym",
-            "affiliation": "National Transport University",
-            "orcid": "0000-0001-5788-4220"
-          },
-          {
-            "name": "Holovatiuk, Mykhailo",
-            "affiliation": "National Transport University",
-            "orcid": "0009-0005-0331-0105"
-          }
-        ],
-        "keywords": [
-          "Project management",
-          "Data Mining",
-          "economic models",
-          "differential-symbolic approach",
-          "fuzzy production rules",
-          "IT product",
-          "food industry",
-          "transport networks,",
-          "medical support of the population",
-          "transport services"
-        ],
-        "dates": [
-          {
-            "type": "available"
-          }
-        ],
-        "references": [
-          "Bourque, P., Fairley, R. E. (Eds.) (2014). Guide to the Software Engineering Body of Knowledge. Version 3.0. IEEE Computer Society.",
-          "ISO/IEC/IEEE International Standard \u2013 Systems and software engineering \u2013 System life cycle processes: ISO/IEC/IEEE 15288:2015 (2015). IEEE. https://doi.org/10.1109/ieeestd.2015.7106435",
-          "Levykin, V. M., Ievlanov, M. V., Kernosov, M. A. (2014). Pattern planning of requirements to the informative systems: design and application: monograph. Kharkiv: The \u00abKompan\u0456ya \u00abSm\u0456t LTD\u00bb.",
-          "Cadavid, H., Andrikopoulos, V., Avgeriou, P., Broekema, P. C. (2022). System and software architecting harmonization practices in ultra-large-scale systems of systems: A confirmatory case study. Information and Software Technology, 150, 106984. https://doi.org/10.1016/j.infsof.2022.106984",
-          "Fritzsch, J., Bogner, J., Zimmermann, A., Wagner, S. (2019). From monolith to microservices: A classification of refactoring approaches. 1st International Workshop on Software Engineering Aspects of Continuous Development and New Paradigms of Software Production and Deployment, DEVOPS 2018, 128\u2013141. https://doi.org/10.1007/978-3-030-06019-0_10",
-          "Sellami, Kh., Saied, M. A., Ouni, A. (2022). A Hierarchical DBSCAN Method for Extracting Microservices from Monolithic Applications. 2022 ACM International Conference on Evaluation and Assessment in Software Engineering, EASE 2022, 201\u2013210. https://doi.org/10.1145/3530019.3530040",
-          "Krause, A., Zirkelbach, C., Hasselbring, W., Lenga, S., Kroger, D. (2020). Microservice Decomposition via Static and Dynamic Analysis of the Monolith. 2020 IEEE International Conference on Software Architecture Companion, ICSA-C 2020, 9\u201316. https://doi.org/10.1109/icsa-c50368.2020.00011",
-          "Reiff-Marganiec, S., Tilly, M. (Eds.) (2012). Handbook of Research on Service-Oriented Systems and Non-Functional Properties: Future Directions. IGI Global. https://doi.org/10.4018/978-1-61350-432-1",
-          "Shahin, R. (2021). Towards Assurance-Driven Architectural Decomposition of Software Systems. 40th International Conference on Computer Safety, Reliability and Security, SAFECOMP 2021 held in conjunction with Workshops on DECSoS, MAPSOD, DepDevOps, USDAI and WAISE 2021, 187\u2013196. https://doi.org/10.1007/978-3-030-83906-2_15",
-          "Faitelson, D., Heinrich, R., Tyszberowicz, Sh. (2017). From monolith to microservices: Supporting software architecture evolution by functional decomposition. 5th International Conference on Model-Driven Engineering and Software Development, MODELSWARD 2017, 435\u2013442. https://doi.org/10.5220/0006206204350442",
-          "Suljkanovi\u0107, A., Milosavljevi\u0107, B., In\u0111i\u0107, V., Dejanovi\u0107, I. (2022). Developing Microservice-Based Applications Using the Silvera Domain-Specific Language. Applied Sciences, 12 (13), 6679. https://doi.org/10.3390/app12136679",
-          "Han, J., Kamber, M., Pei, J. (2012). Data Mining. Concepts and Techniques. Waltham: Morgan Kaufmann Publishers. https://doi.org/10.1016/c2009-0-61819-5",
-          "Barseghyan, A. A., Kupriyanov, M. S. Kholod, I. I., Tess, M. D., Elizarov, S. I. (2009). Analiz dannykh i protcessov. Saint-Petersburg: BHV-Petersburg, 512.",
-          "Kaufman, L., Rousseeuw, P. J. (2005). Finding Groups in Data. Introduction to Cluster Analysis. John Wiley & Sons, Inc.",
-          "Wierzcho\u0144, S., K\u0142opotek, M. (2018). Modern Algorithms of Cluster Analysis. Cham: Springer. https://doi.org/10.1007/978-3-319-69308-8",
-          "Ievlanov, M., Vasiltcova, N., Neumyvakina, O., Panforova, I. (2022). Development of a method for solving the problem of it product configuration analysis. Eastern-European Journal of Enterprise Technologies, 6 (2 (120)), 6\u201319. https://doi.org/10.15587/1729-4061.2022.269133",
-          "Vasiltcova, N., Panforova, I. (2022). Research on the use of hierarchical clustering methods when solving the task of IT product configuration analysis. Management Information Systems and Devices, 178, 37\u201349. Available at: https://www.ewdtest.com/asu/wp-content/uploads/2024/01/ASUiPA_178_37_49.pdf"
-        ],
-        "language": "eng",
-        "resource_type": {
-          "title": "Book",
-          "type": "publication",
-          "subtype": "book"
-        },
-        "imprint": {
-          "place": "Kharkiv. Ukraine",
-          "isbn": "978-617-8360-03-0"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "14845169"
-              }
-            }
-          ]
-        }
-      },
-      "title": "PROJECT MANAGEMENT: INDUSTRY SPECIFICS",
-      "links": {
-        "self": "https://zenodo.org/api/records/14845170",
-        "self_html": "https://zenodo.org/records/14845170",
-        "doi": "https://doi.org/10.15587/978-617-8360-03-0",
-        "self_doi": "https://doi.org/10.15587/978-617-8360-03-0",
-        "self_doi_html": "https://zenodo.org/doi/10.15587/978-617-8360-03-0",
-        "parent": "https://zenodo.org/api/records/14845169",
-        "parent_html": "https://zenodo.org/records/14845169",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14845170/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14845170/sequence/default",
-        "files": "https://zenodo.org/api/records/14845170/files",
-        "media_files": "https://zenodo.org/api/records/14845170/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:14845170:978-617-8360-03-0.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:14845170:978-617-8360-03-0.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:14845170:978-617-8360-03-0.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:14845170:978-617-8360-03-0.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:14845170:978-617-8360-03-0.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:14845170:978-617-8360-03-0.pdf/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/14845170/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14845170/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14845170/versions/latest",
-        "latest_html": "https://zenodo.org/records/14845170/latest",
-        "versions": "https://zenodo.org/api/records/14845170/versions",
-        "draft": "https://zenodo.org/api/records/14845170/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14845170/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14845170/access/links",
-        "access_grants": "https://zenodo.org/api/records/14845170/access/grants",
-        "access_users": "https://zenodo.org/api/records/14845170/access/users",
-        "access_request": "https://zenodo.org/api/records/14845170/access/request",
-        "access": "https://zenodo.org/api/records/14845170/access",
-        "communities": "https://zenodo.org/api/records/14845170/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14845170/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14845170/requests"
-      },
-      "updated": "2025-02-10T15:05:22.571375+00:00",
-      "recid": "14845170",
-      "revision": 4,
-      "files": [
-        {
-          "id": "2d06006c-cc11-45d5-b67f-b2328e06a08c",
-          "key": "978-617-8360-03-0.pdf",
-          "size": 14077247,
-          "checksum": "md5:354ff3c43acf1ce274bbd9f57be6c458",
-          "links": {
-            "self": "https://zenodo.org/api/records/14845170/files/978-617-8360-03-0.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "73680"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 20,
-        "unique_downloads": 17,
-        "views": 28,
-        "unique_views": 27,
-        "version_downloads": 20,
-        "version_unique_downloads": 17,
-        "version_unique_views": 27,
-        "version_views": 28
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-01-08T12:08:41.709603+00:00",
-      "modified": "2025-01-08T12:08:41.879591+00:00",
-      "id": 14615897,
-      "conceptrecid": "14615896",
-      "doi": "10.5281/zenodo.14615897",
-      "conceptdoi": "10.5281/zenodo.14615896",
-      "doi_url": "https://doi.org/10.5281/zenodo.14615897",
-      "metadata": {
-        "title": "Comparative Analysis of Clustering Algorithms on Synthetic Circular Patters Data",
-        "doi": "10.5281/zenodo.14615897",
-        "publication_date": "2024-12-30",
-        "description": "<p>Clustering algorithms play a pivotal role in discovering hidden patterns in unlabeled data, but their performance varies significantly across datasets with complex geometries. This paper explores the performance of various clustering techniques in identifying distinct circular clusters within the Synthetic Circle Data Set, a benchmark dataset designed to test algorithms on non-linear structures. We evaluate popular clustering methods, includ- ing k-means, DBSCAN, Gaussian Mixture Models, hierarchical clustering, and emerging techniques like Self Organizing Maps, Mean Shift Clustering and Spectral Clustering. Using metrics such as Adjusted Rand Index (ARI), Normalized Mutual Information (NMI), and Silhouette Score, along with detailed visualizations, we systematically compare the algorithms&rsquo; ability to recover the true circle-based clusters without prior labels. Our find- ings highlight the strengths and limitations of each method, revealing that density- and graph-based algorithms consistently outperform traditional techniques like k-means in handling circular patterns.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Ranglani, Hardev",
-            "affiliation": "EXL Service Inc",
-            "orcid": "0000-0003-4753-5830"
-          }
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "2394-0840",
-            "relation": "isDocumentedBy",
-            "resource_type": "publication",
-            "scheme": "issn"
-          }
-        ],
-        "dates": [
-          {
-            "type": "created",
-            "description": "Clustering algorithms play a pivotal role in discovering hidden patterns in unlabeled data, but their performance varies significantly across datasets with complex geometries. This paper explores the performance of various clustering techniques in identifying distinct circular clusters within the Synthetic Circle Data Set, a benchmark dataset designed to test algorithms on non-linear structures. We evaluate popular clustering methods, includ- ing k-means, DBSCAN, Gaussian Mixture Models, hierarchical clustering, and emerging techniques like Self Organizing Maps, Mean Shift Clustering and Spectral Clustering. Using metrics such as Adjusted Rand Index (ARI), Normalized Mutual Information (NMI), and Silhouette Score, along with detailed visualizations, we systematically compare the algorithms\u2019 ability to recover the true circle-based clusters without prior labels. Our find- ings highlight the strengths and limitations of each method, revealing that density- and graph-based algorithms consistently outperform traditional techniques like k-means in handling circular patterns."
-          }
-        ],
-        "references": [
-          "2394 - 0840"
-        ],
-        "resource_type": {
-          "title": "Journal",
-          "type": "publication",
-          "subtype": "journal"
-        },
-        "alternate_identifiers": [
-          {
-            "identifier": "2394-0840"
-          }
-        ],
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "14615896"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Comparative Analysis of Clustering Algorithms on Synthetic Circular Patters Data",
-      "links": {
-        "self": "https://zenodo.org/api/records/14615897",
-        "self_html": "https://zenodo.org/records/14615897",
-        "doi": "https://doi.org/10.5281/zenodo.14615897",
-        "self_doi": "https://doi.org/10.5281/zenodo.14615897",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14615897",
-        "parent": "https://zenodo.org/api/records/14615896",
-        "parent_html": "https://zenodo.org/records/14615896",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14615896",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14615896",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14615897/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14615897/sequence/default",
-        "files": "https://zenodo.org/api/records/14615897/files",
-        "media_files": "https://zenodo.org/api/records/14615897/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:14615897:11424mlaij02.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:14615897:11424mlaij02.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:14615897:11424mlaij02.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:14615897:11424mlaij02.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:14615897:11424mlaij02.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:14615897:11424mlaij02.pdf/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/14615897/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14615897/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14615897/versions/latest",
-        "latest_html": "https://zenodo.org/records/14615897/latest",
-        "versions": "https://zenodo.org/api/records/14615897/versions",
-        "draft": "https://zenodo.org/api/records/14615897/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14615897/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14615897/access/links",
-        "access_grants": "https://zenodo.org/api/records/14615897/access/grants",
-        "access_users": "https://zenodo.org/api/records/14615897/access/users",
-        "access_request": "https://zenodo.org/api/records/14615897/access/request",
-        "access": "https://zenodo.org/api/records/14615897/access",
-        "communities": "https://zenodo.org/api/records/14615897/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14615897/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14615897/requests"
-      },
-      "updated": "2025-01-08T12:08:41.879591+00:00",
-      "recid": "14615897",
-      "revision": 4,
-      "files": [
-        {
-          "id": "569b1088-6774-43af-8abf-82b0e40eecdc",
-          "key": "11424mlaij02.pdf",
-          "size": 985242,
-          "checksum": "md5:fd9c77ef4eefe569faa9615f4c045421",
-          "links": {
-            "self": "https://zenodo.org/api/records/14615897/files/11424mlaij02.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "42811"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 15,
-        "unique_downloads": 14,
-        "views": 9,
-        "unique_views": 8,
-        "version_downloads": 15,
-        "version_unique_downloads": 14,
-        "version_unique_views": 8,
-        "version_views": 9
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2024-12-25T14:40:46.709711+00:00",
-      "modified": "2024-12-25T14:40:46.837714+00:00",
-      "id": 14555426,
-      "conceptrecid": "14554948",
-      "doi": "10.5281/zenodo.14555426",
-      "conceptdoi": "10.5281/zenodo.14554948",
-      "doi_url": "https://doi.org/10.5281/zenodo.14555426",
-      "metadata": {
-        "title": "KLASTERLASH USULLARI YORDAMIDA NUTQNI AVTOMATIK SEGMENTATSIYALASH",
-        "doi": "10.5281/zenodo.14555426",
-        "publication_date": "2024-12-25",
-        "description": "Ushbu ishda nutq signalini avtomatik segmentatsiya qilishda zamonaviy klasterizatsiya algoritmlarining samaradorligi tahlil qilingan. K-means, noaniq c-means va DBSCAN algoritmlari asosida olingan segmentatsiya usullari qo'llanilib, ushbu usullar yordamida so'zlarning vaqt chegaralari aniqlangan. Olingan natijalar avtomatik nutqni qayta ishlashda ushbu algoritmlarning samaradorligini tasdiqlaydi. Shuningdek, ishda so'zlarning aniq chegaralarini aniqlash yondashuvi tasvirlangan. Olingan natijalar nutq signalini segmentatsiyalashning boshqa usullari bilan taqqoslandi.",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Johongir O'rinboyev",
-            "affiliation": "Raqamli texnologiyalar va sun\u02bciy intellektni rivojlantirish ilmiy-tadqiqot instituti tayanch doktoranti"
-          },
-          {
-            "name": "Mavluda  Nugmanova",
-            "affiliation": "Raqamli texnologiyalar va sun\u02bciy intellektni rivojlantirish ilmiy-tadqiqot instituti tayanch doktoranti"
-          }
-        ],
-        "keywords": [
-          "Nutqni avtomatik tanib olish",
-          "nutq signalini segmentatsiyalash",
-          "klasterlash",
-          "k-means usuli",
-          "noaniq c-means usuli",
-          "DBSCAN usuli"
-        ],
-        "references": [
-          "Hioka Y., Hamada N. Voice activity detection with array signal processing in the wavelet domain // 11th European Signal Processing Con\u00adference. - 2002. - P. 1-4.",
-          "Cherif A., Bouafif L., Dabbabi T. Pitch Detection and Formant Analysis of Arabic Speech Processing // Applied Acoustics. - 2001. - Vol. 62. - P. 1129-1140. DOI: 10.1016/S0003-682X(01)00007-X",
-          "Sharma M., Mammone R. Subword-based text-dependent speaker verification system with user-selectable passwords // IEEE International Conference on Acoustics, Speech and Signal Processing. - 1996. - Vol. 1. - P. 93-96. DOI: 10.1109/ICASSP.1996.540298",
-          "Rasanen O. Speech Segmentation and Clustering Methods for a New Speech Recognition Architecture. Helsinki University of Technolo\u00adgy. - 2007. - P. 94.",
-          "Basu S. A linked-HMM model for robust voicing and speech detec\u00adtion // IEEE International Conference on Acoustics, Speech and Signal Pro\u00adcessing (ICASSP'03). - 2003. - Vol. 1. - P. 816-819.",
-          "Rahman M., Bhuiyan A. Continuous Bangla Speech Segmentation using Short-term Speech Features Extraction Approaches // International Journal of Advanced Computer Science and Application (IJACSA). - 2012. - Vol. 3. - P. 131-138.",
-          "Beritelli F., Casale S. Robust voiced/unvoiced speech classification using fuzzy rules // IEEE Workshop on Speech Coding for Telecommunica\u00adtions. - 1997. - P. 5-6. DOI: 10.1109/SCFT.1997.623868",
-          "Thangarajan R., Natarajan M., Selvam M. Syllable modeling in continuous speech recognition for Tamil language // International Journal of Speech Technology. - 2009. - Vol. 12. - P. 47-57. DOI: 10.1007/s10772- 009-9058-0",
-          "Kvale K. Segmentation and Labeling of Speech // Norwegian Insti\u00adtute of Technology. - 1993. - P. 271.",
-          "Qi Y., Hunt B. R. Voiced-unvoiced-silence classifications of speech using hybrid features and a network classifier // IEEE Transactions on Speech and Audio Pressing. - 1993. - Vol. 1. - P. 250-255. DOI: 10.1109/89.222883",
-          "Alpaydin E. Introduction to Machine Learning // MIT Press, Cam\u00adbridge. - 2016. - \u0420. 206. DOI: 10.1017/S0269888906220745",
-          "Hathway R.J., Bezdek J. Optimization of Clustering Criteria by Reformulation // IEEE Transaction on Fuzzy Systems. - 1995. - Vol. 3. - P. 241-245. DOI: 10.1109/91.388178",
-          "Philipose S.S. A Triclass Image Segmentation using Adaptive K- means Clustering and Otsu's Method // International Journal of Engineering Research and General Science. - 2015. - Vol. 3. - P. 134-138.",
-          "SaiJayram A.K.V., Ramasubramanian V., Sreenivas T.V. Robust parameters for automatic segmentation of speech // IEEE International Con\u00adference on Acoustics, Speech and Signal Processing. - 2002. - Vol. 1. - P. 513-516. DOI: 10.1109/ICASSP.2002.5743767",
-          "Webb A. Statistical Pattern Recognition // John Wiley & Sons, New Jersey. - 2002. - \u0420. 496. DOI: 10.1002/0470854774",
-          "Tan P.N., Steinbach M., Kumar V. Introduction to Data Mining // Addison-Wesley, Boston. - 2005. - P. 769.",
-          "Kriegel H.-P., Schubert E., Zimek A. The (black) art of runtime evaluation: Are we comparing algorithms or implementations? Knowledge and Information Systems. 2016. Vol. 52.No. 2. P. 341.",
-          "Shanthi T., Chelpa L. Isolated word speech recognition system us\u00ading HTK // International Journal of Computer Science Engineering and In\u00adformation Technology Research. - 2014. - Vol. 4. - P. 81-86."
-        ],
-        "language": "uzb",
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
-        },
-        "journal": {
-          "issue": "4",
-          "title": "Al-Farg'oniy avlodlari",
-          "volume": "1"
-        },
-        "imprint": {},
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "communities": [
-          {
-            "id": "alfargoniyavlodlarieij"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 1,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "14554948"
-              }
-            }
-          ]
-        }
-      },
-      "title": "KLASTERLASH USULLARI YORDAMIDA NUTQNI AVTOMATIK SEGMENTATSIYALASH",
-      "links": {
-        "self": "https://zenodo.org/api/records/14555426",
-        "self_html": "https://zenodo.org/records/14555426",
-        "doi": "https://doi.org/10.5281/zenodo.14555426",
-        "self_doi": "https://doi.org/10.5281/zenodo.14555426",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14555426",
-        "parent": "https://zenodo.org/api/records/14554948",
-        "parent_html": "https://zenodo.org/records/14554948",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14554948",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14554948",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14555426/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14555426/sequence/default",
-        "files": "https://zenodo.org/api/records/14555426/files",
-        "media_files": "https://zenodo.org/api/records/14555426/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:14555426:final_38_626-220-225-Urinboyev.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:14555426:final_38_626-220-225-Urinboyev.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:14555426:final_38_626-220-225-Urinboyev.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:14555426:final_38_626-220-225-Urinboyev.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:14555426:final_38_626-220-225-Urinboyev.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:14555426:final_38_626-220-225-Urinboyev.pdf/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/14555426/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14555426/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14555426/versions/latest",
-        "latest_html": "https://zenodo.org/records/14555426/latest",
-        "versions": "https://zenodo.org/api/records/14555426/versions",
-        "draft": "https://zenodo.org/api/records/14555426/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14555426/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14555426/access/links",
-        "access_grants": "https://zenodo.org/api/records/14555426/access/grants",
-        "access_users": "https://zenodo.org/api/records/14555426/access/users",
-        "access_request": "https://zenodo.org/api/records/14555426/access/request",
-        "access": "https://zenodo.org/api/records/14555426/access",
-        "communities": "https://zenodo.org/api/records/14555426/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14555426/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14555426/requests"
-      },
-      "updated": "2024-12-25T14:40:46.837714+00:00",
-      "recid": "14555426",
-      "revision": 4,
-      "files": [
-        {
-          "id": "ca1e6bf1-79dc-42b3-bd6e-d9054c5e38cc",
-          "key": "final_38_626-220-225-Urinboyev.pdf",
-          "size": 1223193,
-          "checksum": "md5:1698f77ccdc43e8e5b0ef35b006857a8",
-          "links": {
-            "self": "https://zenodo.org/api/records/14555426/files/final_38_626-220-225-Urinboyev.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "475976"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 15,
-        "unique_downloads": 14,
-        "views": 16,
-        "unique_views": 16,
+        "downloads": 10,
+        "unique_downloads": 9,
+        "views": 14,
+        "unique_views": 13,
         "version_downloads": 10,
         "version_unique_downloads": 9,
-        "version_unique_views": 12,
-        "version_views": 12
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2024-12-19T06:02:58.487490+00:00",
-      "modified": "2024-12-19T06:02:58.673953+00:00",
-      "id": 14523081,
-      "conceptrecid": "14523080",
-      "doi": "10.11591/ijece.v14i5.pp5430-5442",
-      "doi_url": "https://doi.org/10.11591/ijece.v14i5.pp5430-5442",
-      "metadata": {
-        "title": "Development of a decision-making module in the field of real  estate rental using machine learning methods",
-        "doi": "10.11591/ijece.v14i5.pp5430-5442",
-        "publication_date": "2024-10-01",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Ayagoz, Mukhanova",
-            "affiliation": null,
-            "orcid": "0000-0003-3987-0938"
-          },
-          {
-            "name": "Baitemirov, \u041cadiyar",
-            "affiliation": null,
-            "orcid": "0009-0003-6852-7669"
-          },
-          {
-            "name": "Baitemirov, \u041cadiyar",
-            "affiliation": null,
-            "orcid": "0009-0003-6852-7669"
-          },
-          {
-            "name": "Ignatovich, Artyom",
-            "affiliation": "L. N. Gumilyov Eurasian National University",
-            "orcid": "0009-0006-2051-3710"
-          },
-          {
-            "name": "Ignatovich, Artyom",
-            "affiliation": "L. N. Gumilyov Eurasian National University",
-            "orcid": "0009-0006-2051-3710"
-          },
-          {
-            "name": "Tanirbergenov, Adilbek",
-            "affiliation": null,
-            "orcid": "0009-0000-8401-5434"
-          },
-          {
-            "name": "Tynykulova, Asemgul",
-            "affiliation": "\u041a\u0430\u0437\u0430\u0445\u0441\u043a\u0438\u0439 \u0430\u0433\u0440\u043e\u0442\u0435\u0445\u043d\u0438\u0447\u0435\u0441\u043a\u0438\u0439 \u0443\u043d\u0438\u0432\u0435\u0440\u0441\u0438\u0442\u0435\u0442 \u0438\u043c. \u0421.\u0421\u0435\u0439\u0444\u0443\u043b\u043b\u0438\u043d\u0430",
-            "orcid": "0000-0002-4557-6869"
-          },
-          {
-            "name": "Bapiyev, Ideyat M.",
-            "affiliation": "Zhangir Khan West Kazakhstan Agrarian Technical University",
-            "orcid": "0000-0001-8468-8938"
-          },
-          {
-            "name": "Mukhamedrakhimova, Galia",
-            "affiliation": null,
-            "orcid": "0000-0002-9951-6263"
-          },
-          {
-            "name": "\u0411\u0430\u0435\u0433\u0438\u0437\u043e\u0432\u0430, \u0410\u0439\u0433\u0443\u043b\u0438\u043c",
-            "affiliation": null,
-            "orcid": "0000-0003-2293-2143"
-          }
-        ],
-        "keywords": [
-          "Decision support systems",
-          "DBSCAN",
-          "Expert system",
-          "Linear regression",
-          "Machine learning"
-        ],
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
-        },
-        "journal": {
-          "issue": "5",
-          "title": "International Journal of Electrical and Computer Engineering (IJECE)",
-          "volume": "14"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "14523080"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Development of a decision-making module in the field of real  estate rental using machine learning methods",
-      "links": {
-        "self": "https://zenodo.org/api/records/14523081",
-        "self_html": "https://zenodo.org/records/14523081",
-        "doi": "https://doi.org/10.11591/ijece.v14i5.pp5430-5442",
-        "self_doi": "https://doi.org/10.11591/ijece.v14i5.pp5430-5442",
-        "self_doi_html": "https://zenodo.org/doi/10.11591/ijece.v14i5.pp5430-5442",
-        "parent": "https://zenodo.org/api/records/14523080",
-        "parent_html": "https://zenodo.org/records/14523080",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14523081/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14523081/sequence/default",
-        "files": "https://zenodo.org/api/records/14523081/files",
-        "media_files": "https://zenodo.org/api/records/14523081/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:14523081:57%2035685%20IJECE%207_%20yekti.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:14523081:57%2035685%20IJECE%207_%20yekti.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:14523081:57%2035685%20IJECE%207_%20yekti.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:14523081:57%2035685%20IJECE%207_%20yekti.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:14523081:57%2035685%20IJECE%207_%20yekti.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:14523081:57%2035685%20IJECE%207_%20yekti.pdf/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/14523081/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14523081/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14523081/versions/latest",
-        "latest_html": "https://zenodo.org/records/14523081/latest",
-        "versions": "https://zenodo.org/api/records/14523081/versions",
-        "draft": "https://zenodo.org/api/records/14523081/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14523081/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14523081/access/links",
-        "access_grants": "https://zenodo.org/api/records/14523081/access/grants",
-        "access_users": "https://zenodo.org/api/records/14523081/access/users",
-        "access_request": "https://zenodo.org/api/records/14523081/access/request",
-        "access": "https://zenodo.org/api/records/14523081/access",
-        "communities": "https://zenodo.org/api/records/14523081/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14523081/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14523081/requests"
-      },
-      "updated": "2024-12-19T06:02:58.673953+00:00",
-      "recid": "14523081",
-      "revision": 4,
-      "files": [
-        {
-          "id": "9cebce97-9e98-4b49-81cd-5f78840a41a5",
-          "key": "57 35685 IJECE 7_ yekti.pdf",
-          "size": 642095,
-          "checksum": "md5:c75483863bc97470ed5c1a449f06a5fb",
-          "links": {
-            "self": "https://zenodo.org/api/records/14523081/files/57 35685 IJECE 7_ yekti.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "113579"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 7,
-        "unique_downloads": 7,
-        "views": 5,
-        "unique_views": 5,
-        "version_downloads": 7,
-        "version_unique_downloads": 7,
-        "version_unique_views": 5,
-        "version_views": 5
+        "version_unique_views": 13,
+        "version_views": 14
       },
       "state": "done",
       "submitted": true

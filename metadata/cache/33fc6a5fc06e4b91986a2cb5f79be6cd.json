@@ -1,293 +1,45 @@
 {
-  "cache_date": "2025-03-17T23:21:46.923594",
+  "cache_date": "2025-05-01T09:08:39.288224",
   "data": [
     {
-      "created": "2025-03-17T23:02:05.098820+00:00",
-      "modified": "2025-03-17T23:02:05.381530+00:00",
-      "id": 15042478,
-      "conceptrecid": "14505960",
-      "doi": "10.5281/zenodo.15042478",
-      "conceptdoi": "10.5281/zenodo.14505960",
-      "doi_url": "https://doi.org/10.5281/zenodo.15042478",
+      "created": "2025-05-01T03:48:28.768549+00:00",
+      "modified": "2025-05-01T03:48:28.988864+00:00",
+      "id": 15313982,
+      "conceptrecid": "15313981",
+      "doi": "10.5281/zenodo.15313982",
+      "conceptdoi": "10.5281/zenodo.15313981",
+      "doi_url": "https://doi.org/10.5281/zenodo.15313982",
       "metadata": {
-        "title": "Design and Analysis of an Extreme-Scale, High-Performance, and Modular Agent- Based Simulation Platform",
-        "doi": "10.5281/zenodo.15042478",
-        "publication_date": "2024",
-        "description": "<p>Agent-based modeling is indispensable for studying complex systems across many domains. However, existing simulation platforms exhibit two major issues: performance and modularity. Low performance prevents simulations with a large number of agents, increases development time, limits parameter exploration, and raises computing costs. Inflexible software designs motivate modelers to create their own tools, diverting valuable resources.</p>\n<p>This dissertation introduces a novel simulation platform called BioDynaMo and its significant improvement, TeraAgent, to alleviate these challenges via three major works.</p>\n<p>First, we lay the platform's foundation by defining abstractions, establishing software infrastructure, and implementing a multitude of features for agent-based modeling. We demonstrate BioDynaMo's modularity through use cases in neuroscience, epidemiology, and oncology. We validate these models and show the simplicity of adding new functionality with few lines of code.</p>\n<p>Second, we perform a rigorous performance analysis and identify challenges for shared-memory parallelism. Provided solutions include an optimized grid for neighbor searching, mechanisms to reduce the memory access latency, and exploiting domain knowledge to omit unnecessary work. These improvements yield up to three orders of magnitude speedups, enabling simulations of 1.7 billion agents on a single server.</p>\n<p>Third, we present TeraAgent, a distributed simulation engine that allows scaling out the computation of one simulation to multiple servers. We identify and address server communication bottlenecks and implement solutions for serialization and delta encoding to accelerate and reduce data transfer. TeraAgent can simulate 500 billion agents and scales to 84096 CPU cores.</p>\n<p><br>BioDynaMo has been widely adopted, including a prize-winning radiotherapy simulation recognized as a top 10 breakthrough in physics in 2024.</p>",
+        "title": "38 Glass Models Generated Using the MACE Potential in VASP Format",
+        "doi": "10.5281/zenodo.15313982",
+        "publication_date": "2025-05-01",
+        "description": "<p>A machine-learning interatomic potential, MACE, was employed to construct structural models of 38 high-refractive glasses.</p>\n<p>Pretrained foundation models, MACE-MP-L0 and L2, were utilized.</p>\n<p>The glass models were constructed using a melt-quench simulation, involving melting at 2000 K for 500 ps, followed by a cooling simulation at a rate of 2 K/ps down to 300 K. The models were further equilibrated at 300 K for 500 ps. All simulations were performed using a canonical (NVT) ensemble.</p>\n<p>The model volume was set to be consistent with the experimental density or the density estimated by GlassNet when experimental data was unavailable.</p>\n<p>All MD simulations were performed using the LAMMPS package.&nbsp;The atomic motions were integrated with a 1-fs time step, and the temperature was controlled by a Nos&eacute;-Hoover thermostat.</p>\n<p>DFT calculation results based on these glass models will be published in&nbsp;<em>Computational Materials Science</em> under the&nbsp;title<em> \"Leveraging LLMs to Identify Patent-Free Glass Materials\".</em></p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Breitwieser, Lukas Johannes",
-            "affiliation": "ETH Z\u00fcrich",
-            "orcid": "0000-0003-2265-8615"
+            "name": "Urata, Shingo",
+            "affiliation": "AGC Inc.",
+            "orcid": "0000-0001-6878-345X"
           }
         ],
-        "resource_type": {
-          "title": "Dissertation",
-          "type": "publication",
-          "subtype": "dissertation"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 1,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "14505960"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Design and Analysis of an Extreme-Scale, High-Performance, and Modular Agent- Based Simulation Platform",
-      "links": {
-        "self": "https://zenodo.org/api/records/15042478",
-        "self_html": "https://zenodo.org/records/15042478",
-        "doi": "https://doi.org/10.5281/zenodo.15042478",
-        "self_doi": "https://doi.org/10.5281/zenodo.15042478",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042478",
-        "parent": "https://zenodo.org/api/records/14505960",
-        "parent_html": "https://zenodo.org/records/14505960",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14505960",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14505960",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042478/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042478/sequence/default",
-        "files": "https://zenodo.org/api/records/15042478/files",
-        "media_files": "https://zenodo.org/api/records/15042478/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:15042478:PhD-Thesis-LukasJohannesBreitwieser.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:15042478:PhD-Thesis-LukasJohannesBreitwieser.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:15042478:PhD-Thesis-LukasJohannesBreitwieser.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:15042478:PhD-Thesis-LukasJohannesBreitwieser.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:15042478:PhD-Thesis-LukasJohannesBreitwieser.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:15042478:PhD-Thesis-LukasJohannesBreitwieser.pdf/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/15042478/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15042478/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15042478/versions/latest",
-        "latest_html": "https://zenodo.org/records/15042478/latest",
-        "versions": "https://zenodo.org/api/records/15042478/versions",
-        "draft": "https://zenodo.org/api/records/15042478/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15042478/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15042478/access/links",
-        "access_grants": "https://zenodo.org/api/records/15042478/access/grants",
-        "access_users": "https://zenodo.org/api/records/15042478/access/users",
-        "access_request": "https://zenodo.org/api/records/15042478/access/request",
-        "access": "https://zenodo.org/api/records/15042478/access",
-        "communities": "https://zenodo.org/api/records/15042478/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15042478/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15042478/requests"
-      },
-      "updated": "2025-03-17T23:02:05.381530+00:00",
-      "recid": "15042478",
-      "revision": 4,
-      "files": [
-        {
-          "id": "9040bdc0-6dab-4b0c-a590-af3b0aced147",
-          "key": "PhD-Thesis-LukasJohannesBreitwieser.pdf",
-          "size": 45621666,
-          "checksum": "md5:8432383bf3ceeb421f8d4b74b2317e87",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042478/files/PhD-Thesis-LukasJohannesBreitwieser.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "103379"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 1,
-        "unique_downloads": 1,
-        "views": 19,
-        "unique_views": 17,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-03-17T21:26:37.476092+00:00",
-      "modified": "2025-03-17T21:26:37.602545+00:00",
-      "id": 15042264,
-      "conceptrecid": "13937656",
-      "doi": "10.5281/zenodo.15042264",
-      "conceptdoi": "10.5281/zenodo.13937656",
-      "doi_url": "https://doi.org/10.5281/zenodo.15042264",
-      "metadata": {
-        "title": "Rapid Acquisition of 103Rh Solid-State NMR Spectra by 31P Detection and Sideband Selective Methods",
-        "doi": "10.5281/zenodo.15042264",
-        "publication_date": "2025-03-17",
-        "description": "<p>Data archived here corresponds to the experimental and simulation data discussed in:<br>\"Rapid Acquisition of 103Rh Solid-State NMR Spectra by 31P Detection and Sideband Selective Methods.\" This includes experimental datasets from TopSpin, files for SIMPSON simulations, and the output files from the DFT calculations using AMS 2021. Python scripts used in the data analysis are also included</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Atterberry, Benjamin",
-            "affiliation": "Iowa State University"
-          },
-          {
-            "name": "Paluch, Piotr",
-            "affiliation": "Polish Academy of Sciences"
-          },
-          {
-            "name": "Lamkins, Andrew",
-            "affiliation": "Iowa State University"
-          },
-          {
-            "name": "Huang, Wenyu",
-            "affiliation": "Iowa State University"
-          },
-          {
-            "name": "Rossini, Aaron",
-            "affiliation": "Iowa State University"
-          }
-        ],
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 1,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "13937656"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Rapid Acquisition of 103Rh Solid-State NMR Spectra by 31P Detection and Sideband Selective Methods",
-      "links": {
-        "self": "https://zenodo.org/api/records/15042264",
-        "self_html": "https://zenodo.org/records/15042264",
-        "doi": "https://doi.org/10.5281/zenodo.15042264",
-        "self_doi": "https://doi.org/10.5281/zenodo.15042264",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042264",
-        "parent": "https://zenodo.org/api/records/13937656",
-        "parent_html": "https://zenodo.org/records/13937656",
-        "parent_doi": "https://doi.org/10.5281/zenodo.13937656",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13937656",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042264/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042264/sequence/default",
-        "files": "https://zenodo.org/api/records/15042264/files",
-        "media_files": "https://zenodo.org/api/records/15042264/media-files",
-        "archive": "https://zenodo.org/api/records/15042264/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15042264/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15042264/versions/latest",
-        "latest_html": "https://zenodo.org/records/15042264/latest",
-        "versions": "https://zenodo.org/api/records/15042264/versions",
-        "draft": "https://zenodo.org/api/records/15042264/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15042264/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15042264/access/links",
-        "access_grants": "https://zenodo.org/api/records/15042264/access/grants",
-        "access_users": "https://zenodo.org/api/records/15042264/access/users",
-        "access_request": "https://zenodo.org/api/records/15042264/access/request",
-        "access": "https://zenodo.org/api/records/15042264/access",
-        "communities": "https://zenodo.org/api/records/15042264/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15042264/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15042264/requests"
-      },
-      "updated": "2025-03-17T21:26:37.602545+00:00",
-      "recid": "15042264",
-      "revision": 4,
-      "files": [
-        {
-          "id": "c8e5031e-3478-4250-82e2-0eba78e75e25",
-          "key": "Zenodo_Manuscript - Version 2.7z",
-          "size": 1023874525,
-          "checksum": "md5:3d4b97c1f07d5cba4362c98f932b6efb",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042264/files/Zenodo_Manuscript - Version 2.7z/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "361228"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 5,
-        "unique_downloads": 5,
-        "views": 20,
-        "unique_views": 18,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 1,
-        "version_views": 1
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-03-17T20:40:51.227126+00:00",
-      "modified": "2025-03-17T20:40:51.614757+00:00",
-      "id": 15041777,
-      "conceptrecid": "15041776",
-      "doi": "10.5281/zenodo.15041777",
-      "conceptdoi": "10.5281/zenodo.15041776",
-      "doi_url": "https://doi.org/10.5281/zenodo.15041777",
-      "metadata": {
-        "title": "Roadmap to fault tolerant quantum computation using topological qubit arrays",
-        "doi": "10.5281/zenodo.15041777",
-        "publication_date": "2025-02-17",
-        "description": "<p>This data accompanies the preprint \"Roadmap to fault tolerant quantum computation using topological qubit arrays\" and contains simulation data used in the figures.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Microsoft (United States)",
-            "affiliation": null
-          }
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "arXiv:2502.12252",
-            "relation": "isSupplementTo",
-            "resource_type": "publication",
-            "scheme": "arxiv"
-          }
+        "keywords": [
+          "vasp",
+          "MACE",
+          "Glass",
+          "High reflactive"
         ],
         "dates": [
           {
-            "type": "submitted",
-            "description": "Figures appeared in arXiv v1."
+            "type": "updated",
+            "description": "Uploaded"
           }
         ],
-        "custom": {
-          "code:programmingLanguage": [
-            {
-              "id": "python",
-              "title": {
-                "en": "Python"
-              }
-            },
-            {
-              "id": "jupyter_notebook",
-              "title": {
-                "en": "Jupyter Notebook"
-              }
-            }
-          ]
-        },
         "resource_type": {
           "title": "Dataset",
           "type": "dataset"
+        },
+        "journal": {
+          "title": "Computational Materials Science"
         },
         "license": {
           "id": "cc-by-4.0"
@@ -299,106 +51,263 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "15041776"
+                "pid_value": "15313981"
               }
             }
           ]
         }
       },
-      "title": "Roadmap to fault tolerant quantum computation using topological qubit arrays",
+      "title": "38 Glass Models Generated Using the MACE Potential in VASP Format",
       "links": {
-        "self": "https://zenodo.org/api/records/15041777",
-        "self_html": "https://zenodo.org/records/15041777",
-        "doi": "https://doi.org/10.5281/zenodo.15041777",
-        "self_doi": "https://doi.org/10.5281/zenodo.15041777",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15041777",
-        "parent": "https://zenodo.org/api/records/15041776",
-        "parent_html": "https://zenodo.org/records/15041776",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15041776",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15041776",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15041777/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15041777/sequence/default",
-        "files": "https://zenodo.org/api/records/15041777/files",
-        "media_files": "https://zenodo.org/api/records/15041777/media-files",
-        "archive": "https://zenodo.org/api/records/15041777/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15041777/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15041777/versions/latest",
-        "latest_html": "https://zenodo.org/records/15041777/latest",
-        "versions": "https://zenodo.org/api/records/15041777/versions",
-        "draft": "https://zenodo.org/api/records/15041777/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15041777/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15041777/access/links",
-        "access_grants": "https://zenodo.org/api/records/15041777/access/grants",
-        "access_users": "https://zenodo.org/api/records/15041777/access/users",
-        "access_request": "https://zenodo.org/api/records/15041777/access/request",
-        "access": "https://zenodo.org/api/records/15041777/access",
-        "communities": "https://zenodo.org/api/records/15041777/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15041777/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15041777/requests"
+        "self": "https://zenodo.org/api/records/15313982",
+        "self_html": "https://zenodo.org/records/15313982",
+        "preview_html": "https://zenodo.org/records/15313982?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15313982",
+        "self_doi": "https://doi.org/10.5281/zenodo.15313982",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15313982",
+        "parent": "https://zenodo.org/api/records/15313981",
+        "parent_html": "https://zenodo.org/records/15313981",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15313981",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15313981",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15313982/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15313982/sequence/default",
+        "files": "https://zenodo.org/api/records/15313982/files",
+        "media_files": "https://zenodo.org/api/records/15313982/media-files",
+        "archive": "https://zenodo.org/api/records/15313982/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15313982/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15313982/versions/latest",
+        "latest_html": "https://zenodo.org/records/15313982/latest",
+        "versions": "https://zenodo.org/api/records/15313982/versions",
+        "draft": "https://zenodo.org/api/records/15313982/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15313982/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15313982/access/links",
+        "access_grants": "https://zenodo.org/api/records/15313982/access/grants",
+        "access_users": "https://zenodo.org/api/records/15313982/access/users",
+        "access_request": "https://zenodo.org/api/records/15313982/access/request",
+        "access": "https://zenodo.org/api/records/15313982/access",
+        "communities": "https://zenodo.org/api/records/15313982/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15313982/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15313982/requests"
       },
-      "updated": "2025-03-17T20:40:51.614757+00:00",
-      "recid": "15041777",
+      "updated": "2025-05-01T03:48:28.988864+00:00",
+      "recid": "15313982",
       "revision": 4,
       "files": [
         {
-          "id": "8be594be-e1eb-43f5-bf91-ed82a5a65039",
-          "key": "Roadmap_protological.md",
-          "size": 6597,
-          "checksum": "md5:bfcefc676b522bdf89b7d6190179afbe",
+          "id": "e78dd0fe-d808-4f25-afc5-d431c9d5b62a",
+          "key": "POSCAR_files.zip",
+          "size": 1179501,
+          "checksum": "md5:6763f4d457d1c67ec9caf61e2c95f498",
           "links": {
-            "self": "https://zenodo.org/api/records/15041777/files/Roadmap_protological.md/content"
-          }
-        },
-        {
-          "id": "e81f7641-3caa-43a5-a949-dc65872d6cdc",
-          "key": "Roadmap_braiding_data.nc",
-          "size": 38213,
-          "checksum": "md5:e5af2c76aeeaac28624e4a86c7b2b84e",
-          "links": {
-            "self": "https://zenodo.org/api/records/15041777/files/Roadmap_braiding_data.nc/content"
-          }
-        },
-        {
-          "id": "1b127f15-bb45-41d2-b4a5-e6e7fa3e267f",
-          "key": "Roadmap_physical_df_p1_p2_pa_X.pkl",
-          "size": 357927,
-          "checksum": "md5:a3c6253b03d09e478f7831f960bdb914",
-          "links": {
-            "self": "https://zenodo.org/api/records/15041777/files/Roadmap_physical_df_p1_p2_pa_X.pkl/content"
-          }
-        },
-        {
-          "id": "a219c614-1459-47e4-b8c7-f51f4d7dc4d1",
-          "key": "Roadmap_braiding.md",
-          "size": 1045,
-          "checksum": "md5:58e6f950425a53af8302cfa06dce5a79",
-          "links": {
-            "self": "https://zenodo.org/api/records/15041777/files/Roadmap_braiding.md/content"
-          }
-        },
-        {
-          "id": "6c53f14f-6621-4508-b031-e90589dbbf66",
-          "key": "Roadmap_protological_data.pkl",
-          "size": 34267091,
-          "checksum": "md5:689080de3c2d221ee9894f88e544a0b6",
-          "links": {
-            "self": "https://zenodo.org/api/records/15041777/files/Roadmap_protological_data.pkl/content"
-          }
-        },
-        {
-          "id": "a6e78d8d-3e63-42f2-8543-8fff9bc7fcb2",
-          "key": "Roadmap_physical_df_p1_p2_pa_Z.pkl",
-          "size": 357927,
-          "checksum": "md5:b1526f846630e027ef7296443fbcb9d8",
-          "links": {
-            "self": "https://zenodo.org/api/records/15041777/files/Roadmap_physical_df_p1_p2_pa_Z.pkl/content"
+            "self": "https://zenodo.org/api/records/15313982/files/POSCAR_files.zip/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "1260161"
+          "id": "1060133"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-05-01T01:26:06.091827+00:00",
+      "modified": "2025-05-01T01:26:06.396655+00:00",
+      "id": 15313319,
+      "conceptrecid": "15313318",
+      "doi": "10.5281/zenodo.15313319",
+      "conceptdoi": "10.5281/zenodo.15313318",
+      "doi_url": "https://doi.org/10.5281/zenodo.15313319",
+      "metadata": {
+        "title": "Sensitivity of Dynamically Downscaled Hydroclimate Projections Over Puerto Rico to the Parameterization of Dust Emissions and Transport in WRF-Chem",
+        "doi": "10.5281/zenodo.15313319",
+        "publication_date": "2025-04-30",
+        "description": "<p>Hydroclimate variables were downscaled over Puerto Rico using the Weather Research and Forecasting (WRF) model (Skamarock &amp; Klemp, 2008), version 3.8. Data were downscaled for three time periods: a historical period between 1 January 2013 to 31 December 2018, a mid-21st century period between 1 January 2044 and 31 December 2049, and an end-21st century period between 1 January 2084 and 31 December 2089.&nbsp;</p>\n<p dir=\"ltr\">The mid- and end-21st century simulations were forced with output from the CMIP5 Community Earth System Model version 1 (CESM1) RCP8.5 scenario (Monaghan et al., 2014).&nbsp; The historical simulation was forced with initial and boundary conditions from the ERA5 reanalysis (Hersbach et al., 2020) to maintain parallelism with the pre-processed CESM output, which was bias-corrected against the now-deprecated ERA-Interim (Monaghan et al., 2014).</p>\n<p dir=\"ltr\">Fore each simulation period, two sets of simulations were conducted: one scenario in which dust is allowed to perturb the large-scale circulations over the tropical North Atlantic (these files include the \"_dust\" tag in the respective file name) and a second scenario with all atmospheric chemistry, including dust effects, turned off.&nbsp; For the dust-on simulations, dust emissions were parameterized using the GOCART model (Ginoux et al., 2001) with Air Force Weather Agency modifications (GOCART-AFWA) (LeGrand et al., 2019).</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Ginoux, P., Chin, M., Tegen, I., Prospero, J. M., Holben, B., Dubovik, O., &amp; Lin, S.-J. (2001). Sources and distributions of dust aerosols simulated with the GOCART model. Journal of Geophysical Research: Atmospheres, 106(D17), 20255&ndash;20273. https://doi.org/10.1029/2000JD000053</p>\n<p dir=\"ltr\">Hersbach, H., Bell, B., Berrisford, P., Hirahara, S., Hor&aacute;nyi, A., Mu&ntilde;oz\u2010Sabater, J., et al. (2020). The ERA5 global reanalysis. Quarterly Journal of the Royal Meteorological Society, 146(730), 1999&ndash;2049. https://doi.org/10.1002/qj.3803</p>\n<p dir=\"ltr\">LeGrand, S. L., Polashenski, C., Letcher, T. W., Creighton, G. A., Peckham, S. E., &amp; Cetola, J. D. (2019). The AFWA dust emission scheme for the GOCART aerosol model in WRF-Chem v3.8.1. Geoscientific Model Development, 12(1), 131&ndash;166. https://doi.org/10.5194/gmd-12-131-2019<strong></strong></p>\n<p dir=\"ltr\">Monaghan, A., Steinhoff, D., Bruyere, C., &amp; Yates, D. (2014). NCAR CESM Global Bias-Corrected CMIP5 Output to Support WRF/MPAS Research [Data set]. UCAR/NCAR - Research Data Archive. https://doi.org/10.5065/D6DJ5CN4</p>\n<p dir=\"ltr\">Skamarock, W. C., &amp; Klemp, J. B. (2008). A time-split nonhydrostatic atmospheric model for weather research and forecasting applications. Journal of Computational Physics, 227(7), 3465&ndash;3485.</p>\n<p>&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Miller, Paul",
+            "affiliation": "Louisiana State University",
+            "orcid": "0000-0002-0512-8295"
+          },
+          {
+            "name": "Mote, Thomas",
+            "affiliation": "University of Georgia",
+            "orcid": "0000-0002-0021-0134"
+          },
+          {
+            "name": "Johnson, Charles Philip",
+            "affiliation": "Louisiana State University"
+          },
+          {
+            "name": "Preece, Jonathon",
+            "affiliation": "The University of Georgia",
+            "orcid": "0000-0002-4463-7770"
+          },
+          {
+            "name": "Williams, Marcus",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "grants": [
+          {
+            "code": "1831952",
+            "internal_id": "10.13039/100000001::1831952",
+            "funder": {
+              "name": "U.S. National Science Foundation",
+              "doi": "10.13039/100000001",
+              "acronym": "NSF"
+            },
+            "title": "LTER:  Luquillo LTER VI: Understanding Ecosystem Change in Northeastern Puerto Rico",
+            "program": "BIO/OAD"
+          },
+          {
+            "code": "2236655",
+            "internal_id": "10.13039/100000001::2236655",
+            "funder": {
+              "name": "U.S. National Science Foundation",
+              "doi": "10.13039/100000001",
+              "acronym": "NSF"
+            },
+            "title": "CAREER: From Dust to Drought: Understanding the Multi-Scale Relationship between the Saharan Air Layer and Caribbean Water Stress",
+            "program": "GEO/OAD"
+          },
+          {
+            "code": "NA20OAR4310416",
+            "internal_id": "02z5nhe81::NA20OAR4310416",
+            "funder": {
+              "name": "National Oceanic and Atmospheric Administration"
+            }
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15313318"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Sensitivity of Dynamically Downscaled Hydroclimate Projections Over Puerto Rico to the Parameterization of Dust Emissions and Transport in WRF-Chem",
+      "links": {
+        "self": "https://zenodo.org/api/records/15313319",
+        "self_html": "https://zenodo.org/records/15313319",
+        "preview_html": "https://zenodo.org/records/15313319?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15313319",
+        "self_doi": "https://doi.org/10.5281/zenodo.15313319",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15313319",
+        "parent": "https://zenodo.org/api/records/15313318",
+        "parent_html": "https://zenodo.org/records/15313318",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15313318",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15313318",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15313319/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15313319/sequence/default",
+        "files": "https://zenodo.org/api/records/15313319/files",
+        "media_files": "https://zenodo.org/api/records/15313319/media-files",
+        "archive": "https://zenodo.org/api/records/15313319/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15313319/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15313319/versions/latest",
+        "latest_html": "https://zenodo.org/records/15313319/latest",
+        "versions": "https://zenodo.org/api/records/15313319/versions",
+        "draft": "https://zenodo.org/api/records/15313319/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15313319/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15313319/access/links",
+        "access_grants": "https://zenodo.org/api/records/15313319/access/grants",
+        "access_users": "https://zenodo.org/api/records/15313319/access/users",
+        "access_request": "https://zenodo.org/api/records/15313319/access/request",
+        "access": "https://zenodo.org/api/records/15313319/access",
+        "communities": "https://zenodo.org/api/records/15313319/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15313319/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15313319/requests"
+      },
+      "updated": "2025-05-01T01:26:06.396655+00:00",
+      "recid": "15313319",
+      "revision": 4,
+      "files": [
+        {
+          "id": "389a9494-2ebb-430b-82bc-bab6d4ae5a01",
+          "key": "wrfout_d01_midCentury_dust.nc",
+          "size": 1734755140,
+          "checksum": "md5:32e2067203f93ebfb4c65ca8f33e13d4",
+          "links": {
+            "self": "https://zenodo.org/api/records/15313319/files/wrfout_d01_midCentury_dust.nc/content"
+          }
+        },
+        {
+          "id": "1737685a-aeb9-4c7c-b90f-258e933b857d",
+          "key": "wrfout_d01_endCentury.nc",
+          "size": 1733772060,
+          "checksum": "md5:b75b327a902ec4d851ed0451ab1f99f8",
+          "links": {
+            "self": "https://zenodo.org/api/records/15313319/files/wrfout_d01_endCentury.nc/content"
+          }
+        },
+        {
+          "id": "86a789eb-48af-455e-a40d-a238a9d56184",
+          "key": "wrfout_d01_historic.nc",
+          "size": 1723744596,
+          "checksum": "md5:1f2ea2c995e5349ed1cfced58abc25ce",
+          "links": {
+            "self": "https://zenodo.org/api/records/15313319/files/wrfout_d01_historic.nc/content"
+          }
+        },
+        {
+          "id": "715a112b-4a7e-49e4-8785-435e52638949",
+          "key": "wrfout_d01_midCentury.nc",
+          "size": 1736721320,
+          "checksum": "md5:0d8a085ef0bdbd8174f14aa0852b2841",
+          "links": {
+            "self": "https://zenodo.org/api/records/15313319/files/wrfout_d01_midCentury.nc/content"
+          }
+        },
+        {
+          "id": "93fdd148-939d-4cce-89a0-00ab035e94f9",
+          "key": "wrfout_d01_historic_dust.nc",
+          "size": 1723547992,
+          "checksum": "md5:b4e1f00d55fcb2e1b97eba5d48163b60",
+          "links": {
+            "self": "https://zenodo.org/api/records/15313319/files/wrfout_d01_historic_dust.nc/content"
+          }
+        },
+        {
+          "id": "ad69a0cc-27d4-4d3c-b642-614220743783",
+          "key": "wrfout_d01_endCentury_dust.nc",
+          "size": 1738884120,
+          "checksum": "md5:48f0a9d80615c5a2204233508f4c2e10",
+          "links": {
+            "self": "https://zenodo.org/api/records/15313319/files/wrfout_d01_endCentury_dust.nc/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "556451"
         }
       ],
       "status": "published",
@@ -416,80 +325,55 @@
       "submitted": true
     },
     {
-      "created": "2025-03-17T20:19:03.028002+00:00",
-      "modified": "2025-03-17T20:19:03.171425+00:00",
-      "id": 15041749,
-      "conceptrecid": "15041748",
-      "doi": "10.2147/CLEP.S464104",
-      "doi_url": "https://doi.org/10.2147/CLEP.S464104",
+      "created": "2025-04-30T23:46:00.175348+00:00",
+      "modified": "2025-04-30T23:46:00.454795+00:00",
+      "id": 15313566,
+      "conceptrecid": "15313565",
+      "doi": "10.5281/zenodo.15313566",
+      "conceptdoi": "10.5281/zenodo.15313565",
+      "doi_url": "https://doi.org/10.5281/zenodo.15313566",
       "metadata": {
-        "title": "Baseline Symptom Data of Adult Childhood Cancer Survivors from the St. Jude Lifetime Cohort Study (SJLIFE)",
-        "doi": "10.2147/CLEP.S464104",
-        "publication_date": "2025-03-17",
-        "description": "<p>This dataset includes data from 2,000 adult survivors of childhood cancer in the St. Jude Lifetime Cohort Study (SJLIFE). It contains baseline symptom assessments across 10 domains (cardiac, pulmonary, sensation, nausea, movement, pain, memory, fatigue, anxiety, and depression) and self-reported individual characteristics (age, sex, race/ethnicity, education level, personal income, and marital status) at the time of the survey. This dataset was used for real-world data application in the published study, <em>Estimation of Personal Symptom Networks Using the Ising Model for Adult Survivors of Childhood Cancer: A Simulation Study with Real-World Data Application</em>, in <em>Clinical Epidemiology</em> (PMID: 39049900; PMCID: PMC11268787; DOI: 10.2147/CLEP.S464104).</p>",
+        "title": "Predictive Modeling with Temporal Disjunctive Logic",
+        "doi": "10.5281/zenodo.15313566",
+        "publication_date": "2025-05-01",
+        "description": "<div>\n<div>The integration of declarative domain knowledge, particularly complex temporal constraints, remains a significant challenge in predictive modeling. While statistical and ML models excel at pattern recognition from data, they often struggle to respect logical rules involving non-simultaneous alternatives or specific event timings needed for robust forecasting and simulation. This paper proposes leveraging TDL, a formal system designed for reasoning about temporally distributed disjunctions and featuring unique operators like<em> <strong>temporal disjunction</strong></em> and unique <em><strong>temporal witnesses</strong></em>, as a specification and integration language to enhance predictive models. We explore and validate methodologies for incorporating TDL constraints into <em><strong>predictive workflows</strong></em>. Key demonstrated techniques include TDL-based feature engineering, which showed quantifiable accuracy improvements (particularly using witness features), post-hoc forecast validation and filtering to enforce logical consistency, the use of TDL rules as direct predictors exhibiting high accuracy in specific scenarios, and metric-based evaluation guided by TDL specifications. Through case studies based on simulations in finance (flight routes) and engineering (reactor control), we illustrate how TDL specifications can guide predictions, enforce logical consistency, improve model accuracy, and enhance interpretability by making temporal assumptions explicit. We conclude that TDL provides <em>empirically validated approaches</em> for bridging formal logical specification and data-driven predictive modeling, offering enhanced robustness, accuracy, and trustworthiness.</div>\n<div>&nbsp;</div>\n</div>",
         "access_right": "open",
         "creators": [
           {
-            "name": "St. Jude Children's Research Hospital",
-            "affiliation": null
+            "name": "Sandner, Daniel",
+            "affiliation": "Independent Researcher",
+            "orcid": "0000-0002-1041-814X"
           }
+        ],
+        "keywords": [
+          "Predictive Modeling",
+          "Temporal Logic",
+          "Temporal Disjunctive Logic",
+          "TDL",
+          "Neuro-Symbolic AI",
+          "Forcasting",
+          "Temporal Disjunctive Logic",
+          "Predictive Modeling",
+          "Temporal Logic"
         ],
         "related_identifiers": [
           {
-            "identifier": "39049900",
-            "relation": "isSupplementTo",
-            "resource_type": "dataset",
-            "scheme": "pmid"
-          },
-          {
-            "identifier": "10.2147/CLEP.S464104",
-            "relation": "isSupplementTo",
-            "resource_type": "dataset",
+            "identifier": "10.5281/zenodo.15312769",
+            "relation": "references",
+            "resource_type": "publication-preprint",
             "scheme": "doi"
           }
         ],
+        "version": "v1.0.0",
+        "language": "eng",
         "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
+          "title": "Preprint",
+          "type": "publication",
+          "subtype": "preprint"
         },
-        "journal": {
-          "pages": "461-473",
-          "title": "Estimation of Personal Symptom Networks Using the Ising Model for Adult Survivors of Childhood Cancer: A Simulation Study with Real-World Data Application"
-        },
-        "alternate_identifiers": [
-          {
-            "identifier": "39049900"
-          },
-          {
-            "identifier": "10.2147/CLEP.S464104"
-          }
-        ],
         "license": {
           "id": "cc-by-4.0"
         },
-        "grants": [
-          {
-            "code": "U01CA195547",
-            "internal_id": "040gcmg81::U01CA195547",
-            "funder": {
-              "name": "National Cancer Institute"
-            }
-          },
-          {
-            "code": "R01CA238368",
-            "internal_id": "040gcmg81::R01CA238368",
-            "funder": {
-              "name": "National Cancer Institute"
-            }
-          },
-          {
-            "code": "R21CA202210",
-            "internal_id": "040gcmg81::R21CA202210",
-            "funder": {
-              "name": "National Cancer Institute"
-            }
-          }
-        ],
         "relations": {
           "version": [
             {
@@ -497,59 +381,177 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "15041748"
+                "pid_value": "15313565"
               }
             }
           ]
-        }
+        },
+        "notes": "<h2>Repository Code for Experiments</h2>\n<p>The software developed for this study (<strong>TDL-protosimulator</strong>} is currently under active development and will be made available at <a href=\"https://github.com/sandner-art/SC-Temporal-Disjunctive-Logic\" target=\"_blank\" rel=\"noopener\">https://github.com/sandner-art/SC-Temporal-Disjunctive-Logic</a>. It is scheduled for public release upon completion of unit testing phase, and contains the experiments for TDL papers.</p>\n<div>This work is part of the '<a href=\"https://osf.io/ce8dt/\" target=\"_blank\" rel=\"noopener\">100 Scientific Visions' initiative</a>, exploring the use of AI in scientific research (idea brainstorming, validation, experiment design, calculation, reference and resource research, analysis, manuscript preparation and editing). The project aims to investigate methodology of effective use of AI tools in a transparent way. The author acknowledges the assistance of LLM Models (types of custom trained models if used are referenced in repositories) and AI Systems in research, evaluation, coding, manuscript drafting, and other manuscript preparation tasks.</div>"
       },
-      "title": "Baseline Symptom Data of Adult Childhood Cancer Survivors from the St. Jude Lifetime Cohort Study (SJLIFE)",
+      "title": "Predictive Modeling with Temporal Disjunctive Logic",
       "links": {
-        "self": "https://zenodo.org/api/records/15041749",
-        "self_html": "https://zenodo.org/records/15041749",
-        "doi": "https://doi.org/10.2147/CLEP.S464104",
-        "self_doi": "https://doi.org/10.2147/CLEP.S464104",
-        "self_doi_html": "https://zenodo.org/doi/10.2147/CLEP.S464104",
-        "parent": "https://zenodo.org/api/records/15041748",
-        "parent_html": "https://zenodo.org/records/15041748",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15041749/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15041749/sequence/default",
-        "files": "https://zenodo.org/api/records/15041749/files",
-        "media_files": "https://zenodo.org/api/records/15041749/media-files",
-        "archive": "https://zenodo.org/api/records/15041749/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15041749/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15041749/versions/latest",
-        "latest_html": "https://zenodo.org/records/15041749/latest",
-        "versions": "https://zenodo.org/api/records/15041749/versions",
-        "draft": "https://zenodo.org/api/records/15041749/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15041749/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15041749/access/links",
-        "access_grants": "https://zenodo.org/api/records/15041749/access/grants",
-        "access_users": "https://zenodo.org/api/records/15041749/access/users",
-        "access_request": "https://zenodo.org/api/records/15041749/access/request",
-        "access": "https://zenodo.org/api/records/15041749/access",
-        "communities": "https://zenodo.org/api/records/15041749/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15041749/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15041749/requests"
+        "self": "https://zenodo.org/api/records/15313566",
+        "self_html": "https://zenodo.org/records/15313566",
+        "preview_html": "https://zenodo.org/records/15313566?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15313566",
+        "self_doi": "https://doi.org/10.5281/zenodo.15313566",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15313566",
+        "parent": "https://zenodo.org/api/records/15313565",
+        "parent_html": "https://zenodo.org/records/15313565",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15313565",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15313565",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15313566/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15313566/sequence/default",
+        "files": "https://zenodo.org/api/records/15313566/files",
+        "media_files": "https://zenodo.org/api/records/15313566/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15313566:tld-p2.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15313566:tld-p2.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15313566:tld-p2.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15313566:tld-p2.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15313566:tld-p2.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15313566:tld-p2.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15313566/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15313566/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15313566/versions/latest",
+        "latest_html": "https://zenodo.org/records/15313566/latest",
+        "versions": "https://zenodo.org/api/records/15313566/versions",
+        "draft": "https://zenodo.org/api/records/15313566/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15313566/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15313566/access/links",
+        "access_grants": "https://zenodo.org/api/records/15313566/access/grants",
+        "access_users": "https://zenodo.org/api/records/15313566/access/users",
+        "access_request": "https://zenodo.org/api/records/15313566/access/request",
+        "access": "https://zenodo.org/api/records/15313566/access",
+        "communities": "https://zenodo.org/api/records/15313566/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15313566/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15313566/requests"
       },
-      "updated": "2025-03-17T20:19:03.171425+00:00",
-      "recid": "15041749",
+      "updated": "2025-04-30T23:46:00.454795+00:00",
+      "recid": "15313566",
       "revision": 4,
       "files": [
         {
-          "id": "e1157d04-29a1-4c66-856f-4bc242af91d0",
-          "key": "SJLIFE_CE_1.xlsx",
-          "size": 123734,
-          "checksum": "md5:d7c9621d70faac7ebcaf314dc8f9df9c",
+          "id": "13b39af9-d9b1-4a74-8a83-295e1c8a8060",
+          "key": "tld-p2.pdf",
+          "size": 1725722,
+          "checksum": "md5:40ef98509d1244551a937af02cd8713f",
           "links": {
-            "self": "https://zenodo.org/api/records/15041749/files/SJLIFE_CE_1.xlsx/content"
+            "self": "https://zenodo.org/api/records/15313566/files/tld-p2.pdf/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "1203079"
+          "id": "203848"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 7,
+        "unique_downloads": 3,
+        "views": 6,
+        "unique_views": 2,
+        "version_downloads": 7,
+        "version_unique_downloads": 3,
+        "version_unique_views": 2,
+        "version_views": 6
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-04-30T20:57:21.516084+00:00",
+      "modified": "2025-04-30T21:11:37.043556+00:00",
+      "id": 15313145,
+      "conceptrecid": "15313144",
+      "doi": "10.5281/zenodo.15313145",
+      "conceptdoi": "10.5281/zenodo.15313144",
+      "doi_url": "https://doi.org/10.5281/zenodo.15313145",
+      "metadata": {
+        "title": "TIE-GCM simulations",
+        "doi": "10.5281/zenodo.15313145",
+        "publication_date": "2025-04-30",
+        "description": "<p>The simulation output includes the atomic oxygen to molecular nitrogen ratio (O/N2), peak electron density (NmF2), and total electron content (TEC), generated by the Thermosphere-Ionosphere-Electrodynamics General Circulation Model (TIE-GCM). This data covers three distinct periods: Period 1 (December 28, 2012 - January 23, 2013), Period 2 (January 2, 2023 - January 28, 2023), and Period 3 (April 29, 2015 - May 25, 2015). The data files are provided in support of the publication titled &ldquo;Delayed Ionospheric Response to Solar Activity: Influence of Geomagnetic Activity.&rdquo;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Vaishnav, Rajesh",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15313144"
+              }
+            }
+          ]
+        }
+      },
+      "title": "TIE-GCM simulations",
+      "links": {
+        "self": "https://zenodo.org/api/records/15313145",
+        "self_html": "https://zenodo.org/records/15313145",
+        "preview_html": "https://zenodo.org/records/15313145?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15313145",
+        "self_doi": "https://doi.org/10.5281/zenodo.15313145",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15313145",
+        "parent": "https://zenodo.org/api/records/15313144",
+        "parent_html": "https://zenodo.org/records/15313144",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15313144",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15313144",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15313145/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15313145/sequence/default",
+        "files": "https://zenodo.org/api/records/15313145/files",
+        "media_files": "https://zenodo.org/api/records/15313145/media-files",
+        "archive": "https://zenodo.org/api/records/15313145/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15313145/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15313145/versions/latest",
+        "latest_html": "https://zenodo.org/records/15313145/latest",
+        "versions": "https://zenodo.org/api/records/15313145/versions",
+        "draft": "https://zenodo.org/api/records/15313145/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15313145/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15313145/access/links",
+        "access_grants": "https://zenodo.org/api/records/15313145/access/grants",
+        "access_users": "https://zenodo.org/api/records/15313145/access/users",
+        "access_request": "https://zenodo.org/api/records/15313145/access/request",
+        "access": "https://zenodo.org/api/records/15313145/access",
+        "communities": "https://zenodo.org/api/records/15313145/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15313145/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15313145/requests"
+      },
+      "updated": "2025-04-30T21:11:37.043556+00:00",
+      "recid": "15313145",
+      "revision": 6,
+      "files": [
+        {
+          "id": "ed727206-b45f-48c3-8f87-bcd611b82838",
+          "key": "TIEGCM_output.nc",
+          "size": 325526392,
+          "checksum": "md5:01720a8022154fd8f6a65e22a7339655",
+          "links": {
+            "self": "https://zenodo.org/api/records/15313145/files/TIEGCM_output.nc/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "583158"
         }
       ],
       "status": "published",
@@ -567,140 +569,39 @@
       "submitted": true
     },
     {
-      "created": "2025-03-17T19:28:06.149737+00:00",
-      "modified": "2025-03-17T19:28:06.307825+00:00",
-      "id": 15041969,
-      "conceptrecid": "15041925",
-      "doi": "10.5281/zenodo.15041969",
-      "conceptdoi": "10.5281/zenodo.15041925",
-      "doi_url": "https://doi.org/10.5281/zenodo.15041969",
+      "created": "2025-04-30T20:41:29.313317+00:00",
+      "modified": "2025-04-30T20:41:29.600256+00:00",
+      "id": 15312769,
+      "conceptrecid": "15312768",
+      "doi": "10.5281/zenodo.15312769",
+      "conceptdoi": "10.5281/zenodo.15312768",
+      "doi_url": "https://doi.org/10.5281/zenodo.15312769",
       "metadata": {
-        "title": "Nash Equilibrium Learning in Large Populations With First Order Payoff Modification (Simulation Code)",
-        "doi": "10.5281/zenodo.15041969",
-        "publication_date": "2025-03",
+        "title": "Temporal Disjunctive Logic for Non-Simultaneous Reasoning",
+        "doi": "10.5281/zenodo.15312769",
+        "publication_date": "2025-04-30",
+        "description": "<p>Non-simultaneous disjunctions&mdash;conditions where alternatives hold at different times&mdash;are common yet challenging to interpret using standard temporal logics. This paper introduces <strong>Temporal Disjunctive Logic (TDL),</strong> a framework designed to represent and reason about such patterns directly.</p>\n<p>We present TPL-BO, a core TDL formalism built on Point Temporal Logic with bounded operators for past and future events within a temporal bound <em>k</em>. Within TPL-BO, we define precise semantics for the symmetric Temporal Disjunction operator, capturing alternatives across past, present, and future, derive its key properties, and establish a valid<em> Temporal Disjunction Elimination</em> deductive property.</p>\n<p>We enhance expressiveness through an extension analyzing selective <em>witness operators</em> (minimal future <em>Fmin_k</em> and maximal past <em>Pmax_k</em>) for identifying unique minimal future or maximal past events within a bound <em>k</em>.</p>\n<p>Computationally, TDL satisfiability is PSPACE-complete. We demonstrate feasible model checking performance via prototype experiments (<em>TDL-protosimulator)</em>, analyzing the effects of memoization, formula structure, and temporal bounds. Illustrative examples drawing from synthetic and imported data experiments confirm TDL's practical potential for specification, verification, and analysis within simulations.</p>\n<p>This foundational paper introduces the core concepts and utility of TDL.</p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Hankins, Matthew",
-            "affiliation": "University of Maryland, College Park",
-            "orcid": "0009-0006-4701-2625"
+            "name": "Sandner, Daniel",
+            "affiliation": "Independent Researcher",
+            "orcid": "0000-0002-1041-814X"
           }
         ],
-        "resource_type": {
-          "title": "Computational notebook",
-          "type": "software",
-          "subtype": "computationalnotebook"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 1,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15041925"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Nash Equilibrium Learning in Large Populations With First Order Payoff Modification (Simulation Code)",
-      "links": {
-        "self": "https://zenodo.org/api/records/15041969",
-        "self_html": "https://zenodo.org/records/15041969",
-        "doi": "https://doi.org/10.5281/zenodo.15041969",
-        "self_doi": "https://doi.org/10.5281/zenodo.15041969",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15041969",
-        "parent": "https://zenodo.org/api/records/15041925",
-        "parent_html": "https://zenodo.org/records/15041925",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15041925",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15041925",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15041969/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15041969/sequence/default",
-        "files": "https://zenodo.org/api/records/15041969/files",
-        "media_files": "https://zenodo.org/api/records/15041969/media-files",
-        "archive": "https://zenodo.org/api/records/15041969/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15041969/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15041969/versions/latest",
-        "latest_html": "https://zenodo.org/records/15041969/latest",
-        "versions": "https://zenodo.org/api/records/15041969/versions",
-        "draft": "https://zenodo.org/api/records/15041969/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15041969/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15041969/access/links",
-        "access_grants": "https://zenodo.org/api/records/15041969/access/grants",
-        "access_users": "https://zenodo.org/api/records/15041969/access/users",
-        "access_request": "https://zenodo.org/api/records/15041969/access/request",
-        "access": "https://zenodo.org/api/records/15041969/access",
-        "communities": "https://zenodo.org/api/records/15041969/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15041969/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15041969/requests"
-      },
-      "updated": "2025-03-17T19:28:06.307825+00:00",
-      "recid": "15041969",
-      "revision": 4,
-      "files": [
-        {
-          "id": "bde2db9f-8635-4d18-9277-2b1d20d01bcf",
-          "key": "FOPM_Example.ipynb",
-          "size": 186073,
-          "checksum": "md5:56b2cd6197bb4dcaa2e114555670dbe1",
-          "links": {
-            "self": "https://zenodo.org/api/records/15041969/files/FOPM_Example.ipynb/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1284097"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 0,
-        "unique_downloads": 0,
-        "views": 3,
-        "unique_views": 2,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 1,
-        "version_views": 1
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-03-17T19:09:50.374570+00:00",
-      "modified": "2025-03-17T19:09:50.526828+00:00",
-      "id": 14853893,
-      "conceptrecid": "14853892",
-      "doi": "10.5281/zenodo.14853893",
-      "conceptdoi": "10.5281/zenodo.14853892",
-      "doi_url": "https://doi.org/10.5281/zenodo.14853893",
-      "metadata": {
-        "title": "Propionate-bound FFA2 simulation data for \"Structural insights into lipid chain-length selectivity and allosteric regulation of FFA2\"",
-        "doi": "10.5281/zenodo.14853893",
-        "publication_date": "2025-03-17",
-        "description": "<p>Propionate-bound FFA2 simulations for \"Structural insights into lipid chain-length selectivity and allosteric regulation of FFA2\" (<span>https://doi.org/10.1038/s41467-025-57983-4).</span></p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Suomivuori, Carl-Mikael",
-            "affiliation": "Stanford University",
-            "orcid": "0000-0002-2445-8791"
-          },
-          {
-            "name": "Dror, Ron O.",
-            "affiliation": "Stanford University",
-            "orcid": "0000-0002-6418-2793"
-          }
+        "keywords": [
+          "Temporal Disjunctive Logic",
+          "Temporal Disjunction Elimination",
+          "Witness Operators",
+          "Temporal Logic",
+          "Disjunctive Logic"
         ],
+        "version": "v1.0.0",
+        "language": "eng",
         "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
+          "title": "Preprint",
+          "type": "publication",
+          "subtype": "preprint"
         },
         "license": {
           "id": "cc-by-4.0"
@@ -712,236 +613,140 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "14853892"
+                "pid_value": "15312768"
               }
             }
           ]
-        }
+        },
+        "notes": "<h2>Repository Info (Code for Experiments)</h2>\n<p>The software developed for this study (<strong>TDL-protosimulator</strong>} is currently under active development and will be made available at <a href=\"https://github.com/sandner-art/SC-Temporal-Disjunctive-Logic\" target=\"_blank\" rel=\"noopener\">https://github.com/sandner-art/SC-Temporal-Disjunctive-Logic</a>. It is scheduled for public release upon completion of unit testing phase, and contains the experiments for TDL papers.</p>\n<div>This work is part of the '<a href=\"https://osf.io/ce8dt/\" target=\"_blank\" rel=\"noopener\">100 Scientific Visions' initiative</a>, exploring the use of AI in scientific research (idea brainstorming, validation, experiment design, calculation, reference and resource research, analysis, manuscript preparation and editing). The project aims to investigate methodology of effective use of AI tools in a transparent way. The author acknowledges the assistance of LLM Models (types of custom trained models if used are referenced in repositories) and AI Systems in research, evaluation, coding, manuscript drafting, and other manuscript preparation tasks.</div>\n<p>&nbsp;</p>"
       },
-      "title": "Propionate-bound FFA2 simulation data for \"Structural insights into lipid chain-length selectivity and allosteric regulation of FFA2\"",
+      "title": "Temporal Disjunctive Logic for Non-Simultaneous Reasoning",
       "links": {
-        "self": "https://zenodo.org/api/records/14853893",
-        "self_html": "https://zenodo.org/records/14853893",
-        "doi": "https://doi.org/10.5281/zenodo.14853893",
-        "self_doi": "https://doi.org/10.5281/zenodo.14853893",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14853893",
-        "parent": "https://zenodo.org/api/records/14853892",
-        "parent_html": "https://zenodo.org/records/14853892",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14853892",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14853892",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14853893/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14853893/sequence/default",
-        "files": "https://zenodo.org/api/records/14853893/files",
-        "media_files": "https://zenodo.org/api/records/14853893/media-files",
-        "archive": "https://zenodo.org/api/records/14853893/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14853893/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14853893/versions/latest",
-        "latest_html": "https://zenodo.org/records/14853893/latest",
-        "versions": "https://zenodo.org/api/records/14853893/versions",
-        "draft": "https://zenodo.org/api/records/14853893/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14853893/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14853893/access/links",
-        "access_grants": "https://zenodo.org/api/records/14853893/access/grants",
-        "access_users": "https://zenodo.org/api/records/14853893/access/users",
-        "access_request": "https://zenodo.org/api/records/14853893/access/request",
-        "access": "https://zenodo.org/api/records/14853893/access",
-        "communities": "https://zenodo.org/api/records/14853893/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14853893/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14853893/requests"
+        "self": "https://zenodo.org/api/records/15312769",
+        "self_html": "https://zenodo.org/records/15312769",
+        "preview_html": "https://zenodo.org/records/15312769?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15312769",
+        "self_doi": "https://doi.org/10.5281/zenodo.15312769",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15312769",
+        "parent": "https://zenodo.org/api/records/15312768",
+        "parent_html": "https://zenodo.org/records/15312768",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15312768",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15312768",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15312769/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15312769/sequence/default",
+        "files": "https://zenodo.org/api/records/15312769/files",
+        "media_files": "https://zenodo.org/api/records/15312769/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15312769:tld-p1.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15312769:tld-p1.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15312769:tld-p1.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15312769:tld-p1.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15312769:tld-p1.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15312769:tld-p1.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15312769/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15312769/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15312769/versions/latest",
+        "latest_html": "https://zenodo.org/records/15312769/latest",
+        "versions": "https://zenodo.org/api/records/15312769/versions",
+        "draft": "https://zenodo.org/api/records/15312769/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15312769/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15312769/access/links",
+        "access_grants": "https://zenodo.org/api/records/15312769/access/grants",
+        "access_users": "https://zenodo.org/api/records/15312769/access/users",
+        "access_request": "https://zenodo.org/api/records/15312769/access/request",
+        "access": "https://zenodo.org/api/records/15312769/access",
+        "communities": "https://zenodo.org/api/records/15312769/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15312769/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15312769/requests"
       },
-      "updated": "2025-03-17T19:09:50.526828+00:00",
-      "recid": "14853893",
+      "updated": "2025-04-30T20:41:29.600256+00:00",
+      "recid": "15312769",
       "revision": 4,
       "files": [
         {
-          "id": "77795ca5-2a7e-432f-a04b-b93d71504d5e",
-          "key": "data.zip",
-          "size": 1039570539,
-          "checksum": "md5:156a9c064dc5373b0f2107f7a24375c7",
+          "id": "80e97c14-a7f0-4e26-85e8-8d67159465fd",
+          "key": "tld-p1.pdf",
+          "size": 1418394,
+          "checksum": "md5:389122e311c56545ae0d1654f478d280",
           "links": {
-            "self": "https://zenodo.org/api/records/14853893/files/data.zip/content"
+            "self": "https://zenodo.org/api/records/15312769/files/tld-p1.pdf/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "83793"
+          "id": "203848"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 2,
-        "unique_downloads": 2,
-        "views": 4,
-        "unique_views": 1,
-        "version_downloads": 2,
-        "version_unique_downloads": 2,
-        "version_unique_views": 1,
-        "version_views": 4
+        "downloads": 23,
+        "unique_downloads": 4,
+        "views": 15,
+        "unique_views": 3,
+        "version_downloads": 23,
+        "version_unique_downloads": 4,
+        "version_unique_views": 3,
+        "version_views": 15
       },
       "state": "done",
       "submitted": true
     },
     {
-      "created": "2025-03-17T18:58:10.386221+00:00",
-      "modified": "2025-03-17T18:58:10.532171+00:00",
-      "id": 15041891,
-      "conceptrecid": "10898652",
-      "doi": "10.5281/zenodo.15041891",
-      "conceptdoi": "10.5281/zenodo.10898652",
-      "doi_url": "https://doi.org/10.5281/zenodo.15041891",
+      "created": "2025-04-30T20:16:53.277596+00:00",
+      "modified": "2025-04-30T23:01:54.715991+00:00",
+      "id": 15312852,
+      "conceptrecid": "15312851",
+      "doi": "10.5281/zenodo.15312852",
+      "conceptdoi": "10.5281/zenodo.15312851",
+      "doi_url": "https://doi.org/10.5281/zenodo.15312852",
       "metadata": {
-        "title": "RNA-FRETools/fretraj: 0.2.11",
-        "doi": "10.5281/zenodo.15041891",
-        "publication_date": "2025-03-17",
-        "description": "<h2>What's Changed</h2>\n<ul>\n<li>Incorporation of Detection Efficiency in the Burst Simulation of FRETraj by @felixErichson in https://github.com/RNA-FRETools/fretraj/pull/5</li>\n<li>Use serial ID for attach_id and clarify documentation by @fdsteffen in https://github.com/RNA-FRETools/fretraj/pull/6</li>\n<li>Switch to setuptools build and remove legacy Github workflows</li>\n</ul>\n<h2>New Contributors</h2>\n<ul>\n<li>@felixErichson made their first contribution in https://github.com/RNA-FRETools/fretraj/pull/5</li>\n<li>@fdsteffen made their first contribution in https://github.com/RNA-FRETools/fretraj/pull/6</li>\n</ul>\n<p><strong>Full Changelog</strong>: https://github.com/RNA-FRETools/fretraj/compare/v0.2.10...0.2.11</p>",
+        "title": "Remote Control: Coordinating Collaborative Writing in Online Courses",
+        "doi": "10.5281/zenodo.15312852",
+        "publication_date": "2025-04-30",
+        "description": "<p>This Great Idea for Teaching (GIFT) activity presents a collaborative writing simulation designed for online communication courses, particularly those focused on technical or professional writing. Inspired by a real-world workplace miscommunication, the activity replicates the challenges of remote teamwork by assigning students to small groups tasked with revising flawed communication templates. Each student is responsible for one document&mdash;such as a press release, email, or radio pitch&mdash;requiring them to coordinate messaging, correct inconsistencies, and collaborate asynchronously. The assignment fosters essential communication skills, including document design, editing, brand consistency, and internal coordination. It also offers opportunities for debriefing and reflection on professional habits such as accountability and direction-following. Designed to mirror authentic workplace dynamics, this activity is flexible, scalable, and aligned with the guidelines set forth by Barton and Coombs (2023) for effective GIFT submissions. Ultimately, it prepares students to succeed in modern digital workplaces where clarity, collaboration, and communication are key.</p>\n<p><em>Keywords: collaborative writing, online learning, remote teamwork, asynchronous instruction</em></p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Fabio Steffen",
-            "affiliation": "University Children's Hospital Zurich"
-          },
-          {
-            "name": "Felix Erichson",
-            "affiliation": null
-          }
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "https://github.com/RNA-FRETools/fretraj/tree/0.2.11",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
-          }
-        ],
-        "version": "0.2.11",
-        "custom": {
-          "code:codeRepository": "https://github.com/RNA-FRETools/fretraj"
-        },
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "gpl-3.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 2,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "10898652"
-              }
-            }
-          ]
-        }
-      },
-      "title": "RNA-FRETools/fretraj: 0.2.11",
-      "links": {
-        "self": "https://zenodo.org/api/records/15041891",
-        "self_html": "https://zenodo.org/records/15041891",
-        "doi": "https://doi.org/10.5281/zenodo.15041891",
-        "self_doi": "https://doi.org/10.5281/zenodo.15041891",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15041891",
-        "parent": "https://zenodo.org/api/records/10898652",
-        "parent_html": "https://zenodo.org/records/10898652",
-        "parent_doi": "https://doi.org/10.5281/zenodo.10898652",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10898652",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15041891/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15041891/sequence/default",
-        "files": "https://zenodo.org/api/records/15041891/files",
-        "media_files": "https://zenodo.org/api/records/15041891/media-files",
-        "archive": "https://zenodo.org/api/records/15041891/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15041891/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15041891/versions/latest",
-        "latest_html": "https://zenodo.org/records/15041891/latest",
-        "versions": "https://zenodo.org/api/records/15041891/versions",
-        "draft": "https://zenodo.org/api/records/15041891/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15041891/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15041891/access/links",
-        "access_grants": "https://zenodo.org/api/records/15041891/access/grants",
-        "access_users": "https://zenodo.org/api/records/15041891/access/users",
-        "access_request": "https://zenodo.org/api/records/15041891/access/request",
-        "access": "https://zenodo.org/api/records/15041891/access",
-        "communities": "https://zenodo.org/api/records/15041891/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15041891/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15041891/requests"
-      },
-      "updated": "2025-03-17T18:58:10.532171+00:00",
-      "recid": "15041891",
-      "revision": 4,
-      "files": [
-        {
-          "id": "8716bf7e-ab7d-46ba-a0dd-6a5947470325",
-          "key": "RNA-FRETools/fretraj-0.2.11.zip",
-          "size": 12883125,
-          "checksum": "md5:b1cd5b22f8c5a461a73f49cb4449a9f7",
-          "links": {
-            "self": "https://zenodo.org/api/records/15041891/files/RNA-FRETools/fretraj-0.2.11.zip/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "56548"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 15,
-        "unique_downloads": 15,
-        "views": 87,
-        "unique_views": 76,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-03-17T17:21:20.581741+00:00",
-      "modified": "2025-03-17T17:21:21.402069+00:00",
-      "id": 14606470,
-      "conceptrecid": "14606469",
-      "doi": "10.5281/zenodo.14606470",
-      "conceptdoi": "10.5281/zenodo.14606469",
-      "doi_url": "https://doi.org/10.5281/zenodo.14606470",
-      "metadata": {
-        "title": "Global Simulations Suggest Biomass Burning Aerosols are Regionally Important Ice Nucleating Particles",
-        "doi": "10.5281/zenodo.14606470",
-        "publication_date": "2025-02-10",
-        "description": "<p>This repository supplements the research article titled \"Global Simulations Suggest Biomass Burning Aerosols are Regionally Important Ice Nucleating Particles\" and contains - 1. Postprocessed simulation results from running the UK Met Office Unified Model (UM); the rose suites are stated in the accompanying manuscript, 2. Processed measurement data from the DOE- and NSF-funded campaigns, and 3. Python scripts used to prepare INP plots and analyses presented in the paper.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Gohil, Kanishk",
-            "affiliation": "Carnegie Mellon University",
-            "orcid": "0000-0001-8500-9888"
+            "name": "Fullerton, Lindsay",
+            "affiliation": "Southern Utah University"
           }
         ],
         "dates": [
           {
-            "type": "submitted"
+            "type": "available"
           }
         ],
-        "language": "eng",
+        "references": [
+          "Allen, M., Gotcher, J. M., & Seibert, J. H. (2015). Communication in the workplace: Guidelines and practices for effective communication. Kendall Hunt Publishing.",
+          "Barton, M. H., & Coombs, H. V. (2023). Concise guide for preparing GIFT articles. Utah Journal of Communication, 0(2), 6\u201310. https://doi.org/10.5281/zenodo.7702244",
+          "Henshaw, F. (2023). Catch my errors if you can: The relative value of peer editing in the language classroom. NECTFL Review, n90 p31-41. https://files.eric.ed.gov/fulltext/EJ1382637.pdf",
+          "Miller, K. (2015). Organizational communication: Approaches and processes (7th ed.). Cengage Learning.",
+          "Shimizu, I., Matsuyama, Y., Duvivier, R., & van der Vleuten, C. (2022). Perceived positive social interdependence in online versus face-to-face team-based learning styles of collaborative learning: A randomized, controlled, mixed-methods study. BMC Medical Education, 22(1), 567. https://doi.org/10.1186/s12909-022-03633-y",
+          "Staggers, J., Garcia, S., Nagelhout, E. (2008). Teamwork through team building: face-to-face to online. Business Communication Quarterly, 71(4), 472.",
+          "Vasudevan, A., Prabakaran, R., & Toong, H. (2023). Effective Communication Management in Remote Working Environment on Project Management Success. Social Science Journal, 13(2)."
+        ],
         "resource_type": {
           "title": "Journal article",
           "type": "publication",
           "subtype": "article"
         },
         "journal": {
-          "title": "JGR-Atmospheres"
+          "issue": "1",
+          "pages": "91-95",
+          "title": "Utah Journal of Communication",
+          "volume": "3"
         },
         "license": {
           "id": "cc-by-4.0"
         },
+        "communities": [
+          {
+            "id": "ujoc"
+          }
+        ],
         "relations": {
           "version": [
             {
@@ -949,368 +754,117 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "14606469"
+                "pid_value": "15312851"
               }
             }
           ]
         }
       },
-      "title": "Global Simulations Suggest Biomass Burning Aerosols are Regionally Important Ice Nucleating Particles",
+      "title": "Remote Control: Coordinating Collaborative Writing in Online Courses",
       "links": {
-        "self": "https://zenodo.org/api/records/14606470",
-        "self_html": "https://zenodo.org/records/14606470",
-        "doi": "https://doi.org/10.5281/zenodo.14606470",
-        "self_doi": "https://doi.org/10.5281/zenodo.14606470",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14606470",
-        "parent": "https://zenodo.org/api/records/14606469",
-        "parent_html": "https://zenodo.org/records/14606469",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14606469",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14606469",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14606470/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14606470/sequence/default",
-        "files": "https://zenodo.org/api/records/14606470/files",
-        "media_files": "https://zenodo.org/api/records/14606470/media-files",
-        "archive": "https://zenodo.org/api/records/14606470/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14606470/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14606470/versions/latest",
-        "latest_html": "https://zenodo.org/records/14606470/latest",
-        "versions": "https://zenodo.org/api/records/14606470/versions",
-        "draft": "https://zenodo.org/api/records/14606470/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14606470/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14606470/access/links",
-        "access_grants": "https://zenodo.org/api/records/14606470/access/grants",
-        "access_users": "https://zenodo.org/api/records/14606470/access/users",
-        "access_request": "https://zenodo.org/api/records/14606470/access/request",
-        "access": "https://zenodo.org/api/records/14606470/access",
-        "communities": "https://zenodo.org/api/records/14606470/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14606470/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14606470/requests"
+        "self": "https://zenodo.org/api/records/15312852",
+        "self_html": "https://zenodo.org/records/15312852",
+        "preview_html": "https://zenodo.org/records/15312852?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15312852",
+        "self_doi": "https://doi.org/10.5281/zenodo.15312852",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15312852",
+        "parent": "https://zenodo.org/api/records/15312851",
+        "parent_html": "https://zenodo.org/records/15312851",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15312851",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15312851",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15312852/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15312852/sequence/default",
+        "files": "https://zenodo.org/api/records/15312852/files",
+        "media_files": "https://zenodo.org/api/records/15312852/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15312852:12.%20Fullerton.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15312852:12.%20Fullerton.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15312852:12.%20Fullerton.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15312852:12.%20Fullerton.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15312852:12.%20Fullerton.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15312852:12.%20Fullerton.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15312852/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15312852/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15312852/versions/latest",
+        "latest_html": "https://zenodo.org/records/15312852/latest",
+        "versions": "https://zenodo.org/api/records/15312852/versions",
+        "draft": "https://zenodo.org/api/records/15312852/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15312852/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15312852/access/links",
+        "access_grants": "https://zenodo.org/api/records/15312852/access/grants",
+        "access_users": "https://zenodo.org/api/records/15312852/access/users",
+        "access_request": "https://zenodo.org/api/records/15312852/access/request",
+        "access": "https://zenodo.org/api/records/15312852/access",
+        "communities": "https://zenodo.org/api/records/15312852/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15312852/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15312852/requests"
       },
-      "updated": "2025-03-17T17:21:21.402069+00:00",
-      "recid": "14606470",
-      "revision": 4,
+      "updated": "2025-04-30T23:01:54.715991+00:00",
+      "recid": "15312852",
+      "revision": 6,
       "files": [
         {
-          "id": "bc7ea56a-92ed-46f0-9793-c875f227c4f2",
-          "key": "u-cy915 all months set3.rar",
-          "size": 2996418776,
-          "checksum": "md5:159ba19e1f6e631b3eb9949e66e3a915",
+          "id": "d5abf5e0-ff59-4eb6-a9a8-1e0c9d2747e6",
+          "key": "12. Fullerton.pdf",
+          "size": 376720,
+          "checksum": "md5:86ce35d888d2d24666cedaeb1916401f",
           "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cy915 all months set3.rar/content"
-          }
-        },
-        {
-          "id": "4664bda0-fe9b-4ebb-883c-0a6f21539068",
-          "key": "u-cy682 all months set1.rar",
-          "size": 2349342102,
-          "checksum": "md5:5753e03f1adb30326ef72d14a47a94a6",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cy682 all months set1.rar/content"
-          }
-        },
-        {
-          "id": "372f2167-e252-48a2-b8da-6954107d3f52",
-          "key": "u-cy682 all months set2.rar",
-          "size": 2197123610,
-          "checksum": "md5:b47e69ec33a26b69060ee5d215ae4e4d",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cy682 all months set2.rar/content"
-          }
-        },
-        {
-          "id": "34a887a6-adee-44aa-b9c8-10a7d0e1f916",
-          "key": "u-cy682 processed set1.rar",
-          "size": 2412124973,
-          "checksum": "md5:7879f1740a885670cd181cf41dbc1d25",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cy682 processed set1.rar/content"
-          }
-        },
-        {
-          "id": "fb2e5de6-dfd9-4c57-9ae8-b6ed56c0992b",
-          "key": "u-cy682 processed set2.rar",
-          "size": 1996939939,
-          "checksum": "md5:7dc88b0c1533dcfb92e7f533197c3b6c",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cy682 processed set2.rar/content"
-          }
-        },
-        {
-          "id": "06e0dfd0-da3f-4ebd-a2b3-d87c03f86e67",
-          "key": "u-cy682 processed set3.rar",
-          "size": 1977765845,
-          "checksum": "md5:0e72530495c5a68828164dcc833fa993",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cy682 processed set3.rar/content"
-          }
-        },
-        {
-          "id": "5fb34a2a-50f8-46b7-ae6d-a29c6bddea40",
-          "key": "u-cy915 all months set1.rar",
-          "size": 2326881353,
-          "checksum": "md5:f2e95cf710136df54194473a150f1fd7",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cy915 all months set1.rar/content"
-          }
-        },
-        {
-          "id": "ff409638-11ea-479c-9858-1f037ff676db",
-          "key": "u-cy915 all months set2.rar",
-          "size": 3567002727,
-          "checksum": "md5:a6fdda6548006856e4bebab5f3b1c695",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cy915 all months set2.rar/content"
-          }
-        },
-        {
-          "id": "2aff1fe1-252a-4687-9257-11b0e38c76df",
-          "key": "u-cy915 processed set4.rar",
-          "size": 884677615,
-          "checksum": "md5:ba5f18492c5d1a330b5bfdae6dadb542",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cy915 processed set4.rar/content"
-          }
-        },
-        {
-          "id": "f11f4b1e-0de2-4df6-a28b-c6237ad1f471",
-          "key": "u-cy915 processed set1.rar",
-          "size": 1493628405,
-          "checksum": "md5:f869cd8ddc998ecb43ba1b45f0ae7170",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cy915 processed set1.rar/content"
-          }
-        },
-        {
-          "id": "7041d44e-ed79-4194-aa82-504f4d34e153",
-          "key": "u-cy915 processed set3.rar",
-          "size": 1202342860,
-          "checksum": "md5:33b4427ac241c6acfc284a9235d34107",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cy915 processed set3.rar/content"
-          }
-        },
-        {
-          "id": "6e871fe4-3bbb-4635-8cfa-26d040838b1b",
-          "key": "u-cy915 processed set2.rar",
-          "size": 2055844099,
-          "checksum": "md5:a13970aa7fc9ad8e5791cca62534b77c",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cy915 processed set2.rar/content"
-          }
-        },
-        {
-          "id": "3c73fb6e-6b3a-4a19-8abd-e5090ebd85ad",
-          "key": "u-cw955 all months.rar",
-          "size": 3850513754,
-          "checksum": "md5:99c104c42ceec74646457b868e503e65",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cw955 all months.rar/content"
-          }
-        },
-        {
-          "id": "89a93218-ae4a-4867-a3bc-f5ba565e07bc",
-          "key": "u-cv984 processed.rar",
-          "size": 60464640,
-          "checksum": "md5:a9c8ce9921ed372da56f4ca3070d4a93",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cv984 processed.rar/content"
-          }
-        },
-        {
-          "id": "3622f16e-e8f4-4374-a8c4-0896ac6a1499",
-          "key": "u-db464 processed set 3.rar",
-          "size": 1570082615,
-          "checksum": "md5:164777338979680ab57e0d47fce33241",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-db464 processed set 3.rar/content"
-          }
-        },
-        {
-          "id": "4f96f7d6-76c0-4661-9512-3ec4481b0eee",
-          "key": "u-db464 processed set 4.rar",
-          "size": 1519109746,
-          "checksum": "md5:26a9b8601456e746a55f9f858baabf4c",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-db464 processed set 4.rar/content"
-          }
-        },
-        {
-          "id": "3f97fafb-1279-4460-89e0-b5092e4b03f4",
-          "key": "u-cv984 all months.rar",
-          "size": 18909072,
-          "checksum": "md5:27112d7d9251ae179e26607e33539e08",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cv984 all months.rar/content"
-          }
-        },
-        {
-          "id": "e8a03255-8251-4c7f-8498-64e5c6ccb6be",
-          "key": "campaigns.rar",
-          "size": 675250094,
-          "checksum": "md5:421f75693caffd26a1b8b2c0db927447",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/campaigns.rar/content"
-          }
-        },
-        {
-          "id": "258475cb-ef97-4569-ab61-da7bbfab9275",
-          "key": "u-db464 all months.rar",
-          "size": 4294768156,
-          "checksum": "md5:8463b0ba6623d3d1826eb0fdd1ebe175",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-db464 all months.rar/content"
-          }
-        },
-        {
-          "id": "c0cec8ad-5e27-4df3-b58c-fea1062eec6a",
-          "key": "u-cw955 processed set 3.rar",
-          "size": 2986497922,
-          "checksum": "md5:c218615473fb1fa7fa34dbefd749c6d1",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cw955 processed set 3.rar/content"
-          }
-        },
-        {
-          "id": "10603c9a-f634-4a26-ae2e-fe0c7d183b5a",
-          "key": "u-db464 processed set 5.rar",
-          "size": 2106527700,
-          "checksum": "md5:b0f7a5109bee711a2b03e3c92eb85387",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-db464 processed set 5.rar/content"
-          }
-        },
-        {
-          "id": "4f23bc6b-2327-4adb-aa52-ce56c99fbc66",
-          "key": "u-db464 processed set 2.rar",
-          "size": 1513927428,
-          "checksum": "md5:7bc1ff8a90e704f41709fe069c5828d3",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-db464 processed set 2.rar/content"
-          }
-        },
-        {
-          "id": "e224266f-4e7b-47da-8c79-2223f307953c",
-          "key": "u-db464 processed set 1.rar",
-          "size": 1424465876,
-          "checksum": "md5:e7002824b4fa8f4fd9bd026a187dbd1b",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-db464 processed set 1.rar/content"
-          }
-        },
-        {
-          "id": "45d25a3f-ebd0-4073-a9e7-c46edc305b31",
-          "key": "u-cw955 processed set 1.rar",
-          "size": 2663017898,
-          "checksum": "md5:e3c94a50823869672abece7db8f4dc60",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cw955 processed set 1.rar/content"
-          }
-        },
-        {
-          "id": "38484b1e-74c6-4a84-9b0f-33cb9cb86208",
-          "key": "u-cw955 processed set 4.rar",
-          "size": 2426788769,
-          "checksum": "md5:f31ae6e375cd8b02b9f61d1bd9b4466e",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cw955 processed set 4.rar/content"
-          }
-        },
-        {
-          "id": "563d2e04-47c0-4736-a05d-f34722fe8856",
-          "key": "u-cw955 processed set 2.rar",
-          "size": 2586241488,
-          "checksum": "md5:5b9f80b29bc7e3d1bb279b843f68522d",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cw955 processed set 2.rar/content"
-          }
-        },
-        {
-          "id": "927c1f5e-1089-43d2-bb01-691f59d14fb1",
-          "key": "u-cw955 processed set 5.rar",
-          "size": 2394787433,
-          "checksum": "md5:8751f722c9e5229c94097bdb82b3c062",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cw955 processed set 5.rar/content"
-          }
-        },
-        {
-          "id": "18fc91f8-3408-48d6-aecd-dd091de90e27",
-          "key": "u-cw955 processed set 7.rar",
-          "size": 1236411560,
-          "checksum": "md5:34fb2e4d5c2b28102b7afd1ddb7bf6a4",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/u-cw955 processed set 7.rar/content"
-          }
-        },
-        {
-          "id": "8890bc57-1dfa-48ac-bc33-fe2a2b7d3d10",
-          "key": "scripts.rar",
-          "size": 23807,
-          "checksum": "md5:bf01aa3c548d241dd9350fce59c31fa2",
-          "links": {
-            "self": "https://zenodo.org/api/records/14606470/files/scripts.rar/content"
+            "self": "https://zenodo.org/api/records/15312852/files/12. Fullerton.pdf/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "614677"
+          "id": "413164"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 0,
-        "unique_downloads": 0,
-        "views": 1,
-        "unique_views": 1,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 1,
-        "version_views": 1
+        "downloads": 5,
+        "unique_downloads": 3,
+        "views": 3,
+        "unique_views": 2,
+        "version_downloads": 5,
+        "version_unique_downloads": 3,
+        "version_unique_views": 2,
+        "version_views": 3
       },
       "state": "done",
       "submitted": true
     },
     {
-      "created": "2025-03-17T16:35:02.194365+00:00",
-      "modified": "2025-03-17T16:35:02.343963+00:00",
-      "id": 15041282,
-      "conceptrecid": "4553641",
-      "doi": "10.5281/zenodo.15041282",
-      "conceptdoi": "10.5281/zenodo.4553641",
-      "doi_url": "https://doi.org/10.5281/zenodo.15041282",
+      "created": "2025-04-30T19:24:11.386703+00:00",
+      "modified": "2025-04-30T19:24:11.550739+00:00",
+      "id": 15312823,
+      "conceptrecid": "15312822",
+      "doi": "10.5281/zenodo.15312823",
+      "conceptdoi": "10.5281/zenodo.15312822",
+      "doi_url": "https://doi.org/10.5281/zenodo.15312823",
       "metadata": {
-        "title": "sim-tools",
-        "doi": "10.5281/zenodo.15041282",
-        "publication_date": "2025-03-17",
-        "description": "<h3>Added</h3>\n<ul>\n<li>Add <code>simpy</code> and <code>treat-sim</code> to the environment, as these were required in the notebooks in <code>docs/</code>.</li>\n<li>Add <code>nbqa</code> and <code>pylint</code> to the environment for linting, plus a relevant files <code>lint.sh</code> and <code>.pylintrc</code>.</li>\n<li>Add tests for <code>output_analysis</code> functions (functional, unit and back tests).</li>\n<li>Add validation of parameters in <code>ReplicationsAlgorithm</code>.</li>\n<li>Add validation of data type in <code>OnlineStatistics</code>.</li>\n</ul>\n<h3>Changed</h3>\n<ul>\n<li>Simplified distribution value type tests to a single test where possible using <code>pytest.mark.parametrize</code>.</li>\n<li>Linted <code>.py</code> and <code>.ipynb</code> files using <code>pylint</code> (most addressed, some remain unresolved).</li>\n<li>Provided advice on tests, building docs and linting in the <code>README.md</code>.</li>\n<li><code>00_front_page.md</code> now just imported <code>README.md</code> (reducing duplication, and keping it up-to-date).</li>\n</ul>\n<h3>Removed</h3>\n<ul>\n<li>Removed duplicate <code>sw21_tutorial.ipynb</code>.</li>\n</ul>\n<h3>Fixed</h3>\n<ul>\n<li>Within <code>confidence_interval_method</code>, convert data provided to <code>OnlineStatistics</code> to <code>np.array</code> so that it is actually used to update the class (when before, it was not, as it was a list).</li>\n</ul>",
+        "title": "r-menezes/rr-logistic: Release v1.0.0",
+        "doi": "10.5281/zenodo.15312823",
+        "publication_date": "2025-04-30",
+        "description": "<p>Initial stable release of the range-resident logistic model.</p>\n<p>Key Features:</p>\n<p>Implementation of the core range-resident logistic model simulation.\nBasic functionality for setting parameters and running simulations.\nDocumentation outlining the model and usage.</p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Monks, Thomas",
-            "affiliation": "University of Exeter",
-            "orcid": "0000-0003-2631-4481"
+            "name": "Rafael Menezes",
+            "affiliation": "Ecology Ph.D. Candidate @ USP - Brasil"
           }
-        ],
-        "keywords": [
-          "discrete-event simulation",
-          "simpy",
-          "python",
-          "open science",
-          "simopt"
         ],
         "related_identifiers": [
           {
-            "identifier": "https://github.com/TomMonks/sim-tools/tree/v0.8.0a",
+            "identifier": "https://github.com/r-menezes/rr-logistic/tree/v1.0.0",
             "relation": "isSupplementTo",
             "resource_type": "software",
             "scheme": "url"
           }
         ],
-        "version": "v0.8.0a",
+        "version": "v1.0.0",
         "custom": {
-          "code:codeRepository": "https://github.com/TomMonks/sim-tools"
+          "code:codeRepository": "https://github.com/r-menezes/rr-logistic"
         },
         "resource_type": {
           "title": "Software",
@@ -1322,78 +876,384 @@
         "relations": {
           "version": [
             {
-              "index": 18,
+              "index": 0,
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "4553641"
+                "pid_value": "15312822"
               }
             }
           ]
-        },
-        "notes": "If you use this software, please cite it using the metadata from this file."
+        }
       },
-      "title": "sim-tools",
+      "title": "r-menezes/rr-logistic: Release v1.0.0",
       "links": {
-        "self": "https://zenodo.org/api/records/15041282",
-        "self_html": "https://zenodo.org/records/15041282",
-        "doi": "https://doi.org/10.5281/zenodo.15041282",
-        "self_doi": "https://doi.org/10.5281/zenodo.15041282",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15041282",
-        "parent": "https://zenodo.org/api/records/4553641",
-        "parent_html": "https://zenodo.org/records/4553641",
-        "parent_doi": "https://doi.org/10.5281/zenodo.4553641",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.4553641",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15041282/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15041282/sequence/default",
-        "files": "https://zenodo.org/api/records/15041282/files",
-        "media_files": "https://zenodo.org/api/records/15041282/media-files",
-        "archive": "https://zenodo.org/api/records/15041282/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15041282/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15041282/versions/latest",
-        "latest_html": "https://zenodo.org/records/15041282/latest",
-        "versions": "https://zenodo.org/api/records/15041282/versions",
-        "draft": "https://zenodo.org/api/records/15041282/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15041282/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15041282/access/links",
-        "access_grants": "https://zenodo.org/api/records/15041282/access/grants",
-        "access_users": "https://zenodo.org/api/records/15041282/access/users",
-        "access_request": "https://zenodo.org/api/records/15041282/access/request",
-        "access": "https://zenodo.org/api/records/15041282/access",
-        "communities": "https://zenodo.org/api/records/15041282/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15041282/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15041282/requests"
+        "self": "https://zenodo.org/api/records/15312823",
+        "self_html": "https://zenodo.org/records/15312823",
+        "preview_html": "https://zenodo.org/records/15312823?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15312823",
+        "self_doi": "https://doi.org/10.5281/zenodo.15312823",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15312823",
+        "parent": "https://zenodo.org/api/records/15312822",
+        "parent_html": "https://zenodo.org/records/15312822",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15312822",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15312822",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15312823/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15312823/sequence/default",
+        "files": "https://zenodo.org/api/records/15312823/files",
+        "media_files": "https://zenodo.org/api/records/15312823/media-files",
+        "archive": "https://zenodo.org/api/records/15312823/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15312823/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15312823/versions/latest",
+        "latest_html": "https://zenodo.org/records/15312823/latest",
+        "versions": "https://zenodo.org/api/records/15312823/versions",
+        "draft": "https://zenodo.org/api/records/15312823/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15312823/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15312823/access/links",
+        "access_grants": "https://zenodo.org/api/records/15312823/access/grants",
+        "access_users": "https://zenodo.org/api/records/15312823/access/users",
+        "access_request": "https://zenodo.org/api/records/15312823/access/request",
+        "access": "https://zenodo.org/api/records/15312823/access",
+        "communities": "https://zenodo.org/api/records/15312823/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15312823/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15312823/requests"
       },
-      "updated": "2025-03-17T16:35:02.343963+00:00",
-      "recid": "15041282",
+      "updated": "2025-04-30T19:24:11.550739+00:00",
+      "recid": "15312823",
       "revision": 4,
       "files": [
         {
-          "id": "b520e09e-2897-4662-93e0-5365e5efde5d",
-          "key": "TomMonks/sim-tools-v0.8.0a.zip",
-          "size": 837784,
-          "checksum": "md5:1fafe075fef27806b2c8eb0d282faf31",
+          "id": "4c87798e-5397-4bbb-a856-71ec8deaa57a",
+          "key": "r-menezes/rr-logistic-v1.0.0.zip",
+          "size": 51014922,
+          "checksum": "md5:f4cbbe6a2a8b98414bafa27225f71e07",
           "links": {
-            "self": "https://zenodo.org/api/records/15041282/files/TomMonks/sim-tools-v0.8.0a.zip/content"
+            "self": "https://zenodo.org/api/records/15312823/files/r-menezes/rr-logistic-v1.0.0.zip/content"
           }
         }
       ],
       "swh": {
-        "swhid": "swh:1:dir:1e4ab5cc55dd2d9f127eda149d07cf48fc792846;origin=https://doi.org/10.5281/zenodo.4553641;visit=swh:1:snp:0fcb84735538bde002eb2435f4ba081b5a288717;anchor=swh:1:rel:eb650f30794d9c839f8ed576cfbe8c58d6f16a22;path=TomMonks-sim-tools-2ac1ea7"
+        "swhid": "swh:1:dir:97e56ea5f43bc2ac6fb06184342251aabcd8d952;origin=https://doi.org/10.5281/zenodo.15312822;visit=swh:1:snp:4cb34ec41923cc7d2be6fecbd421104d3e1a1ebc;anchor=swh:1:rel:daaad8f8343a194882912bd05df194427cba400f;path=r-menezes-rr-logistic-a45a937"
       },
       "owners": [
         {
-          "id": "50115"
+          "id": "1311127"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 53,
-        "unique_downloads": 51,
-        "views": 530,
-        "unique_views": 518,
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 8,
+        "unique_views": 4,
         "version_downloads": 0,
         "version_unique_downloads": 0,
+        "version_unique_views": 4,
+        "version_views": 8
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-04-30T19:10:45.379543+00:00",
+      "modified": "2025-04-30T19:10:45.527328+00:00",
+      "id": 15312764,
+      "conceptrecid": "5153984",
+      "doi": "10.5281/zenodo.15312764",
+      "conceptdoi": "10.5281/zenodo.5153984",
+      "doi_url": "https://doi.org/10.5281/zenodo.15312764",
+      "metadata": {
+        "title": "SEAMM: Simulation Environment for Atomistic and Molecular Modeling",
+        "doi": "10.5281/zenodo.15312764",
+        "publication_date": "2025-04-30",
+        "description": "<ul>\n<li>Fixed a bug that occurred trying to set the name of a system or configuration to early, when it had atoms, causing errors.</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Nash, Jessica",
+            "affiliation": "Molecular Sciences Software Institute",
+            "orcid": "0000-0003-1967-5094"
+          },
+          {
+            "name": "Marin-Rimoldi, Eliseo",
+            "affiliation": "Molecular Sciences Software Institute",
+            "orcid": "0000-0003-1721-4366"
+          },
+          {
+            "name": "Saxe, Paul",
+            "affiliation": "Molecular Sciences Software Institute",
+            "orcid": "0000-0002-8641-9448"
+          }
+        ],
+        "keywords": [
+          "computational chemistry",
+          "computational materials science"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/molssi-seamm/seamm/tree/2025.4.30",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "2025.4.30",
+        "custom": {
+          "code:codeRepository": "https://github.com/molssi-seamm/seamm"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "lgpl-3.0-or-later"
+        },
+        "communities": [
+          {
+            "id": "seamm"
+          },
+          {
+            "id": "seamm-core"
+          },
+          {
+            "id": "molssi"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 61,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "5153984"
+              }
+            }
+          ]
+        },
+        "notes": "Funding: NSF OAC-1547580 and CHE-2136142"
+      },
+      "title": "SEAMM: Simulation Environment for Atomistic and Molecular Modeling",
+      "links": {
+        "self": "https://zenodo.org/api/records/15312764",
+        "self_html": "https://zenodo.org/records/15312764",
+        "preview_html": "https://zenodo.org/records/15312764?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15312764",
+        "self_doi": "https://doi.org/10.5281/zenodo.15312764",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15312764",
+        "parent": "https://zenodo.org/api/records/5153984",
+        "parent_html": "https://zenodo.org/records/5153984",
+        "parent_doi": "https://doi.org/10.5281/zenodo.5153984",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.5153984",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15312764/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15312764/sequence/default",
+        "files": "https://zenodo.org/api/records/15312764/files",
+        "media_files": "https://zenodo.org/api/records/15312764/media-files",
+        "archive": "https://zenodo.org/api/records/15312764/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15312764/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15312764/versions/latest",
+        "latest_html": "https://zenodo.org/records/15312764/latest",
+        "versions": "https://zenodo.org/api/records/15312764/versions",
+        "draft": "https://zenodo.org/api/records/15312764/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15312764/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15312764/access/links",
+        "access_grants": "https://zenodo.org/api/records/15312764/access/grants",
+        "access_users": "https://zenodo.org/api/records/15312764/access/users",
+        "access_request": "https://zenodo.org/api/records/15312764/access/request",
+        "access": "https://zenodo.org/api/records/15312764/access",
+        "communities": "https://zenodo.org/api/records/15312764/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15312764/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15312764/requests"
+      },
+      "updated": "2025-04-30T19:10:45.527328+00:00",
+      "recid": "15312764",
+      "revision": 4,
+      "files": [
+        {
+          "id": "0ece0b9b-d3a0-4383-83e8-20cc3006da6e",
+          "key": "molssi-seamm/seamm-2025.4.30.zip",
+          "size": 548792,
+          "checksum": "md5:c80530b51e0289e7bfe52f8b42d88cfd",
+          "links": {
+            "self": "https://zenodo.org/api/records/15312764/files/molssi-seamm/seamm-2025.4.30.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:db81da70430bdba89e94c5055fd5dc359414d81f;origin=https://doi.org/10.5281/zenodo.5153984;visit=swh:1:snp:86e4fcbc488f9c1ae1043ab4f339db944e716f16;anchor=swh:1:rel:49ac9641e6b589e8b83b710774850bc8fdc21415;path=molssi-seamm-seamm-e34c3d1"
+      },
+      "owners": [
+        {
+          "id": "246044"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 462,
+        "unique_downloads": 440,
+        "views": 3032,
+        "unique_views": 2957,
+        "version_downloads": 9,
+        "version_unique_downloads": 9,
+        "version_unique_views": 19,
+        "version_views": 19
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-04-30T19:02:33.876830+00:00",
+      "modified": "2025-04-30T19:02:34.056099+00:00",
+      "id": 15310809,
+      "conceptrecid": "15310808",
+      "doi": "10.5281/zenodo.15310809",
+      "conceptdoi": "10.5281/zenodo.15310808",
+      "doi_url": "https://doi.org/10.5281/zenodo.15310809",
+      "metadata": {
+        "title": "Preprint of \"DORES: A Streamlined Software for Design and Operation of Photovoltaic and Electrical Storage Systems in Buildings and Communities\"",
+        "doi": "10.5281/zenodo.15310809",
+        "publication_date": "2025-04-22",
+        "description": "<p>This paper presents DORES (Design and Operation of Renewable Energy Systems), a streamlined and versatile simulation tool developed to support the planning and optimization of PV and storage solutions across a variety of building typologies and community scales.<br>DORES incorporates both measured and simulated load profiles, offering pre-defined templates based on regional consumption data where high-resolution consumption data may be unavailable. The tool integrates detailed PV and battery models, supports multiple control strategies &ndash; from rule-based load following to smart-based optimization&ndash; and calculates a range of key performance indicators, such as self-sufficiency, self-consumption, net present value, life cycle cost, and CO2 emissions reduction. Validation against measured data and commercial software PV*SOL demonstrates the accuracy of the tool, with deviations in key metrics typically below 5%. Featuring an intuitive graphical user interface built in MATLAB, DORES is designed for energy researchers, engineers, and policymakers seeking a versatile platform for the design and operation of resilient, low-carbon energy systems.</p>",
+        "access_right": "embargoed",
+        "embargo_date": "2027-04-27",
+        "creators": [
+          {
+            "name": "Kichou, Sofiane",
+            "affiliation": "Czech Technical University in Prague",
+            "orcid": "0000-0003-4122-5823"
+          },
+          {
+            "name": "Pau\u0161ov\u00e1, \u0160\u00e1rka",
+            "affiliation": "University of Chemistry and Technology",
+            "orcid": "0000-0003-2494-1510"
+          },
+          {
+            "name": "Bouzek, Karel",
+            "affiliation": "University of Chemistry and Technology",
+            "orcid": "0000-0002-0394-0634"
+          }
+        ],
+        "contributors": [
+          {
+            "name": "Kichou, Sofiane",
+            "affiliation": "Czech Technical University in Prague",
+            "type": "DataCurator",
+            "orcid": "0000-0003-4122-5823"
+          }
+        ],
+        "keywords": [
+          "VZ6",
+          "CVUT",
+          "214 021",
+          "214 023",
+          "Photovoltaics",
+          "Simulation software",
+          "Energy storage",
+          "Energy communities",
+          "Energy management strategies"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5281/zenodo.15310805",
+            "relation": "isDerivedFrom",
+            "resource_type": "dataset",
+            "scheme": "doi"
+          }
+        ],
+        "dates": [
+          {
+            "type": "submitted",
+            "description": "Sent to peer review process"
+          }
+        ],
+        "version": "version 1",
+        "language": "eng",
+        "resource_type": {
+          "title": "Preprint",
+          "type": "publication",
+          "subtype": "preprint"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "grants": [
+          {
+            "code": "CZ.02.01.01/00/22_008/0004617",
+            "internal_id": "037n8p820::CZ.02.01.01/00/22_008/0004617",
+            "funder": {
+              "name": "Ministry of Education Youth and Sports"
+            },
+            "title": "The Energy Conversion and Storage"
+          }
+        ],
+        "communities": [
+          {
+            "id": "ecostor"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15310808"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Preprint of \"DORES: A Streamlined Software for Design and Operation of Photovoltaic and Electrical Storage Systems in Buildings and Communities\"",
+      "links": {
+        "self": "https://zenodo.org/api/records/15310809",
+        "self_html": "https://zenodo.org/records/15310809",
+        "preview_html": "https://zenodo.org/records/15310809?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15310809",
+        "self_doi": "https://doi.org/10.5281/zenodo.15310809",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15310809",
+        "parent": "https://zenodo.org/api/records/15310808",
+        "parent_html": "https://zenodo.org/records/15310808",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15310808",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15310808",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15310809/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15310809/sequence/default",
+        "files": "https://zenodo.org/api/records/15310809/files",
+        "media_files": "https://zenodo.org/api/records/15310809/media-files",
+        "archive": "https://zenodo.org/api/records/15310809/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15310809/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15310809/versions/latest",
+        "latest_html": "https://zenodo.org/records/15310809/latest",
+        "versions": "https://zenodo.org/api/records/15310809/versions",
+        "draft": "https://zenodo.org/api/records/15310809/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15310809/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15310809/access/links",
+        "access_grants": "https://zenodo.org/api/records/15310809/access/grants",
+        "access_users": "https://zenodo.org/api/records/15310809/access/users",
+        "access_request": "https://zenodo.org/api/records/15310809/access/request",
+        "access": "https://zenodo.org/api/records/15310809/access",
+        "communities": "https://zenodo.org/api/records/15310809/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15310809/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15310809/requests"
+      },
+      "updated": "2025-04-30T19:02:34.056099+00:00",
+      "recid": "15310809",
+      "revision": 4,
+      "files": [],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1063184"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 2,
+        "unique_downloads": 2,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 2,
+        "version_unique_downloads": 2,
         "version_unique_views": 0,
         "version_views": 0
       },
@@ -1401,175 +1261,167 @@
       "submitted": true
     },
     {
-      "created": "2025-03-17T15:07:48.951639+00:00",
-      "modified": "2025-03-17T15:07:49.098304+00:00",
-      "id": 15040658,
-      "conceptrecid": "13851189",
-      "doi": "10.5281/zenodo.15040658",
-      "conceptdoi": "10.5281/zenodo.13851189",
-      "doi_url": "https://doi.org/10.5281/zenodo.15040658",
+      "created": "2025-04-30T19:02:28.067539+00:00",
+      "modified": "2025-04-30T21:49:52.635669+00:00",
+      "id": 15312632,
+      "conceptrecid": "15087172",
+      "doi": "10.5281/zenodo.15312632",
+      "conceptdoi": "10.5281/zenodo.15087172",
+      "doi_url": "https://doi.org/10.5281/zenodo.15312632",
       "metadata": {
-        "title": "Atomistic Parsers",
-        "doi": "10.5281/zenodo.15040658",
-        "publication_date": "2025-03-17",
-        "description": "`atomistic-parsers` is a plugin for the NOMAD software (https://zenodo.org/doi/10.5281/zenodo.8366162) providing parsers for a variety of simulation codes, primarily focused on those supporting classical representations or methods.",
+        "title": "\u2206ngular Hexa.Terra _ Anticipating drought, harmonizing agriculture with lunar rhythms",
+        "doi": "10.5281/zenodo.15312632",
+        "publication_date": "2025-03-22",
+        "description": "<p dir=\"ltr\">Hexa.Terra is an AI-ready agroclimatic assistant and scientific model, designed to harmonize agricultural decisions with the geometry of natural cycles [8].</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">It is an applied iteration derived from<em> \u2206ngular Theory</em>, a unified framework modeling space-time as a discrete angular structure.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">By translating lunar rhythms (&Delta;&theta;\u2080) [15], soil moisture (T(s)) [1] and effective water entropy (S_eff(s)) [9] into angular variables, it becomes possible to:</p>\n<p dir=\"ltr\">&bull; predict yields,<br>&bull; anticipate water stress [7],<br>&bull; synchronize sowing with lunar phases [15].</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">\u25b8 Scope and interest of the model</p>\n<p dir=\"ltr\">This model does not rely on any empirical adjustment: it transforms plant growth into a mathematically quantified resonance between soil, climate and lunar cycles [4].</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">It is aimed at farmers, cooperatives, and agricultural collectives (GAEC), both in developed and emerging regions, who wish to leverage natural dynamics as a strategic lever for agronomic decision-making, regardless of technological or financial constraints.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&rarr; The economic gain displayed is deliberately conservative.<br>&rarr; The agronomic and ecological gain, not monetized here, is based on indirect but documented effects:</p>\n<p dir=\"ltr\">&emsp;\u2937 Increased resilience to droughts [7][19]<br>&emsp;\u2937 Reduction in treatments thanks to more uniform emergence [8]<br>&emsp;\u2937 Better regularity of sowing over several seasons [15]<br>&emsp;\u2937 Transition from a reactive logic to a preventive strategy based on predictable cycles</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">\u2747\ufe0f\u2747\ufe0f\u2747\ufe0f</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Table of Contents</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>1. \u2206ngular &ndash; Module Terra (France)&nbsp;</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>2. \u2206ngular HT Key Variables&nbsp;&nbsp;</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>3. Adapted Agricultural Equation&nbsp;&nbsp;</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>4. Concrete Applications&nbsp;&nbsp;</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>5. Optimization of Seeding</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>6. Recommended Database</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>7. Operational Protocol&nbsp;&nbsp;</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>8. Simulation Python&nbsp;&nbsp;</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>9. Validation Terrain&nbsp;&nbsp;</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>10. Fictitious case &ndash; Soft wheat farm (Brittany)</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>11. Conclusion&nbsp;&nbsp;</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>12. Scientific Framework and Institutional Limitations</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>13. Citations</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">\u2747\ufe0f\u2747\ufe0f\u2747\ufe0f</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>1.\u2206ngular &ndash; Module Terra (France)</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">The Hexa.Terra module applies the geometric structure of \u2206ngular theory to contemporary agricultural issues.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">It links three fundamental dimensions:</p>\n<p dir=\"ltr\">&rarr; Natural cycles (moon, seasons, plant growth) [8] [15]</p>\n<p dir=\"ltr\">&rarr; Soil moisture (retention, root dynamics, sensors) [3] [6] [11]</p>\n<p dir=\"ltr\">&rarr; Water stress (evapotranspiration, irrigation, resilience) [7] [10] [14]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">The whole thing is expressed through a mathematical framework based on the discrete angular quantification \u2206&theta;\u2080 [9], allowing:</p>\n<p dir=\"ltr\">&bull; represent biological rhythms in the form of stable waves [15]<br>&bull; integrate climatic and pedological data into a predictive model [2] [4] [5]<br>&bull; anticipate water disruptions and optimize agronomic decisions [1] [14]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p>What Hexa.Terra Offers</p>\n<p>&nbsp;</p>\n<p>&rarr;Forecasting Tool (3&ndash;10 Days Ahead)</p>\n<p>The strength of the model lies in its ability to predict when the critical threshold &tau;\u0303 &gt; 0.6 will be crossed &mdash; before visible water stress occurs.</p>\n<p>It does this by factoring in:<br>- Lunar dynamics (\u2206&theta;\u2080), which influence root absorption<br>- Available water capacity (T(s))<br>- Soil complexity (S_eff)<br>- Growth rate (s)</p>\n<p><em>You can anticipate stress before it's even detectable by a tensiometer.</em></p>\n<p>&nbsp;</p>\n<p>&rarr;Integrated View: Soil + Climate + Growth + Lunar Rhythm</p>\n<p>It&rsquo;s not just a &ldquo;dry alert.&rdquo; The model evaluates:<br>- Can the plant absorb what&rsquo;s left in the soil?<br>- Does the lunar phase enhance or inhibit root activity?<br>- Is the crop at a vegetative stage that increases vulnerability?</p>\n<p><em>This allows you to fine-tune irrigation doses, or postpone interventions if the soil buffering capacity is high (high S_eff).</em></p>\n<p>&nbsp;</p>\n<p>&rarr;Automated, Math-Based Alerts</p>\n<p>Using a Raspberry Pi or a simple Python script, you can:<br>- Connect your local ETP data<br>- Integrate NDVI input (from Sentinel-2 or ground sensors)<br>- Trigger automated alerts every day</p>\n<p><em>This lightens your daily monitoring burden, especially across multiple fields.</em></p>\n<p>&nbsp;</p>\n<p>Conclusion</p>\n<p>If your irrigation is already well managed, Hexa.Terra won&rsquo;t replace your expertise.</p>\n<p>But it can:<br>- Help you anticipate critical events up to 5 days in advance<br>- Highlight high-risk zones<br>- Standardize and scale your monitoring if you want to automate part of the workflow.</p>\n<p>&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>2. \u2206ngular Terra Key Variables</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">The module is based on a translation of natural cycles and pedoclimatic conditions<br>into angular variables. These quantities are standardized to adapt to any type of crop and terroir.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&rarr; &Delta;&theta;\u2080: Lunar/phenological cycle [8], [15]<br>&emsp;&emsp;[radians &isin; 0 to 2&pi; over 28 days]<br>&emsp;&emsp;&rarr; Encodes the position in the lunar cycle, used to synchronize sowing and anticipate peaks in growth or water vulnerability.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&rarr; T(s): Soil water retention capacity [3], [6], [11]<br>&emsp;&emsp;[value &isin; 0 to 1]<br>&emsp;&emsp;&rarr; Ratio between the water actually available and the capacity in the field.<br>&emsp;&emsp; &nbsp; Data from humidity sensors or SoilGrids/Sentinel databases.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&rarr; S_eff(s): Effective water entropy [4], [9], [12]<br>&emsp;&emsp;[mm/mm]<br>&emsp;&emsp;&rarr; Represents the complexity of the soil by combining its texture, organic matter (OM) and vegetation index (NDVI). The higher S_eff, the more the soil can regulate water variations.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&rarr; &tau;\u0303: Water stress index [7], [10], [14], [19]<br>&emsp;&emsp;[value &isin; 0 (optimal) to 1 (crisis)]<br>&emsp;&emsp;&rarr; Defined by the square root of the evapotranspiration deficit: &tau;\u0303 = &radic;(1 &ndash; ETR/ETP). Critical threshold set at 0.6 in most scenarios.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&rarr; s: Standardized phenological stage [2], [20]<br>&emsp;&emsp;[value &isin; 0 (germination) to 1 (maturity)]<br>&emsp;&emsp;&rarr; Encodes the progress of the crop. Can be estimated automatically via NDVI, phenocam monitoring or entered manually.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Why does the Hexa.Terra model anticipate stress earlier than classic sensors?</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&rarr;&tau;\u0303 index based on the ETR / ETP ratio</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&tau;\u0303 = &radic;(1 &minus; ETR / ETP)</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">It can respond within hours to a drop in root absorption, while a tensiometer only reacts after available water decreases.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&rarr;Coupling with the Moon (\u2206&theta;\u2080)</p>\n<p dir=\"ltr\">The model knows that certain lunar phases modulate root activity.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">For example, around days 10 to 18 of the lunar cycle (waxing moon), plants absorb more water.</p>\n<p dir=\"ltr\">&rarr; So water tension during this phase is more serious than during the waning moon.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&rarr;Soil buffering capacity (S_eff)</p>\n<p dir=\"ltr\">The model takes into account your soil texture and organic matter. It can say:</p>\n<p dir=\"ltr\"><em>&ldquo;OK, the soil looks fine, but the moon is pushing stronger absorption &rarr; warning: imminent risk.&rdquo;</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Examples of early alerts :</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Situation: T(s) = 0.7, very high ETP, and strong NDVI</p>\n<p dir=\"ltr\">Tensiometer says: &ldquo;All good.&rdquo;</p>\n<p dir=\"ltr\">Hexa.Terra says: &ldquo;&tau;\u0303 = 0.62 &rarr; red alert&rdquo;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Situation: Moon = day 12 (\u2206&theta;\u2080 &asymp; 2&pi;/3), NDVI rising</p>\n<p dir=\"ltr\">Tensiometer says: &ldquo;No drought yet.&rdquo;</p>\n<p dir=\"ltr\">Hexa.Terra says: &ldquo;Root absorption at maximum &rarr; imminent stress&rdquo;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Hexa.Terra detects water stress potential earlier than field sensors.</p>\n<p dir=\"ltr\">&rarr; It allows you to act 1 to 3 days&nbsp;sooner, and sometimes reduce your water use.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>3. Adapted Agricultural Equation</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Potential_Yield(s) =<br>&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&kappa; &times; (&Delta;&theta;\u2080)&sup2; &times; exp(&minus;&tau;\u0303&sup2; / (4 &times; S_eff(s))) &times; [1 + &epsilon; &times; cos(&Delta;&theta;\u2080 &times; &delta; &times; s &times; T(s))]^&beta;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Parameters:<br>&bull; &kappa;: basic yield (5 t/ha wheat, 7 t/ha corn) [4]<br>&bull; &epsilon;: seasonal amplitude according to the climatic zone (0.2 to 0.6) [13]<br>&bull; &delta;: root factor according to depth (1.0 to 1.5) [12]<br>&bull; &beta;: adaptation coefficient (1.2 to 1.5 for extensive crops) [17]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Dynamic variables:<br>&rarr; &Delta;&theta;\u2080: lunar phase in radians (0 to 2&pi; over 28 days) [8]<br><br></p>\n<p dir=\"ltr\">&rarr; &tau;\u0303: water stress index, defined by &radic;(1 &minus; ETR/ETP) [10], [14]<br><br></p>\n<p dir=\"ltr\">&rarr; S_eff(s): effective water entropy (MO, texture, NDVI) [3], [9]<br><br></p>\n<p dir=\"ltr\">&rarr; s: plant growth stage (0 = germination, 1 = maturity) [2]<br><br></p>\n<p dir=\"ltr\">&rarr; T(s): water retention capacity, measured or estimated [3], [11]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Use :</p>\n<p dir=\"ltr\">This equation is designed for \u2206ngular.Terra simulators in Python.<br>It allows you to:</p>\n<p dir=\"ltr\">&rarr; cross yield peaks with lunar phases [15] <br>&rarr; anticipate water shortages and adjust irrigation [14], [19] <br>&rarr; modulate fertilization according to the evolution of S_eff(s) [12]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>4. Concrete Applications</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">The prediction of water stress is based on a central indicator: &tau;\u0303, normalized water stress index.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Formula used:<br>&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&tau;\u0303 = &radic;(1 &minus; ETR / ETP)<br>&nbsp;</p>\n<p dir=\"ltr\">&nbsp;where:<br>&nbsp; &nbsp; ETR = actual evapotranspiration<br>&nbsp; &nbsp; ETP = potential evapotranspiration [10]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">This expression allows a direct estimation of water tension<br>in the soil from climatic and biological data [7], [14].</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Critical threshold:<br>&rarr; &tau;\u0303 &gt; 0.6 for more than 10 days &rArr; automatic irrigation alert [14]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">This alert can trigger:<br>&bull; a volume recommendation (in mm)<br>&bull; an adjustment according to soil texture and growth stage [4], [12]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Compatible data sources:<br>&bull; IoT sensors such as capacitive tensiometers (30 cm) [11]<br>&bull; Local weather stations or cooperative networks [13]<br>&bull; Satellite data (NDVI + surface temperature) [3], [20]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Update:<br>The &tau;\u0303 index is dynamically updated in the Terra module, via field measurements or open APIs (FAO, Sentinel, NDVI). It provides an operational bridge between \u2206ngular variables and real irrigation needs [6], [18].</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>5. Optimization of Seeding&nbsp;</em>&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">In the \u2206ngular.Terra module, the sowing date is synchronized<br>with the angular dynamics of the lunar cycle, coded by the variable &Delta;&theta;\u2080.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Formula:<br>&nbsp;</p>\n<p dir=\"ltr\">&Delta;&theta;\u2080 = (2&pi; &times; Lunar_day) / 28 [8], [15]</p>\n<p dir=\"ltr\">This angular quantification makes it possible to identify windows where pedoclimatic and gravitational conditions converge.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Recommended window for sowing (waxing moon):<br>&nbsp;&nbsp;</p>\n<p dir=\"ltr\">&bull; &Delta;&theta;\u2080 &isin; [&pi;/3, 2&pi;/3]<br>&nbsp; &bull; Corresponds to days 9 to 18 of the lunar cycle<br>&nbsp; &bull; Period of ascending flows favorable to root growth</p>\n<p dir=\"ltr\">Empirical correlations observed:<br>&nbsp; &bull; &uarr; emergence speed<br>&nbsp; &bull; &uarr; post-sowing water stability<br>&nbsp; &bull; &uarr; resistance to early stresses (beating, drought) [7]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Effective fertility &ndash; \u2206ngular formula:<br>&nbsp;&nbsp;</p>\n<p dir=\"ltr\">S_eff(s) = 0.3 &times; clay + 0.5 &times; MO + 0.2 &times; NDVI [4], [12], [16]</p>\n<p dir=\"ltr\">&rarr; Weighting validated by INRAE (n = 2000 profiles, France)</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Field use:<br>&nbsp; &bull; NDVI measured by Apogee or Sentinel-2 sensor [20]<br>&nbsp; &bull; Clay content from SoilGrids or local analyses [3]<br>&nbsp; &bull; MO estimated in % dry weight via laboratory or agronomic base [4]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">This information is injected directly into the \u2206ngular equation to adjust the sowing strategy to soil dynamics.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>6. Recommended Database</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">The \u2206ngular.Terra module works by integrating public, reliable, and updatable data. Each variable is based on a validated source that is compatible with a field interface.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">T(s) &ndash; Soil moisture [3], [11]<br>&nbsp; &bull; Source: SoilGrids (ISRIC), Sentinel-1 (ESA)<br>&nbsp; &bull; Resolution: 100 m (raster)<br>&nbsp; &bull; Update: weekly to daily<br>&nbsp; &bull; In addition: capacitive probes (e.g.: Watermark)</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&Delta;&theta;\u2080 &ndash; Moon Phases [8], [15]<br>&nbsp; &bull; Source: Ephemeride API (ephemeride.io)<br>&nbsp; &bull; Accuracy: &plusmn;0.5% (orbital calculation)<br>&nbsp; &bull; Conversion: &Delta;&theta;\u2080 = (2&pi; &times; J) / 28<br>&nbsp; &bull; Compatible with smartphones, Raspberry Pi, Excel</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&tau;\u0303 &ndash; Water stress index [1], [10]<br>&nbsp; &bull; Source: FAO AquaCrop or direct calculation<br>&nbsp; &bull; Update: hourly (if weather sensor)<br>&nbsp; &bull; Formula: &tau;\u0303 = &radic;(1 &minus; ETR / ETP)<br>&nbsp; &bull; Compatible sensors: Davis, Decagon</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">s &ndash; Phenological stage [2], [17]<br>&nbsp; &bull; Source: PhenoCam, Ph&eacute;noclim, AI monitoring<br>&nbsp; &bull; Format: [0, 1] (germination &rarr; maturity)<br>&nbsp; &bull; Frequency: daily (AI or visual)<br>&nbsp; &bull; Option: manual annotation if no AI</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>7. Operational Protocol</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">The \u2206ngular.Terra module is based on a two-phase protocol:<br>automated collection of field data, then minimal calibration.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Data collection [5], [3], [8]<br>&nbsp; &bull; API integration:<br>&nbsp; &nbsp; &nbsp; - WeatherStack (temperature, humidity, ETP) [5]<br>&nbsp; &nbsp; &nbsp; - SoilGrids (texture, humidity) [3]<br>&nbsp; &nbsp; &nbsp; - Ephemeride.io (lunar phases) [8]<br>&nbsp; &bull; Frequency: every 6 to 24 hours<br>&nbsp; &bull; Support: Raspberry Pi, local PC, Python or Excel</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Model calibration [4], [12], [15]<br>&nbsp; &bull; Key parameters:<br>&nbsp; &nbsp; &nbsp; - &beta;: elasticity factor (1.2&ndash;1.5)<br>&nbsp; &nbsp; &nbsp; &nbsp; \u21e8 high if extensive cultivation / unstable climate<br>&nbsp; &nbsp; &nbsp; - &epsilon;: climate amplitude (0.3&ndash;0.5)<br>&nbsp; &nbsp; &nbsp; &nbsp; \u21e8 higher in semi-arid conditions<br>&nbsp; &bull; Method:<br>&nbsp; &nbsp; &nbsp; - Manual calibration over 3 to 5 campaigns<br>&nbsp; &nbsp; &nbsp; - AI option: if NDVI history available [12], [20]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>8.Simulation Python&nbsp;</em></p>\n<p dir=\"ltr\">Jupyter Workflow + Real-Time Dashboard [1], [6], [11], [20]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&rarr; This Python code transforms agricultural data<br>&nbsp; (lunar phases, soil moisture, vegetative growth)<br>&nbsp; into dynamic yield forecasts.</p>\n<p dir=\"ltr\">&nbsp;&nbsp;It generates automatic alerts when the critical<br>&nbsp; water stress threshold (&tau;\u0303 &gt; 0.6) is exceeded.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Field sensor compatibility:<br>&nbsp; &bull; Capacitive tensiometers (humidity at 30 cm) [11]<br>&nbsp; &bull; Local weather stations (temperature, rain, ETP) [5]<br>&nbsp; &bull; Free NDVI (Sentinel-2 or Apogee sensors) [20]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Technical integration:<br>&nbsp; &bull; Python script connected to a Raspberry Pi or MQTT module [6]<br>&nbsp; &bull; Update frequency: 6 to 12 hours<br>&nbsp; &bull; Interface: Jupyter Notebook or embedded web dashboard</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">import numpy as np</p>\n<p dir=\"ltr\">from typing import Union</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">class DeltaNgularTerra:</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;\"\"\"</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;Simplified agricultural interface for the \u2206ngular.Terra model</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;\"\"\"</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, culture_type: str = \"wheat\"):</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\"\"</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Initialize with default parameters depending on the culture type</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\"\"</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.presets = {</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"bl&eacute;\": {\"kappa\": 5.0, \"epsilon\": 0.3, \"delta\": 1.0, \"beta\": 1.2},</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"corn\": {\"kappa\": 7.0, \"epsilon\": 0.4, \"delta\": 1.1, \"beta\": 1.3},</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"riz\": {\"kappa\": 4.5, \"epsilon\": 0.5, \"delta\": 1.2, \"beta\": 1.4}</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.params = self.presets.get(culture_type.lower(), self.presets[\"bl&eacute;\"])</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;def predict_yield(</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self,</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lunar_day: Union[int, float], # Day of the lunar cycle (1-28)</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;soil_moisture: float, # Relative soil moisture (0-1)</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;soil_quality: float, # Composite soil quality (0-1)</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;growth_stage: float, # Growth stage (0=germination, 1=maturity)</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;evapotranspiration: float # Actual ET/potential ET ratio (0-1)</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; float:</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\"\"</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Predicts yield in tonnes/hectare with input verification</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\"\"</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Validation of inputs</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inputs = [lunar_day, soil_moisture, soil_quality, growth_stage, evapotranspiration]</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if any(not 0 &lt;= x &lt;= (28 if i ==0 else 1) for i, x in enumerate(inputs)):</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;raise ValueError(\"Values out of range (see docstring)\")</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Converting agricultural parameters -&gt; \u2206ngular variables</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delta_theta = (2 * np.pi * lunar_day) / 28 # Lunar day -&gt; radian conversion</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;T = soil_moisture</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S_eff = soil_quality</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s = growth_stage</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tau_tilde = np.sqrt(1 - evapotranspiration) # Water stress</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Calculation of yield</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;term_angular = (delta_theta**2) * (1 + self.params[\"epsilon\"] * np.cos(delta_theta * self.params[\"delta\"] * s * T))**self.params[\"beta\"]</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;term_stress = np.exp(-tau_tilde**2 / (4 * S_eff))</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return self.params[\"kappa\"] * term_angular * term_stress</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;def generate_irrigation_alert(</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self,&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;current_yield: float,&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;predicted_yield: float</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;) -&gt; str:</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\"\"</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Generates a simple irrigation alert based on yield deviation</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\"\"\"</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;threshold = 0.15 # 15% deviation</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deviation = (predicted_yield - current_yield)/current_yield</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if deviation &lt; -threshold:</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return \"\ud83d\udd34 Drought alert: Irrigation recommended\"</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif abs(deviation) &lt;= threshold:</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return \"\ud83d\udfe2 Optimal Levels\"</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;else:</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return \"\ud83d\udfe0 Sur-irrigation possible\"</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"># Simplified usage example&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">if __name__ == \"__main__\":</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;# Initialization for a wheat crop</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;model = DeltaNgularTerra(\"wheat\")</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;# Input data \"in agricultural language\"</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;predictions = model.predict_yield(</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lunar_day=14, # Full moon</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;soil_moisture=0.65, # 65% moisture</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;soil_quality=0.72, # Composite quality</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;growth_stage=0.4, # Tallage</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;evapotranspiration=0.55 # 55% of ETP</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;)</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;alerte = model.generate_irrigation_alert(current_yield=4.5, predicted_yield=predictions)</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;print(f\"\"\"</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;\u2206ngular.Terra Agricultural Report</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;==============================</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;- Predicted yield: {predictions:.2f} tonnes/ha</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;- Irrigation alert: {alert}</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;Recommendations:</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; Apply 20mm of water if red alert</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; Check humidity at a depth of 30cm</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;\"\"\")</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>9.Validation Terrain</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">.Case study &ndash; AgriSud Cooperative (Provence, 2023) [2], [4], [1]</p>\n<p dir=\"ltr\">&nbsp;&nbsp;(under consolidation &ndash; preliminary internal data)</p>\n<p dir=\"ltr\">.Observed results (in validation):<br>&nbsp; &bull; &darr; 30% water consumption via dynamic thresholds &tau;\u0303 [1]<br>&nbsp; &bull; R&sup2; = 0.82 between &Delta;&theta;\u2080 and root absorption (n = 1500) [8]<br>&nbsp; &bull; &uarr; 5% durum wheat yield by adjustment of S_eff [4], [20]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Notes:<br>&nbsp; &rarr; Methodological appendix currently being written.<br>&nbsp; &rarr; Cross-validation with INRAE, NDVI (Sentinel-2) and measured MO data.<br>&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&rarr; Analysis in connection with FAO models and scientific corpus (Nature Plants, etc.)</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Additional model in preparation:<br>&nbsp; &bull; Resumption of the simplified \u2206ngular.HexaTerra protocol<br>&nbsp; &bull; Aggregation of multi-plot field measurements<br>&nbsp; &bull; Open documentation planned (Zenodo + GitHub)</p>\n<p dir=\"ltr\"><br><br></p>\n<p dir=\"ltr\"><em>10. Fictitious case &ndash; Soft wheat farm (Brittany)</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Didier, a farmer in Brittany, cultivates 50 hectares of soft wheat on loamy soil, which is well structured but sensitive to summer water stress.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">He decides to test the Terra module which he connects to a series of simple agricultural instruments:</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&rArr; Connected weather station (e.g. Davis Vantage Pro2) [13]&nbsp;</p>\n<p dir=\"ltr\">&rArr; Capacitive tensiometer (eg: Irrometer Watermark) at 30 cm [11]&nbsp;</p>\n<p dir=\"ltr\">&rArr; Free NDVI system via Sentinel-2 or Apogee NDVI Sensor [20]&nbsp;</p>\n<p dir=\"ltr\">&rArr; Lunar API (eg: Ephemeride.io) integrated into the Python module [15]&nbsp;&nbsp;</p>\n<p dir=\"ltr\">The sensors are connected to a Raspberry Pi (or any MQTT-compatible IoT box),<br>which centralizes the data every 6 hours and injects them into the \u2206ngular.Terra script [18].</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Conditions measured on the simulation day:</p>\n<p dir=\"ltr\">&rArr; Lunar day: 10 (waxing moon) [15]&nbsp;</p>\n<p dir=\"ltr\">&rArr; Soil moisture: 58% [3]&nbsp;</p>\n<p dir=\"ltr\">&rArr; Soil quality (S_eff): 0.74 [9]&nbsp;</p>\n<p dir=\"ltr\">&rArr; Phenological stage: 0.45 (advanced growth) [2]&nbsp;</p>\n<p dir=\"ltr\">&rArr; Actual/potential evapotranspiration (ETR/ETP): 0.52 [10]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Step 1 &mdash; Estimate the yield</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">The \u2206ngular module applies the agricultural equation from the following data:</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;\u2206&theta;\u2080 = (2&pi; &times; 10) / 28 &asymp; 2.24 radians&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [15]<br>&nbsp; &tau;\u0303 &nbsp; = &radic;(1 &minus; 0.52) &asymp; 0.692 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [10]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Predicted yield:<br>&nbsp; &rarr; 18.65 q/ha<br>&nbsp; &rarr; Total on 50 ha: 93.2 tonnes<br>&nbsp; &rarr; Comparison: 85 t estimated the previous year</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Step 2 &mdash; Triggering the irrigation alert</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">The module compares the calculated water stress to the defined threshold (&tau;\u0303 &gt; 0.6 for 10 days).&nbsp;&nbsp;</p>\n<p dir=\"ltr\">Here, Didier exceeds this threshold (&tau;\u0303 = 0.692).</p>\n<p dir=\"ltr\">&rArr; Automatically generated alert:&nbsp;</p>\n<p dir=\"ltr\">&rArr; \ud83d\udd34 Drought alert: moderate water stress&nbsp;&nbsp;</p>\n<p dir=\"ltr\">&rArr; Recommendation: targeted irrigation at 25 mm spread over 2 days&nbsp;&nbsp;</p>\n<p dir=\"ltr\">&rArr; Manual verification recommended: humidity at a depth of 30 cm (via tensiometer) [11]&nbsp;&nbsp;</p>\n<p dir=\"ltr\">&rArr; Next optimal lunar window: day 13 (\u2206&theta;\u2080 &asymp; &pi;/2) [15]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Field reaction and adjustment:</p>\n<p dir=\"ltr\">Didier applies 25 mm of water spread over two days, compared to 40 mm in previous years.<br>He waits until lunar day 13 to carry out additional sowing, taking advantage of the waxing moon phase, known to be favorable for rooting [15].</p>\n<p dir=\"ltr\">A check carried out via a capacitive tensiometer confirms that the humidity has returned to the optimal zone (20&ndash;30 kPa) [11].</p>\n<p dir=\"ltr\"><br><br></p>\n<p dir=\"ltr\">Step 3 &mdash; Comparative economic analysis 50 ha farm (soft wheat) Brittany.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Previous campaign (without Terra):</p>\n<p dir=\"ltr\">&rarr; Average yield: 17 q/ha = 1.7 t/ha<br>&rarr; Total harvested: 85 tonnes on 50 ha<br>&rarr; Average irrigation: 40 mm</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Test campaign (with Terra):</p>\n<p dir=\"ltr\">&rarr; Average yield: 18.65 q/ha = 1.865 t/ha<br>&rarr; Total harvested: 93.25 tonnes over 50 ha<br>&rarr; Irrigation reduced to 25 mm</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Economic parameters:</p>\n<p dir=\"ltr\">&rarr; Average price of soft wheat: &euro;250/tonne<br>&rarr; Irrigation cost: &euro;0.55/mm/ha [19]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Detailed calculations:</p>\n<p dir=\"ltr\">&rarr; Gain on yield</p>\n<p dir=\"ltr\">&rarr; Gross gain: 8.25 additional tonnes</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&rarr; At &euro;250 per tonne: 8.25 t &times; &euro;250/t = &euro;2,062.5 (over the entire farm)</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rarr; Per hectare: 0.165 t/ha &times; &euro;250 = &euro;41.25/ha</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&rarr; Savings on irrigation<br>&nbsp; &nbsp; &rarr; Water saved: 15 mm &times; &euro;0.55 &times; 50 ha = &euro;412.5</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&rarr; Total profit for the campaign<br>&nbsp; &rarr; &euro;2,062.5 (yield) + &euro;412.5 (water) = &euro;2,475</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Note: The estimated gain (&euro;2,475) is based on a calculation incorporating the variable \u2206&theta;\u2080 (lunar phase), used during the simulation (\u2206&theta;\u2080 &asymp; 2.24 rad, lunar day 10) [15].</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">This means that lunar synchronization is already structurally present in the model. However, this figure remains conservative because:</p>\n<p dir=\"ltr\">&rarr; It does not include a comparison with an unsynchronized scenario (e.g. \u2206&theta;\u2080 = &pi;/6), so the potential performance gap is not quantified.</p>\n<p dir=\"ltr\">&rarr; It does not accumulate the delayed effects of \u2206&theta;\u2080 on emergence, water stability and medium-term rooting.</p>\n<p dir=\"ltr\">&rarr; It does not include indirect savings in phytosanitary inputs and fertilizers, made possible by better agronomic consistency [7][8].</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">Lunar synchronization is indeed an active lever in \u2206ngular.Terra, but its real economic impact goes beyond the mere yield gain quantified here.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>11. Conclusion</em>&nbsp;&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">This concrete fictitious case shows that even on an average farm, equipped with standard agricultural sensors and connected to open weather data, the \u2206ngular.Terra module allows for fine-grained and preventive decision-making, aligned with natural rhythms and real soil dynamics.</p>\n<p dir=\"ltr\">It does not replace field intuition, it extends it scientifically.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">This framework transforms natural cycles into quantified Angular language:</p>\n<p dir=\"ltr\">&rarr; Objective anticipation of water stress [10][14]<br>&rarr; Alignment of cultural practices with terrestrial rhythms [15]<br>&rarr; Data-driven decision via farmer-friendly interface [18]</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">\u2747\ufe0f\u2747\ufe0f\u2747\ufe0f</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>12. Scientific Framework and Institutional Limitations</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>\u25b8 Context and Scope of Hexa.Terra</em></p>\n<p dir=\"ltr\"><em>Hexa.Terra is an analytical framework based on geometric quantification \u2206&theta;\u2080, applied to agriculture.</em><br><em>It explores new correlations between lunar cycles [15], water entropy [9] and climate stress [7][19] in the modulation of agricultural yield.</em></p>\n<p dir=\"ltr\"><em>This model has not been evaluated or validated by an independent scientific committee.</em><br><em>It is not currently peer-reviewed or published in a recognized academic journal.</em></p>\n<p dir=\"ltr\"><em>It has also not been validated by French scientific authorities such as:</em><br><em>&ndash; INRAE (National Institute for Agricultural, Food and Environmental Research)&nbsp; </em><br><em>&ndash; CIRAD (Centre for International Cooperation in Agricultural Research for Development)&nbsp; </em><br><em>&ndash; ANSES (National Agency for Food, Environmental and Occupational Health Safety)</em></p>\n<p dir=\"ltr\"><em>It therefore does not replace established institutional models (e.g.: AquaCrop [1], STICS, SSM), but can be used as an exploratory overlay in experimental or educational contexts.</em></p>\n<p dir=\"ltr\"><em>&bull; The model is not designed for ecological breakdown regimes, where natural cycles become non-stationary.</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>\u25b8 Use and Data</em></p>\n<p dir=\"ltr\"><em>&bull; Input data must be verified by the user (IoT sensors [6][11][18], weather data [5][13], soil analyses [3][4]).</em></p>\n<p dir=\"ltr\"><em>&bull; Thresholds like &tau;\u0303 &gt; 0.6 must be adapted locally (climate, texture, culture) [10][14].</em></p>\n<p dir=\"ltr\"><em>&bull; The author declines all responsibility in case of misinterpretation of the model outputs.</em></p>\n<p dir=\"ltr\"><em>&bull; These values are indicative, based on initial field data (Agrisud, 2023) [17].</em></p>\n<p dir=\"ltr\"><em>&bull; They vary according to local conditions (climate, soil, equipment) and do not constitute a promise of results.</em></p>\n<p dir=\"ltr\"><em>&bull; The model should be used as a decision-making tool, complementing existing agronomic practices.</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>\u25b8 Compatibility and Supervised Use</em></p>\n<p dir=\"ltr\"><em>&bull; \u2206ngular.Terra can be used in addition to standard tools such as AquaCrop [1] or Sentinel-1 [3], but its purpose is exploratory.</em></p>\n<p dir=\"ltr\"><em>&bull; It must be mobilized within a structured framework: educational experimentation, applied research or technical support under control.</em></p>\n<p dir=\"ltr\"><em>&bull; Any operational interpretation must be validated by a competent professional (agronomist engineer, field technician), particularly in situations with a strong ecological gradient or multiple constraints that are not modeled.</em></p>\n<p dir=\"ltr\"><br><em>\u25b8 Risks and Limitations</em></p>\n<p dir=\"ltr\"><em>&bull; This module should not be used to independently manage a farm.</em></p>\n<p dir=\"ltr\"><em>&bull; It requires informed interpretation by professionals capable of understanding its methodological limitations, particularly in the event of extreme or unmodeled conditions (climatic shocks, atypical soils, water supply disruptions).</em></p>\n<p dir=\"ltr\"><em>&bull; Although based on coherent formalizations and recognized agronomic bases, \u2206ngular.Terra remains a theoretical and exploratory model.</em><br><em>Any technical decision must be validated by human expertise and adapted to the real context.</em></p>\n<p dir=\"ltr\"><em>&bull; The author declines all responsibility in the event of unsupervised automated use or interpretation outside the defined framework.</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>\u25b8 Publication status</em></p>\n<p dir=\"ltr\"><em>&bull; Hexa.Terra is published under the free Creative Commons CC0 license.</em></p>\n<p dir=\"ltr\"><em>&bull; Its use is open, but is based on the explicit understanding of its theoretical, exploratory nature and its non-institutional validation to date.</em></p>\n<p dir=\"ltr\"><br><em>\u25b8 Falsifiable assumptions of the model</em></p>\n<p dir=\"ltr\"><em>&rarr; Correlation between &Delta;&theta;\u2080 (waxing moon) and root absorption, validated by field measurements (e.g. AgriSud, R&sup2; &asymp; 0.82) [15].</em></p>\n<p dir=\"ltr\"><em>&rarr; Predictable reduction in water consumption via dynamic thresholds &tau;\u0303 &gt; 0.6 [7][19].</em></p>\n<p dir=\"ltr\"><em>&rarr; Yield simulation without free parameter adjustment, using only measurable variables (NDVI [20], humidity [11], phenological stage [2]).</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>13.Citations</em>&nbsp;</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\">\"\"\"<br>\u2206ngular.Terra Quotes &ndash; Scientific and Agricultural References<br>Encoded Version (Python Dictionary)<br>\"\"\"</p>\n<p dir=\"ltr\">citations_Terra = {<br>&nbsp; &nbsp; \"[1]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"FAO AquaCrop\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"FAO &ndash; AquaCrop model documentation\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://www.fao.org/aquacrop\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[2]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"Phenology\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"PhenoCam Network &ndash; Vegetation phenology\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://phenocam.sr.unh.edu/webcam/\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[3]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"SoilGrids and Sentinel-1\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"ISRIC SoilGrids (global soil info)\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://soilgrids.org\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[4]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"INRAE\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"INRAE &ndash; Agro-pedological references\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://www.inrae.fr\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[5]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"WeatherStack API\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"WeatherStack &ndash; Real-time weather API\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://weatherstack.com\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[6]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"IoT sensors for agriculture\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"ELA Innovation &ndash; Smart Agriculture IoT\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://elainnovation.com/en/smart-agriculture-when-iot-serves-the-collective/\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[7]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"Water stress and agriculture\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"Van Iperen &ndash; Addressing Hydric Stress\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://www.vaniperen.com/addressing-hydric-stress-in-agriculture-solutions-and-benefits-of-plants-for-plants-4-vita/\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[8]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"Lunar phases and agriculture\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"The Old Farmer's Almanac &ndash; Moon and farming\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://www.almanac.com/planting-moon-phase\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[9]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"Water entropy\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"MDPI Entropy &ndash; Soil moisture entropy modeling\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://www.mdpi.com/1099-4300/17/6/4454\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[10]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"Evapotranspiration\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"FAO Irrigation &amp; Drainage Paper 56\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://www.fao.org/3/x0490e/x0490e00.htm\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[11]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"Soil moisture sensors\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"Irrometer Watermark Sensors\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://www.irrometer.com/sensors.html\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[12]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"Fertility management\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"INRAE &ndash; Agroecological database\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://data.inrae.fr\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[13]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"Climate monitoring\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"M&eacute;t&eacute;o-France API\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://donneespubliques.meteofrance.fr\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[14]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"Drought prediction\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"FAO ASIS &ndash; Agricultural Stress Index System\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://www.fao.org/giews/earthobservation/asis\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[15]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"Sowing optimization\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"Nuffield &ndash; Farming by the cycles of the moon\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://www.nuffieldscholar.org/reports/farming-cycles-moon\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[16]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"Recommended database\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"Tethys Farm &ndash; NDVI and NDWI tools\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://tethys.farm/en\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[17]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"Operational protocol\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"AFD Guide &ndash; Evaluation agroecology\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://www.inter-reseaux.org/wp-content/uploads/Guide_AE_web.pdf\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[18]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"IoT sensors and agriculture\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"1NCE &ndash; Precision Agriculture Use Case\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://www.1nce.com/en-eu/iot-use-cases/precision-agriculture-iot\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[19]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"Water stress and drought\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"OECD &ndash; Water stress and agriculture\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://www.oecd.org/water/Water-Risk-Hotspots-Agriculture.pdf\"<br>&nbsp; &nbsp; },<br>&nbsp; &nbsp; \"[20]\": {<br>&nbsp; &nbsp; &nbsp; &nbsp; \"label\": \"Sentinel-2 / NDVI libre\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"source\": \"Copernicus Open Access Hub\",<br>&nbsp; &nbsp; &nbsp; &nbsp; \"url\": \"https://scihub.copernicus.eu/dhus\"<br>&nbsp; &nbsp; }<br>}</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>\u25b8 Integration of IoT sensors</em></p>\n<p dir=\"ltr\"><em>Connected sensors (tensiometers, humidity probes, weather stations) allow real-time monitoring of soil water status and evapotranspiration. This data is essential for calculating the stress index &tau;\u0303 within the Hexa.Terra model.</em></p>\n<p dir=\"ltr\"><em>For example:</em><br><em>&rarr; a capacitive tensiometer placed at a depth of 30 cm measures useful humidity [11]</em><br><em>&rarr; a local weather station or an API provides ETP (potential evapotranspiration) [10][13]</em><br><em>&rarr; NDVI and surface temperature can be extracted from Sentinel-2 or Apogee sensor [20]</em></p>\n<p dir=\"ltr\"><em>These elements feed into the model to provide dynamic yield estimation and trigger drought alerts.</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p><em>\u25b8 AI-assisted use (via Hexa.Terra GPT)</em></p>\n<p><em>For simplified and intuitive use, a dedicated AI assistant has been designed to interact directly with the Hexa.Terra model:</em></p>\n<p><em>&rarr; Access the assistant here :</em></p>\n<p><em>https://chatgpt.com/g/g-6811dc59beb88191b10e56533d2e1bcc-hexa-terra-lunar-agro-ai-for-drought-yield</em></p>\n<p>&nbsp;</p>\n<p><em>Once your key data is entered (surface area, soil moisture, NDVI, lunar day, etc.), the AI can:</em></p>\n<p><em>&bull; Estimate the potential yield,</em><br><em>&bull; Detect early water stress,</em><br><em>&bull; Recommend appropriate actions (irrigation threshold, optimal sowing window, etc.).</em></p>\n<p><em>This assistant is tailored to small- and medium-scale farmers, cooperatives, and agri-tech collectives. It requires no coding, and allows real-time advice using the Hexa.Terra framework.</em></p>\n<p><em>&rarr; All you need to do is copy/paste your values or describe your situation, the AI will handle the rest</em>.</p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>\u25b8 Optional Access to Satellite Data</em></p>\n<p dir=\"ltr\"><em>For users wishing to automate data entry (such as NDVI or surface moisture), you can retrieve free and open-access data from satellite platforms like Sentinel-2.</em></p>\n<p dir=\"ltr\"><em>An example of a simple tool to download Sentinel-2 data:</em></p>\n<p dir=\"ltr\"><em>&rarr; Access the Sentinel-2 download script via Google Earth Engine : </em></p>\n<p dir=\"ltr\"><em>https://code.earthengine.google.com/183cd0d2c76845e13c966acb20f4a1ae</em></p>\n<p dir=\"ltr\"><em>This step is optional.</em></p>\n<p dir=\"ltr\"><em>You can either:</em></p>\n<p dir=\"ltr\"><em>Manually enter your observations (e.g., soil probes, visual inspection),</em></p>\n<p dir=\"ltr\"><em>Or automate some inputs using satellite data or agricultural IoT devices.</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>\u25b8Note and Acknowledgments</em></p>\n<p dir=\"ltr\"><em>&rarr;Satellite data must sometimes be interpreted cautiously depending on the local cloud cover, vegetation stage, and&nbsp;</em></p>\n<p dir=\"ltr\"><em>resolution needs.</em></p>\n<p dir=\"ltr\"><em>&rarr;Special thanks to Mashford Mahute for sharing the original access to the Sentinel-2 script, </em><em>a key enabler for field deployment and open-source accessibility.</em></p>\n<p dir=\"ltr\"><em>&rarr;The Sentinel-2 access script is &copy; Pratik Mojumder, 2025.</em></p>\n<p dir=\"ltr\"><em>Its mention here is solely for educational purposes, to facilitate access to open satellite data.</em></p>\n<p dir=\"ltr\"><em>Full credit goes to the original author.</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>\u25b8 Origin of the model</em></p>\n<p dir=\"ltr\"><em>\u2206ngular Terra (v8) is an applied iteration derived from \u2206ngular Theory, a unified geometric framework based on a discrete angular structuring of spacetime.</em></p>\n<p dir=\"ltr\"><em>Based on the invariant \u2206&theta;\u2080, this approach transposes, in its agroclimatic version, the foundations of a global physical architecture towards operational uses.</em><br><em>This theoretical model is designed to remain accessible, while retaining sufficient mathematical rigor to be tested, falsified and compared to experimental data in a suitable, cautious and exploratory framework.</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>Dedication</em></p>\n<p dir=\"ltr\"><em>This module is dedicated to my father, Pierre Souday,&nbsp;&nbsp;</em></p>\n<p dir=\"ltr\"><em>a nature lover, a gardener at heart and in his actions.</em></p>\n<p dir=\"ltr\">&nbsp;</p>\n<p dir=\"ltr\"><em>https://creativecommons.org/publicdomain/zero/1.0/</em></p>\n<p dir=\"ltr\"><em>\ud83c\uddeb\ud83c\uddf7 April 2025</em></p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Ladines, Alvin Noe",
+            "name": "Souday, David",
             "affiliation": null,
-            "orcid": "0000-0003-0077-2097"
-          },
-          {
-            "name": "Chang, Theodore",
-            "affiliation": null,
-            "orcid": "0000-0002-4911-0230"
-          },
-          {
-            "name": "Daelman, Nathan",
-            "affiliation": null,
-            "orcid": "0000-0002-7647-1816"
-          },
-          {
-            "name": "Fekete, Adam",
-            "affiliation": null,
-            "orcid": "0000-0002-6263-897X"
-          },
-          {
-            "name": "Ghiringhelli, Luca M.",
-            "affiliation": null,
-            "orcid": "0000-0001-5099-3029"
-          },
-          {
-            "name": "Himanen, Lauri",
-            "affiliation": null,
-            "orcid": "0000-0002-3130-8193"
-          },
-          {
-            "name": "Ilyas, Ahmed",
-            "affiliation": null,
-            "orcid": "0009-0009-8636-5740"
-          },
-          {
-            "name": "Mohr, Bernadette",
-            "affiliation": null,
-            "orcid": "0000-0003-0903-0073"
-          },
-          {
-            "name": "Pizarro, Jos\u00e9 M.",
-            "affiliation": null,
-            "orcid": "0000-0002-6751-8192"
-          },
-          {
-            "name": "Rudzinski, Joseph F.",
-            "affiliation": null,
-            "orcid": "0000-0003-3403-640X"
-          },
-          {
-            "name": "Scheidgen, Markus",
-            "affiliation": null,
-            "orcid": "0000-0002-8038-2277"
+            "orcid": "0009-0005-6995-2186"
           }
+        ],
+        "keywords": [
+          "Agriculture",
+          "Eau",
+          "S\u00e9cheresse",
+          "France"
         ],
         "related_identifiers": [
           {
-            "identifier": "https://github.com/nomad-coe/atomistic-parsers/tree/v1.0.5",
+            "identifier": "10.5281/zenodo.15021677",
             "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
+            "resource_type": "dataset",
+            "scheme": "doi"
           }
         ],
-        "version": "v1.0.5",
+        "dates": [
+          {
+            "type": "collected",
+            "description": "HexaTerra "
+          }
+        ],
         "custom": {
-          "code:codeRepository": "https://github.com/nomad-coe/atomistic-parsers"
+          "code:programmingLanguage": [
+            {
+              "id": "python",
+              "title": {
+                "en": "Python"
+              }
+            }
+          ],
+          "code:developmentStatus": {
+            "id": "active",
+            "title": {
+              "en": "Active"
+            }
+          }
         },
         "resource_type": {
-          "title": "Software",
-          "type": "software"
+          "title": "Dataset",
+          "type": "dataset"
         },
-        "license": {
-          "id": "apache2.0"
-        },
-        "communities": [
-          {
-            "id": "fairmat_nfdi"
-          }
-        ],
         "relations": {
           "version": [
             {
-              "index": 3,
+              "index": 7,
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "13851189"
+                "pid_value": "15087172"
               }
             }
           ]
-        },
-        "notes": "If you use this software, please cite it using the metadata from this file."
+        }
       },
-      "title": "Atomistic Parsers",
+      "title": "\u2206ngular Hexa.Terra _ Anticipating drought, harmonizing agriculture with lunar rhythms",
       "links": {
-        "self": "https://zenodo.org/api/records/15040658",
-        "self_html": "https://zenodo.org/records/15040658",
-        "doi": "https://doi.org/10.5281/zenodo.15040658",
-        "self_doi": "https://doi.org/10.5281/zenodo.15040658",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15040658",
-        "parent": "https://zenodo.org/api/records/13851189",
-        "parent_html": "https://zenodo.org/records/13851189",
-        "parent_doi": "https://doi.org/10.5281/zenodo.13851189",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13851189",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15040658/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15040658/sequence/default",
-        "files": "https://zenodo.org/api/records/15040658/files",
-        "media_files": "https://zenodo.org/api/records/15040658/media-files",
-        "archive": "https://zenodo.org/api/records/15040658/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15040658/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15040658/versions/latest",
-        "latest_html": "https://zenodo.org/records/15040658/latest",
-        "versions": "https://zenodo.org/api/records/15040658/versions",
-        "draft": "https://zenodo.org/api/records/15040658/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15040658/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15040658/access/links",
-        "access_grants": "https://zenodo.org/api/records/15040658/access/grants",
-        "access_users": "https://zenodo.org/api/records/15040658/access/users",
-        "access_request": "https://zenodo.org/api/records/15040658/access/request",
-        "access": "https://zenodo.org/api/records/15040658/access",
-        "communities": "https://zenodo.org/api/records/15040658/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15040658/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15040658/requests"
+        "self": "https://zenodo.org/api/records/15312632",
+        "self_html": "https://zenodo.org/records/15312632",
+        "preview_html": "https://zenodo.org/records/15312632?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15312632",
+        "self_doi": "https://doi.org/10.5281/zenodo.15312632",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15312632",
+        "parent": "https://zenodo.org/api/records/15087172",
+        "parent_html": "https://zenodo.org/records/15087172",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15087172",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15087172",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15312632/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15312632/sequence/default",
+        "files": "https://zenodo.org/api/records/15312632/files",
+        "media_files": "https://zenodo.org/api/records/15312632/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15312632:Hexa.Terra_v8.jpg/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15312632:Hexa.Terra_v8.jpg/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15312632:Hexa.Terra_v8.jpg/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15312632:Hexa.Terra_v8.jpg/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15312632:Hexa.Terra_v8.jpg/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15312632:Hexa.Terra_v8.jpg/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15312632/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15312632/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15312632/versions/latest",
+        "latest_html": "https://zenodo.org/records/15312632/latest",
+        "versions": "https://zenodo.org/api/records/15312632/versions",
+        "draft": "https://zenodo.org/api/records/15312632/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15312632/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15312632/access/links",
+        "access_grants": "https://zenodo.org/api/records/15312632/access/grants",
+        "access_users": "https://zenodo.org/api/records/15312632/access/users",
+        "access_request": "https://zenodo.org/api/records/15312632/access/request",
+        "access": "https://zenodo.org/api/records/15312632/access",
+        "communities": "https://zenodo.org/api/records/15312632/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15312632/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15312632/requests"
       },
-      "updated": "2025-03-17T15:07:49.098304+00:00",
-      "recid": "15040658",
-      "revision": 4,
+      "updated": "2025-04-30T21:49:52.635669+00:00",
+      "recid": "15312632",
+      "revision": 6,
       "files": [
         {
-          "id": "b6d89120-bc72-4916-92b9-a4a469fe560f",
-          "key": "nomad-coe/atomistic-parsers-v1.0.5.zip",
-          "size": 95456814,
-          "checksum": "md5:865319394d31876dbe15a074e96ee42a",
+          "id": "a827494a-29fd-460c-9c23-d0c9c1b1bbf5",
+          "key": "\u2747\ufe0f-Hexa.Terra.PDF",
+          "size": 281422,
+          "checksum": "md5:0f028465624396974ae938a8b34f49a9",
           "links": {
-            "self": "https://zenodo.org/api/records/15040658/files/nomad-coe/atomistic-parsers-v1.0.5.zip/content"
+            "self": "https://zenodo.org/api/records/15312632/files/\u2747\ufe0f-Hexa.Terra.PDF/content"
+          }
+        },
+        {
+          "id": "fd729126-3883-4f3e-bcf6-d7c0e9b49fe9",
+          "key": "Hexa.Terra_v8.jpg",
+          "size": 766831,
+          "checksum": "md5:21bd481480cc5f3a2109e33e8e9cff15",
+          "links": {
+            "self": "https://zenodo.org/api/records/15312632/files/Hexa.Terra_v8.jpg/content"
+          }
+        },
+        {
+          "id": "c3b720dd-411e-4ac9-8917-0900791f821d",
+          "key": "OneClick_Sentinel2_Instructions.jpg",
+          "size": 467773,
+          "checksum": "md5:f768914e1ec5e44139e8c6579395ec48",
+          "links": {
+            "self": "https://zenodo.org/api/records/15312632/files/OneClick_Sentinel2_Instructions.jpg/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "1194966"
+          "id": "1272884"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 61,
-        "unique_downloads": 61,
-        "views": 187,
-        "unique_views": 176,
-        "version_downloads": 10,
-        "version_unique_downloads": 10,
-        "version_unique_views": 15,
-        "version_views": 15
+        "downloads": 31,
+        "unique_downloads": 28,
+        "views": 180,
+        "unique_views": 121,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 2,
+        "version_views": 3
       },
       "state": "done",
       "submitted": true
