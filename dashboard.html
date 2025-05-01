@@ -877,7 +877,7 @@
     <!-- Add cache busting parameter with timestamp -->
     <script src="js/direct_charts.js?v=20230501"></script>
     <script src="js/visualization.js?v=20230501"></script>
-    <!-- Citation scripts removed as they're now in citations.html -->
+    <!-- Citations functionality moved to dedicated page: citations.html -->
     <script>
         // Main application code
         document.addEventListener('DOMContentLoaded', function() {
@@ -1006,8 +1006,8 @@
                 // Initialize network visualization
                 initializeNetworkGraph(data);
                 
-                // Citation charts are now handled by embedded_citations.js
-                // Explicitly disable legacy chart initialization methods
+                // Citation functionality has been moved to dedicated citations.html page
+                // Skip and disable all citation rendering in the dashboard
                 
                 // Initialize analytics charts
                 initializeAnalyticsCharts(tools, categories);

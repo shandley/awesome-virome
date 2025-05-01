@@ -240,7 +240,7 @@
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        <canvas id="topCitedToolsChart" height="400" width="700" style="display: none;"></canvas>
+                        <canvas id="topCitedToolsChart" height="450" width="700" style="display: none;"></canvas>
                     </div>
                 </div>
             </div>
@@ -481,10 +481,10 @@
                         .slice(0, 10)
                 );
                 
-                // Sort by citation count and take top 10
+                // Sort by citation count and take top 8 (reduced for better fit)
                 const topTools = toolsWithCitations
                     .sort((a, b) => b.citations - a.citations)
-                    .slice(0, 10);
+                    .slice(0, 8);
                 
                 // Generate colors
                 const colors = topTools.map((_, i) => {
