@@ -1,6 +1,143 @@
 {
-  "cache_date": "2025-04-01T08:49:58.974155",
+  "cache_date": "2025-05-01T09:45:39.538394",
   "data": [
+    {
+      "created": "2025-04-14T19:43:13.671776+00:00",
+      "modified": "2025-04-14T19:43:13.842213+00:00",
+      "id": 15213869,
+      "conceptrecid": "15090769",
+      "doi": "10.5281/zenodo.15213869",
+      "conceptdoi": "10.5281/zenodo.15090769",
+      "doi_url": "https://doi.org/10.5281/zenodo.15213869",
+      "metadata": {
+        "title": "sanger-tol/metagenomeassembly v1.1.0 - The Elfin Knight",
+        "doi": "10.5281/zenodo.15213869",
+        "publication_date": "2025-04-14",
+        "description": "<h2>[1.1.0] - The Elfin Knight - [2025-04-14]</h2>\n<h3><code>Added</code></h3>\n<ul>\n<li>Adds genomad for classification of circular contigs to determine whether they are plasmids (by @prototaxites)<ul>\n<li>adds <code>--enable_genomad</code> to turn on and off this step (enabled by default)</li>\n<li>adds <code>--genomad_splits</code> to control memory usage - increasing this value from the default 1 increases\nchunking of the genomad database, reducing memory usage at the cost of increased runtime</li>\n</ul>\n</li>\n</ul>\n<h3><code>Fixed</code></h3>\n<ul>\n<li>Fixed missing output channel in gtdbtk/classifywf (by @prototaxites)</li>\n<li>Add in some previously-excluded parts of the template (by @prototaxites)</li>\n</ul>\n<h3><code>Dependencies</code></h3>\n<p>| module           | tools                | old versions | new versions          |\n| ---------------- | -------------------- | ------------ | --------------------- |\n| find_circles     | seqkit,samtools,gawk | 2.9.0, -, -  | 2.10.0, 1.21.0, 5.3.0 |\n| genomad/download | genomad              | -            | 1.11.0                |\n| genomad/endtoend | genomad              | -            | 1.11.0                |</p>\n<h3><code>Deprecated</code></h3>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Downie, Jim",
+            "affiliation": "Wellcome Sanger Institute",
+            "orcid": "0000-0002-7175-0533"
+          },
+          {
+            "name": "Eagles, Will",
+            "affiliation": "Wellcome Sanger Institute",
+            "orcid": "0009-0006-9956-0404"
+          },
+          {
+            "name": "Gettle, Noah",
+            "affiliation": "Wellcome Sanger Institute",
+            "orcid": "0000-0003-3407-4086"
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/sanger-tol/metagenomeassembly/tree/1.1.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "1.1.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/sanger-tol/metagenomeassembly"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "mit-license"
+        },
+        "communities": [
+          {
+            "id": "sanger-tol"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 4,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15090769"
+              }
+            }
+          ]
+        },
+        "notes": "If you use this software, please cite it using the metadata from this file and all references from CITATIONS.md ."
+      },
+      "title": "sanger-tol/metagenomeassembly v1.1.0 - The Elfin Knight",
+      "links": {
+        "self": "https://zenodo.org/api/records/15213869",
+        "self_html": "https://zenodo.org/records/15213869",
+        "preview_html": "https://zenodo.org/records/15213869?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15213869",
+        "self_doi": "https://doi.org/10.5281/zenodo.15213869",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15213869",
+        "parent": "https://zenodo.org/api/records/15090769",
+        "parent_html": "https://zenodo.org/records/15090769",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15090769",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15090769",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15213869/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15213869/sequence/default",
+        "files": "https://zenodo.org/api/records/15213869/files",
+        "media_files": "https://zenodo.org/api/records/15213869/media-files",
+        "archive": "https://zenodo.org/api/records/15213869/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15213869/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15213869/versions/latest",
+        "latest_html": "https://zenodo.org/records/15213869/latest",
+        "versions": "https://zenodo.org/api/records/15213869/versions",
+        "draft": "https://zenodo.org/api/records/15213869/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15213869/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15213869/access/links",
+        "access_grants": "https://zenodo.org/api/records/15213869/access/grants",
+        "access_users": "https://zenodo.org/api/records/15213869/access/users",
+        "access_request": "https://zenodo.org/api/records/15213869/access/request",
+        "access": "https://zenodo.org/api/records/15213869/access",
+        "communities": "https://zenodo.org/api/records/15213869/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15213869/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15213869/requests"
+      },
+      "updated": "2025-04-14T19:43:13.842213+00:00",
+      "recid": "15213869",
+      "revision": 4,
+      "files": [
+        {
+          "id": "d58f6c72-6cca-49ec-bfe6-9ded5c40b5c2",
+          "key": "sanger-tol/metagenomeassembly-1.1.0.zip",
+          "size": 5358834,
+          "checksum": "md5:545a4d05138856b62bbf4d57e950c0c0",
+          "links": {
+            "self": "https://zenodo.org/api/records/15213869/files/sanger-tol/metagenomeassembly-1.1.0.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:e3491ec0921b36be76dcbebd01e8975e9892783e;origin=https://doi.org/10.5281/zenodo.15090769;visit=swh:1:snp:8c6bc36a7fab1bb04c0e9463a689cf39ebaf27ea;anchor=swh:1:rel:40d9aaefb21a5021f72047be6815764fd00f0d52;path=sanger-tol-metagenomeassembly-3c7bdfb"
+      },
+      "owners": [
+        {
+          "id": "305572"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 19,
+        "unique_downloads": 19,
+        "views": 85,
+        "unique_views": 71,
+        "version_downloads": 10,
+        "version_unique_downloads": 10,
+        "version_unique_views": 28,
+        "version_views": 28
+      },
+      "state": "done",
+      "submitted": true
+    },
     {
       "created": "2025-02-18T19:49:13.951089+00:00",
       "modified": "2025-02-18T19:49:14.065949+00:00",
@@ -117,14 +254,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 124,
-        "unique_downloads": 111,
-        "views": 1321,
-        "unique_views": 1257,
+        "downloads": 129,
+        "unique_downloads": 116,
+        "views": 1341,
+        "unique_views": 1277,
         "version_downloads": 2,
         "version_unique_downloads": 2,
-        "version_unique_views": 12,
-        "version_views": 12
+        "version_unique_views": 19,
+        "version_views": 19
       },
       "state": "done",
       "submitted": true
@@ -258,14 +395,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 8716,
-        "unique_downloads": 4394,
-        "views": 6785,
-        "unique_views": 6120,
-        "version_downloads": 416,
-        "version_unique_downloads": 247,
-        "version_unique_views": 252,
-        "version_views": 305
+        "downloads": 9308,
+        "unique_downloads": 4830,
+        "views": 7185,
+        "unique_views": 6467,
+        "version_downloads": 914,
+        "version_unique_downloads": 598,
+        "version_unique_views": 477,
+        "version_views": 571
       },
       "state": "done",
       "submitted": true
@@ -392,14 +529,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 20,
-        "unique_downloads": 19,
-        "views": 24,
-        "unique_views": 24,
-        "version_downloads": 20,
-        "version_unique_downloads": 19,
-        "version_unique_views": 24,
-        "version_views": 24
+        "downloads": 23,
+        "unique_downloads": 22,
+        "views": 28,
+        "unique_views": 28,
+        "version_downloads": 23,
+        "version_unique_downloads": 22,
+        "version_unique_views": 28,
+        "version_views": 28
       },
       "state": "done",
       "submitted": true
@@ -528,14 +665,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 28,
-        "unique_downloads": 23,
-        "views": 22,
-        "unique_views": 19,
-        "version_downloads": 28,
-        "version_unique_downloads": 23,
-        "version_unique_views": 19,
-        "version_views": 22
+        "downloads": 38,
+        "unique_downloads": 30,
+        "views": 30,
+        "unique_views": 25,
+        "version_downloads": 38,
+        "version_unique_downloads": 30,
+        "version_unique_views": 25,
+        "version_views": 30
       },
       "state": "done",
       "submitted": true
@@ -639,12 +776,12 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 13,
-        "unique_downloads": 12,
+        "downloads": 16,
+        "unique_downloads": 14,
         "views": 12,
         "unique_views": 12,
-        "version_downloads": 13,
-        "version_unique_downloads": 12,
+        "version_downloads": 16,
+        "version_unique_downloads": 14,
         "version_unique_views": 12,
         "version_views": 12
       },
@@ -749,12 +886,12 @@
       "stats": {
         "downloads": 64,
         "unique_downloads": 62,
-        "views": 26,
-        "unique_views": 26,
+        "views": 27,
+        "unique_views": 27,
         "version_downloads": 64,
         "version_unique_downloads": 62,
-        "version_unique_views": 26,
-        "version_views": 26
+        "version_unique_views": 27,
+        "version_views": 27
       },
       "state": "done",
       "submitted": true
@@ -1146,12 +1283,12 @@
       "stats": {
         "downloads": 1,
         "unique_downloads": 1,
-        "views": 25,
-        "unique_views": 23,
+        "views": 26,
+        "unique_views": 24,
         "version_downloads": 1,
         "version_unique_downloads": 1,
-        "version_unique_views": 23,
-        "version_views": 25
+        "version_unique_views": 24,
+        "version_views": 26
       },
       "state": "done",
       "submitted": true
@@ -1258,114 +1395,6 @@
         "version_unique_downloads": 1,
         "version_unique_views": 42,
         "version_views": 42
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2023-06-17T00:26:27.114444+00:00",
-      "modified": "2023-06-17T02:26:52.674017+00:00",
-      "id": 8049246,
-      "conceptrecid": "7697489",
-      "doi": "10.5281/zenodo.8049246",
-      "conceptdoi": "10.5281/zenodo.7697489",
-      "doi_url": "https://doi.org/10.5281/zenodo.8049246",
-      "metadata": {
-        "title": "Additional data and code for \"You can move, but you can't hide: identification of mobile genetic elements with geNomad\"",
-        "doi": "10.5281/zenodo.8049246",
-        "publication_date": "2023-03-04",
-        "description": "<ul>\n\t<li><strong>benchmark_data:</strong> Data used to train and evaluate the classification models.</li>\n\t<li><strong>giant_virus_data:</strong> Sequences and metadata of giant viruses identified in public metagenomes.</li>\n\t<li><strong>neural_network_training:</strong> Code used to train geNomad&#39;s neural network-based classification model.</li>\n\t<li><strong>provirus_data:</strong> Data used to train and evaluate the conditional random field model employed by geNomad to identify provirus regions.</li>\n\t<li><strong>reference_sequences:</strong> Sequences of chromosomes, plasmids, and viruses that were used to build geNomad&#39;s marker dataset and to generate the training data for the classification models.</li>\n</ul>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Camargo, Antonio",
-            "affiliation": "DOE Joint Genome Institute, Lawrence Berkeley National Laboratory, Berkeley, CA 94720, USA",
-            "orcid": "0000-0003-3913-2484"
-          }
-        ],
-        "version": "1.0",
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 1,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "7697489"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Additional data and code for \"You can move, but you can't hide: identification of mobile genetic elements with geNomad\"",
-      "links": {
-        "self": "https://zenodo.org/api/records/8049246",
-        "self_html": "https://zenodo.org/records/8049246",
-        "preview_html": "https://zenodo.org/records/8049246?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.8049246",
-        "self_doi": "https://doi.org/10.5281/zenodo.8049246",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.8049246",
-        "parent": "https://zenodo.org/api/records/7697489",
-        "parent_html": "https://zenodo.org/records/7697489",
-        "parent_doi": "https://doi.org/10.5281/zenodo.7697489",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.7697489",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:8049246/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:8049246/sequence/default",
-        "files": "https://zenodo.org/api/records/8049246/files",
-        "media_files": "https://zenodo.org/api/records/8049246/media-files",
-        "archive": "https://zenodo.org/api/records/8049246/files-archive",
-        "archive_media": "https://zenodo.org/api/records/8049246/media-files-archive",
-        "latest": "https://zenodo.org/api/records/8049246/versions/latest",
-        "latest_html": "https://zenodo.org/records/8049246/latest",
-        "versions": "https://zenodo.org/api/records/8049246/versions",
-        "draft": "https://zenodo.org/api/records/8049246/draft",
-        "reserve_doi": "https://zenodo.org/api/records/8049246/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/8049246/access/links",
-        "access_grants": "https://zenodo.org/api/records/8049246/access/grants",
-        "access_users": "https://zenodo.org/api/records/8049246/access/users",
-        "access_request": "https://zenodo.org/api/records/8049246/access/request",
-        "access": "https://zenodo.org/api/records/8049246/access",
-        "communities": "https://zenodo.org/api/records/8049246/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/8049246/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/8049246/requests"
-      },
-      "updated": "2023-06-17T02:26:52.674017+00:00",
-      "recid": "8049246",
-      "revision": 2,
-      "files": [
-        {
-          "id": "43c39472-c7f0-4c50-95a7-f4079802b0fe",
-          "key": "genomad_supplementary_data_code.zip",
-          "size": 8564676184,
-          "checksum": "md5:25ea62a5b626bdfd6790a36cb3b310b7",
-          "links": {
-            "self": "https://zenodo.org/api/records/8049246/files/genomad_supplementary_data_code.zip/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "84401"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 379,
-        "unique_downloads": 201,
-        "views": 839,
-        "unique_views": 774,
-        "version_downloads": 339,
-        "version_unique_downloads": 165,
-        "version_unique_views": 566,
-        "version_views": 624
       },
       "state": "done",
       "submitted": true
