@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Citation Data Debug</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Citation Data Debug</h1>
+        <p>This page attempts to load and display the citation data from impact_data.json.</p>
+        
+        <div class="card mb-4">
+            <div class="card-header">Citation Data Status</div>
+            <div class="card-body">
+                <pre id="status">Checking for citation data...</pre>
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header">First 10 Tools with Citations</div>
+            <div class="card-body">
+                <pre id="tools">Loading...</pre>
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header">Citations by Year</div>
+            <div class="card-body">
+                <pre id="years">Loading...</pre>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">Raw JSON Preview</div>
+            <div class="card-body">
+                <pre id="raw" style="max-height: 500px; overflow-y: auto;">Loading...</pre>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusElem = document.getElementById('status');
+            const toolsElem = document.getElementById('tools');
+            const yearsElem = document.getElementById('years');
+            const rawElem = document.getElementById('raw');
+            
+            function appendStatus(message) {
+                statusElem.textContent += "\n" + message;
+            }
+            
+            // Try to load impact_data.json
+            appendStatus("Attempting to load impact_data.json...");
+            fetch('impact_data.json')
+                .then(response => {
+                    appendStatus(`Response status: ${response.status} ${response.statusText}`);
+                    if (!response.ok) {
+                        throw new Error(`Failed to load: ${response.status} ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    appendStatus("Successfully loaded impact_data.json");
+                    appendStatus(`Keys in data: ${Object.keys(data).join(', ')}`);
+                    
+                    // Check if we have tools with citations
+                    if (data.tools && data.tools.length > 0) {
+                        appendStatus(`Found ${data.tools.length} tools`);
+                        
+                        // Display first 10 tools with citation counts
+                        const toolsWithCitations = data.tools
+                            .map(tool => {
+                                const citationCount = Object.values(tool.citations_by_year || {})
+                                    .reduce((sum, count) => sum + count, 0);
+                                return {
+                                    name: tool.name,
+                                    citations: citationCount,
+                                    years: Object.keys(tool.citations_by_year || {}).length
+                                };
+                            })
+                            .filter(tool => tool.citations > 0)
+                            .sort((a, b) => b.citations - a.citations)
+                            .slice(0, 10);
+                        
+                        toolsElem.textContent = JSON.stringify(toolsWithCitations, null, 2);
+                        
+                        // Display citations by year
+                        const citationsByYear = data.citations?.by_year || {};
+                        const years = Object.keys(citationsByYear).sort();
+                        const yearCounts = years.map(year => ({
+                            year,
+                            citations: citationsByYear[year]
+                        }));
+                        
+                        yearsElem.textContent = JSON.stringify(yearCounts, null, 2);
+                    } else {
+                        toolsElem.textContent = "No tools with citation data found.";
+                        yearsElem.textContent = "No citation year data found.";
+                    }
+                    
+                    // Show raw JSON preview (truncated)
+                    const jsonString = JSON.stringify(data, null, 2);
+                    rawElem.textContent = jsonString.length > 10000 
+                        ? jsonString.substring(0, 10000) + "...\n[truncated]" 
+                        : jsonString;
+                })
+                .catch(error => {
+                    appendStatus(`Error: ${error.message}`);
+                    
+                    // Try alternative path
+                    appendStatus("Trying alternative path...");
+                    const repoName = 'awesome-virome';
+                    const altPath = `/shandley/${repoName}/impact_data.json`;
+                    
+                    appendStatus(`Attempting to load from ${altPath}`);
+                    fetch(altPath)
+                        .then(response => {
+                            appendStatus(`Alternative path response: ${response.status} ${response.statusText}`);
+                            if (!response.ok) {
+                                throw new Error(`Failed to load from alternative path: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            appendStatus("Successfully loaded from alternative path");
+                            
+                            // Same processing as above
+                            // Display raw JSON preview (truncated)
+                            const jsonString = JSON.stringify(data, null, 2);
+                            rawElem.textContent = jsonString.length > 10000 
+                                ? jsonString.substring(0, 10000) + "...\n[truncated]" 
+                                : jsonString;
+                        })
+                        .catch(secondError => {
+                            appendStatus(`All attempts failed: ${secondError.message}`);
+                            toolsElem.textContent = "Failed to load citation data.";
+                            yearsElem.textContent = "Failed to load citation data.";
+                            rawElem.textContent = "Failed to load impact_data.json";
+                        });
+                });
+        });
+    </script>
+</body>
+</html>

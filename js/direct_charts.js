@@ -22,17 +22,75 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
     }
     
-    // If not already loaded, load impact data
+    // If not already loaded, load impact data with better path handling for GitHub Pages
     console.log('Direct Charts: Loading impact data directly');
+    
+    // First try the relative path (works locally and sometimes on GitHub Pages)
     fetch('impact_data.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to load impact_data.json: ${response.status} ${response.statusText}`);
+            }
+            return response.json();
+        })
         .then(data => {
             console.log('Direct Charts: Successfully loaded impact_data.json');
+            console.log('Direct Charts: Data structure:', Object.keys(data));
+            if (data.tools && data.tools.length > 0) {
+                console.log(`Direct Charts: Found ${data.tools.length} tools with citation data`);
+                console.log('Direct Charts: First tool citation data:', 
+                            data.tools[0].name, 
+                            Object.keys(data.tools[0].citations_by_year || {}).length);
+            }
             window.impactData = data;
             renderAllCharts(data);
         })
         .catch(error => {
-            console.error('Direct Charts: Error loading impact data:', error);
+            console.error('Direct Charts: Error loading impact data from relative path:', error);
+            
+            // Fallback to absolute path (sometimes needed on GitHub Pages)
+            console.log('Direct Charts: Trying absolute path as fallback');
+            const repoName = 'awesome-virome';
+            const username = window.location.hostname.includes('github.io') 
+                ? window.location.pathname.split('/')[1] 
+                : 'shandley'; // Fallback to repo owner
+                
+            const absolutePath = `/${username}/${repoName}/impact_data.json`;
+            console.log(`Direct Charts: Attempting to load from ${absolutePath}`);
+            
+            fetch(absolutePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Failed to load from absolute path: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Direct Charts: Successfully loaded from absolute path');
+                    window.impactData = data;
+                    renderAllCharts(data);
+                })
+                .catch(secondError => {
+                    console.error('Direct Charts: All attempts to load impact data failed:', secondError);
+                    
+                    // Show error message in citation containers
+                    const containers = [
+                        document.getElementById('citationTrendsChart'),
+                        document.getElementById('topCitedToolsChart')
+                    ];
+                    
+                    containers.forEach(container => {
+                        if (container) {
+                            container.innerHTML = `
+                                <div class="alert alert-warning m-3">
+                                    <h4 class="alert-heading">Citation Data Not Available</h4>
+                                    <p>Unable to load citation data. The data file may be missing or inaccessible.</p>
+                                    <p class="mb-0"><small>Error details: ${error.message}</small></p>
+                                </div>
+                            `;
+                        }
+                    });
+                });
         });
 });
 
