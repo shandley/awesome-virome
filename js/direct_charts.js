@@ -164,6 +164,13 @@ function renderAllCharts(data) {
 // Process citation data from any format
 function processCitationData(data) {
     console.log('Direct Charts: Processing citation data');
+    console.log('Direct Charts: Input data keys:', Object.keys(data));
+    
+    // CRITICAL DEBUG: Log the full data structure
+    console.log('Direct Charts: Citations section:', JSON.stringify(data.citations));
+    if (data.tools && data.tools.length > 0) {
+        console.log('Direct Charts: First tool citations:', JSON.stringify(data.tools[0].citations_by_year));
+    }
     
     const result = {
         hasCitations: false,
@@ -236,6 +243,20 @@ function processCitationData(data) {
 // Render citation trends chart
 function renderCitationTrendsChart(container, citationData) {
     console.log('Direct Charts: Rendering citation trends chart');
+    
+    // Check if container exists and is in the DOM
+    if (!container) {
+        console.error('Direct Charts: Citation trends container is null or undefined');
+        return;
+    }
+    
+    if (!document.body.contains(container)) {
+        console.error('Direct Charts: Citation trends container exists but is not in the DOM');
+        return;
+    }
+    
+    console.log('Direct Charts: Citation container ID:', container.id);
+    console.log('Direct Charts: Citation container dimensions:', container.offsetWidth, 'x', container.offsetHeight);
     
     // Make sure Chart.js is available
     if (typeof Chart === 'undefined') {

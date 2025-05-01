@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Direct Citation Chart Rendering</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Direct Citation Chart Rendering</h1>
+        <p>This page directly renders citation charts bypassing any dashboard framework.</p>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">Citation Trends</div>
+                    <div class="card-body">
+                        <div id="citationTrendsChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header">Top Cited Tools</div>
+                    <div class="card-body">
+                        <div id="topCitedToolsChart" class="chart-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mb-4">
+            <div class="card-header">Status</div>
+            <div class="card-body">
+                <pre id="status">Initializing...</pre>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusElem = document.getElementById('status');
+            const citationTrendsContainer = document.getElementById('citationTrendsChart');
+            const topCitedContainer = document.getElementById('topCitedToolsChart');
+            
+            function log(message) {
+                statusElem.textContent += "\n" + message;
+                console.log(message);
+            }
+            
+            log("Loading impact_data.json...");
+            
+            fetch('impact_data.json')
+                .then(response => {
+                    log(`Response status: ${response.status} ${response.statusText}`);
+                    return response.json();
+                })
+                .then(data => {
+                    log(`Data loaded successfully. Found ${data.tools.length} tools.`);
+                    
+                    // Render citation trends chart
+                    renderCitationTrendsChart(data);
+                    
+                    // Render top cited tools
+                    renderTopCitedToolsChart(data);
+                })
+                .catch(error => {
+                    log(`Error: ${error.message}`);
+                });
+            
+            function renderCitationTrendsChart(data) {
+                log("Rendering citation trends chart...");
+                
+                // Extract citation data by year
+                const citationsByYear = data.citations.by_year;
+                const years = Object.keys(citationsByYear).sort();
+                const citationCounts = years.map(year => citationsByYear[year]);
+                
+                log(`Found citation data for ${years.length} years`);
+                
+                // Calculate cumulative totals
+                let cumulativeCount = 0;
+                const cumulativeData = years.map(year => {
+                    cumulativeCount += citationsByYear[year];
+                    return cumulativeCount;
+                });
+                
+                // Create chart
+                new Chart(citationTrendsContainer, {
+                    type: 'line',
+                    data: {
+                        labels: years,
+                        datasets: [
+                            {
+                                label: 'Citations per Year',
+                                data: citationCounts,
+                                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 2,
+                                tension: 0.1
+                            },
+                            {
+                                label: 'Cumulative Citations',
+                                data: cumulativeData,
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 2,
+                                tension: 0.1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Citations'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Year'
+                                }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Citation Trends Over Time'
+                            }
+                        }
+                    }
+                });
+                
+                log("Citation trends chart rendered");
+            }
+            
+            function renderTopCitedToolsChart(data) {
+                log("Rendering top cited tools chart...");
+                
+                // Calculate total citations for each tool
+                const toolsWithCitations = data.tools.map(tool => {
+                    const totalCitations = Object.values(tool.citations_by_year || {})
+                        .reduce((sum, count) => sum + count, 0);
+                    return {
+                        name: tool.name,
+                        citations: totalCitations
+                    };
+                });
+                
+                // Sort by citation count and take top 10
+                const topTools = toolsWithCitations
+                    .sort((a, b) => b.citations - a.citations)
+                    .slice(0, 10);
+                
+                log(`Found ${toolsWithCitations.length} tools with citations`);
+                
+                // Generate colors
+                const colors = topTools.map((_, i) => {
+                    const hue = (i * 36) % 360;
+                    return `hsla(${hue}, 80%, 60%, 0.8)`;
+                });
+                
+                // Create chart
+                new Chart(topCitedContainer, {
+                    type: 'bar',
+                    data: {
+                        labels: topTools.map(tool => tool.name),
+                        datasets: [{
+                            label: 'Citations',
+                            data: topTools.map(tool => tool.citations),
+                            backgroundColor: colors,
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Citations'
+                                }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Most Cited Tools'
+                            },
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                });
+                
+                log("Top cited tools chart rendered");
+            }
+        });
+    </script>
+</body>
+</html>
