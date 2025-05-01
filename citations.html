@@ -58,7 +58,7 @@
         .card {
             border-radius: var(--border-radius);
             box-shadow: var(--card-shadow);
-            transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+            transition: box-shadow var(--transition-speed);
             margin-bottom: 1.5rem;
             border: none;
         }
@@ -76,6 +76,11 @@
             border-bottom: none;
         }
         
+        .card-body {
+            /* Ensure card body has a minimum height to prevent layout shifts */
+            min-height: 400px;
+        }
+        
         .section-title {
             font-weight: 700;
             color: var(--secondary-color);
@@ -87,9 +92,23 @@
         
         .chart-container {
             width: 100%;
-            height: 400px;
+            height: 350px; /* Fixed height to prevent layout shifts */
             position: relative;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0; /* Remove margin that can cause shifts */
+        }
+        
+        /* Prevent layout shifts in the DataTables */
+        .dataTables_wrapper {
+            width: 100%;
+            overflow: hidden; /* Prevents scrollbar jumps */
+        }
+        
+        /* Ensure loading states don't cause layout shifts */
+        .loading-placeholder {
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -133,7 +152,12 @@
                 <div class="card h-100">
                     <div class="card-header">Citation Trends</div>
                     <div class="card-body">
-                        <canvas id="citationTrendsChart" height="350"></canvas>
+                        <div class="loading-placeholder" id="citationTrendsChartContainer">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <canvas id="citationTrendsChart" height="350" style="display: none;"></canvas>
                     </div>
                 </div>
             </div>
@@ -141,7 +165,12 @@
                 <div class="card h-100">
                     <div class="card-header">Most Cited Tools</div>
                     <div class="card-body">
-                        <canvas id="topCitedToolsChart" height="350"></canvas>
+                        <div class="loading-placeholder" id="topCitedToolsChartContainer">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <canvas id="topCitedToolsChart" height="350" style="display: none;"></canvas>
                     </div>
                 </div>
             </div>
@@ -157,21 +186,29 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover" id="citationsTable">
+                        <!-- Fixed height container to prevent layout shifts -->
+                        <div class="table-responsive" style="height: 600px; overflow: auto;">
+                            <table class="table table-hover" id="citationsTable" style="width: 100%;">
                                 <thead>
                                     <tr>
-                                        <th>Tool</th>
-                                        <th>Citations</th>
-                                        <th>Influential Citations</th>
-                                        <th>First Cited</th>
-                                        <th>Recent Trend</th>
+                                        <th style="width: 25%;">Tool</th>
+                                        <th style="width: 15%;">Citations</th>
+                                        <th style="width: 20%;">Influential Citations</th>
+                                        <th style="width: 15%;">First Cited</th>
+                                        <th style="width: 25%;">Recent Trend</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <!-- Filled by JavaScript -->
                                     <tr>
-                                        <td colspan="5" class="text-center">Loading citation data...</td>
+                                        <td colspan="5" class="text-center">
+                                            <div class="py-4">
+                                                <div class="spinner-border text-primary mb-3" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                                <p>Loading citation data...</p>
+                                            </div>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -233,7 +270,10 @@
             }
             
             function renderCitationTrendsChart(data) {
-                const ctx = document.getElementById('citationTrendsChart').getContext('2d');
+                // Get canvas and container
+                const canvas = document.getElementById('citationTrendsChart');
+                const container = document.getElementById('citationTrendsChartContainer');
+                const ctx = canvas.getContext('2d');
                 
                 // Extract citation data by year
                 const citationsByYear = data.citations.by_year;
@@ -297,10 +337,17 @@
                         }
                     }
                 });
+                
+                // Show canvas, hide loading placeholder
+                container.style.display = 'none';
+                canvas.style.display = 'block';
             }
             
             function renderTopCitedToolsChart(data) {
-                const ctx = document.getElementById('topCitedToolsChart').getContext('2d');
+                // Get canvas and container
+                const canvas = document.getElementById('topCitedToolsChart');
+                const container = document.getElementById('topCitedToolsChartContainer');
+                const ctx = canvas.getContext('2d');
                 
                 // Calculate total citations for each tool
                 const toolsWithCitations = data.tools.map(tool => {
@@ -359,6 +406,10 @@
                         }
                     }
                 });
+                
+                // Show canvas, hide loading placeholder
+                container.style.display = 'none';
+                canvas.style.display = 'block';
             }
             
             function renderCitationsTable(data) {
@@ -402,12 +453,18 @@
                 // Update table
                 tableBody.innerHTML = tableHTML;
                 
-                // Initialize DataTable
+                // Initialize DataTable with options to reduce layout shifts
                 $('#citationsTable').DataTable({
                     pageLength: 25,
                     order: [[1, 'desc']],
+                    scrollY: '400px',
+                    scrollCollapse: true,
                     language: {
                         search: "Search tools:"
+                    },
+                    drawCallback: function() {
+                        // Force a specific height to avoid layout shifts
+                        $('.dataTables_scrollBody').css('height', '400px');
                     }
                 });
             }
