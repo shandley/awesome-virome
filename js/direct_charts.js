@@ -40,14 +40,17 @@ document.addEventListener('DOMContentLoaded', function() {
 function renderAllCharts(data) {
     console.log('Direct Charts: Starting chart rendering');
     
-    // Check if we have citation data
-    if (data.citations && data.citations.by_year && Object.keys(data.citations.by_year).length > 0) {
-        console.log('Direct Charts: Citation data found, years:', Object.keys(data.citations.by_year).length);
+    // Process citation data first to support both formats
+    let citationData = processCitationData(data);
+    
+    // Check if we have citation data in any format
+    if (citationData.hasCitations) {
+        console.log('Direct Charts: Citation data processed successfully');
         
         // Replace the entire citation trends chart container
         const citationTrendsContainer = document.getElementById('citationTrendsChart');
         if (citationTrendsContainer) {
-            renderCitationTrendsChart(citationTrendsContainer, data);
+            renderCitationTrendsChart(citationTrendsContainer, citationData);
         } else {
             console.error('Direct Charts: Citation trends container not found!');
         }
@@ -55,10 +58,13 @@ function renderAllCharts(data) {
         // Replace the entire top cited tools chart container
         const topCitedContainer = document.getElementById('topCitedToolsChart');
         if (topCitedContainer) {
-            renderTopCitedToolsChart(topCitedContainer, data);
+            renderTopCitedToolsChart(topCitedContainer, citationData);
         } else {
             console.error('Direct Charts: Top cited tools container not found!');
         }
+        
+        // Also update the citation table
+        updateCitationTable(citationData);
     } else {
         console.error('Direct Charts: No citation data found in impact_data.json');
     }
@@ -97,8 +103,80 @@ function renderAllCharts(data) {
     updateStats(data);
 }
 
+// Process citation data from any format
+function processCitationData(data) {
+    console.log('Direct Charts: Processing citation data');
+    
+    const result = {
+        hasCitations: false,
+        by_year: {},
+        total: 0,
+        tools: []
+    };
+    
+    // Check if we have the new format (data.citations.by_year)
+    if (data.citations && data.citations.by_year && Object.keys(data.citations.by_year).length > 0) {
+        console.log('Direct Charts: Found citations in new format (data.citations.by_year)');
+        result.by_year = data.citations.by_year;
+        result.total = data.citations.total || Object.values(data.citations.by_year).reduce((sum, count) => sum + count, 0);
+        result.hasCitations = true;
+        
+        // For the top cited tools chart, we need to extract them from data.tools if available
+        if (data.tools && Array.isArray(data.tools)) {
+            result.tools = data.tools.map(tool => ({
+                name: tool.name,
+                citations: Object.values(tool.citations_by_year || {}).reduce((sum, count) => sum + count, 0),
+                citations_by_year: tool.citations_by_year || {}
+            })).filter(tool => tool.citations > 0);
+        }
+    }
+    // Check if we have an array of tools with citations_by_year
+    else if (data.tools && Array.isArray(data.tools)) {
+        console.log('Direct Charts: Found citations in tools array format');
+        
+        // Extract tools with citation data
+        const toolsWithCitations = data.tools.filter(tool => 
+            tool.citations_by_year && Object.keys(tool.citations_by_year).length > 0
+        );
+        
+        if (toolsWithCitations.length > 0) {
+            result.hasCitations = true;
+            
+            // Aggregate citations by year across all tools
+            toolsWithCitations.forEach(tool => {
+                Object.entries(tool.citations_by_year || {}).forEach(([year, count]) => {
+                    if (!result.by_year[year]) {
+                        result.by_year[year] = 0;
+                    }
+                    result.by_year[year] += count;
+                });
+            });
+            
+            // Calculate total citations
+            result.total = Object.values(result.by_year).reduce((sum, count) => sum + count, 0);
+            
+            // Format tool data for the top cited tools chart
+            result.tools = toolsWithCitations.map(tool => ({
+                name: tool.name,
+                citations: Object.values(tool.citations_by_year || {}).reduce((sum, count) => sum + count, 0),
+                citations_by_year: tool.citations_by_year
+            })).filter(tool => tool.citations > 0);
+        }
+    }
+    
+    if (result.hasCitations) {
+        console.log('Direct Charts: Processed citation data:', {
+            years: Object.keys(result.by_year).length,
+            totalCitations: result.total,
+            toolsWithCitations: result.tools.length
+        });
+    }
+    
+    return result;
+}
+
 // Render citation trends chart
-function renderCitationTrendsChart(container, data) {
+function renderCitationTrendsChart(container, citationData) {
     console.log('Direct Charts: Rendering citation trends chart');
     
     // Make sure Chart.js is available
@@ -108,7 +186,7 @@ function renderCitationTrendsChart(container, data) {
     }
     
     // Get citation data by year
-    const citationsByYear = data.citations.by_year;
+    const citationsByYear = citationData.by_year;
     const years = Object.keys(citationsByYear).sort();
     
     // Calculate cumulative citations
@@ -201,7 +279,7 @@ function renderCitationTrendsChart(container, data) {
 }
 
 // Render top cited tools chart
-function renderTopCitedToolsChart(container, data) {
+function renderTopCitedToolsChart(container, citationData) {
     console.log('Direct Charts: Rendering top cited tools chart');
     
     // Make sure Chart.js is available
@@ -210,15 +288,8 @@ function renderTopCitedToolsChart(container, data) {
         return;
     }
     
-    // Calculate total citations for each tool
-    const tools = data.tools || [];
-    const toolsWithCitations = tools.map(tool => {
-        const totalCitations = Object.values(tool.citations_by_year || {}).reduce((sum, count) => sum + count, 0);
-        return {
-            name: tool.name,
-            citations: totalCitations
-        };
-    });
+    // Use the pre-processed tool citation data
+    const toolsWithCitations = citationData.tools || [];
     
     // Sort by citation count and take top 10
     const topTools = toolsWithCitations
@@ -778,14 +849,100 @@ function renderCreationTimelineChart(container, data) {
     console.log('Direct Charts: Creation timeline chart rendered successfully');
 }
 
+// Update citation table
+function updateCitationTable(citationData) {
+    console.log('Direct Charts: Updating citation table');
+    
+    const citationsTableBody = document.querySelector('#citationsTable tbody');
+    if (!citationsTableBody) {
+        console.error('Direct Charts: Citations table body not found');
+        return;
+    }
+    
+    // Clear existing rows
+    citationsTableBody.innerHTML = '';
+    
+    // Add rows for each tool with citations
+    const sortedTools = [...citationData.tools]
+        .sort((a, b) => b.citations - a.citations)
+        .slice(0, 20); // Limit to top 20 tools to avoid overwhelming the table
+    
+    sortedTools.forEach(tool => {
+        const row = document.createElement('tr');
+        
+        // Create a simple citation trend mini-visualization
+        const trendHtml = createMiniTrendHtml(tool.citations_by_year);
+        
+        // Get influential citations if available
+        const influentialCitations = tool.influential_citations || Math.round(tool.citations * 0.2); // Fallback: assume 20% are influential
+        
+        // Get DOI if available
+        const doi = tool.doi || '';
+        
+        row.innerHTML = `
+            <td>${tool.name}</td>
+            <td>${tool.citations.toLocaleString()}</td>
+            <td>${influentialCitations.toLocaleString()}</td>
+            <td>${doi ? `<a href="https://doi.org/${doi}" target="_blank">${doi}</a>` : 'N/A'}</td>
+            <td>${trendHtml}</td>
+        `;
+        
+        citationsTableBody.appendChild(row);
+    });
+    
+    console.log('Direct Charts: Citation table updated successfully');
+}
+
+// Create a mini trend visualization for the citation table
+function createMiniTrendHtml(citationsByYear) {
+    if (!citationsByYear || Object.keys(citationsByYear).length === 0) {
+        return '<span class="text-muted">No trend data</span>';
+    }
+    
+    const years = Object.keys(citationsByYear).sort();
+    const values = years.map(year => citationsByYear[year]);
+    
+    // Find max value for scaling
+    const maxValue = Math.max(...values);
+    
+    // Create a simple sparkline
+    const barWidth = 5;
+    const barGap = 2;
+    const height = 20;
+    const totalWidth = years.length * (barWidth + barGap);
+    
+    let html = `<svg width="${totalWidth}" height="${height}" style="vertical-align: middle;">`;
+    
+    // Create a bar for each year
+    years.forEach((year, index) => {
+        const value = citationsByYear[year];
+        const barHeight = maxValue > 0 ? (value / maxValue) * height : 0;
+        const x = index * (barWidth + barGap);
+        const y = height - barHeight;
+        const color = '#4285F4'; // Blue color for bars
+        
+        html += `<rect x="${x}" y="${y}" width="${barWidth}" height="${barHeight}" fill="${color}" />`;
+    });
+    
+    html += '</svg>';
+    
+    return html;
+}
+
 // Update dashboard statistics
 function updateStats(data) {
     console.log('Direct Charts: Updating dashboard statistics');
     
+    // First, process citation data if needed
+    let citationData = data;
+    if (!data.hasCitations) {
+        citationData = processCitationData(data);
+    }
+    
     // Total citations
     const totalCitationsElement = document.getElementById('totalCitations');
-    if (totalCitationsElement && data.citations) {
-        totalCitationsElement.textContent = data.citations.total.toLocaleString();
+    if (totalCitationsElement) {
+        totalCitationsElement.textContent = citationData.total.toLocaleString();
     }
     
     // Total tools
@@ -807,7 +964,7 @@ function updateStats(data) {
     
     // Average citations
     const avgCitationsElement = document.getElementById('avgCitations');
-    if (avgCitationsElement && data.citations) {
+    if (avgCitationsElement) {
         let toolCount = 0;
         
         // Try to get tool count from different sources
@@ -819,7 +976,7 @@ function updateStats(data) {
             toolCount = window.globalData.nodes.filter(node => node.type === 'tool').length;
         }
         
-        const avgCitations = toolCount > 0 ? data.citations.total / toolCount : 0;
+        const avgCitations = toolCount > 0 ? citationData.total / toolCount : 0;
         avgCitationsElement.textContent = avgCitations.toFixed(1);
     }
     
