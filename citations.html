@@ -110,6 +110,61 @@
             align-items: center;
             justify-content: center;
         }
+        
+        /* Enhanced table styling */
+        .table th {
+            background-color: var(--secondary-light);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .table-hover tbody tr:hover {
+            background-color: rgba(157, 94, 176, 0.1);
+        }
+        
+        /* Badge styling */
+        .badge {
+            padding: 0.5rem 0.8rem;
+            font-weight: 600;
+            border-radius: 30px;
+        }
+        
+        /* Improved spacing */
+        .my-5 {
+            margin-top: 3rem !important;
+            margin-bottom: 3rem !important;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Improved responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+            
+            .card-header {
+                padding: 0.8rem 1.2rem;
+            }
+            
+            .card-body {
+                padding: 1.2rem;
+            }
+        }
+        
+        /* Add subtle hover effects to buttons */
+        .btn {
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -230,8 +285,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Citations page: Initializing...');
             
-            // Load citation data
-            fetch('impact_data.json')
+            // Load citation data with cache busting to ensure fresh data
+            fetch(`impact_data.json?t=${Date.now()}`)
                 .then(response => {
                     console.log('Citations page: Response status:', response.status);
                     return response.json();
@@ -254,13 +309,54 @@
                     `;
                 });
                 
+            // Function to calculate total citations from yearly data
+            function calculateTotalCitations(yearlyData) {
+                let total = 0;
+                if (yearlyData) {
+                    Object.values(yearlyData).forEach(count => {
+                        const numCount = Number(count);
+                        if (!isNaN(numCount)) {
+                            total += numCount;
+                        }
+                    });
+                }
+                return total;
+            }
+            
             function renderCitationData(data) {
-                // Update total citations
-                const totalCitations = data.citations.total;
+                // Calculate total citations across all tools
+                let totalCitations = 0;
+                data.tools.forEach(tool => {
+                    const toolTotal = calculateTotalCitations(tool.citations_by_year);
+                    totalCitations += toolTotal;
+                });
+                
                 document.getElementById('totalCitationsInfo').textContent = `Total: ${totalCitations.toLocaleString()} Citations`;
                 
+                // Calculate citation data by year for the trends chart
+                const citationsByYear = {};
+                data.tools.forEach(tool => {
+                    if (tool.citations_by_year) {
+                        Object.entries(tool.citations_by_year).forEach(([year, count]) => {
+                            if (!citationsByYear[year]) {
+                                citationsByYear[year] = 0;
+                            }
+                            citationsByYear[year] += Number(count);
+                        });
+                    }
+                });
+                
+                // Create data object with calculated values
+                const calculatedData = {
+                    tools: data.tools,
+                    citations: {
+                        total: totalCitations,
+                        by_year: citationsByYear
+                    }
+                };
+                
                 // Render citation trends chart
-                renderCitationTrendsChart(data);
+                renderCitationTrendsChart(calculatedData);
                 
                 // Render top cited tools chart
                 renderTopCitedToolsChart(data);
@@ -349,15 +445,21 @@
                 const container = document.getElementById('topCitedToolsChartContainer');
                 const ctx = canvas.getContext('2d');
                 
-                // Calculate total citations for each tool
+                // Calculate total citations for each tool using direct calculation
                 const toolsWithCitations = data.tools.map(tool => {
-                    const totalCitations = Object.values(tool.citations_by_year || {})
-                        .reduce((sum, count) => sum + count, 0);
+                    const totalCitations = calculateTotalCitations(tool.citations_by_year);
                     return {
                         name: tool.name,
                         citations: totalCitations
                     };
                 });
+                
+                // Log the top tools for debugging
+                console.log('Top cited tools:', 
+                    toolsWithCitations
+                        .sort((a, b) => b.citations - a.citations)
+                        .slice(0, 10)
+                );
                 
                 // Sort by citation count and take top 10
                 const topTools = toolsWithCitations
@@ -415,11 +517,11 @@
             function renderCitationsTable(data) {
                 const tableBody = document.querySelector('#citationsTable tbody');
                 
-                // Calculate citation totals and sort tools
+                // Calculate citation totals and sort tools using direct calculation
                 const toolsWithCitations = data.tools.map(tool => {
                     const yearlyData = tool.citations_by_year || {};
                     const years = Object.keys(yearlyData).sort();
-                    const totalCitations = Object.values(yearlyData).reduce((sum, count) => sum + count, 0);
+                    const totalCitations = calculateTotalCitations(yearlyData);
                     
                     return {
                         name: tool.name,
@@ -432,6 +534,13 @@
                 
                 // Sort by citation count (descending)
                 toolsWithCitations.sort((a, b) => b.totalCitations - a.totalCitations);
+                
+                // Log the top 5 tools for debugging
+                console.log('Citations table - Top 5 tools:', 
+                    toolsWithCitations.slice(0, 5).map(t => 
+                        `${t.name}: ${t.totalCitations} citations`
+                    )
+                );
                 
                 // Build table rows
                 let tableHTML = '';
