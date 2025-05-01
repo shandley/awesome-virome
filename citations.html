@@ -92,9 +92,12 @@
         
         .chart-container {
             width: 100%;
-            height: 350px; /* Fixed height to prevent layout shifts */
+            height: 350px !important; /* Force fixed height to prevent layout shifts */
             position: relative;
             margin-bottom: 0; /* Remove margin that can cause shifts */
+            overflow: hidden; /* Hide any overflow */
+            max-height: 350px !important; /* Ensure strict height limits */
+            min-height: 350px !important; /* Ensure strict height limits */
         }
         
         /* Prevent layout shifts in the DataTables */
@@ -207,12 +210,12 @@
                 <div class="card h-100">
                     <div class="card-header">Citation Trends</div>
                     <div class="card-body">
-                        <div class="loading-placeholder" id="citationTrendsChartContainer">
+                        <div class="loading-placeholder" id="citationTrendsChartContainer" style="height: 350px; width: 100%;">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        <canvas id="citationTrendsChart" height="350" style="display: none;"></canvas>
+                        <canvas id="citationTrendsChart" height="350" width="700" style="display: none;"></canvas>
                     </div>
                 </div>
             </div>
@@ -220,12 +223,12 @@
                 <div class="card h-100">
                     <div class="card-header">Most Cited Tools</div>
                     <div class="card-body">
-                        <div class="loading-placeholder" id="topCitedToolsChartContainer">
+                        <div class="loading-placeholder" id="topCitedToolsChartContainer" style="height: 350px; width: 100%;">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        <canvas id="topCitedToolsChart" height="350" style="display: none;"></canvas>
+                        <canvas id="topCitedToolsChart" height="350" width="700" style="display: none;"></canvas>
                     </div>
                 </div>
             </div>
@@ -408,8 +411,13 @@
                         ]
                     },
                     options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
+                        responsive: false, // Prevent responsive resizing
+                        maintainAspectRatio: true, // Maintain fixed aspect ratio
+                        aspectRatio: 2, // Set fixed aspect ratio
+                        resizeDelay: 0, // Disable resize delay
+                        animation: {
+                            duration: 0 // Disable animations for faster rendering
+                        },
                         scales: {
                             y: {
                                 beginAtZero: true,
@@ -486,8 +494,13 @@
                     },
                     options: {
                         indexAxis: 'y',
-                        responsive: true,
-                        maintainAspectRatio: false,
+                        responsive: false, // Prevent responsive resizing
+                        maintainAspectRatio: true, // Maintain fixed aspect ratio
+                        aspectRatio: 2, // Set fixed aspect ratio
+                        resizeDelay: 0, // Disable resize delay
+                        animation: {
+                            duration: 0 // Disable animations for faster rendering
+                        },
                         scales: {
                             x: {
                                 beginAtZero: true,
