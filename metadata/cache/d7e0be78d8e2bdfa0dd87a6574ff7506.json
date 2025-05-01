@@ -1,278 +1,348 @@
 {
-  "cache_date": "2025-03-17T23:39:39.595766",
+  "cache_date": "2025-05-01T09:58:45.787111",
   "data": [
     {
-      "created": "2025-03-10T10:31:17.446785+00:00",
-      "modified": "2025-03-10T10:31:17.631593+00:00",
-      "id": 14998944,
-      "conceptrecid": "14998943",
-      "doi": "10.5281/zenodo.14998944",
-      "conceptdoi": "10.5281/zenodo.14998943",
-      "doi_url": "https://doi.org/10.5281/zenodo.14998944",
+      "created": "2025-05-01T04:33:09.782624+00:00",
+      "modified": "2025-05-01T04:33:10.357964+00:00",
+      "id": 15314214,
+      "conceptrecid": "6094887",
+      "doi": "10.5281/zenodo.15314214",
+      "conceptdoi": "10.5281/zenodo.6094887",
+      "doi_url": "https://doi.org/10.5281/zenodo.15314214",
       "metadata": {
-        "title": "Enhancing Apple Fruit Quality Detection with Augmented YOLOv3 Deep Learning Algorithm",
-        "doi": "10.5281/zenodo.14998944",
-        "publication_date": "2025-03-10",
-        "description": "<p><span>Precise apple detection is essential in the food manufacturing industry to provide quality control in production lines for differentiating between fresh and damaged apples. Various apple detection difficulties are found even before harvest in today's environment. However, post-harvest evaluation is still crucial for identifying apple species and assessing quality to expedite food processing procedures. This study presents a sophisticated detection model for multi-class apple recognition to distinguish between regular, damaged, and red delicious apples. The proposed model enhances <span>Augment-YOLOv3</span> by integrating background removal through <span>GrabCut</span>, thereby improving object localization. Additionally, <span>extra spatial pyramid pooling</span> and a <span>Swish activation function</span> are incorporated to optimize feature retention during training. The YOLOv3 framework is refined using the <span>Darknet53</span> backbone with <span>feature pyramid network-based spatial pooling</span>, ensuring superior feature extraction before object detection. The final classification layer precisely distinguishes between apple categories. Experimental evaluations reveal that the <span>Augment-YOLOv3</span> model achieves a <span>mean average precision (mAP) of 98.20%</span>, outperforming conventional <span>YOLOv3 and YOLOv4</span> models. The study leverages a newly curated <span>Kaggle dataset</span>, utilizing <span>Google Colab with an NVIDIA Tesla K-80 GPU</span> for inference, ensuring precise object localization and robust multi-object detection performance.</span></p>",
+        "title": "Gut Analysis Toolbox: Training data and 2D models for segmenting enteric neurons, neuronal subtypes and ganglia",
+        "doi": "10.5281/zenodo.15314214",
+        "publication_date": "2025-05-01",
+        "description": "<p>This upload is associated with the software, <a href=\"https://github.com/pr4deepr/GutAnalysisToolbox\">Gut Analysis Toolbox</a>&nbsp;(GAT).</p>\n<p>If you use it please cite:</p>\n<p><strong><em>Sorensen et al.&nbsp;Gut Analysis Toolbox: Automating quantitative analysis of enteric neurons.&nbsp;J Cell Sci&nbsp;2024; jcs.261950. doi:&nbsp;<a href=\"https://doi.org/10.1242/jcs.261950\" target=\"_blank\" rel=\"noopener\">https://doi.org/10.1242/jcs.261950</a></em></strong></p>\n<p>The upload contains<strong> StarDist models for segmenting enteric neurons in 2D, enteric neuronal subtypes in 2D and FPN+ResNet101 model for enteric ganglia in 2D in gut wholemount tissue.</strong> GAT is implemented in Fiji, but the models can be used in any software that supports StarDist and the use of 2D UNet models.&nbsp;The files here also consist of&nbsp;<strong>Python notebooks (Google Colab)</strong>, training and test data as well as reports on model performance.</p>\n<p>Note: The enteric ganglia model is has been updated to v3 which uses pytorch and is a different architecture (FPN+ResNet101).</p>\n<p>The model files are located in the respective folders as zip files. The folders have also been zipped:</p>\n<ul>\n<li>Neuron (Hu; <a href=\"https://github.com/stardist/stardist\">StarDist</a>&nbsp;model):\n<ul>\n<li>Main folder: 2D_enteric_neuron_model_QA.zip</li>\n<li>StarDist Model File:2D_enteric_neuron_v4_1.zip&nbsp;</li>\n<li>DeepImageJ compatible model: 2D_enteric_neuron.bioimage.io.model.zip (used currently in GAT)</li>\n</ul>\n</li>\n<li>Neuronal subtype (<a href=\"https://github.com/stardist/stardist\">StarDist</a>&nbsp;model):&nbsp;\n<ul>\n<li>Main folder: 2D_enteric_neuron_subtype_model_QA.zip</li>\n<li>Model File: 2D_enteric_neuron_subtype_v4.zip</li>\n<li>DeepImageJ compatible model: 2D_enteric_neuron_subtype.bioimage.io.model.zip (used currently in GAT)</li>\n</ul>\n</li>\n<li>Enteric ganglia (2D FPN_ResNet101; Use in FIJI with&nbsp;<a href=\"https://deepimagej.github.io/deepimagej/\">deepImageJ</a>)\n<ul>\n<li>Main folder: 2D_enteric_ganglia_v3_training.zip</li>\n<li>Model File: 2D_Ganglia_RGB_v3.bioimage.io.model.zip (used currently in GAT)</li>\n</ul>\n</li>\n</ul>\n<p>For the all models, files included are:</p>\n<ol>\n<li>Model for segmenting cells or ganglia in 2D FIJI. StarDist or 2D UNet.</li>\n<li>Training and Test datasets used for training.</li>\n<li>Google Colab notebooks used for training and quality assurance (<a href=\"https://github.com/HenriquesLab/ZeroCostDL4Mic/wiki\">ZeroCost DL4Mic notebooks</a>).</li>\n<li>Python notebook and code for training ganglia model with QA.</li>\n<li>Quality assurance reports generated from above notebooks.</li>\n<li>StarDist model exported for use in QuPath.</li>\n</ol>\n<p>The model files can be used within can be used within the software,&nbsp;<a href=\"https://github.com/stardist/stardist\">StarDist</a>. They&nbsp;are intended to be used within FIJI or QuPath, but can be used in any software that supports the implementation of StarDist in 2D.</p>\n<p><strong>Data:</strong></p>\n<p>All the images were collected from 4 different research labs and a public database (<a href=\"https://sparc.science/data?type=dataset\">SPARC database</a>) to account for variations in image acquisition, sample preparation and immunolabelling.</p>\n<p>For enteric neurons&nbsp;the pan-neuronal marker, Hu&nbsp;has been used and the&nbsp; 2D wholemounts images from mouse, rat and human tissue.</p>\n<p>For enteric neuronal subtypes, 2D images for nNOS, MOR, DOR, ChAT, Calretinin, Calbindin, Neurofilament, CGRP and SST from mouse tissue have been used..</p>\n<p>25 images were used&nbsp;from the following entries in the&nbsp;<a href=\"https://sparc.science/data?type=dataset\">SPARC database</a>:</p>\n<ul>\n<li><a href=\"https://doi.org/10.26275/9FFG-482D\">Howard, M. (2021). 3D imaging of enteric neurons in mouse (Version 1) [Data set]. SPARC Consortium. </a></li>\n<li><a href=\"https://doi.org/10.26275/PZEK-91WX\">Graham, K. D., Huerta-Lopez, S., Sengupta, R., Shenoy, A., Schneider, S., Wright, C. M., Feldman, M., Furth, E., Lemke, A., Wilkins, B. J., Naji, A., Doolin, E., Howard, M., &amp; Heuckeroth, R. (2020). Robust 3-Dimensional visualization of human colon enteric nervous system without tissue sectioning (Version 1) [Data set]. SPARC Consortium.</a></li>\n<li>Wang, L., Yuan, P.-Q., Gould, T. and Tache, Y. (2021). Antibodies Tested in theColon &ndash; Mouse (Version 1) [Data set]. SPARC Consortium. doi:10.26275/i7dl-58h</li>\n</ul>\n<p>Additional images for new ganglia model:</p>\n<ul>\n<li>Hamnett, R., Dershowitz, L. B., Sampathkumar, V., Wang, Z., Gomez-Frittelli, J., De Andrade, V., Kasthuri, N., Druckmann, S. and Kaltschmidt, J. A. (2022b). Regional cytoarchitecture of the adult and developing mouse enteric nervous system. Curr. Biol. 32, 4483-4492.e5.</li>\n</ul>\n<p>The images have been acquired using a combination different microscopes. The images for the mouse tissue were acquired using:&nbsp;</p>\n<ul>\n<li>\n<p>Leica TCS-SP8 confocal system (20x HC PL APO NA 1.33, 40 x HC PL APO NA 1.3)&nbsp;</p>\n</li>\n<li>\n<p>Leica TCS-SP8 lightning confocal system (20x HC PL APO NA 0.88)&nbsp;</p>\n</li>\n<li>\n<p>Zeiss Axio Imager M2 (20X HC PL APO NA 0.3)&nbsp;</p>\n</li>\n<li>\n<p>Zeiss Axio Imager Z1 (10X HC PL APO NA 0.45)&nbsp;</p>\n</li>\n</ul>\n<p>Human tissue images were acquired using:&nbsp;</p>\n<ul>\n<li>\n<p>IX71 Olympus microscope (10X HC PL APO NA 0.3)&nbsp;</p>\n</li>\n</ul>\n<p>For more information, visit the&nbsp;<a href=\"https://gut-analysis-toolbox.gitbook.io/docs\" target=\"_blank\" rel=\"noopener\">Documentation</a> website.</p>\n<p><strong>NOTE:</strong> The images for enteric neurons and neuronal subtypes have been rescaled to 0.568 &micro;m/pixel for mouse and rat. For human neurons, it has been rescaled to 0.9 &micro;m/pixel . This is to ensure the neuronal cell bodies have similar pixel area across images. The area of cells in pixels can vary based on resolution of image, magnification of objective used, animal species (larger animals -&gt; larger neurons) and potentially how the tissue is stretched during wholemount preparation&nbsp;</p>\n<p>Average neuron area for neuronal model:&nbsp;701.2 &plusmn; 195.9 pixel<sup>2 </sup>(Mean &plusmn; SD, 6267 cells)</p>\n<p>Average neuron area for neuronal subtype model:&nbsp;880.9 &plusmn; 316 pixel<sup>2 </sup>(Mean &plusmn; SD, 924 cells)</p>\n<p><strong>Software References:</strong></p>\n<p><strong><a href=\"https://github.com/stardist/stardist\">Stardist</a></strong></p>\n<p>Schmidt, U., Weigert, M., Broaddus, C., &amp; Myers, G. (2018, September). Cell detection with star-convex polygons. In&nbsp;<em>International Conference on Medical Image Computing and Computer-Assisted Intervention</em>&nbsp;(pp. 265-273). Springer, Cham.</p>\n<p><strong><a href=\"https://deepimagej.github.io/deepimagej/\">deepImageJ</a></strong></p>\n<p>G&oacute;mez-de-Mariscal, E., Garc&iacute;a-L&oacute;pez-de-Haro, C., Ouyang, W., Donati, L., Lundberg, E., Unser, M., Mu&ntilde;oz-Barrutia, A. and Sage, D., 2021. DeepImageJ: A user-friendly environment to run deep learning models in ImageJ.&nbsp;<em>Nature Methods</em>,&nbsp;<em>18</em>(10), pp.1192-1195.</p>\n<p><strong><a href=\"https://github.com/HenriquesLab/ZeroCostDL4Mic/wiki\">ZeroCost DL4Mic</a></strong></p>\n<p>von Chamier, L., Laine, R.F., Jukkala, J., Spahn, C., Krentzel, D., Nehme, E., Lerche, M., Hern&aacute;ndez-P&eacute;rez, S., Mattila, P.K., Karinou, E. and Holden, S., 2021. Democratising deep learning for microscopy with ZeroCostDL4Mic.&nbsp;<em>Nature communications</em>,&nbsp;<em>12</em>(1), pp.1-18.</p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Busireddy Seshakagari Haranadha Reddy",
-            "affiliation": "Manager \u2013 Architecture, Valuemomentum, Erie,\u00a0PA,\u00a0USA\u00a016506."
+            "name": "Luke Sorensen",
+            "affiliation": "Monash Institute of Pharmaceutical Sciences"
           },
           {
-            "name": "R Venkatramana",
-            "affiliation": "Dept. of Computer Science\u00a0and\u00a0Engineering, Sri Venkateswara College of Engineering, Tirupati, India."
+            "name": "Ayame Saito",
+            "affiliation": "Monash Institute of Pharmaceutical Sciences"
           },
           {
-            "name": "L Jayasree",
-            "affiliation": "Dept. of CSE, Sri Padmavati Mahila Visva Vidyalayam, Tirupati - 517 502, AP, India."
+            "name": "Sabrina Poon",
+            "affiliation": "University of Melbourne"
+          },
+          {
+            "name": "Myat Noe Han",
+            "affiliation": "University of Melbourne",
+            "orcid": "0000-0003-3028-7359"
+          },
+          {
+            "name": "Adam Humenick",
+            "affiliation": "Flinders University"
+          },
+          {
+            "name": "Peter Neckel",
+            "affiliation": null
+          },
+          {
+            "name": "Keith Mutunduwe",
+            "affiliation": "Monash Institute of Pharmaceutical Sciences"
+          },
+          {
+            "name": "Christie Glennan",
+            "affiliation": "Monash Institute of Pharmaceutical Sciences"
+          },
+          {
+            "name": "Narges Mahdavian",
+            "affiliation": "Monash Institute of Pharmaceutical Sciences"
+          },
+          {
+            "name": "Simon JH Brookes",
+            "affiliation": "Flinders University",
+            "orcid": "0000-0001-5635-0876"
+          },
+          {
+            "name": "Rachel M McQuade",
+            "affiliation": "University of Melbourne",
+            "orcid": "0000-0002-3510-1288"
+          },
+          {
+            "name": "Jaime PP Foong",
+            "affiliation": "University of Melbourne",
+            "orcid": "0000-0003-2082-5520"
+          },
+          {
+            "name": "Sebastian K. King",
+            "affiliation": "University of Melbourne, Department of Paediatric Surgery, The Royal Children's Hospital, Parkville, Victoria, Australia",
+            "orcid": "0000-0001-5396-0265"
+          },
+          {
+            "name": "Estibaliz  G\u00f3mez-de-Mariscal",
+            "affiliation": "Instituto Gulbenkian de Ci\u00eancia",
+            "orcid": "0000-0003-2082-3277"
+          },
+          {
+            "name": "Arrate Mu\u00f1oz-Barrutia",
+            "affiliation": "Universidad Carlos III de Madrid",
+            "orcid": "0000-0002-1573-1661"
+          },
+          {
+            "name": "Robert Haase",
+            "affiliation": "DFG Cluster of Excellence \"Physics of Life\", TU Dresden",
+            "orcid": "0000-0001-5949-2327"
+          },
+          {
+            "name": "Simona Carbone",
+            "affiliation": "Monash Institute of Pharmaceutical Sciences",
+            "orcid": "0000-0002-4350-6357"
+          },
+          {
+            "name": "Nicholas A. Veldhuis",
+            "affiliation": "Monash Institute of Pharmaceutical Sciences",
+            "orcid": "0000-0002-8902-9365"
+          },
+          {
+            "name": "Daniel P. Poole",
+            "affiliation": "Monash Institute of Pharmaceutical Sciences",
+            "orcid": "0000-0002-6168-8422"
+          },
+          {
+            "name": "Pradeep Rajasekhar",
+            "affiliation": "Walter and Eliza Hall Institute of Medical Research",
+            "orcid": "0000-0002-1983-7244"
           }
         ],
+        "keywords": [
+          "enteric neuron",
+          "deep learning",
+          "model",
+          "AI",
+          "stardist",
+          "segmentation",
+          "image analysis",
+          "bioimage analysis",
+          "gut analysis toolbox",
+          "gut",
+          "fiji",
+          "qupath",
+          "enteric ganglia",
+          "NOS",
+          "cell count",
+          "enteric nervous system",
+          "colon"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.1242/jcs.261950",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          }
+        ],
+        "language": "eng",
         "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
+          "title": "Dataset",
+          "type": "dataset"
         },
-        "journal": {
-          "issue": "1",
-          "pages": "386 - 396",
-          "title": "International Journal of Human Computations and Intelligence",
-          "volume": "4"
-        },
+        "alternate_identifiers": [
+          {
+            "identifier": "10.1242/jcs.261950"
+          }
+        ],
         "license": {
           "id": "cc-by-4.0"
         },
         "communities": [
           {
-            "id": "mrf"
+            "id": "sparc"
+          },
+          {
+            "id": "neubias"
           }
         ],
         "relations": {
           "version": [
             {
-              "index": 0,
+              "index": 3,
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "14998943"
+                "pid_value": "6094887"
               }
             }
           ]
-        }
-      },
-      "title": "Enhancing Apple Fruit Quality Detection with Augmented YOLOv3 Deep Learning Algorithm",
-      "links": {
-        "self": "https://zenodo.org/api/records/14998944",
-        "self_html": "https://zenodo.org/records/14998944",
-        "doi": "https://doi.org/10.5281/zenodo.14998944",
-        "self_doi": "https://doi.org/10.5281/zenodo.14998944",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14998944",
-        "parent": "https://zenodo.org/api/records/14998943",
-        "parent_html": "https://zenodo.org/records/14998943",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14998943",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14998943",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14998944/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14998944/sequence/default",
-        "files": "https://zenodo.org/api/records/14998944/files",
-        "media_files": "https://zenodo.org/api/records/14998944/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:14998944:Paper-01-V4-Is-1-2025.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:14998944:Paper-01-V4-Is-1-2025.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:14998944:Paper-01-V4-Is-1-2025.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:14998944:Paper-01-V4-Is-1-2025.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:14998944:Paper-01-V4-Is-1-2025.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:14998944:Paper-01-V4-Is-1-2025.pdf/full/^1200,/0/default.jpg"
         },
-        "archive": "https://zenodo.org/api/records/14998944/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14998944/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14998944/versions/latest",
-        "latest_html": "https://zenodo.org/records/14998944/latest",
-        "versions": "https://zenodo.org/api/records/14998944/versions",
-        "draft": "https://zenodo.org/api/records/14998944/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14998944/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14998944/access/links",
-        "access_grants": "https://zenodo.org/api/records/14998944/access/grants",
-        "access_users": "https://zenodo.org/api/records/14998944/access/users",
-        "access_request": "https://zenodo.org/api/records/14998944/access/request",
-        "access": "https://zenodo.org/api/records/14998944/access",
-        "communities": "https://zenodo.org/api/records/14998944/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14998944/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14998944/requests"
+        "notes": "QuPath model exported using this library:\nhttps://github.com/onnx/tensorflow-onnx\nInstructions: https://github.com/qupath/qupath-extension-stardist#converting-a-tensorflow-model-for-use-with-opencv"
       },
-      "updated": "2025-03-10T10:31:17.631593+00:00",
-      "recid": "14998944",
+      "title": "Gut Analysis Toolbox: Training data and 2D models for segmenting enteric neurons, neuronal subtypes and ganglia",
+      "links": {
+        "self": "https://zenodo.org/api/records/15314214",
+        "self_html": "https://zenodo.org/records/15314214",
+        "preview_html": "https://zenodo.org/records/15314214?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15314214",
+        "self_doi": "https://doi.org/10.5281/zenodo.15314214",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15314214",
+        "parent": "https://zenodo.org/api/records/6094887",
+        "parent_html": "https://zenodo.org/records/6094887",
+        "parent_doi": "https://doi.org/10.5281/zenodo.6094887",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.6094887",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15314214/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15314214/sequence/default",
+        "files": "https://zenodo.org/api/records/15314214/files",
+        "media_files": "https://zenodo.org/api/records/15314214/media-files",
+        "archive": "https://zenodo.org/api/records/15314214/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15314214/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15314214/versions/latest",
+        "latest_html": "https://zenodo.org/records/15314214/latest",
+        "versions": "https://zenodo.org/api/records/15314214/versions",
+        "draft": "https://zenodo.org/api/records/15314214/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15314214/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15314214/access/links",
+        "access_grants": "https://zenodo.org/api/records/15314214/access/grants",
+        "access_users": "https://zenodo.org/api/records/15314214/access/users",
+        "access_request": "https://zenodo.org/api/records/15314214/access/request",
+        "access": "https://zenodo.org/api/records/15314214/access",
+        "communities": "https://zenodo.org/api/records/15314214/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15314214/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15314214/requests"
+      },
+      "updated": "2025-05-01T04:33:10.357964+00:00",
+      "recid": "15314214",
       "revision": 4,
       "files": [
         {
-          "id": "6bf658ec-10fc-45b9-8711-f41fb5d78b77",
-          "key": "Paper-01-V4-Is-1-2025.pdf",
-          "size": 755750,
-          "checksum": "md5:a930ab4af57df257919fb876f6a83063",
+          "id": "1499b6b7-02ed-4c78-b4ae-e66acc2d6653",
+          "key": "2D_enteric_neuron_model_QA.zip",
+          "size": 140471168,
+          "checksum": "md5:08ae9b807d5f46587a965f8ecb28a19a",
           "links": {
-            "self": "https://zenodo.org/api/records/14998944/files/Paper-01-V4-Is-1-2025.pdf/content"
+            "self": "https://zenodo.org/api/records/15314214/files/2D_enteric_neuron_model_QA.zip/content"
+          }
+        },
+        {
+          "id": "4855d062-673f-4a63-9418-bcc5d0a5138d",
+          "key": "2D_Ganglia_RGB_v3.bioimage.io.model.zip",
+          "size": 179197866,
+          "checksum": "md5:6b2cb3a536804f589f244cba543ede48",
+          "links": {
+            "self": "https://zenodo.org/api/records/15314214/files/2D_Ganglia_RGB_v3.bioimage.io.model.zip/content"
+          }
+        },
+        {
+          "id": "490c4f68-f543-421e-a952-e991e54d38b2",
+          "key": "2D_neuronal_subtype_train_test_data.zip",
+          "size": 27876735,
+          "checksum": "md5:2e6bfb6bc253816dedc918efd2270b1a",
+          "links": {
+            "self": "https://zenodo.org/api/records/15314214/files/2D_neuronal_subtype_train_test_data.zip/content"
+          }
+        },
+        {
+          "id": "807e5075-829c-45ce-9255-6f8a33e2ba5f",
+          "key": "2D_enteric_neuron_Hu_train_test.zip",
+          "size": 84714819,
+          "checksum": "md5:9936b4632d93ead585f77be018aa0e58",
+          "links": {
+            "self": "https://zenodo.org/api/records/15314214/files/2D_enteric_neuron_Hu_train_test.zip/content"
+          }
+        },
+        {
+          "id": "7a43b531-f8c2-46a2-81ac-7bc2e87a90c1",
+          "key": "2D_enteric_neuron_subtype_model_QA.zip",
+          "size": 89418485,
+          "checksum": "md5:dffd43abb641ab7dcfa3b5212d51ad47",
+          "links": {
+            "self": "https://zenodo.org/api/records/15314214/files/2D_enteric_neuron_subtype_model_QA.zip/content"
+          }
+        },
+        {
+          "id": "5e6b84ed-63a0-4c4e-8865-3cc94c9e9c9b",
+          "key": "2D_enteric_neuron_subtype.bioimage.io.model.zip",
+          "size": 44722942,
+          "checksum": "md5:f44cfa88a038071214203fb5e43f9f41",
+          "links": {
+            "self": "https://zenodo.org/api/records/15314214/files/2D_enteric_neuron_subtype.bioimage.io.model.zip/content"
+          }
+        },
+        {
+          "id": "b55b5a92-5a22-468b-b320-55a0e32cb39a",
+          "key": "2D_enteric_ganglia_v3_training.zip",
+          "size": 766242987,
+          "checksum": "md5:019f5435fc9cd11b8a8b16fbd24a932f",
+          "links": {
+            "self": "https://zenodo.org/api/records/15314214/files/2D_enteric_ganglia_v3_training.zip/content"
+          }
+        },
+        {
+          "id": "08d545bd-939f-4acd-b1dd-612213f0a212",
+          "key": "2D_enteric_neuron.bioimage.io.model.zip",
+          "size": 92479474,
+          "checksum": "md5:1cf19c35f48ba89ba23e9f52f6dc2887",
+          "links": {
+            "self": "https://zenodo.org/api/records/15314214/files/2D_enteric_neuron.bioimage.io.model.zip/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "542692"
+          "id": "284203"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 29,
-        "unique_downloads": 26,
-        "views": 19,
-        "unique_views": 19,
-        "version_downloads": 29,
-        "version_unique_downloads": 26,
-        "version_unique_views": 19,
-        "version_views": 19
+        "downloads": 480,
+        "unique_downloads": 403,
+        "views": 1187,
+        "unique_views": 1087,
+        "version_downloads": 88,
+        "version_unique_downloads": 88,
+        "version_unique_views": 29,
+        "version_views": 30
       },
       "state": "done",
       "submitted": true
     },
     {
-      "created": "2025-03-10T08:03:29.171657+00:00",
-      "modified": "2025-03-10T08:03:29.345682+00:00",
-      "id": 14998302,
-      "conceptrecid": "4094666",
-      "doi": "10.5281/zenodo.14998302",
-      "conceptdoi": "10.5281/zenodo.4094666",
-      "doi_url": "https://doi.org/10.5281/zenodo.14998302",
+      "created": "2025-04-30T18:33:57.813072+00:00",
+      "modified": "2025-04-30T18:33:57.974216+00:00",
+      "id": 15312519,
+      "conceptrecid": "6813943",
+      "doi": "10.5281/zenodo.15312519",
+      "conceptdoi": "10.5281/zenodo.6813943",
+      "doi_url": "https://doi.org/10.5281/zenodo.15312519",
       "metadata": {
-        "title": "deephyper/deephyper: 0.9.3",
-        "doi": "10.5281/zenodo.14998302",
-        "publication_date": "2025-03-10",
-        "description": "<h2>What's Changed</h2>\n<ul>\n<li>Simplify decentralized search by @Deathn0t in https://github.com/deephyper/deephyper/pull/260</li>\n<li>Add uv installation page in documentation by @wigging in https://github.com/deephyper/deephyper/pull/263</li>\n<li>Changes for Colab tutorial by @bretteiffert in https://github.com/deephyper/deephyper/pull/271</li>\n<li>Add section in documentation for facility guides by @wigging in https://github.com/deephyper/deephyper/pull/265, https://github.com/deephyper/deephyper/pull/276</li>\n<li>Add <code>parameters_at_max</code> function for Quick Start example by @wigging in https://github.com/deephyper/deephyper/pull/275</li>\n<li>Fix ensemble inference by @Deathn0t in https://github.com/deephyper/deephyper/pull/278</li>\n<li>Move BBO tutorial to Sphinx Gallery by @Deathn0t in https://github.com/deephyper/deephyper/pull/280</li>\n<li>Adding <code>LokyEvaluator</code> by @Deathn0t in https://github.com/deephyper/deephyper/pull/281</li>\n<li>Add Contrib documentation about gallery examples by @Deathn0t in https://github.com/deephyper/deephyper/pull/282</li>\n<li>Move ensemble tutorials to Sphinx Gallery by @Deathn0t in https://github.com/deephyper/deephyper/pull/283</li>\n<li>Removing tutorials and dependices <code>tf-keras2</code> by @Deathn0t in https://github.com/deephyper/deephyper/pull/284</li>\n<li>Replacing <code>sdv</code> by Gaussian Mixture Model and removing dependencies by @Deathn0t in https://github.com/deephyper/deephyper/pull/286</li>\n<li>Move multi-objective BBBO tutorial to Sphinx Gallery by @wigging in https://github.com/deephyper/deephyper/pull/285</li>\n<li>Update example on failures in BBO by @Deathn0t in https://github.com/deephyper/deephyper/pull/287</li>\n<li>Move overfitting tutorial to Sphinx Gallery by @Deathn0t in https://github.com/deephyper/deephyper/pull/289</li>\n</ul>\n<p><strong>Full Changelog</strong>: https://github.com/deephyper/deephyper/compare/0.9.2...0.9.3</p>",
+        "title": "haesleinhuepf/stackview: 0.16.1",
+        "doi": "10.5281/zenodo.15312519",
+        "publication_date": "2025-04-30",
+        "description": "<h2>What's Changed</h2>\n<ul>\n<li>Fix colab by @haesleinhuepf in https://github.com/haesleinhuepf/stackview/pull/164</li>\n</ul>\n<p><strong>Full Changelog</strong>: https://github.com/haesleinhuepf/stackview/compare/0.15.4...0.16.1</p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Romain Egele",
+            "name": "Robert Haase",
+            "affiliation": "Data Science Center ScaDS.AI, Uni Leipzig"
+          },
+          {
+            "name": "Jord\u00e3o Bragantini",
+            "affiliation": "Chan Zuckerberg Biohub"
+          },
+          {
+            "name": "Oren Amsalem",
             "affiliation": null
           },
           {
-            "name": "Misha Salim",
-            "affiliation": null
-          },
-          {
-            "name": "Prasanna Balaprakash",
-            "affiliation": "Argonne National Laboratory"
-          },
-          {
-            "name": "Joceran Gouneau",
-            "affiliation": null
-          },
-          {
-            "name": "Dipendra Jha",
-            "affiliation": "Northwestern University"
-          },
-          {
-            "name": "Kyle Gerard Felker",
-            "affiliation": "Argonne National Laboratory"
-          },
-          {
-            "name": "felixeperez",
-            "affiliation": null
-          },
-          {
-            "name": "Matthieu Dorier",
-            "affiliation": "Argonne National Laboratory"
-          },
-          {
-            "name": "Romit Maulik",
-            "affiliation": "Pennsylvania State University"
-          },
-          {
-            "name": "Bethany Lusch",
-            "affiliation": "Argonne National Lab"
-          },
-          {
-            "name": "Gavin Wiggins",
-            "affiliation": "Oak Ridge National Laboratory"
-          },
-          {
-            "name": "Tyler H Chang",
-            "affiliation": null
-          },
-          {
-            "name": "Yixuan Sun",
-            "affiliation": "Argonne National Laboratory"
-          },
-          {
-            "name": "Shengli Jiang",
-            "affiliation": null
-          },
-          {
-            "name": "Zachariah Carmichael",
-            "affiliation": "Meta"
-          },
-          {
-            "name": "Z223I",
-            "affiliation": null
-          },
-          {
-            "name": "Taylor Childers",
-            "affiliation": "Argonne National Laboratory"
-          },
-          {
-            "name": "rmjcs2020",
-            "affiliation": null
-          },
-          {
-            "name": "Albert Lam",
-            "affiliation": null
-          },
-          {
-            "name": "Akalanka",
-            "affiliation": null
-          },
-          {
-            "name": "Brett Eiffert",
-            "affiliation": "Oak Ridge National Laboratory"
-          },
-          {
-            "name": "Hongyuan Liu",
-            "affiliation": "Stevens Institute of Technology"
-          },
-          {
-            "name": "Nesar Ramachandra",
-            "affiliation": "Argonne National Laboratory"
-          },
-          {
-            "name": "Sam Foreman",
-            "affiliation": "@argonne-lcf"
-          },
-          {
-            "name": "Sandeep Madireddy",
-            "affiliation": "Argonne National Laboratory"
-          },
-          {
-            "name": "Stefan M Wild",
-            "affiliation": "Lawrence Berkeley National Laboratory; Northwestern University"
-          },
-          {
-            "name": "Sun Haozhe",
-            "affiliation": "Telecom ParisTech"
-          },
-          {
-            "name": "aperezdieguez",
+            "name": "Yiqun Ma",
             "affiliation": null
           }
         ],
         "related_identifiers": [
           {
-            "identifier": "https://github.com/deephyper/deephyper/tree/0.9.3",
+            "identifier": "https://github.com/haesleinhuepf/stackview/tree/0.16.1",
             "relation": "isSupplementTo",
             "resource_type": "software",
             "scheme": "url"
           }
         ],
-        "version": "0.9.3",
+        "version": "0.16.1",
         "custom": {
-          "code:codeRepository": "https://github.com/deephyper/deephyper"
+          "code:codeRepository": "https://github.com/haesleinhuepf/stackview"
         },
         "resource_type": {
           "title": "Software",
@@ -284,120 +354,254 @@
         "relations": {
           "version": [
             {
-              "index": 15,
+              "index": 41,
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "4094666"
+                "pid_value": "6813943"
               }
             }
           ]
         }
       },
-      "title": "deephyper/deephyper: 0.9.3",
+      "title": "haesleinhuepf/stackview: 0.16.1",
       "links": {
-        "self": "https://zenodo.org/api/records/14998302",
-        "self_html": "https://zenodo.org/records/14998302",
-        "doi": "https://doi.org/10.5281/zenodo.14998302",
-        "self_doi": "https://doi.org/10.5281/zenodo.14998302",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14998302",
-        "parent": "https://zenodo.org/api/records/4094666",
-        "parent_html": "https://zenodo.org/records/4094666",
-        "parent_doi": "https://doi.org/10.5281/zenodo.4094666",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.4094666",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14998302/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14998302/sequence/default",
-        "files": "https://zenodo.org/api/records/14998302/files",
-        "media_files": "https://zenodo.org/api/records/14998302/media-files",
-        "archive": "https://zenodo.org/api/records/14998302/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14998302/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14998302/versions/latest",
-        "latest_html": "https://zenodo.org/records/14998302/latest",
-        "versions": "https://zenodo.org/api/records/14998302/versions",
-        "draft": "https://zenodo.org/api/records/14998302/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14998302/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14998302/access/links",
-        "access_grants": "https://zenodo.org/api/records/14998302/access/grants",
-        "access_users": "https://zenodo.org/api/records/14998302/access/users",
-        "access_request": "https://zenodo.org/api/records/14998302/access/request",
-        "access": "https://zenodo.org/api/records/14998302/access",
-        "communities": "https://zenodo.org/api/records/14998302/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14998302/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14998302/requests"
+        "self": "https://zenodo.org/api/records/15312519",
+        "self_html": "https://zenodo.org/records/15312519",
+        "preview_html": "https://zenodo.org/records/15312519?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15312519",
+        "self_doi": "https://doi.org/10.5281/zenodo.15312519",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15312519",
+        "parent": "https://zenodo.org/api/records/6813943",
+        "parent_html": "https://zenodo.org/records/6813943",
+        "parent_doi": "https://doi.org/10.5281/zenodo.6813943",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.6813943",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15312519/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15312519/sequence/default",
+        "files": "https://zenodo.org/api/records/15312519/files",
+        "media_files": "https://zenodo.org/api/records/15312519/media-files",
+        "archive": "https://zenodo.org/api/records/15312519/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15312519/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15312519/versions/latest",
+        "latest_html": "https://zenodo.org/records/15312519/latest",
+        "versions": "https://zenodo.org/api/records/15312519/versions",
+        "draft": "https://zenodo.org/api/records/15312519/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15312519/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15312519/access/links",
+        "access_grants": "https://zenodo.org/api/records/15312519/access/grants",
+        "access_users": "https://zenodo.org/api/records/15312519/access/users",
+        "access_request": "https://zenodo.org/api/records/15312519/access/request",
+        "access": "https://zenodo.org/api/records/15312519/access",
+        "communities": "https://zenodo.org/api/records/15312519/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15312519/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15312519/requests"
       },
-      "updated": "2025-03-10T08:03:29.345682+00:00",
-      "recid": "14998302",
+      "updated": "2025-04-30T18:33:57.974216+00:00",
+      "recid": "15312519",
       "revision": 4,
       "files": [
         {
-          "id": "e6b1662f-b251-4d1a-bd01-90e3aaea1f5d",
-          "key": "deephyper/deephyper-0.9.3.zip",
-          "size": 945761,
-          "checksum": "md5:c916658606e1eaca9f3dd3eaa535a00b",
+          "id": "6d59925a-a273-4023-96bd-cb90297be731",
+          "key": "haesleinhuepf/stackview-0.16.1.zip",
+          "size": 157073821,
+          "checksum": "md5:dc0a322dcb36eef450ae99c62ee1dfd4",
           "links": {
-            "self": "https://zenodo.org/api/records/14998302/files/deephyper/deephyper-0.9.3.zip/content"
+            "self": "https://zenodo.org/api/records/15312519/files/haesleinhuepf/stackview-0.16.1.zip/content"
           }
         }
       ],
-      "swh": {
-        "swhid": "swh:1:dir:03fda0db0c471b32a80a2652666a4680f3525d23;origin=https://doi.org/10.5281/zenodo.4094666;visit=swh:1:snp:94e557b13329e395d61339ba393990a85545a643;anchor=swh:1:rel:f5bd298315ee7dd3ff8a17a3215b961efa198254;path=deephyper-deephyper-959b10b"
-      },
+      "swh": {},
       "owners": [
         {
-          "id": "109205"
+          "id": "56637"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 96,
-        "unique_downloads": 91,
-        "views": 519,
-        "unique_views": 506,
-        "version_downloads": 3,
-        "version_unique_downloads": 3,
-        "version_unique_views": 6,
-        "version_views": 6
+        "downloads": 150,
+        "unique_downloads": 150,
+        "views": 663,
+        "unique_views": 643,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
       },
       "state": "done",
       "submitted": true
     },
     {
-      "created": "2025-03-05T08:53:24.046448+00:00",
-      "modified": "2025-03-05T08:53:24.270771+00:00",
-      "id": 14964293,
-      "conceptrecid": "14964292",
-      "doi": "10.5281/zenodo.14964293",
-      "conceptdoi": "10.5281/zenodo.14964292",
-      "doi_url": "https://doi.org/10.5281/zenodo.14964293",
+      "created": "2025-04-30T15:44:03.317081+00:00",
+      "modified": "2025-04-30T15:44:03.422582+00:00",
+      "id": 15311471,
+      "conceptrecid": "15311353",
+      "doi": "10.5281/zenodo.15311471",
+      "conceptdoi": "10.5281/zenodo.15311353",
+      "doi_url": "https://doi.org/10.5281/zenodo.15311471",
       "metadata": {
-        "title": "Development of IoT Based Model for Monitoring and Optimizing Moisture  Content in Rwanda School Feeding Maize Stores",
-        "doi": "10.5281/zenodo.14964293",
-        "publication_date": "2025-03-05",
-        "description": "<p>This study explores the development of an Internet of Things (IoT)-based Model to monitor and optimize the moisture content of maize storage in the context of a school feeding program at Groupe Scolaire Cyeru, Rwanda. The objective was to address the critical issue of moisture control in maize storage, which directly impacts the quality and safety of food distributed to students. Using a mixed-methods approach, the study employed both qualitative and quantitative techniques, including surveys, interviews, document analysis, and direct observation, to gather comprehensive data on the current state of maize storage practices. The research involved 318 respondents from various stakeholders, including students, teachers, cooks, and administrative staff. The findings revealed a significant gap in moisture monitoring within the existing storage system. Based on this, an IoT-based model was developed, incorporating temperature and moisture sensors, a microcontroller, and a GSM module for real-time data collection and remote alerts. Python programming and Google Colab were utilized for data collection, processing, and analysis, enabling seamless integration of the collected data into a central system for further insights. This system aimed to optimize storage conditions and prevent spoilage, thereby improving the efficiency and sustainability of the school feeding program. The study highlights the potential of IoT technology, Python, and Google Colab in transforming food storage management, particularly in educational settings with limited resources.</p>",
+        "title": "rkruegs123/idp-design: Updating Colab link and installation",
+        "doi": "10.5281/zenodo.15311471",
+        "publication_date": "2025-04-30",
+        "description": "<p>Updating the interactive notebook to use the <code>master</code> branch rather than the <code>refactor</code> branch</p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Nduwayo Pie",
+            "name": "rkruegs123",
             "affiliation": null
           },
           {
-            "name": "Dr. Wilson Musoni",
+            "name": "Krishna Shrinivas",
             "affiliation": null
           }
         ],
         "related_identifiers": [
           {
-            "identifier": "https://www.ijisrt.com/development-of-iot-based-model-for-monitoring-and-optimizing-moisture-content-in-rwanda-school-feeding-maize-stores",
-            "relation": "isPublishedIn",
-            "resource_type": "publication-article",
+            "identifier": "https://github.com/rkruegs123/idp-design/tree/v1.0.1-beta",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
             "scheme": "url"
           }
         ],
-        "dates": [
+        "version": "v1.0.1-beta",
+        "custom": {
+          "code:codeRepository": "https://github.com/rkruegs123/idp-design"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 1,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15311353"
+              }
+            }
+          ]
+        }
+      },
+      "title": "rkruegs123/idp-design: Updating Colab link and installation",
+      "links": {
+        "self": "https://zenodo.org/api/records/15311471",
+        "self_html": "https://zenodo.org/records/15311471",
+        "preview_html": "https://zenodo.org/records/15311471?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15311471",
+        "self_doi": "https://doi.org/10.5281/zenodo.15311471",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15311471",
+        "parent": "https://zenodo.org/api/records/15311353",
+        "parent_html": "https://zenodo.org/records/15311353",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15311353",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15311353",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15311471/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15311471/sequence/default",
+        "files": "https://zenodo.org/api/records/15311471/files",
+        "media_files": "https://zenodo.org/api/records/15311471/media-files",
+        "archive": "https://zenodo.org/api/records/15311471/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15311471/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15311471/versions/latest",
+        "latest_html": "https://zenodo.org/records/15311471/latest",
+        "versions": "https://zenodo.org/api/records/15311471/versions",
+        "draft": "https://zenodo.org/api/records/15311471/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15311471/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15311471/access/links",
+        "access_grants": "https://zenodo.org/api/records/15311471/access/grants",
+        "access_users": "https://zenodo.org/api/records/15311471/access/users",
+        "access_request": "https://zenodo.org/api/records/15311471/access/request",
+        "access": "https://zenodo.org/api/records/15311471/access",
+        "communities": "https://zenodo.org/api/records/15311471/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15311471/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15311471/requests"
+      },
+      "updated": "2025-04-30T15:44:03.422582+00:00",
+      "recid": "15311471",
+      "revision": 4,
+      "files": [
+        {
+          "id": "f29b5d5e-a91a-4abd-80a9-ea8c117a6d41",
+          "key": "rkruegs123/idp-design-v1.0.1-beta.zip",
+          "size": 16523013,
+          "checksum": "md5:ed1864d7289e19a37c0d3edd2eeda57f",
+          "links": {
+            "self": "https://zenodo.org/api/records/15311471/files/rkruegs123/idp-design-v1.0.1-beta.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:149537000951b2fbc7997753d92fa965cf988f64;origin=https://doi.org/10.5281/zenodo.15311353;visit=swh:1:snp:834732de45d28e3c48a6aafe4333f36b1b57a9a8;anchor=swh:1:rel:5be8047f79fb7d98529655801358695af2ce4ac1;path=rkruegs123-idp-design-5e683ee"
+      },
+      "owners": [
+        {
+          "id": "91706"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 7,
+        "unique_views": 4,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 2,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-04-30T11:43:37.486266+00:00",
+      "modified": "2025-04-30T11:43:37.702640+00:00",
+      "id": 15309889,
+      "conceptrecid": "15309888",
+      "doi": "10.5281/zenodo.15309889",
+      "conceptdoi": "10.5281/zenodo.15309888",
+      "doi_url": "https://doi.org/10.5281/zenodo.15309889",
+      "metadata": {
+        "title": "Film Flare: Movie Recommendation System Using Machine Learning",
+        "doi": "10.5281/zenodo.15309889",
+        "publication_date": "2025-04-30",
+        "description": "<p><em>In today's digital entertainment world, the abundance of content on various streaming platforms often leads to user indecision and dissatisfaction. As a solution, recommendation systems play a vital role in filtering content to match user interests. This research presents a robust hybrid recommendation model that merges collaborative and content-based filtering to enhance recommendation quality. Drawing on a rich dataset of 5,000 movies from Kaggle, the model incorporates user ratings and comprehensive movie metadata, including genres, cast, and plot keywords. By integrating both historical user behavior and movie content features, this hybrid approach alleviates the limitations of standalone methods and delivers a personalized viewing experience. The implementation, carried out using Python in Google Colab, validates the model's practicality and scalability through detailed evaluation and real-time </em>demonstrations.</p>",
+        "access_right": "open",
+        "creators": [
           {
-            "type": "available"
+            "name": "Adeeba Nousheen",
+            "affiliation": null
+          },
+          {
+            "name": "Faiza Naaz",
+            "affiliation": null
+          },
+          {
+            "name": "Arshiya Sadaff",
+            "affiliation": null
+          },
+          {
+            "name": "Syeda Hifsa Naaz",
+            "affiliation": null
           }
         ],
+        "keywords": [
+          "Netflix, Amazon Prime, Disney+"
+        ],
+        "references": [
+          "1.\tY. Koren, S. Rendle, and R. Bell, \"Advances in collaborative filtering,\" Recommender Systems Handbook, pp. 91\u2013142, 2021.",
+          "2.\tJ. T. Karugia, O. A. Mwai, R. Kaitho, A. G. Drucker, C. B. A. Wollny, and J. E. O. Rege, Economic analysis of crossbreeding programmes in sub-Saharan Africa: a conceptual framework and Kenyan case study, 2001.",
+          "3.\tY. S. Cho, K. H. Ryu, K. S. Ryu, Y. Piao, H. W. Park, and S. C. Moon, \"A study of recommending service based on customer inclination using AHP,\" in Proc. 2016 IEEE Int. Conf. Management of Innovation and Technology (ICMIT), 2016, pp. 145\u2013149.",
+          "4.\tF. Karabiber, \"TF-IDF\u2014term frequency-inverse document frequency,\" LearnDataSci.com. [Online]. Available:https://www.learndatasci.com/glossary/tf-idf-term-frequency-inverse-document-frequency. [Accessed: Apr. 9, 2025].",
+          "5.\tP. Xia, L. Zhang, and F. Li, \"Learning similarity with cosine similarity ensemble,\" Information Sciences, vol. 307, pp. 39\u201352, 2015.",
+          "6.\tO. V. Komogortsev, A. Karpov, and C. Aragon, Biometric Authentication via Anatomical Characteristics of the Oculomotor Plant, Tech. Rep., Texas State University-San Marcos, San Marcos, TX, 2011. [Online]. Available: http://www.cs.txstate.edu/~ok11/publications.html",
+          "7.\tL. A. Snider and S. E. Swedo, \"PANDAS: current status and directions for research,\" Molecular Psychiatry, vol. 9, no. 10, pp. 900\u2013907, 2004.",
+          "8.\tP. S. H. M. Shaiful, \"Perceived effect of promotion strategies on audience film preference in Malaysia,\" in Proc. World Conf. Media and Mass Communication, vol. 5, no. 1, pp. 154\u2013160, 2019.",
+          "9.\tY. Chu, Y. Zhang, Z. Han, C. Yang, L. Zhou, G. Luo, and X. Gao, \"Improving representation of high-frequency components for medical foundation models,\" arXiv preprint arXiv: 2407.14651, 2024.",
+          "10.\tR. Hashemi, N. N. Nashaat, and P. P. Almao, \"Nanoparticle technology for heavy oil in-situ upgrading and recovery enhancement: Opportunities and challenges,\" Applied Energy, vol. 133, pp. 374\u2013387, 2014."
+        ],
+        "language": "eng",
         "resource_type": {
           "title": "Journal article",
           "type": "publication",
@@ -405,16 +609,16 @@
         },
         "journal": {
           "issue": "2",
-          "pages": "1351-1360",
-          "title": "International Journal of Innovative Science and Research Technology (IJISRT)",
-          "volume": "10"
+          "pages": "26-35",
+          "title": "Journal of Advances in Computational Intelligence Theory",
+          "volume": "7"
         },
         "license": {
           "id": "cc-by-4.0"
         },
         "communities": [
           {
-            "id": "ijisrt"
+            "id": "compub"
           }
         ],
         "relations": {
@@ -424,132 +628,113 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "14964292"
+                "pid_value": "15309888"
               }
             }
           ]
         }
       },
-      "title": "Development of IoT Based Model for Monitoring and Optimizing Moisture  Content in Rwanda School Feeding Maize Stores",
+      "title": "Film Flare: Movie Recommendation System Using Machine Learning",
       "links": {
-        "self": "https://zenodo.org/api/records/14964293",
-        "self_html": "https://zenodo.org/records/14964293",
-        "doi": "https://doi.org/10.5281/zenodo.14964293",
-        "self_doi": "https://doi.org/10.5281/zenodo.14964293",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14964293",
-        "parent": "https://zenodo.org/api/records/14964292",
-        "parent_html": "https://zenodo.org/records/14964292",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14964292",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14964292",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14964293/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14964293/sequence/default",
-        "files": "https://zenodo.org/api/records/14964293/files",
-        "media_files": "https://zenodo.org/api/records/14964293/media-files",
+        "self": "https://zenodo.org/api/records/15309889",
+        "self_html": "https://zenodo.org/records/15309889",
+        "preview_html": "https://zenodo.org/records/15309889?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15309889",
+        "self_doi": "https://doi.org/10.5281/zenodo.15309889",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15309889",
+        "parent": "https://zenodo.org/api/records/15309888",
+        "parent_html": "https://zenodo.org/records/15309888",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15309888",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15309888",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15309889/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15309889/sequence/default",
+        "files": "https://zenodo.org/api/records/15309889/files",
+        "media_files": "https://zenodo.org/api/records/15309889/media-files",
         "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:14964293:IJISRT25FEB371.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:14964293:IJISRT25FEB371.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:14964293:IJISRT25FEB371.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:14964293:IJISRT25FEB371.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:14964293:IJISRT25FEB371.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:14964293:IJISRT25FEB371.pdf/full/^1200,/0/default.jpg"
+          "10": "https://zenodo.org/api/iiif/record:15309889:Film%20Flare%20-Formatted%20Paper.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15309889:Film%20Flare%20-Formatted%20Paper.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15309889:Film%20Flare%20-Formatted%20Paper.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15309889:Film%20Flare%20-Formatted%20Paper.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15309889:Film%20Flare%20-Formatted%20Paper.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15309889:Film%20Flare%20-Formatted%20Paper.pdf/full/^1200,/0/default.jpg"
         },
-        "archive": "https://zenodo.org/api/records/14964293/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14964293/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14964293/versions/latest",
-        "latest_html": "https://zenodo.org/records/14964293/latest",
-        "versions": "https://zenodo.org/api/records/14964293/versions",
-        "draft": "https://zenodo.org/api/records/14964293/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14964293/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14964293/access/links",
-        "access_grants": "https://zenodo.org/api/records/14964293/access/grants",
-        "access_users": "https://zenodo.org/api/records/14964293/access/users",
-        "access_request": "https://zenodo.org/api/records/14964293/access/request",
-        "access": "https://zenodo.org/api/records/14964293/access",
-        "communities": "https://zenodo.org/api/records/14964293/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14964293/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14964293/requests"
+        "archive": "https://zenodo.org/api/records/15309889/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15309889/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15309889/versions/latest",
+        "latest_html": "https://zenodo.org/records/15309889/latest",
+        "versions": "https://zenodo.org/api/records/15309889/versions",
+        "draft": "https://zenodo.org/api/records/15309889/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15309889/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15309889/access/links",
+        "access_grants": "https://zenodo.org/api/records/15309889/access/grants",
+        "access_users": "https://zenodo.org/api/records/15309889/access/users",
+        "access_request": "https://zenodo.org/api/records/15309889/access/request",
+        "access": "https://zenodo.org/api/records/15309889/access",
+        "communities": "https://zenodo.org/api/records/15309889/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15309889/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15309889/requests"
       },
-      "updated": "2025-03-05T08:53:24.270771+00:00",
-      "recid": "14964293",
+      "updated": "2025-04-30T11:43:37.702640+00:00",
+      "recid": "15309889",
       "revision": 4,
       "files": [
         {
-          "id": "eb4f6c25-7760-4c98-be7d-88c9d85ed910",
-          "key": "IJISRT25FEB371.pdf",
-          "size": 1112336,
-          "checksum": "md5:5d8d20a80b2411cf003809e8a6cc0b6e",
+          "id": "3ed0a50c-23e7-4e7a-b4d8-aff6a7afd943",
+          "key": "Film Flare -Formatted Paper.pdf",
+          "size": 517802,
+          "checksum": "md5:54e959693db240e8fdb3eeb5068744ba",
           "links": {
-            "self": "https://zenodo.org/api/records/14964293/files/IJISRT25FEB371.pdf/content"
+            "self": "https://zenodo.org/api/records/15309889/files/Film Flare -Formatted Paper.pdf/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "355829"
+          "id": "109378"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 5,
-        "unique_downloads": 4,
-        "views": 6,
-        "unique_views": 6,
-        "version_downloads": 5,
-        "version_unique_downloads": 4,
-        "version_unique_views": 6,
-        "version_views": 6
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 2,
+        "unique_views": 2,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 2,
+        "version_views": 2
       },
       "state": "done",
       "submitted": true
     },
     {
-      "created": "2025-03-04T16:52:49.890897+00:00",
-      "modified": "2025-03-04T17:10:38.202567+00:00",
-      "id": 14968018,
-      "conceptrecid": "14968017",
-      "doi": "10.5281/zenodo.14968018",
-      "conceptdoi": "10.5281/zenodo.14968017",
-      "doi_url": "https://doi.org/10.5281/zenodo.14968018",
+      "created": "2025-04-29T15:41:34.818574+00:00",
+      "modified": "2025-04-29T15:44:13.339760+00:00",
+      "id": 15304940,
+      "conceptrecid": "15304939",
+      "doi": "10.5281/zenodo.15304940",
+      "conceptdoi": "10.5281/zenodo.15304939",
+      "doi_url": "https://doi.org/10.5281/zenodo.15304940",
       "metadata": {
-        "title": "Extra Large Language Models Benchmarking for Medicinal Chemistry",
-        "doi": "10.5281/zenodo.14968018",
-        "publication_date": "2024-07-17",
-        "description": "<p>Purpose: Determine which unmodified Extra Large Language Model has the greatest speed and generation quality answering medicinal chemistry prompts. Plan: Use OpenAI API for GPT 4o, and NVIDIA NIM API for Nemotron 4, Mixtral, and Arctic. To judge generations, use ChatGPT 4o and Llama 3 70B Groq. Experimental: In a Colab notebook for either OpenAI API or NIM API, answer 10 medicinal chemistry prompts. Manually process all generations, and further analyze the first three prompts three times each with both judges.</p>",
+        "title": "Twice Broken: Constitutional Crisis, Institutional Erosion, and the Arc from Watergate to Trump",
+        "doi": "10.5281/zenodo.15304940",
+        "publication_date": "2025-04-29",
+        "description": "<p>This dataset provides the Python code and instructions needed to visualize structural regime shifts in the Polity2 democracy scores for the United States between 1900 and 2020.</p>\n<p>The code focuses on detecting two major regime breaks in U.S. democracy:<br>- The Watergate scandal (~1974)<br>- The Trump era (~2015&ndash;2016)</p>\n<p>The upload contains:<br>- **Google Collab Code.docx**: A Word document containing ready-to-run Python code.<br>- **README.txt**: Instructions for running the code using Google Colab.<br>- **p5v2018.xls**: The Polity5 dataset (needed to generate the democracy trend plots).</p>\n<p>## Usage Instructions<br>1. Open the `Google Collab Code.docx` file.<br>2. Copy and paste the Python code into a new Google Colab notebook.<br>3. Upload the `p5v2018.xls` file into your Google Colab session.<br>4. Run all code cells.</p>\n<p>The code generates a clear time-series plot of Polity2 scores, highlighting major regime shifts in U.S. democratic performance.</p>\n<p>## Purpose<br>This dataset supports the research project titled:<br>&gt; *Twice Broken: Constitutional Crisis, Institutional Erosion, and the Arc from Watergate to Trump*</p>\n<p>The visualization is intended for scholars, students, and researchers studying democratic erosion, constitutional crises, and U.S. political development.</p>\n<p>## Author<br>Scott Brown (University of Puerto Rico at R&iacute;o Piedras)</p>\n<p>## License<br>Creative Commons Attribution 4.0 International (CC BY 4.0)</p>\n<p>---</p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Kawchak, Kevin",
-            "affiliation": "ChemicalQDevice",
-            "orcid": "0009-0007-5457-8667"
-          }
-        ],
-        "contributors": [
+            "name": "Brown, Scott",
+            "affiliation": "University of Puerto Rico at R\u00edo Piedras"
+          },
           {
-            "name": "Kawchak, Kevin",
-            "affiliation": "ChemicalQDevice",
-            "type": "ProjectLeader",
-            "orcid": "0009-0007-5457-8667"
+            "name": "Hall, Daniel",
+            "affiliation": "Texas Tech University"
           }
         ],
-        "keywords": [
-          "OpenAI",
-          "NVIDIA",
-          "Mistral",
-          "Drug Synthesis",
-          "LLM",
-          "Prompt Engineering"
-        ],
-        "dates": [
-          {
-            "type": "created"
-          }
-        ],
-        "language": "eng",
         "resource_type": {
-          "title": "Report",
-          "type": "publication",
-          "subtype": "report"
+          "title": "Dataset",
+          "type": "dataset"
         },
         "license": {
           "id": "cc-by-4.0"
@@ -561,728 +746,165 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "14968017"
+                "pid_value": "15304939"
               }
             }
           ]
         }
       },
-      "title": "Extra Large Language Models Benchmarking for Medicinal Chemistry",
+      "title": "Twice Broken: Constitutional Crisis, Institutional Erosion, and the Arc from Watergate to Trump",
       "links": {
-        "self": "https://zenodo.org/api/records/14968018",
-        "self_html": "https://zenodo.org/records/14968018",
-        "doi": "https://doi.org/10.5281/zenodo.14968018",
-        "self_doi": "https://doi.org/10.5281/zenodo.14968018",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14968018",
-        "parent": "https://zenodo.org/api/records/14968017",
-        "parent_html": "https://zenodo.org/records/14968017",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14968017",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14968017",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14968018/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14968018/sequence/default",
-        "files": "https://zenodo.org/api/records/14968018/files",
-        "media_files": "https://zenodo.org/api/records/14968018/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:14968018:Extra%20Large%20Language%20Models%20Benchmarking%20for%20Medicinal%20Chemistry.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:14968018:Extra%20Large%20Language%20Models%20Benchmarking%20for%20Medicinal%20Chemistry.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:14968018:Extra%20Large%20Language%20Models%20Benchmarking%20for%20Medicinal%20Chemistry.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:14968018:Extra%20Large%20Language%20Models%20Benchmarking%20for%20Medicinal%20Chemistry.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:14968018:Extra%20Large%20Language%20Models%20Benchmarking%20for%20Medicinal%20Chemistry.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:14968018:Extra%20Large%20Language%20Models%20Benchmarking%20for%20Medicinal%20Chemistry.pdf/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/14968018/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14968018/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14968018/versions/latest",
-        "latest_html": "https://zenodo.org/records/14968018/latest",
-        "versions": "https://zenodo.org/api/records/14968018/versions",
-        "draft": "https://zenodo.org/api/records/14968018/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14968018/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14968018/access/links",
-        "access_grants": "https://zenodo.org/api/records/14968018/access/grants",
-        "access_users": "https://zenodo.org/api/records/14968018/access/users",
-        "access_request": "https://zenodo.org/api/records/14968018/access/request",
-        "access": "https://zenodo.org/api/records/14968018/access",
-        "communities": "https://zenodo.org/api/records/14968018/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14968018/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14968018/requests"
+        "self": "https://zenodo.org/api/records/15304940",
+        "self_html": "https://zenodo.org/records/15304940",
+        "preview_html": "https://zenodo.org/records/15304940?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15304940",
+        "self_doi": "https://doi.org/10.5281/zenodo.15304940",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15304940",
+        "parent": "https://zenodo.org/api/records/15304939",
+        "parent_html": "https://zenodo.org/records/15304939",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15304939",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15304939",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15304940/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15304940/sequence/default",
+        "files": "https://zenodo.org/api/records/15304940/files",
+        "media_files": "https://zenodo.org/api/records/15304940/media-files",
+        "archive": "https://zenodo.org/api/records/15304940/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15304940/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15304940/versions/latest",
+        "latest_html": "https://zenodo.org/records/15304940/latest",
+        "versions": "https://zenodo.org/api/records/15304940/versions",
+        "draft": "https://zenodo.org/api/records/15304940/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15304940/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15304940/access/links",
+        "access_grants": "https://zenodo.org/api/records/15304940/access/grants",
+        "access_users": "https://zenodo.org/api/records/15304940/access/users",
+        "access_request": "https://zenodo.org/api/records/15304940/access/request",
+        "access": "https://zenodo.org/api/records/15304940/access",
+        "communities": "https://zenodo.org/api/records/15304940/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15304940/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15304940/requests"
       },
-      "updated": "2025-03-04T17:10:38.202567+00:00",
-      "recid": "14968018",
+      "updated": "2025-04-29T15:44:13.339760+00:00",
+      "recid": "15304940",
       "revision": 6,
       "files": [
         {
-          "id": "1ab489b1-d2ad-4300-bb53-55f83956ed8a",
-          "key": "Extra Large Language Models Benchmarking for Medicinal Chemistry.pdf",
-          "size": 1326250,
-          "checksum": "md5:7a501264a70baa9d4e81898654f3a6ab",
+          "id": "5859e0c8-345e-45a9-ab19-9ee94c1e9b7a",
+          "key": "p5v2018.xls",
+          "size": 4487680,
+          "checksum": "md5:8f3426ba77708cfc53a2f77d5d5d4ade",
           "links": {
-            "self": "https://zenodo.org/api/records/14968018/files/Extra Large Language Models Benchmarking for Medicinal Chemistry.pdf/content"
+            "self": "https://zenodo.org/api/records/15304940/files/p5v2018.xls/content"
+          }
+        },
+        {
+          "id": "2d7d0085-eb07-4021-aed0-6927a97f23d0",
+          "key": "README.txt",
+          "size": 2024,
+          "checksum": "md5:64c8ea03e095f378a9d65625a98f1f81",
+          "links": {
+            "self": "https://zenodo.org/api/records/15304940/files/README.txt/content"
+          }
+        },
+        {
+          "id": "a0a1b6c0-6511-4d25-a088-27d25709f4b0",
+          "key": "Google Collab Code.docx",
+          "size": 7530,
+          "checksum": "md5:a4d7966e78f783b5c6b32a677b1028b5",
+          "links": {
+            "self": "https://zenodo.org/api/records/15304940/files/Google Collab Code.docx/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "1171568"
+          "id": "1283097"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 37,
-        "unique_downloads": 18,
-        "views": 47,
-        "unique_views": 30,
-        "version_downloads": 37,
-        "version_unique_downloads": 18,
-        "version_unique_views": 30,
-        "version_views": 47
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-03-04T06:37:48.711918+00:00",
-      "modified": "2025-03-04T06:37:48.881139+00:00",
-      "id": 14964388,
-      "conceptrecid": "14964387",
-      "doi": "10.11591/eei.v14i1.8417",
-      "doi_url": "https://doi.org/10.11591/eei.v14i1.8417",
-      "metadata": {
-        "title": "A stereo-vision system for real-time person detection in ADAS applications using a fine-tuned version of YOLOv5",
-        "doi": "10.11591/eei.v14i1.8417",
-        "publication_date": "2025-02-01",
-        "description": "<p>Pedestrian detection holds significant importance in advanced driver assistance systems (ADAS) applications, and presents a challenging task in this field. While the advent of deep learning has facilitated the introduction of various pedestrian detectors characterized by accuracy and low inference speed, there persists a need for further improvements. Notably, ADAS requires accurate detection of pedestrians in various environmental conditions that can adversely impact the model&rsquo;s performance, such as poor lighting, and bad weather. Furthermore, an imperative requirement involves the incorporation of distance estimation in conjunction with pedestrian detection, with an extension of detection capabilities to encompass cyclists and riders, who are equally crucial for ensuring road safety. Therefore, this paper introduces a stereovision system designed for the detection of pedestrians, cyclists, and riders. The initial phase, involves improving the performance of you only look once version 5 (YOLOv5s) through a finetuning process with a custom dataset integrating augmentation techniques to common objects in context (COCO) dataset. The detector is trained using Google Colab, and tested in real-time with a Raspberry Pi 4 model B, 8 G RAM. A comparative analysis is conducted between the YOLOv5s and the fine-tuned model to prove the accuracy of our approach. The results showcase a high performance of the detector reaching an accuracy exceeding 79%.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Oumayma Rachidi",
-            "affiliation": "Department of Electromechanical Engineering, School of Arts and Crafts, Moulay Ismail University, Meknes, Morocco",
-            "orcid": "0009-0007-1930-0977"
-          },
-          {
-            "name": "Chafik Ed-Dahmani",
-            "affiliation": "Department of Electromechanical Engineering, School of Arts and Crafts, Moulay Ismail University, Meknes, Morocco",
-            "orcid": "0000-0002-1282-2090"
-          },
-          {
-            "name": "Badr Bououlid Idrissi",
-            "affiliation": "Department of Electromechanical Engineering, School of Arts and Crafts, Moulay Ismail University, Meknes, Morocco",
-            "orcid": "0000-0002-4391-1053"
-          }
-        ],
-        "keywords": [
-          "Advanced driver assistance systems; Computer vision; Deep learning; Person detection; Raspberry Pi; Stereovision; You only look once version 5;"
-        ],
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "14964387"
-              }
-            }
-          ]
-        }
-      },
-      "title": "A stereo-vision system for real-time person detection in ADAS applications using a fine-tuned version of YOLOv5",
-      "links": {
-        "self": "https://zenodo.org/api/records/14964388",
-        "self_html": "https://zenodo.org/records/14964388",
-        "doi": "https://doi.org/10.11591/eei.v14i1.8417",
-        "self_doi": "https://doi.org/10.11591/eei.v14i1.8417",
-        "self_doi_html": "https://zenodo.org/doi/10.11591/eei.v14i1.8417",
-        "parent": "https://zenodo.org/api/records/14964387",
-        "parent_html": "https://zenodo.org/records/14964387",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14964388/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14964388/sequence/default",
-        "files": "https://zenodo.org/api/records/14964388/files",
-        "media_files": "https://zenodo.org/api/records/14964388/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:14964388:22%208417.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:14964388:22%208417.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:14964388:22%208417.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:14964388:22%208417.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:14964388:22%208417.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:14964388:22%208417.pdf/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/14964388/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14964388/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14964388/versions/latest",
-        "latest_html": "https://zenodo.org/records/14964388/latest",
-        "versions": "https://zenodo.org/api/records/14964388/versions",
-        "draft": "https://zenodo.org/api/records/14964388/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14964388/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14964388/access/links",
-        "access_grants": "https://zenodo.org/api/records/14964388/access/grants",
-        "access_users": "https://zenodo.org/api/records/14964388/access/users",
-        "access_request": "https://zenodo.org/api/records/14964388/access/request",
-        "access": "https://zenodo.org/api/records/14964388/access",
-        "communities": "https://zenodo.org/api/records/14964388/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14964388/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14964388/requests"
-      },
-      "updated": "2025-03-04T06:37:48.881139+00:00",
-      "recid": "14964388",
-      "revision": 4,
-      "files": [
-        {
-          "id": "bc92c6c7-e7e5-4e38-b661-4815e0f587a6",
-          "key": "22 8417.pdf",
-          "size": 775377,
-          "checksum": "md5:1ca3f548c29183affbc2c999c267650e",
-          "links": {
-            "self": "https://zenodo.org/api/records/14964388/files/22 8417.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "130519"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 2,
-        "unique_downloads": 2,
-        "views": 6,
-        "unique_views": 6,
-        "version_downloads": 2,
-        "version_unique_downloads": 2,
-        "version_unique_views": 6,
-        "version_views": 6
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-02-28T10:51:12.815458+00:00",
-      "modified": "2025-02-28T10:51:12.991245+00:00",
-      "id": 14944671,
-      "conceptrecid": "14944670",
-      "doi": "10.5281/zenodo.14944671",
-      "conceptdoi": "10.5281/zenodo.14944670",
-      "doi_url": "https://doi.org/10.5281/zenodo.14944671",
-      "metadata": {
-        "title": "cfusterbarcelo/ELEKTRA-approach: ELEKTRA: Electrocardiomatrix-Based Biometric Identification",
-        "doi": "10.5281/zenodo.14944671",
-        "publication_date": "2025-02-28",
-        "description": "<h2>ELEKTRA-approach: Electrocardiomatrix-Based Biometric Identification</h2>\n<p>This release contains a Jupyter Notebook that demonstrates the ELEKTRA approach, a proof of concept for biometric identification using Electrocardiomatrix (EKM) and Convolutional Neural Networks (CNNs).</p>\n<h3>Key Features:</h3>\n<p>\u2705 Jupyter Notebook for step-by-step execution\n\u2705 Google Colab-ready \u2013 no local installation required\n\u2705 Example dataset included \u2013 run the full pipeline without needing additional data\n\u2705 Proof of Concept \u2013 illustrates the methodology behind ELEKTRA</p>\n<h3>How to Use:</h3>\n<ol>\n<li>Open the notebook in Google Colab (recommended).</li>\n<li>Follow the steps to process raw Elektrokardiogram (EKG) signals.</li>\n<li>Generate the Electrocardiomatrix (EKM).</li>\n<li>Perform biometric identification using a CNN model.</li>\n</ol>\n<p>This repository serves as a demonstration of the methodology rather than a production-ready implementation.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Caterina Fuster-Barcel\u00f3",
-            "affiliation": "Universidad Carlos III Madrid"
-          }
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "https://github.com/cfusterbarcelo/ELEKTRA-approach/tree/v1.0.0",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
-          }
-        ],
-        "version": "v1.0.0",
-        "custom": {
-          "code:codeRepository": "https://github.com/cfusterbarcelo/ELEKTRA-approach"
-        },
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "14944670"
-              }
-            }
-          ]
-        }
-      },
-      "title": "cfusterbarcelo/ELEKTRA-approach: ELEKTRA: Electrocardiomatrix-Based Biometric Identification",
-      "links": {
-        "self": "https://zenodo.org/api/records/14944671",
-        "self_html": "https://zenodo.org/records/14944671",
-        "doi": "https://doi.org/10.5281/zenodo.14944671",
-        "self_doi": "https://doi.org/10.5281/zenodo.14944671",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14944671",
-        "parent": "https://zenodo.org/api/records/14944670",
-        "parent_html": "https://zenodo.org/records/14944670",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14944670",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14944670",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14944671/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14944671/sequence/default",
-        "files": "https://zenodo.org/api/records/14944671/files",
-        "media_files": "https://zenodo.org/api/records/14944671/media-files",
-        "archive": "https://zenodo.org/api/records/14944671/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14944671/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14944671/versions/latest",
-        "latest_html": "https://zenodo.org/records/14944671/latest",
-        "versions": "https://zenodo.org/api/records/14944671/versions",
-        "draft": "https://zenodo.org/api/records/14944671/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14944671/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14944671/access/links",
-        "access_grants": "https://zenodo.org/api/records/14944671/access/grants",
-        "access_users": "https://zenodo.org/api/records/14944671/access/users",
-        "access_request": "https://zenodo.org/api/records/14944671/access/request",
-        "access": "https://zenodo.org/api/records/14944671/access",
-        "communities": "https://zenodo.org/api/records/14944671/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14944671/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14944671/requests"
-      },
-      "updated": "2025-02-28T10:51:12.991245+00:00",
-      "recid": "14944671",
-      "revision": 4,
-      "files": [
-        {
-          "id": "6456754e-595a-4843-be6f-0634bb2e6344",
-          "key": "cfusterbarcelo/ELEKTRA-approach-v1.0.0.zip",
-          "size": 16264703,
-          "checksum": "md5:5a4c01d0ef14db39ba6c03f639d363b4",
-          "links": {
-            "self": "https://zenodo.org/api/records/14944671/files/cfusterbarcelo/ELEKTRA-approach-v1.0.0.zip/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1004358"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 4,
-        "unique_downloads": 4,
-        "views": 4,
-        "unique_views": 4,
-        "version_downloads": 4,
-        "version_unique_downloads": 4,
-        "version_unique_views": 4,
-        "version_views": 4
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-02-26T15:47:55.126332+00:00",
-      "modified": "2025-02-26T15:47:55.431441+00:00",
-      "id": 14932325,
-      "conceptrecid": "10522229",
-      "doi": "10.5281/zenodo.14932325",
-      "conceptdoi": "10.5281/zenodo.10522229",
-      "doi_url": "https://doi.org/10.5281/zenodo.14932325",
-      "metadata": {
-        "title": "teamtomo/membrain-seg: v0.0.8",
-        "doi": "10.5281/zenodo.14932325",
-        "publication_date": "2025-02-26",
-        "description": "<h2>What's Changed</h2>\n<ul>\n<li>add link to google colab notebook by @LorenzLamm in https://github.com/teamtomo/membrain-seg/pull/89</li>\n<li>fix logging :: TypeError: not all arguments converted during string formatting by @EricDeveaud in https://github.com/teamtomo/membrain-seg/pull/91</li>\n</ul>\n<h2>New Contributors</h2>\n<ul>\n<li>@EricDeveaud made their first contribution in https://github.com/teamtomo/membrain-seg/pull/91</li>\n</ul>\n<p><strong>Full Changelog</strong>: https://github.com/teamtomo/membrain-seg/compare/v0.0.7...v0.0.8</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Lorenz Lamm",
-            "affiliation": null
-          },
-          {
-            "name": "alisterburt",
-            "affiliation": null
-          },
-          {
-            "name": "Kevin Yamauchi",
-            "affiliation": "Iber Lab - ETH Z\u00fcrich"
-          },
-          {
-            "name": "Ricardo Righetto",
-            "affiliation": null
-          },
-          {
-            "name": "Eric Deveaud",
-            "affiliation": "Institut Pasteur"
-          },
-          {
-            "name": "Genevieve Buckley",
-            "affiliation": "Monash University"
-          },
-          {
-            "name": "Hanyi11",
-            "affiliation": null
-          }
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "https://github.com/teamtomo/membrain-seg/tree/v0.0.8",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
-          }
-        ],
-        "version": "v0.0.8",
-        "custom": {
-          "code:codeRepository": "https://github.com/teamtomo/membrain-seg"
-        },
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 7,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "10522229"
-              }
-            }
-          ]
-        }
-      },
-      "title": "teamtomo/membrain-seg: v0.0.8",
-      "links": {
-        "self": "https://zenodo.org/api/records/14932325",
-        "self_html": "https://zenodo.org/records/14932325",
-        "doi": "https://doi.org/10.5281/zenodo.14932325",
-        "self_doi": "https://doi.org/10.5281/zenodo.14932325",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14932325",
-        "parent": "https://zenodo.org/api/records/10522229",
-        "parent_html": "https://zenodo.org/records/10522229",
-        "parent_doi": "https://doi.org/10.5281/zenodo.10522229",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10522229",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14932325/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14932325/sequence/default",
-        "files": "https://zenodo.org/api/records/14932325/files",
-        "media_files": "https://zenodo.org/api/records/14932325/media-files",
-        "archive": "https://zenodo.org/api/records/14932325/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14932325/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14932325/versions/latest",
-        "latest_html": "https://zenodo.org/records/14932325/latest",
-        "versions": "https://zenodo.org/api/records/14932325/versions",
-        "draft": "https://zenodo.org/api/records/14932325/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14932325/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14932325/access/links",
-        "access_grants": "https://zenodo.org/api/records/14932325/access/grants",
-        "access_users": "https://zenodo.org/api/records/14932325/access/users",
-        "access_request": "https://zenodo.org/api/records/14932325/access/request",
-        "access": "https://zenodo.org/api/records/14932325/access",
-        "communities": "https://zenodo.org/api/records/14932325/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14932325/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14932325/requests"
-      },
-      "updated": "2025-02-26T15:47:55.431441+00:00",
-      "recid": "14932325",
-      "revision": 4,
-      "files": [
-        {
-          "id": "433b8fa1-7c61-4c34-b078-3449a679dad8",
-          "key": "teamtomo/membrain-seg-v0.0.8.zip",
-          "size": 138486,
-          "checksum": "md5:e55620da1a2d74a28cb259de9e563b0d",
-          "links": {
-            "self": "https://zenodo.org/api/records/14932325/files/teamtomo/membrain-seg-v0.0.8.zip/content"
-          }
-        }
-      ],
-      "swh": {
-        "swhid": "swh:1:dir:a911a747ea334d419daeb0085b949bfb7d30e69d;origin=https://doi.org/10.5281/zenodo.10522229;visit=swh:1:snp:0c6929519f506bf516f0bf99d79d5666dc93e7a5;anchor=swh:1:rel:dbe6e5518525385aeb061ded0c15256de0a2d544;path=teamtomo-membrain-seg-e71cc54"
-      },
-      "owners": [
-        {
-          "id": "131994"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 14,
-        "unique_downloads": 14,
-        "views": 59,
-        "unique_views": 59,
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 3,
+        "unique_views": 1,
         "version_downloads": 0,
         "version_unique_downloads": 0,
-        "version_unique_views": 5,
-        "version_views": 5
+        "version_unique_views": 1,
+        "version_views": 3
       },
       "state": "done",
       "submitted": true
     },
     {
-      "created": "2025-02-26T15:26:17.069646+00:00",
-      "modified": "2025-02-26T15:26:17.425073+00:00",
-      "id": 14931862,
-      "conceptrecid": "14931861",
-      "doi": "10.5281/zenodo.14931862",
-      "conceptdoi": "10.5281/zenodo.14931861",
-      "doi_url": "https://doi.org/10.5281/zenodo.14931862",
+      "created": "2025-04-29T15:03:08.275756+00:00",
+      "modified": "2025-04-29T15:03:08.667996+00:00",
+      "id": 15304431,
+      "conceptrecid": "15304430",
+      "doi": "10.5281/zenodo.15304431",
+      "conceptdoi": "10.5281/zenodo.15304430",
+      "doi_url": "https://doi.org/10.5281/zenodo.15304431",
       "metadata": {
-        "title": "D2.2: First Version of Data or Development",
-        "doi": "10.5281/zenodo.14931862",
-        "publication_date": "2025-02-26",
-        "description": "<p>The FOCCUS project (https://foccus-project.eu/) aims to enhance coastal ocean observation and<br>forecasting for Copernicus users by designing and implementing a range of high-resolution data<br>products. The work package 2 (WP) focuses on improving pan-European innovative coastal ocean<br>observations in response to society and EU policy needs in the context of climate change.<br>The data products of innovative coastal observations, described in the Deliverable 2.1 - Data Report<br>[M12] will be integrated in coastal modelling and coastal applications work packages to address<br>pressing environmental and societal challenges (ESC).</p>\n<p>This Deliverable 2.2, provides the first version of the data products within the WP2/3, that are<br>provided in various formats, including NetCDF (.nc), Comma-separated values (.csv), and shapefile<br>(.shp), as seen in the Table 1. Coastal and river data inventories (not included in Table 1), providing<br>detailed information, will be available in Deliverable D2.3, scheduled for release on June 30th, 2025.<br>All data products will be validated in the project's second phase (starting in M18), with some of them<br>containing very preliminary results. Final data products will be submitted in M32. Datasets that are<br>listed in Table 1, that still have in the current version a restricted access, will be made available to the<br>FOCCUS project partners by request.</p>\n<p>The datasets have been uploaded to the Zenodo Community of FOCCUS. Zenodo was chosen due to<br>its long-term preservation capabilities, clear versioning system, generous storage allowance (50 GB<br>is available by default, more on demand), and built-in usage tracking. The platform's ability to assign<br>DOIs to each publication enhances data discoverability and citability. Furthermore, integration with<br>the existing FOCCUS project community folder facilitates organization and collaboration. Annex I<br>provides a step-by-step guide to uploading datasets to the Zenodo repository.</p>",
+        "title": "Stakeholder Reference Group Setup (D6.2)",
+        "doi": "10.5281/zenodo.15304431",
+        "publication_date": "2025-04-29",
+        "description": "<p>This deliverable outlines the establishment of the Stakeholder Reference Group (SRG) for the ObsSea4Clim project. The SRG provides a structured and inclusive platform for engaging diverse stakeholders, including policymakers, intergovernmental organisations, scientifi c institutions, and blue economy actors, to recognise the requirements for a standardised Global Ocean Observing System (GOOS), co-design Essential Ocean Variables (EOVs)-based indicators, shape data collection strategies, and promote the uptake of project outputs. Through stakeholder mapping, prioritisation, and targeted engagement mechanisms, this deliverable supports the development of user-driven, policy-relevant, and more actionable ocean-climate data. The SRG will play a key role in aligning project outputs with societal and environmental needs, reinforcing Europe&rsquo;s leadership in the global ocean-climate science nexus.</p>\n<p>This deliverable outlines:</p>\n<p>\u25cf The rationale for engaging stakeholders in the ocean-climate observations and policy, including the pathways for uptake and alignment with global initiatives (Section 2 Stakeholders Engagement and Uptake in ObsSea4Clim);</p>\n<p>&nbsp;\u25cf The establishment of the SRG, including its objectives, expected contributions, structure and membership criteria (Sections 3.1 Purpose to 3.4 Membership);</p>\n<p>\u25cf The stakeholder mapping and analysis methodology, describing how key actors were identifi ed, prioritised and invited, and the ongoing process for assuring and increasing participation (Section 3.3 Identifi cation and Composition of the SRG);&nbsp;</p>\n<p>\u25cf A description of the stakeholder groups involved in the SRG, including their relevance to the objectives of ObsSea4Clim and the project's links with each group (Section 4 Stakeholder Group Descriptions).</p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Falcini, Federico",
-            "affiliation": "National Research Council"
+            "name": "Salge, Paula",
+            "affiliation": "COLAB Atlantic",
+            "orcid": "0000-0002-7757-9431"
           },
           {
-            "name": "Reyes, Emma",
-            "affiliation": "Balearic Islands Coastal Observing and Forecasting System"
-          },
-          {
-            "name": "Bonaduce, Antonio",
-            "affiliation": "Nansen Environmental and Remote Sensing Center"
-          }
-        ],
-        "contributors": [
-          {
-            "name": "Falcini, Federico",
-            "affiliation": "National Research Council",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Reyes, Emma",
-            "affiliation": "Balearic Islands Coastal Observing and Forecasting System",
-            "type": "WorkPackageLeader"
-          },
-          {
-            "name": "Bonaduce, Antonio",
-            "affiliation": "Nansen Environmental and Remote Sensing Center",
-            "type": "WorkPackageLeader"
-          },
-          {
-            "name": "Almeida, A.",
-            "affiliation": "CoLAB +ATLANTIC",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Braga, F.",
-            "affiliation": "National Research Council",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Braud, J-M.",
-            "affiliation": "National Research Council",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Brockmann, C.",
-            "affiliation": "Brockmann Consult (Germany)",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Campuzano, F.",
-            "affiliation": "CoLAB +ATLANTIC",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Charria, G.",
-            "affiliation": "Ifremer Head Office",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Cecilio, C.",
-            "affiliation": "CoLAB +ATLANTIC",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Christensen, K.H.",
-            "affiliation": "Norwegian Meteorological Institute",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Ciani, D.",
-            "affiliation": "National Research Council",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Colella, S.",
-            "affiliation": "National Research Council",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Criado-Sudau, F.",
-            "affiliation": "Balearic Islands Coastal Observing and Forecasting System",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Fern\u00e0ndez-Mora, A.",
-            "affiliation": "Balearic Islands Coastal Observing and Forecasting System",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Figueiredo, L.",
-            "affiliation": "CoLAB +ATLANTIC",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Gonz\u00e1lez, L.",
-            "affiliation": "Balearic Islands Coastal Observing and Forecasting System",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Hayward, A.",
+            "name": "Bearzotti, Chiara",
             "affiliation": "Danish Meteorological Institute",
-            "type": "ProjectMember"
+            "orcid": "0000-0003-3387-9114"
           },
           {
-            "name": "Johnson, K.",
-            "affiliation": "Helmholtz-Zentrum Hereon GmbH",
-            "type": "ProjectManager"
+            "name": "Onida, Alessandra",
+            "affiliation": "Ecole Normale Superieure LMD"
           },
           {
-            "name": "K\u00f6nig, M.",
-            "affiliation": "Brockmann Consult (Germany)",
-            "type": "ProjectMember"
+            "name": "Speich, Sabrina",
+            "affiliation": "Ecole Normale Superieure LMD",
+            "orcid": "0000-0002-5452-8287"
           },
           {
-            "name": "Korosov, A.",
-            "affiliation": "Nansen Environmental and Remote Sensing Center",
-            "type": "ProjectMember"
+            "name": "von Schuckmann, Karina",
+            "affiliation": "Mercator Ocean international",
+            "orcid": "0000-0002-9922-8528"
           },
           {
-            "name": "Larkin, K.",
-            "affiliation": "EMODnet Secretariat",
-            "type": "ProjectMember"
+            "name": "Bonino, Giulia",
+            "affiliation": "CMCC Foundation - Euro-Mediterranean Center on Climate Change",
+            "orcid": "0000-0002-3962-9354"
           },
           {
-            "name": "Lebreton, C.",
-            "affiliation": "Brockmann Consult (Germany)",
-            "type": "ProjectMember"
+            "name": "Masina, Simona",
+            "affiliation": "CMCC Foundation - Euro-Mediterranean Center on Climate Change",
+            "orcid": "0000-0001-6273-7065"
           },
           {
-            "name": "Lefevre, F.",
-            "affiliation": "Collecte Localisation Satellites SA",
-            "type": "ProjectMember"
+            "name": "Lips, Inga",
+            "affiliation": "European Global Ocean Observing System"
           },
           {
-            "name": "L\u00f3pez, G.",
-            "affiliation": "Balearic Islands Coastal Observing and Forecasting System",
-            "type": "ProjectMember"
+            "name": "Novellino, Antonio",
+            "affiliation": "ETT S.p.A.",
+            "orcid": "0000-0002-3263-5583"
           },
           {
-            "name": "Masi, A.",
-            "affiliation": "National Research Council",
-            "type": "ProjectMember"
+            "name": "Oliveira, Ana",
+            "affiliation": "COLAB Atlantic",
+            "orcid": "0000-0003-1564-2180"
           },
           {
-            "name": "Mihailov, M.E.",
-            "affiliation": "Maritime Hydrographic Directorate",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Moiseev, A.",
-            "affiliation": "Nansen Environmental and Remote Sensing Center",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Obaton, D.",
-            "affiliation": "Ifremer Head Office",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Pisano, A.",
-            "affiliation": "National Research Council",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Pitarh, J.",
-            "affiliation": "National Research Council",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Roshin, R.P.",
-            "affiliation": "Nansen Environmental and Remote Sensing Center",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Ruiz, J.",
-            "affiliation": "CSIC, Central Organisation",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "S\u00e1nchez-Garc\u00eda, E.",
-            "affiliation": "Balearic Islands Coastal Observing and Forecasting System",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Silva, E.",
-            "affiliation": "Nansen Environmental and Remote Sensing Center",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Scarpa, G.M.",
-            "affiliation": "National Research Council",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Schultz-Stellenfleth, J.",
-            "affiliation": "Helmholtz-Zentrum Hereon GmbH",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Soriano-Gonz\u00e1lez, J.",
-            "affiliation": "Balearic Islands Coastal Observing and Forecasting System",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Stelzer, K.",
-            "affiliation": "Brockmann Consult (Germany)",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Staneva, J.",
-            "affiliation": "Helmholtz-Zentrum Hereon GmbH",
-            "type": "ProjectLeader"
-          },
-          {
-            "name": "Tintor\u00e9, J.",
-            "affiliation": "Balearic Islands Coastal Observing and Forecasting System",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Verbrugge, N.",
-            "affiliation": "Collecte Localisation Satellites SA",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Vergara, O.",
-            "affiliation": "Collecte Localisation Satellites SA",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Zoffoli, M.L.",
-            "affiliation": "National Research Council",
-            "type": "ProjectMember"
+            "name": "Souza Silva, Fabiola",
+            "affiliation": "COLAB Atlantic",
+            "orcid": "0000-0002-0218-2309"
           }
         ],
-        "dates": [
-          {
-            "type": "submitted",
-            "description": "Submitted as D2.2 of FOCCUS"
-          }
-        ],
-        "version": "1.1",
-        "language": "eng",
         "resource_type": {
           "title": "Project deliverable",
           "type": "publication",
@@ -1293,22 +915,25 @@
         },
         "grants": [
           {
-            "code": "101133911",
-            "internal_id": "10.13039/501100000780::101133911",
+            "code": "101136548",
+            "internal_id": "10.13039/501100000780::101136548",
             "funder": {
               "name": "European Commission",
               "doi": "10.13039/501100000780",
               "acronym": "EC"
             },
-            "title": "Forecasting and observing the open-to-coastal ocean for Copernicus users",
-            "acronym": "FOCCUS",
-            "program": "HORIZON.2.4",
-            "url": "https://cordis.europa.eu/projects/101133911"
+            "title": "Ocean observations and indicators for climate and assessments.",
+            "acronym": "ObsSea4Clim",
+            "program": "HORIZON.2.6",
+            "url": "https://cordis.europa.eu/projects/101136548"
           }
         ],
         "communities": [
           {
-            "id": "foccus-project"
+            "id": "obssea4clim"
+          },
+          {
+            "id": "eu"
           }
         ],
         "relations": {
@@ -1318,324 +943,143 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "14931861"
+                "pid_value": "15304430"
               }
             }
           ]
         }
       },
-      "title": "D2.2: First Version of Data or Development",
+      "title": "Stakeholder Reference Group Setup (D6.2)",
       "links": {
-        "self": "https://zenodo.org/api/records/14931862",
-        "self_html": "https://zenodo.org/records/14931862",
-        "doi": "https://doi.org/10.5281/zenodo.14931862",
-        "self_doi": "https://doi.org/10.5281/zenodo.14931862",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14931862",
-        "parent": "https://zenodo.org/api/records/14931861",
-        "parent_html": "https://zenodo.org/records/14931861",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14931861",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14931861",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14931862/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14931862/sequence/default",
-        "files": "https://zenodo.org/api/records/14931862/files",
-        "media_files": "https://zenodo.org/api/records/14931862/media-files",
+        "self": "https://zenodo.org/api/records/15304431",
+        "self_html": "https://zenodo.org/records/15304431",
+        "preview_html": "https://zenodo.org/records/15304431?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15304431",
+        "self_doi": "https://doi.org/10.5281/zenodo.15304431",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15304431",
+        "parent": "https://zenodo.org/api/records/15304430",
+        "parent_html": "https://zenodo.org/records/15304430",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15304430",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15304430",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15304431/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15304431/sequence/default",
+        "files": "https://zenodo.org/api/records/15304431/files",
+        "media_files": "https://zenodo.org/api/records/15304431/media-files",
         "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:14931862:D2.2_1st%20version%20of%20data%20or%20development.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:14931862:D2.2_1st%20version%20of%20data%20or%20development.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:14931862:D2.2_1st%20version%20of%20data%20or%20development.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:14931862:D2.2_1st%20version%20of%20data%20or%20development.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:14931862:D2.2_1st%20version%20of%20data%20or%20development.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:14931862:D2.2_1st%20version%20of%20data%20or%20development.pdf/full/^1200,/0/default.jpg"
+          "10": "https://zenodo.org/api/iiif/record:15304431:D6.2-FINAL-ObsSea4Clim.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15304431:D6.2-FINAL-ObsSea4Clim.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15304431:D6.2-FINAL-ObsSea4Clim.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15304431:D6.2-FINAL-ObsSea4Clim.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15304431:D6.2-FINAL-ObsSea4Clim.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15304431:D6.2-FINAL-ObsSea4Clim.pdf/full/^1200,/0/default.jpg"
         },
-        "archive": "https://zenodo.org/api/records/14931862/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14931862/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14931862/versions/latest",
-        "latest_html": "https://zenodo.org/records/14931862/latest",
-        "versions": "https://zenodo.org/api/records/14931862/versions",
-        "draft": "https://zenodo.org/api/records/14931862/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14931862/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14931862/access/links",
-        "access_grants": "https://zenodo.org/api/records/14931862/access/grants",
-        "access_users": "https://zenodo.org/api/records/14931862/access/users",
-        "access_request": "https://zenodo.org/api/records/14931862/access/request",
-        "access": "https://zenodo.org/api/records/14931862/access",
-        "communities": "https://zenodo.org/api/records/14931862/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14931862/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14931862/requests"
+        "archive": "https://zenodo.org/api/records/15304431/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15304431/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15304431/versions/latest",
+        "latest_html": "https://zenodo.org/records/15304431/latest",
+        "versions": "https://zenodo.org/api/records/15304431/versions",
+        "draft": "https://zenodo.org/api/records/15304431/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15304431/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15304431/access/links",
+        "access_grants": "https://zenodo.org/api/records/15304431/access/grants",
+        "access_users": "https://zenodo.org/api/records/15304431/access/users",
+        "access_request": "https://zenodo.org/api/records/15304431/access/request",
+        "access": "https://zenodo.org/api/records/15304431/access",
+        "communities": "https://zenodo.org/api/records/15304431/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15304431/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15304431/requests"
       },
-      "updated": "2025-02-26T15:26:17.425073+00:00",
-      "recid": "14931862",
+      "updated": "2025-04-29T15:03:08.667996+00:00",
+      "recid": "15304431",
       "revision": 4,
       "files": [
         {
-          "id": "ac11a03b-8df3-4322-9ee4-66af726ec8ca",
-          "key": "D2.2_1st version of data or development.pdf",
-          "size": 628031,
-          "checksum": "md5:7544e1635b0f7f7ae8159b5ffb7ca74a",
+          "id": "b7bc529a-5b17-41ae-bc93-f68e76270bd7",
+          "key": "D6.2-FINAL-ObsSea4Clim.pdf",
+          "size": 1339479,
+          "checksum": "md5:b8856d8bdf97bfccaa71ccecf93f8944",
           "links": {
-            "self": "https://zenodo.org/api/records/14931862/files/D2.2_1st version of data or development.pdf/content"
+            "self": "https://zenodo.org/api/records/15304431/files/D6.2-FINAL-ObsSea4Clim.pdf/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "1160484"
+          "id": "29385"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 23,
-        "unique_downloads": 17,
-        "views": 17,
-        "unique_views": 17,
-        "version_downloads": 23,
-        "version_unique_downloads": 17,
-        "version_unique_views": 17,
-        "version_views": 17
+        "downloads": 13,
+        "unique_downloads": 7,
+        "views": 7,
+        "unique_views": 7,
+        "version_downloads": 13,
+        "version_unique_downloads": 7,
+        "version_unique_views": 7,
+        "version_views": 7
       },
       "state": "done",
       "submitted": true
     },
     {
-      "created": "2025-02-26T07:40:43.716749+00:00",
-      "modified": "2025-02-26T07:40:44.056134+00:00",
-      "id": 14928825,
-      "conceptrecid": "14735676",
-      "doi": "10.5281/zenodo.14928825",
-      "conceptdoi": "10.5281/zenodo.14735676",
-      "doi_url": "https://doi.org/10.5281/zenodo.14928825",
+      "created": "2025-04-28T23:49:45.445440+00:00",
+      "modified": "2025-04-28T23:49:45.718402+00:00",
+      "id": 15299723,
+      "conceptrecid": "15299722",
+      "doi": "10.5281/zenodo.15299723",
+      "conceptdoi": "10.5281/zenodo.15299722",
+      "doi_url": "https://doi.org/10.5281/zenodo.15299723",
       "metadata": {
-        "title": "High-resolution coastal topobathymetries",
-        "doi": "10.5281/zenodo.14928825",
-        "publication_date": "2025-02-26",
-        "description": "<p>The dataset includes time-series of Cala Millor beach topographic and bathymetric surveys.Two primary data products are provided: Very high-resolution irregular-gridded datasets (grid-as-point) with a best point spacing of ~1 m (shapefiles), and interpolated gridded datasets with a spatial resolution of 10 m (NetCDF).&nbsp;Topographic surveys and most shallow waters were surveyed using RTK-GNSS, and multibeam echo-sounder was used for the remaining depths.&nbsp;</p>\n<p>&nbsp;</p>",
+        "title": "EDUCATIONAL TRANSFORMATION WITH ADVANCED TDICS: INTEGRATION OF ARTIFICIAL INTELLIGENCE AND BIG DATA FOR THE DEVELOPMENT OF BNCC SKILLS IN THE INITIAL AND FINAL YEARS OF ELEMENTARY EDUCATION",
+        "doi": "10.5281/zenodo.15299723",
+        "publication_date": "2025-04-29",
+        "description": "<p><strong><span lang=\"EN\">This research investigates the use of advanced Digital Information and Communication Technologies (ICTs), artificial intelligence (AI) and Big Data in the personalization of elementary education, in alignment with the competencies of the National Common Curricular Base (BNCC). Inserted in a context of growing technological transformation in education, the research addresses the issue of how these tools can be effectively integrated into teaching, respecting inclusion and diversity, and overcoming challenges such as inequality of access and insufficient teacher training. The main objective was to analyze how these technologies can personalize teaching and develop specific BNCC competencies. The research adopted the Giftedian neoperspectivist paradigm, based on the theories of Constructivism, Cognitivism, Adaptive Learning and Computational Complexity. It used the hypothetical-deductive method and conducted a Bibliographic and Documentary Narrative Review, analyzing 87 works selected from databases such as Scopus, Web of Science and Scielo. The main findings indicate that tools such as Python, R and Google Colab personalize pedagogical practices and promote inclusion, but teacher training and unequal infrastructure are critical challenges. Among the gaps, the absence of longitudinal studies and clear regulations for the ethical use of educational data stand out. Limitations include the dependence on secondary data and the lack of practical validation in the field. The research contributes theoretically, methodologically and empirically to the area of educational technologies, adding value to science and society by proposing innovative and inclusive practices that enhance learning and reduce inequalities.</span></strong></p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Soriano-Gonz\u00e1lez, Jes\u00fas",
-            "affiliation": "Balearic Islands Coastal Observing and Forecasting System",
-            "orcid": "0000-0001-6573-3924"
+            "name": "Brevi\u00e1rio, \u00c1laze Gabriel do",
+            "affiliation": null
           },
           {
-            "name": "S\u00e1nchez-Garc\u00eda, Elena",
-            "affiliation": "Balearic Islands Coastal Observing and Forecasting System",
-            "orcid": "0000-0002-8642-2436"
+            "name": "Lopes, Valdimeire Silvestre",
+            "affiliation": null
           },
           {
-            "name": "Criado Sudau, Francisco",
-            "affiliation": "Balearic Islands Coastal Observing and Forecasting System",
-            "orcid": "0000-0003-3405-1001"
+            "name": "Fr\u00f3es, Deusirene Souza da Silva",
+            "affiliation": null
           },
           {
-            "name": "Gonz\u00e1lez-P\u00e9rez, Le\u00f3n",
-            "affiliation": "Balearic Islands Coastal Observing and Forecasting System",
-            "orcid": "0009-0007-7387-0313"
+            "name": "Rebello, Fl\u00e1via Adriana Santos",
+            "affiliation": null
           },
           {
-            "name": "Fern\u00e0ndez-Mora, \u00c0ngels",
-            "affiliation": "Balearic Islands Coastal Observing and Forecasting System",
-            "orcid": "0000-0003-0150-1432"
+            "name": "Lucena, Jo\u00e3o Batista",
+            "affiliation": null
+          },
+          {
+            "name": "Rago, Logan Faedda",
+            "affiliation": null
+          },
+          {
+            "name": "Rocha, Leliane Aparecida Castro",
+            "affiliation": null
+          },
+          {
+            "name": "Silva, Ayla Limeira da",
+            "affiliation": null
           }
         ],
-        "contributors": [
-          {
-            "name": "Almeida, Pedro",
-            "affiliation": "COLAB Atlantic",
-            "type": "ProjectMember",
-            "orcid": "0000-0001-7805-9086"
-          },
-          {
-            "name": "Mihailov, Maria Emanuela",
-            "affiliation": null,
-            "type": "ProjectMember",
-            "orcid": "0000-0003-4398-8891"
-          },
-          {
-            "name": "Popov, Petrica",
-            "affiliation": "Maritime Hydrographic Directorate",
-            "type": "ProjectMember",
-            "orcid": "0000-0001-6936-9883"
-          },
-          {
-            "name": "Dutu, Lucian",
-            "affiliation": "Maritime Hydrographic Directorate",
-            "type": "ProjectMember",
-            "orcid": "0000-0002-9212-9228"
-          },
-          {
-            "name": "Figueredo, Luis",
-            "affiliation": "COLAB Atlantic",
-            "type": "ProjectMember",
-            "orcid": "0009-0007-0157-2202"
-          },
-          {
-            "name": "Marques Cecilio, Catarina",
-            "affiliation": "COLAB Atlantic",
-            "type": "ProjectMember",
-            "orcid": "0009-0009-2108-7639"
-          }
+        "keywords": [
+          "Digital Inclusion. School Skills. Pedagogical Training. Predictive Analysis Personalized Education"
         ],
-        "dates": [
-          {
-            "type": "collected",
-            "start": "2019-10-24",
-            "end": "2020-06-01"
-          }
-        ],
-        "version": "v0.3",
-        "references": [
-          "Fern\u00e1ndez-Mora, A., Criado-Sudau, F.F., G\u00f3mez-Pujol, L. et al. Ten years of morphodynamic data at a micro-tidal urban beach: Cala Millor (Western Mediterranean Sea). Sci Data 10, 301 (2023). https://doi.org/10.1038/s41597-023-02210-2",
-          "ICTS SOCIB Data Repository; editing status 2024-06-21; re3data.org - Registry of Research Data Repositories. http://doi.org/10.17616/R31NJMPH"
-        ],
+        "version": "1",
         "language": "eng",
         "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "grants": [
-          {
-            "code": "101133911",
-            "internal_id": "10.13039/501100000780::101133911",
-            "funder": {
-              "name": "European Commission",
-              "doi": "10.13039/501100000780",
-              "acronym": "EC"
-            },
-            "title": "Forecasting and observing the open-to-coastal ocean for Copernicus users",
-            "acronym": "FOCCUS",
-            "program": "HORIZON.2.4",
-            "url": "https://cordis.europa.eu/projects/101133911"
-          }
-        ],
-        "communities": [
-          {
-            "id": "foccus-project"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 3,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "14735676"
-              }
-            }
-          ]
-        }
-      },
-      "title": "High-resolution coastal topobathymetries",
-      "links": {
-        "self": "https://zenodo.org/api/records/14928825",
-        "self_html": "https://zenodo.org/records/14928825",
-        "doi": "https://doi.org/10.5281/zenodo.14928825",
-        "self_doi": "https://doi.org/10.5281/zenodo.14928825",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14928825",
-        "parent": "https://zenodo.org/api/records/14735676",
-        "parent_html": "https://zenodo.org/records/14735676",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14735676",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14735676",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14928825/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14928825/sequence/default",
-        "files": "https://zenodo.org/api/records/14928825/files",
-        "media_files": "https://zenodo.org/api/records/14928825/media-files",
-        "archive": "https://zenodo.org/api/records/14928825/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14928825/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14928825/versions/latest",
-        "latest_html": "https://zenodo.org/records/14928825/latest",
-        "versions": "https://zenodo.org/api/records/14928825/versions",
-        "draft": "https://zenodo.org/api/records/14928825/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14928825/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14928825/access/links",
-        "access_grants": "https://zenodo.org/api/records/14928825/access/grants",
-        "access_users": "https://zenodo.org/api/records/14928825/access/users",
-        "access_request": "https://zenodo.org/api/records/14928825/access/request",
-        "access": "https://zenodo.org/api/records/14928825/access",
-        "communities": "https://zenodo.org/api/records/14928825/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14928825/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14928825/requests"
-      },
-      "updated": "2025-02-26T07:40:44.056134+00:00",
-      "recid": "14928825",
-      "revision": 4,
-      "files": [
-        {
-          "id": "171cb875-0f30-4476-833d-1ef7c33e7f2c",
-          "key": "multipont_topobathymetry.zip",
-          "size": 19701252,
-          "checksum": "md5:0e9fb370f961f12c608c879b8e15b0b5",
-          "links": {
-            "self": "https://zenodo.org/api/records/14928825/files/multipont_topobathymetry.zip/content"
-          }
-        },
-        {
-          "id": "1d466c49-2dba-43e0-9710-0f293bcf0839",
-          "key": "first_draft_Topobatymetry_2019-2020.nc",
-          "size": 1596063,
-          "checksum": "md5:6c25a04d20a8d3ee0870ef13dd3da586",
-          "links": {
-            "self": "https://zenodo.org/api/records/14928825/files/first_draft_Topobatymetry_2019-2020.nc/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1252914"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 27,
-        "unique_downloads": 27,
-        "views": 114,
-        "unique_views": 86,
-        "version_downloads": 12,
-        "version_unique_downloads": 12,
-        "version_unique_views": 38,
-        "version_views": 38
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-02-24T19:24:04.004045+00:00",
-      "modified": "2025-02-24T19:24:04.166566+00:00",
-      "id": 14919674,
-      "conceptrecid": "14919673",
-      "doi": "10.5281/zenodo.14919674",
-      "conceptdoi": "10.5281/zenodo.14919673",
-      "doi_url": "https://doi.org/10.5281/zenodo.14919674",
-      "metadata": {
-        "title": "Sentiment Analysis of COVID-19 Scientific Publication Dissemination on Social Media X: A Dataset Analyzed with ChatGPT 3.5 and Gemini 1.5 Flash",
-        "doi": "10.5281/zenodo.14919674",
-        "publication_date": "2025-02-24",
-        "description": "<p>The dataset provided includes a sample of posts on X that mentioned the editorial published in the journal &ldquo;Dying in a Leadership Vacuum&rdquo; on October 7, 2020, with the title &ldquo;Dying in a Leadership Vacuum&rdquo; (DOI: 10.1056/NEJMe2029812).</p>\n<p>A sample of posts on X that referenced the publication was collected. The posts were extracted from the Altmetric platform using a Python 3.12 algorithm with the Beautiful Soup 4.12 library and the Google Colab development environment. As a result, a dataset was generated containing 9,792 posts on X that specifically commented on the aforementioned editorial. Among these posts, 5,601 unique profiles were identified and cross-referenced with the profiles classified and made available in the dataset created by Pontes and Maricato (2023a). From the accounts that had an existing classification (bot or human), 41 accounts that had made more than four posts were selected.</p>\n<p>According to the dataset provided by Pontes and Maricato (2023), 10 accounts were classified as bots by Botometer, while 31 were classified as human. Considering that Pontes and Maricato (2023) highlighted the limitations of using Botometer for classifying accounts in the altmetric attention network, a manual classification of the 41 selected accounts was conducted. The manual classification was based on criteria such as the number of posts, posting times, time intervals between posts, account creation dates, and profile pictures. Through this manual classification, it was determined that 20 accounts were bots and 21 were human.</p>\n<p>The classified accounts posted a total of 3,493 posts, which are included in this dataset and were used in the analyses presented in the article.</p>\n<p>The metadata structure of the dataset is presented below.</p>\n<div>\n<p>Variable Name: ACCOUNT &nbsp;<br>Data Type: String (Text) &nbsp;<br>Description: Anonymized account code to preserve user identity. &nbsp;<br>Possible Values: ACCOUNT + sequential number &nbsp;</p>\n<p>Variable Name: ACCOUNT CLASS (BTM) &nbsp;<br>Data Type: Categorical &nbsp;<br>Description: Automatic account classification using a tool like Botometer. &nbsp;<br>Possible Values: human, bot &nbsp;</p>\n<p>Variable Name: ACCOUNT CLASS (MANUAL) &nbsp;<br>Data Type: Categorical &nbsp;<br>Description: Manual account classification based on researcher analysis. &nbsp;<br>Possible Values: human, bot &nbsp;</p>\n<p>Variable Name: POST CONTENT &nbsp;<br>Data Type: Text (String) &nbsp;<br>Description: Full text of the collected post. &nbsp;</p>\n<p>Variable Name: SENTIMENT CLASS (GPT) &nbsp;<br>Data Type: Categorical &nbsp;<br>Description: Sentiment classification assigned by ChatGPT. &nbsp;<br>Possible Values: positive, neutral, negative &nbsp;</p>\n<p>Variable Name: SENTIMENT CLASS (GEMINI) &nbsp;<br>Data Type: Categorical &nbsp;<br>Description: Sentiment classification assigned by Gemini. &nbsp;<br>Possible Values: positive, neutral, negative &nbsp;</p>\n<p>Variable Name: GPT X GEM (MATCH/DIFFERENCE) &nbsp;<br>Data Type: Binary &nbsp;<br>Description: Indicates whether the sentiment classification was the same or different between ChatGPT and Gemini. &nbsp;<br>Possible Values: match, different &nbsp;</p>\n<p>Variable Name: POST CLASS (MANUAL) &nbsp;<br>Data Type: Categorical &nbsp;<br>Description: Manual sentiment classification of the post. &nbsp;<br>Possible Values: positive, neutral, negative &nbsp;</p>\n<p>Variable Name: GPT RESULT &nbsp;<br>Data Type: Categorical &nbsp;<br>Description: Evaluation of ChatGPT's classification against the manual standard. &nbsp;<br>Possible Values: correct, incorrect &nbsp;</p>\n<p>Variable Name: GEMINI RESULT &nbsp;<br>Data Type: Categorical &nbsp;<br>Description: Evaluation of Gemini's classification against the manual standard. &nbsp;<br>Possible Values: correct, incorrect &nbsp;</p>\n</div>\n<p><span>&nbsp;</span></p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Pontes, Danielle",
-            "affiliation": "Universidade do Estado do Amazonas",
-            "orcid": "0000-0003-0036-6638"
-          },
-          {
-            "name": "Maricato, Jo\u00e3o de Melo",
-            "affiliation": "Universidade de Bras\u00edlia",
-            "orcid": "0000-0001-9162-6866"
-          }
-        ],
-        "references": [
-          "PONTES, Danielle.; MARICATO, Jo\u00e3o. DATASET WITH CLASSIFICATION OF ACCOUNTS THAT DISCLOSE SCIENTIFIC ARTICLES ON TWITTER BETWEEN BOT, HUMAN AND CYBORG THROUGH BOTOMETER [Dataset]. 2023a.  https://zenodo.org/records/8137161.",
-          "PONTES, Danielle; MARICATO, Jo\u00e3o. Classifica\u00e7\u00e3o de contas do twitter atrav\u00e9s do botometer. In: ENCONTRO NACIONAL DE PESQUISA EM INFORMA\u00c7\u00c3O 2023b, Aracaju,SE. Anais [...]. Aracaju,SE. https://enancib.ancib.org/index.php/enancib/xxxiiienancib/paper/view/1957"
-        ],
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
         },
         "license": {
           "id": "cc-by-4.0"
@@ -1647,73 +1091,545 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "14919673"
+                "pid_value": "15299722"
               }
             }
           ]
         }
       },
-      "title": "Sentiment Analysis of COVID-19 Scientific Publication Dissemination on Social Media X: A Dataset Analyzed with ChatGPT 3.5 and Gemini 1.5 Flash",
+      "title": "EDUCATIONAL TRANSFORMATION WITH ADVANCED TDICS: INTEGRATION OF ARTIFICIAL INTELLIGENCE AND BIG DATA FOR THE DEVELOPMENT OF BNCC SKILLS IN THE INITIAL AND FINAL YEARS OF ELEMENTARY EDUCATION",
       "links": {
-        "self": "https://zenodo.org/api/records/14919674",
-        "self_html": "https://zenodo.org/records/14919674",
-        "doi": "https://doi.org/10.5281/zenodo.14919674",
-        "self_doi": "https://doi.org/10.5281/zenodo.14919674",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14919674",
-        "parent": "https://zenodo.org/api/records/14919673",
-        "parent_html": "https://zenodo.org/records/14919673",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14919673",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14919673",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14919674/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14919674/sequence/default",
-        "files": "https://zenodo.org/api/records/14919674/files",
-        "media_files": "https://zenodo.org/api/records/14919674/media-files",
-        "archive": "https://zenodo.org/api/records/14919674/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14919674/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14919674/versions/latest",
-        "latest_html": "https://zenodo.org/records/14919674/latest",
-        "versions": "https://zenodo.org/api/records/14919674/versions",
-        "draft": "https://zenodo.org/api/records/14919674/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14919674/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14919674/access/links",
-        "access_grants": "https://zenodo.org/api/records/14919674/access/grants",
-        "access_users": "https://zenodo.org/api/records/14919674/access/users",
-        "access_request": "https://zenodo.org/api/records/14919674/access/request",
-        "access": "https://zenodo.org/api/records/14919674/access",
-        "communities": "https://zenodo.org/api/records/14919674/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14919674/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14919674/requests"
+        "self": "https://zenodo.org/api/records/15299723",
+        "self_html": "https://zenodo.org/records/15299723",
+        "preview_html": "https://zenodo.org/records/15299723?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15299723",
+        "self_doi": "https://doi.org/10.5281/zenodo.15299723",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15299723",
+        "parent": "https://zenodo.org/api/records/15299722",
+        "parent_html": "https://zenodo.org/records/15299722",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15299722",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15299722",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15299723/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15299723/sequence/default",
+        "files": "https://zenodo.org/api/records/15299723/files",
+        "media_files": "https://zenodo.org/api/records/15299723/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15299723:v.5%2C%20n.4%2C%202025-7-19.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15299723:v.5%2C%20n.4%2C%202025-7-19.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15299723:v.5%2C%20n.4%2C%202025-7-19.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15299723:v.5%2C%20n.4%2C%202025-7-19.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15299723:v.5%2C%20n.4%2C%202025-7-19.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15299723:v.5%2C%20n.4%2C%202025-7-19.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15299723/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15299723/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15299723/versions/latest",
+        "latest_html": "https://zenodo.org/records/15299723/latest",
+        "versions": "https://zenodo.org/api/records/15299723/versions",
+        "draft": "https://zenodo.org/api/records/15299723/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15299723/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15299723/access/links",
+        "access_grants": "https://zenodo.org/api/records/15299723/access/grants",
+        "access_users": "https://zenodo.org/api/records/15299723/access/users",
+        "access_request": "https://zenodo.org/api/records/15299723/access/request",
+        "access": "https://zenodo.org/api/records/15299723/access",
+        "communities": "https://zenodo.org/api/records/15299723/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15299723/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15299723/requests"
       },
-      "updated": "2025-02-24T19:24:04.166566+00:00",
-      "recid": "14919674",
+      "updated": "2025-04-28T23:49:45.718402+00:00",
+      "recid": "15299723",
       "revision": 4,
       "files": [
         {
-          "id": "c2c3e5bc-d21a-442b-a2fe-62a390f41cb0",
-          "key": "zenodo-14919674.xlsx",
-          "size": 288041,
-          "checksum": "md5:98751a5b18adf5fef38374a56056656e",
+          "id": "f3bccf32-00e9-4c89-a5ba-d6a1737b7226",
+          "key": "v.5, n.4, 2025-7-19.pdf",
+          "size": 311838,
+          "checksum": "md5:5466e8d61f21a4dbb93832a812fefc77",
           "links": {
-            "self": "https://zenodo.org/api/records/14919674/files/zenodo-14919674.xlsx/content"
+            "self": "https://zenodo.org/api/records/15299723/files/v.5, n.4, 2025-7-19.pdf/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "581877"
+          "id": "262452"
         }
       ],
       "status": "published",
       "stats": {
         "downloads": 4,
-        "unique_downloads": 4,
-        "views": 10,
-        "unique_views": 7,
+        "unique_downloads": 2,
+        "views": 2,
+        "unique_views": 2,
         "version_downloads": 4,
-        "version_unique_downloads": 4,
-        "version_unique_views": 7,
-        "version_views": 10
+        "version_unique_downloads": 2,
+        "version_unique_views": 2,
+        "version_views": 2
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-04-28T11:07:02.081829+00:00",
+      "modified": "2025-04-28T11:07:04.385033+00:00",
+      "id": 15295896,
+      "conceptrecid": "15295895",
+      "doi": "10.5281/zenodo.15295896",
+      "conceptdoi": "10.5281/zenodo.15295895",
+      "doi_url": "https://doi.org/10.5281/zenodo.15295896",
+      "metadata": {
+        "title": "Institutional Resilience and Democratic Stability: A Comparative Analysis of Sweden and the United States (1950\u20132020)",
+        "doi": "10.5281/zenodo.15295896",
+        "publication_date": "2025-04-28",
+        "description": "<p>This dataset accompanies the study <em>\"Institutional Resilience and Democratic Stability: A Comparative Analysis of Sweden and the United States (1950&ndash;2020).\"</em><br>It provides the full data, replication code, and output figures used to analyze structural breaks in democratic governance quality across Sweden and the United States over a seventy-year period.</p>\n<p><strong>Included files:</strong></p>\n<ul>\n<li>\n<p><strong>Data-GDP.xlsx</strong>: GDP per capita data for Sweden and the United States.</p>\n</li>\n<li>\n<p><strong>Data-Polity5.xls</strong>: Polity5 democracy scores (Polity2) for all countries, filtered for study countries.</p>\n</li>\n<li>\n<p><strong>Data-V-Dem.csv</strong>: Selected V-Dem democracy indicators for robustness analysis.</p>\n</li>\n<li>\n<p><strong>Watergate.ipynb</strong>: Python 3 notebook performing structural break detection (Pelt method) and Difference-in-Differences (DiD) regression modeling.</p>\n</li>\n<li>\n<p><strong>Figures 1&ndash;8 (.png)</strong>: Visualization outputs showing stationarity tests, governance trends, and detected structural breaks for both countries.</p>\n</li>\n<li>\n<p><strong>README.pdf</strong>: Full instructions for replicating the study in Google Colab, including file upload and execution steps.</p>\n</li>\n</ul>\n<p><strong>Study Summary:</strong><br>The research evaluates institutional stability and resilience in Sweden and the United States from 1950 to 2020. Using stationarity testing, structural break analysis, and DiD estimation, the study finds that Sweden maintains democratic stability without major disruptions, whereas the United States experiences lasting governance shocks around the Watergate scandal (1975) and post-2015 polarization. The findings highlight the importance of institutional robustness in weathering political crises.</p>\n<p><strong>Replication:</strong><br>All data and code are prepared for seamless upload into Google Colab for full public replication and further extension.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Brown, Scott",
+            "affiliation": "University of Puerto Rico at R\u00edo Piedras"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15295895"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Institutional Resilience and Democratic Stability: A Comparative Analysis of Sweden and the United States (1950\u20132020)",
+      "links": {
+        "self": "https://zenodo.org/api/records/15295896",
+        "self_html": "https://zenodo.org/records/15295896",
+        "preview_html": "https://zenodo.org/records/15295896?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15295896",
+        "self_doi": "https://doi.org/10.5281/zenodo.15295896",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15295896",
+        "parent": "https://zenodo.org/api/records/15295895",
+        "parent_html": "https://zenodo.org/records/15295895",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15295895",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15295895",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15295896/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15295896/sequence/default",
+        "files": "https://zenodo.org/api/records/15295896/files",
+        "media_files": "https://zenodo.org/api/records/15295896/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15295896:Figure%207.png/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15295896:Figure%207.png/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15295896:Figure%207.png/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15295896:Figure%207.png/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15295896:Figure%207.png/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15295896:Figure%207.png/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15295896/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15295896/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15295896/versions/latest",
+        "latest_html": "https://zenodo.org/records/15295896/latest",
+        "versions": "https://zenodo.org/api/records/15295896/versions",
+        "draft": "https://zenodo.org/api/records/15295896/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15295896/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15295896/access/links",
+        "access_grants": "https://zenodo.org/api/records/15295896/access/grants",
+        "access_users": "https://zenodo.org/api/records/15295896/access/users",
+        "access_request": "https://zenodo.org/api/records/15295896/access/request",
+        "access": "https://zenodo.org/api/records/15295896/access",
+        "communities": "https://zenodo.org/api/records/15295896/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15295896/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15295896/requests"
+      },
+      "updated": "2025-04-28T11:07:04.385033+00:00",
+      "recid": "15295896",
+      "revision": 4,
+      "files": [
+        {
+          "id": "29b569a1-d588-4bdb-9f4f-8637e16cb00e",
+          "key": "Data-V-Dem.csv",
+          "size": 402427093,
+          "checksum": "md5:22720f609d991a2293797134542df9d3",
+          "links": {
+            "self": "https://zenodo.org/api/records/15295896/files/Data-V-Dem.csv/content"
+          }
+        },
+        {
+          "id": "bde7b93e-32d2-4cf9-98d2-cad13ad48431",
+          "key": "Data-GDP.xlsx",
+          "size": 141574,
+          "checksum": "md5:18d37500ba0e7bb2f0ad79d18df4fc2c",
+          "links": {
+            "self": "https://zenodo.org/api/records/15295896/files/Data-GDP.xlsx/content"
+          }
+        },
+        {
+          "id": "37309350-06b3-4207-b7ef-bcb4a54a8e84",
+          "key": "Figure 7.png",
+          "size": 22858,
+          "checksum": "md5:1bff437a6a72052f607f20ddc42cbc81",
+          "links": {
+            "self": "https://zenodo.org/api/records/15295896/files/Figure 7.png/content"
+          }
+        },
+        {
+          "id": "8c990ccb-f351-4b98-8598-ccb41e5c6261",
+          "key": "Data-Polity5.xls",
+          "size": 4487680,
+          "checksum": "md5:8f3426ba77708cfc53a2f77d5d5d4ade",
+          "links": {
+            "self": "https://zenodo.org/api/records/15295896/files/Data-Polity5.xls/content"
+          }
+        },
+        {
+          "id": "08b41587-8d90-406f-b073-4d4970b3186d",
+          "key": "Figure 4.png",
+          "size": 50562,
+          "checksum": "md5:4f09bd61deb983ed76f7f7f82328dd35",
+          "links": {
+            "self": "https://zenodo.org/api/records/15295896/files/Figure 4.png/content"
+          }
+        },
+        {
+          "id": "66551d43-be34-402d-ac52-59b07d43dc2a",
+          "key": "Figure 6.png",
+          "size": 51985,
+          "checksum": "md5:5231fbc5f2bfa7dd72603310f15c48d4",
+          "links": {
+            "self": "https://zenodo.org/api/records/15295896/files/Figure 6.png/content"
+          }
+        },
+        {
+          "id": "3c25103e-94ef-46c3-bb45-8f27c07bc4d7",
+          "key": "Figure 8.png",
+          "size": 31052,
+          "checksum": "md5:b7b72f18ffa3cffc2ba9338536dfa7f5",
+          "links": {
+            "self": "https://zenodo.org/api/records/15295896/files/Figure 8.png/content"
+          }
+        },
+        {
+          "id": "36bce261-08e3-4fc5-946e-68005b5ce5d8",
+          "key": "Figure 2.png",
+          "size": 63207,
+          "checksum": "md5:a97611f84e6ff2c25d6f2c0eb77e35e8",
+          "links": {
+            "self": "https://zenodo.org/api/records/15295896/files/Figure 2.png/content"
+          }
+        },
+        {
+          "id": "73d0f7fe-e92c-4d48-8241-0ba37311d727",
+          "key": "README.pdf",
+          "size": 123276,
+          "checksum": "md5:ced66818cb39dce11a441eeaf529e371",
+          "links": {
+            "self": "https://zenodo.org/api/records/15295896/files/README.pdf/content"
+          }
+        },
+        {
+          "id": "791e8f4d-8369-4172-b806-609770968469",
+          "key": "Watergate.ipynb",
+          "size": 569837,
+          "checksum": "md5:2b8bc11ee415f35ca0da650d41c250d4",
+          "links": {
+            "self": "https://zenodo.org/api/records/15295896/files/Watergate.ipynb/content"
+          }
+        },
+        {
+          "id": "dbeb7475-b552-428c-9f2e-eca7b24667c4",
+          "key": "Figure 3.png",
+          "size": 44180,
+          "checksum": "md5:4904aacf63b03eafd97d286887fc98d4",
+          "links": {
+            "self": "https://zenodo.org/api/records/15295896/files/Figure 3.png/content"
+          }
+        },
+        {
+          "id": "b3912f91-4974-4b6b-980a-f3ec1489f515",
+          "key": "Figure 1.png",
+          "size": 63129,
+          "checksum": "md5:f3bec5505976b5e8e73c0058c9322832",
+          "links": {
+            "self": "https://zenodo.org/api/records/15295896/files/Figure 1.png/content"
+          }
+        },
+        {
+          "id": "eb429384-4260-4107-8d8e-1cf8958896c6",
+          "key": "Figure 5.png",
+          "size": 45637,
+          "checksum": "md5:e470d198631d5c7a65461d771c129987",
+          "links": {
+            "self": "https://zenodo.org/api/records/15295896/files/Figure 5.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1283097"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 2,
+        "unique_downloads": 1,
+        "views": 2,
+        "unique_views": 1,
+        "version_downloads": 2,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 2
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-04-28T10:54:16.271026+00:00",
+      "modified": "2025-04-28T10:54:16.502531+00:00",
+      "id": 15295868,
+      "conceptrecid": "15295867",
+      "doi": "10.5281/zenodo.15295868",
+      "conceptdoi": "10.5281/zenodo.15295867",
+      "doi_url": "https://doi.org/10.5281/zenodo.15295868",
+      "metadata": {
+        "title": "Single-Layer PCB Surface Defect Detection Using YOLOv5 Deep Learning Model",
+        "doi": "10.5281/zenodo.15295868",
+        "publication_date": "2025-04-28",
+        "description": "<p>Printed Circuit Boards (PCBs) are essential components in all electronic systems, and their reliability is crucial for product&nbsp;performance, especially in the consumer electronics sector where single-layered PCBs are commonly used. Detecting surface&nbsp;defects such as missing holes, spurious copper, and open circuits is a critical step in ensuring product quality. This paper proposes&nbsp;an automated surface defect detection system specifically designed for single-layered PCBs using a hybrid deep learning&nbsp;approach. The model integrates YOLOv5, a state-of-the-art object detection algorithm, with the Swin Transformer, a vision&nbsp;transformer known for its hierarchical feature learning and enhanced attention mechanisms. A custom dataset comprising over<br>1000 annotated images from six different single-layered PCBs was collected and labeled for this purpose. The proposed model&nbsp;was trained and evaluated on Google Colab and compared with baseline YOLOv5 performance. Results show a significant&nbsp;improvement in defect detection accuracy, particularly in complex and overlapping defect regions. This work demonstrates the&nbsp;potential of transformer-based models in improving PCB inspection processes and offers a practical solution tailored to the&nbsp;specific requirements of consumer electronics manufacturing.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Mr.S.Ravi Sankar, Mr.K.V.Arvind, Mr.M.Aswin Kumar, Mr.T.S.Dinesh Kumar, Mr.E.Matthew",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Publication",
+          "type": "publication"
+        },
+        "journal": {
+          "issue": "2",
+          "pages": "2069-2074",
+          "title": "International Journal of Scientific Research and Engineering Development",
+          "volume": "8"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "ijsred"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15295867"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Single-Layer PCB Surface Defect Detection Using YOLOv5 Deep Learning Model",
+      "links": {
+        "self": "https://zenodo.org/api/records/15295868",
+        "self_html": "https://zenodo.org/records/15295868",
+        "preview_html": "https://zenodo.org/records/15295868?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15295868",
+        "self_doi": "https://doi.org/10.5281/zenodo.15295868",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15295868",
+        "parent": "https://zenodo.org/api/records/15295867",
+        "parent_html": "https://zenodo.org/records/15295867",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15295867",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15295867",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15295868/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15295868/sequence/default",
+        "files": "https://zenodo.org/api/records/15295868/files",
+        "media_files": "https://zenodo.org/api/records/15295868/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:15295868:IJSRED-V8I2P264.pdf/full/^10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:15295868:IJSRED-V8I2P264.pdf/full/^50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:15295868:IJSRED-V8I2P264.pdf/full/^100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:15295868:IJSRED-V8I2P264.pdf/full/^250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:15295868:IJSRED-V8I2P264.pdf/full/^750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:15295868:IJSRED-V8I2P264.pdf/full/^1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/15295868/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15295868/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15295868/versions/latest",
+        "latest_html": "https://zenodo.org/records/15295868/latest",
+        "versions": "https://zenodo.org/api/records/15295868/versions",
+        "draft": "https://zenodo.org/api/records/15295868/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15295868/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15295868/access/links",
+        "access_grants": "https://zenodo.org/api/records/15295868/access/grants",
+        "access_users": "https://zenodo.org/api/records/15295868/access/users",
+        "access_request": "https://zenodo.org/api/records/15295868/access/request",
+        "access": "https://zenodo.org/api/records/15295868/access",
+        "communities": "https://zenodo.org/api/records/15295868/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15295868/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15295868/requests"
+      },
+      "updated": "2025-04-28T10:54:16.502531+00:00",
+      "recid": "15295868",
+      "revision": 4,
+      "files": [
+        {
+          "id": "2f145842-1a38-4bf0-ba68-1a24ca3ab741",
+          "key": "IJSRED-V8I2P264.pdf",
+          "size": 2054429,
+          "checksum": "md5:008c66a6efa02db1f9703f87e9290055",
+          "links": {
+            "self": "https://zenodo.org/api/records/15295868/files/IJSRED-V8I2P264.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "109761"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 5,
+        "unique_downloads": 2,
+        "views": 2,
+        "unique_views": 2,
+        "version_downloads": 5,
+        "version_unique_downloads": 2,
+        "version_unique_views": 2,
+        "version_views": 2
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-04-28T07:29:50.230431+00:00",
+      "modified": "2025-04-28T07:29:50.401166+00:00",
+      "id": 15286764,
+      "conceptrecid": "15286763",
+      "doi": "10.5281/zenodo.15286764",
+      "conceptdoi": "10.5281/zenodo.15286763",
+      "doi_url": "https://doi.org/10.5281/zenodo.15286764",
+      "metadata": {
+        "title": "PolicyEvalGeorefSentiments \u2013 A Package for Evaluating the Impact of Local Policies on Emotions Using Geo-Referenced Italian Social Media Data",
+        "doi": "10.5281/zenodo.15286764",
+        "publication_date": "2025-04-26",
+        "description": "<p><strong>PolicyEvalGeorefSentiments</strong> provides a complete pipeline to evaluate local policy interventions using geo-referenced social media posts (e.g., tweets) in Italian to analyze public reactions.</p>\n<p>The package combines Python (Version of sys: 3.11.12) and R (version 4.5.0), with Python serving as the main language. R scripts are called from Python to leverage specific statistical methods implemented in R.</p>\n<p><strong>Main Features:</strong></p>\n<ol>\n<li>\n<p dir=\"auto\"><strong>Sentiment Classification.</strong> Perform binary or multi-label classification tasks (e.g., sentiment, uncertainty) using the AlBERTo model (Polignano et al., 2019); run grid-search to select the best hyperparameters for fine-tuning, which is then used to label the full dataset.</p>\n</li>\n<li>\n<p dir=\"auto\"><strong>Geolocation Matching.</strong> Cleans user-reported tweet locations and matches them to ISTAT administrative data at the municipality level (Comuni). Supports both GPS-filtered and non-GPS-filtered data.</p>\n</li>\n<li>\n<p dir=\"auto\"><strong>Treated &amp; Control Group Selection.</strong> Define treated municipalities where the policy is applied. Control municipalities can be:&nbsp;</p>\n<ul>\n<li>Manually specified, or</li>\n<li>Automatically selected within a radius (N km) from one or more treated \"centers\".</li>\n</ul>\n</li>\n<li>\n<p dir=\"auto\"><strong>Pre-treatment Balance Checks.</strong>&nbsp;Validate balance on ISTAT demographic and socio-economic variables between treated and control municipalities.</p>\n</li>\n<li>\n<p dir=\"auto\"><strong>Flexible Statistical Analysis.</strong> Prepares data for policy evaluation. While the example uses linear Difference-in-Differences (Diff-in-Diff), this step is modular so users can apply any statistical model of choice</p>\n</li>\n</ol>\n<p><strong>Supporting material</strong>: Example Colab notebook demonstrating package usage (example_colab.ipynb), example data for illustration.</p>\n<p><strong>Funding: </strong>PUWELL (Public Sector Indicators for Sustainability and Wellbeing) as part of P.E.&nbsp;&nbsp;&ldquo;Growing Resilient, INclusive and Sustainable&rdquo; (GRINS) &ndash; Italian PNRR &ndash; MISSION 4 COMPONENT 2, INVESTMENT 1.3- CUP J33C22002910001</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Biliotti, Carolina",
+            "affiliation": "IMT School for Advanced Studies Lucca",
+            "orcid": "0000-0003-3950-8007"
+          },
+          {
+            "name": "RICCABONI, Massimo",
+            "affiliation": "IMT School for Advanced Studies Lucca",
+            "orcid": "0000-0003-4979-8933"
+          }
+        ],
+        "keywords": [
+          "Policy Evaluation"
+        ],
+        "language": "ita",
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15286763"
+              }
+            }
+          ]
+        }
+      },
+      "title": "PolicyEvalGeorefSentiments \u2013 A Package for Evaluating the Impact of Local Policies on Emotions Using Geo-Referenced Italian Social Media Data",
+      "links": {
+        "self": "https://zenodo.org/api/records/15286764",
+        "self_html": "https://zenodo.org/records/15286764",
+        "preview_html": "https://zenodo.org/records/15286764?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15286764",
+        "self_doi": "https://doi.org/10.5281/zenodo.15286764",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15286764",
+        "parent": "https://zenodo.org/api/records/15286763",
+        "parent_html": "https://zenodo.org/records/15286763",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15286763",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15286763",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15286764/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15286764/sequence/default",
+        "files": "https://zenodo.org/api/records/15286764/files",
+        "media_files": "https://zenodo.org/api/records/15286764/media-files",
+        "archive": "https://zenodo.org/api/records/15286764/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15286764/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15286764/versions/latest",
+        "latest_html": "https://zenodo.org/records/15286764/latest",
+        "versions": "https://zenodo.org/api/records/15286764/versions",
+        "draft": "https://zenodo.org/api/records/15286764/draft",
+        "reserve_doi": "https://zenodo.org/api/records/15286764/draft/pids/doi",
+        "access_links": "https://zenodo.org/api/records/15286764/access/links",
+        "access_grants": "https://zenodo.org/api/records/15286764/access/grants",
+        "access_users": "https://zenodo.org/api/records/15286764/access/users",
+        "access_request": "https://zenodo.org/api/records/15286764/access/request",
+        "access": "https://zenodo.org/api/records/15286764/access",
+        "communities": "https://zenodo.org/api/records/15286764/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15286764/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15286764/requests"
+      },
+      "updated": "2025-04-28T07:29:50.401166+00:00",
+      "recid": "15286764",
+      "revision": 4,
+      "files": [
+        {
+          "id": "398d94f3-d726-499a-8952-ab9c63678a11",
+          "key": "REPO.zip",
+          "size": 229420294,
+          "checksum": "md5:1a29d96a1bbc013c296f97b22defaefc",
+          "links": {
+            "self": "https://zenodo.org/api/records/15286764/files/REPO.zip/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1069251"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 3,
+        "unique_views": 2,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 2,
+        "version_views": 3
       },
       "state": "done",
       "submitted": true

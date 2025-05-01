@@ -1,16 +1,722 @@
 {
   "name": "Sphae",
   "url": "https://github.com/linsalrob/sphae",
-  "doi": "10.1371/journal.pcbi.1010705],",
-  "citation_info": {
-    "source": "github_citation_file",
-    "citation_file": "CITATION.cff",
-    "citation_format": "cff",
-    "data": {},
-    "last_updated": "2025-04-01T08:50:57.403109"
-  },
+  "doi": "10.1101/2024.11.18.624194",
+  "citation_info": {},
   "citation_metrics": {
-    "publication": {},
+    "publication": {
+      "institution": [
+        {
+          "name": "bioRxiv"
+        }
+      ],
+      "indexed": {
+        "date-parts": [
+          [
+            2025,
+            2,
+            21
+          ]
+        ],
+        "date-time": "2025-02-21T00:35:06Z",
+        "timestamp": 1740098106286,
+        "version": "3.37.3"
+      },
+      "posted": {
+        "date-parts": [
+          [
+            2024,
+            11,
+            18
+          ]
+        ]
+      },
+      "group-title": "Bioinformatics",
+      "reference-count": 78,
+      "publisher": "Cold Spring Harbor Laboratory",
+      "license": [
+        {
+          "start": {
+            "date-parts": [
+              [
+                2024,
+                11,
+                18
+              ]
+            ],
+            "date-time": "2024-11-18T00:00:00Z",
+            "timestamp": 1731888000000
+          },
+          "content-version": "vor",
+          "delay-in-days": 0,
+          "URL": "http://creativecommons.org/licenses/by-nc-nd/4.0/"
+        }
+      ],
+      "content-domain": {
+        "domain": [],
+        "crossmark-restriction": false
+      },
+      "short-container-title": [],
+      "accepted": {
+        "date-parts": [
+          [
+            2024,
+            11,
+            18
+          ]
+        ]
+      },
+      "abstract": "<jats:title>Abstract</jats:title><jats:sec><jats:title>Motivation</jats:title><jats:p>Phage therapy is a viable alternative for treating bacterial infections amidst the escalating threat of antimicrobial resistance. However, the therapeutic success of phage therapy depends on selecting safe and effective phage candidates. While experimental methods focus on isolating phages and determining their lifecycle and host range, comprehensive genomic screening is critical to identify markers that indicate potential risks, such as toxins, antimicrobial resistance, or temperate lifecycle traits. These analyses are often labor-intensive and time-consuming, limiting the rapid deployment of phage in clinical settings.</jats:p></jats:sec><jats:sec><jats:title>Results</jats:title><jats:p>We developed Sphae, an automated bioinformatics pipeline designed to streamline therapeutic potential of a phage in under ten minutes. Using Snakemake workflow manager, Sphae integrates tools for quality control, assembly, genome assessment, and annotation tailored specifically for phage biology. Sphae automates the detection of key genomic markers, including virulence factors, antimicrobial resistance genes, and lysogeny indicators like integrase, recombinase, and transposase, which could preclude therapeutic use. Benchmarked on 65 phage sequences, 28 phage samples showed therapeutic potential, 8 failed during assembly due to low sequencing depth, 22 samples included prophage or virulent markers, and the remaining 23 samples included multiple phage genomes per sample. This workflow outputs a comprehensive report, enabling rapid assessment of phage safety and suitability for phage therapy under these criteria. Sphae is scalable, portable, facilitating efficient deployment across most high-performance computing (HPC) and cloud platforms, expediting the genomic evaluation process.</jats:p></jats:sec><jats:sec><jats:title>Availability</jats:title><jats:p>Sphae is source code and freely available at<jats:ext-link xmlns:xlink=\"http://www.w3.org/1999/xlink\" ext-link-type=\"uri\" xlink:href=\"https://github.com/linsalrob/sphae\">https://github.com/linsalrob/sphae</jats:ext-link>, with installation supported on Conda, PyPi, Docker containers.</jats:p></jats:sec>",
+      "DOI": "10.1101/2024.11.18.624194",
+      "type": "posted-content",
+      "created": {
+        "date-parts": [
+          [
+            2024,
+            11,
+            19
+          ]
+        ],
+        "date-time": "2024-11-19T03:10:41Z",
+        "timestamp": 1731985841000
+      },
+      "source": "Crossref",
+      "is-referenced-by-count": 0,
+      "title": [
+        "Phage therapy candidates from Sphae: An automated toolkit for predicting sequencing data"
+      ],
+      "prefix": "10.1101",
+      "author": [
+        {
+          "ORCID": "https://orcid.org/0000-0001-5359-3100",
+          "authenticated-orcid": false,
+          "given": "Bhavya",
+          "family": "Papudeshi",
+          "sequence": "first",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-1488-5148",
+          "authenticated-orcid": false,
+          "given": "Michael J.",
+          "family": "Roach",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-2651-8719",
+          "authenticated-orcid": false,
+          "given": "Vijini",
+          "family": "Mallawaarachchi",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-5885-4186",
+          "authenticated-orcid": false,
+          "given": "George",
+          "family": "Bouras",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0003-4738-3451",
+          "authenticated-orcid": false,
+          "given": "Susanna R.",
+          "family": "Grigson",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-4395-060X",
+          "authenticated-orcid": false,
+          "given": "Sarah K.",
+          "family": "Giles",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0009-0008-6802-6799",
+          "authenticated-orcid": false,
+          "given": "Clarice M.",
+          "family": "Harker",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-2474-1327",
+          "authenticated-orcid": false,
+          "given": "Abbey L. K.",
+          "family": "Hutton",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0009-0003-4283-2374",
+          "authenticated-orcid": false,
+          "given": "Anita",
+          "family": "Tarasenko",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-7919-8563",
+          "authenticated-orcid": false,
+          "given": "Laura K.",
+          "family": "Inglis",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-9733-0468",
+          "authenticated-orcid": false,
+          "given": "Alejandro A.",
+          "family": "Vega",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0009-0009-2294-0363",
+          "authenticated-orcid": false,
+          "given": "Cole",
+          "family": "Souza",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0009-0008-2505-4757",
+          "authenticated-orcid": false,
+          "given": "Lance",
+          "family": "Boling",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "given": "Hamza",
+          "family": "Hajama",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-0755-5864",
+          "authenticated-orcid": false,
+          "given": "Ana Georgina",
+          "family": "Cobi\u00e1n G\u00fcemes",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-8454-5248",
+          "authenticated-orcid": false,
+          "given": "Anca M.",
+          "family": "Segall",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0002-2177-203X",
+          "authenticated-orcid": false,
+          "given": "Elizabeth A.",
+          "family": "Dinsdale",
+          "sequence": "additional",
+          "affiliation": []
+        },
+        {
+          "ORCID": "https://orcid.org/0000-0001-8383-8949",
+          "authenticated-orcid": false,
+          "given": "Robert A.",
+          "family": "Edwards",
+          "sequence": "additional",
+          "affiliation": []
+        }
+      ],
+      "member": "246",
+      "reference": [
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.1",
+          "doi-asserted-by": "crossref",
+          "first-page": "e0023222",
+          "DOI": "10.1128/spectrum.00232-22",
+          "article-title": "Phage Cocktail Targeting STEC O157:H7 Has Comparable Efficacy and Superior Recovery Compared with Enrofloxacin in an Enteric Murine Model",
+          "volume": "10",
+          "year": "2022",
+          "journal-title": "Microbiol Spectr"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.2",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Singh J , Fitzgerald DA , Jaffe A , et al. Single-arm, open-labelled, safety and tolerability of intrabronchial and nebulised bacteriophage treatment in children with cystic fibrosis and Pseudomonas aeruginosa. BMJ Open Respir Res 2023; 10:",
+          "DOI": "10.1136/bmjresp-2022-001360"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.3",
+          "first-page": "e3997",
+          "article-title": "Screening for Lysogen Activity in Therapeutically Relevant Bacteriophages",
+          "volume": "11",
+          "year": "2021",
+          "journal-title": "Bio Protoc"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.4",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1038/ismej.2016.79"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.5",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1038/nrmicro3096"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.6",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Rohde C , Resch G , Pirnay J-P , et al. Expert Opinion on Three Phage Therapy Related Topics: Bacterial Phage Resistance, Phage Training and Prophages in Bacterial Production Strains. Viruses 2018; 10:",
+          "DOI": "10.3390/v10040178"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.7",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1038/nrmicro1793"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.8",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1038/s41586-023-06869-w"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.9",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1073/pnas.0808832106"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.10",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1146/annurev-virology-012423-110530"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.11",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.copbio.2020.10.002"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.12",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.coviro.2022.101201"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.13",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1128/msystems.00019-22"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.14",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1038/s41596-020-0346-0"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.15",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1093/cid/ciad539"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.16",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.3390/v15081665"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.17",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1097/INF.0000000000004000"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.18",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Mallawaarachchi V , Roach MJ , Papudeshi B , et al. Phables: from fragmented assemblies to high-quality bacteriophage genomes. Bioinformatics 2023; 39:btad586",
+          "DOI": "10.1093/bioinformatics/btad586"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.19",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Elek CKA , Brown TL , Le Viet T , et al. A hybrid and poly-polish workflow for the complete and accurate assembly of phage genomes: a case study of ten przondoviruses. Microb Genom 2023; 9:",
+          "DOI": "10.1099/mgen.0.001065"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.20",
+          "unstructured": "Raiko M. viralVerify: viral contig verification tool. 2021;"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.21",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1038/s41587-020-00774-7PMID-33349699"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.22",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Gendre J , Ansaldi M , Olivenza DR , et al. Genetic Mining of Newly Isolated Salmophages for Phage Therapy. Int. J. Mol. Sci. 2022; 23:",
+          "DOI": "10.1101/2022.06.14.493971"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.23",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Bouras G , Nepal R , Houtak G , et al. Pharokka: a fast scalable bacteriophage annotation tool. Bioinformatics 2023; 39:",
+          "DOI": "10.1093/bioinformatics/btac776"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.24",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Grigson S , Edwards RA . What the protein!? Computational methods for predicting microbial protein functions. OSF Preprints 2023;",
+          "DOI": "10.31219/osf.io/jhmta"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.25",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1038/s41591-019-0437-z"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.26",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.cell.2022.11.017"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.27",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Turner D , Adriaenssens EM , Tolstoy I , et al. Phage Annotation Guide: Guidelines for Assembly and High-Quality Annotation. Phage (New Rochelle) 2021; 2:170\u2013182",
+          "DOI": "10.1089/phage.2021.0013"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.28",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Shen A , Millard A. Phage Genome Annotation: Where to Begin and End. Phage (New Rochelle) 2021; 2:183\u2013193",
+          "DOI": "10.1089/phage.2021.0015"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.29",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1093/bioinformatics/bts480"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.30",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1371/journal.pcbi.1010705"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.31",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1109/TNB.2018.2837122"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.32",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1093/bioinformatics/bty560"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.33",
+          "unstructured": "Wick RR. Filtlong : Tool for filtering long reads by quality. 2018;"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.34",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.21105/joss.03941"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.35",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.ymeth.2016.02.020"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.36",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1038/s41587-019-0072-8"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.37",
+          "first-page": "001244",
+          "article-title": "Hybracter: Enabling scalable, automated, complete and accurate bacterial genome assemblies",
+          "volume": "10",
+          "year": "2024",
+          "journal-title": "Microbial Genomics"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.38",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1093/bioinformatics/btz265"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.39",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.21105/joss.04296"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.40",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Terzian P , Olo Ndela E , Galiez C , et al. PHROG: families of prokaryotic virus proteins clustered using remote homology. NAR Genom Bioinform 2021; 3:lqab067",
+          "DOI": "10.1093/nargab/lqab067"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.41",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1093/nar/gkz935"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.42",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1093/NAR/GKAB1107"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.43",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1186/1471-2105-8-209"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.44",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1093/nar/gkaa857"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.45",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1038/s41467-022-30269-9"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.46",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1093/nar/gkab688"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.47",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1093/nar/gkh152"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.48",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1186/s13059-016-0997-x"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.49",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1089/phage.2021.0007"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.50",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Heinzinger M , Weissenow K , Sanchez JG , et al. Bilingual Language Model for Protein Sequence and Structure. bioRxiv 2024; 2023.07.23.550085",
+          "DOI": "10.1101/2023.07.23.550085"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.51",
+          "first-page": "243",
+          "article-title": "Foldseek: fast and accurate protein structure search",
+          "volume": "42",
+          "year": "2023",
+          "journal-title": "Nature Biotechnology"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.52",
+          "unstructured": "Grigson S , Mallawaarachchi V. susiegriggo/Phynteny: Phynteny 0.1.10. 2023;"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.53",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1093/bioinformatics/btv383"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.54",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1093/NAR/GKAC920"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.55",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Papudeshi B , Vega AA , Souza C , et al. Host interactions of novel Crassvirales species belonging to multiple families infecting bacterial host, Bacteroides cellulosilyticus WH2. Microb Genom 2023; 9:",
+          "DOI": "10.1099/mgen.0.001100"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.56",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1007/s00705-019-04511-7"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.57",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1038/s41467-022-32979-6"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.58",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1038/s41564-022-01128-6"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.59",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/j.jmb.2023.168159"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.60",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Cook R , Telatin A , Bouras G , et al. Driving through stop signs: predicting stop codon reassignment improves functional annotation of bacteriophages. ISME Commun 2024; 4:ycae079",
+          "DOI": "10.1093/ismeco/ycae079"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.61",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Kang HS , McNair K , Cuevas DA , et al. Prophage genomics reveals patterns in phage genome organization and replication. bioRxiv 2017; 114819",
+          "DOI": "10.1101/114819"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.62",
+          "doi-asserted-by": "crossref",
+          "unstructured": "McKerral JC , Papudeshi B , Inglis LK , et al. The promise and pitfalls of prophages. bioRxivorg 2023;",
+          "DOI": "10.1101/2023.04.20.537752"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.63",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Inglis LK , Roach MJ , Edwards RA . Prophages: an integral but understudied component of the human microbiome. Microb. Genom. 2024; 10:",
+          "DOI": "10.1099/mgen.0.001166"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.64",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1128/mbio.01851-22"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.65",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1093/nar/gkac1220"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.66",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Borodovich T , Shkoporov AN , Ross RP , et al. Phage-mediated horizontal gene transfer and its implications for the human gut microbiome. Gastroenterol. Rep. 2022; 10:goac012",
+          "DOI": "10.1093/gastro/goac012"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.67",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1016/bs.enz.2021.09.006"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.68",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1038/sdata.2016.18"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.69",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1089/cmb.2012.0021"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.70",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1101/gr.215087.116"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.71",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1371/journal.pcbi.1005595"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.72",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Bouras G , Sheppard AE , Mallawaarachchi V , et al. Plassembler: an automated bacterial plasmid assembly tool. Bioinformatics 2023; 39:",
+          "DOI": "10.1093/bioinformatics/btad409"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.73",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.21105/joss.05968"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.74",
+          "doi-asserted-by": "crossref",
+          "unstructured": "Gilchrist CLM , Chooi Y-H. Clinker & clustermap.js: Automatic generation of gene cluster comparison figures. Bioinformatics 2021;",
+          "DOI": "10.1101/2020.11.08.370650"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.75",
+          "doi-asserted-by": "crossref",
+          "first-page": "ycae079",
+          "DOI": "10.1093/ismeco/ycae079",
+          "article-title": "Driving through stop signs: predicting stop codon reassignment improves functional annotation of bacteriophages",
+          "volume": "4",
+          "year": "2024",
+          "journal-title": "ISME Communications"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.76",
+          "doi-asserted-by": "crossref",
+          "first-page": "e2302159",
+          "DOI": "10.1002/advs.202302159",
+          "article-title": "Long-Read Sequencing Reveals Extensive DNA Methylations in Human Gut Phagenome Contributed by Prevalently Phage-Encoded Methyltransferases",
+          "volume": "10",
+          "year": "2023",
+          "journal-title": "Adv. Sci"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.77",
+          "doi-asserted-by": "publisher",
+          "DOI": "10.1038/nmeth.4184"
+        },
+        {
+          "key": "2024112206203088000_2024.11.18.624194v1.78",
+          "doi-asserted-by": "crossref",
+          "unstructured": "McNair K , Salamon P , Edwards RA , et al. PRFect: A tool to predict programmed ribosomal frameshifts in prokaryotic and viral genomes. Res. Sq. 2023;",
+          "DOI": "10.21203/rs.3.rs-2997217/v1"
+        }
+      ],
+      "container-title": [],
+      "original-title": [],
+      "link": [
+        {
+          "URL": "https://syndication.highwire.org/content/doi/10.1101/2024.11.18.624194",
+          "content-type": "unspecified",
+          "content-version": "vor",
+          "intended-application": "similarity-checking"
+        }
+      ],
+      "deposited": {
+        "date-parts": [
+          [
+            2024,
+            11,
+            22
+          ]
+        ],
+        "date-time": "2024-11-22T14:20:51Z",
+        "timestamp": 1732285251000
+      },
+      "score": 1,
+      "resource": {
+        "primary": {
+          "URL": "http://biorxiv.org/lookup/doi/10.1101/2024.11.18.624194"
+        }
+      },
+      "subtitle": [],
+      "short-title": [],
+      "issued": {
+        "date-parts": [
+          [
+            2024,
+            11,
+            18
+          ]
+        ]
+      },
+      "references-count": 78,
+      "URL": "https://doi.org/10.1101/2024.11.18.624194",
+      "relation": {},
+      "subject": [],
+      "published": {
+        "date-parts": [
+          [
+            2024,
+            11,
+            18
+          ]
+        ]
+      },
+      "subtype": "preprint"
+    },
     "metrics": {
       "total_citations": 0,
       "influential_citations": 0,
@@ -19,5 +725,5 @@
     "formatted_citations": {}
   },
   "related_papers": [],
-  "last_updated": "2025-04-01T08:50:59.902052"
+  "last_updated": "2025-05-01T09:53:24.266040"
 }
