@@ -151,17 +151,37 @@ class VisualizationManager {
     // Line chart showing citation trends over time
     initializeCitationTrends() {
         const container = document.getElementById('citationTrendsChart');
-        if (!container) return;
+        if (!container) {
+            console.error('Citation trends container not found in DOM');
+            return;
+        }
 
+        console.log('Initializing citation trends chart');
+        
         // Use impact_data.json for citation trends instead of extracting from node data
-        if (!window.impactData || !window.impactData.citations || !window.impactData.citations.by_year) {
+        if (!window.impactData) {
+            console.error('window.impactData is not defined');
+            this.showEmptyChart(container, 'Citation Trends', 'No impact data available.');
+            return;
+        }
+        
+        if (!window.impactData.citations) {
+            console.error('window.impactData.citations is not defined');
+            this.showEmptyChart(container, 'Citation Trends', 'No citation data available.');
+            return;
+        }
+        
+        if (!window.impactData.citations.by_year) {
+            console.error('window.impactData.citations.by_year is not defined');
             this.showEmptyChart(container, 'Citation Trends', 'No citation trend data available.');
             return;
         }
         
         const citationsByYear = window.impactData.citations.by_year;
+        console.log('Citation years data:', citationsByYear);
         
         if (Object.keys(citationsByYear).length === 0) {
+            console.error('Citation years object is empty');
             this.showEmptyChart(container, 'Citation Trends', 'No citation trend data available.');
             return;
         }
@@ -684,7 +704,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 .then(response => response.json())
                 .then(impactData => {
                     window.impactData = impactData;
-                    console.log('Impact data loaded successfully');
+                    console.log('Impact data loaded successfully:', impactData);
+                    
+                    // Log specific data to verify it's correctly structured
+                    console.log('Citation tools count:', impactData.tools ? impactData.tools.length : 0);
+                    console.log('Citation years:', impactData.citations ? Object.keys(impactData.citations.by_year).join(', ') : 'none');
+                    console.log('Citation total:', impactData.citations ? impactData.citations.total : 0);
                     
                     // Initialize enhanced visualizations with both data sources
                     window.visualizationManager.initialize(data);
