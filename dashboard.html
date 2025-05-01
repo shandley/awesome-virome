@@ -1260,6 +1260,12 @@
             }
             
             function initializeAnalyticsCharts(tools, categories) {
+                // Skip these if we're using direct_charts.js
+                if (window.directChartsLoaded) {
+                    console.log('Dashboard: Skipping legacy analytics charts initialization as direct_charts.js is handling it');
+                    return;
+                }
+                
                 // These are placeholders for actual Chart.js implementations
                 
                 // Category distribution chart
@@ -1443,9 +1449,15 @@
                         const languageEntries = Object.entries(tool.languages);
                         languageEntries.sort((a, b) => b[1] - a[1]); // Sort by percentage (descending)
                         
+                        // Calculate total bytes for proper percentage calculation
+                        const totalBytes = languageEntries.reduce((sum, [_, bytes]) => sum + bytes, 0);
+                        
                         languagesHtml = `
                             <div class="language-bars">
-                                ${languageEntries.map(([lang, percentage]) => `
+                                ${languageEntries.map(([lang, bytes]) => {
+                                    // Calculate actual percentage based on total bytes
+                                    const percentage = totalBytes > 0 ? Math.round((bytes / totalBytes) * 100) : 0;
+                                    return `
                                     <div class="mb-1">
                                         <div class="d-flex justify-content-between mb-1">
                                             <span>${lang}</span>
@@ -1455,7 +1467,7 @@
                                             <div class="progress-bar" style="width: ${percentage}%; background-color: var(--accent-color);"></div>
                                         </div>
                                     </div>
-                                `).join('')}
+                                `}).join('')}
                             </div>
                         `;
                     }
