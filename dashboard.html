@@ -922,6 +922,7 @@
     <script src="https://cdn.jsdelivr.net/npm/datatables.net@1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.6/dist/vis-network.min.js"></script>
+    <script src="js/direct_charts.js"></script>
     <script src="js/visualization.js"></script>
     <script src="js/citation_charts.js"></script>
     <script>
@@ -977,12 +978,33 @@
                 return;
             };
             
-            // Fetch and process data
-            fetch('data.json')
-                .then(response => response.json())
-                .then(graphData => {
+            // Fetch and process data - now both data.json and impact_data.json
+            // are loaded in parallel for better performance
+            
+            // This function prevents the direct_charts.js from loading impact_data.json separately
+            // We'll handle it here and pass the data to the function
+            window.directChartsLoaded = false;
+            
+            Promise.all([
+                fetch('data.json').then(response => response.json()),
+                fetch('impact_data.json').then(response => response.json())
+            ])
+                .then(([graphData, impactData]) => {
+                    console.log('Dashboard: Both data files loaded successfully');
                     globalData = graphData;
+                    window.impactData = impactData;
+                    
+                    // Initialize the dashboard with the graph data
                     initializeDashboard(globalData);
+                    
+                    // Manually trigger the direct charts rendering with impact data
+                    if (typeof renderAllCharts === 'function') {
+                        console.log('Dashboard: Calling renderAllCharts directly');
+                        renderAllCharts(impactData);
+                        window.directChartsLoaded = true;
+                    } else {
+                        console.error('Dashboard: renderAllCharts function not found');
+                    }
                 })
                 .catch(error => {
                     console.error('Error loading data:', error);
@@ -1031,8 +1053,9 @@
                 // Initialize network visualization
                 initializeNetworkGraph(data);
                 
-                // Citation charts are now handled by visualization.js
-                // initializeCitationCharts(tools);
+                // Citation charts are now handled by direct_charts.js
+                // Explicitly disable the legacy visualization.js chart initialization
+                // by not calling any chart functions here
                 
                 // Initialize analytics charts
                 initializeAnalyticsCharts(tools, categories);
