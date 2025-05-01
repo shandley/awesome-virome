@@ -787,51 +787,7 @@
                 
                 <!-- Citations Section -->
                 <section id="citations-section" class="mb-5">
-                    <h2 class="section-title">Academic Impact</h2>
-                    <p class="lead mb-4">
-                        Track the academic influence of virome analysis tools through citation metrics and trends.
-                    </p>
-                    
-                    <div class="row">
-                        <div class="col-lg-6 mb-4">
-                            <div class="card h-100">
-                                <div class="card-header">Citation Trends</div>
-                                <div class="card-body">
-                                    <div id="citationTrendsChart"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 mb-4">
-                            <div class="card h-100">
-                                <div class="card-header">Most Cited Tools</div>
-                                <div class="card-body">
-                                    <div id="topCitedToolsChart"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="card">
-                        <div class="card-header">Citation Details</div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-hover" id="citationsTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Tool</th>
-                                            <th>Citations</th>
-                                            <th>Influential Citations</th>
-                                            <th>DOI</th>
-                                            <th>Citation Trend</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- Populated by JavaScript -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                    <!-- This section will be populated by embedded_citations.js -->
                 </section>
                 
                 <!-- Analytics Section -->
@@ -923,9 +879,10 @@
     <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.6/dist/vis-network.min.js"></script>
     <!-- Add cache busting parameter with timestamp -->
-    <script src="js/direct_charts.js?v=20230430"></script>
-    <script src="js/visualization.js?v=20230430"></script>
-    <script src="js/citation_charts.js?v=20230430"></script>
+    <script src="js/direct_charts.js?v=20230501"></script>
+    <script src="js/visualization.js?v=20230501"></script>
+    <script src="js/citation_charts.js?v=20230501"></script>
+    <script src="js/embedded_citations.js?v=20230501"></script>
     <script>
         // Main application code
         document.addEventListener('DOMContentLoaded', function() {
@@ -1054,9 +1011,8 @@
                 // Initialize network visualization
                 initializeNetworkGraph(data);
                 
-                // Citation charts are now handled by direct_charts.js
-                // Explicitly disable the legacy visualization.js chart initialization
-                // by not calling any chart functions here
+                // Citation charts are now handled by embedded_citations.js
+                // Explicitly disable legacy chart initialization methods
                 
                 // Initialize analytics charts
                 initializeAnalyticsCharts(tools, categories);
