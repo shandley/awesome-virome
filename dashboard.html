@@ -875,9 +875,42 @@
     <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.6/dist/vis-network.min.js"></script>
     <!-- Add cache busting parameter with timestamp -->
+    <!-- Direct approach to ensure no citation scripts are loaded -->
+    <script>
+        // Directly remove any citation section when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Remove any existing citation section
+            const citationSection = document.getElementById('citations-section');
+            if (citationSection) {
+                citationSection.remove();
+                console.log('Citation section removed');
+            }
+            
+            // Block attempts to recreate it
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.addedNodes.length) {
+                        for (let i = 0; i < mutation.addedNodes.length; i++) {
+                            const node = mutation.addedNodes[i];
+                            if (node.id === 'citations-section' || 
+                                (node.querySelector && node.querySelector('#citations-section'))) {
+                                node.remove();
+                                console.log('Prevented citation section recreation');
+                            }
+                        }
+                    }
+                });
+            });
+            
+            // Watch the entire body for changes
+            observer.observe(document.body, { 
+                childList: true, 
+                subtree: true 
+            });
+        });
+    </script>
     <script src="js/direct_charts.js?v=20230501"></script>
     <script src="js/visualization.js?v=20230501"></script>
-    <!-- Citations functionality moved to dedicated page: citations.html -->
     <script>
         // Main application code
         document.addEventListener('DOMContentLoaded', function() {

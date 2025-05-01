@@ -234,13 +234,13 @@
             <div class="col-lg-6 mb-4">
                 <div class="card h-100">
                     <div class="card-header">Most Cited Tools</div>
-                    <div class="card-body">
-                        <div class="loading-placeholder" id="topCitedToolsChartContainer" style="height: 400px; width: 100%;">
+                    <div class="card-body" style="overflow: hidden; height: 500px !important; max-height: 500px !important; min-height: 500px !important;">
+                        <div class="loading-placeholder" id="topCitedToolsChartContainer" style="height: 450px; width: 100%;">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="visually-hidden">Loading...</span>
                             </div>
                         </div>
-                        <canvas id="topCitedToolsChart" height="450" width="700" style="display: none;"></canvas>
+                        <canvas id="topCitedToolsChart" height="450" width="700" style="display: none; max-height: 450px !important;"></canvas>
                     </div>
                 </div>
             </div>
@@ -295,6 +295,16 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/datatables.net@1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    
+    <!-- Force chart dimensions during rendering -->
+    <script>
+        // Force Chart.js to use our specific dimensions
+        Chart.defaults.font.size = 11;
+        Chart.defaults.responsive = false;
+        Chart.defaults.maintainAspectRatio = false;
+        Chart.defaults.resizeDelay = 0;
+        Chart.defaults.animation.duration = 0;
+    </script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -481,10 +491,10 @@
                         .slice(0, 10)
                 );
                 
-                // Sort by citation count and take top 8 (reduced for better fit)
+                // IMPORTANT: Limit to only 6 tools to ensure it fits properly
                 const topTools = toolsWithCitations
                     .sort((a, b) => b.citations - a.citations)
-                    .slice(0, 8);
+                    .slice(0, 6);
                 
                 // Generate colors
                 const colors = topTools.map((_, i) => {
