@@ -213,13 +213,39 @@
             
             // Fetch the data directly if not loaded through dashboard
             if (typeof window.initializeDashboard !== 'function') {
+                console.log('Starting data loading for publication impact');
+                
                 Promise.all([
-                    fetch('data.json').then(res => res.json()),
-                    fetch('impact_data.json').then(res => res.json())
+                    fetch('data.json').then(res => {
+                        console.log('data.json fetch response status:', res.status);
+                        return res.json();
+                    }),
+                    fetch('impact_data.json').then(res => {
+                        console.log('impact_data.json fetch response status:', res.status);
+                        return res.json();
+                    })
                 ])
                 .then(([dashboardData, impactData]) => {
+                    console.log('Data loaded successfully');
+                    console.log('Dashboard data nodes count:', dashboardData.nodes?.length);
+                    console.log('Impact data tools count:', impactData.tools?.length);
+                    
+                    // Add dummy DOIs if needed for debugging
+                    if (impactData.tools && impactData.tools.length > 0) {
+                        console.log('First few tools:', impactData.tools.slice(0, 3).map(t => t.name));
+                        
+                        // Check if any tools have DOIs
+                        const toolsWithDois = impactData.tools.filter(t => t.doi_list && t.doi_list.length > 0);
+                        console.log(`Tools with DOIs: ${toolsWithDois.length} out of ${impactData.tools.length}`);
+                        
+                        if (toolsWithDois.length > 0) {
+                            console.log('Sample DOI data:', toolsWithDois[0].doi_list);
+                        }
+                    }
+                    
                     // Process the impact data for publications
                     const publicationNetworkData = processImpactDataForPublications(impactData, dashboardData);
+                    console.log('Processed publication network data:', publicationNetworkData);
                     
                     // Initialize the visualization
                     window.publicationImpact.initialize(publicationNetworkData);
@@ -231,6 +257,8 @@
                 
                 // Function to process impact data for publications
                 function processImpactDataForPublications(impactData, dashboardData) {
+                    console.log('Processing impact data for publications', impactData);
+                    
                     if (!impactData || !impactData.tools) {
                         console.error('Impact data is missing or invalid');
                         return { tools: [], publications: [] };
