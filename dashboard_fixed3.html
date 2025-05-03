@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Awesome-Virome Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.6/css/dataTables.bootstrap5.min.css">
+    <style>
+        :root {
+            /* Modern virology-themed color palette */
+            --primary-color: #109b81; /* Teal green */
+            --primary-light: #6FC3BA;
+            --primary-dark: #097362;
+            --secondary-color: #2C4B7C; /* Deep blue */
+            --secondary-light: #557EBF;
+            --secondary-dark: #193152;
+            --accent-color: #9D5EB0; /* Purple for viruses */
+            --accent-light: #C89AD3;
+            --accent-dark: #6A3877;
+            --info-color: #3498db; /* Blue for info */
+            --success-color: #28a745; /* Green for success */
+            --warning-color: #ffc107; /* Yellow for warnings */
+            --danger-color: #e74c3c; /* Red for errors */
+            --light-bg: #f8f9fa;
+            --dark-bg: #1E293B; /* Dark slate blue */
+            --card-bg: #ffffff;
+            --card-bg-dark: #334155;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --card-shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+            --border-radius: 12px;
+            --section-padding: 2rem;
+            --card-spacing: 1.5rem;
+            --nav-height: 4rem;
+            
+            /* Category-specific colors */
+            --color-identification: #4682B4; /* Steel Blue */
+            --color-host: #6A5ACD; /* Slate Blue */
+            --color-genome: #20B2AA; /* Light Sea Green */
+            --color-taxonomy: #DB7093; /* Pale Violet Red */
+            --color-functional: #9370DB; /* Medium Purple */
+            --color-structural: #4169E1; /* Royal Blue */
+            --color-crispr: #FF6347; /* Tomato */
+            --color-database: #3CB371; /* Medium Sea Green */
+            --color-sequence: #1E90FF; /* Dodger Blue */
+            --color-visualization: #FF8C00; /* Dark Orange */
+            --color-other: #778899; /* Light Slate Gray */
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: var(--light-bg);
+            color: #333;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            padding-top: var(--nav-height);
+        }
+
+        [data-theme="dark"] {
+            background-color: var(--dark-bg);
+            color: #f8f9fa;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: var(--secondary-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: var(--nav-height);
+            z-index: 1030;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: white !important;
+        }
+
+        .navbar-brand span {
+            color: var(--primary-light);
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            transition: color var(--transition-speed);
+        }
+
+        .nav-link:hover, .nav-link:focus {
+            color: #ffffff !important;
+        }
+
+        .nav-link.active {
+            color: #ffffff !important;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 1rem;
+            right: 1rem;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* Section containers */
+        .dashboard-container {
+            padding: var(--section-padding);
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1), transparent);
+            margin: 2rem 0;
+        }
+
+        [data-theme="dark"] .section-divider {
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        .section-title {
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+            display: inline-block;
+        }
+
+        [data-theme="dark"] .section-title {
+            color: var(--primary-light);
+        }
+
+        /* Cards styling */
+        .card {
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            transition: transform var(--transition-speed), 
+                      box-shadow var(--transition-speed),
+                      background-color var(--transition-speed);
+            border: none;
+            height: 100%;
+            background-color: var(--card-bg);
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] .card {
+            background-color: var(--card-bg-dark);
+            color: #e2e8f0;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            border-bottom: none;
+            padding: 1rem 1.5rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .tool-card {
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-speed);
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--secondary-color);
+            opacity: 0.7;
+            transition: opacity var(--transition-speed);
+        }
+
+        .tool-card:hover::before {
+            opacity: 1;
+        }
+
+        .tool-card .card-body {
+            padding: 1.5rem;
+        }
+
+        .tool-card .card-title {
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        [data-theme="dark"] .tool-card .card-title {
+            color: #fff;
+        }
+
+        /* Badges */
+        .badge {
+            padding: 0.4em 0.6em;
+            font-weight: 500;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            letter-spacing: 0.3px;
+            margin-right: 0.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        /* Network styling */
+        #networkContainer {
+            width: 100%;
+            height: 600px;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        [data-theme="dark"] #networkContainer {
+            background-color: var(--card-bg-dark);
+        }
+
+        /* Chart container */
+        .chart-container {
+            width: 100%;
+            height: 300px;
+            position: relative;
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            cursor: pointer;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+            border-radius: 50%;
+            transition: background-color var(--transition-speed);
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(255,255,255, 0.1);
+        }
+
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Loading spinner */
+        .loading-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            min-height: 300px;
+        }
+
+        /* For tooltips */
+        .tooltip {
+            position: absolute;
+            background-color: rgba(0,0,0,0.8);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            pointer-events: none;
+            z-index: 1000;
+            max-width: 300px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Update indicators */
+        .update-recent {
+            color: var(--success-color);
+        }
+
+        .update-medium {
+            color: var(--warning-color);
+        }
+
+        .update-old {
+            color: var(--danger-color);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1rem;
+            }
+            
+            .card-header {
+                padding: 0.8rem 1rem;
+            }
+            
+            .card-body {
+                padding: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Canvas container styling to ensure proper rendering */
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Awesome-<span>Virome</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#tools-section">Tools</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#network-section">Network</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#analytics-section">Analytics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="citations_new.html"><i class="bi bi-graph-up"></i> Citation Dashboard</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="theme-toggle me-3" id="theme-toggle">
+                        <i class="bi bi-moon-fill"></i>
+                    </div>
+                    <a href="https://github.com/shandley/awesome-virome" class="btn btn-outline-light" target="_blank">
+                        <i class="bi bi-github me-1"></i> GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container container-fluid">
+        <!-- Introduction -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <h1 class="display-5 fw-bold">Awesome-Virome Dashboard</h1>
+                <p class="lead">Explore and discover the best tools for virome analysis and research.</p>
+            </div>
+        </div>
+
+        <!-- Main dashboard content -->
+        <div class="row g-4">
+            <!-- Sidebar with filters -->
+            <div class="col-lg-3">
+                <div class="card sticky-top" style="top: 5rem; z-index: 990;">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Filters</span>
+                        <button id="resetFilters" class="btn btn-sm btn-outline-light">
+                            <i class="bi bi-arrow-repeat"></i> Reset
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="searchFilter" class="form-label">Search</label>
+                            <input type="text" class="form-control" id="searchFilter" placeholder="Search tools...">
+                        </div>
+                        <div class="mb-3">
+                            <label for="categoryFilter" class="form-label">Category</label>
+                            <select class="form-select" id="categoryFilter">
+                                <option value="">All Categories</option>
+                                <!-- Options filled by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="subcategoryFilter" class="form-label">Subcategory</label>
+                            <select class="form-select" id="subcategoryFilter">
+                                <option value="">All Subcategories</option>
+                                <!-- Options filled by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="languageFilter" class="form-label">Language</label>
+                            <select class="form-select" id="languageFilter">
+                                <option value="">All Languages</option>
+                                <!-- Options filled by JavaScript -->
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="maintenanceFilter" class="form-label">Maintenance Status</label>
+                            <select class="form-select" id="maintenanceFilter">
+                                <option value="">All Statuses</option>
+                                <option value="recent">Recently Updated</option>
+                                <option value="medium">Medium Activity</option>
+                                <option value="old">Low Activity</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main content area -->
+            <div class="col-lg-9">
+                <!-- Statistics overview -->
+                <div class="row g-4 mb-4">
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <h5>Tools</h5>
+                                <div class="display-6 fw-bold" id="toolCount">0</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <h5>Categories</h5>
+                                <div class="display-6 fw-bold" id="categoryCount">0</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <h5>Languages</h5>
+                                <div class="display-6 fw-bold" id="languageCount">0</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <h5>Avg Stars</h5>
+                                <div class="display-6 fw-bold" id="avgStars">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools Section -->
+                <section id="tools-section" class="mb-5">
+                    <h2 class="section-title">Tools</h2>
+                    <div class="mb-4">
+                        <ul class="nav nav-tabs" id="viewTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="grid-tab" data-bs-toggle="tab" data-bs-target="#grid-view" type="button" role="tab" aria-controls="grid-view" aria-selected="true">
+                                    <i class="bi bi-grid-3x3-gap-fill me-1"></i> Grid
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="table-tab" data-bs-toggle="tab" data-bs-target="#table-view" type="button" role="tab" aria-controls="table-view" aria-selected="false">
+                                    <i class="bi bi-table me-1"></i> Table
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content mt-3">
+                            <div class="tab-pane fade show active" id="grid-view" role="tabpanel" aria-labelledby="grid-tab">
+                                <div class="row g-4" id="toolsGrid">
+                                    <!-- Tools grid will be populated by JavaScript -->
+                                    <div class="loading-container">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="table-view" role="tabpanel" aria-labelledby="table-tab">
+                                <div class="table-responsive">
+                                    <table class="table table-hover table-striped" id="toolsDataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Category</th>
+                                                <th>Language</th>
+                                                <th>Stars</th>
+                                                <th>Last Updated</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Tools table will be populated by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Network Section -->
+                <section id="network-section" class="mb-5">
+                    <h2 class="section-title">Tool Relationships</h2>
+                    <p class="lead mb-4">Visualizing the relationships between tools and their categories.</p>
+                    <div class="card">
+                        <div class="card-body p-0">
+                            <div id="networkContainer">
+                                <div class="loading-container">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Analytics Section -->
+                <section id="analytics-section">
+                    <h2 class="section-title">Ecosystem Analytics</h2>
+                    <p class="lead mb-4">Insights and analytics about the virome analysis tool ecosystem.</p>
+                    <div class="row g-4">
+                        <div class="col-lg-6">
+                            <div class="card h-100">
+                                <div class="card-header">Categories Distribution</div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <div class="loading-container">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <div class="canvas-container">
+                                            <canvas id="categoriesChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card h-100">
+                                <div class="card-header">Top Languages</div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <div class="loading-container">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <div class="canvas-container">
+                                            <canvas id="languagesChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card h-100">
+                                <div class="card-header">Maintenance Status</div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <div class="loading-container">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <div class="canvas-container">
+                                            <canvas id="maintenanceChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card h-100">
+                                <div class="card-header">Tools Timeline</div>
+                                <div class="card-body">
+                                    <div class="chart-container">
+                                        <div class="loading-container">
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                        <div class="canvas-container">
+                                            <canvas id="timelineChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tool Detail Modal -->
+    <div class="modal fade" id="toolDetailModal" tabindex="-1" aria-labelledby="modalToolName" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalToolName">Tool Name</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="modalContent">
+                        <div class="loading-container">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-primary" id="modalToolLink" target="_blank">View Repository</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-center text-white py-4 mt-5">
+        <div class="container">
+            <p class="mb-0">Awesome-Virome: A curated collection of virology bioinformatics tools and resources</p>
+            <p class="small text-muted mt-2">Last updated: <span id="lastUpdated">-</span></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.8.5/dist/d3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net@1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.6/dist/vis-network.min.js"></script>
+    
+    <script>
+        // Dashboard Main Code
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggling
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = themeToggle.querySelector('i');
+            
+            // Check if user has a saved theme preference
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.setAttribute('data-theme', savedTheme);
+                updateThemeIcon(savedTheme);
+            }
+            
+            // Toggle theme
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = document.body.getAttribute('data-theme') || 'light';
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            });
+            
+            function updateThemeIcon(theme) {
+                if (theme === 'dark') {
+                    themeIcon.className = 'bi bi-sun-fill';
+                } else {
+                    themeIcon.className = 'bi bi-moon-fill';
+                }
+            }
+            
+            // Used to store loaded data so all sections can access it
+            let globalData = {
+                tools: [],
+                categories: [],
+                subcategories: [],
+                nodes: [],
+                links: []
+            };
+            
+            // Load data
+            loadData();
+            
+            // Functions
+            async function loadData() {
+                try {
+                    // Add cache busting parameter to prevent caching
+                    const response = await fetch(`data.json?t=${Date.now()}`);
+                    if (!response.ok) {
+                        throw new Error(`Failed to load data: ${response.status} ${response.statusText}`);
+                    }
+                    
+                    const data = await response.json();
+                    console.log('Raw data loaded:', data);
+                    
+                    processData(data);
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                    document.querySelectorAll('.loading-container').forEach(container => {
+                        container.innerHTML = `<div class="alert alert-danger">Error loading data: ${error.message}</div>`;
+                    });
+                }
+            }
+            
+            function processData(data) {
+                // Extract nodes and links from the data
+                const nodes = data.nodes || [];
+                const links = data.links || [];
+                
+                // Save to our global object
+                globalData.nodes = nodes;
+                globalData.links = links;
+                
+                // Extract tools, categories, subcategories
+                const tools = nodes.filter(node => node.type === 'tool');
+                const categories = nodes.filter(node => node.type === 'category');
+                const subcategories = nodes.filter(node => node.type === 'subcategory');
+                
+                // Save to our global object
+                globalData.tools = tools;
+                globalData.categories = categories;
+                globalData.subcategories = subcategories;
+                
+                console.log(`Processed data: ${tools.length} tools, ${categories.length} categories, ${subcategories.length} subcategories`);
+                
+                // Update stats
+                document.getElementById('toolCount').textContent = tools.length;
+                document.getElementById('categoryCount').textContent = categories.length;
+                
+                // Language count
+                const allLanguages = tools.flatMap(tool => Object.keys(tool.languages || {}));
+                const uniqueLanguages = [...new Set(allLanguages)];
+                document.getElementById('languageCount').textContent = uniqueLanguages.length;
+                
+                // Average stars
+                const totalStars = tools.reduce((sum, tool) => sum + (tool.stars || 0), 0);
+                const avgStars = tools.length > 0 ? totalStars / tools.length : 0;
+                document.getElementById('avgStars').textContent = avgStars.toFixed(1);
+                
+                // Last updated date
+                const lastUpdated = new Date().toLocaleDateString();
+                document.getElementById('lastUpdated').textContent = lastUpdated;
+                
+                // Populate filter dropdowns
+                populateFilterDropdowns(tools, categories, subcategories);
+                
+                // Render tools
+                renderTools(tools);
+                
+                // Initialize DataTable
+                initializeDataTable(tools);
+                
+                // Initialize network visualization
+                initializeNetworkGraph(data);
+                
+                // Initialize analytics charts
+                setTimeout(() => {
+                    initializeAnalyticsCharts(tools, categories);
+                }, 100); // Small delay to ensure canvas elements are properly initialized
+                
+                // Set up filter functionality
+                setupFilters(tools);
+                
+                // Set up modal functionality
+                setupToolModal(tools);
+            }
+            
+            function populateFilterDropdowns(tools, categories, subcategories) {
+                const categoryFilter = document.getElementById('categoryFilter');
+                const subcategoryFilter = document.getElementById('subcategoryFilter');
+                const languageFilter = document.getElementById('languageFilter');
+                
+                // Populate categories
+                const uniqueCategories = [...new Set(categories.map(cat => cat.name))].sort();
+                uniqueCategories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category;
+                    option.textContent = category;
+                    categoryFilter.appendChild(option);
+                });
+                
+                // Populate subcategories
+                const uniqueSubcategories = [...new Set(subcategories.map(subcat => subcat.name))].sort();
+                uniqueSubcategories.forEach(subcategory => {
+                    const option = document.createElement('option');
+                    option.value = subcategory;
+                    option.textContent = subcategory;
+                    subcategoryFilter.appendChild(option);
+                });
+                
+                // Populate languages
+                const allLanguages = tools.flatMap(tool => Object.keys(tool.languages || {}));
+                const uniqueLanguages = [...new Set(allLanguages)].sort();
+                uniqueLanguages.forEach(language => {
+                    const option = document.createElement('option');
+                    option.value = language;
+                    option.textContent = language;
+                    languageFilter.appendChild(option);
+                });
+            }
+            
+            function renderTools(tools) {
+                const toolsGrid = document.getElementById('toolsGrid');
+                const toolsTableBody = document.querySelector('#toolsDataTable tbody');
+                
+                // Clear existing content
+                toolsGrid.innerHTML = '';
+                if (toolsTableBody) {
+                    toolsTableBody.innerHTML = '';
+                }
+                
+                // Sort tools alphabetically by name
+                tools.sort((a, b) => a.name.localeCompare(b.name));
+                
+                // Render each tool
+                tools.forEach(tool => {
+                    // Grid view
+                    const gridItem = createToolCard(tool);
+                    toolsGrid.appendChild(gridItem);
+                    
+                    // Table view
+                    if (toolsTableBody) {
+                        const tableRow = document.createElement('tr');
+                        tableRow.innerHTML = `
+                            <td>${tool.name}</td>
+                            <td>${tool.category || 'N/A'}</td>
+                            <td>${getMainLanguage(tool.languages)}</td>
+                            <td>${tool.stars || 0}</td>
+                            <td class="${getUpdateClass(tool.lastUpdated)}">${formatDate(tool.lastUpdated)}</td>
+                        `;
+                        // Set data attribute for tool details
+                        tableRow.setAttribute('data-tool', JSON.stringify(tool));
+                        toolsTableBody.appendChild(tableRow);
+                    }
+                });
+            }
+            
+            function createToolCard(tool) {
+                const col = document.createElement('div');
+                col.className = 'col-md-6 col-lg-4 fade-in';
+                
+                // Create maintenance status badge
+                let updateStatus = '';
+                if (tool.lastUpdated) {
+                    const updateClass = getUpdateClass(tool.lastUpdated);
+                    const updateLabel = updateClass === 'update-recent' ? 'Active' : 
+                                      updateClass === 'update-medium' ? 'Maintained' : 'Low Activity';
+                    updateStatus = `<span class="badge bg-secondary ${updateClass}">${updateLabel}</span>`;
+                }
+                
+                // Create language badges
+                let languageBadges = '';
+                if (tool.languages && Object.keys(tool.languages).length > 0) {
+                    languageBadges = Object.keys(tool.languages)
+                        .slice(0, 3) // Limit to 3 languages
+                        .map(lang => `<span class="badge bg-info">${lang}</span>`)
+                        .join(' ');
+                    
+                    // Add a "+X more" badge if there are more than 3 languages
+                    if (Object.keys(tool.languages).length > 3) {
+                        const more = Object.keys(tool.languages).length - 3;
+                        languageBadges += ` <span class="badge bg-secondary">+${more} more</span>`;
+                    }
+                }
+                
+                // Create card HTML
+                col.innerHTML = `
+                    <div class="card tool-card h-100" data-category="${tool.category || ''}">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                ${tool.name}
+                                <span class="ms-auto small">
+                                    <i class="bi bi-star-fill text-warning"></i> ${tool.stars || 0}
+                                </span>
+                            </h5>
+                            <p class="card-text small">${tool.description || 'No description available.'}</p>
+                            <div class="d-flex flex-wrap gap-1 mb-2">
+                                ${updateStatus}
+                                <span class="badge bg-primary">${tool.category || 'Uncategorized'}</span>
+                                ${languageBadges}
+                            </div>
+                            <div class="mt-3">
+                                <button class="btn btn-sm btn-outline-primary tool-detail-btn" data-tool='${JSON.stringify(tool).replace(/'/g, "\\'")}'>
+                                    <i class="bi bi-info-circle"></i> Details
+                                </button>
+                                <a href="${tool.url || '#'}" class="btn btn-sm btn-outline-secondary" target="_blank" onclick="event.stopPropagation();">
+                                    <i class="bi bi-box-arrow-up-right"></i> Visit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                return col;
+            }
+            
+            // Helper functions
+            function getMainLanguage(languages) {
+                if (!languages || Object.keys(languages).length === 0) return 'N/A';
+                
+                // Return the language with the highest percentage
+                const sortedLangs = Object.entries(languages)
+                    .sort((a, b) => b[1] - a[1]);
+                
+                return sortedLangs[0][0];
+            }
+            
+            function formatDate(dateString) {
+                if (!dateString) return 'Unknown';
+                
+                const date = new Date(dateString);
+                return date.toLocaleDateString();
+            }
+            
+            function getUpdateClass(dateString) {
+                if (!dateString) return 'update-old';
+                
+                const date = new Date(dateString);
+                const now = new Date();
+                const monthsDiff = (now.getFullYear() - date.getFullYear()) * 12 + 
+                                  now.getMonth() - date.getMonth();
+                
+                if (monthsDiff < 6) return 'update-recent';
+                if (monthsDiff < 12) return 'update-medium';
+                return 'update-old';
+            }
+            
+            function initializeDataTable() {
+                try {
+                    // If DataTable is already initialized, destroy it first
+                    if ($.fn.DataTable.isDataTable('#toolsDataTable')) {
+                        $('#toolsDataTable').DataTable().destroy();
+                    }
+                    
+                    // Initialize DataTable
+                    const table = $('#toolsDataTable').DataTable({
+                        paging: true,
+                        searching: true,
+                        ordering: true,
+                        lengthChange: false,
+                        pageLength: 15,
+                        language: {
+                            search: "Filter:"
+                        }
+                    });
+                    
+                    // Add click event for table rows
+                    $('#toolsDataTable tbody').on('click', 'tr', function() {
+                        try {
+                            const toolData = $(this).attr('data-tool');
+                            if (toolData) {
+                                const tool = JSON.parse(toolData);
+                                showToolDetail(tool);
+                            }
+                        } catch (e) {
+                            console.error('Error parsing tool data:', e);
+                        }
+                    });
+                    
+                    return table;
+                } catch (error) {
+                    console.error('Error initializing DataTable:', error);
+                    return null;
+                }
+            }
+            
+            function initializeNetworkGraph(data) {
+                try {
+                    const container = document.getElementById('networkContainer');
+                    
+                    // Clear loading spinner
+                    container.innerHTML = '';
+                    
+                    // We need to ensure each node has a unique ID
+                    // Create a map to track existing IDs
+                    const nodeIds = new Map();
+                    
+                    // Process nodes to ensure unique IDs
+                    const uniqueNodes = [];
+                    
+                    (data.nodes || []).forEach((node) => {
+                        let id = node.id;
+                        
+                        // If this ID already exists, generate a new one
+                        if (nodeIds.has(id)) {
+                            id = `${node.id}-${nodeIds.get(id)}`;
+                            nodeIds.set(node.id, nodeIds.get(node.id) + 1);
+                            
+                            // Create a copy with the new ID
+                            const nodeCopy = {...node, id: id};
+                            uniqueNodes.push(nodeCopy);
+                        } else {
+                            // Track this ID for future checks
+                            nodeIds.set(id, 1);
+                            uniqueNodes.push(node);
+                        }
+                    });
+                    
+                    // Process links to reference the correct node IDs
+                    const processedLinks = (data.links || []).map(link => {
+                        return {
+                            ...link,
+                            from: link.from,
+                            to: link.to
+                        };
+                    });
+                    
+                    // Create network data with unique nodes
+                    const networkData = {
+                        nodes: new vis.DataSet(uniqueNodes),
+                        edges: new vis.DataSet(processedLinks)
+                    };
+                    
+                    const options = {
+                        nodes: {
+                            shape: 'dot',
+                            scaling: {
+                                min: 10,
+                                max: 30,
+                                label: {
+                                    min: 12,
+                                    max: 20,
+                                    drawThreshold: 8,
+                                    maxVisible: 20
+                                }
+                            },
+                            font: {
+                                size: 12,
+                                face: 'Inter, system-ui, sans-serif'
+                            }
+                        },
+                        edges: {
+                            width: 1,
+                            color: {
+                                color: '#d3d3d3',
+                                highlight: '#2C4B7C'
+                            },
+                            smooth: {
+                                type: 'continuous'
+                            }
+                        },
+                        physics: {
+                            stabilization: true,
+                            barnesHut: {
+                                gravitationalConstant: -2000,
+                                centralGravity: 0.3,
+                                springLength: 150,
+                                springConstant: 0.04,
+                                damping: 0.09,
+                                avoidOverlap: 0.2
+                            }
+                        },
+                        groups: {
+                            tool: {
+                                color: {
+                                    background: '#9D5EB0',
+                                    border: '#6A3877',
+                                    highlight: {
+                                        background: '#C89AD3',
+                                        border: '#9D5EB0'
+                                    }
+                                }
+                            },
+                            category: {
+                                shape: 'diamond',
+                                color: {
+                                    background: '#2C4B7C',
+                                    border: '#193152',
+                                    highlight: {
+                                        background: '#557EBF',
+                                        border: '#2C4B7C'
+                                    }
+                                },
+                                font: {
+                                    size: 14,
+                                    face: 'Inter, system-ui, sans-serif',
+                                    bold: true
+                                }
+                            }
+                        },
+                        interaction: {
+                            hover: true,
+                            tooltipDelay: 200,
+                            zoomView: true,
+                            dragView: true
+                        }
+                    };
+                    
+                    // Create the network
+                    const network = new vis.Network(container, networkData, options);
+                    
+                    // Set up node click event
+                    network.on('click', function(params) {
+                        if (params.nodes && params.nodes.length > 0) {
+                            const nodeId = params.nodes[0];
+                            const node = uniqueNodes.find(n => n.id === nodeId);
+                            
+                            if (node && node.type === 'tool') {
+                                showToolDetail(node);
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error initializing network visualization:', error);
+                    const container = document.getElementById('networkContainer');
+                    container.innerHTML = `<div class="alert alert-danger m-3">Error initializing network visualization: ${error.message}</div>`;
+                }
+            }
+            
+            function initializeAnalyticsCharts(tools, categories) {
+                try {
+                    // Hide all loading containers first
+                    document.querySelectorAll('.chart-container .loading-container').forEach(container => {
+                        container.style.display = 'none';
+                    });
+                    
+                    // Create charts
+                    createCategoriesChart(tools, categories);
+                    createLanguagesChart(tools);
+                    createMaintenanceChart(tools);
+                    createTimelineChart(tools);
+                } catch (error) {
+                    console.error('Error initializing analytics charts:', error);
+                    document.querySelectorAll('.chart-container').forEach(container => {
+                        const loadingEl = container.querySelector('.loading-container');
+                        if (loadingEl) {
+                            loadingEl.innerHTML = `<div class="alert alert-danger">Error initializing chart: ${error.message}</div>`;
+                            loadingEl.style.display = 'flex';
+                        }
+                    });
+                }
+            }
+            
+            function createCategoriesChart(tools, categories) {
+                try {
+                    const canvas = document.getElementById('categoriesChart');
+                    if (!canvas) {
+                        console.error('Categories chart canvas not found');
+                        return;
+                    }
+                    
+                    // Count tools in each category
+                    const categoryCounts = {};
+                    
+                    // Initialize all categories with 0
+                    categories.forEach(cat => {
+                        categoryCounts[cat.name] = 0;
+                    });
+                    
+                    // Count tools per category
+                    tools.forEach(tool => {
+                        if (tool.category) {
+                            categoryCounts[tool.category] = (categoryCounts[tool.category] || 0) + 1;
+                        } else {
+                            categoryCounts['Uncategorized'] = (categoryCounts['Uncategorized'] || 0) + 1;
+                        }
+                    });
+                    
+                    // Sort categories by count
+                    const sortedCategories = Object.entries(categoryCounts)
+                        .sort((a, b) => b[1] - a[1])
+                        .slice(0, 10);
+                    
+                    const labels = sortedCategories.map(([cat]) => cat);
+                    const counts = sortedCategories.map(([, count]) => count);
+                    
+                    // Generate colors
+                    const colors = labels.map((_, i) => {
+                        const hue = (i * 36) % 360;
+                        return `hsl(${hue}, 70%, 60%)`;
+                    });
+                    
+                    new Chart(canvas, {
+                        type: 'bar',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Number of Tools',
+                                data: counts,
+                                backgroundColor: colors,
+                                borderColor: colors.map(c => c.replace('60%', '40%')),
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    title: {
+                                        display: true,
+                                        text: 'Number of Tools'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Tools by Category'
+                                }
+                            }
+                        }
+                    });
+                    
+                    // Show the canvas container and hide loading
+                    const chartContainer = canvas.closest('.chart-container');
+                    if (chartContainer) {
+                        const loadingEl = chartContainer.querySelector('.loading-container');
+                        if (loadingEl) {
+                            loadingEl.style.display = 'none';
+                        }
+                        const canvasContainer = chartContainer.querySelector('.canvas-container');
+                        if (canvasContainer) {
+                            canvasContainer.style.display = 'block';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error creating categories chart:', error);
+                    const canvasContainer = document.getElementById('categoriesChart').closest('.canvas-container');
+                    if (canvasContainer) {
+                        canvasContainer.innerHTML = `<div class="alert alert-danger">Error creating chart: ${error.message}</div>`;
+                    }
+                }
+            }
+            
+            function createLanguagesChart(tools) {
+                try {
+                    const canvas = document.getElementById('languagesChart');
+                    if (!canvas) {
+                        console.error('Languages chart canvas not found');
+                        return;
+                    }
+                    
+                    // Count languages
+                    const languageCounts = {};
+                    tools.forEach(tool => {
+                        if (tool.languages) {
+                            Object.keys(tool.languages).forEach(lang => {
+                                languageCounts[lang] = (languageCounts[lang] || 0) + 1;
+                            });
+                        }
+                    });
+                    
+                    // Sort languages by count
+                    const sortedLanguages = Object.entries(languageCounts)
+                        .sort((a, b) => b[1] - a[1])
+                        .slice(0, 10);
+                    
+                    const labels = sortedLanguages.map(([lang]) => lang);
+                    const counts = sortedLanguages.map(([, count]) => count);
+                    
+                    // Generate colors
+                    const colors = labels.map((_, i) => {
+                        const hue = (i * 36 + 180) % 360;
+                        return `hsl(${hue}, 70%, 60%)`;
+                    });
+                    
+                    new Chart(canvas, {
+                        type: 'doughnut',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                data: counts,
+                                backgroundColor: colors,
+                                borderColor: colors.map(c => c.replace('60%', '40%')),
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'right',
+                                    labels: {
+                                        font: {
+                                            size: 11
+                                        }
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Top Programming Languages'
+                                }
+                            }
+                        }
+                    });
+                    
+                    // Show the canvas container and hide loading
+                    const chartContainer = canvas.closest('.chart-container');
+                    if (chartContainer) {
+                        const loadingEl = chartContainer.querySelector('.loading-container');
+                        if (loadingEl) {
+                            loadingEl.style.display = 'none';
+                        }
+                        const canvasContainer = chartContainer.querySelector('.canvas-container');
+                        if (canvasContainer) {
+                            canvasContainer.style.display = 'block';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error creating languages chart:', error);
+                    const canvasContainer = document.getElementById('languagesChart').closest('.canvas-container');
+                    if (canvasContainer) {
+                        canvasContainer.innerHTML = `<div class="alert alert-danger">Error creating chart: ${error.message}</div>`;
+                    }
+                }
+            }
+            
+            function createMaintenanceChart(tools) {
+                try {
+                    const canvas = document.getElementById('maintenanceChart');
+                    if (!canvas) {
+                        console.error('Maintenance chart canvas not found');
+                        return;
+                    }
+                    
+                    // Classify tools by maintenance status
+                    const recent = tools.filter(tool => tool.lastUpdated && getUpdateClass(tool.lastUpdated) === 'update-recent').length;
+                    const medium = tools.filter(tool => tool.lastUpdated && getUpdateClass(tool.lastUpdated) === 'update-medium').length;
+                    const old = tools.filter(tool => !tool.lastUpdated || getUpdateClass(tool.lastUpdated) === 'update-old').length;
+                    
+                    new Chart(canvas, {
+                        type: 'pie',
+                        data: {
+                            labels: ['Active (< 6 months)', 'Maintained (6-12 months)', 'Low Activity (> 12 months)'],
+                            datasets: [{
+                                data: [recent, medium, old],
+                                backgroundColor: [
+                                    '#28a745', // Green for recent
+                                    '#ffc107', // Yellow for medium
+                                    '#e74c3c'  // Red for old
+                                ],
+                                borderColor: [
+                                    '#1e7e34',
+                                    '#d39e00',
+                                    '#c0392b'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'right',
+                                    labels: {
+                                        font: {
+                                            size: 11
+                                        }
+                                    }
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Maintenance Status'
+                                }
+                            }
+                        }
+                    });
+                    
+                    // Show the canvas container and hide loading
+                    const chartContainer = canvas.closest('.chart-container');
+                    if (chartContainer) {
+                        const loadingEl = chartContainer.querySelector('.loading-container');
+                        if (loadingEl) {
+                            loadingEl.style.display = 'none';
+                        }
+                        const canvasContainer = chartContainer.querySelector('.canvas-container');
+                        if (canvasContainer) {
+                            canvasContainer.style.display = 'block';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error creating maintenance chart:', error);
+                    const canvasContainer = document.getElementById('maintenanceChart').closest('.canvas-container');
+                    if (canvasContainer) {
+                        canvasContainer.innerHTML = `<div class="alert alert-danger">Error creating chart: ${error.message}</div>`;
+                    }
+                }
+            }
+            
+            function createTimelineChart(tools) {
+                try {
+                    const canvas = document.getElementById('timelineChart');
+                    if (!canvas) {
+                        console.error('Timeline chart canvas not found');
+                        return;
+                    }
+                    
+                    // Extract creation years
+                    const yearCounts = {};
+                    tools.forEach(tool => {
+                        if (tool.createdAt) {
+                            const year = new Date(tool.createdAt).getFullYear();
+                            yearCounts[year] = (yearCounts[year] || 0) + 1;
+                        }
+                    });
+                    
+                    // Sort years
+                    const years = Object.keys(yearCounts).sort();
+                    const counts = years.map(year => yearCounts[year]);
+                    
+                    // Calculate cumulative counts
+                    let cumulative = 0;
+                    const cumulativeCounts = counts.map(count => {
+                        cumulative += count;
+                        return cumulative;
+                    });
+                    
+                    new Chart(canvas, {
+                        type: 'line',
+                        data: {
+                            labels: years,
+                            datasets: [
+                                {
+                                    label: 'New Tools per Year',
+                                    data: counts,
+                                    backgroundColor: 'rgba(157, 94, 176, 0.2)',
+                                    borderColor: '#9D5EB0',
+                                    borderWidth: 2,
+                                    type: 'bar',
+                                    yAxisID: 'y'
+                                },
+                                {
+                                    label: 'Cumulative Tools',
+                                    data: cumulativeCounts,
+                                    backgroundColor: 'rgba(44, 75, 124, 0.1)',
+                                    borderColor: '#2C4B7C',
+                                    borderWidth: 2,
+                                    fill: false,
+                                    yAxisID: 'y1'
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    position: 'left',
+                                    title: {
+                                        display: true,
+                                        text: 'New Tools'
+                                    }
+                                },
+                                y1: {
+                                    beginAtZero: true,
+                                    position: 'right',
+                                    grid: {
+                                        drawOnChartArea: false
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Total Tools'
+                                    }
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: 'Tool Development Timeline'
+                                }
+                            }
+                        }
+                    });
+                    
+                    // Show the canvas container and hide loading
+                    const chartContainer = canvas.closest('.chart-container');
+                    if (chartContainer) {
+                        const loadingEl = chartContainer.querySelector('.loading-container');
+                        if (loadingEl) {
+                            loadingEl.style.display = 'none';
+                        }
+                        const canvasContainer = chartContainer.querySelector('.canvas-container');
+                        if (canvasContainer) {
+                            canvasContainer.style.display = 'block';
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error creating timeline chart:', error);
+                    const canvasContainer = document.getElementById('timelineChart').closest('.canvas-container');
+                    if (canvasContainer) {
+                        canvasContainer.innerHTML = `<div class="alert alert-danger">Error creating chart: ${error.message}</div>`;
+                    }
+                }
+            }
+            
+            function setupFilters(originalTools) {
+                // Clone tools array to preserve the original data
+                const tools = [...originalTools];
+                
+                const categoryFilter = document.getElementById('categoryFilter');
+                const subcategoryFilter = document.getElementById('subcategoryFilter');
+                const languageFilter = document.getElementById('languageFilter');
+                const maintenanceFilter = document.getElementById('maintenanceFilter');
+                const searchFilter = document.getElementById('searchFilter');
+                const resetFilters = document.getElementById('resetFilters');
+                
+                // Apply filters function
+                function applyFilters() {
+                    const category = categoryFilter.value;
+                    const subcategory = subcategoryFilter.value;
+                    const language = languageFilter.value;
+                    const maintenance = maintenanceFilter.value;
+                    const search = searchFilter.value.toLowerCase();
+                    
+                    // Filter tools from original clone
+                    const filteredTools = [...tools].filter(tool => {
+                        // Category filter
+                        if (category && tool.category !== category) return false;
+                        
+                        // Subcategory filter (TODO: Implement subcategory relationship)
+                        // For now, we'll use a simple text match
+                        if (subcategory && (!tool.description || !tool.description.toLowerCase().includes(subcategory.toLowerCase()))) return false;
+                        
+                        // Language filter
+                        if (language && (!tool.languages || !tool.languages[language])) return false;
+                        
+                        // Maintenance filter
+                        if (maintenance) {
+                            const updateClass = getUpdateClass(tool.lastUpdated);
+                            if (maintenance === 'recent' && updateClass !== 'update-recent') return false;
+                            if (maintenance === 'medium' && updateClass !== 'update-medium') return false;
+                            if (maintenance === 'old' && updateClass !== 'update-old') return false;
+                        }
+                        
+                        // Search filter
+                        if (search) {
+                            const nameMatch = tool.name.toLowerCase().includes(search);
+                            const descMatch = tool.description && tool.description.toLowerCase().includes(search);
+                            if (!nameMatch && !descMatch) return false;
+                        }
+                        
+                        return true;
+                    });
+                    
+                    // Render filtered tools
+                    renderTools(filteredTools);
+                    
+                    // Update DataTable
+                    try {
+                        const dataTable = $('#toolsDataTable').DataTable();
+                        dataTable.clear();
+                        
+                        filteredTools.forEach(tool => {
+                            const row = dataTable.row.add([
+                                tool.name,
+                                tool.category || 'N/A',
+                                getMainLanguage(tool.languages),
+                                tool.stars || 0,
+                                formatDate(tool.lastUpdated)
+                            ]).node();
+                            
+                            // Add data-tool attribute
+                            $(row).attr('data-tool', JSON.stringify(tool));
+                        });
+                        
+                        dataTable.draw();
+                    } catch (error) {
+                        console.error('Error updating DataTable:', error);
+                    }
+                }
+                
+                // Set up event listeners
+                [categoryFilter, subcategoryFilter, languageFilter, maintenanceFilter].forEach(filter => {
+                    filter.addEventListener('change', applyFilters);
+                });
+                
+                // Search with debounce
+                let debounceTimeout;
+                searchFilter.addEventListener('input', function() {
+                    clearTimeout(debounceTimeout);
+                    debounceTimeout = setTimeout(applyFilters, 300);
+                });
+                
+                // Reset filters
+                resetFilters.addEventListener('click', function() {
+                    categoryFilter.value = '';
+                    subcategoryFilter.value = '';
+                    languageFilter.value = '';
+                    maintenanceFilter.value = '';
+                    searchFilter.value = '';
+                    applyFilters();
+                });
+            }
+            
+            function setupToolModal(tools) {
+                // Get modal elements
+                const modal = document.getElementById('toolDetailModal');
+                const modalTitle = document.getElementById('modalToolName');
+                const modalContent = document.getElementById('modalContent');
+                const modalToolLink = document.getElementById('modalToolLink');
+                
+                // Bootstrap modal instance
+                const modalInstance = new bootstrap.Modal(modal);
+                
+                // Event delegation for tool detail buttons
+                document.addEventListener('click', function(event) {
+                    if (event.target.closest('.tool-detail-btn')) {
+                        const btn = event.target.closest('.tool-detail-btn');
+                        const toolData = btn.getAttribute('data-tool');
+                        try {
+                            const tool = JSON.parse(toolData);
+                            showToolDetail(tool);
+                        } catch (e) {
+                            console.error('Error parsing tool data:', e);
+                        }
+                    }
+                });
+                
+                // Show tool detail in modal
+                function showToolDetail(tool) {
+                    modalTitle.textContent = tool.name;
+                    modalToolLink.href = tool.url || '#';
+                    
+                    // Format last update date
+                    let updateInfo = 'Unknown';
+                    if (tool.lastUpdated) {
+                        const updateDate = new Date(tool.lastUpdated);
+                        updateInfo = `${updateDate.toLocaleDateString()} (${getRelativeTimeString(updateDate)})`;
+                    }
+                    
+                    // Format creation date
+                    let creationInfo = 'Unknown';
+                    if (tool.createdAt) {
+                        const creationDate = new Date(tool.createdAt);
+                        creationInfo = `${creationDate.toLocaleDateString()}`;
+                    }
+                    
+                    // Create language list
+                    let languagesList = '<p>No language information available</p>';
+                    if (tool.languages && Object.keys(tool.languages).length > 0) {
+                        languagesList = `
+                            <ul class="list-group">
+                                ${Object.entries(tool.languages)
+                                    .sort((a, b) => b[1] - a[1])
+                                    .map(([lang, pct]) => `
+                                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                                            ${lang}
+                                            <span class="badge bg-primary rounded-pill">${pct}%</span>
+                                        </li>
+                                    `).join('')}
+                            </ul>
+                        `;
+                    }
+                    
+                    // Build detailed content
+                    modalContent.innerHTML = `
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-header">Information</div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <strong>Category:</strong> 
+                                                <span>${tool.category || 'Uncategorized'}</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <strong>Stars:</strong> 
+                                                <span>${tool.stars || 0}</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <strong>Last Updated:</strong> 
+                                                <span class="${getUpdateClass(tool.lastUpdated)}">${updateInfo}</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <strong>Created:</strong> 
+                                                <span>${creationInfo}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card h-100">
+                                    <div class="card-header">Languages</div>
+                                    <div class="card-body">
+                                        ${languagesList}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">Description</div>
+                                    <div class="card-body">
+                                        <p>${tool.description || 'No description available.'}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Show modal
+                    modalInstance.show();
+                }
+                
+                // Make function available globally
+                window.showToolDetail = showToolDetail;
+            }
+            
+            function getRelativeTimeString(date) {
+                const now = new Date();
+                const diffMs = now - date;
+                const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                
+                if (diffDays < 1) return 'Today';
+                if (diffDays < 2) return 'Yesterday';
+                if (diffDays < 7) return `${diffDays} days ago`;
+                if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+                if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
+                return `${Math.floor(diffDays / 365)} years ago`;
+            }
+        });
+    </script>
+</body>
+</html>
