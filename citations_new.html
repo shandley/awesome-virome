@@ -910,39 +910,68 @@
                 // Group tools by category
                 const categoryData = {};
                 
+                // Count tools per category first to analyze distribution
+                const categoryCount = {};
+                
                 toolsWithCitations.forEach(tool => {
-                    // Skip tools without categories
-                    if (!tool.category) return;
+                    // Handle case where category is missing or 'Uncategorized'
+                    const category = (tool.category && tool.category !== 'Uncategorized') 
+                        ? tool.category 
+                        : 'Other';
+                    
+                    // Count tools per category
+                    categoryCount[category] = (categoryCount[category] || 0) + 1;
                     
                     // Initialize category if not exists
-                    if (!categoryData[tool.category]) {
-                        categoryData[tool.category] = {
+                    if (!categoryData[category]) {
+                        categoryData[category] = {
                             totalCitations: 0,
                             toolCount: 0,
-                            avgImpact: 0
+                            tools: [],
+                            avgCitations: 0
                         };
                     }
                     
                     // Update category data
-                    categoryData[tool.category].totalCitations += tool.totalCitations;
-                    categoryData[tool.category].toolCount += 1;
+                    categoryData[category].totalCitations += tool.totalCitations;
+                    categoryData[category].toolCount += 1;
+                    categoryData[category].tools.push({
+                        name: tool.name,
+                        citations: tool.totalCitations
+                    });
                 });
                 
-                // Calculate average impact per category
+                // Calculate average citations per category
                 Object.keys(categoryData).forEach(category => {
-                    categoryData[category].avgImpact = 
+                    categoryData[category].avgCitations = 
                         Math.round(categoryData[category].totalCitations / categoryData[category].toolCount);
+                    
+                    // Sort tools within category by citations
+                    categoryData[category].tools.sort((a, b) => b.citations - a.citations);
                 });
                 
-                // Sort categories by total citation impact
+                // Sort categories by total citation impact and filter those with at least 3 tools
                 const sortedCategories = Object.entries(categoryData)
+                    .filter(([, data]) => data.toolCount >= 3) // Only include categories with at least 3 tools
                     .sort((a, b) => b[1].totalCitations - a[1].totalCitations)
-                    .slice(0, 8); // Limit to top 8 categories
+                    .slice(0, 6); // Limit to top 6 categories for readability
+                
+                // If we have fewer than 2 categories after filtering, include some with fewer tools
+                if (sortedCategories.length < 2) {
+                    const additionalCategories = Object.entries(categoryData)
+                        .filter(([, data]) => data.toolCount < 3)
+                        .sort((a, b) => b[1].totalCitations - a[1].totalCitations)
+                        .slice(0, 6 - sortedCategories.length);
+                    
+                    sortedCategories.push(...additionalCategories);
+                }
                 
                 const categories = sortedCategories.map(([cat]) => cat);
                 const totalCitations = sortedCategories.map(([, data]) => data.totalCitations);
-                const avgCitations = sortedCategories.map(([, data]) => data.avgImpact);
+                const avgCitations = sortedCategories.map(([, data]) => data.avgCitations);
+                const toolsPerCategory = sortedCategories.map(([, data]) => data.toolCount);
                 
+                // Create datasets for visualization
                 charts.category = new Chart(ctx, {
                     type: 'bar',
                     data: {
@@ -954,45 +983,84 @@
                                 backgroundColor: 'rgba(157, 94, 176, 0.7)',
                                 borderColor: 'rgba(157, 94, 176, 1)',
                                 borderWidth: 1,
-                                yAxisID: 'y'
+                                order: 1
                             },
                             {
                                 label: 'Average Citations Per Tool',
                                 data: avgCitations,
-                                backgroundColor: 'rgba(44, 75, 124, 0.7)',
+                                backgroundColor: 'rgba(44, 75, 124, 0.7)', 
                                 borderColor: 'rgba(44, 75, 124, 1)',
                                 borderWidth: 1,
-                                type: 'bar',
+                                type: 'line',
+                                order: 0,
+                                pointRadius: 6,
+                                pointHoverRadius: 8,
                                 yAxisID: 'y1'
                             }
                         ]
                     },
                     options: {
+                        indexAxis: 'y',  // Horizontal bar chart for better readability
                         scales: {
-                            y: {
+                            x: {
                                 beginAtZero: true,
-                                position: 'left',
                                 title: {
                                     display: true,
                                     text: 'Total Citations'
                                 }
                             },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Tool Category'
+                                }
+                            },
                             y1: {
-                                beginAtZero: true,
                                 position: 'right',
+                                beginAtZero: true,
                                 grid: {
                                     drawOnChartArea: false
                                 },
                                 title: {
                                     display: true,
                                     text: 'Avg Citations Per Tool'
-                                }
+                                },
+                                // Ensure y1 scale has reasonable max value
+                                suggestedMax: Math.max(...avgCitations) * 1.2
                             }
                         },
                         plugins: {
                             tooltip: {
                                 mode: 'index',
-                                intersect: false
+                                intersect: false,
+                                callbacks: {
+                                    afterTitle: function(context) {
+                                        const categoryIndex = context[0].dataIndex;
+                                        const toolCount = toolsPerCategory[categoryIndex];
+                                        return `${toolCount} tools in this category`;
+                                    },
+                                    afterBody: function(context) {
+                                        const categoryIndex = context[0].dataIndex;
+                                        const category = categories[categoryIndex];
+                                        const topTools = categoryData[category].tools.slice(0, 3);
+                                        
+                                        return [
+                                            '',
+                                            'Top tools in this category:',
+                                            ...topTools.map(tool => `${tool.name}: ${tool.citations} citations`)
+                                        ];
+                                    }
+                                }
+                            },
+                            title: {
+                                display: true,
+                                text: 'Citation Impact by Tool Category',
+                                font: {
+                                    size: 14
+                                }
+                            },
+                            legend: {
+                                position: 'bottom'
                             }
                         }
                     }
