@@ -1661,7 +1661,7 @@
                                     .map(([lang, pct]) => `
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             ${lang}
-                                            <span class="badge bg-primary rounded-pill">${pct}%</span>
+                                            <span class="badge bg-primary rounded-pill">${Math.round(pct * 100) / 100}%</span>
                                         </li>
                                     `).join('')}
                             </ul>
