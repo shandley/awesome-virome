@@ -1,3 +1,5 @@
+<img src="awesome-virome-hex.png" align="left" width="180" style="margin-right: 25px; margin-bottom: 20px;" />
+
 # Awesome-Virome
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
@@ -6,6 +8,8 @@
 [![Cache Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/shandley/awesome-virome/main/.github/badges/cache-status.json)](https://github.com/shandley/awesome-virome/actions/workflows/cache-maintenance.yml)
 
 A curated list of software, tools, and databases useful for virome analysis, including phages, viruses, and their interactions with hosts. This repository aims to help researchers navigate the diverse landscape of tools available for studying viral communities in various environments.
+
+<br clear="left"/>
 
 ## Interactive Dashboard
 
