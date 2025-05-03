@@ -687,7 +687,9 @@
                                             </div>
                                         </div>
                                         <div class="canvas-container">
-                                            <div id="treemapContainer" style="width: 100%; height: 100%;"></div>
+                                            <div id="treemapContainer" style="width: 100%; height: 100%;">
+                        <canvas id="treemapChart" style="width: 100%; height: 100%;"></canvas>
+                    </div>
                                         </div>
                                     </div>
                                 </div>
@@ -829,6 +831,9 @@
                 
                 console.log(`Processed data: ${tools.length} tools, ${categories.length} categories, ${subcategories.length} subcategories`);
                 
+                // Make data available globally for treemap visualization
+                window.visualizationData = data;
+                
                 // Update stats
                 document.getElementById('toolCount').textContent = tools.length;
                 document.getElementById('categoryCount').textContent = categories.length;
@@ -846,6 +851,12 @@
                 // Last updated date
                 const lastUpdated = new Date().toLocaleDateString();
                 document.getElementById('lastUpdated').textContent = lastUpdated;
+
+                // Initialize treemap if treemap visualizer exists
+                if (window.treemapVisualizer && typeof window.treemapVisualizer.initialize === 'function') {
+                    console.log('Initializing treemap visualization with data');
+                    window.treemapVisualizer.initialize(data);
+                }
                 
                 // Populate filter dropdowns
                 populateFilterDropdowns(tools, categories, subcategories);
