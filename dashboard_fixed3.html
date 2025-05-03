@@ -226,14 +226,40 @@
         /* Network styling */
         #networkContainer {
             width: 100%;
-            height: 600px;
+            height: 700px;
             background-color: var(--card-bg);
             border-radius: var(--border-radius);
             overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
         }
 
         [data-theme="dark"] #networkContainer {
             background-color: var(--card-bg-dark);
+            border-color: rgba(255,255,255,0.1);
+        }
+        
+        .network-wrapper {
+            padding: 1rem;
+        }
+        
+        .network-controls {
+            padding: 0 0.5rem;
+        }
+        
+        .network-legend {
+            font-size: 0.85rem;
+            color: #666;
+        }
+        
+        .legend-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .form-check-label {
+            font-size: 0.85rem;
         }
 
         /* Chart container */
@@ -523,10 +549,50 @@
                     <p class="lead mb-4">Visualizing the relationships between tools and their categories.</p>
                     <div class="card">
                         <div class="card-body p-0">
-                            <div id="networkContainer">
-                                <div class="loading-container">
-                                    <div class="spinner-border text-primary" role="status">
-                                        <span class="visually-hidden">Loading...</span>
+                            <div class="network-wrapper">
+                                <div class="network-controls mb-2 d-flex gap-2 flex-wrap">
+                                    <div class="btn-group" role="group" aria-label="Network layout controls">
+                                        <button id="togglePhysics" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-gear"></i> Toggle Physics
+                                        </button>
+                                        <button id="toggleHierarchical" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-diagram-3"></i> Hierarchical View
+                                        </button>
+                                        <button id="centerNetwork" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-bullseye"></i> Center View
+                                        </button>
+                                    </div>
+                                    <div class="btn-group" role="group" aria-label="Node filter controls">
+                                        <button id="showAll" class="btn btn-sm btn-outline-secondary active">All</button>
+                                        <button id="showCategories" class="btn btn-sm btn-outline-secondary">Categories</button>
+                                        <button id="showTools" class="btn btn-sm btn-outline-secondary">Tools</button>
+                                    </div>
+                                    <div class="ms-auto">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="showLabels" checked>
+                                            <label class="form-check-label" for="showLabels">Show Labels</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="networkContainer">
+                                    <div class="loading-container">
+                                        <div class="spinner-border text-primary" role="status">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="network-legend mt-2 d-flex justify-content-center gap-3">
+                                    <div class="d-flex align-items-center">
+                                        <span class="legend-dot" style="background-color: #2C4B7C;"></span>
+                                        <span class="ms-1">Categories</span>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="legend-dot" style="background-color: #109b81;"></span>
+                                        <span class="ms-1">Subcategories</span>
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <span class="legend-dot" style="background-color: #9D5EB0;"></span>
+                                        <span class="ms-1">Tools</span>
                                     </div>
                                 </div>
                             </div>
@@ -997,7 +1063,7 @@
                     // Create a map to track existing IDs
                     const nodeIds = new Map();
                     
-                    // Process nodes to ensure unique IDs
+                    // Process nodes to ensure unique IDs and enhance with labels and proper groups
                     const uniqueNodes = [];
                     
                     (data.nodes || []).forEach((node) => {
@@ -1008,13 +1074,27 @@
                             id = `${node.id}-${nodeIds.get(id)}`;
                             nodeIds.set(node.id, nodeIds.get(node.id) + 1);
                             
-                            // Create a copy with the new ID
-                            const nodeCopy = {...node, id: id};
+                            // Create a copy with the new ID and enhancements
+                            const nodeCopy = {
+                                ...node, 
+                                id: id,
+                                label: node.name || node.id,
+                                title: node.description || node.name || node.id, // For tooltips on hover
+                                group: node.type // For styling by type (tool, category, subcategory)
+                            };
                             uniqueNodes.push(nodeCopy);
                         } else {
                             // Track this ID for future checks
                             nodeIds.set(id, 1);
-                            uniqueNodes.push(node);
+                            
+                            // Add label and group properties
+                            const enhancedNode = {
+                                ...node,
+                                label: node.name || node.id,
+                                title: node.description || node.name || node.id, // For tooltips on hover
+                                group: node.type // For styling by type
+                            };
+                            uniqueNodes.push(enhancedNode);
                         }
                     });
                     
@@ -1042,38 +1122,53 @@
                                 label: {
                                     min: 12,
                                     max: 20,
-                                    drawThreshold: 8,
-                                    maxVisible: 20
+                                    drawThreshold: 1, // Always show labels
+                                    maxVisible: 200
                                 }
                             },
                             font: {
                                 size: 12,
-                                face: 'Inter, system-ui, sans-serif'
+                                face: 'Inter, system-ui, sans-serif',
+                                color: '#333333',
+                                strokeWidth: 2, // Add outline to make text more readable
+                                strokeColor: '#ffffff'
                             }
                         },
                         edges: {
-                            width: 1,
+                            width: 1.5,
                             color: {
-                                color: '#d3d3d3',
+                                color: 'rgba(150, 150, 150, 0.5)',
                                 highlight: '#2C4B7C'
                             },
                             smooth: {
-                                type: 'continuous'
+                                type: 'continuous',
+                                roundness: 0.5
+                            },
+                            arrows: {
+                                to: {
+                                    enabled: true,
+                                    scaleFactor: 0.5
+                                }
                             }
                         },
                         physics: {
-                            stabilization: true,
+                            stabilization: {
+                                iterations: 100, // More iterations for better layout
+                                fit: true
+                            },
                             barnesHut: {
-                                gravitationalConstant: -2000,
-                                centralGravity: 0.3,
-                                springLength: 150,
-                                springConstant: 0.04,
+                                gravitationalConstant: -3000,
+                                centralGravity: 0.2,
+                                springLength: 200,
+                                springConstant: 0.05,
                                 damping: 0.09,
-                                avoidOverlap: 0.2
+                                avoidOverlap: 0.5
                             }
                         },
                         groups: {
                             tool: {
+                                shape: 'dot',
+                                size: 10,
                                 color: {
                                     background: '#9D5EB0',
                                     border: '#6A3877',
@@ -1081,10 +1176,15 @@
                                         background: '#C89AD3',
                                         border: '#9D5EB0'
                                     }
+                                },
+                                font: {
+                                    color: '#333333',
+                                    size: 12
                                 }
                             },
                             category: {
                                 shape: 'diamond',
+                                size: 20,
                                 color: {
                                     background: '#2C4B7C',
                                     border: '#193152',
@@ -1094,9 +1194,27 @@
                                     }
                                 },
                                 font: {
+                                    size: 16,
+                                    face: 'Inter, system-ui, sans-serif',
+                                    bold: true,
+                                    color: '#333333'
+                                }
+                            },
+                            subcategory: {
+                                shape: 'hexagon',
+                                size: 15,
+                                color: {
+                                    background: '#109b81',
+                                    border: '#097362',
+                                    highlight: {
+                                        background: '#6FC3BA',
+                                        border: '#109b81'
+                                    }
+                                },
+                                font: {
                                     size: 14,
                                     face: 'Inter, system-ui, sans-serif',
-                                    bold: true
+                                    color: '#333333'
                                 }
                             }
                         },
@@ -1104,7 +1222,15 @@
                             hover: true,
                             tooltipDelay: 200,
                             zoomView: true,
-                            dragView: true
+                            dragView: true,
+                            navigationButtons: true,
+                            keyboard: true
+                        },
+                        layout: {
+                            improvedLayout: true,
+                            hierarchical: {
+                                enabled: false // Disable hierarchical by default but let user toggle
+                            }
                         }
                     };
                     
@@ -1121,6 +1247,98 @@
                                 showToolDetail(node);
                             }
                         }
+                    });
+                    
+                    // Network control setup
+                    const togglePhysicsBtn = document.getElementById('togglePhysics');
+                    const toggleHierarchicalBtn = document.getElementById('toggleHierarchical');
+                    const centerNetworkBtn = document.getElementById('centerNetwork');
+                    const showAllBtn = document.getElementById('showAll');
+                    const showCategoriesBtn = document.getElementById('showCategories');
+                    const showToolsBtn = document.getElementById('showTools');
+                    const showLabelsToggle = document.getElementById('showLabels');
+                    
+                    // Physics toggle
+                    let physicsEnabled = true;
+                    togglePhysicsBtn.addEventListener('click', function() {
+                        physicsEnabled = !physicsEnabled;
+                        network.setOptions({ physics: { enabled: physicsEnabled } });
+                        togglePhysicsBtn.classList.toggle('active', physicsEnabled);
+                    });
+                    
+                    // Hierarchical layout toggle
+                    let hierarchicalEnabled = false;
+                    toggleHierarchicalBtn.addEventListener('click', function() {
+                        hierarchicalEnabled = !hierarchicalEnabled;
+                        
+                        network.setOptions({
+                            layout: {
+                                hierarchical: {
+                                    enabled: hierarchicalEnabled,
+                                    direction: 'UD',
+                                    sortMethod: 'directed',
+                                    levelSeparation: 150,
+                                    nodeSpacing: 150
+                                }
+                            }
+                        });
+                        
+                        toggleHierarchicalBtn.classList.toggle('active', hierarchicalEnabled);
+                    });
+                    
+                    // Center view
+                    centerNetworkBtn.addEventListener('click', function() {
+                        network.fit({
+                            animation: {
+                                duration: 1000,
+                                easingFunction: 'easeInOutQuad'
+                            }
+                        });
+                    });
+                    
+                    // Filter nodes
+                    function setFilterButtonActive(activeBtn) {
+                        [showAllBtn, showCategoriesBtn, showToolsBtn].forEach(btn => {
+                            btn.classList.remove('active');
+                        });
+                        activeBtn.classList.add('active');
+                    }
+                    
+                    // Show all nodes
+                    showAllBtn.addEventListener('click', function() {
+                        networkData.nodes.forEach(node => {
+                            networkData.nodes.update({ id: node.id, hidden: false });
+                        });
+                        setFilterButtonActive(showAllBtn);
+                    });
+                    
+                    // Show only categories and subcategories
+                    showCategoriesBtn.addEventListener('click', function() {
+                        networkData.nodes.forEach(node => {
+                            const isCategory = node.type === 'category' || node.type === 'subcategory';
+                            networkData.nodes.update({ id: node.id, hidden: !isCategory });
+                        });
+                        setFilterButtonActive(showCategoriesBtn);
+                    });
+                    
+                    // Show only tools
+                    showToolsBtn.addEventListener('click', function() {
+                        networkData.nodes.forEach(node => {
+                            const isTool = node.type === 'tool';
+                            networkData.nodes.update({ id: node.id, hidden: !isTool });
+                        });
+                        setFilterButtonActive(showToolsBtn);
+                    });
+                    
+                    // Toggle labels
+                    showLabelsToggle.addEventListener('change', function() {
+                        network.setOptions({
+                            nodes: {
+                                font: {
+                                    size: this.checked ? 12 : 0 // Hide by setting size to 0
+                                }
+                            }
+                        });
                     });
                 } catch (error) {
                     console.error('Error initializing network visualization:', error);
