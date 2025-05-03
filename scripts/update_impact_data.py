@@ -11,6 +11,7 @@ visualization dashboard.
 import json
 import os
 import sys
+import glob
 from datetime import datetime
 from collections import defaultdict
 
@@ -18,6 +19,7 @@ from collections import defaultdict
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_JSON_PATH = os.path.join(BASE_DIR, 'data.json')
 IMPACT_DATA_PATH = os.path.join(BASE_DIR, 'impact_data.json')
+ACADEMIC_IMPACT_DIR = os.path.join(BASE_DIR, 'metadata', 'academic_impact')
 
 def parse_date(date_str):
     """Parse date string and return datetime object."""
@@ -41,6 +43,36 @@ def get_year(date_str):
         return date_obj.year
     return None
 
+def load_doi_data():
+    """Load DOI data from academic_impact directory."""
+    doi_data = {}
+    
+    # Get list of all JSON files in academic_impact directory
+    impact_files = glob.glob(os.path.join(ACADEMIC_IMPACT_DIR, '*.json'))
+    
+    for file_path in impact_files:
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                tool_data = json.load(f)
+                
+                # Extract tool name and DOI
+                tool_name = tool_data.get('name')
+                doi = tool_data.get('doi')
+                
+                if tool_name and doi:
+                    if tool_name not in doi_data:
+                        doi_data[tool_name] = []
+                    
+                    # Add DOI to the list (if it's not already there)
+                    if doi not in doi_data[tool_name]:
+                        doi_data[tool_name].append(doi)
+        except (json.JSONDecodeError, IOError) as e:
+            print(f"Error reading {file_path}: {e}")
+            continue
+    
+    print(f"Loaded DOI data for {len(doi_data)} tools")
+    return doi_data
+
 def main():
     """Main function to update impact data."""
     print("Updating impact data...")
@@ -52,6 +84,9 @@ def main():
     except (FileNotFoundError, json.JSONDecodeError) as e:
         print(f"Error reading data.json: {e}")
         sys.exit(1)
+    
+    # Load DOI data
+    doi_data = load_doi_data()
     
     # Initialize impact data structure
     impact_data = {
@@ -135,10 +170,14 @@ def main():
         
         # Only include tools with citation data
         if citation_count > 0 or citations_by_year:
+            # Add DOI data if available
+            tool_doi_list = doi_data.get(name, [])
+            
             impact_data["tools"].append({
                 "name": name,
                 "citations_by_year": citations_by_year,
-                "influential_citations": influential_citations
+                "influential_citations": influential_citations,
+                "doi_list": tool_doi_list
             })
             
             # Update total citation counts
@@ -173,6 +212,13 @@ def main():
     print(f"Processed {len(tools)} tools")
     print(f"Found {len(impact_data['tools'])} tools with citation data")
     print(f"Total citations: {total_citations}")
+    
+    # Count tools with DOI data
+    tools_with_dois = sum(1 for tool in impact_data['tools'] if tool.get('doi_list'))
+    doi_count = sum(len(tool.get('doi_list', [])) for tool in impact_data['tools'])
+    print(f"Tools with DOI data: {tools_with_dois}")
+    print(f"Total DOIs: {doi_count}")
+    
     print(f"Years with citation data: {sorted(impact_data['citations']['by_year'].keys())}")
     print(f"Adoption trend years: {sorted(impact_data['adoption_trend'].keys())}")
     print(f"Categories: {len(impact_data['categories'])}")
