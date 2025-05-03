@@ -215,8 +215,8 @@
             if (typeof window.initializeDashboard !== 'function') {
                 console.log('Starting data loading for publication impact');
                 
-                // Use a hybrid approach with real DOI data
-                console.log('Loading data to find tools with real DOIs');
+                // Use real relationship data from CrossRef
+                console.log('Loading relationship data for publication impact network');
                 
                 // Load data files first
                 Promise.all([
@@ -225,6 +225,25 @@
                 ])
                 .then(([dashboardData, impactData]) => {
                     console.log('Data loaded successfully');
+                    
+                    // Check if we have relationship data from CrossRef
+                    const hasRelationships = impactData.relationships && 
+                                            impactData.relationships.tool_citations && 
+                                            Object.keys(impactData.relationships.tool_citations).length > 0;
+                    
+                    if (hasRelationships) {
+                        console.log(`Found ${Object.keys(impactData.relationships.tool_citations).length} tools with citation relationships`);
+                        
+                        // Process the impact data to create publication network data
+                        const publicationNetworkData = processImpactDataForPublications(impactData, dashboardData);
+                        
+                        // Initialize publication impact visualization
+                        window.publicationImpact.initialize(publicationNetworkData);
+                        return;
+                    }
+                    
+                    // Fallback to using DOI data if no relationships found
+                    console.log('No relationship data found, falling back to DOI-based approach');
                     
                     // Extract the tools with DOIs
                     const toolsWithDois = impactData.tools.filter(t => t.doi_list && t.doi_list.length > 0);

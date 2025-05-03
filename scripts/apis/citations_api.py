@@ -942,6 +942,51 @@ class CrossRefAPI:
         """Initialize CrossRef API client with optional email for Polite Pool."""
         self.email = email
         self.rate_limiter = RateLimiter(calls_per_minute=10)
+        
+    def get_references_for_doi(self, doi: str, repo_url: Optional[str] = None) -> List[str]:
+        """
+        Get references from a DOI through CrossRef API.
+        
+        Args:
+            doi: The DOI to get references for
+            repo_url: Optional repository URL to associate this cache with
+            
+        Returns:
+            List of DOIs that are referenced by this DOI
+        """
+        cache_key = self._get_cache_key(f"references_{doi}")
+        
+        # Check if we have a valid cached result
+        cached_data = cache_manager.get(cache_key)
+        if cached_data is not None:
+            logger.info(f"Using cached CrossRef references for DOI: {doi}")
+            return cached_data
+        
+        self.rate_limiter.wait()
+        url = f"{self.BASE_URL}/works/{quote(doi)}/references"
+        
+        headers = {}
+        if self.email:
+            headers['User-Agent'] = f"AwesomeVirome/1.0 (mailto:{self.email})"
+        
+        try:
+            response = requests.get(url, headers=headers)
+            response.raise_for_status()
+            data = response.json()
+            
+            references = []
+            for item in data.get('message', {}).get('items', []):
+                ref_doi = item.get('DOI')
+                if ref_doi:
+                    references.append(ref_doi.lower())
+            
+            # Cache the results and associate with repo_url if provided
+            cache_manager.set(cache_key, references, repo_url)
+            
+            return references
+        except requests.RequestException as e:
+            logger.error(f"Error getting references from CrossRef for DOI {doi}: {e}")
+            return []
     
     def _get_cache_key(self, query: str) -> str:
         """Generate a standardized cache key for the query."""

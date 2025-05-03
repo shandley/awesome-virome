@@ -191,6 +191,16 @@ class PublicationImpactVisualization {
         
         console.log(`Publications after filtering: ${filteredPublications.length}`);
         
+        // Check if we have relationship data from CrossRef
+        const hasRelationships = this.data.relationships && 
+                                this.data.relationships.tool_citations && 
+                                Object.keys(this.data.relationships.tool_citations).length > 0;
+        
+        if (hasRelationships) {
+            console.log("Using real tool citation relationships from CrossRef data");
+            return this.prepareRelationshipNetworkData();
+        }
+        
         // Debug - if we have no publications, return dummy data
         if (filteredPublications.length === 0 && this.data.tools && this.data.tools.length > 0) {
             console.log("No publications match filters, creating dummy visualization data");
@@ -343,6 +353,106 @@ class PublicationImpactVisualization {
         });
         
         console.log(`Publication impact network created with ${nodes.length} nodes (${toolIds.size} tools, ${publicationIds.size} publications, ${domainIds.size} domains) and ${edges.length} connections`);
+        
+        return { nodes, edges };
+    }
+    
+    // New method to prepare network data using the real relationship data
+    prepareRelationshipNetworkData() {
+        const nodes = [];
+        const edges = [];
+        const toolIds = new Set();
+        
+        // Get citation relationships from the data
+        const toolCitations = this.data.relationships.tool_citations;
+        
+        // Check if we have valid data
+        if (!toolCitations || Object.keys(toolCitations).length === 0) {
+            console.error("No tool citation relationships found");
+            return { nodes: [], edges: [] };
+        }
+        
+        console.log(`Processing ${Object.keys(toolCitations).length} tools with citation relationships`);
+        
+        // Process each tool that cites others
+        Object.entries(toolCitations).forEach(([toolName, citedTools]) => {
+            if (!citedTools || citedTools.length === 0) return;
+            
+            // Create node for the citing tool if it doesn't exist
+            if (!toolIds.has(toolName)) {
+                const toolId = `tool:${toolName}`;
+                nodes.push({
+                    id: toolId,
+                    label: toolName,
+                    title: `${toolName} - cites ${citedTools.length} other tools`,
+                    group: 'tool',
+                    value: 10 + (citedTools.length * 2), // Make more central tools larger
+                    citations: citedTools.length
+                });
+                toolIds.add(toolName);
+            }
+            
+            // Process each cited tool
+            citedTools.forEach(citedToolName => {
+                // Create node for the cited tool if it doesn't exist
+                if (!toolIds.has(citedToolName)) {
+                    const citedId = `tool:${citedToolName}`;
+                    nodes.push({
+                        id: citedId,
+                        label: citedToolName,
+                        title: `${citedToolName} - cited by other tools`,
+                        group: 'tool',
+                        value: 8, // Make cited tools slightly smaller by default
+                        citations: 0
+                    });
+                    toolIds.add(citedToolName);
+                }
+                
+                // Create edge between the tools
+                edges.push({
+                    from: `tool:${toolName}`,
+                    to: `tool:${citedToolName}`,
+                    title: `${toolName} cites ${citedToolName}`,
+                    width: 2,
+                    arrows: 'to'
+                });
+            });
+        });
+        
+        // Create a virtual publication node to show the concept
+        const citationCount = edges.length;
+        nodes.push({
+            id: 'pub:citations',
+            label: 'Tool Citation Network',
+            title: `Network of direct citations between tools<br>Based on CrossRef citation data`,
+            group: 'high-impact',
+            value: 15,
+            year: new Date().getFullYear(),
+            citations: citationCount,
+            journal: 'Awesome Virome Collection',
+            authors: 'CrossRef Citation Data'
+        });
+        
+        // Add a control node that connects to all tools
+        const controlId = 'domain:citation-network';
+        nodes.push({
+            id: controlId,
+            label: 'Citation Network',
+            title: `Tools that cite other tools directly (${citationCount} connections)`,
+            group: 'domain',
+            value: 15
+        });
+        
+        // Connect the control node to the virtual publication
+        edges.push({
+            from: 'pub:citations',
+            to: controlId,
+            title: 'Citation Network Overview',
+            width: 1,
+            dashes: [2, 2]
+        });
+        
+        console.log(`Created citation network with ${nodes.length} nodes (${toolIds.size} tools) and ${edges.length} connections`);
         
         return { nodes, edges };
     }
@@ -742,6 +852,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const publicationsMap = {};
         const allPublications = [];
         
+        // Check if we have relationship data
+        const hasRelationships = impactData.relationships && 
+                               impactData.relationships.tool_citations &&
+                               Object.keys(impactData.relationships.tool_citations).length > 0;
+        
+        console.log(`Relationship data available: ${hasRelationships}`);
+        if (hasRelationships) {
+            console.log(`Found ${Object.keys(impactData.relationships.tool_citations).length} tools with citation relationships`);
+        }
+        
         // Process each tool
         const processedTools = impactData.tools.map(tool => {
             // Basic tool info
@@ -798,6 +918,17 @@ document.addEventListener('DOMContentLoaded', function() {
             
             return processedTool;
         });
+        
+        // Add relationship data if available
+        if (hasRelationships) {
+            const relationshipData = {
+                tools: processedTools,
+                publications: allPublications,
+                relationships: impactData.relationships
+            };
+            console.log('Using real relationship data for publication impact network');
+            return relationshipData;
+        }
         
         return {
             tools: processedTools,

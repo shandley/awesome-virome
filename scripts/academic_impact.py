@@ -182,6 +182,9 @@ class AcademicImpactCollector:
         # Get publication details from CrossRef
         publication = self.crossref_api.get_work_by_doi(doi)
         
+        # Get references from CrossRef
+        references = self.crossref_api.get_references_for_doi(doi)
+        
         # Get citation metrics from Semantic Scholar
         paper = self.semantic_scholar_api.get_paper_by_doi(doi)
         
@@ -194,7 +197,8 @@ class AcademicImpactCollector:
                     'influential_citations': 0,
                     'citations_by_year': {}
                 },
-                'formatted_citations': {}
+                'formatted_citations': {},
+                'references': references
             }
         
         paper_id = paper.get('paperId')
@@ -210,7 +214,8 @@ class AcademicImpactCollector:
             'publication': publication,
             'metrics': metrics,
             'formatted_citations': formatted_citations,
-            'paper_id': paper_id
+            'paper_id': paper_id,
+            'references': references
         }
     
     def get_related_papers(self, paper_id: str, field: str = "virology") -> List[Dict[str, Any]]:
