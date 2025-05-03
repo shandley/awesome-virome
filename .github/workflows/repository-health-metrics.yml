@@ -1,0 +1,561 @@
+name: Repository Health Metrics
+
+on:
+  # Run weekly to generate comprehensive health report
+  schedule:
+    - cron: "0 0 * * 0"  # Every Sunday at midnight UTC
+  
+  # Run after significant updates
+  workflow_run:
+    workflows:
+      - "Simplified Data Update Workflow"
+    types:
+      - completed
+    branches:
+      - main
+  
+  # Allow manual trigger
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: read
+  issues: read
+
+jobs:
+  generate-health-metrics:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for contribution data
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          pip install requests matplotlib pandas numpy PyGithub pyyaml
+      
+      - name: Collect Git stats
+        id: git_stats
+        run: |
+          mkdir -p metrics_history/data
+          
+          # Collect commit stats by author/week
+          echo "Collecting commit history stats..."
+          git log --format='%ad %an' --date=format:'%Y-%m-%d' | sort > metrics_history/data/raw_commits.txt
+          
+          # Create weekly commit count data
+          echo "date,count" > metrics_history/data/weekly_commits.csv
+          git log --date=format:'%Y-%W' --format='%ad' | sort | uniq -c | 
+          awk '{print $2","$1}' >> metrics_history/data/weekly_commits.csv
+          
+          # Count files by type
+          echo "Counting files by type..."
+          echo "extension,count" > metrics_history/data/file_types.csv
+          find . -type f -not -path "*/\.*" -not -path "*/node_modules/*" | 
+          sed 's/.*\.//' | sort | uniq -c | 
+          awk '{print $2","$1}' >> metrics_history/data/file_types.csv
+          
+          # Get basic repository stats
+          TOTAL_COMMITS=$(git rev-list --count HEAD)
+          TOTAL_CONTRIBUTORS=$(git log --format='%ae' | sort -u | wc -l | xargs)
+          REPO_AGE_DAYS=$(( ( $(date +%s) - $(git log --reverse --format=%at | head -1) ) / 86400 ))
+          ACTIVE_DAYS=$(git log --format=%ad --date=format:%Y-%m-%d | sort -u | wc -l | xargs)
+          
+          # Save to JSON
+          cat > metrics_history/data/git_stats.json << EOF
+          {
+            "total_commits": $TOTAL_COMMITS,
+            "total_contributors": $TOTAL_CONTRIBUTORS,
+            "repository_age_days": $REPO_AGE_DAYS,
+            "active_days": $ACTIVE_DAYS,
+            "commit_frequency": $(echo "scale=2; $TOTAL_COMMITS / $REPO_AGE_DAYS" | bc),
+            "last_updated": "$(git log -1 --format=%ad --date=format:%Y-%m-%d)"
+          }
+          EOF
+          
+          # Output for GitHub Actions
+          echo "total_commits=$TOTAL_COMMITS" >> $GITHUB_OUTPUT
+          echo "total_contributors=$TOTAL_CONTRIBUTORS" >> $GITHUB_OUTPUT
+          echo "repo_age_days=$REPO_AGE_DAYS" >> $GITHUB_OUTPUT
+      
+      - name: Analyze data freshness
+        id: data_freshness
+        run: |
+          # Create data directory if it doesn't exist
+          mkdir -p metrics_history/data
+          
+          echo "Analyzing data freshness..."
+          
+          # Check data.json modification time
+          if [ -f "data.json" ]; then
+            DATA_JSON_LAST_UPDATED=$(git log -1 --format=%at -- data.json)
+            DATA_JSON_DAYS_AGO=$(( ( $(date +%s) - $DATA_JSON_LAST_UPDATED ) / 86400 ))
+            echo "data_json_days_ago=$DATA_JSON_DAYS_AGO" >> $GITHUB_OUTPUT
+          else
+            echo "data_json_days_ago=-1" >> $GITHUB_OUTPUT
+            DATA_JSON_DAYS_AGO=-1
+          fi
+          
+          # Analyze metadata files
+          METADATA_COUNT=$(find metadata -type f -name "*.json" 2>/dev/null | wc -l)
+          if [ "$METADATA_COUNT" -gt 0 ]; then
+            # Get the most recent metadata file update
+            NEWEST_METADATA=$(find metadata -type f -name "*.json" -exec git log -1 --format=%at -- {} \; | sort -nr | head -1)
+            METADATA_DAYS_AGO=$(( ( $(date +%s) - $NEWEST_METADATA ) / 86400 ))
+            echo "metadata_days_ago=$METADATA_DAYS_AGO" >> $GITHUB_OUTPUT
+          else
+            echo "metadata_days_ago=-1" >> $GITHUB_OUTPUT
+            METADATA_DAYS_AGO=-1
+          fi
+          
+          # Check API files
+          API_COUNT=$(find api -type f -name "*.json" 2>/dev/null | wc -l)
+          if [ "$API_COUNT" -gt 0 ]; then
+            NEWEST_API=$(find api -type f -name "*.json" -exec git log -1 --format=%at -- {} \; | sort -nr | head -1)
+            API_DAYS_AGO=$(( ( $(date +%s) - $NEWEST_API ) / 86400 ))
+            echo "api_days_ago=$API_DAYS_AGO" >> $GITHUB_OUTPUT
+          else
+            echo "api_days_ago=-1" >> $GITHUB_OUTPUT
+            API_DAYS_AGO=-1
+          fi
+          
+          # Create freshness report
+          cat > metrics_history/data/freshness.json << EOF
+          {
+            "data_json": {
+              "days_ago": $DATA_JSON_DAYS_AGO,
+              "status": "$([ $DATA_JSON_DAYS_AGO -lt 0 ] && echo "missing" || ([ $DATA_JSON_DAYS_AGO -lt 7 ] && echo "fresh" || ([ $DATA_JSON_DAYS_AGO -lt 30 ] && echo "recent" || echo "outdated")))"
+            },
+            "metadata": {
+              "file_count": $METADATA_COUNT,
+              "days_ago": $METADATA_DAYS_AGO,
+              "status": "$([ $METADATA_DAYS_AGO -lt 0 ] && echo "missing" || ([ $METADATA_DAYS_AGO -lt 7 ] && echo "fresh" || ([ $METADATA_DAYS_AGO -lt 30 ] && echo "recent" || echo "outdated")))"
+            },
+            "api": {
+              "file_count": $API_COUNT,
+              "days_ago": $API_DAYS_AGO,
+              "status": "$([ $API_DAYS_AGO -lt 0 ] && echo "missing" || ([ $API_DAYS_AGO -lt 7 ] && echo "fresh" || ([ $API_DAYS_AGO -lt 30 ] && echo "recent" || echo "outdated")))"
+            },
+            "timestamp": "$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          }
+          EOF
+      
+      - name: Analyze code activity
+        id: code_activity
+        run: |
+          # Collect code activity data
+          mkdir -p metrics_history/data
+          
+          echo "Analyzing code activity patterns..."
+          
+          # Monthly activity history
+          echo "month,additions,deletions,commits" > metrics_history/data/monthly_activity.csv
+          git log --format=format: --numstat | 
+            grep -v '^$' | 
+            awk '{added+=$1; removed+=$2;} END {print added","removed}' > additions_deletions_total.txt
+          
+          # Get monthly stats
+          git log --date=format:%Y-%m --pretty=format:"%ad" | 
+            sort | 
+            uniq -c | 
+            awk '{print $2","$1}' > commits_by_month.txt
+          
+          # Process last 12 months of activity
+          for m in $(git log --date=format:%Y-%m --pretty=format:"%ad" | sort -r | uniq | head -12); do
+            ADDITIONS=$(git log --since="$m-01" --until="$m-31" --numstat --pretty=format: | awk '{s+=$1} END {print s}')
+            DELETIONS=$(git log --since="$m-01" --until="$m-31" --numstat --pretty=format: | awk '{s+=$2} END {print s}')
+            COMMITS=$(git log --since="$m-01" --until="$m-31" --oneline | wc -l | xargs)
+            echo "$m,$ADDITIONS,$DELETIONS,$COMMITS" >> metrics_history/data/monthly_activity.csv
+          done
+          
+          # Save activity data to JSON
+          python -c "
+          import csv
+          import json
+          import datetime
+          
+          # Process monthly activity data
+          activity_data = []
+          with open('metrics_history/data/monthly_activity.csv', 'r') as f:
+              reader = csv.DictReader(f)
+              for row in reader:
+                  try:
+                      activity_data.append({
+                          'month': row['month'],
+                          'additions': int(row['additions'] or 0),
+                          'deletions': int(row['deletions'] or 0),
+                          'commits': int(row['commits'] or 0)
+                      })
+                  except (ValueError, KeyError) as e:
+                      print(f'Error processing row {row}: {e}')
+          
+          # Calculate overall stats
+          total_additions = sum(item['additions'] for item in activity_data)
+          total_deletions = sum(item['deletions'] for item in activity_data)
+          total_commits = sum(item['commits'] for item in activity_data)
+          
+          # Most active month
+          most_active = max(activity_data, key=lambda x: x['commits']) if activity_data else {'month': 'N/A', 'commits': 0}
+          
+          # Save activity metrics
+          activity_metrics = {
+              'total_additions': total_additions,
+              'total_deletions': total_deletions,
+              'total_commits': total_commits,
+              'most_active_month': most_active['month'],
+              'most_active_month_commits': most_active['commits'],
+              'monthly_data': activity_data,
+              'timestamp': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+          }
+          
+          with open('metrics_history/data/activity_metrics.json', 'w') as f:
+              json.dump(activity_metrics, f, indent=2)
+          
+          print(f'Processed {len(activity_data)} months of activity data')
+          "
+      
+      - name: Create contribution analysis
+        id: contribution_analysis
+        run: |
+          mkdir -p metrics_history/data
+          
+          echo "Analyzing contribution patterns..."
+          
+          # Get contributor stats
+          git shortlog -sne > metrics_history/data/contributors.txt
+          
+          # Get top 10 contributors
+          git shortlog -sne | head -10 > metrics_history/data/top_contributors.txt
+          
+          # Get commit count by contributor
+          echo "author,commits" > metrics_history/data/author_commits.csv
+          git shortlog -sne | 
+            sed 's/^\s*\([0-9]\+\)\s\+\(.*\) <.*>$/\2,\1/' >> metrics_history/data/author_commits.csv
+          
+          # Process contribution data
+          python -c "
+          import csv
+          import json
+          import datetime
+          import os
+          
+          # Process contributor data
+          contributors = []
+          with open('metrics_history/data/author_commits.csv', 'r') as f:
+              reader = csv.DictReader(f)
+              for row in reader:
+                  contributors.append({
+                      'name': row['author'],
+                      'commits': int(row['commits'])
+                  })
+          
+          # Sort by commit count (descending)
+          contributors.sort(key=lambda x: x['commits'], reverse=True)
+          
+          # Calculate contribution metrics
+          total_contributors = len(contributors)
+          total_commits = sum(c['commits'] for c in contributors)
+          
+          # Calculate distribution metrics
+          if contributors:
+              top_contributor_commits = contributors[0]['commits'] if contributors else 0
+              top_5_commits = sum(c['commits'] for c in contributors[:5]) if len(contributors) >= 5 else sum(c['commits'] for c in contributors)
+              
+              # Percentage of commits by top contributors
+              top_contributor_percentage = (top_contributor_commits / total_commits) * 100 if total_commits > 0 else 0
+              top_5_percentage = (top_5_commits / total_commits) * 100 if total_commits > 0 else 0
+          else:
+              top_contributor_commits = 0
+              top_5_commits = 0
+              top_contributor_percentage = 0
+              top_5_percentage = 0
+          
+          # Save contribution metrics
+          contribution_metrics = {
+              'total_contributors': total_contributors,
+              'total_commits': total_commits,
+              'top_contributor': contributors[0]['name'] if contributors else 'N/A',
+              'top_contributor_commits': top_contributor_commits,
+              'top_contributor_percentage': round(top_contributor_percentage, 2),
+              'top_5_commits': top_5_commits,
+              'top_5_percentage': round(top_5_percentage, 2),
+              'contributors': contributors[:10],  # Include top 10 contributors
+              'timestamp': datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ')
+          }
+          
+          with open('metrics_history/data/contribution_metrics.json', 'w') as f:
+              json.dump(contribution_metrics, f, indent=2)
+          
+          print(f'Analyzed {total_contributors} contributors')
+          "
+      
+      - name: Create visualization charts
+        run: |
+          mkdir -p metrics_history/charts
+          
+          # Create visualizations
+          python -c "
+          import json
+          import pandas as pd
+          import matplotlib.pyplot as plt
+          import matplotlib.dates as mdates
+          from datetime import datetime
+          import numpy as np
+          import os
+          
+          # Set the style
+          plt.style.use('ggplot')
+          
+          # Create charts directory
+          os.makedirs('metrics_history/charts', exist_ok=True)
+          
+          # Load activity data
+          try:
+              with open('metrics_history/data/activity_metrics.json', 'r') as f:
+                  activity_data = json.load(f)
+                  
+              # Create monthly activity chart
+              monthly_df = pd.DataFrame(activity_data['monthly_data'])
+              monthly_df['month'] = pd.to_datetime(monthly_df['month'] + '-01')
+              monthly_df = monthly_df.sort_values('month')
+              
+              # Plot commits by month
+              plt.figure(figsize=(10, 6))
+              plt.bar(monthly_df['month'], monthly_df['commits'], color='#3498db')
+              plt.title('Monthly Commit Activity')
+              plt.xlabel('Month')
+              plt.ylabel('Number of Commits')
+              plt.xticks(rotation=45)
+              plt.tight_layout()
+              plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%b %Y'))
+              plt.savefig('metrics_history/charts/monthly_commits.png')
+              plt.savefig('metrics_history/charts/monthly_commits.svg')
+              plt.close()
+              
+              # Plot code churn (additions/deletions)
+              plt.figure(figsize=(10, 6))
+              plt.bar(monthly_df['month'], monthly_df['additions'], color='#2ecc71', label='Additions')
+              plt.bar(monthly_df['month'], -monthly_df['deletions'], color='#e74c3c', label='Deletions')
+              plt.title('Monthly Code Churn')
+              plt.xlabel('Month')
+              plt.ylabel('Lines Changed')
+              plt.legend()
+              plt.xticks(rotation=45)
+              plt.tight_layout()
+              plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%b %Y'))
+              plt.savefig('metrics_history/charts/code_churn.png')
+              plt.savefig('metrics_history/charts/code_churn.svg')
+              plt.close()
+              
+              print('Created activity charts')
+          except Exception as e:
+              print(f'Error creating activity charts: {e}')
+          
+          # Load contribution data
+          try:
+              with open('metrics_history/data/contribution_metrics.json', 'r') as f:
+                  contribution_data = json.load(f)
+              
+              # Create contributor chart
+              contrib_df = pd.DataFrame(contribution_data['contributors'])
+              contrib_df = contrib_df.sort_values('commits', ascending=True)
+              
+              plt.figure(figsize=(10, 8))
+              bars = plt.barh(contrib_df['name'], contrib_df['commits'], color='#9b59b6')
+              plt.title('Top Contributors by Commits')
+              plt.xlabel('Number of Commits')
+              plt.tight_layout()
+              
+              # Add count labels
+              for bar in bars:
+                  width = bar.get_width()
+                  plt.text(width + 0.5, bar.get_y() + bar.get_height()/2, f'{int(width)}', 
+                          ha='left', va='center')
+              
+              plt.savefig('metrics_history/charts/top_contributors.png')
+              plt.savefig('metrics_history/charts/top_contributors.svg')
+              plt.close()
+              
+              # Create contribution distribution pie chart
+              labels = [contribution_data['top_contributor'], 'Other Contributors']
+              sizes = [contribution_data['top_contributor_commits'], 
+                      contribution_data['total_commits'] - contribution_data['top_contributor_commits']]
+              
+              plt.figure(figsize=(8, 8))
+              plt.pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90, colors=['#3498db', '#e74c3c'])
+              plt.axis('equal')
+              plt.title('Contribution Distribution')
+              plt.tight_layout()
+              plt.savefig('metrics_history/charts/contribution_distribution.png')
+              plt.savefig('metrics_history/charts/contribution_distribution.svg')
+              plt.close()
+              
+              print('Created contribution charts')
+          except Exception as e:
+              print(f'Error creating contribution charts: {e}')
+          
+          # Load freshness data
+          try:
+              with open('metrics_history/data/freshness.json', 'r') as f:
+                  freshness_data = json.load(f)
+              
+              # Create freshness gauge chart
+              labels = ['data.json', 'metadata', 'api']
+              days_ago = [
+                  max(0, freshness_data['data_json']['days_ago']),
+                  max(0, freshness_data['metadata']['days_ago']),
+                  max(0, freshness_data['api']['days_ago'])
+              ]
+              
+              # Create color mapping
+              colors = []
+              for days in days_ago:
+                  if days < 0:  # Missing
+                      colors.append('#cccccc')
+                  elif days < 7:  # Fresh
+                      colors.append('#2ecc71')
+                  elif days < 30:  # Recent
+                      colors.append('#f39c12')
+                  else:  # Outdated
+                      colors.append('#e74c3c')
+              
+              plt.figure(figsize=(10, 6))
+              bars = plt.barh(labels, days_ago, color=colors)
+              plt.title('Data Freshness (Days Since Last Update)')
+              plt.xlabel('Days')
+              
+              # Add labels with days and status
+              for i, bar in enumerate(bars):
+                  width = bar.get_width()
+                  component = labels[i].lower()
+                  status = freshness_data[component]['status'] if component in freshness_data else 'unknown'
+                  plt.text(width + 0.5, bar.get_y() + bar.get_height()/2, f'{int(width)} days ({status})', 
+                          ha='left', va='center')
+              
+              plt.tight_layout()
+              plt.savefig('metrics_history/charts/data_freshness.png')
+              plt.savefig('metrics_history/charts/data_freshness.svg')
+              plt.close()
+              
+              print('Created freshness chart')
+          except Exception as e:
+              print(f'Error creating freshness chart: {e}')
+          
+          print('Visualization generation complete')
+          "
+      
+      - name: Generate health report
+        run: |
+          # Create the repository health report
+          cat > reports/repository_health.md << 'EOF'
+          # Repository Health Report
+          
+          *Report generated on $(date '+%Y-%m-%d')*
+          
+          This report provides insights into the health and activity of the awesome-virome repository.
+          
+          ## Repository Summary
+          
+          | Metric | Value |
+          | ------ | ----- |
+          | Total Commits | ${{ steps.git_stats.outputs.total_commits }} |
+          | Total Contributors | ${{ steps.git_stats.outputs.total_contributors }} |
+          | Repository Age | ${{ steps.git_stats.outputs.repo_age_days }} days |
+          
+          ## Data Freshness
+          
+          | Dataset | Last Updated | Status |
+          | ------- | ------------ | ------ |
+          | data.json | ${{ steps.data_freshness.outputs.data_json_days_ago }} days ago | $([ ${{ steps.data_freshness.outputs.data_json_days_ago }} -lt 0 ] && echo "Missing" || ([ ${{ steps.data_freshness.outputs.data_json_days_ago }} -lt 7 ] && echo "✅ Fresh" || ([ ${{ steps.data_freshness.outputs.data_json_days_ago }} -lt 30 ] && echo "⚠️ Needs Update" || echo "❌ Outdated"))) |
+          | Metadata Files | ${{ steps.data_freshness.outputs.metadata_days_ago }} days ago | $([ ${{ steps.data_freshness.outputs.metadata_days_ago }} -lt 0 ] && echo "Missing" || ([ ${{ steps.data_freshness.outputs.metadata_days_ago }} -lt 7 ] && echo "✅ Fresh" || ([ ${{ steps.data_freshness.outputs.metadata_days_ago }} -lt 30 ] && echo "⚠️ Needs Update" || echo "❌ Outdated"))) |
+          | API Files | ${{ steps.data_freshness.outputs.api_days_ago }} days ago | $([ ${{ steps.data_freshness.outputs.api_days_ago }} -lt 0 ] && echo "Missing" || ([ ${{ steps.data_freshness.outputs.api_days_ago }} -lt 7 ] && echo "✅ Fresh" || ([ ${{ steps.data_freshness.outputs.api_days_ago }} -lt 30 ] && echo "⚠️ Needs Update" || echo "❌ Outdated"))) |
+          
+          ## Activity Charts
+          
+          ### Monthly Commit Activity
+          
+          ![Monthly Commits](../metrics_history/charts/monthly_commits.svg)
+          
+          ### Code Churn (Additions/Deletions)
+          
+          ![Code Churn](../metrics_history/charts/code_churn.svg)
+          
+          ## Contribution Analysis
+          
+          ### Top Contributors
+          
+          ![Top Contributors](../metrics_history/charts/top_contributors.svg)
+          
+          ### Contribution Distribution
+          
+          ![Contribution Distribution](../metrics_history/charts/contribution_distribution.svg)
+          
+          ## Data Freshness
+          
+          ![Data Freshness](../metrics_history/charts/data_freshness.svg)
+          
+          ## Health Recommendations
+          
+          Based on the metrics in this report, here are some recommendations for maintaining repository health:
+          
+          $([ ${{ steps.data_freshness.outputs.data_json_days_ago }} -gt 30 ] && echo "- **High Priority**: Update data.json which is now ${{ steps.data_freshness.outputs.data_json_days_ago }} days old" || echo "")
+          $([ ${{ steps.data_freshness.outputs.metadata_days_ago }} -gt 30 ] && echo "- **High Priority**: Update metadata files which are now ${{ steps.data_freshness.outputs.metadata_days_ago }} days old" || echo "")
+          $([ ${{ steps.data_freshness.outputs.api_days_ago }} -gt 30 ] && echo "- **High Priority**: Update API files which are now ${{ steps.data_freshness.outputs.api_days_ago }} days old" || echo "")
+          
+          - Maintain regular updates to keep repository data fresh
+          - Encourage contributions from new maintainers to diversify repository maintenance
+          - Run data validation checks before major updates
+          - Review and update documentation to reflect current state of the project
+          
+          ## Historical Health Data
+          
+          Historical health metrics are stored in the `metrics_history` directory and can be analyzed for trends over time.
+          EOF
+          
+          # Create a summary JSON file for programmatic use
+          cat > metrics_history/metrics_summary.json << EOF
+          {
+            "repository": {
+              "commits": ${{ steps.git_stats.outputs.total_commits }},
+              "contributors": ${{ steps.git_stats.outputs.total_contributors }},
+              "age_days": ${{ steps.git_stats.outputs.repo_age_days }}
+            },
+            "freshness": {
+              "data_json_days": ${{ steps.data_freshness.outputs.data_json_days_ago }},
+              "metadata_days": ${{ steps.data_freshness.outputs.metadata_days_ago }},
+              "api_days": ${{ steps.data_freshness.outputs.api_days_ago }}
+            },
+            "timestamp": "$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          }
+          EOF
+      
+      - name: Commit health report
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          git add metrics_history/
+          git add reports/repository_health.md
+          
+          # Only commit if there are changes
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update repository health metrics [skip ci]"
+            git push
+          fi
+      
+      - name: Upload health report as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: repository-health-report
+          path: |
+            reports/repository_health.md
+            metrics_history/
