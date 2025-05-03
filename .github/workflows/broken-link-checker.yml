@@ -34,246 +34,302 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          node-version: '16'
+          python-version: '3.10'
       
-      - name: Install link checker
-        run: npm install -g markdown-link-check
-      
-      - name: Check README links
-        id: check_readme
+      - name: Install link checker dependencies
         run: |
-          # Create output directory
+          pip install requests beautifulsoup4 markdown
+
+      - name: Create link checker script
+        run: |
           mkdir -p link_check_results
           
-          # Check README markdown links
-          markdown-link-check README.md -q -o link_check_results/readme_results.json
-          
-          # Count broken links
-          BROKEN_COUNT=$(jq '.[] | select(.status == "error") | .link' link_check_results/readme_results.json | wc -l)
-          echo "README broken links: $BROKEN_COUNT"
-          echo "readme_broken=$BROKEN_COUNT" >> $GITHUB_OUTPUT
-      
-      - name: Check API.md links
-        id: check_api
-        run: |
-          # Check API markdown links
-          if [ -f API.md ]; then
-            markdown-link-check API.md -q -o link_check_results/api_results.json
-            
-            # Count broken links
-            BROKEN_COUNT=$(jq '.[] | select(.status == "error") | .link' link_check_results/api_results.json | wc -l)
-            echo "API.md broken links: $BROKEN_COUNT"
-            echo "api_broken=$BROKEN_COUNT" >> $GITHUB_OUTPUT
-          else
-            echo "API.md not found, skipping"
-            echo "api_broken=0" >> $GITHUB_OUTPUT
-          fi
-      
-      - name: Check CONTRIBUTING.md links
-        id: check_contributing
-        run: |
-          # Check CONTRIBUTING markdown links
-          if [ -f CONTRIBUTING.md ]; then
-            markdown-link-check CONTRIBUTING.md -q -o link_check_results/contributing_results.json
-            
-            # Count broken links
-            BROKEN_COUNT=$(jq '.[] | select(.status == "error") | .link' link_check_results/contributing_results.json | wc -l)
-            echo "CONTRIBUTING.md broken links: $BROKEN_COUNT"
-            echo "contributing_broken=$BROKEN_COUNT" >> $GITHUB_OUTPUT
-          else
-            echo "CONTRIBUTING.md not found, skipping"
-            echo "contributing_broken=0" >> $GITHUB_OUTPUT
-          fi
-          
-      - name: Check HTML files
-        id: check_html
-        if: ${{ github.event.inputs.check_all == 'true' }}
-        run: |
-          # Install htmltest
-          curl -sLO https://github.com/wjdp/htmltest/releases/download/v0.16.0/htmltest_0.16.0_linux_amd64.tar.gz
-          tar -xzf htmltest_0.16.0_linux_amd64.tar.gz
-          
-          # Create htmltest config file
-          cat > .htmltest.yml << EOF
-          DirectoryPath: .
-          CheckExternal: true
-          IgnoreURLs:
-            - "^https://github.com/(?!shandley/awesome-virome)"
-          IgnoreInternalEmptyHash: true
-          IgnoreDirectoryMissingTrailingSlash: true
-          EOF
-          
-          # Run htmltest and save output
-          HTML_FILES=$(find . -name "*.html" -not -path "./node_modules/*" -not -path "./.git/*")
-          ./htmltest $HTML_FILES -o link_check_results/html_results.json || true
-          
-          # Count broken links
-          if [ -f link_check_results/html_results.json ]; then
-            BROKEN_COUNT=$(jq '.failedChecks | length' link_check_results/html_results.json)
-            echo "HTML files broken links: $BROKEN_COUNT"
-            echo "html_broken=$BROKEN_COUNT" >> $GITHUB_OUTPUT
-          else
-            echo "No HTML results found"
-            echo "html_broken=0" >> $GITHUB_OUTPUT
-          fi
-      
-      - name: Check JSON files for URLs
-        id: check_json
-        if: ${{ github.event.inputs.check_all == 'true' }}
-        run: |
-          # Set up Python
-          python -m pip install --upgrade pip
-          pip install requests
-
-          # Create a Python script to check URLs in JSON files
-          cat > check_json_urls.py << 'EOF'
+          # Create Python link checker script
+          cat > check_links.py << 'EOF'
           #!/usr/bin/env python3
-          import json
+          
           import os
           import re
-          import sys
+          import json
+          import argparse
           import requests
+          import markdown
+          from bs4 import BeautifulSoup
           from concurrent.futures import ThreadPoolExecutor
+          from urllib.parse import urljoin, urlparse
           
-          def extract_urls_from_json(json_data, current_path=""):
-              """Recursively extract URLs from JSON data."""
-              urls = []
+          def is_url(text):
+              """Check if text is a URL."""
+              return text.startswith(('http://', 'https://', 'ftp://'))
+          
+          def extract_links_from_markdown(markdown_content):
+              """Extract links from markdown content."""
+              # Convert markdown to HTML
+              html = markdown.markdown(markdown_content)
               
-              if isinstance(json_data, dict):
-                  for key, value in json_data.items():
+              # Parse HTML
+              soup = BeautifulSoup(html, 'html.parser')
+              
+              # Extract links from <a> tags
+              links = []
+              for a in soup.find_all('a', href=True):
+                  href = a['href']
+                  if is_url(href):
+                      links.append(href)
+              
+              # Also find markdown links that might not have been converted properly
+              # Pattern for markdown links: [text](url)
+              md_links = re.findall(r'\[.*?\]\((http[s]?://[^)]+)\)', markdown_content)
+              links.extend([link for link in md_links if link not in links])
+              
+              return links
+          
+          def extract_links_from_html(html_content):
+              """Extract links from HTML content."""
+              soup = BeautifulSoup(html_content, 'html.parser')
+              links = []
+              
+              for a in soup.find_all('a', href=True):
+                  href = a['href']
+                  if is_url(href):
+                      links.append(href)
+              
+              return links
+          
+          def extract_links_from_json(json_content, current_path=""):
+              """Extract links from JSON content."""
+              links = []
+              
+              if isinstance(json_content, dict):
+                  for key, value in json_content.items():
                       new_path = f"{current_path}.{key}" if current_path else key
                       
-                      # Check if this value might be a URL
-                      if isinstance(value, str) and (
-                          value.startswith("http://") or 
-                          value.startswith("https://") or
-                          value.startswith("ftp://")
-                      ):
-                          urls.append((value, new_path))
+                      if isinstance(value, str) and is_url(value):
+                          links.append((value, new_path))
                       
                       # Recursively check nested structures
-                      urls.extend(extract_urls_from_json(value, new_path))
+                      links.extend(extract_links_from_json(value, new_path))
                           
-              elif isinstance(json_data, list):
-                  for i, item in enumerate(json_data):
+              elif isinstance(json_content, list):
+                  for i, item in enumerate(json_content):
                       new_path = f"{current_path}[{i}]"
-                      urls.extend(extract_urls_from_json(item, new_path))
+                      links.extend(extract_links_from_json(item, new_path))
                       
-              return urls
+              return links
           
           def check_url(url_info):
-              """Check if a URL is valid."""
-              url, path = url_info
+              """Check if a URL is accessible."""
+              if isinstance(url_info, tuple):
+                  url, path = url_info
+              else:
+                  url = url_info
+                  path = ""
+                  
               try:
-                  # Use HEAD request first to minimize data transfer
+                  headers = {
+                      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36 Awesome-Virome-Link-Checker'
+                  }
+                  
+                  # First try a HEAD request to be faster and less intrusive
                   response = requests.head(
                       url, 
                       timeout=10,
                       allow_redirects=True,
-                      headers={'User-Agent': 'Mozilla/5.0 AwesomeVirome LinkChecker'}
+                      headers=headers
                   )
                   
-                  # If HEAD fails, try GET
-                  if 400 <= response.status_code < 600:
+                  # If HEAD request fails, try GET
+                  if response.status_code >= 400:
                       response = requests.get(
                           url, 
                           timeout=10, 
+                          stream=True,  # Don't download the entire content
                           allow_redirects=True,
-                          headers={'User-Agent': 'Mozilla/5.0 AwesomeVirome LinkChecker'}
+                          headers=headers
                       )
-                      
-                  return {
+                      # Close the connection to avoid downloading the entire response
+                      response.close()
+                  
+                  result = {
                       'url': url,
-                      'path': path,
-                      'status': response.status_code,
-                      'valid': 200 <= response.status_code < 400
+                      'status_code': response.status_code,
+                      'status': 'ok' if 200 <= response.status_code < 400 else 'error',
                   }
-              except Exception as e:
-                  return {
+                  
+                  if path:
+                      result['path'] = path
+                      
+                  return result
+                  
+              except requests.RequestException as e:
+                  result = {
                       'url': url,
-                      'path': path,
-                      'status': 0,
-                      'valid': False,
+                      'status_code': 0,
+                      'status': 'error',
                       'error': str(e)
                   }
+                  
+                  if path:
+                      result['path'] = path
+                      
+                  return result
+          
+          def check_file_links(file_path, file_type):
+              """Check all links in a file."""
+              results = []
+              
+              try:
+                  with open(file_path, 'r', encoding='utf-8') as f:
+                      content = f.read()
+                      
+                      if file_type == 'markdown':
+                          links = extract_links_from_markdown(content)
+                          
+                          # Check links in parallel
+                          with ThreadPoolExecutor(max_workers=5) as executor:
+                              link_results = list(executor.map(check_url, links))
+                              
+                          for result in link_results:
+                              result['file'] = file_path
+                              results.append(result)
+                              
+                      elif file_type == 'html':
+                          links = extract_links_from_html(content)
+                          
+                          with ThreadPoolExecutor(max_workers=5) as executor:
+                              link_results = list(executor.map(check_url, links))
+                              
+                          for result in link_results:
+                              result['file'] = file_path
+                              results.append(result)
+                              
+                      elif file_type == 'json':
+                          try:
+                              json_content = json.loads(content)
+                              links = extract_links_from_json(json_content)
+                              
+                              with ThreadPoolExecutor(max_workers=5) as executor:
+                                  link_results = list(executor.map(check_url, links))
+                                  
+                              for result in link_results:
+                                  result['file'] = file_path
+                                  results.append(result)
+                          except json.JSONDecodeError:
+                              print(f"Error: {file_path} is not valid JSON")
+              except Exception as e:
+                  print(f"Error processing {file_path}: {e}")
+                  
+              return results
           
           def main():
-              results = {'checked': 0, 'valid': 0, 'broken': 0, 'details': []}
+              parser = argparse.ArgumentParser(description='Check for broken links in repository files')
+              parser.add_argument('--check-all', action='store_true', help='Check all file types')
+              parser.add_argument('--output-dir', default='link_check_results', help='Output directory for results')
+              args = parser.parse_args()
               
-              # Find all JSON files
-              json_files = []
-              for root, _, files in os.walk('.'):
-                  if '.git' in root or 'node_modules' in root:
-                      continue
-                  for file in files:
-                      if file.endswith('.json'):
-                          json_files.append(os.path.join(root, file))
+              os.makedirs(args.output_dir, exist_ok=True)
               
-              all_urls = []
+              # Always check markdown files
+              markdown_files = ['README.md', 'API.md', 'CONTRIBUTING.md']
+              markdown_results = []
               
-              # Process each JSON file
-              for json_file in json_files:
-                  try:
-                      with open(json_file, 'r', encoding='utf-8') as f:
-                          data = json.load(f)
-                          urls = extract_urls_from_json(data)
-                          for url, path in urls:
-                              all_urls.append((url, f"{json_file}:{path}"))
-                  except Exception as e:
-                      print(f"Error processing {json_file}: {e}", file=sys.stderr)
+              for md_file in markdown_files:
+                  if os.path.exists(md_file):
+                      print(f"Checking links in {md_file}...")
+                      results = check_file_links(md_file, 'markdown')
+                      markdown_results.extend(results)
+                      
+                      # Save individual results
+                      with open(f"{args.output_dir}/{os.path.splitext(os.path.basename(md_file))[0]}_results.json", 'w') as f:
+                          json.dump(results, f, indent=2)
               
-              # Deduplicate URLs (keeping the first path)
-              unique_urls = {}
-              for url, path in all_urls:
-                  if url not in unique_urls:
-                      unique_urls[url] = path
+              # Save markdown results
+              with open(f"{args.output_dir}/markdown_results.json", 'w') as f:
+                  json.dump(markdown_results, f, indent=2)
               
-              deduplicated_urls = [(url, path) for url, path in unique_urls.items()]
-              print(f"Found {len(deduplicated_urls)} unique URLs in JSON files")
+              # Check HTML and JSON files if requested
+              if args.check_all:
+                  # Check HTML files
+                  html_results = []
+                  for root, _, files in os.walk('.'):
+                      if '.git' in root or 'node_modules' in root:
+                          continue
+                          
+                      for file in files:
+                          if file.endswith('.html'):
+                              file_path = os.path.join(root, file)
+                              print(f"Checking links in {file_path}...")
+                              results = check_file_links(file_path, 'html')
+                              html_results.extend(results)
+                  
+                  # Save HTML results
+                  with open(f"{args.output_dir}/html_results.json", 'w') as f:
+                      json.dump(html_results, f, indent=2)
+                  
+                  # Check JSON files
+                  json_results = []
+                  for root, _, files in os.walk('.'):
+                      if '.git' in root or 'node_modules' in root:
+                          continue
+                          
+                      for file in files:
+                          if file.endswith('.json'):
+                              file_path = os.path.join(root, file)
+                              print(f"Checking links in {file_path}...")
+                              results = check_file_links(file_path, 'json')
+                              json_results.extend(results)
+                  
+                  # Save JSON results
+                  with open(f"{args.output_dir}/json_results.json", 'w') as f:
+                      json.dump(json_results, f, indent=2)
               
-              # Check URLs in parallel
-              with ThreadPoolExecutor(max_workers=5) as executor:
-                  url_results = list(executor.map(check_url, deduplicated_urls))
+              # Create a summary report
+              summary = {
+                  'markdown_files': {
+                      'checked': len([f for f in markdown_files if os.path.exists(f)]),
+                      'total_links': len(markdown_results),
+                      'broken_links': len([r for r in markdown_results if r['status'] == 'error'])
+                  }
+              }
               
-              # Compile results
-              results['checked'] = len(url_results)
-              results['valid'] = sum(1 for r in url_results if r['valid'])
-              results['broken'] = sum(1 for r in url_results if not r['valid'])
-              results['details'] = sorted(url_results, key=lambda x: (x['valid'], x['url']))
+              if args.check_all:
+                  summary['html_files'] = {
+                      'total_links': len(html_results),
+                      'broken_links': len([r for r in html_results if r['status'] == 'error'])
+                  }
+                  
+                  summary['json_files'] = {
+                      'total_links': len(json_results),
+                      'broken_links': len([r for r in json_results if r['status'] == 'error'])
+                  }
               
-              # Save results to file
-              with open('link_check_results/json_results.json', 'w') as f:
-                  json.dump(results, f, indent=2)
+              # Save summary
+              with open(f"{args.output_dir}/summary.json", 'w') as f:
+                  json.dump(summary, f, indent=2)
               
-              print(f"Checked {results['checked']} URLs in JSON files")
-              print(f"Valid: {results['valid']}")
-              print(f"Broken: {results['broken']}")
+              print(f"\nSummary:")
+              print(f"- Markdown files: {summary['markdown_files']['broken_links']} broken links out of {summary['markdown_files']['total_links']}")
               
-              return results['broken']
+              if args.check_all:
+                  print(f"- HTML files: {summary['html_files']['broken_links']} broken links out of {summary['html_files']['total_links']}")
+                  print(f"- JSON files: {summary['json_files']['broken_links']} broken links out of {summary['json_files']['total_links']}")
           
           if __name__ == "__main__":
-              broken_count = main()
-              # Return count as exit code (but cap at 127 to avoid issues)
-              sys.exit(min(broken_count, 127))
+              main()
           EOF
           
-          # Make the script executable
-          chmod +x check_json_urls.py
-          
-          # Run the script
-          python check_json_urls.py || true
-          
-          # Count broken links
-          if [ -f link_check_results/json_results.json ]; then
-            BROKEN_COUNT=$(jq '.broken' link_check_results/json_results.json)
-            echo "JSON files broken links: $BROKEN_COUNT"
-            echo "json_broken=$BROKEN_COUNT" >> $GITHUB_OUTPUT
+          chmod +x check_links.py
+      
+      - name: Run link checker
+        id: run_check
+        run: |
+          if [[ "${{ github.event.inputs.check_all }}" == "true" ]]; then
+            python check_links.py --check-all
           else
-            echo "No JSON results found"
-            echo "json_broken=0" >> $GITHUB_OUTPUT
+            python check_links.py
           fi
       
       - name: Upload link check results
@@ -282,121 +338,109 @@ jobs:
           name: link-check-results
           path: link_check_results/
       
+      - name: Generate link check report
+        run: |
+          # Create a markdown report
+          echo "# Broken Link Check Report" > link_check_results/link_report.md
+          echo "" >> link_check_results/link_report.md
+          echo "Generated on: $(date -u +"%Y-%m-%d %H:%M:%S UTC")" >> link_check_results/link_report.md
+          echo "" >> link_check_results/link_report.md
+          
+          # Add summary data
+          echo "## Summary" >> link_check_results/link_report.md
+          echo "" >> link_check_results/link_report.md
+          echo "| File Type | Links Checked | Broken Links |" >> link_check_results/link_report.md
+          echo "| --------- | ------------- | ------------ |" >> link_check_results/link_report.md
+          
+          # Add markdown stats
+          TOTAL_MARKDOWN=$(jq '.markdown_files.total_links' link_check_results/summary.json)
+          BROKEN_MARKDOWN=$(jq '.markdown_files.broken_links' link_check_results/summary.json)
+          echo "| Markdown files | $TOTAL_MARKDOWN | $BROKEN_MARKDOWN |" >> link_check_results/link_report.md
+          
+          # Add HTML and JSON stats if they exist
+          if [[ "${{ github.event.inputs.check_all }}" == "true" ]]; then
+            TOTAL_HTML=$(jq '.html_files.total_links' link_check_results/summary.json)
+            BROKEN_HTML=$(jq '.html_files.broken_links' link_check_results/summary.json)
+            echo "| HTML files | $TOTAL_HTML | $BROKEN_HTML |" >> link_check_results/link_report.md
+            
+            TOTAL_JSON=$(jq '.json_files.total_links' link_check_results/summary.json)
+            BROKEN_JSON=$(jq '.json_files.broken_links' link_check_results/summary.json)
+            echo "| JSON files | $TOTAL_JSON | $BROKEN_JSON |" >> link_check_results/link_report.md
+          fi
+          
+          echo "" >> link_check_results/link_report.md
+          
+          # Add broken links details
+          echo "## Broken Links" >> link_check_results/link_report.md
+          echo "" >> link_check_results/link_report.md
+          
+          # Add broken links from markdown files
+          echo "### Markdown Files" >> link_check_results/link_report.md
+          echo "" >> link_check_results/link_report.md
+          
+          jq -r '.[] | select(.status == "error") | "- [\(.url)](\(.url)) - Status: \(.status_code // "Connection Error") - File: \(.file)"' link_check_results/markdown_results.json >> link_check_results/link_report.md
+          
+          # Add broken links from HTML and JSON if available
+          if [[ "${{ github.event.inputs.check_all }}" == "true" ]]; then
+            echo "" >> link_check_results/link_report.md
+            echo "### HTML Files" >> link_check_results/link_report.md
+            echo "" >> link_check_results/link_report.md
+            
+            jq -r '.[] | select(.status == "error") | "- [\(.url)](\(.url)) - Status: \(.status_code // "Connection Error") - File: \(.file)"' link_check_results/html_results.json >> link_check_results/link_report.md
+            
+            echo "" >> link_check_results/link_report.md
+            echo "### JSON Files" >> link_check_results/link_report.md
+            echo "" >> link_check_results/link_report.md
+            
+            jq -r '.[] | select(.status == "error") | "- [\(.url)](\(.url)) - Status: \(.status_code // "Connection Error") - File: \(.file) - Path: \(.path // "unknown")"' link_check_results/json_results.json >> link_check_results/link_report.md
+          fi
+          
+          # Save to reports directory
+          mkdir -p reports
+          cp link_check_results/link_report.md reports/
+      
       - name: Create or update issue for broken links
         uses: actions/github-script@v6
-        if: ${{ steps.check_readme.outputs.readme_broken != '0' || steps.check_api.outputs.api_broken != '0' || steps.check_contributing.outputs.contributing_broken != '0' || steps.check_html.outputs.html_broken != '0' || steps.check_json.outputs.json_broken != '0' }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const fs = require('fs');
             
-            // Count total broken links
-            const readme_broken = parseInt('${{ steps.check_readme.outputs.readme_broken || 0 }}');
-            const api_broken = parseInt('${{ steps.check_api.outputs.api_broken || 0 }}');
-            const contributing_broken = parseInt('${{ steps.check_contributing.outputs.contributing_broken || 0 }}');
-            const html_broken = parseInt('${{ steps.check_html.outputs.html_broken || 0 }}');
-            const json_broken = parseInt('${{ steps.check_json.outputs.json_broken || 0 }}');
+            // Load summary data
+            const summaryData = JSON.parse(fs.readFileSync('link_check_results/summary.json', 'utf8'));
+            const markdownBroken = summaryData.markdown_files.broken_links;
+            let totalBroken = markdownBroken;
             
-            const total_broken = readme_broken + api_broken + contributing_broken + html_broken + json_broken;
+            // Add HTML and JSON counts if they exist
+            let htmlBroken = 0;
+            let jsonBroken = 0;
             
-            // Create issue body
-            let issueBody = `## Broken Links Detected - ${new Date().toISOString().split('T')[0]}
-            
-            The link checker found ${total_broken} broken link(s) in the repository:
-            
-            | Document | Broken Links |
-            | -------- | ------------ |
-            | README.md | ${readme_broken} |
-            | API.md | ${api_broken} |
-            | CONTRIBUTING.md | ${contributing_broken} |
-            | HTML files | ${html_broken} |
-            | JSON files | ${json_broken} |
-            
-            `;
-            
-            // Add details from results files
-            try {
-              if (readme_broken > 0 && fs.existsSync('link_check_results/readme_results.json')) {
-                const readmeResults = JSON.parse(fs.readFileSync('link_check_results/readme_results.json', 'utf8'));
-                issueBody += "\n### README.md Broken Links\n\n";
-                readmeResults.filter(item => item.status === "error").forEach(item => {
-                  issueBody += `- [${item.link}](${item.link}) - ${item.statusCode || 'Unknown error'}\n`;
-                });
-              }
-              
-              if (api_broken > 0 && fs.existsSync('link_check_results/api_results.json')) {
-                const apiResults = JSON.parse(fs.readFileSync('link_check_results/api_results.json', 'utf8'));
-                issueBody += "\n### API.md Broken Links\n\n";
-                apiResults.filter(item => item.status === "error").forEach(item => {
-                  issueBody += `- [${item.link}](${item.link}) - ${item.statusCode || 'Unknown error'}\n`;
-                });
-              }
-              
-              if (contributing_broken > 0 && fs.existsSync('link_check_results/contributing_results.json')) {
-                const contributingResults = JSON.parse(fs.readFileSync('link_check_results/contributing_results.json', 'utf8'));
-                issueBody += "\n### CONTRIBUTING.md Broken Links\n\n";
-                contributingResults.filter(item => item.status === "error").forEach(item => {
-                  issueBody += `- [${item.link}](${item.link}) - ${item.statusCode || 'Unknown error'}\n`;
-                });
-              }
-              
-              // Add JSON details if they exist and aren't too many
-              if (json_broken > 0 && fs.existsSync('link_check_results/json_results.json')) {
-                const jsonResults = JSON.parse(fs.readFileSync('link_check_results/json_results.json', 'utf8'));
-                issueBody += "\n### JSON Files Broken Links\n\n";
-                
-                // Limit to first 30 broken links to avoid issue size limits
-                const brokenLinks = jsonResults.details.filter(item => !item.valid).slice(0, 30);
-                if (brokenLinks.length > 0) {
-                  brokenLinks.forEach(item => {
-                    issueBody += `- [${item.url}](${item.url}) - ${item.status || 'Connection error'} - Found in \`${item.path}\`\n`;
-                  });
-                  
-                  if (jsonResults.broken > 30) {
-                    issueBody += `\n...and ${jsonResults.broken - 30} more broken links in JSON files. See workflow artifacts for complete list.\n`;
-                  }
-                }
-              }
-              
-              // Add HTML details if they exist
-              if (html_broken > 0 && fs.existsSync('link_check_results/html_results.json')) {
-                const htmlResults = JSON.parse(fs.readFileSync('link_check_results/html_results.json', 'utf8'));
-                issueBody += "\n### HTML Files Broken Links\n\n";
-                
-                // Limit to first 30 broken links
-                const brokenLinks = htmlResults.failedChecks.slice(0, 30);
-                brokenLinks.forEach(check => {
-                  issueBody += `- [${check.link}](${check.link}) - ${check.text} - Found in \`${check.filename}\`\n`;
-                });
-                
-                if (htmlResults.failedChecks.length > 30) {
-                  issueBody += `\n...and ${htmlResults.failedChecks.length - 30} more broken links in HTML files. See workflow artifacts for complete list.\n`;
-                }
-              }
-            } catch (error) {
-              console.error('Error parsing results files:', error);
-              issueBody += `\n### Error Reading Detailed Results\n\nThere was an error reading the detailed results: ${error.message}\n`;
+            if (summaryData.html_files) {
+              htmlBroken = summaryData.html_files.broken_links;
+              totalBroken += htmlBroken;
             }
             
-            // Add instructions
-            issueBody += `
-            ## How to Fix
+            if (summaryData.json_files) {
+              jsonBroken = summaryData.json_files.broken_links;
+              totalBroken += jsonBroken;
+            }
             
-            1. Review each broken link and either:
-               - Update with a working URL
-               - Remove the link if no longer relevant
-               - Replace with an archived version (e.g., using [Internet Archive](https://web.archive.org/))
+            // Skip if no broken links found
+            if (totalBroken === 0) {
+              console.log('No broken links found. Skipping issue creation.');
+              return;
+            }
             
-            2. To see more details, download the workflow artifacts from the Actions tab.
-            
-            This issue was automatically generated by the Broken Link Checker workflow.
-            `;
+            // Load report content
+            const reportContent = fs.readFileSync('link_check_results/link_report.md', 'utf8');
             
             // Find if there's an existing open issue
             const query = `repo:${context.repo.owner}/${context.repo.repo} is:issue is:open label:broken-links`;
             const issues = await github.rest.search.issuesAndPullRequests({
               q: query
             });
+            
+            const issueTitle = `🔗 ${totalBroken} Broken Links Detected - ${new Date().toISOString().split('T')[0]}`;
             
             if (issues.data.items.length > 0) {
               // Update existing issue
@@ -405,85 +449,22 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: existingIssue.number,
-                body: issueBody,
-                title: `🔗 ${total_broken} Broken Links Detected - ${new Date().toISOString().split('T')[0]}`
+                title: issueTitle,
+                body: reportContent
               });
-              console.log(`Updated existing issue #${existingIssue.number} with ${total_broken} broken links`);
+              console.log(`Updated existing issue #${existingIssue.number} with ${totalBroken} broken links`);
             } else {
               // Create new issue
               await github.rest.issues.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                title: `🔗 ${total_broken} Broken Links Detected - ${new Date().toISOString().split('T')[0]}`,
-                body: issueBody,
+                title: issueTitle,
+                body: reportContent,
                 labels: ['broken-links', 'documentation']
               });
-              console.log(`Created new issue for ${total_broken} broken links`);
+              console.log(`Created new issue for ${totalBroken} broken links`);
             }
-
-      - name: Generate Link Check Report
-        if: always()
-        run: |
-          # Create a markdown report of link check results
-          cat > link_check_results/link_report.md << EOF
-          # Broken Link Check Report
-          
-          Generated on: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
-          
-          ## Summary
-          
-          | Document | Links Checked | Broken Links |
-          | -------- | ------------ | ------------ |
-          EOF
-          
-          # Add README stats if available
-          if [ -f link_check_results/readme_results.json ]; then
-            TOTAL=$(jq '. | length' link_check_results/readme_results.json)
-            BROKEN=$(jq '.[] | select(.status == "error") | .link' link_check_results/readme_results.json | wc -l)
-            echo "| README.md | $TOTAL | $BROKEN |" >> link_check_results/link_report.md
-          else
-            echo "| README.md | 0 | 0 |" >> link_check_results/link_report.md
-          fi
-          
-          # Add API stats if available
-          if [ -f link_check_results/api_results.json ]; then
-            TOTAL=$(jq '. | length' link_check_results/api_results.json)
-            BROKEN=$(jq '.[] | select(.status == "error") | .link' link_check_results/api_results.json | wc -l)
-            echo "| API.md | $TOTAL | $BROKEN |" >> link_check_results/link_report.md
-          else
-            echo "| API.md | 0 | 0 |" >> link_check_results/link_report.md
-          fi
-          
-          # Add CONTRIBUTING stats if available
-          if [ -f link_check_results/contributing_results.json ]; then
-            TOTAL=$(jq '. | length' link_check_results/contributing_results.json)
-            BROKEN=$(jq '.[] | select(.status == "error") | .link' link_check_results/contributing_results.json | wc -l)
-            echo "| CONTRIBUTING.md | $TOTAL | $BROKEN |" >> link_check_results/link_report.md
-          else
-            echo "| CONTRIBUTING.md | 0 | 0 |" >> link_check_results/link_report.md
-          fi
-          
-          # Add JSON stats if available
-          if [ -f link_check_results/json_results.json ]; then
-            TOTAL=$(jq '.checked' link_check_results/json_results.json)
-            BROKEN=$(jq '.broken' link_check_results/json_results.json)
-            echo "| JSON files | $TOTAL | $BROKEN |" >> link_check_results/link_report.md
-          else
-            echo "| JSON files | 0 | 0 |" >> link_check_results/link_report.md
-          fi
-          
-          # Add HTML stats if available
-          if [ -f link_check_results/html_results.json ]; then
-            BROKEN=$(jq '.failedChecks | length' link_check_results/html_results.json)
-            TOTAL=$(jq '.htmlDocuments | length' link_check_results/html_results.json)
-            echo "| HTML files | $TOTAL | $BROKEN |" >> link_check_results/link_report.md
-          else
-            echo "| HTML files | 0 | 0 |" >> link_check_results/link_report.md
-          fi
-          
-          # Upload the report as an artifact
-          cp link_check_results/link_report.md reports/link_check_report.md || true
-      
+            
       - name: Upload Link Check Report
         if: always()
         uses: actions/upload-artifact@v4
