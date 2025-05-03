@@ -907,20 +907,259 @@
             function createCitationCategoryChart(toolsWithCitations) {
                 const ctx = document.getElementById('citationCategoryChart').getContext('2d');
                 
+                // Load categories from data.json
+                fetch('data.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Extract categories and create category lookup map
+                        const categoryNodes = data.nodes.filter(node => node.type === 'category');
+                        const toolNodes = data.nodes.filter(node => node.type === 'tool');
+                        
+                        // Create a map of tool names to their categories
+                        const toolCategoryMap = {};
+                        
+                        // Process links to map tools to categories
+                        data.links.forEach(link => {
+                            if (link.source && link.target) {
+                                // Find the nodes
+                                const sourceNode = data.nodes.find(node => node.id === link.source);
+                                const targetNode = data.nodes.find(node => node.id === link.target);
+                                
+                                // If this is a tool-to-category link
+                                if (sourceNode && targetNode && 
+                                    (sourceNode.type === 'tool' && targetNode.type === 'category')) {
+                                    toolCategoryMap[sourceNode.name] = targetNode.name;
+                                }
+                                
+                                // Tool to subcategory link (we need to find the parent category)
+                                if (sourceNode && targetNode && 
+                                    (sourceNode.type === 'tool' && targetNode.type === 'subcategory')) {
+                                    // Find the parent category of this subcategory
+                                    const parentCategoryName = targetNode.parent;
+                                    if (parentCategoryName) {
+                                        toolCategoryMap[sourceNode.name] = parentCategoryName;
+                                    }
+                                }
+                            }
+                        });
+                        
+                        // Define our main categories
+                        const mainCategories = [
+                            "Virus and Phage Identification",
+                            "Genome Analysis",
+                            "Host Prediction",
+                            "Sequence Analysis",
+                            "Taxonomy",
+                            "Functional Analysis",
+                            "CRISPR Analysis",
+                            "Databases"
+                        ];
+                        
+                        // Initialize category data with predefined categories
+                        const categoryData = {};
+                        mainCategories.forEach(category => {
+                            categoryData[category] = {
+                                totalCitations: 0,
+                                toolCount: 0,
+                                tools: [],
+                                avgCitations: 0,
+                                color: categoryNodes.find(node => node.name === category)?.color || '#343a40'
+                            };
+                        });
+                        
+                        // Add "Other" category
+                        categoryData["Other"] = {
+                            totalCitations: 0,
+                            toolCount: 0,
+                            tools: [],
+                            avgCitations: 0,
+                            color: '#6c757d'
+                        };
+                        
+                        // Populate data for each tool
+                        toolsWithCitations.forEach(tool => {
+                            // Try to find the tool's category
+                            let category = toolCategoryMap[tool.name];
+                            
+                            // If no category found, use fuzzy matching for the tool name
+                            if (!category) {
+                                // Try to find the node with a similar name
+                                const toolNode = toolNodes.find(node => 
+                                    node.name.toLowerCase() === tool.name.toLowerCase());
+                                if (toolNode) {
+                                    const toolLinks = data.links.filter(link => link.source === toolNode.id);
+                                    for (const link of toolLinks) {
+                                        const targetNode = data.nodes.find(node => node.id === link.target);
+                                        if (targetNode && (targetNode.type === 'category' || targetNode.type === 'subcategory')) {
+                                            category = targetNode.type === 'category' ? 
+                                                targetNode.name : targetNode.parent;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            // Check if the found category is in our main categories
+                            if (!category || !mainCategories.includes(category)) {
+                                category = "Other";
+                            }
+                            
+                            // Initialize category if needed (should not be needed for predefined categories)
+                            if (!categoryData[category]) {
+                                categoryData[category] = {
+                                    totalCitations: 0,
+                                    toolCount: 0,
+                                    tools: [],
+                                    avgCitations: 0,
+                                    color: '#6c757d' // Default gray for any unexpected categories
+                                };
+                            }
+                            
+                            // Update category data
+                            categoryData[category].totalCitations += tool.totalCitations;
+                            categoryData[category].toolCount += 1;
+                            categoryData[category].tools.push({
+                                name: tool.name,
+                                citations: tool.totalCitations
+                            });
+                        });
+                        
+                        // Calculate average citations and sort tools within each category
+                        Object.keys(categoryData).forEach(category => {
+                            if (categoryData[category].toolCount > 0) {
+                                categoryData[category].avgCitations = 
+                                    Math.round(categoryData[category].totalCitations / categoryData[category].toolCount);
+                            }
+                            // Sort tools by citations
+                            categoryData[category].tools.sort((a, b) => b.citations - a.citations);
+                        });
+                        
+                        // Filter out categories with no tools
+                        const filteredCategories = Object.entries(categoryData)
+                            .filter(([_, data]) => data.toolCount > 0)
+                            .sort((a, b) => b[1].totalCitations - a[1].totalCitations);
+                        
+                        // Prepare data for Chart.js
+                        const categories = filteredCategories.map(([cat]) => cat);
+                        const totalCitations = filteredCategories.map(([_, data]) => data.totalCitations);
+                        const avgCitations = filteredCategories.map(([_, data]) => data.avgCitations);
+                        const toolsPerCategory = filteredCategories.map(([_, data]) => data.toolCount);
+                        const categoryColors = filteredCategories.map(([_, data]) => data.color || '#6c757d');
+                        
+                        // Create the chart
+                        charts.category = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: categories,
+                                datasets: [
+                                    {
+                                        label: 'Total Citations',
+                                        data: totalCitations,
+                                        backgroundColor: categoryColors.map(color => `${color}cc`), // Add transparency
+                                        borderColor: categoryColors,
+                                        borderWidth: 1,
+                                        order: 1
+                                    },
+                                    {
+                                        label: 'Average Citations Per Tool',
+                                        data: avgCitations,
+                                        backgroundColor: 'rgba(44, 75, 124, 0.7)', 
+                                        borderColor: 'rgba(44, 75, 124, 1)',
+                                        borderWidth: 1,
+                                        type: 'line',
+                                        order: 0,
+                                        pointRadius: 6,
+                                        pointHoverRadius: 8,
+                                        yAxisID: 'y1'
+                                    }
+                                ]
+                            },
+                            options: {
+                                indexAxis: 'y',  // Horizontal bar chart for better readability
+                                scales: {
+                                    x: {
+                                        beginAtZero: true,
+                                        title: {
+                                            display: true,
+                                            text: 'Total Citations'
+                                        }
+                                    },
+                                    y: {
+                                        title: {
+                                            display: true,
+                                            text: 'Tool Category'
+                                        }
+                                    },
+                                    y1: {
+                                        position: 'right',
+                                        beginAtZero: true,
+                                        grid: {
+                                            drawOnChartArea: false
+                                        },
+                                        title: {
+                                            display: true,
+                                            text: 'Avg Citations Per Tool'
+                                        },
+                                        // Ensure y1 scale has reasonable max value
+                                        suggestedMax: Math.max(...avgCitations) * 1.2
+                                    }
+                                },
+                                plugins: {
+                                    tooltip: {
+                                        mode: 'index',
+                                        intersect: false,
+                                        callbacks: {
+                                            afterTitle: function(context) {
+                                                const categoryIndex = context[0].dataIndex;
+                                                const toolCount = toolsPerCategory[categoryIndex];
+                                                return `${toolCount} tools in this category`;
+                                            },
+                                            afterBody: function(context) {
+                                                const categoryIndex = context[0].dataIndex;
+                                                const category = categories[categoryIndex];
+                                                const categoryInfo = filteredCategories.find(([cat]) => cat === category)[1];
+                                                const topTools = categoryInfo.tools.slice(0, 5);
+                                                
+                                                return [
+                                                    '',
+                                                    'Top tools in this category:',
+                                                    ...topTools.map(tool => `${tool.name}: ${tool.citations} citations`)
+                                                ];
+                                            }
+                                        }
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: 'Citation Impact by Tool Category',
+                                        font: {
+                                            size: 14
+                                        }
+                                    },
+                                    legend: {
+                                        position: 'bottom'
+                                    }
+                                }
+                            }
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error loading category data:', error);
+                        
+                        // Fallback to the original implementation if data.json cannot be loaded
+                        createFallbackCategoryChart(toolsWithCitations, ctx);
+                    });
+            }
+            
+            // Fallback implementation if data.json cannot be loaded
+            function createFallbackCategoryChart(toolsWithCitations, ctx) {
                 // Group tools by category
                 const categoryData = {};
-                
-                // Count tools per category first to analyze distribution
-                const categoryCount = {};
                 
                 toolsWithCitations.forEach(tool => {
                     // Handle case where category is missing or 'Uncategorized'
                     const category = (tool.category && tool.category !== 'Uncategorized') 
                         ? tool.category 
                         : 'Other';
-                    
-                    // Count tools per category
-                    categoryCount[category] = (categoryCount[category] || 0) + 1;
                     
                     // Initialize category if not exists
                     if (!categoryData[category]) {
@@ -1054,7 +1293,7 @@
                             },
                             title: {
                                 display: true,
-                                text: 'Citation Impact by Tool Category',
+                                text: 'Citation Impact by Tool Category (Derived)',
                                 font: {
                                     size: 14
                                 }
