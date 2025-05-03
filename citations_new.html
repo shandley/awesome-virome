@@ -309,6 +309,28 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">Citation Impact Timeline</div>
+                    <div class="card-body p-0">
+                        <!-- Fixed dimensions for the container and canvas to avoid layout shifts -->
+                        <div style="height: 400px; padding: 20px;">
+                            <canvas id="citationTimelineChart" style="width: 100%; height: 360px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">Citation Impact by Category</div>
+                    <div class="card-body p-0">
+                        <!-- Fixed dimensions for the container and canvas to avoid layout shifts -->
+                        <div style="height: 400px; padding: 20px;">
+                            <canvas id="citationCategoryChart" style="width: 100%; height: 360px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-12 mb-4">
                 <div class="card">
                     <div class="card-header">Citation Trends for Top Tools</div>
@@ -513,7 +535,8 @@
                             firstCited: years.length > 0 ? Math.min(...years) : null,
                             lastCited: years.length > 0 ? Math.max(...years) : null,
                             influentialCitations: tool.influential_citations || Math.round(totalCitations * 0.2),
-                            recentGrowth: recentGrowth
+                            recentGrowth: recentGrowth,
+                            category: tool.category || 'Uncategorized'
                         };
                     })
                     .filter(tool => tool.totalCitations > 0)
@@ -561,6 +584,8 @@
                 createTopCitedChart(toolsWithCitations);
                 createCitationGrowthChart(toolsWithCitations);
                 createCitationTrendsChart(toolsWithCitations);
+                createCitationTimelineChart(toolsWithCitations);
+                createCitationCategoryChart(toolsWithCitations);
             }
             
             // Create top cited tools chart
@@ -768,6 +793,207 @@
                             mode: 'nearest',
                             axis: 'x',
                             intersect: false
+                        }
+                    }
+                });
+            }
+            
+            // Create citation impact timeline chart
+            function createCitationTimelineChart(toolsWithCitations) {
+                const ctx = document.getElementById('citationTimelineChart').getContext('2d');
+                
+                // Filter tools with sufficient citation history (at least 3 years)
+                const filteredTools = toolsWithCitations.filter(tool => 
+                    Object.keys(tool.citationsByYear).length >= 3
+                );
+                
+                // Get top 5 most impactful tools based on citation growth
+                const impactfulTools = [...filteredTools]
+                    .sort((a, b) => {
+                        // Calculate citation growth rate
+                        const aYears = Object.keys(a.citationsByYear).map(Number).sort();
+                        const bYears = Object.keys(b.citationsByYear).map(Number).sort();
+                        
+                        if (aYears.length < 2 || bYears.length < 2) return 0;
+                        
+                        const aEarliest = Math.min(...aYears);
+                        const aLatest = Math.max(...aYears);
+                        const aGrowth = a.citationsByYear[aLatest] / a.citationsByYear[aEarliest];
+                        
+                        const bEarliest = Math.min(...bYears);
+                        const bLatest = Math.max(...bYears);
+                        const bGrowth = b.citationsByYear[bLatest] / b.citationsByYear[bEarliest];
+                        
+                        return bGrowth - aGrowth;
+                    })
+                    .slice(0, 5);
+                
+                // Get all years from these tools
+                const allYears = new Set();
+                impactfulTools.forEach(tool => {
+                    Object.keys(tool.citationsByYear).forEach(year => {
+                        allYears.add(parseInt(year));
+                    });
+                });
+                
+                // Sort years
+                const sortedYears = Array.from(allYears).sort();
+                
+                // Create datasets for cumulative citations
+                const datasets = impactfulTools.map((tool, index) => {
+                    // Generate colors based on index
+                    const hue = (index * 70 + 30) % 360; // Different hue range from the trends chart
+                    const color = `hsl(${hue}, 70%, 50%)`;
+                    
+                    // Calculate cumulative data
+                    let cumulative = 0;
+                    const cumulativeData = sortedYears.map(year => {
+                        cumulative += (tool.citationsByYear[year] || 0);
+                        return cumulative;
+                    });
+                    
+                    return {
+                        label: tool.name,
+                        data: cumulativeData,
+                        borderColor: color,
+                        backgroundColor: `hsla(${hue}, 70%, 50%, 0.1)`,
+                        borderWidth: 2,
+                        fill: false
+                    };
+                });
+                
+                charts.timeline = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: sortedYears,
+                        datasets: datasets
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Cumulative Citations'
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Year'
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false
+                            },
+                            title: {
+                                display: true,
+                                text: 'Cumulative Citation Growth for High-Impact Tools'
+                            }
+                        },
+                        interaction: {
+                            mode: 'nearest',
+                            axis: 'x',
+                            intersect: false
+                        }
+                    }
+                });
+            }
+            
+            // Create citation impact by category chart
+            function createCitationCategoryChart(toolsWithCitations) {
+                const ctx = document.getElementById('citationCategoryChart').getContext('2d');
+                
+                // Group tools by category
+                const categoryData = {};
+                
+                toolsWithCitations.forEach(tool => {
+                    // Skip tools without categories
+                    if (!tool.category) return;
+                    
+                    // Initialize category if not exists
+                    if (!categoryData[tool.category]) {
+                        categoryData[tool.category] = {
+                            totalCitations: 0,
+                            toolCount: 0,
+                            avgImpact: 0
+                        };
+                    }
+                    
+                    // Update category data
+                    categoryData[tool.category].totalCitations += tool.totalCitations;
+                    categoryData[tool.category].toolCount += 1;
+                });
+                
+                // Calculate average impact per category
+                Object.keys(categoryData).forEach(category => {
+                    categoryData[category].avgImpact = 
+                        Math.round(categoryData[category].totalCitations / categoryData[category].toolCount);
+                });
+                
+                // Sort categories by total citation impact
+                const sortedCategories = Object.entries(categoryData)
+                    .sort((a, b) => b[1].totalCitations - a[1].totalCitations)
+                    .slice(0, 8); // Limit to top 8 categories
+                
+                const categories = sortedCategories.map(([cat]) => cat);
+                const totalCitations = sortedCategories.map(([, data]) => data.totalCitations);
+                const avgCitations = sortedCategories.map(([, data]) => data.avgImpact);
+                
+                charts.category = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: categories,
+                        datasets: [
+                            {
+                                label: 'Total Citations',
+                                data: totalCitations,
+                                backgroundColor: 'rgba(157, 94, 176, 0.7)',
+                                borderColor: 'rgba(157, 94, 176, 1)',
+                                borderWidth: 1,
+                                yAxisID: 'y'
+                            },
+                            {
+                                label: 'Average Citations Per Tool',
+                                data: avgCitations,
+                                backgroundColor: 'rgba(44, 75, 124, 0.7)',
+                                borderColor: 'rgba(44, 75, 124, 1)',
+                                borderWidth: 1,
+                                type: 'bar',
+                                yAxisID: 'y1'
+                            }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                position: 'left',
+                                title: {
+                                    display: true,
+                                    text: 'Total Citations'
+                                }
+                            },
+                            y1: {
+                                beginAtZero: true,
+                                position: 'right',
+                                grid: {
+                                    drawOnChartArea: false
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Avg Citations Per Tool'
+                                }
+                            }
+                        },
+                        plugins: {
+                            tooltip: {
+                                mode: 'index',
+                                intersect: false
+                            }
                         }
                     }
                 });
