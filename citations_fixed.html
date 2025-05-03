@@ -1081,13 +1081,15 @@
                                         {
                                             label: 'Average Citations Per Tool',
                                             data: avgCitations,
-                                            backgroundColor: 'rgba(44, 75, 124, 0.7)', 
-                                            borderColor: 'rgba(44, 75, 124, 1)',
-                                            borderWidth: 1,
+                                            backgroundColor: 'rgba(255, 165, 0, 0.8)', // Orange for better visibility
+                                            borderColor: 'rgba(255, 140, 0, 1)', // Darker orange border
+                                            borderWidth: 2,
                                             type: 'line',
                                             order: 0,
                                             pointRadius: 6,
                                             pointHoverRadius: 8,
+                                            pointStyle: 'rectRounded',
+                                            tension: 0.1,
                                             yAxisID: 'y1'
                                         }
                                     ]
@@ -1099,13 +1101,29 @@
                                             beginAtZero: true,
                                             title: {
                                                 display: true,
-                                                text: 'Total Citations'
+                                                text: 'Total Citations',
+                                                font: {
+                                                    weight: 'bold'
+                                                }
+                                            },
+                                            ticks: {
+                                                color: 'rgba(44, 75, 124, 1)',
+                                                font: {
+                                                    weight: 'bold'
+                                                }
                                             }
                                         },
                                         y: {
                                             title: {
-                                                display: true,
-                                                text: 'Tool Category'
+                                                display: false  // Hide duplicate title
+                                            },
+                                            ticks: {
+                                                // Make category labels more readable
+                                                font: {
+                                                    size: 12,
+                                                    weight: 'bold'
+                                                },
+                                                color: 'rgba(44, 75, 124, 1)'
                                             }
                                         },
                                         y1: {
@@ -1116,16 +1134,36 @@
                                             },
                                             title: {
                                                 display: true,
-                                                text: 'Avg Citations Per Tool'
+                                                text: 'Avg Citations Per Tool',
+                                                font: {
+                                                    weight: 'bold'
+                                                },
+                                                color: 'rgba(255, 140, 0, 1)'
                                             },
-                                            // Ensure y1 scale has reasonable max value
-                                            suggestedMax: Math.max(...avgCitations) * 1.2
+                                            ticks: {
+                                                color: 'rgba(255, 140, 0, 1)',
+                                                font: {
+                                                    weight: 'bold'
+                                                }
+                                            },
+                                            // Adjust the scale to make the line more visible
+                                            suggestedMin: 0,
+                                            suggestedMax: Math.max(Math.max(...avgCitations) * 1.5, 20),
+                                            min: 0
                                         }
                                     },
                                     plugins: {
                                         tooltip: {
                                             mode: 'index',
                                             intersect: false,
+                                            titleFont: {
+                                                weight: 'bold',
+                                                size: 14
+                                            },
+                                            bodyFont: {
+                                                size: 13
+                                            },
+                                            padding: 10,
                                             callbacks: {
                                                 afterTitle: function(context) {
                                                     const categoryIndex = context[0].dataIndex;
@@ -1143,6 +1181,13 @@
                                                         'Top tools in this category:',
                                                         ...topTools.map(tool => `${tool.name}: ${tool.citations} citations`)
                                                     ];
+                                                },
+                                                // Custom label colors in tooltips
+                                                labelTextColor: function(context) {
+                                                    if (context.datasetIndex === 1) { // Average Citations dataset
+                                                        return 'rgba(255, 140, 0, 1)';
+                                                    }
+                                                    return 'rgba(44, 75, 124, 1)';
                                                 }
                                             }
                                         },
@@ -1150,11 +1195,40 @@
                                             display: true,
                                             text: 'Citation Impact by Tool Category',
                                             font: {
-                                                size: 14
+                                                size: 16,
+                                                weight: 'bold'
+                                            },
+                                            padding: {
+                                                top: 10,
+                                                bottom: 20
                                             }
                                         },
                                         legend: {
-                                            position: 'bottom'
+                                            position: 'bottom',
+                                            labels: {
+                                                usePointStyle: true,
+                                                padding: 20,
+                                                font: {
+                                                    size: 12
+                                                }
+                                            }
+                                        },
+                                        // Add dataset labels directly on chart
+                                        datalabels: {
+                                            display: function(context) {
+                                                // Only show labels for average citations dataset
+                                                return context.datasetIndex === 1;
+                                            },
+                                            color: 'rgba(255, 140, 0, 1)',
+                                            align: 'right',
+                                            anchor: 'center',
+                                            offset: 5,
+                                            font: {
+                                                weight: 'bold'
+                                            },
+                                            formatter: function(value) {
+                                                return value.toFixed(1);
+                                            }
                                         }
                                     }
                                 }
@@ -1250,13 +1324,15 @@
                             {
                                 label: 'Average Citations Per Tool',
                                 data: avgCitations,
-                                backgroundColor: 'rgba(44, 75, 124, 0.7)', 
-                                borderColor: 'rgba(44, 75, 124, 1)',
-                                borderWidth: 1,
+                                backgroundColor: 'rgba(255, 165, 0, 0.8)', // Orange for better visibility
+                                borderColor: 'rgba(255, 140, 0, 1)', // Darker orange border
+                                borderWidth: 2,
                                 type: 'line',
                                 order: 0,
                                 pointRadius: 6,
                                 pointHoverRadius: 8,
+                                pointStyle: 'rectRounded',
+                                tension: 0.1,
                                 yAxisID: 'y1'
                             }
                         ]
@@ -1268,13 +1344,29 @@
                                 beginAtZero: true,
                                 title: {
                                     display: true,
-                                    text: 'Total Citations'
+                                    text: 'Total Citations',
+                                    font: {
+                                        weight: 'bold'
+                                    }
+                                },
+                                ticks: {
+                                    color: 'rgba(44, 75, 124, 1)',
+                                    font: {
+                                        weight: 'bold'
+                                    }
                                 }
                             },
                             y: {
                                 title: {
-                                    display: true,
-                                    text: 'Tool Category'
+                                    display: false  // Hide duplicate title
+                                },
+                                ticks: {
+                                    // Make category labels more readable
+                                    font: {
+                                        size: 12,
+                                        weight: 'bold'
+                                    },
+                                    color: 'rgba(44, 75, 124, 1)'
                                 }
                             },
                             y1: {
@@ -1285,16 +1377,36 @@
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Avg Citations Per Tool'
+                                    text: 'Avg Citations Per Tool',
+                                    font: {
+                                        weight: 'bold'
+                                    },
+                                    color: 'rgba(255, 140, 0, 1)'
                                 },
-                                // Ensure y1 scale has reasonable max value
-                                suggestedMax: Math.max(...avgCitations) * 1.2
+                                ticks: {
+                                    color: 'rgba(255, 140, 0, 1)',
+                                    font: {
+                                        weight: 'bold'
+                                    }
+                                },
+                                // Adjust the scale to make the line more visible
+                                suggestedMin: 0,
+                                suggestedMax: Math.max(Math.max(...avgCitations) * 1.5, 20),
+                                min: 0
                             }
                         },
                         plugins: {
                             tooltip: {
                                 mode: 'index',
                                 intersect: false,
+                                titleFont: {
+                                    weight: 'bold',
+                                    size: 14
+                                },
+                                bodyFont: {
+                                    size: 13
+                                },
+                                padding: 10,
                                 callbacks: {
                                     afterTitle: function(context) {
                                         const categoryIndex = context[0].dataIndex;
@@ -1311,6 +1423,13 @@
                                             'Top tools in this category:',
                                             ...topTools.map(tool => `${tool.name}: ${tool.citations} citations`)
                                         ];
+                                    },
+                                    // Custom label colors in tooltips
+                                    labelTextColor: function(context) {
+                                        if (context.datasetIndex === 1) { // Average Citations dataset
+                                            return 'rgba(255, 140, 0, 1)';
+                                        }
+                                        return 'rgba(44, 75, 124, 1)';
                                     }
                                 }
                             },
@@ -1318,11 +1437,40 @@
                                 display: true,
                                 text: 'Citation Impact by Tool Category (Derived)',
                                 font: {
-                                    size: 14
+                                    size: 16,
+                                    weight: 'bold'
+                                },
+                                padding: {
+                                    top: 10,
+                                    bottom: 20
                                 }
                             },
                             legend: {
-                                position: 'bottom'
+                                position: 'bottom',
+                                labels: {
+                                    usePointStyle: true,
+                                    padding: 20,
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            },
+                            // Add dataset labels directly on chart
+                            datalabels: {
+                                display: function(context) {
+                                    // Only show labels for average citations dataset
+                                    return context.datasetIndex === 1;
+                                },
+                                color: 'rgba(255, 140, 0, 1)',
+                                align: 'right',
+                                anchor: 'center',
+                                offset: 5,
+                                font: {
+                                    weight: 'bold'
+                                },
+                                formatter: function(value) {
+                                    return value.toFixed(1);
+                                }
                             }
                         }
                     }
