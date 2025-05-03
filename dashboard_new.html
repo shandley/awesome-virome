@@ -640,7 +640,7 @@
         // Dashboard Main Code
         document.addEventListener('DOMContentLoaded', function() {
             // Theme toggling
-            const themeToggle = document.getElementById('themeToggle');
+            const themeToggle = document.getElementById('theme-toggle');
             const themeIcon = themeToggle.querySelector('i');
             
             // Check if user has a saved theme preference
@@ -795,7 +795,7 @@
                         <td>${tool.stars || 0}</td>
                         <td class="${getUpdateClass(tool.lastUpdated)}">${formatDate(tool.lastUpdated)}</td>
                     `;
-                    tableRow.addEventListener('click', () => showToolDetail(tool));
+                    // No need for event listener here, we use event delegation
                     toolsTableBody.appendChild(tableRow);
                 });
             }
@@ -845,7 +845,7 @@
                                 ${languageBadges}
                             </div>
                             <div class="mt-3">
-                                <button class="btn btn-sm btn-outline-primary" onclick="showToolDetail(${JSON.stringify(tool).replace(/"/g, '&quot;')})">
+                                <button class="btn btn-sm btn-outline-primary tool-detail-btn" data-tool='${JSON.stringify(tool).replace(/'/g, "\\'")}'> 
                                     <i class="bi bi-info-circle"></i> Details
                                 </button>
                                 <a href="${tool.url || '#'}" class="btn btn-sm btn-outline-secondary" target="_blank" onclick="event.stopPropagation();">
@@ -1310,7 +1310,10 @@
                 document.querySelector('#timelineChart .loading-container').style.display = 'none';
             }
             
-            function setupFilters(tools) {
+            function setupFilters(originalTools) {
+                // Clone tools array to preserve the original data
+                const tools = [...originalTools];
+                
                 const categoryFilter = document.getElementById('categoryFilter');
                 const subcategoryFilter = document.getElementById('subcategoryFilter');
                 const languageFilter = document.getElementById('languageFilter');
@@ -1326,8 +1329,8 @@
                     const maintenance = maintenanceFilter.value;
                     const search = searchFilter.value.toLowerCase();
                     
-                    // Filter tools
-                    const filteredTools = tools.filter(tool => {
+                    // Filter tools from original clone
+                    const filteredTools = [...tools].filter(tool => {
                         // Category filter
                         if (category && tool.category !== category) return false;
                         
@@ -1409,8 +1412,34 @@
                 // Bootstrap modal instance
                 const modalInstance = new bootstrap.Modal(modal);
                 
+                // Event delegation for tool detail buttons
+                document.addEventListener('click', function(event) {
+                    if (event.target.closest('.tool-detail-btn')) {
+                        const btn = event.target.closest('.tool-detail-btn');
+                        const toolData = btn.getAttribute('data-tool');
+                        try {
+                            const tool = JSON.parse(toolData);
+                            showToolDetail(tool);
+                        } catch (e) {
+                            console.error('Error parsing tool data:', e);
+                        }
+                    }
+                });
+                
+                // Set up table row clicks
+                document.addEventListener('click', function(event) {
+                    const row = event.target.closest('#toolsDataTable tbody tr');
+                    if (row) {
+                        const toolName = row.cells[0].textContent;
+                        const tool = tools.find(t => t.name === toolName);
+                        if (tool) {
+                            showToolDetail(tool);
+                        }
+                    }
+                });
+                
                 // Show tool detail in modal
-                window.showToolDetail = function(tool) {
+                function showToolDetail(tool) {
                     modalTitle.textContent = tool.name;
                     modalToolLink.href = tool.url || '#';
                     
@@ -1496,7 +1525,10 @@
                     
                     // Show modal
                     modalInstance.show();
-                };
+                }
+                
+                // Make function available globally
+                window.showToolDetail = showToolDetail;
             }
             
             function getRelativeTimeString(date) {
