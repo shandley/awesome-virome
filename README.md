@@ -7,8 +7,32 @@
 
 A curated list of software, tools, and databases useful for virome analysis, including phages, viruses, and their interactions with hosts. This repository aims to help researchers navigate the diverse landscape of tools available for studying viral communities in various environments.
 
+## Interactive Dashboard
+
+Explore our [Interactive Dashboard](dashboard_fixed3.html) to visualize tool relationships, citation trends, and adoption patterns in the virome analysis ecosystem.
+
+![Dashboard Preview](https://via.placeholder.com/800x400?text=Dashboard+Preview)
+
+The dashboard offers powerful visualizations to understand the virome analysis tool landscape:
+
+- **Tool Categorization Treemap**: Quickly see how tools are distributed across functional categories
+- **Interactive Network**: Discover relationships between tools, categories, and subcategories
+- **Citation Analytics**: Track academic impact and citation growth over time
+- **Tool Timeline**: Visualize the evolution of the virome analysis tool ecosystem
+- **Programming Languages**: Analyze technology trends across the tool collection
+
+[Launch Dashboard](dashboard_fixed3.html) | [View Citation Analytics](citations_fixed.html)
+
 ## Contents
 
+- [Interactive Dashboard](#interactive-dashboard)
+- [Acknowledgments](#acknowledgments)
+- [Contributing](#contributing)
+- [Repository Maintenance](#repository-maintenance)
+- [Enhanced Metadata](#enhanced-metadata)
+- [Introduction to Virome Analysis](#introduction-to-virome-analysis)
+- [Popular Packages](#popular-packages)
+- [Top Packages by Category](#top-packages-by-category)
 - [Getting Started](#getting-started)
 - [Typical Workflows](#typical-workflows)
 - [Core Analysis Tools](#virus-and-phage-identification)
@@ -17,8 +41,9 @@ A curated list of software, tools, and databases useful for virome analysis, inc
 - [Sequence Analysis](#sequence-analysis)
 - [Visualization Tools](#visualization-and-infrastructure)
 - [Specialized Analysis Tools](#other-tools)
+- [API Support](#api-support)
+- [Unique Features](#unique-features)
 - [License](#license)
-- [Contributing](#contributing)
 
 ## Acknowledgments
 
@@ -27,6 +52,22 @@ This list was originally started by [Rob Edwards](https://github.com/linsalrob) 
 ## Contributing
 
 Please feel free to [contribute](CONTRIBUTING.md)!
+
+This repository welcomes contributions from the community. Here's how you can help:
+
+1. **Add New Tools**: Submit entries for tools not yet included in the list
+2. **Update Information**: Help keep tool descriptions and links up to date
+3. **Report Issues**: Let us know about broken links or outdated information
+4. **Improve Documentation**: Suggest enhancements to the documentation
+5. **Fix Bugs**: Help resolve issues with the website or dashboard
+
+We provide standardized issue templates to make contributing easier:
+- **Tool Addition**: Template for suggesting new tools
+- **Tool Update**: Template for updating existing tool information
+- **Bug Report**: Template for reporting issues with the repository
+- **Feature Request**: Template for suggesting new features
+
+For more details, see our [contribution guidelines](CONTRIBUTING.md).
 
 ## Repository Maintenance
 
@@ -64,8 +105,16 @@ Virome analysis involves studying the collection of viruses (including bacteriop
 
 > **Note on Tool Availability**: This list contains tools developed over many years. Some tools may no longer be actively maintained or might have moved to new locations. We mark tools that are no longer available as [unavailable] and provide archive links when possible. If you find a broken link or know of a tool's new location, please submit a PR or issue.
 
-## Contents
+## Detailed Contents
 
+- [Interactive Dashboard](#interactive-dashboard)
+- [Acknowledgments](#acknowledgments)
+- [Contributing](#contributing)
+- [Repository Maintenance](#repository-maintenance)
+- [Enhanced Metadata](#enhanced-metadata)
+- [Introduction to Virome Analysis](#introduction-to-virome-analysis)
+- [Popular Packages](#popular-packages)
+- [Top Packages by Category](#top-packages-by-category)
 - [Getting Started](#getting-started)
 - [Typical Workflows](#typical-workflows)
 - [Core Analysis Tools](#virus-and-phage-identification)
@@ -116,6 +165,9 @@ Virome analysis involves studying the collection of viruses (including bacteriop
   - [Viral Molecular Dynamics](#viral-molecular-dynamics)
   - [Dark Matter Viral Analysis](#dark-matter-viral-analysis)
   - [Transduction](#transduction)
+- [API Support](#api-support)
+- [Unique Features](#unique-features)
+- [License](#license)
 
 ## Popular Packages
 
@@ -175,59 +227,6 @@ For newcomers to virome analysis, here are some recommended starting points:
 5. Taxonomic classification (e.g., vConTACT2)
 6. Host prediction (e.g., iPHoP)
 7. Functional annotation (e.g., Pharokka, DRAMv)
-
-## Detailed Contents
-
-- [Getting Started](#getting-started)
-- [Typical Workflows](#typical-workflows)
-- [Core Analysis Tools](#virus-and-phage-identification)
-  - [Virus and Phage Identification](#virus-and-phage-identification)
-    - [Metagenome Analysis](#metagenome-analysis)
-    - [Integrated Viruses](#integrated-viruses)
-    - [RNA Virus Identification](#rna-virus-identification)
-  - [Host Prediction](#host-prediction)
-  - [Genome Analysis](#genome-analysis)
-    - [Genome Annotation](#genome-annotation)
-    - [Genome Assembly](#genome-assembly)
-    - [Genome Completeness](#genome-completeness)
-    - [Genome Comparison](#genome-comparison)
-    - [Gene Finding](#gene-finding)
-    - [Genome analysis workflows](#genome-analysis-workflows)
-  - [Taxonomy](#taxonomy)
-  - [Quality Control](#quality-control)
-- [Data Resources](#databases)
-  - [Reference Databases](#databases)
-  - [Sequence Collections](#sequence-databases)
-- [Functional Analysis](#functional-analysis)
-  - [Evolutionary Analysis](#evolutionary-analysis)
-  - [Lifestyle Classification](#lifestyle-classification)
-  - [Phage-specific Analysis](#phage-specific-analysis)
-  - [Viral Orthologous Groups](#viral-orthologous-groups)
-  - [CRISPR Analysis](#crispr-analysis)
-- [Sequence Analysis](#sequence-analysis)
-  - [Multiple Sequence Alignment](#multiple-sequence-alignment)
-  - [Sequence Translation](#sequence-translation)
-  - [Viral Strain Reconstruction](#viral-strain-reconstruction)
-  - [Viral Quasispecies Analysis](#viral-quasispecies-analysis)
-- [Visualization](#visualization-and-infrastructure)
-  - [Cyberinfrastructure](#cyberinfrastructure)
-  - [Plaque Analysis](#plaque-analysis)
-- [Specialized Analysis Tools](#other-tools)
-  - [Machine Learning Models](#machine-learning-models)
-  - [Structural Analysis](#structural-analysis-tools)
-  - [Antimicrobial Resistance Analysis](#antimicrobial-resistance-analysis)
-  - [Viral Metatranscriptomics](#viral-metatranscriptomics)
-  - [Cloud-based Analysis](#cloud-based-viral-analysis)
-  - [Simulation](#simulation)
-  - [Amplicon Analysis](#amplicon-analysis)
-  - [Interaction Analysis](#interaction-analysis)
-  - [Viral Single-Cell Analysis](#viral-single-cell-analysis)
-  - [Viral Glycoprotein Analysis](#viral-glycoprotein-analysis)
-  - [Ancient Viral Sequence Analysis](#ancient-viral-sequence-analysis)
-  - [Viral Immune Epitope Prediction](#viral-immune-epitope-prediction)
-  - [Viral Molecular Dynamics](#viral-molecular-dynamics)
-  - [Dark Matter Viral Analysis](#dark-matter-viral-analysis)
-  - [Transduction](#transduction)
 
 ---
 
@@ -614,23 +613,74 @@ For newcomers to virome analysis, here are some recommended starting points:
 - [Recentrifuge](https://github.com/khyox/recentrifuge) [Updated: 02/2025] - Classification tool for novel sequences. [Python]
 - [VirSorter-DarkMatter](https://github.com/simroux/VirSorter) [Updated: 01/2025] - Extension focused on novel viral sequences. [Perl]
 
+## API Support
+
+Awesome-Virome provides a REST API that allows programmatic access to the curated database of virome analysis tools. This enables developers and researchers to build applications, workflows, or custom analyses on top of the dataset.
+
+### API Features
+
+- **Base URL:** `https://shandley.github.io/awesome-virome/api/v1/`
+- **Format:** All endpoints return JSON
+- **Authentication:** No authentication required
+- **CORS-Enabled:** Accessible from browser applications
+
+### Key Endpoints
+
+- **All Tools:** `/api/v1/tools.json` - Complete list of all tools with metadata
+- **Categories:** `/api/v1/categories.json` - List of all tool categories
+- **Search Index:** `/api/v1/search.json` - Lightweight index for client-side filtering
+- **Statistics:** `/api/v1/stats.json` - Aggregate statistics about the tools collection
+- **Category-Specific:** `/api/v1/categories/{category_slug}.json` - Tools filtered by category
+
+### Usage Examples
+
+The API can be used with standard HTTP requests in any programming language:
+
+```javascript
+// JavaScript example
+fetch('https://shandley.github.io/awesome-virome/api/v1/tools.json')
+  .then(response => response.json())
+  .then(data => {
+    console.log(`Found ${data.count} tools`);
+    // Use the data for visualization, filtering, etc.
+  });
+```
+
+For complete documentation and additional examples in Python and R, see the [API documentation](API.md).
+
+## Unique Features
+
+Awesome-Virome offers several unique features that enhance its value as a resource for the viral bioinformatics community:
+
+### Interactive Visualizations
+- Dynamic network graph showing tool relationships and connections
+- Citation analytics with growth trends and impact metrics
+- Tool categorization treemap for understanding the ecosystem
+- Timeline visualization showing field development over time
+
+### Enhanced Metadata Collection
+- Automated metadata enrichment from GitHub, GitLab and Bitbucket
+- Detailed repository statistics including stars, forks, and languages
+- License information and release history tracking
+- Programming language distribution analysis
+
+### Community Contributions
+- Standardized issue templates for tool additions and updates
+- Automated workflows for data validation and site health checks
+- Detailed contribution guidelines for consistent data entry
+- Regular updates to ensure tool information remains current
+
+### Data Access Options
+- Web interface for browsing and searching tools
+- Interactive dashboard for visual exploration
+- RESTful API for programmatic access
+- Markdown files for simple text-based access
+
 ---
 
 ## License
 
 [![CC0](https://mirrors.creativecommons.org/presskit/buttons/88x31/svg/cc-zero.svg)](https://creativecommons.org/publicdomain/zero/1.0)
-
-## Interactive Dashboard
-
-Explore the [Interactive Dashboard](dashboard.html) to visualize tool relationships, citation trends, and adoption patterns in the virome analysis ecosystem. 
-
-The dashboard provides:
-- Network visualization of tool relationships
-- Citation growth and impact charts
-- Tool adoption timeline
-- Ecosystem analytics
-
-See the [dashboard documentation](DASHBOARD.md) for more information.
 
 ## Maintenance
 
@@ -661,4 +711,4 @@ For better results, run this script periodically to keep the list current.
 
 ## Last Updated
 
-This README was last updated on March 12, 2025.
+This README was last updated on May 3, 2025.
