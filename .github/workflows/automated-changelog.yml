@@ -87,57 +87,121 @@ jobs:
           
           # Track added tools
           echo "## Added Tools" >> $CHANGELOG_FILE
-          ADDED_TOOLS=$(git diff --name-status --diff-filter=A $(git rev-list -n1 --before="$SINCE_DATE" HEAD) HEAD -- metadata/ | grep "\.json$" | awk '{print $2}')
+          ADDED_TOOLS=$(git diff --name-status --diff-filter=A $(git rev-list -n1 --before="$SINCE_DATE" HEAD) HEAD -- metadata/ | grep -v "cache/" | grep "\.json$" | awk '{print $2}')
           
           if [ -z "$ADDED_TOOLS" ]; then
             echo "No new tools added during this period." >> $CHANGELOG_FILE
           else
             for TOOL in $ADDED_TOOLS; do
+              # Extract tool name from metadata file
               TOOL_NAME=$(basename "$TOOL" .json)
-              echo "- $TOOL_NAME" >> $CHANGELOG_FILE
+              
+              # Skip cache files and try to extract actual name
+              if [[ "$TOOL" == *"cache/"* ]] || [[ "$TOOL_NAME" =~ ^[0-9a-f]{32}$ ]]; then
+                continue
+              fi
+              
+              # Try to get tool description
+              TOOL_DESCRIPTION=""
+              if [ -f "$TOOL" ]; then
+                TOOL_DESCRIPTION=$(grep -o '"description": *"[^"]*"' "$TOOL" | head -1 | sed 's/"description": *"//;s/"$//')
+                if [ ! -z "$TOOL_DESCRIPTION" ]; then
+                  TOOL_DESCRIPTION=" - $TOOL_DESCRIPTION"
+                fi
+              fi
+              
+              echo "- **$TOOL_NAME**$TOOL_DESCRIPTION" >> $CHANGELOG_FILE
             done
           fi
           echo "" >> $CHANGELOG_FILE
           
           # Track updated tools
           echo "## Updated Tools" >> $CHANGELOG_FILE
-          UPDATED_TOOLS=$(git diff --name-status --diff-filter=M $(git rev-list -n1 --before="$SINCE_DATE" HEAD) HEAD -- metadata/ | grep "\.json$" | awk '{print $2}')
+          UPDATED_TOOLS=$(git diff --name-status --diff-filter=M $(git rev-list -n1 --before="$SINCE_DATE" HEAD) HEAD -- metadata/ | grep -v "cache/" | grep "\.json$" | awk '{print $2}')
           
           if [ -z "$UPDATED_TOOLS" ]; then
             echo "No tools updated during this period." >> $CHANGELOG_FILE
           else
             for TOOL in $UPDATED_TOOLS; do
+              # Extract tool name from metadata file
               TOOL_NAME=$(basename "$TOOL" .json)
-              echo "- $TOOL_NAME" >> $CHANGELOG_FILE
+              
+              # Skip cache files and try to extract actual name
+              if [[ "$TOOL" == *"cache/"* ]] || [[ "$TOOL_NAME" =~ ^[0-9a-f]{32}$ ]]; then
+                continue
+              fi
+              
+              # Try to get change details
+              CHANGE_DETAILS=""
+              if [ -f "$TOOL" ]; then
+                # Extract version if updated
+                NEW_VERSION=$(grep -o '"version": *"[^"]*"' "$TOOL" | head -1 | sed 's/"version": *"//;s/"$//')
+                if [ ! -z "$NEW_VERSION" ]; then
+                  CHANGE_DETAILS=" - Updated to version $NEW_VERSION"
+                fi
+                
+                # Otherwise check if status changed
+                if [ -z "$CHANGE_DETAILS" ]; then
+                  STATUS=$(grep -o '"status": *"[^"]*"' "$TOOL" | head -1 | sed 's/"status": *"//;s/"$//')
+                  if [ ! -z "$STATUS" ]; then
+                    CHANGE_DETAILS=" - Status: $STATUS"
+                  fi
+                fi
+              fi
+              
+              echo "- **$TOOL_NAME**$CHANGE_DETAILS" >> $CHANGELOG_FILE
             done
           fi
           echo "" >> $CHANGELOG_FILE
           
           # Track removed tools
           echo "## Removed Tools" >> $CHANGELOG_FILE
-          REMOVED_TOOLS=$(git diff --name-status --diff-filter=D $(git rev-list -n1 --before="$SINCE_DATE" HEAD) HEAD -- metadata/ | grep "\.json$" | awk '{print $2}')
+          REMOVED_TOOLS=$(git diff --name-status --diff-filter=D $(git rev-list -n1 --before="$SINCE_DATE" HEAD) HEAD -- metadata/ | grep -v "cache/" | grep "\.json$" | awk '{print $2}')
           
           if [ -z "$REMOVED_TOOLS" ]; then
             echo "No tools removed during this period." >> $CHANGELOG_FILE
           else
             for TOOL in $REMOVED_TOOLS; do
+              # Extract tool name from metadata file
               TOOL_NAME=$(basename "$TOOL" .json)
-              echo "- $TOOL_NAME" >> $CHANGELOG_FILE
+              
+              # Skip cache files and hash-like names
+              if [[ "$TOOL" == *"cache/"* ]] || [[ "$TOOL_NAME" =~ ^[0-9a-f]{32}$ ]]; then
+                continue
+              fi
+              
+              echo "- **$TOOL_NAME**" >> $CHANGELOG_FILE
             done
           fi
           echo "" >> $CHANGELOG_FILE
           
           # Track citation updates
           echo "## Citation Updates" >> $CHANGELOG_FILE
-          CITATION_UPDATES=$(git diff --name-status $(git rev-list -n1 --before="$SINCE_DATE" HEAD) HEAD -- metadata/academic_impact/ | grep "\.json$" | awk '{print $2}')
+          CITATION_UPDATES=$(git diff --name-status $(git rev-list -n1 --before="$SINCE_DATE" HEAD) HEAD -- metadata/academic_impact/ | grep -v "cache/" | grep "\.json$" | awk '{print $2}')
           
           if [ -z "$CITATION_UPDATES" ]; then
             echo "No citation updates during this period." >> $CHANGELOG_FILE
           else
             echo "Citation data was updated for the following tools:" >> $CHANGELOG_FILE
             for CITATION in $CITATION_UPDATES; do
+              # Extract tool name from citation file
               TOOL_NAME=$(basename "$CITATION" .json)
-              echo "- $TOOL_NAME" >> $CHANGELOG_FILE
+              
+              # Skip cache files and hash-like names
+              if [[ "$CITATION" == *"cache/"* ]] || [[ "$TOOL_NAME" =~ ^[0-9a-f]{32}$ ]]; then
+                continue
+              fi
+              
+              # Try to get citation count
+              CITATION_COUNT=""
+              if [ -f "$CITATION" ]; then
+                COUNT=$(grep -o '"total_citations": *[0-9]*' "$CITATION" | head -1 | sed 's/"total_citations": *//')
+                if [ ! -z "$COUNT" ]; then
+                  CITATION_COUNT=" - $COUNT total citations"
+                fi
+              fi
+              
+              echo "- **$TOOL_NAME**$CITATION_COUNT" >> $CHANGELOG_FILE
             done
           fi
           echo "" >> $CHANGELOG_FILE
