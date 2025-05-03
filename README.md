@@ -40,10 +40,24 @@ The matrix is designed to help researchers quickly evaluate and select the most 
 
 [Open Comparison Matrix](https://shandley.github.io/awesome-virome/comparison.html)
 
+## Tool Selection Guide
+
+Not sure which tool to use? Our [interactive selection guide](https://shandley.github.io/awesome-virome/selection-guide.html) helps you navigate through the vast ecosystem of viral analysis tools:
+
+- Answer simple questions about your research needs
+- Follow a decision tree to narrow down tool options
+- Receive personalized tool recommendations
+- Learn about key features and requirements for each tool
+
+The guide is perfect for researchers new to virome analysis or those exploring unfamiliar analysis types.
+
+[Open Selection Guide](https://shandley.github.io/awesome-virome/selection-guide.html)
+
 ## Contents
 
 - [Interactive Dashboard](#interactive-dashboard)
 - [Tool Comparison Matrix](#tool-comparison-matrix)
+- [Tool Selection Guide](#tool-selection-guide)
 - [Acknowledgments](#acknowledgments)
 - [Contributing](#contributing)
 - [Repository Maintenance](#repository-maintenance)
