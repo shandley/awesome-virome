@@ -13,7 +13,7 @@ A curated list of software, tools, and databases useful for virome analysis, inc
 
 ## Interactive Dashboard
 
-Explore our [Interactive Dashboard](https://shandley.github.io/awesome-virome/dashboard_fixed3.html) to visualize tool relationships, citation trends, and adoption patterns in the virome analysis ecosystem.
+Explore our [Interactive Dashboard](https://shandley.github.io/awesome-virome/dashboard.html) to visualize tool relationships, citation trends, and adoption patterns in the virome analysis ecosystem.
 
 ![Dashboard Preview](dashboard.png)
 
@@ -25,11 +25,25 @@ The dashboard offers powerful visualizations to understand the virome analysis t
 - **Tool Timeline**: Visualize the evolution of the virome analysis tool ecosystem
 - **Programming Languages**: Analyze technology trends across the tool collection
 
-[Launch Dashboard](https://shandley.github.io/awesome-virome/dashboard_fixed3.html) | [View Citation Analytics](https://shandley.github.io/awesome-virome/citations_fixed.html)
+[Launch Dashboard](https://shandley.github.io/awesome-virome/dashboard.html) | [View Citation Analytics](https://shandley.github.io/awesome-virome/citations.html) | [Compare Tools](https://shandley.github.io/awesome-virome/comparison.html)
+
+## Tool Comparison Matrix
+
+Need to quickly compare different tools? Our [interactive comparison matrix](https://shandley.github.io/awesome-virome/comparison.html) allows you to:
+
+- Compare tools side-by-side with key metrics and features
+- Filter by category, language, maintenance status, and more
+- Sort by stars, citations, or update frequency
+- Export results to CSV or JSON for your analysis
+
+The matrix is designed to help researchers quickly evaluate and select the most appropriate tools for their workflows.
+
+[Open Comparison Matrix](https://shandley.github.io/awesome-virome/comparison.html)
 
 ## Contents
 
 - [Interactive Dashboard](#interactive-dashboard)
+- [Tool Comparison Matrix](#tool-comparison-matrix)
 - [Acknowledgments](#acknowledgments)
 - [Contributing](#contributing)
 - [Repository Maintenance](#repository-maintenance)
