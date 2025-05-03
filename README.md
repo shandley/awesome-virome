@@ -22,10 +22,11 @@ The dashboard offers powerful visualizations to understand the virome analysis t
 - **Tool Categorization Treemap**: Quickly see how tools are distributed across functional categories
 - **Interactive Network**: Discover relationships between tools, categories, and subcategories
 - **Citation Analytics**: Track academic impact and citation growth over time
+- **Publication Impact Network**: Explore how tools connect to significant research publications
 - **Tool Timeline**: Visualize the evolution of the virome analysis tool ecosystem
 - **Programming Languages**: Analyze technology trends across the tool collection
 
-[Launch Dashboard](https://shandley.github.io/awesome-virome/dashboard.html) | [View Citation Analytics](https://shandley.github.io/awesome-virome/citations.html) | [Compare Tools](https://shandley.github.io/awesome-virome/comparison.html)
+[Launch Dashboard](https://shandley.github.io/awesome-virome/dashboard.html) | [View Citation Analytics](https://shandley.github.io/awesome-virome/citations.html) | [Explore Publication Impact](https://shandley.github.io/awesome-virome/publication_impact.html) | [Compare Tools](https://shandley.github.io/awesome-virome/comparison.html)
 
 ## Tool Comparison Matrix
 

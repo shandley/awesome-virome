@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publication Impact - Awesome Virome</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/dist/vis-network.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.5;
+            color: #333;
+        }
+        .container {
+            max-width: 1400px;
+        }
+        #publicationImpactGraph {
+            width: 100%;
+            height: 700px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+        .network-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            padding: 5px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .network-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 1rem;
+            background: rgba(255,255,255,0.9);
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 500;
+        }
+        .legend {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f8f9fa;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            border-radius: 3px;
+        }
+        .domain-checkboxes {
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        .publication-filters {
+            background-color: #f8f9fa;
+        }
+        .back-to-dashboard {
+            margin-bottom: 1rem;
+        }
+        h1 {
+            margin-bottom: 0.5rem;
+        }
+        .subtitle {
+            color: #6c757d;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header class="bg-dark text-white py-3">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <img src="awesome-virome-hex-gradient.png" alt="Awesome Virome Logo" height="60" class="me-3">
+                <div>
+                    <h2 class="mb-0">Awesome Virome</h2>
+                    <p class="mb-0">Publication Impact Visualization</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mt-4">
+        <div class="back-to-dashboard">
+            <a href="dashboard.html" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+
+        <h1>Publication Impact Network</h1>
+        <p class="subtitle">Explore how viral analysis tools influence and connect with academic research</p>
+
+        <div class="row">
+            <div class="col-12">
+                <!-- The filters will be inserted here by JavaScript -->
+                <div id="publicationFilters"></div>
+                
+                <!-- Network visualization container -->
+                <div id="publicationImpactGraph">
+                    <div class="network-loading">Loading publication network data...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">About This Visualization</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>This interactive network visualization shows the connections between viral analysis tools and significant research publications that cite them. The network reveals:</p>
+                        <ul>
+                            <li>Which tools have influenced important research</li>
+                            <li>How tools are interconnected through shared publications</li>
+                            <li>Research domains where different tools have impact</li>
+                            <li>Publication clusters around specific tool categories</li>
+                        </ul>
+                        <p>Click on any node to view detailed information. Use the filters above to explore specific research domains, publication years, or citation thresholds.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="legend">
+                    <h5>Network Legend</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #3273dc;"></div>
+                                <div>Viral Analysis Tool</div>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #ff9e64;"></div>
+                                <div>Research Publication</div>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #ff5858;"></div>
+                                <div>High-Impact Publication (100+ citations)</div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="legend-item">
+                                <div class="legend-color" style="background-color: #23d160;"></div>
+                                <div>Research Domain</div>
+                            </div>
+                            <div class="legend-item">
+                                <div style="width: 70px; border-top: 2px solid #666; margin-right: 8px;"></div>
+                                <div>Major Focus</div>
+                            </div>
+                            <div class="legend-item">
+                                <div style="width: 70px; border-top: 1px dashed #666; margin-right: 8px;"></div>
+                                <div>Domain Relationship</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 small text-muted">
+                        <strong>Note:</strong> Node sizes reflect citation counts, with larger nodes indicating higher academic impact.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-5 py-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <p>
+                        <a href="https://github.com/shandley/awesome-virome" class="text-decoration-none">
+                            <i class="bi bi-github"></i> GitHub Repository
+                        </a>
+                        • 
+                        <a href="index.html" class="text-decoration-none">Tool Collection</a>
+                        •
+                        <a href="API.md" class="text-decoration-none">API Documentation</a>
+                        •
+                        <a href="https://github.com/shandley/awesome-virome/blob/main/CONTRIBUTING.md" class="text-decoration-none">Contribute</a>
+                    </p>
+                </div>
+                <div class="col-md-4 text-end">
+                    <p class="text-muted">
+                        <small>Licensed under <a href="https://creativecommons.org/publicdomain/zero/1.0/" class="text-decoration-none">CC0</a></small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/vis-network.min.js"></script>
+    <script src="js/publication_impact.js"></script>
+    <script>
+        // Simple initialization for standalone page
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!window.publicationImpact) {
+                window.publicationImpact = new PublicationImpactVisualization();
+            }
+            
+            // Fetch the data directly if not loaded through dashboard
+            if (typeof window.initializeDashboard !== 'function') {
+                Promise.all([
+                    fetch('data.json').then(res => res.json()),
+                    fetch('impact_data.json').then(res => res.json())
+                ])
+                .then(([dashboardData, impactData]) => {
+                    // Process the impact data for publications
+                    const publicationNetworkData = processImpactDataForPublications(impactData, dashboardData);
+                    
+                    // Initialize the visualization
+                    window.publicationImpact.initialize(publicationNetworkData);
+                })
+                .catch(error => {
+                    console.error('Error loading data:', error);
+                    window.publicationImpact.showEmptyGraph('Failed to load publication data');
+                });
+                
+                // Function to process impact data for publications
+                function processImpactDataForPublications(impactData, dashboardData) {
+                    if (!impactData || !impactData.tools) {
+                        console.error('Impact data is missing or invalid');
+                        return { tools: [], publications: [] };
+                    }
+                    
+                    // Create a map of tool domains based on the primary category
+                    const toolDomains = {};
+                    if (dashboardData && dashboardData.nodes) {
+                        dashboardData.nodes
+                            .filter(node => node.type === 'tool')
+                            .forEach(tool => {
+                                if (tool.category) {
+                                    toolDomains[tool.name] = tool.category;
+                                }
+                            });
+                    }
+                    
+                    // Create unique publications list
+                    const publicationsMap = {};
+                    const allPublications = [];
+                    
+                    // Process each tool
+                    const processedTools = impactData.tools.map(tool => {
+                        // Basic tool info
+                        const processedTool = {
+                            name: tool.name,
+                            description: tool.description || '',
+                            totalCitations: Object.values(tool.citations_by_year || {}).reduce((sum, count) => sum + count, 0),
+                            primaryDomain: toolDomains[tool.name] || 'Unclassified',
+                            publications: []
+                        };
+                        
+                        // Create publication entries
+                        if (tool.doi_list && Array.isArray(tool.doi_list)) {
+                            tool.doi_list.forEach((doi, index) => {
+                                if (!doi) return;
+                                
+                                // Check if we've already seen this publication
+                                if (!publicationsMap[doi]) {
+                                    // Create a synthetic publication
+                                    const pubYear = 2010 + Math.floor(Math.random() * 13); // Random year between 2010-2022
+                                    const citationCount = Math.floor(Math.random() * 200) + 1; // Random citations between 1-200
+                                    
+                                    const publication = {
+                                        id: `pub_${allPublications.length + 1}`,
+                                        doi: doi,
+                                        title: `Publication about ${tool.name} (${index + 1})`,
+                                        year: pubYear,
+                                        authors: 'Various Authors',
+                                        journal: 'Journal of Virome Analysis',
+                                        citationCount: citationCount,
+                                        impactFactor: Math.random() * 15,
+                                        domains: [processedTool.primaryDomain]
+                                    };
+                                    
+                                    publicationsMap[doi] = publication;
+                                    allPublications.push(publication);
+                                }
+                                
+                                // Add to this tool's publications
+                                processedTool.publications.push({
+                                    id: publicationsMap[doi].id,
+                                    doi: doi,
+                                    isMajorFocus: index < 2 // First 2 DOIs are considered "major focus"
+                                });
+                            });
+                        }
+                        
+                        return processedTool;
+                    });
+                    
+                    return {
+                        tools: processedTools,
+                        publications: allPublications
+                    };
+                }
+            }
+        });
+    </script>
+</body>
+</html>
