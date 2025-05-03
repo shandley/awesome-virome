@@ -561,6 +561,9 @@
                                         <button id="centerNetwork" class="btn btn-sm btn-outline-primary">
                                             <i class="bi bi-bullseye"></i> Center View
                                         </button>
+                                        <button id="resetNetwork" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-arrow-repeat"></i> Reset
+                                        </button>
                                     </div>
                                     <div class="btn-group" role="group" aria-label="Node filter controls">
                                         <button id="showAll" class="btn btn-sm btn-outline-secondary active">All</button>
@@ -1294,6 +1297,50 @@
                                 easingFunction: 'easeInOutQuad'
                             }
                         });
+                    });
+                    
+                    // Reset network
+                    const resetNetworkBtn = document.getElementById('resetNetwork');
+                    resetNetworkBtn.addEventListener('click', function() {
+                        // Redraw the network with default settings
+                        physicsEnabled = true;
+                        hierarchicalEnabled = false;
+                        network.setOptions({
+                            physics: { enabled: true },
+                            layout: {
+                                hierarchical: {
+                                    enabled: false
+                                }
+                            }
+                        });
+                        
+                        // Reset filter buttons
+                        setFilterButtonActive(showAllBtn);
+                        networkData.nodes.forEach(node => {
+                            networkData.nodes.update({ id: node.id, hidden: false });
+                        });
+                        
+                        // Reset label toggle
+                        showLabelsToggle.checked = true;
+                        network.setOptions({
+                            nodes: {
+                                font: {
+                                    size: 12
+                                }
+                            }
+                        });
+                        
+                        // Center the view
+                        network.fit({
+                            animation: {
+                                duration: 1000,
+                                easingFunction: 'easeInOutQuad'
+                            }
+                        });
+                        
+                        // Update UI active states
+                        togglePhysicsBtn.classList.add('active');
+                        toggleHierarchicalBtn.classList.remove('active');
                     });
                     
                     // Filter nodes
