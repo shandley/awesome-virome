@@ -1,0 +1,170 @@
+name: Automated Changelog
+
+on:
+  schedule:
+    # Run monthly on the 1st at 00:00 UTC
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+    inputs:
+      period:
+        description: 'Period to generate changelog for (monthly or weekly)'
+        required: true
+        default: 'monthly'
+        type: choice
+        options:
+          - monthly
+          - weekly
+
+jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Get full history for changelog
+
+      - name: Set variables
+        id: vars
+        run: |
+          # Get current date
+          CURRENT_DATE=$(date +%Y-%m-%d)
+          echo "current_date=$CURRENT_DATE" >> $GITHUB_OUTPUT
+          
+          # Handle period input for manual runs, default to monthly for scheduled runs
+          PERIOD="${{ github.event.inputs.period }}"
+          if [ -z "$PERIOD" ]; then
+            PERIOD="monthly"
+          fi
+          echo "period=$PERIOD" >> $GITHUB_OUTPUT
+          
+          # Calculate date range based on period
+          if [ "$PERIOD" = "weekly" ]; then
+            SINCE_DATE=$(date -d "$CURRENT_DATE -7 days" +%Y-%m-%d)
+            TAG_NAME="weekly-changelog-$CURRENT_DATE"
+            RELEASE_NAME="Weekly Changelog: $(date -d "$SINCE_DATE" +%B %d, %Y) - $(date -d "$CURRENT_DATE" +%B %d, %Y)"
+          else
+            # Monthly
+            SINCE_DATE=$(date -d "$CURRENT_DATE -1 month" +%Y-%m-%d)
+            TAG_NAME="monthly-changelog-$CURRENT_DATE"
+            RELEASE_NAME="Monthly Changelog: $(date -d "$SINCE_DATE" +%B %Y) - $(date -d "$CURRENT_DATE" +%B %Y)"
+          fi
+          
+          echo "since_date=$SINCE_DATE" >> $GITHUB_OUTPUT
+          echo "tag_name=$TAG_NAME" >> $GITHUB_OUTPUT
+          echo "release_name=$RELEASE_NAME" >> $GITHUB_OUTPUT
+
+      - name: Generate changelog content
+        id: changelog
+        run: |
+          SINCE_DATE="${{ steps.vars.outputs.since_date }}"
+          PERIOD="${{ steps.vars.outputs.period }}"
+          
+          echo "Generating $PERIOD changelog since $SINCE_DATE..."
+          
+          # Create a temporary changelog file
+          CHANGELOG_FILE="changelog_content.md"
+          
+          # Initialize the changelog markdown
+          echo "# Changelog for ${{ steps.vars.outputs.release_name }}" > $CHANGELOG_FILE
+          echo "" >> $CHANGELOG_FILE
+          
+          # Track added tools
+          echo "## Added Tools" >> $CHANGELOG_FILE
+          ADDED_TOOLS=$(git diff --name-status --diff-filter=A $(git rev-list -n1 --before="$SINCE_DATE" HEAD) HEAD -- metadata/ | grep "\.json$" | awk '{print $2}')
+          
+          if [ -z "$ADDED_TOOLS" ]; then
+            echo "No new tools added during this period." >> $CHANGELOG_FILE
+          else
+            for TOOL in $ADDED_TOOLS; do
+              TOOL_NAME=$(basename "$TOOL" .json)
+              echo "- $TOOL_NAME" >> $CHANGELOG_FILE
+            done
+          fi
+          echo "" >> $CHANGELOG_FILE
+          
+          # Track updated tools
+          echo "## Updated Tools" >> $CHANGELOG_FILE
+          UPDATED_TOOLS=$(git diff --name-status --diff-filter=M $(git rev-list -n1 --before="$SINCE_DATE" HEAD) HEAD -- metadata/ | grep "\.json$" | awk '{print $2}')
+          
+          if [ -z "$UPDATED_TOOLS" ]; then
+            echo "No tools updated during this period." >> $CHANGELOG_FILE
+          else
+            for TOOL in $UPDATED_TOOLS; do
+              TOOL_NAME=$(basename "$TOOL" .json)
+              echo "- $TOOL_NAME" >> $CHANGELOG_FILE
+            done
+          fi
+          echo "" >> $CHANGELOG_FILE
+          
+          # Track removed tools
+          echo "## Removed Tools" >> $CHANGELOG_FILE
+          REMOVED_TOOLS=$(git diff --name-status --diff-filter=D $(git rev-list -n1 --before="$SINCE_DATE" HEAD) HEAD -- metadata/ | grep "\.json$" | awk '{print $2}')
+          
+          if [ -z "$REMOVED_TOOLS" ]; then
+            echo "No tools removed during this period." >> $CHANGELOG_FILE
+          else
+            for TOOL in $REMOVED_TOOLS; do
+              TOOL_NAME=$(basename "$TOOL" .json)
+              echo "- $TOOL_NAME" >> $CHANGELOG_FILE
+            done
+          fi
+          echo "" >> $CHANGELOG_FILE
+          
+          # Track citation updates
+          echo "## Citation Updates" >> $CHANGELOG_FILE
+          CITATION_UPDATES=$(git diff --name-status $(git rev-list -n1 --before="$SINCE_DATE" HEAD) HEAD -- metadata/academic_impact/ | grep "\.json$" | awk '{print $2}')
+          
+          if [ -z "$CITATION_UPDATES" ]; then
+            echo "No citation updates during this period." >> $CHANGELOG_FILE
+          else
+            echo "Citation data was updated for the following tools:" >> $CHANGELOG_FILE
+            for CITATION in $CITATION_UPDATES; do
+              TOOL_NAME=$(basename "$CITATION" .json)
+              echo "- $TOOL_NAME" >> $CHANGELOG_FILE
+            done
+          fi
+          echo "" >> $CHANGELOG_FILE
+          
+          # Add general repository improvements
+          echo "## Repository Improvements" >> $CHANGELOG_FILE
+          WORKFLOW_CHANGES=$(git diff --name-status $(git rev-list -n1 --before="$SINCE_DATE" HEAD) HEAD -- .github/workflows/ | grep -v "automated-changelog.yml" | wc -l)
+          SCRIPT_CHANGES=$(git diff --name-status $(git rev-list -n1 --before="$SINCE_DATE" HEAD) HEAD -- scripts/ | wc -l)
+          DOC_CHANGES=$(git diff --name-status $(git rev-list -n1 --before="$SINCE_DATE" HEAD) HEAD -- "*.md" | grep -v "changelog" | wc -l)
+          
+          if [ "$WORKFLOW_CHANGES" -gt 0 ] || [ "$SCRIPT_CHANGES" -gt 0 ] || [ "$DOC_CHANGES" -gt 0 ]; then
+            if [ "$WORKFLOW_CHANGES" -gt 0 ]; then
+              echo "- Workflow improvements: $WORKFLOW_CHANGES files changed" >> $CHANGELOG_FILE
+            fi
+            if [ "$SCRIPT_CHANGES" -gt 0 ]; then
+              echo "- Script improvements: $SCRIPT_CHANGES files changed" >> $CHANGELOG_FILE
+            fi
+            if [ "$DOC_CHANGES" -gt 0 ]; then
+              echo "- Documentation improvements: $DOC_CHANGES files changed" >> $CHANGELOG_FILE
+            fi
+          else
+            echo "No repository infrastructure changes during this period." >> $CHANGELOG_FILE
+          fi
+          
+          # Save changelog content to output
+          CHANGELOG_CONTENT=$(cat $CHANGELOG_FILE)
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64 | tr -dc 'a-zA-Z0-9')
+          echo "changelog_content<<$EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG_CONTENT" >> $GITHUB_OUTPUT
+          echo "$EOF" >> $GITHUB_OUTPUT
+          
+          echo "::notice::Changelog content generated successfully!"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ steps.vars.outputs.release_name }}
+          tag_name: ${{ steps.vars.outputs.tag_name }}
+          body: ${{ steps.changelog.outputs.changelog_content }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

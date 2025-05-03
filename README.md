@@ -109,8 +109,9 @@ This repository uses a streamlined GitHub Actions workflow system to maintain da
 2. **Data Management**: All data is stored in `data.json` and displayed through GitHub Pages
 3. **Contribution Flow**: External contributors can propose changes via Pull Requests
 4. **API Access**: Programmatic access to the database via a [REST API](API.md)
+5. **Automated Changelog**: Monthly release notes documenting tool additions, updates, and removals
 
-For technical details, see the [workflow documentation](.github/workflows/README.md).
+For technical details, see the [workflow documentation](.github/workflows/README.md) and [view our release notes](https://github.com/shandley/awesome-virome/releases).
 
 ## Enhanced Metadata
 
