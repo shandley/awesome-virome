@@ -43,17 +43,22 @@ jobs:
         run: |
           echo "Generating dashboard impact data..."
           python scripts/generate_citation_data.py
+          
+      - name: Collect direct citation relationships
+        run: |
+          echo "Collecting direct citation relationships from CrossRef..."
+          python scripts/direct_citation_collector.py
       
       - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # Add the updated impact data file
-          git add impact_data.json
+          # Add the updated impact data file and citation network visualization
+          git add impact_data.json debug_urls.html
           
           # Commit only if there are changes
-          git diff --staged --quiet || git commit -m "Update dashboard visualization data"
+          git diff --staged --quiet || git commit -m "Update dashboard visualization data and citation relationships"
           
           # Push changes directly to main
           git push
