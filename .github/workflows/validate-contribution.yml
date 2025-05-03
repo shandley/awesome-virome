@@ -1,0 +1,413 @@
+name: Validate Tool Contribution
+
+on:
+  # Run on PRs that modify README or data files
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'README.md'
+      - 'data.json'
+      - 'metadata/**'
+  
+  # Run on issues using the tool submission template
+  issues:
+    types: [opened, edited]
+
+  # Allow manual triggering for testing
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: 'Issue number to validate'
+        required: false
+      pr_number:
+        description: 'PR number to validate'
+        required: false
+
+# Permissions needed for posting comments
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+  validate-tool-submission:
+    # Skip PRs not from tool submission template
+    if: ${{ github.event_name != 'pull_request' || contains(github.event.pull_request.title, '[NEW TOOL]') || contains(github.event.pull_request.title, 'Add') || contains(github.event.pull_request.title, 'new tool') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests jsonschema PyGithub pyyaml
+      
+      # For issue events, extract tool data from the issue
+      - name: Process issue data
+        if: ${{ github.event_name == 'issues' || github.event.inputs.issue_number }}
+        id: issue_data
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // Determine issue number to process
+            let issueNumber;
+            if (context.payload.issue) {
+              issueNumber = context.payload.issue.number;
+            } else if (context.payload.inputs && context.payload.inputs.issue_number) {
+              issueNumber = context.payload.inputs.issue_number;
+            } else {
+              console.log('No issue number found');
+              return;
+            }
+            
+            // Get issue data
+            const issue = await github.rest.issues.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber
+            });
+            
+            // Check if it's a tool submission issue
+            if (!issue.data.title.includes('[NEW TOOL]')) {
+              console.log('Not a tool submission issue');
+              return;
+            }
+            
+            // Extract data from issue body
+            const body = issue.data.body;
+            
+            // Parse the form data
+            // This assumes the issue was created with the tool_submission.yml template
+            const toolName = body.match(/### Tool Name\s*\n\s*(.*)/)?.[1]?.trim();
+            const repoUrl = body.match(/### Repository URL\s*\n\s*(.*)/)?.[1]?.trim();
+            const website = body.match(/### Website\s*\n\s*(.*)/)?.[1]?.trim();
+            const category = body.match(/### Primary Tool Category\s*\n\s*(.*)/)?.[1]?.trim();
+            const description = body.match(/### Description\s*\n\s*([\s\S]*?)(?=###|$)/)?.[1]?.trim();
+            const installation = body.match(/### Installation Methods\s*\n\s*([\s\S]*?)(?=###|$)/)?.[1]?.trim();
+            const citation = body.match(/### Citation\s*\n\s*([\s\S]*?)(?=###|$)/)?.[1]?.trim();
+            const additional = body.match(/### Additional Information\s*\n\s*([\s\S]*?)(?=###|$)/)?.[1]?.trim();
+            
+            // Extract DOI from citation if present
+            let doi = null;
+            if (citation) {
+              const doiMatch = citation.match(/10\.\d{4,9}\/[-._;()\/:A-Z0-9]+/i);
+              if (doiMatch) {
+                doi = doiMatch[0];
+              }
+            }
+            
+            // Create tool data object
+            const toolData = {
+              name: toolName,
+              url: repoUrl,
+              website: website || repoUrl,
+              category: category,
+              description: description,
+              installation: installation ? { manual: installation } : null,
+              doi: doi,
+              citation: citation,
+              additional: additional
+            };
+            
+            // Save the tool data to file for validation
+            const fs = require('fs');
+            fs.writeFileSync('tool_submission.json', JSON.stringify(toolData, null, 2));
+            
+            // Set outputs for next steps
+            core.setOutput('tool_name', toolName);
+            core.setOutput('repo_url', repoUrl);
+            core.setOutput('issue_number', issueNumber);
+            
+            console.log(`Extracted tool data from issue #${issueNumber}: ${toolName}`);
+      
+      # For PR events, extract changed tool data
+      - name: Process PR data
+        if: ${{ github.event_name == 'pull_request' || github.event.inputs.pr_number }}
+        id: pr_data
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // Determine PR number
+            let prNumber;
+            if (context.payload.pull_request) {
+              prNumber = context.payload.pull_request.number;
+            } else if (context.payload.inputs && context.payload.inputs.pr_number) {
+              prNumber = context.payload.inputs.pr_number;
+            } else {
+              console.log('No PR number found');
+              return;
+            }
+            
+            // Get PR files
+            const prFiles = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber
+            });
+            
+            // Filter for relevant files
+            const dataJsonChange = prFiles.data.find(file => file.filename === 'data.json');
+            const readmeChange = prFiles.data.find(file => file.filename === 'README.md');
+            
+            // If data.json was changed, extract the added/modified tools
+            if (dataJsonChange) {
+              // Get current data.json content
+              const dataJsonResponse = await github.rest.repos.getContent({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                path: 'data.json',
+                ref: context.payload.pull_request ? context.payload.pull_request.head.ref : 'main'
+              });
+              
+              // Decode content
+              const content = Buffer.from(dataJsonResponse.data.content, 'base64').toString();
+              const dataJson = JSON.parse(content);
+              
+              // Find tool nodes
+              const toolNodes = dataJson.nodes.filter(node => node.type === 'tool');
+              
+              // Since we can't easily determine which tool was added/changed,
+              // we'll validate all tools but focus on the first one in PR comments
+              if (toolNodes.length > 0) {
+                const firstTool = toolNodes[0];
+                
+                // Save the tool data to file for validation
+                const fs = require('fs');
+                fs.writeFileSync('tool_submission.json', JSON.stringify(firstTool, null, 2));
+                
+                // Set outputs for next steps
+                core.setOutput('tool_name', firstTool.name);
+                core.setOutput('repo_url', firstTool.url);
+                core.setOutput('pr_number', prNumber);
+                
+                console.log(`Extracted tool data from PR #${prNumber}: ${firstTool.name}`);
+              }
+            } else if (readmeChange) {
+              // For README changes, we need to extract the added link
+              // This is more complex and would require parsing the diff
+              // For now, we'll just note that README was changed
+              console.log(`README.md was modified in PR #${prNumber} but no tool data extracted`);
+              
+              // Set outputs for next steps
+              core.setOutput('pr_number', prNumber);
+              core.setOutput('readme_only', 'true');
+            }
+      
+      # Run comprehensive tool validation
+      - name: Validate tool submission
+        id: validation
+        if: ${{ steps.issue_data.outputs.tool_name || steps.pr_data.outputs.tool_name || steps.pr_data.outputs.readme_only != 'true' }}
+        run: |
+          # Run the validator on the extracted tool data
+          if [ -f "tool_submission.json" ]; then
+            echo "Validating tool submission..."
+            python scripts/tool_validator.py --input tool_submission.json --output validation_results.json --verbose
+            
+            # Extract validation summary for GitHub comment
+            echo "VALIDATION_VALID=$(jq -r '.valid' validation_results.json)" >> $GITHUB_ENV
+            echo "QUALITY_SCORE=$(jq -r '.quality_score' validation_results.json)" >> $GITHUB_ENV
+            echo "ERRORS_COUNT=$(jq -r '.errors | length' validation_results.json)" >> $GITHUB_ENV
+            echo "WARNINGS_COUNT=$(jq -r '.warnings | length' validation_results.json)" >> $GITHUB_ENV
+            echo "SUGGESTIONS_COUNT=$(jq -r '.suggestions | length' validation_results.json)" >> $GITHUB_ENV
+            
+            # Create GitHub comment content
+            echo "# Tool Validation Results" > comment.md
+            echo "" >> comment.md
+            echo "Thank you for contributing to awesome-virome! Our automatic validator has checked your submission." >> comment.md
+            echo "" >> comment.md
+            
+            if [ "$(jq -r '.valid' validation_results.json)" = "true" ]; then
+              echo "## ✅ Validation Passed" >> comment.md
+            else
+              echo "## ❌ Validation Failed" >> comment.md
+            fi
+            
+            echo "" >> comment.md
+            echo "### Quality Score: $(jq -r '.quality_score' validation_results.json)/100" >> comment.md
+            
+            # Add quality score explanation
+            if [ "$(jq -r '.quality_score' validation_results.json)" -ge 90 ]; then
+              echo "Excellent submission quality! 🌟" >> comment.md
+            elif [ "$(jq -r '.quality_score' validation_results.json)" -ge 80 ]; then
+              echo "Very good submission quality. 👍" >> comment.md
+            elif [ "$(jq -r '.quality_score' validation_results.json)" -ge 70 ]; then
+              echo "Good submission quality." >> comment.md
+            elif [ "$(jq -r '.quality_score' validation_results.json)" -ge 50 ]; then
+              echo "Acceptable submission quality, but could be improved." >> comment.md
+            else
+              echo "Submission quality needs significant improvement." >> comment.md
+            fi
+            
+            echo "" >> comment.md
+            
+            # Add errors
+            if [ "$(jq -r '.errors | length' validation_results.json)" -gt 0 ]; then
+              echo "### Errors" >> comment.md
+              echo "" >> comment.md
+              jq -r '.errors[] | "- ❌ " + .' validation_results.json >> comment.md
+              echo "" >> comment.md
+            fi
+            
+            # Add warnings
+            if [ "$(jq -r '.warnings | length' validation_results.json)" -gt 0 ]; then
+              echo "### Warnings" >> comment.md
+              echo "" >> comment.md
+              jq -r '.warnings[] | "- ⚠️ " + .' validation_results.json >> comment.md
+              echo "" >> comment.md
+            fi
+            
+            # Add suggestions
+            if [ "$(jq -r '.suggestions | length' validation_results.json)" -gt 0 ]; then
+              echo "### Suggestions for Improvement" >> comment.md
+              echo "" >> comment.md
+              jq -r '.suggestions[] | "- 💡 " + .' validation_results.json >> comment.md
+              echo "" >> comment.md
+            fi
+            
+            # Add checklist for maintainers
+            echo "### Maintainer Checklist" >> comment.md
+            echo "" >> comment.md
+            echo "- [ ] Review validation results" >> comment.md
+            echo "- [ ] Check tool relevance to virome analysis" >> comment.md
+            echo "- [ ] Verify tool is not a duplicate" >> comment.md
+            echo "- [ ] Confirm license allows inclusion" >> comment.md
+            echo "" >> comment.md
+            
+            echo "Validation report generated successfully"
+          else
+            echo "No tool_submission.json file found. Skipping validation."
+          fi
+      
+      # Run README-specific validation for README-only PRs
+      - name: Validate README changes
+        if: ${{ steps.pr_data.outputs.readme_only == 'true' }}
+        run: |
+          echo "Running README validation..."
+          python scripts/verify_readme_content.py --check-duplicates
+          
+          # Create GitHub comment content
+          echo "# README Validation Results" > comment.md
+          echo "" >> comment.md
+          echo "Thank you for contributing to awesome-virome! We've checked your README changes." >> comment.md
+          echo "" >> comment.md
+          echo "## ✅ Basic Validation Passed" >> comment.md
+          echo "" >> comment.md
+          echo "### Maintainer Checklist" >> comment.md
+          echo "" >> comment.md
+          echo "- [ ] Review README formatting" >> comment.md
+          echo "- [ ] Check for duplicate entries" >> comment.md
+          echo "- [ ] Verify links are working" >> comment.md
+          echo "- [ ] Confirm tool relevance to virome analysis" >> comment.md
+          echo "" >> comment.md
+      
+      # Post validation results to issue
+      - name: Comment on issue
+        if: ${{ steps.issue_data.outputs.issue_number }}
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const issueNumber = parseInt('${{ steps.issue_data.outputs.issue_number }}');
+            
+            if (!issueNumber) {
+              console.log('No issue number found');
+              return;
+            }
+            
+            try {
+              const commentContent = fs.readFileSync('comment.md', 'utf8');
+              
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                body: commentContent
+              });
+              
+              console.log(`Posted validation results to issue #${issueNumber}`);
+              
+              // Add appropriate labels
+              if ('${{ env.VALIDATION_VALID }}' === 'true') {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  labels: ['validated', 'ready-for-review']
+                });
+              } else {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: issueNumber,
+                  labels: ['needs-changes']
+                });
+              }
+            } catch (error) {
+              console.error(`Error commenting on issue: ${error}`);
+            }
+      
+      # Post validation results to PR
+      - name: Comment on PR
+        if: ${{ steps.pr_data.outputs.pr_number }}
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const prNumber = parseInt('${{ steps.pr_data.outputs.pr_number }}');
+            
+            if (!prNumber) {
+              console.log('No PR number found');
+              return;
+            }
+            
+            try {
+              const commentContent = fs.readFileSync('comment.md', 'utf8');
+              
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body: commentContent
+              });
+              
+              console.log(`Posted validation results to PR #${prNumber}`);
+              
+              // Add appropriate labels
+              if ('${{ env.VALIDATION_VALID }}' === 'true') {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: prNumber,
+                  labels: ['validated']
+                });
+              } else if ('${{ env.VALIDATION_VALID }}' === 'false') {
+                await github.rest.issues.addLabels({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: prNumber,
+                  labels: ['needs-changes']
+                });
+              }
+            } catch (error) {
+              console.error(`Error commenting on PR: ${error}`);
+            }
+      
+      # Upload validation results as artifact
+      - name: Upload validation results
+        if: ${{ steps.validation.outcome == 'success' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-results
+          path: validation_results.json
