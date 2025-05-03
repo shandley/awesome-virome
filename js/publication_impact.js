@@ -192,13 +192,29 @@ class PublicationImpactVisualization {
         console.log(`Publications after filtering: ${filteredPublications.length}`);
         
         // Check if we have relationship data from CrossRef
-        const hasRelationships = this.data.relationships && 
-                                this.data.relationships.tool_citations && 
-                                Object.keys(this.data.relationships.tool_citations).length > 0;
-        
-        if (hasRelationships) {
-            console.log("Using real tool citation relationships from CrossRef data");
-            return this.prepareRelationshipNetworkData();
+        try {
+            console.log("Checking for relationship data");
+            const hasRelationships = this.data.relationships && 
+                                   this.data.relationships.tool_citations && 
+                                   Object.keys(this.data.relationships.tool_citations).length > 0;
+            
+            console.log(`Has relationships: ${hasRelationships}`);
+            console.log("Relationships data:", this.data.relationships);
+            
+            if (hasRelationships) {
+                console.log("Using real tool citation relationships from CrossRef data");
+                const networkData = this.prepareRelationshipNetworkData();
+                
+                // Make sure we have something to show
+                if (networkData.nodes.length === 0 || networkData.edges.length === 0) {
+                    console.warn("Relationship network data was empty, falling back to DOI-based visualization");
+                } else {
+                    return networkData;
+                }
+            }
+        } catch (error) {
+            console.error("Error processing relationship data:", error);
+            // Continue with fallback approach
         }
         
         // Debug - if we have no publications, return dummy data
@@ -363,61 +379,99 @@ class PublicationImpactVisualization {
         const edges = [];
         const toolIds = new Set();
         
-        // Get citation relationships from the data
-        const toolCitations = this.data.relationships.tool_citations;
+        console.log("Starting to prepare relationship network data");
+        console.log("Data structure:", JSON.stringify(this.data ? Object.keys(this.data) : "null"));
         
-        // Check if we have valid data
-        if (!toolCitations || Object.keys(toolCitations).length === 0) {
-            console.error("No tool citation relationships found");
+        // Add a timeout to ensure we don't get stuck on loading
+        setTimeout(() => {
+            if (document.querySelector('.network-loading')) {
+                console.error('Timeout reached while preparing network data, removing loading indicator');
+                document.querySelector('.network-loading')?.remove();
+                this.showEmptyGraph('Error loading publication network data. Check console for details.');
+            }
+        }, 5000);
+        
+        let toolCitations;
+        try {
+            // Get citation relationships from the data
+            toolCitations = this.data.relationships?.tool_citations;
+            
+            // Check if we have valid data
+            if (!toolCitations || Object.keys(toolCitations).length === 0) {
+                console.error("No tool citation relationships found");
+                return { nodes: [], edges: [] };
+            }
+            
+            console.log("Tool citation data:", JSON.stringify(toolCitations).slice(0, 500) + "...");
+        } catch (error) {
+            console.error("Error accessing relationship data:", error);
             return { nodes: [], edges: [] };
         }
         
         console.log(`Processing ${Object.keys(toolCitations).length} tools with citation relationships`);
         
         // Process each tool that cites others
-        Object.entries(toolCitations).forEach(([toolName, citedTools]) => {
-            if (!citedTools || citedTools.length === 0) return;
+        try {
+            Object.entries(toolCitations).forEach(([toolName, citedToolsData]) => {
+                console.log(`Entry for ${toolName}:`, citedToolsData);
+                
+                // Handle both formats: array of tools or object with cites/cited_by arrays
+                let citedTools = Array.isArray(citedToolsData) ? citedToolsData : 
+                               (citedToolsData.cites || citedToolsData.cited_by || []);
+                
+                console.log(`Processing tool ${toolName} with cited tools:`, citedTools);
+                
+                if (!citedTools || citedTools.length === 0) return;
             
-            // Create node for the citing tool if it doesn't exist
-            if (!toolIds.has(toolName)) {
-                const toolId = `tool:${toolName}`;
-                nodes.push({
-                    id: toolId,
-                    label: toolName,
-                    title: `${toolName} - cites ${citedTools.length} other tools`,
-                    group: 'tool',
-                    value: 10 + (citedTools.length * 2), // Make more central tools larger
-                    citations: citedTools.length
-                });
-                toolIds.add(toolName);
-            }
-            
-            // Process each cited tool
-            citedTools.forEach(citedToolName => {
-                // Create node for the cited tool if it doesn't exist
-                if (!toolIds.has(citedToolName)) {
-                    const citedId = `tool:${citedToolName}`;
+                // Create node for the citing tool if it doesn't exist
+                if (!toolIds.has(toolName)) {
+                    const toolId = `tool:${toolName}`;
                     nodes.push({
-                        id: citedId,
-                        label: citedToolName,
-                        title: `${citedToolName} - cited by other tools`,
+                        id: toolId,
+                        label: toolName,
+                        title: `${toolName} - cites ${citedTools.length} other tools`,
                         group: 'tool',
-                        value: 8, // Make cited tools slightly smaller by default
-                        citations: 0
+                        value: 10 + (citedTools.length * 2), // Make more central tools larger
+                        citations: citedTools.length
                     });
-                    toolIds.add(citedToolName);
+                    toolIds.add(toolName);
                 }
                 
-                // Create edge between the tools
-                edges.push({
-                    from: `tool:${toolName}`,
-                    to: `tool:${citedToolName}`,
-                    title: `${toolName} cites ${citedToolName}`,
-                    width: 2,
-                    arrows: 'to'
+                // Process each cited tool
+                citedTools.forEach(citedToolName => {
+                    // Create node for the cited tool if it doesn't exist
+                    if (!toolIds.has(citedToolName)) {
+                        const citedId = `tool:${citedToolName}`;
+                        nodes.push({
+                            id: citedId,
+                            label: citedToolName,
+                            title: `${citedToolName} - cited by other tools`,
+                            group: 'tool',
+                            value: 8, // Make cited tools slightly smaller by default
+                            citations: 0
+                        });
+                        toolIds.add(citedToolName);
+                    }
+                    
+                    // Create edge between the tools
+                    edges.push({
+                        from: `tool:${toolName}`,
+                        to: `tool:${citedToolName}`,
+                        title: `${toolName} cites ${citedToolName}`,
+                        width: 2,
+                        arrows: 'to'
+                    });
                 });
             });
-        });
+        } catch (error) {
+            console.error("Error processing tool citations:", error);
+        }
+        
+        // Check if we have any nodes and edges
+        if (nodes.length === 0 || edges.length === 0) {
+            console.warn("No nodes or edges were created. Returning empty data.");
+            return { nodes: [], edges: [] };
+        }
         
         // Create a virtual publication node to show the concept
         const citationCount = edges.length;
