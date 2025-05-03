@@ -323,6 +323,9 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="comparison.html">Tool Comparison</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/shandley/awesome-virome#readme">README</a>
+                    </li>
                 </ul>
                 <div class="d-flex align-items-center">
                     <div class="theme-toggle me-3" id="theme-toggle">
@@ -605,210 +608,191 @@
             // Initialize DataTable
             let comparisonTable;
             
-            // Sample tool data (this would be loaded from your data.json or impact_data.json)
-            // In production, this would be replaced with real data from your API
-            const sampleToolData = [
-                {
-                    name: "AlphaFold-Multimer",
-                    category: "Structural Analysis",
-                    stars: 13320,
-                    citations: 850,
-                    lastUpdated: "2025-03-15",
-                    maintenanceStatus: "active",
-                    language: "Python",
-                    packageManager: "pip, conda",
-                    keyFeatures: ["Protein structure prediction", "Protein complexes", "Deep learning"],
-                    url: "https://github.com/deepmind/alphafold",
-                    description: "Advanced protein structure prediction system that can model protein complexes and interactions."
-                },
-                {
-                    name: "VirSorter2",
-                    category: "Virus Identification",
-                    stars: 320,
-                    citations: 420,
-                    lastUpdated: "2025-02-10",
-                    maintenanceStatus: "active",
-                    language: "Python",
-                    packageManager: "conda",
-                    keyFeatures: ["Random forest classifier", "Prophage detection", "Metagenomic analysis"],
-                    url: "https://github.com/jiarong/VirSorter2",
-                    description: "Random forest classifier for virus detection from metagenomic data, including prophage sequences."
-                },
-                {
-                    name: "Pharokka",
-                    category: "Genome Annotation",
-                    stars: 158,
-                    citations: 110,
-                    lastUpdated: "2025-03-01",
-                    maintenanceStatus: "active",
-                    language: "Python",
-                    packageManager: "conda",
-                    keyFeatures: ["Phage annotation", "Gene function prediction", "Rapid analysis"],
-                    url: "https://github.com/gbouras13/pharokka",
-                    description: "Rapid phage annotation tool that predicts gene functions and annotates viral genomes."
-                },
-                {
-                    name: "CheckV",
-                    category: "Genome Completeness",
-                    stars: 98,
-                    citations: 220,
-                    lastUpdated: "2022-01-15",
-                    maintenanceStatus: "maintained",
-                    language: "Python",
-                    packageManager: "conda, pip",
-                    keyFeatures: ["Quality assessment", "Viral genomes", "Contamination detection"],
-                    url: "https://bitbucket.org/berkeleylab/checkv/",
-                    description: "Quality assessment tool for viral genomes that identifies contamination and assesses completeness."
-                },
-                {
-                    name: "vConTACT2.0",
-                    category: "Taxonomy",
-                    stars: 27,
-                    citations: 180,
-                    lastUpdated: "2022-11-20",
-                    maintenanceStatus: "maintained",
-                    language: "Python",
-                    packageManager: "conda",
-                    keyFeatures: ["Gene sharing networks", "Viral taxonomy", "Protein clustering"],
-                    url: "https://bitbucket.org/MAVERICLab/vcontact2/",
-                    description: "Viral taxonomy tool based on gene sharing networks and protein clustering."
-                },
-                {
-                    name: "iPHoP",
-                    category: "Host Prediction",
-                    stars: 64,
-                    citations: 75,
-                    lastUpdated: "2023-05-10",
-                    maintenanceStatus: "active",
-                    language: "Python",
-                    packageManager: "conda",
-                    keyFeatures: ["Phage-host prediction", "Multiple methods", "Confidence scores"],
-                    url: "https://bitbucket.org/srouxjgi/iphop/",
-                    description: "Integrated approach for phage host prediction using multiple sequence-based methods."
-                },
-                {
-                    name: "VIBRANT",
-                    category: "Virus Identification",
-                    stars: 159,
-                    citations: 190,
-                    lastUpdated: "2025-02-05",
-                    maintenanceStatus: "active",
-                    language: "Python",
-                    packageManager: "source",
-                    keyFeatures: ["Boundary detection", "Viral annotation", "Prophage identification"],
-                    url: "https://github.com/AnantharamanLab/VIBRANT",
-                    description: "Virus identification by combining boundary detection with annotation to identify viral sequences."
-                },
-                {
-                    name: "Serratus",
-                    category: "Virus Identification",
-                    stars: 107,
-                    citations: 85,
-                    lastUpdated: "2025-01-15",
-                    maintenanceStatus: "active",
-                    language: "Multiple",
-                    packageManager: "cloud",
-                    keyFeatures: ["Public data mining", "Viral discovery", "Cloud platform"],
-                    url: "https://serratus.io/",
-                    description: "Cloud platform for virus discovery from public sequencing data repositories."
-                },
-                {
-                    name: "geNomad",
-                    category: "Virus Identification",
-                    stars: 219,
-                    citations: 130,
-                    lastUpdated: "2025-03-05",
-                    maintenanceStatus: "active",
-                    language: "Python",
-                    packageManager: "conda",
-                    keyFeatures: ["Virus identification", "Plasmid identification", "Machine learning"],
-                    url: "https://github.com/apcamargo/genomad",
-                    description: "Tool for identifying viral sequences and proviruses in genomic data."
-                },
-                {
-                    name: "DeepVirFinder",
-                    category: "Virus Identification",
-                    stars: 75,
-                    citations: 170,
-                    lastUpdated: "2025-03-01",
-                    maintenanceStatus: "active",
-                    language: "Python",
-                    packageManager: "source",
-                    keyFeatures: ["Deep learning", "Convolutional neural networks", "Short sequence detection"],
-                    url: "https://github.com/jessieren/DeepVirFinder",
-                    description: "Deep learning-based method for identifying viral sequences in metagenomic data."
-                },
-                {
-                    name: "CHERRY",
-                    category: "Host Prediction",
-                    stars: 24,
-                    citations: 65,
-                    lastUpdated: "2025-03-10",
-                    maintenanceStatus: "active",
-                    language: "Python",
-                    packageManager: "source",
-                    keyFeatures: ["Deep learning", "Phage host prediction", "Sequence-based"],
-                    url: "https://github.com/KennthShang/CHERRY",
-                    description: "Deep learning approach for predicting phage hosts based on sequence features."
-                },
-                {
-                    name: "VirHostMatcher-Net",
-                    category: "Host Prediction",
-                    stars: 21,
-                    citations: 80,
-                    lastUpdated: "2024-09-15",
-                    maintenanceStatus: "active",
-                    language: "Python",
-                    packageManager: "source",
-                    keyFeatures: ["Network-based prediction", "Oligonucleotide frequencies", "Genome alignment"],
-                    url: "https://github.com/WeiliWw/VirHostMatcher-Net",
-                    description: "Network-based virus-host prediction using oligonucleotide frequencies and other features."
-                }
-            ];
-            
-            // In a real implementation, you would load this data from your API
+            // Load data from the repository's data.json and impact_data.json files
             loadData();
             
             // Load and display data
             function loadData() {
                 console.log('Loading tool comparison data...');
                 
-                // In a real implementation, you would fetch data from your API
-                // For this demo, we'll use the sample data above
-                processData(sampleToolData);
-                
-                // Optional: Try to load real data from your data.json
-                /* 
                 try {
                     const baseUrl = window.location.href.split('/').slice(0, -1).join('/') + '/';
                     const dataUrl = new URL('data.json', baseUrl).href;
-                    console.log('Fetching data from:', dataUrl);
+                    const impactDataUrl = new URL('impact_data.json', baseUrl).href;
                     
-                    fetch(`${dataUrl}?t=${Date.now()}`)
-                        .then(response => {
-                            if (!response.ok) {
-                                throw new Error(`Failed to load data (Status: ${response.status})`);
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            console.log('Tool data loaded successfully');
-                            
-                            // Process tools from the data
-                            const tools = data.nodes.filter(node => node.type === 'tool');
-                            processData(tools);
-                        })
-                        .catch(error => {
-                            console.error('Error loading data:', error);
-                            // Fall back to sample data
-                            processData(sampleToolData);
+                    console.log('Fetching tool data from:', dataUrl);
+                    console.log('Fetching impact data from:', impactDataUrl);
+                    
+                    // Use Promise.all to fetch both data files in parallel
+                    Promise.all([
+                        fetch(`${dataUrl}?t=${Date.now()}`),
+                        fetch(`${impactDataUrl}?t=${Date.now()}`)
+                    ])
+                    .then(responses => {
+                        // Check if both responses are OK
+                        if (!responses[0].ok) {
+                            throw new Error(`Failed to load data.json (Status: ${responses[0].status})`);
+                        }
+                        if (!responses[1].ok) {
+                            throw new Error(`Failed to load impact_data.json (Status: ${responses[1].status})`);
+                        }
+                        
+                        // Parse both responses as JSON
+                        return Promise.all([
+                            responses[0].json(),
+                            responses[1].json()
+                        ]);
+                    })
+                    .then(([toolData, impactData]) => {
+                        console.log('Tool data and impact data loaded successfully');
+                        
+                        // Process and merge data
+                        const tools = toolData.nodes.filter(node => node.type === 'tool');
+                        const impactTools = impactData.tools;
+                        
+                        console.log(`Found ${tools.length} tools in data.json`);
+                        console.log(`Found ${impactTools.length} tools in impact_data.json`);
+                        
+                        // Create impact data lookup map for faster access
+                        const impactMap = {};
+                        impactTools.forEach(tool => {
+                            impactMap[tool.name] = tool;
                         });
+                        
+                        // Merge data from both sources
+                        const mergedTools = tools.map(tool => {
+                            // Format topic/features from description or topics
+                            let keyFeatures = [];
+                            
+                            // Extract features from description (format: "[feature1] [feature2]")
+                            const descriptionMatch = tool.description && tool.description.match(/\[(.*?)\]/g);
+                            if (descriptionMatch) {
+                                keyFeatures = descriptionMatch.map(m => m.replace(/[\[\]]/g, '').trim())
+                                    .filter(f => f && f.length > 1 && !f.match(/^v\d/)); // Filter out version numbers
+                            }
+                            
+                            // Add topics if available and not already included
+                            if (tool.topics && Array.isArray(tool.topics)) {
+                                tool.topics.forEach(topic => {
+                                    if (topic && !keyFeatures.includes(topic)) {
+                                        keyFeatures.push(topic);
+                                    }
+                                });
+                            }
+                            
+                            // If we still don't have features, extract words from description
+                            if (keyFeatures.length === 0 && tool.description) {
+                                const words = tool.description.split(/[,\.\s]+/);
+                                const uniqueWords = [...new Set(words.filter(w => w.length > 5))];
+                                keyFeatures = uniqueWords.slice(0, 3);
+                            }
+                            
+                            // Limit to 5 features max
+                            keyFeatures = keyFeatures.slice(0, 5);
+                            
+                            // Calculate total citations if available in impact data
+                            let totalCitations = 0;
+                            let influentialCitations = 0;
+                            const impactTool = impactMap[tool.name];
+                            
+                            if (impactTool) {
+                                if (impactTool.citations_by_year) {
+                                    totalCitations = Object.values(impactTool.citations_by_year)
+                                        .reduce((sum, count) => sum + (Number(count) || 0), 0);
+                                }
+                                influentialCitations = impactTool.influential_citations || 0;
+                            }
+                            
+                            // Determine maintenance status based on lastUpdated date
+                            let maintenanceStatus = 'inactive';
+                            if (tool.lastUpdated) {
+                                const updateDate = new Date(tool.lastUpdated);
+                                const now = new Date();
+                                const monthsDiff = (now.getFullYear() - updateDate.getFullYear()) * 12 + 
+                                    now.getMonth() - updateDate.getMonth();
+                                
+                                if (monthsDiff < 6) {
+                                    maintenanceStatus = 'active';
+                                } else if (monthsDiff < 12) {
+                                    maintenanceStatus = 'maintained';
+                                }
+                            }
+                            
+                            // Extract package manager from description or use default
+                            let packageManager = 'source';
+                            if (tool.description) {
+                                if (tool.description.includes('[conda]')) packageManager = 'conda';
+                                else if (tool.description.includes('[pip]')) packageManager = 'pip';
+                                else if (tool.description.includes('[bioconda]')) packageManager = 'conda';
+                                
+                                // Handle multiple package managers
+                                if (tool.description.includes('[conda, pip]') || 
+                                    tool.description.includes('[pip, conda]')) {
+                                    packageManager = 'conda, pip';
+                                }
+                            }
+                            
+                            // Extract main language
+                            let mainLanguage = 'Unknown';
+                            if (tool.language) {
+                                mainLanguage = tool.language;
+                            } else if (tool.languages && Object.keys(tool.languages).length > 0) {
+                                // Sort languages by usage and use the top one
+                                const sortedLangs = Object.entries(tool.languages)
+                                    .sort((a, b) => b[1] - a[1]);
+                                mainLanguage = sortedLangs[0][0];
+                            }
+                            
+                            return {
+                                name: tool.name,
+                                category: tool.category || 'Uncategorized',
+                                stars: tool.stars || 0,
+                                citations: totalCitations,
+                                influentialCitations: influentialCitations,
+                                lastUpdated: tool.lastUpdated || null,
+                                maintenanceStatus: maintenanceStatus,
+                                language: mainLanguage,
+                                packageManager: tool.package_manager || packageManager,
+                                keyFeatures: keyFeatures,
+                                url: tool.url || '#',
+                                description: tool.description || 'No description available.'
+                            };
+                        });
+                        
+                        // Sort by stars (descending) by default
+                        mergedTools.sort((a, b) => b.stars - a.stars);
+                        
+                        processData(mergedTools);
+                    })
+                    .catch(error => {
+                        console.error('Error loading data:', error);
+                        // Display error in table
+                        document.getElementById('comparisonTableBody').innerHTML = `
+                            <tr>
+                                <td colspan="10" class="text-center">
+                                    <div class="alert alert-danger my-3">
+                                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                        Error loading data: ${error.message}
+                                    </div>
+                                    <p>Please refresh the page to try again.</p>
+                                </td>
+                            </tr>
+                        `;
+                    });
                 } catch (error) {
                     console.error('Error in data fetch setup:', error);
-                    // Fall back to sample data
-                    processData(sampleToolData);
+                    document.getElementById('comparisonTableBody').innerHTML = `
+                        <tr>
+                            <td colspan="10" class="text-center">
+                                <div class="alert alert-danger my-3">
+                                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                    Error setting up data fetch: ${error.message}
+                                </div>
+                                <p>Please refresh the page to try again.</p>
+                            </td>
+                        </tr>
+                    `;
                 }
-                */
             }
             
             function processData(toolsData) {
