@@ -13,6 +13,11 @@ class TreemapVisualization {
 
     // Initialize treemap with data
     initialize(data) {
+        console.log('TreemapVisualization.initialize called with data:', data);
+        if (!data) {
+            console.error('Treemap initialization failed: No data provided');
+            return;
+        }
         this.data = data;
         this.buildTreemap();
     }
@@ -221,11 +226,17 @@ class TreemapVisualization {
 
     // Build the treemap visualization
     buildTreemap() {
+        console.log('Building treemap visualization...');
+        
         // Process data for treemap
         const treeData = this.processData();
         if (!treeData) {
+            console.error('Failed to process data for treemap');
+            this.showError('Failed to process data for treemap visualization');
             return;
         }
+        
+        console.log('Treemap data processed successfully:', treeData);
         
         // Create container if it doesn't exist
         let container = document.getElementById(this.containerId);
@@ -233,6 +244,8 @@ class TreemapVisualization {
             console.error(`Treemap container #${this.containerId} not found`);
             return;
         }
+        
+        console.log('Found treemap container:', container);
         
         // Clear previous chart if it exists
         if (this.chartInstance) {
@@ -242,15 +255,27 @@ class TreemapVisualization {
         // Create canvas if it doesn't exist
         let canvas = document.getElementById(this.canvasId);
         if (!canvas) {
+            console.log('Canvas element not found, creating a new one...');
             // Clear container and create canvas
             container.innerHTML = '';
             canvas = document.createElement('canvas');
             canvas.id = this.canvasId;
+            canvas.style.width = '100%';
+            canvas.style.height = '100%';
             container.appendChild(canvas);
+            console.log('Created new canvas element:', canvas);
+        } else {
+            console.log('Found existing canvas element:', canvas);
         }
         
         // Get the chart context
         const ctx = canvas.getContext('2d');
+        if (!ctx) {
+            console.error('Failed to get 2D context from canvas');
+            this.showError('Failed to initialize canvas for chart rendering');
+            return;
+        }
+        console.log('Canvas 2D context obtained successfully');
         
         // Check if Chart.js is available
         if (typeof Chart === 'undefined') {
@@ -266,8 +291,18 @@ class TreemapVisualization {
         // Generate colors for categories
         const categoryColors = this.generateCategoryColors(treeData.children);
         
+        // Check if treemap plugin is loaded
+        if (!Chart.registry.controllers.get('treemap')) {
+            console.error('Chart.js treemap plugin is not registered');
+            this.showError('Chart.js treemap plugin is not available. Please ensure the treemap plugin is properly loaded.');
+            return;
+        }
+        
+        console.log('Chart.js and treemap plugin are ready for chart creation');
+        
         // Create Treemap using Chart.js
         try {
+            console.log('Creating treemap chart instance...');
             this.chartInstance = new Chart(ctx, {
                 type: 'treemap',
                 data: {
@@ -412,11 +447,25 @@ class TreemapVisualization {
             });
         } catch (error) {
             console.error('Error creating treemap chart:', error);
+            console.log('Error details:', {
+                errorType: error.name,
+                message: error.message,
+                stack: error.stack,
+                chartContext: ctx ? 'valid' : 'invalid',
+                containerStatus: container ? 'found' : 'missing',
+                chartJsStatus: typeof Chart !== 'undefined' ? 'loaded' : 'missing',
+                treemapPluginStatus: (typeof Chart !== 'undefined' && Chart.registry && Chart.registry.controllers) 
+                    ? (Chart.registry.controllers.get('treemap') ? 'loaded' : 'missing') 
+                    : 'unknown'
+            });
+            
             container.innerHTML = `
                 <div class="alert alert-danger">
-                    Error creating treemap visualization: ${error.message}
+                    <strong>Error creating treemap visualization:</strong> ${error.message}
                     <br>
                     <small>Make sure Chart.js and the Treemap plugin are properly loaded.</small>
+                    <br>
+                    <small>Check browser console for detailed error information.</small>
                 </div>
             `;
         }
@@ -495,28 +544,67 @@ class TreemapVisualization {
         const newHex = ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
         return `#${newHex}`;
     }
+    
+    // Helper method to show error messages in treemap container
+    showError(message) {
+        const container = document.getElementById(this.containerId);
+        if (container) {
+            container.innerHTML = `
+                <div class="alert alert-danger">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    ${message}
+                </div>
+            `;
+        }
+    }
 }
 
 // Load treemap plugin for Chart.js if needed
 function loadTreemapPlugin() {
     return new Promise((resolve, reject) => {
+        console.log('Checking if Chart.js treemap plugin needs to be loaded...');
+        
         if (typeof Chart === 'undefined') {
             console.error('Chart.js is not loaded. Please load Chart.js before the treemap plugin.');
             reject(new Error('Chart.js is not loaded'));
             return;
         }
         
+        // Check if Chart registry exists
+        if (!Chart.registry || !Chart.registry.controllers) {
+            console.error('Chart.js registry not found. Your Chart.js version might be incompatible.');
+            reject(new Error('Chart.js registry not found'));
+            return;
+        }
+        
         // Check if treemap plugin is already registered
         if (Chart.registry.controllers.get('treemap')) {
+            console.log('Treemap plugin is already registered with Chart.js');
             resolve();
             return;
         }
         
+        console.log('Treemap plugin not found, attempting to load it dynamically...');
+        
         // Create a script element to load the treemap plugin
         const script = document.createElement('script');
         script.src = 'https://cdn.jsdelivr.net/npm/chartjs-chart-treemap@2.3.0/dist/chartjs-chart-treemap.min.js';
-        script.onload = resolve;
-        script.onerror = () => reject(new Error('Failed to load treemap plugin'));
+        script.onload = () => {
+            console.log('Treemap plugin loaded successfully');
+            
+            // Verify it's been registered correctly
+            if (Chart.registry.controllers.get('treemap')) {
+                console.log('Treemap plugin registered with Chart.js successfully');
+                resolve();
+            } else {
+                console.error('Treemap plugin loaded but not registered with Chart.js');
+                reject(new Error('Treemap plugin loaded but not registered'));
+            }
+        };
+        script.onerror = (err) => {
+            console.error('Failed to load treemap plugin:', err);
+            reject(new Error('Failed to load treemap plugin'));
+        };
         document.head.appendChild(script);
     });
 }
