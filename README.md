@@ -9,7 +9,7 @@ A curated list of software, tools, and databases useful for virome analysis, inc
 
 ## Interactive Dashboard
 
-Explore our [Interactive Dashboard](dashboard_fixed3.html) to visualize tool relationships, citation trends, and adoption patterns in the virome analysis ecosystem.
+Explore our [Interactive Dashboard](https://shandley.github.io/awesome-virome/dashboard_fixed3.html) to visualize tool relationships, citation trends, and adoption patterns in the virome analysis ecosystem.
 
 ![Dashboard Preview](https://via.placeholder.com/800x400?text=Dashboard+Preview)
 
@@ -21,7 +21,7 @@ The dashboard offers powerful visualizations to understand the virome analysis t
 - **Tool Timeline**: Visualize the evolution of the virome analysis tool ecosystem
 - **Programming Languages**: Analyze technology trends across the tool collection
 
-[Launch Dashboard](dashboard_fixed3.html) | [View Citation Analytics](citations_fixed.html)
+[Launch Dashboard](https://shandley.github.io/awesome-virome/dashboard_fixed3.html) | [View Citation Analytics](https://shandley.github.io/awesome-virome/citations_fixed.html)
 
 ## Contents
 
