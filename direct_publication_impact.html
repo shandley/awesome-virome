@@ -87,6 +87,9 @@
                     <div class="card-body">
                         <h2>Tool Citation Relationships</h2>
                         <p>This visualization shows direct citation relationships between viral analysis tools based on CrossRef citation data. Arrows indicate when one tool cites another in its publication.</p>
+                        <div class="alert alert-info">
+                            <strong>Note:</strong> This is a work in progress. Currently showing only verified direct citations between tools found in CrossRef metadata. More citation relationships will be added as additional data sources and citation detection methods are implemented.
+                        </div>
                     </div>
                 </div>
 
@@ -137,6 +140,16 @@
                     <div class="card-body">
                         <p>This network visualization displays tools that directly cite other tools in their primary publications.</p>
                         <p>Data was collected by analyzing DOI references through the CrossRef API to detect when one viral analysis tool specifically cites another in its published work.</p>
+                        
+                        <p><strong>Why so few connections?</strong></p>
+                        <p>Direct tool-to-tool citations are relatively rare in academic literature. Most papers cite research articles rather than other tools directly. The connections shown here represent verified, direct citations where one tool's publication explicitly references another tool's DOI.</p>
+                        <p>Future updates will expand this network by incorporating:</p>
+                        <ul>
+                            <li>Additional citation databases beyond CrossRef</li>
+                            <li>Text mining to detect tool mentions in papers</li>
+                            <li>Co-citation analysis (tools frequently cited together)</li>
+                        </ul>
+                        
                         <p><strong>Interactions:</strong></p>
                         <ul>
                             <li>Hover over nodes to see tool names</li>
