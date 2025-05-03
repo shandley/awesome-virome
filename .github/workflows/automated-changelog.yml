@@ -32,6 +32,9 @@ jobs:
         run: |
           # Get current date
           CURRENT_DATE=$(date +%Y-%m-%d)
+          CURRENT_MONTH=$(date +%B)
+          CURRENT_YEAR=$(date +%Y)
+          CURRENT_DAY=$(date +%d)
           echo "current_date=$CURRENT_DATE" >> $GITHUB_OUTPUT
           
           # Handle period input for manual runs, default to monthly for scheduled runs
@@ -43,14 +46,24 @@ jobs:
           
           # Calculate date range based on period
           if [ "$PERIOD" = "weekly" ]; then
-            SINCE_DATE=$(date -d "$CURRENT_DATE -7 days" +%Y-%m-%d)
+            # For weekly, use git to get commits from 7 days ago
+            DAYS_AGO=7
+            SINCE_DATE=$(date -v-${DAYS_AGO}d +%Y-%m-%d 2>/dev/null || date -d "$CURRENT_DATE -$DAYS_AGO days" +%Y-%m-%d 2>/dev/null || date --date="$DAYS_AGO days ago" +%Y-%m-%d)
+            SINCE_MONTH=$(date -v-${DAYS_AGO}d +%B 2>/dev/null || date -d "$SINCE_DATE" +%B 2>/dev/null || date --date="$DAYS_AGO days ago" +%B)
+            SINCE_DAY=$(date -v-${DAYS_AGO}d +%d 2>/dev/null || date -d "$SINCE_DATE" +%d 2>/dev/null || date --date="$DAYS_AGO days ago" +%d)
+            SINCE_YEAR=$(date -v-${DAYS_AGO}d +%Y 2>/dev/null || date -d "$SINCE_DATE" +%Y 2>/dev/null || date --date="$DAYS_AGO days ago" +%Y)
+            
             TAG_NAME="weekly-changelog-$CURRENT_DATE"
-            RELEASE_NAME="Weekly Changelog: $(date -d "$SINCE_DATE" +%B %d, %Y) - $(date -d "$CURRENT_DATE" +%B %d, %Y)"
+            RELEASE_NAME="Weekly Changelog: $SINCE_MONTH $SINCE_DAY, $SINCE_YEAR - $CURRENT_MONTH $CURRENT_DAY, $CURRENT_YEAR"
           else
-            # Monthly
-            SINCE_DATE=$(date -d "$CURRENT_DATE -1 month" +%Y-%m-%d)
+            # For monthly, use git to get commits from the last month
+            MONTHS_AGO=1
+            SINCE_DATE=$(date -v-${MONTHS_AGO}m +%Y-%m-%d 2>/dev/null || date -d "$CURRENT_DATE -$MONTHS_AGO month" +%Y-%m-%d 2>/dev/null || date --date="$MONTHS_AGO month ago" +%Y-%m-%d)
+            SINCE_MONTH=$(date -v-${MONTHS_AGO}m +%B 2>/dev/null || date -d "$SINCE_DATE" +%B 2>/dev/null || date --date="$MONTHS_AGO month ago" +%B)
+            SINCE_YEAR=$(date -v-${MONTHS_AGO}m +%Y 2>/dev/null || date -d "$SINCE_DATE" +%Y 2>/dev/null || date --date="$MONTHS_AGO month ago" +%Y)
+            
             TAG_NAME="monthly-changelog-$CURRENT_DATE"
-            RELEASE_NAME="Monthly Changelog: $(date -d "$SINCE_DATE" +%B %Y) - $(date -d "$CURRENT_DATE" +%B %Y)"
+            RELEASE_NAME="Monthly Changelog: $SINCE_MONTH $SINCE_YEAR - $CURRENT_MONTH $CURRENT_YEAR"
           fi
           
           echo "since_date=$SINCE_DATE" >> $GITHUB_OUTPUT
