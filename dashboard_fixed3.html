@@ -869,14 +869,18 @@
                 // Create language badges
                 let languageBadges = '';
                 if (tool.languages && Object.keys(tool.languages).length > 0) {
-                    languageBadges = Object.keys(tool.languages)
+                    // Sort languages by byte count
+                    const sortedLanguages = Object.entries(tool.languages)
+                        .sort((a, b) => b[1] - a[1]);
+                    
+                    languageBadges = sortedLanguages
                         .slice(0, 3) // Limit to 3 languages
-                        .map(lang => `<span class="badge bg-info">${lang}</span>`)
+                        .map(([lang]) => `<span class="badge bg-info">${lang}</span>`)
                         .join(' ');
                     
                     // Add a "+X more" badge if there are more than 3 languages
-                    if (Object.keys(tool.languages).length > 3) {
-                        const more = Object.keys(tool.languages).length - 3;
+                    if (sortedLanguages.length > 3) {
+                        const more = sortedLanguages.length - 3;
                         languageBadges += ` <span class="badge bg-secondary">+${more} more</span>`;
                     }
                 }
@@ -916,7 +920,7 @@
             function getMainLanguage(languages) {
                 if (!languages || Object.keys(languages).length === 0) return 'N/A';
                 
-                // Return the language with the highest percentage
+                // Return the language with the highest byte count
                 const sortedLangs = Object.entries(languages)
                     .sort((a, b) => b[1] - a[1]);
                 
@@ -1654,16 +1658,23 @@
                     // Create language list
                     let languagesList = '<p>No language information available</p>';
                     if (tool.languages && Object.keys(tool.languages).length > 0) {
+                        // Calculate total bytes for percentage calculation
+                        const totalBytes = Object.values(tool.languages).reduce((sum, bytes) => sum + bytes, 0);
+                        
                         languagesList = `
                             <ul class="list-group">
                                 ${Object.entries(tool.languages)
                                     .sort((a, b) => b[1] - a[1])
-                                    .map(([lang, pct]) => `
+                                    .map(([lang, bytes]) => {
+                                        // Calculate percentage from byte count
+                                        const percentage = totalBytes > 0 ? (bytes / totalBytes) * 100 : 0;
+                                        return `
                                         <li class="list-group-item d-flex justify-content-between align-items-center">
                                             ${lang}
-                                            <span class="badge bg-primary rounded-pill">${Math.round(pct * 100) / 100}%</span>
+                                            <span class="badge bg-primary rounded-pill">${percentage.toFixed(1)}%</span>
                                         </li>
-                                    `).join('')}
+                                        `;
+                                    }).join('')}
                             </ul>
                         `;
                     }
