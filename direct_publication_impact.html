@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool Citation Network - Awesome Virome</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/dist/vis-network.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.5;
+            color: #333;
+        }
+        .header {
+            background-color: #2C4B7C;
+            color: white;
+            padding: 1rem 0;
+        }
+        #citationNetwork {
+            width: 100%;
+            height: 700px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .legend {
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+        .back-link {
+            margin-bottom: 1rem;
+        }
+        .network-controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            padding: 5px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <img src="awesome-virome-hex.png" alt="Awesome Virome" height="50" class="me-3">
+                <div>
+                    <h1 class="h3 mb-0">Tool Citation Network</h1>
+                    <p class="mb-0">Direct citations between viral analysis tools</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mt-4">
+        <div class="back-link">
+            <a href="index.html" class="btn btn-outline-secondary btn-sm">&larr; Back to Tool Collection</a>
+            <a href="dashboard.html" class="btn btn-outline-primary btn-sm">Dashboard</a>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h2>Tool Citation Relationships</h2>
+                        <p>This visualization shows direct citation relationships between viral analysis tools based on CrossRef citation data. Arrows indicate when one tool cites another in its publication.</p>
+                    </div>
+                </div>
+
+                <div class="position-relative mb-4">
+                    <div id="citationNetwork">
+                        <div class="loading">
+                            <div class="spinner-border text-primary mb-3" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p>Loading citation network...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Network Legend
+                    </div>
+                    <div class="card-body">
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #3273dc;"></div>
+                            <div>Tool that cites other tools</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #23d160;"></div>
+                            <div>Tool cited by other tools</div>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background-color: #ff9e64;"></div>
+                            <div>Tool both citing and cited</div>
+                        </div>
+                        <hr>
+                        <div class="legend-item">
+                            <div style="margin-right: 10px; width: 50px; border-top: 2px solid #666; position: relative;">
+                                <div style="position: absolute; right: -6px; top: -4px;">▶</div>
+                            </div>
+                            <div>Citation direction</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        About This Network
+                    </div>
+                    <div class="card-body">
+                        <p>This network visualization displays tools that directly cite other tools in their primary publications.</p>
+                        <p>Data was collected by analyzing DOI references through the CrossRef API to detect when one viral analysis tool specifically cites another in its published work.</p>
+                        <p><strong>Interactions:</strong></p>
+                        <ul>
+                            <li>Hover over nodes to see tool names</li>
+                            <li>Click on nodes to highlight connected tools</li>
+                            <li>Zoom with mouse wheel or buttons</li>
+                            <li>Drag the network to pan</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/vis-network.min.js"></script>
+    <script>
+        // Direct implementation of the citation network visualization
+        document.addEventListener('DOMContentLoaded', async function() {
+            const container = document.getElementById('citationNetwork');
+            
+            try {
+                // Hard-coded relationships based on the data we found
+                const toolCitations = {
+                    "DePP": ["PhANNs"],
+                    "PHISDetector": ["Prophinder", "DBSCAN-SWA", "HostPhinder"],
+                    "PhANNs": ["VIRALpro"],
+                    "PHERI": ["HostPhinder"],
+                    "PHASTER": ["Prophinder"],
+                    "VIRify": ["metaPhage"],
+                    "DBSCAN-SWA": ["PHISDetector"],
+                    "ViQuaS": ["QuRe"]
+                };
+                
+                // Prepare nodes and edges
+                const nodes = [];
+                const edges = [];
+                const toolTypes = {};  // Track if tool is source, target, or both
+                
+                // Process each tool
+                Object.entries(toolCitations).forEach(([toolName, citedTools]) => {
+                    // Mark this tool as a source (it cites others)
+                    toolTypes[toolName] = toolTypes[toolName] || 'source';
+                    
+                    // Process each cited tool
+                    citedTools.forEach(citedTool => {
+                        // Mark cited tool as a target
+                        toolTypes[citedTool] = 
+                            toolTypes[citedTool] === 'source' ? 'both' : 'target';
+                        
+                        // Add edge
+                        edges.push({
+                            from: toolName,
+                            to: citedTool,
+                            arrows: 'to',
+                            title: `${toolName} cites ${citedTool}`
+                        });
+                    });
+                });
+                
+                // Create nodes with appropriate groups
+                Object.keys(toolTypes).forEach(tool => {
+                    nodes.push({
+                        id: tool,
+                        label: tool,
+                        title: tool,
+                        group: toolTypes[tool]
+                    });
+                });
+                
+                // Create network if we have data
+                if (nodes.length > 0 && edges.length > 0) {
+                    // Create datasets
+                    const nodeDataset = new vis.DataSet(nodes);
+                    const edgeDataset = new vis.DataSet(edges);
+                    
+                    // Network options
+                    const options = {
+                        nodes: {
+                            shape: 'dot',
+                            size: 20,
+                            font: {
+                                size: 14,
+                                face: 'Arial'
+                            },
+                            borderWidth: 2
+                        },
+                        edges: {
+                            width: 2,
+                            color: {
+                                color: '#aaa',
+                                highlight: '#3273dc'
+                            },
+                            smooth: {
+                                type: 'continuous',
+                                roundness: 0.5
+                            }
+                        },
+                        groups: {
+                            source: {
+                                color: { background: '#3273dc', border: '#1a56bc' }
+                            },
+                            target: {
+                                color: { background: '#23d160', border: '#1aa048' }
+                            },
+                            both: {
+                                color: { background: '#ff9e64', border: '#e67e45' }
+                            }
+                        },
+                        physics: {
+                            stabilization: { iterations: 200 },
+                            barnesHut: {
+                                gravitationalConstant: -2000,
+                                centralGravity: 0.3,
+                                springLength: 150,
+                                springConstant: 0.04
+                            }
+                        },
+                        interaction: {
+                            hover: true,
+                            tooltipDelay: 300,
+                            zoomView: true
+                        }
+                    };
+                    
+                    // Create network
+                    const network = new vis.Network(
+                        container, 
+                        { nodes: nodeDataset, edges: edgeDataset }, 
+                        options
+                    );
+                    
+                    // Add controls
+                    const controls = document.createElement('div');
+                    controls.className = 'network-controls';
+                    controls.innerHTML = `
+                        <button id="zoomIn" class="btn btn-sm btn-light" title="Zoom in">+</button>
+                        <button id="zoomOut" class="btn btn-sm btn-light" title="Zoom out">-</button>
+                        <button id="resetView" class="btn btn-sm btn-light" title="Reset view">↺</button>
+                    `;
+                    container.appendChild(controls);
+                    
+                    // Add control event handlers
+                    document.getElementById('zoomIn').addEventListener('click', () => {
+                        network.moveTo({ scale: network.getScale() * 1.2 });
+                    });
+                    
+                    document.getElementById('zoomOut').addEventListener('click', () => {
+                        network.moveTo({ scale: network.getScale() / 1.2 });
+                    });
+                    
+                    document.getElementById('resetView').addEventListener('click', () => {
+                        network.fit({ animation: true });
+                    });
+                    
+                    // Remove loading indicator when stabilized
+                    network.on('stabilizationIterationsDone', () => {
+                        container.querySelector('.loading').remove();
+                    });
+                    
+                    // Add hover highlighting
+                    network.on('hoverNode', (params) => {
+                        const connectedNodes = network.getConnectedNodes(params.node);
+                        const connectedEdges = network.getConnectedEdges(params.node);
+                        
+                        nodeDataset.update(nodes.map(node => ({
+                            id: node.id,
+                            opacity: connectedNodes.includes(node.id) || node.id === params.node ? 1 : 0.3
+                        })));
+                        
+                        edgeDataset.update(edges.map(edge => ({
+                            id: edge.id,
+                            opacity: connectedEdges.includes(edge.id) ? 1 : 0.3,
+                            width: connectedEdges.includes(edge.id) ? 3 : 1
+                        })));
+                    });
+                    
+                    network.on('blurNode', () => {
+                        nodeDataset.update(nodes.map(node => ({
+                            id: node.id,
+                            opacity: 1
+                        })));
+                        
+                        edgeDataset.update(edges.map(edge => ({
+                            id: edge.id,
+                            opacity: 1,
+                            width: 2
+                        })));
+                    });
+                } else {
+                    // Show empty state if no data
+                    container.innerHTML = `
+                        <div class="d-flex justify-content-center align-items-center h-100">
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <i class="bi bi-diagram-3" style="font-size: 3rem;"></i>
+                                </div>
+                                <h4>No Citation Data Available</h4>
+                                <p class="text-muted">No direct citation relationships found between tools.</p>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error("Error creating citation network:", error);
+                container.innerHTML = `
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-center">
+                            <div class="mb-3">
+                                <i class="bi bi-exclamation-triangle" style="font-size: 3rem;"></i>
+                            </div>
+                            <h4>Error Loading Citation Network</h4>
+                            <p class="text-muted">${error.message}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Publication Impact</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/dist/vis-network.min.css">
+    <style>
+        #publicationImpactGraph {
+            width: 100%;
+            height: 700px;
+            border: 1px solid #ddd;
+            position: relative;
+        }
+        .network-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 1rem;
+            background: rgba(255,255,255,0.9);
+            border-radius: 4px;
+            z-index: 500;
+        }
+        .debug-log {
+            background: #f0f0f0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 200px;
+            overflow: auto;
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Publication Impact Network Test</h1>
+        <p>This page tests the publication impact visualization with detailed logging.</p>
+        
+        <div id="publicationImpactGraph">
+            <div class="network-loading">Loading publication network...</div>
+        </div>
+        
+        <div class="debug-log" id="debugLog"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/vis-network.min.js"></script>
+    
+    <script>
+        // Override console.log to show in debug area
+        const originalLog = console.log;
+        const originalError = console.error;
+        const originalWarn = console.warn;
+        
+        const debugLog = document.getElementById('debugLog');
+        
+        console.log = function(...args) {
+            originalLog.apply(console, args);
+            debugLog.innerHTML += `<span style="color: black;">[LOG] ${args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ')}</span>\n`;
+            debugLog.scrollTop = debugLog.scrollHeight;
+        };
+        
+        console.error = function(...args) {
+            originalError.apply(console, args);
+            debugLog.innerHTML += `<span style="color: red;">[ERROR] ${args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ')}</span>\n`;
+            debugLog.scrollTop = debugLog.scrollHeight;
+        };
+        
+        console.warn = function(...args) {
+            originalWarn.apply(console, args);
+            debugLog.innerHTML += `<span style="color: orange;">[WARN] ${args.map(a => typeof a === 'object' ? JSON.stringify(a) : a).join(' ')}</span>\n`;
+            debugLog.scrollTop = debugLog.scrollHeight;
+        };
+        
+        // Simple implementation for direct testing
+        class PublicationImpactVisualization {
+            constructor() {
+                this.container = document.getElementById('publicationImpactGraph');
+                this.data = null;
+                this.networkInstance = null;
+                this.filters = {
+                    minCitations: 1,
+                    yearRange: [1970, new Date().getFullYear()],
+                    domains: []
+                };
+                console.log("Visualization initialized");
+            }
+            
+            initialize(data) {
+                console.log("Initializing with data", Object.keys(data));
+                if (!data || !data.relationships) {
+                    console.error("Missing expected data structure");
+                    this.showEmptyGraph('Data structure is invalid or missing relationships');
+                    return;
+                }
+                
+                console.log("Relationships data:", data.relationships);
+                this.data = data;
+                
+                // Create a simple force-directed graph
+                const nodes = [];
+                const edges = [];
+                const toolIds = new Set();
+                
+                // Check for tool citation relationships
+                if (data.relationships.tool_citations && Object.keys(data.relationships.tool_citations).length > 0) {
+                    console.log("Found tool citations, creating network");
+                    
+                    try {
+                        Object.entries(data.relationships.tool_citations).forEach(([toolName, citedTools]) => {
+                            console.log(`Processing ${toolName} citing:`, citedTools);
+                            
+                            // Add the citing tool node
+                            if (!toolIds.has(toolName)) {
+                                nodes.push({
+                                    id: toolName,
+                                    label: toolName,
+                                    group: 'source'
+                                });
+                                toolIds.add(toolName);
+                            }
+                            
+                            // Process each cited tool
+                            if (Array.isArray(citedTools)) {
+                                citedTools.forEach(citedTool => {
+                                    if (!toolIds.has(citedTool)) {
+                                        nodes.push({
+                                            id: citedTool,
+                                            label: citedTool,
+                                            group: 'target'
+                                        });
+                                        toolIds.add(citedTool);
+                                    }
+                                    
+                                    edges.push({
+                                        from: toolName,
+                                        to: citedTool,
+                                        arrows: 'to'
+                                    });
+                                });
+                            } else if (citedTools.cites && Array.isArray(citedTools.cites)) {
+                                citedTools.cites.forEach(citedTool => {
+                                    if (!toolIds.has(citedTool)) {
+                                        nodes.push({
+                                            id: citedTool,
+                                            label: citedTool,
+                                            group: 'target'
+                                        });
+                                        toolIds.add(citedTool);
+                                    }
+                                    
+                                    edges.push({
+                                        from: toolName,
+                                        to: citedTool,
+                                        arrows: 'to'
+                                    });
+                                });
+                            }
+                        });
+                    } catch (error) {
+                        console.error("Error processing relationship data:", error);
+                    }
+                } else {
+                    console.warn("No tool citation relationships found");
+                }
+                
+                if (nodes.length === 0 || edges.length === 0) {
+                    this.showEmptyGraph('No citation relationships found in the data');
+                    return;
+                }
+                
+                console.log(`Created network with ${nodes.length} nodes and ${edges.length} edges`);
+                
+                // Create the vis.js network
+                const visNodes = new vis.DataSet(nodes);
+                const visEdges = new vis.DataSet(edges);
+                
+                const options = {
+                    nodes: {
+                        shape: 'dot',
+                        size: 20,
+                        font: {
+                            size: 14,
+                            face: 'Arial'
+                        },
+                        borderWidth: 2
+                    },
+                    edges: {
+                        width: 2,
+                        color: {
+                            color: '#aaa',
+                            highlight: '#3273dc'
+                        },
+                        smooth: true
+                    },
+                    groups: {
+                        source: {
+                            color: { background: '#3273dc', border: '#1a56bc' }
+                        },
+                        target: {
+                            color: { background: '#23d160', border: '#1aa048' }
+                        }
+                    },
+                    physics: {
+                        stabilization: { iterations: 100 }
+                    }
+                };
+                
+                this.networkInstance = new vis.Network(
+                    this.container, 
+                    { nodes: visNodes, edges: visEdges }, 
+                    options
+                );
+                
+                // Remove loading indicator when done
+                this.networkInstance.on('stabilizationIterationsDone', () => {
+                    const loadingElem = this.container.querySelector('.network-loading');
+                    if (loadingElem) loadingElem.remove();
+                    console.log("Network stabilized and rendered");
+                });
+            }
+            
+            showEmptyGraph(message) {
+                this.container.innerHTML = `
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-center">
+                            <i class="bi bi-diagram-3 mb-3" style="font-size: 3rem;"></i>
+                            <h4>Publication Impact Network</h4>
+                            <p class="text-muted">${message}</p>
+                        </div>
+                    </div>
+                `;
+                console.error(`Showing empty graph: ${message}`);
+            }
+        }
+        
+        // On page load
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                console.log("Fetching impact_data.json");
+                const response = await fetch('impact_data.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error: ${response.status}`);
+                }
+                
+                const impactData = await response.json();
+                console.log("Data successfully loaded");
+                
+                // Initialize visualization
+                const visualization = new PublicationImpactVisualization();
+                visualization.initialize(impactData);
+            } catch (error) {
+                console.error("Error loading data:", error);
+                document.getElementById('publicationImpactGraph').innerHTML = `
+                    <div class="d-flex justify-content-center align-items-center h-100">
+                        <div class="text-center">
+                            <i class="bi bi-exclamation-triangle mb-3" style="font-size: 3rem;"></i>
+                            <h4>Error Loading Data</h4>
+                            <p class="text-muted">${error.message}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
