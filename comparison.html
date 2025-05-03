@@ -1,0 +1,1198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Awesome-Virome Tool Comparison</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-responsive-bs5@2.4.1/css/responsive.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/datatables.net-buttons-bs5@2.3.6/css/buttons.bootstrap5.min.css">
+    <style>
+        :root {
+            /* Modern virology-themed color palette */
+            --primary-color: #109b81; /* Teal green */
+            --primary-light: #6FC3BA;
+            --primary-dark: #097362;
+            --secondary-color: #2C4B7C; /* Deep blue */
+            --secondary-light: #557EBF;
+            --secondary-dark: #193152;
+            --accent-color: #9D5EB0; /* Purple for viruses */
+            --accent-light: #C89AD3;
+            --accent-dark: #6A3877;
+            --info-color: #3498db; /* Blue for info */
+            --success-color: #28a745; /* Green for success */
+            --warning-color: #ffc107; /* Yellow for warnings */
+            --danger-color: #e74c3c; /* Red for errors */
+            --light-bg: #f8f9fa;
+            --dark-bg: #1E293B; /* Dark slate blue */
+            --card-bg: #ffffff;
+            --card-bg-dark: #334155;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --card-shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+            --border-radius: 12px;
+            --section-padding: 2rem;
+            --card-spacing: 1.5rem;
+            --nav-height: 4rem;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: var(--light-bg);
+            color: #333;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            padding-top: var(--nav-height);
+        }
+
+        [data-theme="dark"] {
+            background-color: var(--dark-bg);
+            color: #f8f9fa;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: var(--secondary-color);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            height: var(--nav-height);
+            z-index: 1030;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: white !important;
+        }
+
+        .navbar-brand span {
+            color: var(--primary-light);
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            transition: color var(--transition-speed);
+        }
+
+        .nav-link:hover, .nav-link:focus {
+            color: #ffffff !important;
+        }
+
+        .nav-link.active {
+            color: #ffffff !important;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 1rem;
+            right: 1rem;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px 3px 0 0;
+        }
+
+        /* Section containers */
+        .dashboard-container {
+            padding: var(--section-padding);
+        }
+
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1), transparent);
+            margin: 2rem 0;
+        }
+
+        [data-theme="dark"] .section-divider {
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        .section-title {
+            font-weight: 700;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+            display: inline-block;
+        }
+
+        [data-theme="dark"] .section-title {
+            color: var(--primary-light);
+        }
+
+        /* Cards styling */
+        .card {
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            transition: transform var(--transition-speed), 
+                      box-shadow var(--transition-speed),
+                      background-color var(--transition-speed);
+            border: none;
+            height: 100%;
+            background-color: var(--card-bg);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        [data-theme="dark"] .card {
+            background-color: var(--card-bg-dark);
+            color: #e2e8f0;
+        }
+
+        .card:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            border-bottom: none;
+            padding: 1rem 1.5rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        /* Status indicators */
+        .status-active {
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .status-maintained {
+            color: var(--warning-color);
+            font-weight: bold;
+        }
+
+        .status-inactive {
+            color: var(--danger-color);
+            font-weight: bold;
+        }
+
+        /* Filter section */
+        .filter-toolbar {
+            background-color: var(--light-bg);
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        [data-theme="dark"] .filter-toolbar {
+            background-color: var(--card-bg-dark);
+        }
+
+        /* Table customization */
+        .table th {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: rgba(157, 94, 176, 0.1);
+        }
+
+        /* Theme toggle */
+        .theme-toggle {
+            cursor: pointer;
+            width: 2.5rem;
+            height: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+            border-radius: 50%;
+            transition: background-color var(--transition-speed);
+        }
+
+        .theme-toggle:hover {
+            background-color: rgba(255,255,255, 0.1);
+        }
+
+        /* Badges */
+        .badge-category {
+            background-color: var(--secondary-light);
+            color: white;
+            padding: 0.35em 0.65em;
+            font-size: 0.75em;
+            font-weight: 700;
+            border-radius: 0.25rem;
+            text-transform: uppercase;
+        }
+
+        .badge-language {
+            background-color: var(--accent-light);
+            color: white;
+            padding: 0.35em 0.65em;
+            font-size: 0.75em;
+            font-weight: 700;
+            border-radius: 0.25rem;
+        }
+
+        /* Star rating visual */
+        .stars-container {
+            display: inline-flex;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .star-icon {
+            color: gold;
+            margin-right: 2px;
+        }
+
+        /* Button styles */
+        .btn-outline-feature {
+            color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            margin: 0.15rem;
+            font-size: 0.8rem;
+            padding: 0.2rem 0.5rem;
+        }
+
+        .btn-outline-feature:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        /* Citations badge */
+        .citations-badge {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.35em 0.65em;
+            font-size: 0.75em;
+            font-weight: 700;
+            border-radius: 0.25rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 1rem;
+            }
+            
+            .card-header {
+                padding: 0.8rem 1rem;
+            }
+            
+            .card-body {
+                padding: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .filter-toolbar .col-md-3 {
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">Awesome-<span>Virome</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="citations.html">Citation Analytics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="comparison.html">Tool Comparison</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <div class="theme-toggle me-3" id="theme-toggle">
+                        <i class="bi bi-moon-fill"></i>
+                    </div>
+                    <a href="https://github.com/shandley/awesome-virome" class="btn btn-outline-light" target="_blank">
+                        <i class="bi bi-github me-1"></i> GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container-fluid dashboard-container">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h1 class="display-5 fw-bold mb-3">Virome Analysis Tool Comparison</h1>
+                <p class="lead mb-4">Interactive comparison of popular viral bioinformatics tools with key metrics and features</p>
+            </div>
+        </div>
+
+        <!-- Filter Toolbar -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="bi bi-funnel me-2"></i> Filter Tools
+                    </div>
+                    <div class="card-body filter-toolbar">
+                        <div class="row">
+                            <div class="col-md-3 mb-2">
+                                <label for="categoryFilter" class="form-label">Category</label>
+                                <select class="form-select" id="categoryFilter">
+                                    <option value="">All Categories</option>
+                                    <!-- Will be populated by JavaScript -->
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <label for="languageFilter" class="form-label">Programming Language</label>
+                                <select class="form-select" id="languageFilter">
+                                    <option value="">All Languages</option>
+                                    <!-- Will be populated by JavaScript -->
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <label for="maintenanceFilter" class="form-label">Maintenance Status</label>
+                                <select class="form-select" id="maintenanceFilter">
+                                    <option value="">All Statuses</option>
+                                    <option value="active">Active</option>
+                                    <option value="maintained">Maintained</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <label for="packageFilter" class="form-label">Package Manager</label>
+                                <select class="form-select" id="packageFilter">
+                                    <option value="">All Package Managers</option>
+                                    <option value="conda">conda</option>
+                                    <option value="pip">pip</option>
+                                    <option value="source">Source</option>
+                                    <option value="docker">Docker</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-6 mb-2">
+                                <label for="searchFilter" class="form-label">Search Tools</label>
+                                <input type="text" class="form-control" id="searchFilter" placeholder="Search by name, feature, or keyword...">
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <label for="starsFilter" class="form-label">Minimum Stars</label>
+                                <select class="form-select" id="starsFilter">
+                                    <option value="0">Any number of stars</option>
+                                    <option value="10">10+ stars</option>
+                                    <option value="50">50+ stars</option>
+                                    <option value="100">100+ stars</option>
+                                    <option value="500">500+ stars</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-2">
+                                <label for="citationsFilter" class="form-label">Minimum Citations</label>
+                                <select class="form-select" id="citationsFilter">
+                                    <option value="0">Any number of citations</option>
+                                    <option value="10">10+ citations</option>
+                                    <option value="50">50+ citations</option>
+                                    <option value="100">100+ citations</option>
+                                    <option value="200">200+ citations</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 text-end">
+                                <button type="button" class="btn btn-primary" id="applyFilters">
+                                    <i class="bi bi-filter me-1"></i> Apply Filters
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" id="resetFilters">
+                                    <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-table me-2"></i> Tool Comparison Matrix</span>
+                        <div>
+                            <button type="button" class="btn btn-sm btn-outline-light" id="exportCSV">
+                                <i class="bi bi-file-earmark-spreadsheet me-1"></i> Export CSV
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-light" id="exportJSON">
+                                <i class="bi bi-code-square me-1"></i> Export JSON
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="comparisonTable">
+                                <thead>
+                                    <tr>
+                                        <th>Tool Name</th>
+                                        <th>Category</th>
+                                        <th>Stars</th>
+                                        <th>Citations</th>
+                                        <th>Last Updated</th>
+                                        <th>Maintenance</th>
+                                        <th>Language</th>
+                                        <th>Package Manager</th>
+                                        <th>Key Features</th>
+                                        <th>Repository</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="comparisonTableBody">
+                                    <tr>
+                                        <td colspan="10" class="text-center">
+                                            <div class="py-5">
+                                                <div class="spinner-border text-primary mb-3" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                                <p>Loading tool data...</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tool Details Section -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card" id="toolDetails" style="display: none;">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-info-circle me-2"></i> Tool Details</span>
+                        <button type="button" class="btn-close btn-close-white" id="closeDetails"></button>
+                    </div>
+                    <div class="card-body" id="toolDetailsContent">
+                        <!-- Tool details will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Tips -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-lightbulb me-2"></i> How to Use This Comparison Matrix
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Sorting and Filtering</h5>
+                                <ul>
+                                    <li>Click any column header to sort the table by that column</li>
+                                    <li>Use the filters above to narrow down tools by specific criteria</li>
+                                    <li>Search for specific features or keywords using the search box</li>
+                                    <li>Click on a tool name to see more detailed information</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Understanding Maintenance Status</h5>
+                                <ul>
+                                    <li><span class="status-active">✅ Active</span>: Updated within the last 6 months</li>
+                                    <li><span class="status-maintained">⚠️ Maintained</span>: Updated within the last 12 months</li>
+                                    <li><span class="status-inactive">❌ Inactive</span>: No updates for over 12 months</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-center text-white py-4">
+        <div class="container">
+            <p class="mb-1">Awesome-Virome: A curated collection of virology bioinformatics tools and resources</p>
+            <p class="small text-muted mb-0">Data last updated: <span id="lastUpdated">-</span></p>
+        </div>
+    </footer>
+
+    <!-- Tool Detail Modal -->
+    <div class="modal fade" id="toolDetailModal" tabindex="-1" aria-labelledby="toolDetailModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="toolDetailModalLabel">Tool Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="toolDetailModalBody">
+                    <!-- Tool details will be populated by JavaScript -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a href="#" class="btn btn-primary" id="toolRepoLink" target="_blank">Visit Repository</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net@1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net-bs5@1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net-responsive@2.4.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net-responsive-bs5@2.4.1/js/responsive.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net-buttons@2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net-buttons-bs5@2.3.6/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/datatables.net-buttons@2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
+    <!-- Main Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Comparison tool initializing...');
+            
+            // Theme handling
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = themeToggle.querySelector('i');
+            
+            // Check for saved theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.body.setAttribute('data-theme', savedTheme);
+                updateThemeIcon(savedTheme);
+            }
+            
+            // Toggle theme
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = document.body.getAttribute('data-theme') || 'light';
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                updateThemeIcon(newTheme);
+            });
+            
+            function updateThemeIcon(theme) {
+                if (theme === 'dark') {
+                    themeIcon.className = 'bi bi-sun-fill';
+                } else {
+                    themeIcon.className = 'bi bi-moon-fill';
+                }
+            }
+            
+            // Initialize DataTable
+            let comparisonTable;
+            
+            // Sample tool data (this would be loaded from your data.json or impact_data.json)
+            // In production, this would be replaced with real data from your API
+            const sampleToolData = [
+                {
+                    name: "AlphaFold-Multimer",
+                    category: "Structural Analysis",
+                    stars: 13320,
+                    citations: 850,
+                    lastUpdated: "2025-03-15",
+                    maintenanceStatus: "active",
+                    language: "Python",
+                    packageManager: "pip, conda",
+                    keyFeatures: ["Protein structure prediction", "Protein complexes", "Deep learning"],
+                    url: "https://github.com/deepmind/alphafold",
+                    description: "Advanced protein structure prediction system that can model protein complexes and interactions."
+                },
+                {
+                    name: "VirSorter2",
+                    category: "Virus Identification",
+                    stars: 320,
+                    citations: 420,
+                    lastUpdated: "2025-02-10",
+                    maintenanceStatus: "active",
+                    language: "Python",
+                    packageManager: "conda",
+                    keyFeatures: ["Random forest classifier", "Prophage detection", "Metagenomic analysis"],
+                    url: "https://github.com/jiarong/VirSorter2",
+                    description: "Random forest classifier for virus detection from metagenomic data, including prophage sequences."
+                },
+                {
+                    name: "Pharokka",
+                    category: "Genome Annotation",
+                    stars: 158,
+                    citations: 110,
+                    lastUpdated: "2025-03-01",
+                    maintenanceStatus: "active",
+                    language: "Python",
+                    packageManager: "conda",
+                    keyFeatures: ["Phage annotation", "Gene function prediction", "Rapid analysis"],
+                    url: "https://github.com/gbouras13/pharokka",
+                    description: "Rapid phage annotation tool that predicts gene functions and annotates viral genomes."
+                },
+                {
+                    name: "CheckV",
+                    category: "Genome Completeness",
+                    stars: 98,
+                    citations: 220,
+                    lastUpdated: "2022-01-15",
+                    maintenanceStatus: "maintained",
+                    language: "Python",
+                    packageManager: "conda, pip",
+                    keyFeatures: ["Quality assessment", "Viral genomes", "Contamination detection"],
+                    url: "https://bitbucket.org/berkeleylab/checkv/",
+                    description: "Quality assessment tool for viral genomes that identifies contamination and assesses completeness."
+                },
+                {
+                    name: "vConTACT2.0",
+                    category: "Taxonomy",
+                    stars: 27,
+                    citations: 180,
+                    lastUpdated: "2022-11-20",
+                    maintenanceStatus: "maintained",
+                    language: "Python",
+                    packageManager: "conda",
+                    keyFeatures: ["Gene sharing networks", "Viral taxonomy", "Protein clustering"],
+                    url: "https://bitbucket.org/MAVERICLab/vcontact2/",
+                    description: "Viral taxonomy tool based on gene sharing networks and protein clustering."
+                },
+                {
+                    name: "iPHoP",
+                    category: "Host Prediction",
+                    stars: 64,
+                    citations: 75,
+                    lastUpdated: "2023-05-10",
+                    maintenanceStatus: "active",
+                    language: "Python",
+                    packageManager: "conda",
+                    keyFeatures: ["Phage-host prediction", "Multiple methods", "Confidence scores"],
+                    url: "https://bitbucket.org/srouxjgi/iphop/",
+                    description: "Integrated approach for phage host prediction using multiple sequence-based methods."
+                },
+                {
+                    name: "VIBRANT",
+                    category: "Virus Identification",
+                    stars: 159,
+                    citations: 190,
+                    lastUpdated: "2025-02-05",
+                    maintenanceStatus: "active",
+                    language: "Python",
+                    packageManager: "source",
+                    keyFeatures: ["Boundary detection", "Viral annotation", "Prophage identification"],
+                    url: "https://github.com/AnantharamanLab/VIBRANT",
+                    description: "Virus identification by combining boundary detection with annotation to identify viral sequences."
+                },
+                {
+                    name: "Serratus",
+                    category: "Virus Identification",
+                    stars: 107,
+                    citations: 85,
+                    lastUpdated: "2025-01-15",
+                    maintenanceStatus: "active",
+                    language: "Multiple",
+                    packageManager: "cloud",
+                    keyFeatures: ["Public data mining", "Viral discovery", "Cloud platform"],
+                    url: "https://serratus.io/",
+                    description: "Cloud platform for virus discovery from public sequencing data repositories."
+                },
+                {
+                    name: "geNomad",
+                    category: "Virus Identification",
+                    stars: 219,
+                    citations: 130,
+                    lastUpdated: "2025-03-05",
+                    maintenanceStatus: "active",
+                    language: "Python",
+                    packageManager: "conda",
+                    keyFeatures: ["Virus identification", "Plasmid identification", "Machine learning"],
+                    url: "https://github.com/apcamargo/genomad",
+                    description: "Tool for identifying viral sequences and proviruses in genomic data."
+                },
+                {
+                    name: "DeepVirFinder",
+                    category: "Virus Identification",
+                    stars: 75,
+                    citations: 170,
+                    lastUpdated: "2025-03-01",
+                    maintenanceStatus: "active",
+                    language: "Python",
+                    packageManager: "source",
+                    keyFeatures: ["Deep learning", "Convolutional neural networks", "Short sequence detection"],
+                    url: "https://github.com/jessieren/DeepVirFinder",
+                    description: "Deep learning-based method for identifying viral sequences in metagenomic data."
+                },
+                {
+                    name: "CHERRY",
+                    category: "Host Prediction",
+                    stars: 24,
+                    citations: 65,
+                    lastUpdated: "2025-03-10",
+                    maintenanceStatus: "active",
+                    language: "Python",
+                    packageManager: "source",
+                    keyFeatures: ["Deep learning", "Phage host prediction", "Sequence-based"],
+                    url: "https://github.com/KennthShang/CHERRY",
+                    description: "Deep learning approach for predicting phage hosts based on sequence features."
+                },
+                {
+                    name: "VirHostMatcher-Net",
+                    category: "Host Prediction",
+                    stars: 21,
+                    citations: 80,
+                    lastUpdated: "2024-09-15",
+                    maintenanceStatus: "active",
+                    language: "Python",
+                    packageManager: "source",
+                    keyFeatures: ["Network-based prediction", "Oligonucleotide frequencies", "Genome alignment"],
+                    url: "https://github.com/WeiliWw/VirHostMatcher-Net",
+                    description: "Network-based virus-host prediction using oligonucleotide frequencies and other features."
+                }
+            ];
+            
+            // In a real implementation, you would load this data from your API
+            loadData();
+            
+            // Load and display data
+            function loadData() {
+                console.log('Loading tool comparison data...');
+                
+                // In a real implementation, you would fetch data from your API
+                // For this demo, we'll use the sample data above
+                processData(sampleToolData);
+                
+                // Optional: Try to load real data from your data.json
+                /* 
+                try {
+                    const baseUrl = window.location.href.split('/').slice(0, -1).join('/') + '/';
+                    const dataUrl = new URL('data.json', baseUrl).href;
+                    console.log('Fetching data from:', dataUrl);
+                    
+                    fetch(`${dataUrl}?t=${Date.now()}`)
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`Failed to load data (Status: ${response.status})`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Tool data loaded successfully');
+                            
+                            // Process tools from the data
+                            const tools = data.nodes.filter(node => node.type === 'tool');
+                            processData(tools);
+                        })
+                        .catch(error => {
+                            console.error('Error loading data:', error);
+                            // Fall back to sample data
+                            processData(sampleToolData);
+                        });
+                } catch (error) {
+                    console.error('Error in data fetch setup:', error);
+                    // Fall back to sample data
+                    processData(sampleToolData);
+                }
+                */
+            }
+            
+            function processData(toolsData) {
+                console.log(`Processing ${toolsData.length} tools for comparison...`);
+                
+                // Populate filter dropdowns
+                populateFilters(toolsData);
+                
+                // Render the comparison table
+                renderComparisonTable(toolsData);
+                
+                // Set up filter functionality
+                setupFilters(toolsData);
+                
+                // Set up export functionality
+                setupExport(toolsData);
+                
+                // Update last updated date
+                document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString();
+            }
+            
+            function populateFilters(toolsData) {
+                // Extract unique categories
+                const categories = [...new Set(toolsData.map(tool => tool.category))].sort();
+                const categoryFilter = document.getElementById('categoryFilter');
+                categories.forEach(category => {
+                    if (category) {
+                        const option = document.createElement('option');
+                        option.value = category;
+                        option.textContent = category;
+                        categoryFilter.appendChild(option);
+                    }
+                });
+                
+                // Extract unique languages
+                const languages = [...new Set(toolsData.map(tool => tool.language))].sort();
+                const languageFilter = document.getElementById('languageFilter');
+                languages.forEach(language => {
+                    if (language) {
+                        const option = document.createElement('option');
+                        option.value = language;
+                        option.textContent = language;
+                        languageFilter.appendChild(option);
+                    }
+                });
+                
+                // Package managers are already pre-populated in the HTML
+            }
+            
+            function renderComparisonTable(toolsData) {
+                const tableBody = document.getElementById('comparisonTableBody');
+                
+                // Clear existing content
+                tableBody.innerHTML = '';
+                
+                // Render each tool row
+                toolsData.forEach(tool => {
+                    const row = document.createElement('tr');
+                    
+                    // Format maintenance status
+                    let maintenanceHtml = '';
+                    if (tool.maintenanceStatus === 'active') {
+                        maintenanceHtml = '<span class="status-active">✅ Active</span>';
+                    } else if (tool.maintenanceStatus === 'maintained') {
+                        maintenanceHtml = '<span class="status-maintained">⚠️ Maintained</span>';
+                    } else {
+                        maintenanceHtml = '<span class="status-inactive">❌ Inactive</span>';
+                    }
+                    
+                    // Format stars with icon
+                    const starsHtml = `<div class="stars-container"><i class="bi bi-star-fill star-icon"></i> ${tool.stars.toLocaleString()}</div>`;
+                    
+                    // Format citations with badge
+                    const citationsHtml = `<span class="citations-badge">${tool.citations.toLocaleString()}</span>`;
+                    
+                    // Format last updated date
+                    const lastUpdated = new Date(tool.lastUpdated).toLocaleDateString();
+                    
+                    // Format key features as buttons
+                    const featuresHtml = tool.keyFeatures.map(feature => 
+                        `<button type="button" class="btn btn-sm btn-outline-feature">${feature}</button>`
+                    ).join(' ');
+                    
+                    // Format repository link
+                    const repoHtml = `<a href="${tool.url}" target="_blank" class="btn btn-sm btn-primary"><i class="bi bi-github me-1"></i> Repo</a>`;
+                    
+                    // Create row HTML
+                    row.innerHTML = `
+                        <td><a href="#" class="tool-detail-link" data-tool-name="${tool.name}">${tool.name}</a></td>
+                        <td><span class="badge-category">${tool.category}</span></td>
+                        <td>${starsHtml}</td>
+                        <td>${citationsHtml}</td>
+                        <td>${lastUpdated}</td>
+                        <td>${maintenanceHtml}</td>
+                        <td><span class="badge-language">${tool.language}</span></td>
+                        <td>${tool.packageManager}</td>
+                        <td>${featuresHtml}</td>
+                        <td>${repoHtml}</td>
+                    `;
+                    
+                    // Store the full tool data in the row
+                    row.dataset.toolData = JSON.stringify(tool);
+                    
+                    tableBody.appendChild(row);
+                });
+                
+                // Initialize DataTables
+                if ($.fn.DataTable.isDataTable('#comparisonTable')) {
+                    comparisonTable.destroy();
+                }
+                
+                comparisonTable = $('#comparisonTable').DataTable({
+                    paging: true,
+                    searching: true,
+                    ordering: true,
+                    info: true,
+                    responsive: true,
+                    lengthMenu: [10, 25, 50, 100],
+                    pageLength: 10,
+                    order: [[2, 'desc']], // Default sort by stars
+                    language: {
+                        search: "Quick Search:",
+                        lengthMenu: "Show _MENU_ tools",
+                        info: "Showing _START_ to _END_ of _TOTAL_ tools",
+                        infoEmpty: "Showing 0 to 0 of 0 tools",
+                        infoFiltered: "(filtered from _MAX_ total tools)"
+                    },
+                    columnDefs: [
+                        { responsivePriority: 1, targets: [0, 2, 5] }, // Tool name, stars, maintenance always visible
+                        { responsivePriority: 2, targets: [1, 3] },    // Category and citations next priority
+                        { responsivePriority: 3, targets: [6, 9] },    // Language and repo next
+                        { responsivePriority: 4, targets: [4, 7, 8] }  // Lowest priority columns
+                    ],
+                    dom: 'Bfrtip',
+                    buttons: [
+                        {
+                            extend: 'csv',
+                            text: '<i class="bi bi-file-earmark-spreadsheet me-1"></i> Export CSV',
+                            className: 'btn-sm btn-outline-secondary',
+                            exportOptions: {
+                                columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                            }
+                        }
+                    ]
+                });
+                
+                // Setup tool detail click handlers
+                setupToolDetailLinks();
+            }
+            
+            function setupToolDetailLinks() {
+                // Add click event to tool name links
+                document.querySelectorAll('.tool-detail-link').forEach(link => {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        const toolName = this.getAttribute('data-tool-name');
+                        const toolData = JSON.parse(this.closest('tr').dataset.toolData);
+                        showToolDetails(toolData);
+                    });
+                });
+            }
+            
+            function showToolDetails(toolData) {
+                // Show the details in the modal
+                const modal = new bootstrap.Modal(document.getElementById('toolDetailModal'));
+                
+                // Set modal title
+                document.getElementById('toolDetailModalLabel').textContent = toolData.name;
+                
+                // Set repository link
+                document.getElementById('toolRepoLink').href = toolData.url;
+                
+                // Build modal content
+                const modalBody = document.getElementById('toolDetailModalBody');
+                
+                // Format maintenance status
+                let maintenanceHtml = '';
+                if (toolData.maintenanceStatus === 'active') {
+                    maintenanceHtml = '<span class="status-active">✅ Active</span>';
+                } else if (toolData.maintenanceStatus === 'maintained') {
+                    maintenanceHtml = '<span class="status-maintained">⚠️ Maintained</span>';
+                } else {
+                    maintenanceHtml = '<span class="status-inactive">❌ Inactive</span>';
+                }
+                
+                // Build modal HTML
+                modalBody.innerHTML = `
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <h4>${toolData.name}</h4>
+                            <p class="lead">${toolData.description}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Tool Information</h5>
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <strong>Category:</strong> 
+                                    <span class="badge-category">${toolData.category}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <strong>Maintenance Status:</strong> 
+                                    ${maintenanceHtml}
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <strong>Stars:</strong> 
+                                    <div class="stars-container"><i class="bi bi-star-fill star-icon"></i> ${toolData.stars.toLocaleString()}</div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <strong>Citations:</strong> 
+                                    <span class="citations-badge">${toolData.citations.toLocaleString()}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <strong>Last Updated:</strong> 
+                                    <span>${new Date(toolData.lastUpdated).toLocaleDateString()}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h5>Technical Details</h5>
+                            <ul class="list-group list-group-flush mb-3">
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <strong>Programming Language:</strong> 
+                                    <span class="badge-language">${toolData.language}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <strong>Package Manager:</strong> 
+                                    <span>${toolData.packageManager}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <strong>Key Features:</strong><br>
+                                    <div class="mt-2">
+                                        ${toolData.keyFeatures.map(feature => 
+                                            `<button type="button" class="btn btn-sm btn-outline-feature">${feature}</button>`
+                                        ).join(' ')}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <h5>Installation</h5>
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle me-2"></i>
+                                For installation and usage instructions, please visit the 
+                                <a href="${toolData.url}" target="_blank">official repository</a>.
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                // Show the modal
+                modal.show();
+            }
+            
+            function setupFilters(toolsData) {
+                // Get filter elements
+                const categoryFilter = document.getElementById('categoryFilter');
+                const languageFilter = document.getElementById('languageFilter');
+                const maintenanceFilter = document.getElementById('maintenanceFilter');
+                const packageFilter = document.getElementById('packageFilter');
+                const searchFilter = document.getElementById('searchFilter');
+                const starsFilter = document.getElementById('starsFilter');
+                const citationsFilter = document.getElementById('citationsFilter');
+                const applyFiltersBtn = document.getElementById('applyFilters');
+                const resetFiltersBtn = document.getElementById('resetFilters');
+                
+                // Apply filters button click
+                applyFiltersBtn.addEventListener('click', function() {
+                    applyAllFilters();
+                });
+                
+                // Reset filters button click
+                resetFiltersBtn.addEventListener('click', function() {
+                    // Reset all filter inputs
+                    categoryFilter.value = '';
+                    languageFilter.value = '';
+                    maintenanceFilter.value = '';
+                    packageFilter.value = '';
+                    searchFilter.value = '';
+                    starsFilter.value = '0';
+                    citationsFilter.value = '0';
+                    
+                    // Clear any existing DataTable search and render all tools
+                    comparisonTable.search('').columns().search('').draw();
+                });
+                
+                // Search filter input with debounce
+                let debounceTimeout;
+                searchFilter.addEventListener('input', function() {
+                    clearTimeout(debounceTimeout);
+                    debounceTimeout = setTimeout(() => {
+                        comparisonTable.search(this.value).draw();
+                    }, 300);
+                });
+                
+                // Function to apply all filters at once
+                function applyAllFilters() {
+                    // Clear any existing filters first
+                    comparisonTable.search('').columns().search('').draw();
+                    
+                    // Apply category filter
+                    if (categoryFilter.value) {
+                        comparisonTable.column(1).search(categoryFilter.value).draw();
+                    }
+                    
+                    // Apply language filter
+                    if (languageFilter.value) {
+                        comparisonTable.column(6).search(languageFilter.value).draw();
+                    }
+                    
+                    // Apply maintenance status filter
+                    if (maintenanceFilter.value) {
+                        let statusText = '';
+                        if (maintenanceFilter.value === 'active') statusText = '✅ Active';
+                        else if (maintenanceFilter.value === 'maintained') statusText = '⚠️ Maintained';
+                        else if (maintenanceFilter.value === 'inactive') statusText = '❌ Inactive';
+                        
+                        comparisonTable.column(5).search(statusText).draw();
+                    }
+                    
+                    // Apply package manager filter
+                    if (packageFilter.value) {
+                        comparisonTable.column(7).search(packageFilter.value).draw();
+                    }
+                    
+                    // Apply search filter
+                    if (searchFilter.value) {
+                        comparisonTable.search(searchFilter.value).draw();
+                    }
+                    
+                    // Apply stars filter - this requires custom filtering
+                    const minStars = parseInt(starsFilter.value);
+                    if (minStars > 0) {
+                        $.fn.dataTable.ext.search.push(
+                            function(settings, data, dataIndex) {
+                                const stars = parseInt(data[2].replace(/[^\d]/g, '')) || 0;
+                                return stars >= minStars;
+                            }
+                        );
+                        comparisonTable.draw();
+                        $.fn.dataTable.ext.search.pop(); // Remove this filter after drawing
+                    }
+                    
+                    // Apply citations filter - this requires custom filtering
+                    const minCitations = parseInt(citationsFilter.value);
+                    if (minCitations > 0) {
+                        $.fn.dataTable.ext.search.push(
+                            function(settings, data, dataIndex) {
+                                const citations = parseInt(data[3].replace(/[^\d]/g, '')) || 0;
+                                return citations >= minCitations;
+                            }
+                        );
+                        comparisonTable.draw();
+                        $.fn.dataTable.ext.search.pop(); // Remove this filter after drawing
+                    }
+                }
+            }
+            
+            function setupExport(toolsData) {
+                // CSV Export
+                document.getElementById('exportCSV').addEventListener('click', function() {
+                    comparisonTable.button(0).trigger(); // Trigger the DataTables CSV export button
+                });
+                
+                // JSON Export
+                document.getElementById('exportJSON').addEventListener('click', function() {
+                    // Create a filtered version of the toolsData based on what's currently visible
+                    const visibleRows = comparisonTable.rows({ search: 'applied' }).indexes();
+                    const visibleData = visibleRows.map(idx => JSON.parse(document.querySelectorAll('#comparisonTable tbody tr')[idx].dataset.toolData)).toArray();
+                    
+                    // Create a JSON file and prompt download
+                    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(visibleData, null, 2));
+                    const downloadAnchorNode = document.createElement('a');
+                    downloadAnchorNode.setAttribute("href", dataStr);
+                    downloadAnchorNode.setAttribute("download", "awesome-virome-tools.json");
+                    document.body.appendChild(downloadAnchorNode);
+                    downloadAnchorNode.click();
+                    downloadAnchorNode.remove();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
