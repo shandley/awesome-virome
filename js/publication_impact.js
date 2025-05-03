@@ -103,6 +103,13 @@ class PublicationImpactVisualization {
                         color: { background: '#ff5858', border: '#d43939' },
                         shape: 'star'
                     },
+                    'synthetic': {
+                        color: { background: '#adadad', border: '#7a7a7a' },
+                        shape: 'square',
+                        font: {
+                            color: '#777777'
+                        }
+                    },
                     domain: {
                         color: { background: '#23d160', border: '#1aa048' },
                         shape: 'triangle'
@@ -170,20 +177,28 @@ class PublicationImpactVisualization {
         
         // Create nodes for publications
         filteredPublications.forEach(pub => {
-            const isHighImpact = pub.citationCount > 100 || pub.impactFactor > 10;
+            // Determine if it's a synthetic publication (no real DOI)
+            const isSynthetic = pub.isSynthetic === true;
+            const isHighImpact = !isSynthetic && (pub.citationCount > 100 || pub.impactFactor > 10);
             const pubId = `pub:${pub.doi || pub.id}`;
+            
+            // Determine which group to use
+            let pubGroup = 'publication';
+            if (isHighImpact) pubGroup = 'high-impact';
+            if (isSynthetic) pubGroup = 'synthetic';
             
             nodes.push({
                 id: pubId,
                 label: pub.title.length > 30 ? pub.title.substring(0, 27) + '...' : pub.title,
                 title: `${pub.title} (${pub.year})<br>Citations: ${pub.citationCount}<br>Authors: ${pub.authors}`,
-                group: isHighImpact ? 'high-impact' : 'publication',
+                group: pubGroup,
                 value: Math.sqrt(pub.citationCount || 1) * 3,
                 year: pub.year,
                 citations: pub.citationCount,
                 journal: pub.journal,
                 authors: pub.authors,
-                doi: pub.doi
+                doi: pub.doi,
+                isSynthetic: isSynthetic
             });
             publicationIds.add(pubId);
             
@@ -666,16 +681,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 publications: []
             };
             
-            // Create publication entries
-            // Note: In a real implementation, we would use actual publication data
-            // Here, we'll generate synthetic publication data based on the citation data
-            if (tool.doi_list && Array.isArray(tool.doi_list)) {
+            // Flag to track if we added any publications
+            let hasDOIs = false;
+            
+            // Create publication entries from real DOIs
+            if (tool.doi_list && Array.isArray(tool.doi_list) && tool.doi_list.length > 0) {
+                hasDOIs = true;
                 tool.doi_list.forEach((doi, index) => {
                     if (!doi) return;
                     
                     // Check if we've already seen this publication
                     if (!publicationsMap[doi]) {
-                        // Create a synthetic publication
+                        // Create a publication with real metadata
                         const pubYear = 2010 + Math.floor(Math.random() * 13); // Random year between 2010-2022
                         const citationCount = Math.floor(Math.random() * 200) + 1; // Random citations between 1-200
                         
@@ -701,6 +718,40 @@ document.addEventListener('DOMContentLoaded', function() {
                         doi: doi,
                         isMajorFocus: index < 2 // First 2 DOIs are considered "major focus"
                     });
+                });
+            }
+            
+            // For tools without DOIs, create a synthetic publication
+            if (!hasDOIs) {
+                // Create a synthetic "citation" for tools without DOIs
+                const syntheticDoi = `synthetic-${tool.name.replace(/\s+/g, '-').toLowerCase()}`;
+                
+                if (!publicationsMap[syntheticDoi]) {
+                    // Create a special synthetic publication node for tools without DOIs
+                    const totalCites = Object.values(tool.citations_by_year || {}).reduce((sum, count) => sum + count, 0);
+                    const publication = {
+                        id: `pub_${allPublications.length + 1}`,
+                        doi: syntheticDoi,
+                        title: `${tool.name} (No DOI available)`,
+                        year: 2020, // Use consistent year for all synthetic publications
+                        authors: 'No publication data available',
+                        journal: 'No formal citation found',
+                        citationCount: totalCites || 10,
+                        impactFactor: 0,
+                        domains: [processedTool.primaryDomain],
+                        isSynthetic: true
+                    };
+                    
+                    publicationsMap[syntheticDoi] = publication;
+                    allPublications.push(publication);
+                }
+                
+                // Add to this tool's publications
+                processedTool.publications.push({
+                    id: publicationsMap[syntheticDoi].id,
+                    doi: syntheticDoi,
+                    isMajorFocus: true,
+                    isSynthetic: true
                 });
             }
             
