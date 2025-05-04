@@ -178,6 +178,56 @@
   padding: 0 1rem;
 }
 
+/* Decision flowchart specific styles */
+.workflow-decision {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.workflow-branches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.workflow-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 200px;
+  max-width: 300px;
+  margin: 0.5rem;
+}
+
+.workflow-mini-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.workflow-question {
+  background-color: #e8eaf6;
+  border-color: #3949ab;
+  font-weight: bold;
+  font-style: italic;
+  min-width: 150px;
+  max-width: 250px;
+}
+
+.workflow-box a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.workflow-box a:hover {
+  text-decoration: underline;
+}
+
 /* Dark mode adjustments */
 [data-md-color-scheme="slate"] .workflow-box {
   background-color: #2a2e4d;
@@ -187,4 +237,13 @@
 
 [data-md-color-scheme="slate"] .workflow-arrow {
   color: #70d6ff;
+}
+
+[data-md-color-scheme="slate"] .workflow-question {
+  background-color: #1f2541;
+  border-color: #5d9ccf;
+}
+
+[data-md-color-scheme="slate"] .workflow-box a {
+  color: #81d4fa;
 }

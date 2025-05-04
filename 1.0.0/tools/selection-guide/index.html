@@ -1224,23 +1224,69 @@
 <li><strong>Specific Requirements</strong> - Do you have special needs like sensitivity, runtime, or database dependencies?</li>
 </ol>
 <h2 id="decision-flowchart">Decision Flowchart</h2>
-<div class="mermaid">graph TD
-    A[Start] --&gt; B{What is your primary objective?}
-    B --&gt;|Virus Detection| C[Identification Tools]
-    B --&gt;|Host Prediction| D[Host Prediction Tools]
-    B --&gt;|Genome Assembly| E[Assembly Tools]
-    B --&gt;|Annotation| F[Annotation Tools]
-    B --&gt;|Taxonomy| G[Taxonomy Tools]
+<div class="workflow-container">
+  <div class="workflow-decision">
+    <div class="workflow-box">Start</div>
+    <div class="workflow-arrow">↓</div>
+    <div class="workflow-box workflow-question">What is your primary objective?</div>
+  </div>
 
-    C --&gt; C1{Sample type?}
-    C1 --&gt;|Metagenome| C2[VirSorter2, VIBRANT, DeepVirFinder]
-    C1 --&gt;|Transcriptome| C3[RNA-Virus-Flow, VirMine-RNA]
-    C1 --&gt;|Single cell| C4[scVIRseq, scViroCap]
+  <div class="workflow-branches">
+    <div class="workflow-branch">
+      <div class="workflow-arrow">Virus Detection →</div>
+      <div class="workflow-box">Identification Tools</div>
+      <div class="workflow-arrow">↓</div>
+      <div class="workflow-box workflow-question">Sample type?</div>
+      <div class="workflow-branches">
+        <div class="workflow-mini-branch">
+          <div class="workflow-arrow">Metagenome →</div>
+          <div class="workflow-box">[VirSorter2](https://bitbucket.org/MAVERICLab/virsorter2/), [VIBRANT](https://github.com/AnantharamanLab/VIBRANT)</div>
+        </div>
+        <div class="workflow-mini-branch">
+          <div class="workflow-arrow">Transcriptome →</div>
+          <div class="workflow-box">RNA-Virus-Flow, VirMine-RNA</div>
+        </div>
+        <div class="workflow-mini-branch">
+          <div class="workflow-arrow">Single cell →</div>
+          <div class="workflow-box">scVIRseq, scViroCap</div>
+        </div>
+      </div>
+    </div>
 
-    D --&gt; D1{Host domain?}
-    D1 --&gt;|Bacteria| D2[WIsH, iPHoP, PHIST]
-    D1 --&gt;|Eukaryotes| D3[DeepHost, VirHostMatcher-Net] 
-    D1 --&gt;|Any| D4[VirHostMatcher, Host Prediction]</div>
+    <div class="workflow-branch">
+      <div class="workflow-arrow">Host Prediction →</div>
+      <div class="workflow-box">Host Prediction Tools</div>
+      <div class="workflow-arrow">↓</div>
+      <div class="workflow-box workflow-question">Host domain?</div>
+      <div class="workflow-branches">
+        <div class="workflow-mini-branch">
+          <div class="workflow-arrow">Bacteria →</div>
+          <div class="workflow-box">[WIsH](https://github.com/soedinglab/WIsH), [iPHoP](https://bitbucket.org/srouxjgi/iphop/src/main/)</div>
+        </div>
+        <div class="workflow-mini-branch">
+          <div class="workflow-arrow">Eukaryotes →</div>
+          <div class="workflow-box">[DeepHost](https://github.com/deepomicslab/DeepHost), [VirHostMatcher-Net](https://github.com/WeiliWw/VirHostMatcher-Net)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="workflow-branch">
+      <div class="workflow-arrow">Genome Assembly →</div>
+      <div class="workflow-box">[metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication)</div>
+    </div>
+
+    <div class="workflow-branch">
+      <div class="workflow-arrow">Annotation →</div>
+      <div class="workflow-box">[Pharokka](https://github.com/gbouras13/pharokka), [DRAMv](https://github.com/WrightonLabCSU/DRAM)</div>
+    </div>
+
+    <div class="workflow-branch">
+      <div class="workflow-arrow">Taxonomy →</div>
+      <div class="workflow-box">[vConTACT2](https://bitbucket.org/MAVERICLab/vcontact2/), [PhaGCN](https://github.com/KennthShang/PhaGCN)</div>
+    </div>
+  </div>
+</div>
+
 <h2 id="tool-selection-by-category">Tool Selection by Category</h2>
 <h3 id="virus-identification">Virus Identification</h3>
 <table>
@@ -1254,25 +1300,25 @@
 </thead>
 <tbody>
 <tr>
-<td>VirSorter2</td>
+<td><a href="https://bitbucket.org/MAVERICLab/virsorter2/">VirSorter2</a></td>
 <td>Sensitive, handles diverse viral sequences</td>
 <td>Computationally intensive</td>
 <td>Metagenomes with unknown viruses</td>
 </tr>
 <tr>
-<td>VIBRANT</td>
+<td><a href="https://github.com/AnantharamanLab/VIBRANT">VIBRANT</a></td>
 <td>Integrated annotation, good visualization</td>
 <td>Limited to specific viral groups</td>
 <td>Phage-focused studies</td>
 </tr>
 <tr>
-<td>DeepVirFinder</td>
+<td><a href="https://github.com/jessieren/DeepVirFinder">DeepVirFinder</a></td>
 <td>Works well on short contigs</td>
 <td>Requires GPU for best performance</td>
 <td>Fragmented assemblies</td>
 </tr>
 <tr>
-<td>Seeker</td>
+<td><a href="https://github.com/gussow/seeker">Seeker</a></td>
 <td>Ultra-fast, works on reads</td>
 <td>Lower accuracy than contig-based tools</td>
 <td>Quick screening</td>
@@ -1291,25 +1337,25 @@
 </thead>
 <tbody>
 <tr>
-<td>WIsH</td>
+<td><a href="https://github.com/soedinglab/WIsH">WIsH</a></td>
 <td>Fast, accurate for bacteria</td>
 <td>Requires reference genomes</td>
 <td>Phage-host studies</td>
 </tr>
 <tr>
-<td>iPHoP</td>
+<td><a href="https://bitbucket.org/srouxjgi/iphop/src/main/">iPHoP</a></td>
 <td>Multi-method approach</td>
 <td>Computationally intensive</td>
 <td>When accuracy is critical</td>
 </tr>
 <tr>
-<td>PHIST</td>
+<td><a href="https://github.com/refresh-bio/PHIST">PHIST</a></td>
 <td>Simple k-mer based</td>
 <td>May miss distant relationships</td>
 <td>Quick screening</td>
 </tr>
 <tr>
-<td>VirHostMatcher-Net</td>
+<td><a href="https://github.com/WeiliWw/VirHostMatcher-Net">VirHostMatcher-Net</a></td>
 <td>Works across domains</td>
 <td>Requires training</td>
 <td>Cross-domain studies</td>
@@ -1328,19 +1374,19 @@
 </thead>
 <tbody>
 <tr>
-<td>metaviralSPAdes</td>
+<td><a href="https://github.com/ablab/spades/tree/metaviral_publication">metaviralSPAdes</a></td>
 <td>Specifically for viral metagenomes</td>
 <td>Memory intensive</td>
 <td>Complex viral communities</td>
 </tr>
 <tr>
-<td>metaPhage</td>
+<td><a href="https://bitbucket.org/cobilab/metaphage/src/master/">metaPhage</a></td>
 <td>Optimized for phages</td>
 <td>Limited to phages</td>
 <td>Bacteriophage studies</td>
 </tr>
 <tr>
-<td>PHAMB</td>
+<td><a href="https://github.com/RasmussenLab/phamb">PHAMB</a></td>
 <td>Good for retrieving viral contigs</td>
 <td>Requires good depth</td>
 <td>Well-sequenced samples</td>
@@ -1358,30 +1404,30 @@
 <tbody>
 <tr>
 <td>Low (Laptop)</td>
-<td>Seeker, PHIST, VirHostMatcher</td>
+<td><a href="https://github.com/gussow/seeker">Seeker</a>, <a href="https://github.com/refresh-bio/PHIST">PHIST</a>, <a href="https://github.com/jessieren/VirHostMatcher">VirHostMatcher</a></td>
 </tr>
 <tr>
 <td>Medium (Workstation)</td>
-<td>VirSorter2, VIBRANT, WIsH</td>
+<td><a href="https://bitbucket.org/MAVERICLab/virsorter2/">VirSorter2</a>, <a href="https://github.com/AnantharamanLab/VIBRANT">VIBRANT</a>, <a href="https://github.com/soedinglab/WIsH">WIsH</a></td>
 </tr>
 <tr>
 <td>High (Server/Cluster)</td>
-<td>metaviralSPAdes, iPHoP, PHAMB</td>
+<td><a href="https://github.com/ablab/spades/tree/metaviral_publication">metaviralSPAdes</a>, <a href="https://bitbucket.org/srouxjgi/iphop/src/main/">iPHoP</a>, <a href="https://github.com/RasmussenLab/phamb">PHAMB</a></td>
 </tr>
 <tr>
 <td>Cloud-optimized</td>
-<td>IDseq, CZ ID, Jovian</td>
+<td><a href="https://idseq.net/">IDseq</a>, <a href="https://czid.org/">CZ ID</a>, <a href="https://github.com/seqeralabs/jovian">Jovian</a></td>
 </tr>
 </tbody>
 </table>
 <h2 id="recent-additions-2024-2025">Recent Additions (2024-2025)</h2>
 <p>These tools have been added recently and show promising results:</p>
 <ul>
-<li><strong>DePhT</strong> - Novel approach to detect prophages with high accuracy</li>
-<li><strong>GraViTy</strong> - Graph-based virus taxonomy assignment tool</li>
-<li><strong>ViroProfiler</strong> - Integrated workflow for comprehensive virome profiling</li>
-<li><strong>ViralWasm</strong> - Web Assembly tools for client-side viral analysis</li>
-<li><strong>CHERRY</strong> - AI-based identification and classification of animal viruses</li>
+<li><a href="https://github.com/edzuf/depht"><strong>DePhT</strong></a> - Novel approach to detect prophages with high accuracy</li>
+<li><a href="https://github.com/sirsplendor/gravity"><strong>GraViTy</strong></a> - Graph-based virus taxonomy assignment tool</li>
+<li><a href="https://github.com/viralprofiler/viroprofiler"><strong>ViroProfiler</strong></a> - Integrated workflow for comprehensive virome profiling</li>
+<li><a href="https://github.com/serratus-bio/viralwasm"><strong>ViralWasm</strong></a> - Web Assembly tools for client-side viral analysis</li>
+<li><a href="https://github.com/KennthShang/CHERRY"><strong>CHERRY</strong></a> - AI-based identification and classification of animal viruses</li>
 </ul>
 <h2 id="version-compatibility">Version Compatibility</h2>
 <table>
@@ -1394,27 +1440,27 @@
 </thead>
 <tbody>
 <tr>
-<td>VirSorter2</td>
+<td><a href="https://bitbucket.org/MAVERICLab/virsorter2/">VirSorter2</a></td>
 <td>3.6+</td>
 <td>scikit-learn, Tensorflow</td>
 </tr>
 <tr>
-<td>VIBRANT</td>
+<td><a href="https://github.com/AnantharamanLab/VIBRANT">VIBRANT</a></td>
 <td>3.5+</td>
 <td>scikit-learn, prodigal</td>
 </tr>
 <tr>
-<td>iPHoP</td>
+<td><a href="https://bitbucket.org/srouxjgi/iphop/src/main/">iPHoP</a></td>
 <td>3.7+</td>
 <td>mash, pytorch, diamond</td>
 </tr>
 <tr>
-<td>MetaviralSPAdes</td>
+<td><a href="https://github.com/ablab/spades/tree/metaviral_publication">MetaviralSPAdes</a></td>
 <td>Any</td>
 <td>C++17 compiler</td>
 </tr>
 <tr>
-<td>Pharokka</td>
+<td><a href="https://github.com/gbouras13/pharokka">Pharokka</a></td>
 <td>3.8+</td>
 <td>BLAST+, mash, prodigal</td>
 </tr>
