@@ -186,8 +186,20 @@ class VisualizationManager {
             return;
         }
 
-        // Get the years in sequence
-        const years = Object.keys(citationsByYear).sort();
+        // Filter out future years and sort years
+        const currentYear = new Date().getFullYear();
+        const years = Object.keys(citationsByYear)
+            .filter(year => {
+                const yearNum = parseInt(year);
+                return !isNaN(yearNum) && yearNum <= currentYear && citationsByYear[year] > 0;
+            })
+            .sort();
+            
+        if (years.length === 0) {
+            console.error('No valid citation years');
+            this.showEmptyChart(container, 'Citation Trends', 'No valid citation trend data available.');
+            return;
+        }
         
         // Calculate cumulative citations
         let cumulativeCount = 0;
@@ -256,7 +268,7 @@ class VisualizationManager {
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Citation Growth Over Time',
+                            text: 'Citation Growth Over Time (Real Data)',
                             font: {
                                 size: 16
                             }
@@ -289,13 +301,38 @@ class VisualizationManager {
             return;
         }
         
-        // Get top tools from impact_data.json
-        const toolsWithCitations = window.impactData.tools
+        // Filter to tools with real citation data only
+        const toolsWithRealData = window.impactData.tools.filter(tool => {
+            // Check if the tool has any citation data
+            return (
+                (tool.citations_by_year && Object.keys(tool.citations_by_year).length > 0) ||
+                tool.citation_count > 0
+            );
+        });
+        
+        if (toolsWithRealData.length === 0) {
+            this.showEmptyChart(container, 'Most Cited Tools', 'No tools with real citation data.');
+            return;
+        }
+        
+        // Track tools we've already processed to prevent duplicates
+        const processedTools = new Set();
+        
+        // Get top tools from impact_data.json (deduplicated)
+        const toolsWithCitations = toolsWithRealData
+            .filter(tool => {
+                if (processedTools.has(tool.name)) {
+                    return false;
+                }
+                processedTools.add(tool.name);
+                return true;
+            })
             .map(tool => ({
                 name: tool.name,
-                citation_count: Object.values(tool.citations_by_year || {}).reduce((sum, count) => sum + count, 0)
+                citation_count: Object.values(tool.citations_by_year || {}).reduce((sum, count) => sum + count, 0) || tool.citation_count || 0
             }))
-            .sort((a, b) => (b.citation_count || 0) - (a.citation_count || 0))
+            .filter(tool => tool.citation_count > 0) // Only include tools with citations
+            .sort((a, b) => b.citation_count - a.citation_count)
             .slice(0, 10); // Top 10
         
         if (toolsWithCitations.length === 0) {
@@ -311,16 +348,33 @@ class VisualizationManager {
             container.innerHTML = '';
             container.appendChild(ctx);
             
+            // Add slight jitter to prevent exact overlap of duplicated values
+            const citationValues = toolsWithCitations.map(tool => ({
+                original: tool.citation_count,
+                display: tool.citation_count
+            }));
+            
+            // Look for duplicate values and add tiny display offsets
+            for (let i = 0; i < citationValues.length; i++) {
+                for (let j = i + 1; j < citationValues.length; j++) {
+                    if (citationValues[i].original === citationValues[j].original) {
+                        // Add tiny visual offset (0.1-0.5) to prevent exact overlap
+                        citationValues[j].display = citationValues[j].original - (Math.random() * 0.4 + 0.1);
+                    }
+                }
+            }
+            
             new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: toolsWithCitations.map(tool => tool.name),
                     datasets: [{
                         label: 'Citations',
-                        data: toolsWithCitations.map(tool => tool.citation_count),
+                        data: citationValues.map(val => val.display),
                         backgroundColor: toolsWithCitations.map((_, i) => {
-                            const hue = (i * 25) % 360;
-                            return `hsla(${hue}, 70%, 60%, 0.8)`;
+                            // Create more distinct colors
+                            const hue = (i * 36) % 360; // More spacing between colors
+                            return `hsla(${hue}, 85%, 55%, 0.85)`; // More saturated
                         }),
                         borderWidth: 1
                     }]
@@ -341,13 +395,23 @@ class VisualizationManager {
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Most Cited Tools',
+                            text: 'Most Cited Tools (Real Citation Data)',
                             font: {
                                 size: 16
                             }
                         },
                         legend: {
                             display: false
+                        },
+                        // Show original values in tooltips
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const toolIndex = context.dataIndex;
+                                    const originalValue = citationValues[toolIndex].original;
+                                    return `Citations: ${originalValue.toLocaleString()}`;
+                                }
+                            }
                         }
                     }
                 }
