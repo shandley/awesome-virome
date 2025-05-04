@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -42,6 +42,8 @@ jobs:
       - name: Build MkDocs site
         run: |
           cd mkdocs
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
           mike deploy --config-file mkdocs.yml --branch gh-pages --deploy-prefix '' --update-aliases 1.0.0 latest
           mike set-default --config-file mkdocs.yml --branch gh-pages --deploy-prefix '' 1.0.0
       
