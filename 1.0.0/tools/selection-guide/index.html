@@ -1224,24 +1224,23 @@
 <li><strong>Specific Requirements</strong> - Do you have special needs like sensitivity, runtime, or database dependencies?</li>
 </ol>
 <h2 id="decision-flowchart">Decision Flowchart</h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>graph TD
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    A[Start] --&gt; B{What is your primary objective?}
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    B --&gt;|Virus Detection| C[Identification Tools]
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>    B --&gt;|Host Prediction| D[Host Prediction Tools]
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>    B --&gt;|Genome Assembly| E[Assembly Tools]
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>    B --&gt;|Annotation| F[Annotation Tools]
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>    B --&gt;|Taxonomy| G[Taxonomy Tools]
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>    C --&gt; C1{Sample type?}
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    C1 --&gt;|Metagenome| C2[VirSorter2, VIBRANT, DeepVirFinder]
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>    C1 --&gt;|Transcriptome| C3[RNA-Virus-Flow, VirMine-RNA]
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>    C1 --&gt;|Single cell| C4[scVIRseq, scViroCap]
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>    D --&gt; D1{Host domain?}
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>    D1 --&gt;|Bacteria| D2[WIsH, iPHoP, PHIST]
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    D1 --&gt;|Eukaryotes| D3[DeepHost, VirHostMatcher-Net] 
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    D1 --&gt;|Any| D4[VirHostMatcher, Host Prediction]
-</span></code></pre></div>
+<pre class="mermaid"><code>graph TD
+    A[Start] --&gt; B{What is your primary objective?}
+    B --&gt;|Virus Detection| C[Identification Tools]
+    B --&gt;|Host Prediction| D[Host Prediction Tools]
+    B --&gt;|Genome Assembly| E[Assembly Tools]
+    B --&gt;|Annotation| F[Annotation Tools]
+    B --&gt;|Taxonomy| G[Taxonomy Tools]
+
+    C --&gt; C1{Sample type?}
+    C1 --&gt;|Metagenome| C2[VirSorter2, VIBRANT, DeepVirFinder]
+    C1 --&gt;|Transcriptome| C3[RNA-Virus-Flow, VirMine-RNA]
+    C1 --&gt;|Single cell| C4[scVIRseq, scViroCap]
+
+    D --&gt; D1{Host domain?}
+    D1 --&gt;|Bacteria| D2[WIsH, iPHoP, PHIST]
+    D1 --&gt;|Eukaryotes| D3[DeepHost, VirHostMatcher-Net] 
+    D1 --&gt;|Any| D4[VirHostMatcher, Host Prediction]</code></pre>
 <h2 id="tool-selection-by-category">Tool Selection by Category</h2>
 <h3 id="virus-identification">Virus Identification</h3>
 <table>
@@ -1514,6 +1513,10 @@
     
     
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+      
+        <script src="../../assets/javascripts/extra.js"></script>
       
     
   </body>
