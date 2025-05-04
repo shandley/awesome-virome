@@ -1278,11 +1278,13 @@
 flowchart TD
     A["Raw Sequencing Data"] --> B["Quality Control"]
     B --> C["Assembly"]
-    C --> D["Viral Contig<br/>Identification"]
+    C --> D["Viral Contig Identification"]
     D --> E["Quality Assessment"]
-    E --> F["Taxonomic<br/>Classification"]
+    E --> F["Taxonomic Classification"]
     F --> G["Host Prediction"]
-    G --> H["Functional<br/>Annotation"]
+    G --> H["Functional Annotation"]
+
+    classDef default width:200px;
 </div>
 
 <h3 id="step-by-step-guide">Step-by-Step Guide</h3>
@@ -1345,9 +1347,11 @@ flowchart TD
     A["Raw RNA-Seq Data"] --> B["Quality Control"]
     B --> C["Assembly"]
     C --> D["RdRp Search"]
-    D --> E["RNA Virus<br/>Verification"]
-    E --> F["Genome<br/>Annotation"]
-    F --> G["Phylogenetic<br/>Analysis"]
+    D --> E["RNA Virus Verification"]
+    E --> F["Genome Annotation"]
+    F --> G["Phylogenetic Analysis"]
+
+    classDef default width:200px;
 </div>
 
 <h3 id="key-tools-for-rna-virus-analysis">Key Tools for RNA Virus Analysis</h3>
@@ -1372,11 +1376,13 @@ flowchart TD
 <div class="mermaid">
 %%{init: {'theme': 'default', 'flowchart': {'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 15}}}%%
 flowchart TD
-    A["Bacterial<br/>Genome"] --> B["Prophage<br/>Detection"]
-    B --> C["Prophage<br/>Excision"]
-    C --> D["Prophage<br/>Verification"]
-    D --> E["Prophage<br/>Annotation"]
-    E --> F["Host-Prophage<br/>Interaction<br/>Analysis"]
+    A["Bacterial Genome"] --> B["Prophage Detection"]
+    B --> C["Prophage Excision"]
+    C --> D["Prophage Verification"]
+    D --> E["Prophage Annotation"]
+    E --> F["Host-Prophage Interaction Analysis"]
+
+    classDef default width:250px;
 </div>
 
 <h3 id="key-tools-for-prophage-analysis">Key Tools for Prophage Analysis</h3>
@@ -1584,7 +1590,9 @@ document.addEventListener('DOMContentLoaded', function() {
     flowchart: {
       useMaxWidth: false,
       htmlLabels: true,
-      curve: 'basis'
+      curve: 'basis',
+      defaultRenderer: 'elk',
+      width: 250
     },
     securityLevel: 'loose'
   };
@@ -1643,7 +1651,9 @@ window.addEventListener('load', function() {
       flowchart: {
         useMaxWidth: false,
         htmlLabels: true,
-        curve: 'basis'
+        curve: 'basis',
+        defaultRenderer: 'elk',
+        width: 250
       },
       securityLevel: 'loose'
     });

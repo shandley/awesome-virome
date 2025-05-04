@@ -10,7 +10,9 @@ function initializeMermaid() {
         flowchart: {
           useMaxWidth: false,
           htmlLabels: true,
-          curve: 'basis'
+          curve: 'basis',
+          defaultRenderer: 'elk',
+          width: 200
         },
         securityLevel: 'loose'
       });
@@ -33,7 +35,9 @@ function initializeMermaid() {
           flowchart: {
             useMaxWidth: false,
             htmlLabels: true,
-            curve: 'basis'
+            curve: 'basis',
+            defaultRenderer: 'elk',
+            width: 200
           },
           securityLevel: 'loose'
         });
