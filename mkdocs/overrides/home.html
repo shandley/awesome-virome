@@ -1,0 +1,61 @@
+{% extends "main.html" %}
+
+{% block tabs %}
+  {{ super() }}
+
+  <!-- Hero section -->
+  <section class="hero">
+    <img src="{{ config.site_url }}assets/awesome-virome-hex-gradient.png" alt="Awesome-Virome Logo" class="hero-image">
+    <h1 class="hero-title">Awesome-Virome</h1>
+    <p class="hero-subtitle">A curated list of software, tools, and databases for virome analysis</p>
+    <a href="{{ config.site_url }}tools/overview/" class="md-button md-button--primary">Explore Tools</a>
+    <a href="{{ config.site_url }}intro/index/" class="md-button">Get Started</a>
+  </section>
+
+  <!-- Feature cards -->
+  <div class="feature-cards">
+    <div class="feature-card">
+      <div class="feature-title">
+        <i class="icon material-icons">search</i>
+        Tool Discovery
+      </div>
+      <p class="feature-description">
+        Find the right tools for your virome analysis workflows from our comprehensive, curated collection.
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">
+        <i class="icon material-icons">trending_up</i>
+        Citation Analytics
+      </div>
+      <p class="feature-description">
+        View citation trends and impact metrics to understand which tools are most widely used in the community.
+      </p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-title">
+        <i class="icon material-icons">device_hub</i>
+        API Access
+      </div>
+      <p class="feature-description">
+        Use our REST API to programmatically access tool information for integration into your applications and workflows.
+      </p>
+    </div>
+  </div>
+  
+  <!-- Dashboard card -->
+  <div class="dashboard-card">
+    <h2>Interactive Dashboard</h2>
+    <p>Explore tool relationships, categories, and citation metrics through our interactive dashboard.</p>
+    <img src="{{ config.site_url }}assets/dashboard.png" alt="Dashboard Preview">
+    <a href="https://shandley.github.io/awesome-virome/dashboard.html" class="md-button md-button--primary" target="_blank">
+      Explore Dashboard
+    </a>
+  </div>
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+{% block footer %}
+  {{ super() }}
+{% endblock %}

@@ -1,0 +1,331 @@
+/* Custom styles for the Awesome-Virome documentation */
+
+/* Logo size in header */
+.md-header__button.md-logo img {
+  height: 2rem;
+}
+
+/* Custom hero section on home page */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.hero-image {
+  max-width: 250px;
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  opacity: 0.8;
+}
+
+/* Cards for features */
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.feature-card {
+  padding: 1.5rem;
+  border-radius: 4px;
+  background-color: var(--md-primary-fg-color--light);
+  transition: transform 0.2s ease-in-out;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-title {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.feature-title .icon {
+  margin-right: 0.5rem;
+}
+
+.feature-description {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Custom admonitions */
+.md-typeset .admonition.tool,
+.md-typeset details.tool {
+  border-color: #4051b5;
+}
+
+.md-typeset .tool > .admonition-title,
+.md-typeset .tool > summary {
+  background-color: rgba(64, 81, 181, 0.1);
+}
+
+.md-typeset .tool > .admonition-title::before,
+.md-typeset .tool > summary::before {
+  background-color: #4051b5;
+  -webkit-mask-image: var(--md-admonition-icon--tool);
+          mask-image: var(--md-admonition-icon--tool);
+}
+
+/* Version selector styling */
+.md-version__current {
+  margin-right: 0.5rem;
+}
+
+/* Code blocks with filename */
+.md-typeset pre > code {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.code-filename {
+  background-color: rgba(0, 0, 0, 0.07);
+  color: var(--md-code-fg-color);
+  font-family: var(--md-code-font-family);
+  font-size: 0.85em;
+  padding: 0.4rem 0.8rem;
+  border-top-left-radius: 0.2rem;
+  border-top-right-radius: 0.2rem;
+  display: block;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.07);
+  width: 100%;
+}
+
+[data-md-color-scheme="slate"] .code-filename {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Dashboard card */
+.dashboard-card {
+  background-color: var(--md-primary-fg-color--light);
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.dashboard-card img {
+  max-width: 100%;
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Workflow diagram styling */
+.workflow-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.workflow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  padding: 1rem;
+}
+
+.workflow-box {
+  background-color: #f5f7ff;
+  border: 1px solid #4051b5;
+  border-radius: 4px;
+  padding: 10px 15px;
+  margin: 0 5px;
+  text-align: center;
+  min-width: 100px;
+  max-width: 160px;
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.workflow-arrow {
+  color: #4051b5;
+  font-size: 20px;
+  margin: 0 5px;
+  font-weight: bold;
+}
+
+.workflow-steps {
+  font-size: 15px;
+  line-height: 1.5;
+  text-align: center;
+  margin: 1rem 0;
+  padding: 0 1rem;
+}
+
+/* Decision flowchart specific styles */
+.workflow-decision {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.workflow-branches {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.workflow-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 260px;
+  margin: 0.8rem;
+  padding: 1rem;
+  background-color: rgba(245, 247, 255, 0.5);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.workflow-branch:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.workflow-branch h4 {
+  margin-top: 0;
+  margin-bottom: 0.7rem;
+  color: #3949ab;
+  border-bottom: 2px solid #3949ab;
+  padding-bottom: 5px;
+  width: 100%;
+  text-align: center;
+}
+
+.workflow-mini-branch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0.7rem 0;
+  width: 100%;
+  border-top: 1px dashed #cfd8dc;
+  padding-top: 0.7rem;
+}
+
+.workflow-mini-branch strong {
+  color: #455a64;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+
+.workflow-mini-branch:first-child {
+  border-top: none;
+}
+
+.workflow-question {
+  background-color: #e3f2fd;
+  border: 2px solid #2196f3;
+  border-radius: 6px;
+  font-weight: bold;
+  font-style: italic;
+  min-width: 200px;
+  padding: 12px 20px;
+  margin: 10px 0;
+  color: #0d47a1;
+}
+
+.workflow-branch .workflow-box {
+  width: 230px;
+  max-width: 230px;
+  margin: 8px 0;
+  background-color: white;
+  border: 1px solid #4051b5;
+}
+
+.workflow-box a {
+  color: #1a73e8;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0 3px;
+}
+
+.workflow-box a:hover {
+  text-decoration: underline;
+  color: #0d47a1;
+}
+
+.workflow-branch .workflow-arrow {
+  margin: 3px 0;
+  font-size: 18px;
+  color: #5c6bc0;
+  font-weight: normal;
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] .workflow-box {
+  background-color: #2a2e4d;
+  border-color: #70d6ff;
+  color: #fff;
+}
+
+[data-md-color-scheme="slate"] .workflow-branch .workflow-box {
+  background-color: #1a1f35;
+}
+
+[data-md-color-scheme="slate"] .workflow-branch {
+  background-color: rgba(42, 46, 77, 0.3);
+}
+
+[data-md-color-scheme="slate"] .workflow-arrow {
+  color: #70d6ff;
+}
+
+[data-md-color-scheme="slate"] .workflow-question {
+  background-color: #1a237e;
+  border-color: #64b5f6;
+  color: #e3f2fd;
+}
+
+[data-md-color-scheme="slate"] .workflow-mini-branch {
+  border-top-color: #445;
+}
+
+[data-md-color-scheme="slate"] .workflow-box a {
+  color: #81d4fa;
+}
+
+[data-md-color-scheme="slate"] .workflow-box a:hover {
+  color: #29b6f6;
+}
+
+[data-md-color-scheme="slate"] .workflow-branch h4 {
+  color: #29b6f6;
+  border-bottom-color: #29b6f6;
+}
+
+[data-md-color-scheme="slate"] .workflow-mini-branch strong {
+  color: #b0bec5;
+}

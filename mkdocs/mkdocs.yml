@@ -1,0 +1,119 @@
+site_name: Awesome-Virome
+site_url: https://shandley.github.io/awesome-virome/
+repo_url: https://github.com/shandley/awesome-virome
+repo_name: shandley/awesome-virome
+edit_uri: edit/main/mkdocs/docs/
+
+theme:
+  name: material
+  logo: assets/awesome-virome-hex.png
+  favicon: assets/awesome-virome-hex.png
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - content.tabs.link
+    - content.code.copy
+    - content.code.annotate
+    - search.highlight
+    - search.share
+    - search.suggest
+  icon:
+    admonition:
+      tool: material/tools
+  font:
+    text: Roboto
+    code: Roboto Mono
+  custom_dir: overrides
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js
+  - js/mermaid.js
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_div_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables
+  - footnotes
+  - attr_list
+  - md_in_html
+
+# Plugins
+plugins:
+  - search
+  - mike:
+      version_selector: true
+      canonical_version: latest
+
+# Navigation structure
+nav:
+  - Home: index.md
+  - Getting Started:
+    - Introduction: intro/index.md
+    - Typical Workflows: intro/workflows.md
+    - Versioning: intro/versioning.md
+  - Core Analysis Tools:
+    - Overview: tools/overview.md
+    - Virus Identification: tools/virus-identification.md
+    - Host Prediction: tools/host-prediction.md
+    - Selection Guide: tools/selection-guide.md
+  - API Reference:
+    - Overview: api/overview.md
+    - Endpoints: api/endpoints.md
+    - Examples: api/examples.md
+  - Contributing:
+    - Guidelines: contributing/guidelines.md
+    - Validation: contributing/validation.md
+    - Updating Docs: contributing/updating-docs.md
+
+# Extra settings
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/shandley/awesome-virome
+  homepage: home.html
+  version:
+    provider: mike
+    default: latest
+
+copyright: >
+  &copy; 2023-2025 <a href="https://github.com/shandley">Scott Handley</a> - 
+  <a href="#__consent">Change cookie settings</a>
