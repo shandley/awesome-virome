@@ -8,17 +8,17 @@ This report provides insights into the health and activity of the awesome-virome
 
 | Metric | Value |
 | ------ | ----- |
-| Total Commits | 352 |
+| Total Commits | 356 |
 | Total Contributors | 9 |
-| Repository Age | 67 days |
+| Repository Age | 68 days |
 
 ## Data Freshness
 
 | Dataset | Last Updated | Status |
 | ------- | ------------ | ------ |
-| data.json | 2 days ago | $([ 2 -lt 0 ] && echo "Missing" || ([ 2 -lt 7 ] && echo "✅ Fresh" || ([ 2 -lt 30 ] && echo "⚠️ Needs Update" || echo "❌ Outdated"))) |
+| data.json | 0 days ago | $([ 0 -lt 0 ] && echo "Missing" || ([ 0 -lt 7 ] && echo "✅ Fresh" || ([ 0 -lt 30 ] && echo "⚠️ Needs Update" || echo "❌ Outdated"))) |
 | Metadata Files | 0 days ago | $([ 0 -lt 0 ] && echo "Missing" || ([ 0 -lt 7 ] && echo "✅ Fresh" || ([ 0 -lt 30 ] && echo "⚠️ Needs Update" || echo "❌ Outdated"))) |
-| API Files | 2 days ago | $([ 2 -lt 0 ] && echo "Missing" || ([ 2 -lt 7 ] && echo "✅ Fresh" || ([ 2 -lt 30 ] && echo "⚠️ Needs Update" || echo "❌ Outdated"))) |
+| API Files | 0 days ago | $([ 0 -lt 0 ] && echo "Missing" || ([ 0 -lt 7 ] && echo "✅ Fresh" || ([ 0 -lt 30 ] && echo "⚠️ Needs Update" || echo "❌ Outdated"))) |
 
 ## Activity Charts
 
@@ -48,9 +48,9 @@ This report provides insights into the health and activity of the awesome-virome
 
 Based on the metrics in this report, here are some recommendations for maintaining repository health:
 
-$([ 2 -gt 30 ] && echo "- **High Priority**: Update data.json which is now 2 days old" || echo "")
+$([ 0 -gt 30 ] && echo "- **High Priority**: Update data.json which is now 0 days old" || echo "")
 $([ 0 -gt 30 ] && echo "- **High Priority**: Update metadata files which are now 0 days old" || echo "")
-$([ 2 -gt 30 ] && echo "- **High Priority**: Update API files which are now 2 days old" || echo "")
+$([ 0 -gt 30 ] && echo "- **High Priority**: Update API files which are now 0 days old" || echo "")
 
 - Maintain regular updates to keep repository data fresh
 - Encourage contributions from new maintainers to diversify repository maintenance
