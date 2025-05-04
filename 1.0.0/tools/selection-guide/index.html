@@ -1226,63 +1226,115 @@
 <h2 id="decision-flowchart">Decision Flowchart</h2>
 <div class="workflow-container">
   <div class="workflow-decision">
-    <div class="workflow-box">Start</div>
+    <div class="workflow-box">Tool Selection Start</div>
     <div class="workflow-arrow">↓</div>
     <div class="workflow-box workflow-question">What is your primary objective?</div>
   </div>
 
   <div class="workflow-branches">
     <div class="workflow-branch">
-      <div class="workflow-arrow">Virus Detection →</div>
+      <h4>Virus Detection</h4>
       <div class="workflow-box">Identification Tools</div>
       <div class="workflow-arrow">↓</div>
       <div class="workflow-box workflow-question">Sample type?</div>
-      <div class="workflow-branches">
-        <div class="workflow-mini-branch">
-          <div class="workflow-arrow">Metagenome →</div>
-          <div class="workflow-box">[VirSorter2](https://bitbucket.org/MAVERICLab/virsorter2/), [VIBRANT](https://github.com/AnantharamanLab/VIBRANT)</div>
+
+      <div class="workflow-mini-branch">
+        <strong>Metagenome:</strong>
+        <div class="workflow-box">
+          <a href="https://bitbucket.org/MAVERICLab/virsorter2/">VirSorter2</a><br>
+          <a href="https://github.com/AnantharamanLab/VIBRANT">VIBRANT</a><br>
+          <a href="https://github.com/apcamargo/genomad">geNomad</a>
         </div>
-        <div class="workflow-mini-branch">
-          <div class="workflow-arrow">Transcriptome →</div>
-          <div class="workflow-box">RNA-Virus-Flow, VirMine-RNA</div>
+      </div>
+
+      <div class="workflow-mini-branch">
+        <strong>Transcriptome:</strong>
+        <div class="workflow-box">
+          <a href="https://github.com/rvdwiel/RNAvirusflow">RNA-Virus-Flow</a><br>
+          <a href="https://github.com/JustineCharon/RdRp-scan">RdRp-scan</a>
         </div>
-        <div class="workflow-mini-branch">
-          <div class="workflow-arrow">Single cell →</div>
-          <div class="workflow-box">scVIRseq, scViroCap</div>
+      </div>
+
+      <div class="workflow-mini-branch">
+        <strong>Single cell:</strong>
+        <div class="workflow-box">
+          <a href="https://github.com/MAAntunes/scVIRseq">scVIRseq</a><br>
+          <a href="https://github.com/ajluo2001/scViroCap">scViroCap</a>
         </div>
       </div>
     </div>
 
     <div class="workflow-branch">
-      <div class="workflow-arrow">Host Prediction →</div>
+      <h4>Host Prediction</h4>
       <div class="workflow-box">Host Prediction Tools</div>
       <div class="workflow-arrow">↓</div>
       <div class="workflow-box workflow-question">Host domain?</div>
-      <div class="workflow-branches">
-        <div class="workflow-mini-branch">
-          <div class="workflow-arrow">Bacteria →</div>
-          <div class="workflow-box">[WIsH](https://github.com/soedinglab/WIsH), [iPHoP](https://bitbucket.org/srouxjgi/iphop/src/main/)</div>
+
+      <div class="workflow-mini-branch">
+        <strong>Bacteria:</strong>
+        <div class="workflow-box">
+          <a href="https://github.com/soedinglab/WIsH">WIsH</a><br>
+          <a href="https://bitbucket.org/srouxjgi/iphop/src/main/">iPHoP</a><br>
+          <a href="https://github.com/refresh-bio/PHIST">PHIST</a>
         </div>
-        <div class="workflow-mini-branch">
-          <div class="workflow-arrow">Eukaryotes →</div>
-          <div class="workflow-box">[DeepHost](https://github.com/deepomicslab/DeepHost), [VirHostMatcher-Net](https://github.com/WeiliWw/VirHostMatcher-Net)</div>
+      </div>
+
+      <div class="workflow-mini-branch">
+        <strong>Eukaryotes:</strong>
+        <div class="workflow-box">
+          <a href="https://github.com/deepomicslab/DeepHost">DeepHost</a><br>
+          <a href="https://github.com/WeiliWw/VirHostMatcher-Net">VirHostMatcher-Net</a>
         </div>
       </div>
     </div>
 
     <div class="workflow-branch">
-      <div class="workflow-arrow">Genome Assembly →</div>
-      <div class="workflow-box">[metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication)</div>
+      <h4>Genome Analysis</h4>
+
+      <div class="workflow-mini-branch">
+        <strong>Assembly:</strong>
+        <div class="workflow-box">
+          <a href="https://github.com/ablab/spades/tree/metaviral_publication">metaviralSPAdes</a><br>
+          <a href="https://bitbucket.org/cobilab/metaphage/src/master/">metaPhage</a>
+        </div>
+      </div>
+
+      <div class="workflow-mini-branch">
+        <strong>Annotation:</strong>
+        <div class="workflow-box">
+          <a href="https://github.com/gbouras13/pharokka">Pharokka</a><br>
+          <a href="https://github.com/WrightonLabCSU/DRAM">DRAMv</a>
+        </div>
+      </div>
+
+      <div class="workflow-mini-branch">
+        <strong>Quality Check:</strong>
+        <div class="workflow-box">
+          <a href="https://bitbucket.org/berkeleylab/checkv/">CheckV</a><br>
+          <a href="https://github.com/ablab/viralComplete/">viralComplete</a>
+        </div>
+      </div>
     </div>
 
     <div class="workflow-branch">
-      <div class="workflow-arrow">Annotation →</div>
-      <div class="workflow-box">[Pharokka](https://github.com/gbouras13/pharokka), [DRAMv](https://github.com/WrightonLabCSU/DRAM)</div>
-    </div>
+      <h4>Classification</h4>
 
-    <div class="workflow-branch">
-      <div class="workflow-arrow">Taxonomy →</div>
-      <div class="workflow-box">[vConTACT2](https://bitbucket.org/MAVERICLab/vcontact2/), [PhaGCN](https://github.com/KennthShang/PhaGCN)</div>
+      <div class="workflow-mini-branch">
+        <strong>Taxonomy:</strong>
+        <div class="workflow-box">
+          <a href="https://bitbucket.org/MAVERICLab/vcontact2/">vConTACT2</a><br>
+          <a href="https://github.com/KennthShang/PhaGCN">PhaGCN</a><br>
+          <a href="https://github.com/yosuken/VIPtree">VIPtree</a>
+        </div>
+      </div>
+
+      <div class="workflow-mini-branch">
+        <strong>Function:</strong>
+        <div class="workflow-box">
+          <a href="https://github.com/adamhockenberry/bacphlip">BACPHLIP</a><br>
+          <a href="https://github.com/pegi3s/phrogs">PHROGs</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

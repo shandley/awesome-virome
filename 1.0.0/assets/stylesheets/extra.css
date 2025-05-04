@@ -183,49 +183,105 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .workflow-branches {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: space-around;
   width: 100%;
+  flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
 .workflow-branch {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 200px;
-  max-width: 300px;
-  margin: 0.5rem;
+  width: 260px;
+  margin: 0.8rem;
+  padding: 1rem;
+  background-color: rgba(245, 247, 255, 0.5);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.workflow-branch:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.workflow-branch h4 {
+  margin-top: 0;
+  margin-bottom: 0.7rem;
+  color: #3949ab;
+  border-bottom: 2px solid #3949ab;
+  padding-bottom: 5px;
+  width: 100%;
+  text-align: center;
 }
 
 .workflow-mini-branch {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0.5rem 0;
+  margin: 0.7rem 0;
+  width: 100%;
+  border-top: 1px dashed #cfd8dc;
+  padding-top: 0.7rem;
+}
+
+.workflow-mini-branch strong {
+  color: #455a64;
+  font-size: 0.9rem;
+  margin-bottom: 0.3rem;
+}
+
+.workflow-mini-branch:first-child {
+  border-top: none;
 }
 
 .workflow-question {
-  background-color: #e8eaf6;
-  border-color: #3949ab;
+  background-color: #e3f2fd;
+  border: 2px solid #2196f3;
+  border-radius: 6px;
   font-weight: bold;
   font-style: italic;
-  min-width: 150px;
-  max-width: 250px;
+  min-width: 200px;
+  padding: 12px 20px;
+  margin: 10px 0;
+  color: #0d47a1;
+}
+
+.workflow-branch .workflow-box {
+  width: 230px;
+  max-width: 230px;
+  margin: 8px 0;
+  background-color: white;
+  border: 1px solid #4051b5;
 }
 
 .workflow-box a {
   color: #1a73e8;
   text-decoration: none;
+  display: inline-block;
+  margin: 0 3px;
 }
 
 .workflow-box a:hover {
   text-decoration: underline;
+  color: #0d47a1;
+}
+
+.workflow-branch .workflow-arrow {
+  margin: 3px 0;
+  font-size: 18px;
+  color: #5c6bc0;
+  font-weight: normal;
 }
 
 /* Dark mode adjustments */
@@ -235,15 +291,41 @@
   color: #fff;
 }
 
+[data-md-color-scheme="slate"] .workflow-branch .workflow-box {
+  background-color: #1a1f35;
+}
+
+[data-md-color-scheme="slate"] .workflow-branch {
+  background-color: rgba(42, 46, 77, 0.3);
+}
+
 [data-md-color-scheme="slate"] .workflow-arrow {
   color: #70d6ff;
 }
 
 [data-md-color-scheme="slate"] .workflow-question {
-  background-color: #1f2541;
-  border-color: #5d9ccf;
+  background-color: #1a237e;
+  border-color: #64b5f6;
+  color: #e3f2fd;
+}
+
+[data-md-color-scheme="slate"] .workflow-mini-branch {
+  border-top-color: #445;
 }
 
 [data-md-color-scheme="slate"] .workflow-box a {
   color: #81d4fa;
+}
+
+[data-md-color-scheme="slate"] .workflow-box a:hover {
+  color: #29b6f6;
+}
+
+[data-md-color-scheme="slate"] .workflow-branch h4 {
+  color: #29b6f6;
+  border-bottom-color: #29b6f6;
+}
+
+[data-md-color-scheme="slate"] .workflow-mini-branch strong {
+  color: #b0bec5;
 }
