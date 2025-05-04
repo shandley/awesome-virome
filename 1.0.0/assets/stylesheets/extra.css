@@ -129,3 +129,53 @@
   border-radius: 2px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+/* Mermaid diagram styling */
+.mermaid {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+/* Style for mermaid nodes */
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node ellipse,
+.mermaid .node polygon,
+.mermaid .node path {
+  fill: #f2f5fd;
+  stroke: #4051b5;
+  stroke-width: 1px;
+}
+
+/* Style for mermaid edges */
+.mermaid .edgePath .path {
+  stroke: #4051b5;
+  stroke-width: 1.5px;
+}
+
+/* Style for mermaid node text */
+.mermaid .nodeLabel {
+  font-family: var(--md-text-font-family);
+  font-size: 12px;
+  line-height: 1.4;
+  color: #333;
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] .mermaid .node rect,
+[data-md-color-scheme="slate"] .mermaid .node circle,
+[data-md-color-scheme="slate"] .mermaid .node ellipse,
+[data-md-color-scheme="slate"] .mermaid .node polygon,
+[data-md-color-scheme="slate"] .mermaid .node path {
+  fill: #2a2e4d;
+  stroke: #70d6ff;
+}
+
+[data-md-color-scheme="slate"] .mermaid .edgePath .path {
+  stroke: #70d6ff;
+}
+
+[data-md-color-scheme="slate"] .mermaid .nodeLabel {
+  color: #eee;
+}

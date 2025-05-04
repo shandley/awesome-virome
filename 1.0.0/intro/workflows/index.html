@@ -1274,15 +1274,15 @@
 <h2 id="basic-virome-analysis-workflow">Basic Virome Analysis Workflow</h2>
 <p>For general metagenomic virome analysis, this basic workflow provides a solid foundation:</p>
 <div class="mermaid">
-%%{init: {'theme': 'default'}}%%
+%%{init: {'theme': 'default', 'flowchart': {'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 15}}}%%
 flowchart TD
     A["Raw Sequencing Data"] --> B["Quality Control"]
     B --> C["Assembly"]
-    C --> D["Viral Contig Identification"]
+    C --> D["Viral Contig<br/>Identification"]
     D --> E["Quality Assessment"]
-    E --> F["Taxonomic Classification"]
+    E --> F["Taxonomic<br/>Classification"]
     F --> G["Host Prediction"]
-    G --> H["Functional Annotation"]
+    G --> H["Functional<br/>Annotation"]
 </div>
 
 <h3 id="step-by-step-guide">Step-by-Step Guide</h3>
@@ -1340,14 +1340,14 @@ flowchart TD
 <h2 id="rna-virus-discovery-workflow">RNA Virus Discovery Workflow</h2>
 <p>For specifically focusing on RNA viruses in your samples:</p>
 <div class="mermaid">
-%%{init: {'theme': 'default'}}%%
+%%{init: {'theme': 'default', 'flowchart': {'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 15}}}%%
 flowchart TD
     A["Raw RNA-Seq Data"] --> B["Quality Control"]
     B --> C["Assembly"]
     C --> D["RdRp Search"]
-    D --> E["RNA Virus Verification"]
-    E --> F["Genome Annotation"]
-    F --> G["Phylogenetic Analysis"]
+    D --> E["RNA Virus<br/>Verification"]
+    E --> F["Genome<br/>Annotation"]
+    F --> G["Phylogenetic<br/>Analysis"]
 </div>
 
 <h3 id="key-tools-for-rna-virus-analysis">Key Tools for RNA Virus Analysis</h3>
@@ -1370,13 +1370,13 @@ flowchart TD
 <h2 id="prophage-identification-workflow">Prophage Identification Workflow</h2>
 <p>For identifying integrated prophages in bacterial genomes:</p>
 <div class="mermaid">
-%%{init: {'theme': 'default'}}%%
+%%{init: {'theme': 'default', 'flowchart': {'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 15}}}%%
 flowchart TD
-    A["Bacterial Genome"] --> B["Prophage Detection"]
-    B --> C["Prophage Excision"]
-    C --> D["Prophage Verification"]
-    D --> E["Prophage Annotation"]
-    E --> F["Host-Prophage Interaction Analysis"]
+    A["Bacterial<br/>Genome"] --> B["Prophage<br/>Detection"]
+    B --> C["Prophage<br/>Excision"]
+    C --> D["Prophage<br/>Verification"]
+    D --> E["Prophage<br/>Annotation"]
+    E --> F["Host-Prophage<br/>Interaction<br/>Analysis"]
 </div>
 
 <h3 id="key-tools-for-prophage-analysis">Key Tools for Prophage Analysis</h3>
