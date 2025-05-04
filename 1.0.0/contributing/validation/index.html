@@ -1655,6 +1655,36 @@
     </div>
   </div>
 </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  window.mermaidConfig = {
+    startOnLoad: false,
+    theme: 'default',
+    flowchart: {
+      useMaxWidth: false,
+      htmlLabels: true
+    },
+    securityLevel: 'loose'
+  };
+  
+  // Dynamically load Mermaid if it hasn't loaded already
+  if (typeof mermaid === 'undefined') {
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js';
+    script.onload = function() {
+      mermaid.initialize(window.mermaidConfig);
+      mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+    };
+    document.head.appendChild(script);
+  } else {
+    mermaid.initialize(window.mermaidConfig);
+    setTimeout(function() {
+      mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+    }, 1000);
+  }
+});
+</script>
       
     </div>
     <div class="md-dialog" data-md-component="dialog">
@@ -1669,7 +1699,7 @@
     
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js"></script>
       
         <script src="../../assets/javascripts/extra.js"></script>
       

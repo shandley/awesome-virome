@@ -1271,14 +1271,14 @@
 <p>This page outlines common workflows for virome analysis, showcasing how different tools from the Awesome-Virome collection can be combined to achieve specific research goals.</p>
 <h2 id="basic-virome-analysis-workflow">Basic Virome Analysis Workflow</h2>
 <p>For general metagenomic virome analysis, this basic workflow provides a solid foundation:</p>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     A[Raw Sequencing Data] --&gt; B[Quality Control]
     B --&gt; C[Assembly]
     C --&gt; D[Viral Contig Identification]
     D --&gt; E[Quality Assessment]
     E --&gt; F[Taxonomic Classification]
     F --&gt; G[Host Prediction]
-    G --&gt; H[Functional Annotation]</code></pre>
+    G --&gt; H[Functional Annotation]</div>
 <h3 id="step-by-step-guide">Step-by-Step Guide</h3>
 <ol>
 <li><strong>Quality Control of Metagenomic Reads</strong><br>
@@ -1333,13 +1333,13 @@
 
 <h2 id="rna-virus-discovery-workflow">RNA Virus Discovery Workflow</h2>
 <p>For specifically focusing on RNA viruses in your samples:</p>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     A[Raw RNA-Seq Data] --&gt; B[Quality Control]
     B --&gt; C[Assembly]
     C --&gt; D[RdRp Search]
     D --&gt; E[RNA Virus Verification]
     E --&gt; F[Genome Annotation]
-    F --&gt; G[Phylogenetic Analysis]</code></pre>
+    F --&gt; G[Phylogenetic Analysis]</div>
 <h3 id="key-tools-for-rna-virus-analysis">Key Tools for RNA Virus Analysis</h3>
 <ol>
 <li><strong>RNA Virus Detection</strong><br>
@@ -1359,12 +1359,12 @@
 
 <h2 id="prophage-identification-workflow">Prophage Identification Workflow</h2>
 <p>For identifying integrated prophages in bacterial genomes:</p>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     A[Bacterial Genome] --&gt; B[Prophage Detection]
     B --&gt; C[Prophage Excision]
     C --&gt; D[Prophage Verification]
     D --&gt; E[Prophage Annotation]
-    E --&gt; F[Host-Prophage Interaction Analysis]</code></pre>
+    E --&gt; F[Host-Prophage Interaction Analysis]</div>
 <h3 id="key-tools-for-prophage-analysis">Key Tools for Prophage Analysis</h3>
 <ol>
 <li><strong>Prophage Detection</strong><br>
@@ -1561,6 +1561,36 @@
     </div>
   </div>
 </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  window.mermaidConfig = {
+    startOnLoad: false,
+    theme: 'default',
+    flowchart: {
+      useMaxWidth: false,
+      htmlLabels: true
+    },
+    securityLevel: 'loose'
+  };
+  
+  // Dynamically load Mermaid if it hasn't loaded already
+  if (typeof mermaid === 'undefined') {
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js';
+    script.onload = function() {
+      mermaid.initialize(window.mermaidConfig);
+      mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+    };
+    document.head.appendChild(script);
+  } else {
+    mermaid.initialize(window.mermaidConfig);
+    setTimeout(function() {
+      mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+    }, 1000);
+  }
+});
+</script>
       
     </div>
     <div class="md-dialog" data-md-component="dialog">
@@ -1575,7 +1605,7 @@
     
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js"></script>
       
         <script src="../../assets/javascripts/extra.js"></script>
       

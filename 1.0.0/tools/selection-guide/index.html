@@ -1224,7 +1224,7 @@
 <li><strong>Specific Requirements</strong> - Do you have special needs like sensitivity, runtime, or database dependencies?</li>
 </ol>
 <h2 id="decision-flowchart">Decision Flowchart</h2>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     A[Start] --&gt; B{What is your primary objective?}
     B --&gt;|Virus Detection| C[Identification Tools]
     B --&gt;|Host Prediction| D[Host Prediction Tools]
@@ -1240,7 +1240,7 @@
     D --&gt; D1{Host domain?}
     D1 --&gt;|Bacteria| D2[WIsH, iPHoP, PHIST]
     D1 --&gt;|Eukaryotes| D3[DeepHost, VirHostMatcher-Net] 
-    D1 --&gt;|Any| D4[VirHostMatcher, Host Prediction]</code></pre>
+    D1 --&gt;|Any| D4[VirHostMatcher, Host Prediction]</div>
 <h2 id="tool-selection-by-category">Tool Selection by Category</h2>
 <h3 id="virus-identification">Virus Identification</h3>
 <table>
@@ -1500,6 +1500,36 @@
     </div>
   </div>
 </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  window.mermaidConfig = {
+    startOnLoad: false,
+    theme: 'default',
+    flowchart: {
+      useMaxWidth: false,
+      htmlLabels: true
+    },
+    securityLevel: 'loose'
+  };
+  
+  // Dynamically load Mermaid if it hasn't loaded already
+  if (typeof mermaid === 'undefined') {
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js';
+    script.onload = function() {
+      mermaid.initialize(window.mermaidConfig);
+      mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+    };
+    document.head.appendChild(script);
+  } else {
+    mermaid.initialize(window.mermaidConfig);
+    setTimeout(function() {
+      mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+    }, 1000);
+  }
+});
+</script>
       
     </div>
     <div class="md-dialog" data-md-component="dialog">
@@ -1514,7 +1544,7 @@
     
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
-        <script src="https://unpkg.com/mermaid@9.4.0/dist/mermaid.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js"></script>
       
         <script src="../../assets/javascripts/extra.js"></script>
       
