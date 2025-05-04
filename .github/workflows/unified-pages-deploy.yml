@@ -1,0 +1,83 @@
+name: Unified GitHub Pages Deployment
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'data.json'
+      - 'impact_data.json'
+      - '*.html'
+      - 'metadata/**'
+      - 'reports/**'
+      - 'js/**'
+      - 'mkdocs/**'
+      - 'landing-page.html'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+      
+      - name: Install MkDocs dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r mkdocs/requirements.txt
+      
+      - name: Build MkDocs site
+        run: |
+          cd mkdocs
+          mike deploy --config-file mkdocs.yml --branch gh-pages --deploy-prefix '' --update-aliases 1.0.0 latest
+          mike set-default --config-file mkdocs.yml --branch gh-pages --deploy-prefix '' 1.0.0
+      
+      - name: Checkout gh-pages branch with MkDocs content
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages
+      
+      - name: Copy dashboard and other assets to gh-pages branch
+        run: |
+          # First copy all needed files to the gh-pages branch
+          cp dashboard.html gh-pages/
+          cp comparison.html gh-pages/ 2>/dev/null || true
+          cp citations.html gh-pages/ 2>/dev/null || true
+          cp selection-guide.html gh-pages/ 2>/dev/null || true
+          cp direct_publication_impact.html gh-pages/ 2>/dev/null || true
+          cp index_redirect.html gh-pages/ 2>/dev/null || true
+          cp data.json gh-pages/
+          cp impact_data.json gh-pages/ 2>/dev/null || true
+          cp -r js gh-pages/ 2>/dev/null || true
+          cp -r metadata gh-pages/ 2>/dev/null || true
+          cp -r reports gh-pages/ 2>/dev/null || true
+          cp *.png gh-pages/ 2>/dev/null || true
+          
+          # Now set up our landing page as the main index.html
+          cp landing-page.html gh-pages/index.html
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'gh-pages'
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
