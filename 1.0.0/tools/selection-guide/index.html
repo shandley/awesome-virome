@@ -1224,7 +1224,7 @@
 <li><strong>Specific Requirements</strong> - Do you have special needs like sensitivity, runtime, or database dependencies?</li>
 </ol>
 <h2 id="decision-flowchart">Decision Flowchart</h2>
-<div class="mermaid">graph TD
+<pre class="mermaid"><code>graph TD
     A[Start] --&gt; B{What is your primary objective?}
     B --&gt;|Virus Detection| C[Identification Tools]
     B --&gt;|Host Prediction| D[Host Prediction Tools]
@@ -1240,7 +1240,7 @@
     D --&gt; D1{Host domain?}
     D1 --&gt;|Bacteria| D2[WIsH, iPHoP, PHIST]
     D1 --&gt;|Eukaryotes| D3[DeepHost, VirHostMatcher-Net] 
-    D1 --&gt;|Any| D4[VirHostMatcher, Host Prediction]</div>
+    D1 --&gt;|Any| D4[VirHostMatcher, Host Prediction]</code></pre>
 <h2 id="tool-selection-by-category">Tool Selection by Category</h2>
 <h3 id="virus-identification">Virus Identification</h3>
 <table>
@@ -1504,29 +1504,83 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   window.mermaidConfig = {
-    startOnLoad: false,
+    startOnLoad: true,
     theme: 'default',
     flowchart: {
       useMaxWidth: false,
-      htmlLabels: true
+      htmlLabels: true,
+      curve: 'basis'
     },
     securityLevel: 'loose'
   };
   
-  // Dynamically load Mermaid if it hasn't loaded already
-  if (typeof mermaid === 'undefined') {
+  function initMermaid() {
+    try {
+      if (typeof window.mermaid !== 'undefined') {
+        window.mermaid.initialize(window.mermaidConfig);
+        
+        // Process all mermaid diagrams that haven't been processed yet
+        document.querySelectorAll('.mermaid:not([data-processed="true"])').forEach(function(el) {
+          try {
+            window.mermaid.init(undefined, el);
+          } catch (err) {
+            console.error('Mermaid initialization error for specific element:', err);
+            // Add an error class to show there was an issue
+            el.classList.add('mermaid-error');
+            el.textContent = 'Diagram rendering error. Please check console for details.';
+          }
+        });
+      }
+    } catch (err) {
+      console.error('Mermaid initialization error:', err);
+    }
+  }
+  
+  // Try to use mermaid if it's already loaded
+  if (typeof window.mermaid !== 'undefined') {
+    initMermaid();
+  } else {
+    // Load mermaid if it's not available
+    console.log('Loading mermaid from mermaid.html partial');
     var script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js';
+    script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js';
     script.onload = function() {
-      mermaid.initialize(window.mermaidConfig);
-      mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+      console.log('Mermaid loaded successfully');
+      initMermaid();
+    };
+    script.onerror = function() {
+      console.error('Failed to load mermaid script');
     };
     document.head.appendChild(script);
-  } else {
-    mermaid.initialize(window.mermaidConfig);
-    setTimeout(function() {
-      mermaid.init(undefined, document.querySelectorAll('.mermaid'));
-    }, 1000);
+  }
+  
+  // Secondary initialization after a delay to catch any missed diagrams
+  setTimeout(initMermaid, 1000);
+});
+
+// Backup initialization on full page load
+window.addEventListener('load', function() {
+  if (typeof window.mermaid !== 'undefined') {
+    console.log('Window loaded, reinitializing mermaid');
+    window.mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        curve: 'basis'
+      },
+      securityLevel: 'loose'
+    });
+    
+    // Process any diagrams that still haven't been processed
+    document.querySelectorAll('.mermaid:not([data-processed="true"])').forEach(function(el) {
+      try {
+        window.mermaid.init(undefined, el);
+      } catch (err) {
+        console.error('Mermaid load-time initialization error:', err);
+      }
+    });
   }
 });
 </script>
@@ -1544,7 +1598,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
-        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
       
         <script src="../../js/mermaid.js"></script>
       

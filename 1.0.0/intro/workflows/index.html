@@ -1269,17 +1269,20 @@
 
 <h1 id="typical-virome-analysis-workflows">Typical Virome Analysis Workflows</h1>
 <p>This page outlines common workflows for virome analysis, showcasing how different tools from the Awesome-Virome collection can be combined to achieve specific research goals.</p>
+<!-- Mermaid diagrams are initialized by the mermaid.js script included in mkdocs.yml -->
+
 <h2 id="basic-virome-analysis-workflow">Basic Virome Analysis Workflow</h2>
 <p>For general metagenomic virome analysis, this basic workflow provides a solid foundation:</p>
 <div class="mermaid">
-graph TD
-    A[Raw Sequencing Data] --> B[Quality Control]
-    B --> C[Assembly]
-    C --> D[Viral Contig Identification]
-    D --> E[Quality Assessment]
-    E --> F[Taxonomic Classification]
-    F --> G[Host Prediction]
-    G --> H[Functional Annotation]
+%%{init: {'theme': 'default'}}%%
+flowchart TD
+    A["Raw Sequencing Data"] --> B["Quality Control"]
+    B --> C["Assembly"]
+    C --> D["Viral Contig Identification"]
+    D --> E["Quality Assessment"]
+    E --> F["Taxonomic Classification"]
+    F --> G["Host Prediction"]
+    G --> H["Functional Annotation"]
 </div>
 
 <h3 id="step-by-step-guide">Step-by-Step Guide</h3>
@@ -1337,13 +1340,14 @@ graph TD
 <h2 id="rna-virus-discovery-workflow">RNA Virus Discovery Workflow</h2>
 <p>For specifically focusing on RNA viruses in your samples:</p>
 <div class="mermaid">
-graph TD
-    A[Raw RNA-Seq Data] --> B[Quality Control]
-    B --> C[Assembly]
-    C --> D[RdRp Search]
-    D --> E[RNA Virus Verification]
-    E --> F[Genome Annotation]
-    F --> G[Phylogenetic Analysis]
+%%{init: {'theme': 'default'}}%%
+flowchart TD
+    A["Raw RNA-Seq Data"] --> B["Quality Control"]
+    B --> C["Assembly"]
+    C --> D["RdRp Search"]
+    D --> E["RNA Virus Verification"]
+    E --> F["Genome Annotation"]
+    F --> G["Phylogenetic Analysis"]
 </div>
 
 <h3 id="key-tools-for-rna-virus-analysis">Key Tools for RNA Virus Analysis</h3>
@@ -1366,12 +1370,13 @@ graph TD
 <h2 id="prophage-identification-workflow">Prophage Identification Workflow</h2>
 <p>For identifying integrated prophages in bacterial genomes:</p>
 <div class="mermaid">
-graph TD
-    A[Bacterial Genome] --> B[Prophage Detection]
-    B --> C[Prophage Excision]
-    C --> D[Prophage Verification]
-    D --> E[Prophage Annotation]
-    E --> F[Host-Prophage Interaction Analysis]
+%%{init: {'theme': 'default'}}%%
+flowchart TD
+    A["Bacterial Genome"] --> B["Prophage Detection"]
+    B --> C["Prophage Excision"]
+    C --> D["Prophage Verification"]
+    D --> E["Prophage Annotation"]
+    E --> F["Host-Prophage Interaction Analysis"]
 </div>
 
 <h3 id="key-tools-for-prophage-analysis">Key Tools for Prophage Analysis</h3>
@@ -1574,29 +1579,83 @@ graph TD
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   window.mermaidConfig = {
-    startOnLoad: false,
+    startOnLoad: true,
     theme: 'default',
     flowchart: {
       useMaxWidth: false,
-      htmlLabels: true
+      htmlLabels: true,
+      curve: 'basis'
     },
     securityLevel: 'loose'
   };
   
-  // Dynamically load Mermaid if it hasn't loaded already
-  if (typeof mermaid === 'undefined') {
+  function initMermaid() {
+    try {
+      if (typeof window.mermaid !== 'undefined') {
+        window.mermaid.initialize(window.mermaidConfig);
+        
+        // Process all mermaid diagrams that haven't been processed yet
+        document.querySelectorAll('.mermaid:not([data-processed="true"])').forEach(function(el) {
+          try {
+            window.mermaid.init(undefined, el);
+          } catch (err) {
+            console.error('Mermaid initialization error for specific element:', err);
+            // Add an error class to show there was an issue
+            el.classList.add('mermaid-error');
+            el.textContent = 'Diagram rendering error. Please check console for details.';
+          }
+        });
+      }
+    } catch (err) {
+      console.error('Mermaid initialization error:', err);
+    }
+  }
+  
+  // Try to use mermaid if it's already loaded
+  if (typeof window.mermaid !== 'undefined') {
+    initMermaid();
+  } else {
+    // Load mermaid if it's not available
+    console.log('Loading mermaid from mermaid.html partial');
     var script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js';
+    script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js';
     script.onload = function() {
-      mermaid.initialize(window.mermaidConfig);
-      mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+      console.log('Mermaid loaded successfully');
+      initMermaid();
+    };
+    script.onerror = function() {
+      console.error('Failed to load mermaid script');
     };
     document.head.appendChild(script);
-  } else {
-    mermaid.initialize(window.mermaidConfig);
-    setTimeout(function() {
-      mermaid.init(undefined, document.querySelectorAll('.mermaid'));
-    }, 1000);
+  }
+  
+  // Secondary initialization after a delay to catch any missed diagrams
+  setTimeout(initMermaid, 1000);
+});
+
+// Backup initialization on full page load
+window.addEventListener('load', function() {
+  if (typeof window.mermaid !== 'undefined') {
+    console.log('Window loaded, reinitializing mermaid');
+    window.mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        curve: 'basis'
+      },
+      securityLevel: 'loose'
+    });
+    
+    // Process any diagrams that still haven't been processed
+    document.querySelectorAll('.mermaid:not([data-processed="true"])').forEach(function(el) {
+      try {
+        window.mermaid.init(undefined, el);
+      } catch (err) {
+        console.error('Mermaid load-time initialization error:', err);
+      }
+    });
   }
 });
 </script>
@@ -1614,7 +1673,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
-        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
       
         <script src="../../js/mermaid.js"></script>
       
