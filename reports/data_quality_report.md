@@ -1,6 +1,6 @@
 # Data Quality Metrics Report
 
-Generated: 2025-03-17T04:02:18.441235
+Generated: 2025-03-17T05:15:53.974890
 
 ## Summary
 - Total Tools: 250
@@ -30,6 +30,13 @@ Generated: 2025-03-17T04:02:18.441235
 - Apache License 2.0: 8
 - GNU General Public License v2.0: 3
 
+## Changes Since Last Measurement
+- Days Since Last Measurement: 0.1
+- Tools Added: 0
+- Critical Field Completion: 0.0% change
+- Metadata Completion: 0.0% change
+- Tools with Citations: 0 change
+
 ## Field Completion
 ### Most Complete Fields (>80%)
 - stars: 115.2%
@@ -50,3 +57,9 @@ Generated: 2025-03-17T04:02:18.441235
 - installation_methods: 0.0%
 - input_formats: 0.0%
 - output_formats: 0.0%
+
+## Data Quality Trends
+
+![Data Quality Trends](data_quality_trends.png)
+
+
