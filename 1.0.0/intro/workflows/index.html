@@ -1273,14 +1273,27 @@
 
 <h2 id="basic-virome-analysis-workflow">Basic Virome Analysis Workflow</h2>
 <p>For general metagenomic virome analysis, this basic workflow provides a solid foundation:</p>
-<div class="mermaid">graph TD
-    A[Raw Sequencing Data] --&gt; B[Quality Control]
-    B --&gt; C[Assembly]
-    C --&gt; D[Viral Contig Identification]
-    D --&gt; E[Quality Assessment]
-    E --&gt; F[Taxonomic Classification]
-    F --&gt; G[Host Prediction]
-    G --&gt; H[Functional Annotation]</div>
+<div class="workflow-container">
+  <div class="workflow">
+    <div class="workflow-box">Raw Sequencing Data</div>
+    <div class="workflow-arrow">→</div>
+    <div class="workflow-box">Quality Control</div>
+    <div class="workflow-arrow">→</div>
+    <div class="workflow-box">Assembly</div>
+    <div class="workflow-arrow">→</div>
+    <div class="workflow-box">Viral Contig Identification</div>
+  </div>
+  <div class="workflow">
+    <div class="workflow-box">Functional Annotation</div>
+    <div class="workflow-arrow">←</div>
+    <div class="workflow-box">Host Prediction</div>
+    <div class="workflow-arrow">←</div>
+    <div class="workflow-box">Taxonomic Classification</div>
+    <div class="workflow-arrow">←</div>
+    <div class="workflow-box">Quality Assessment</div>
+  </div>
+</div>
+
 <h3 id="step-by-step-guide">Step-by-Step Guide</h3>
 <ol>
 <li><strong>Quality Control of Metagenomic Reads</strong><br>
@@ -1335,13 +1348,25 @@
 
 <h2 id="rna-virus-discovery-workflow">RNA Virus Discovery Workflow</h2>
 <p>For specifically focusing on RNA viruses in your samples:</p>
-<div class="mermaid">graph TD
-    A[Raw RNA-Seq Data] --&gt; B[Quality Control]
-    B --&gt; C[Assembly]
-    C --&gt; D[RdRp Search]
-    D --&gt; E[RNA Virus Verification]
-    E --&gt; F[Genome Annotation]
-    F --&gt; G[Phylogenetic Analysis]</div>
+<div class="workflow-container">
+  <div class="workflow">
+    <div class="workflow-box">Raw RNA-Seq Data</div>
+    <div class="workflow-arrow">→</div>
+    <div class="workflow-box">Quality Control</div>
+    <div class="workflow-arrow">→</div>
+    <div class="workflow-box">Assembly</div>
+    <div class="workflow-arrow">→</div>
+    <div class="workflow-box">RdRp Search</div>
+  </div>
+  <div class="workflow">
+    <div class="workflow-box">Phylogenetic Analysis</div>
+    <div class="workflow-arrow">←</div>
+    <div class="workflow-box">Genome Annotation</div>
+    <div class="workflow-arrow">←</div>
+    <div class="workflow-box">RNA Virus Verification</div>
+  </div>
+</div>
+
 <h3 id="key-tools-for-rna-virus-analysis">Key Tools for RNA Virus Analysis</h3>
 <ol>
 <li><strong>RNA Virus Detection</strong><br>
@@ -1361,12 +1386,23 @@
 
 <h2 id="prophage-identification-workflow">Prophage Identification Workflow</h2>
 <p>For identifying integrated prophages in bacterial genomes:</p>
-<div class="mermaid">graph TD
-    A[Bacterial Genome] --&gt; B[Prophage Detection]
-    B --&gt; C[Prophage Excision]
-    C --&gt; D[Prophage Verification]
-    D --&gt; E[Prophage Annotation]
-    E --&gt; F[Host-Prophage Interaction Analysis]</div>
+<div class="workflow-container">
+  <div class="workflow">
+    <div class="workflow-box">Bacterial Genome</div>
+    <div class="workflow-arrow">→</div>
+    <div class="workflow-box">Prophage Detection</div>
+    <div class="workflow-arrow">→</div>
+    <div class="workflow-box">Prophage Excision</div>
+  </div>
+  <div class="workflow">
+    <div class="workflow-box">Host-Prophage Interaction Analysis</div>
+    <div class="workflow-arrow">←</div>
+    <div class="workflow-box">Prophage Annotation</div>
+    <div class="workflow-arrow">←</div>
+    <div class="workflow-box">Prophage Verification</div>
+  </div>
+</div>
+
 <h3 id="key-tools-for-prophage-analysis">Key Tools for Prophage Analysis</h3>
 <ol>
 <li><strong>Prophage Detection</strong><br>

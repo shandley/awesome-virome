@@ -130,7 +130,61 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Mermaid diagram styling - using default Material theme */
-.mermaid {
+/* Workflow diagram styling */
+.workflow-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   margin: 2rem 0;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.workflow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  padding: 1rem;
+}
+
+.workflow-box {
+  background-color: #f5f7ff;
+  border: 1px solid #4051b5;
+  border-radius: 4px;
+  padding: 10px 15px;
+  margin: 0 5px;
+  text-align: center;
+  min-width: 100px;
+  max-width: 160px;
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.workflow-arrow {
+  color: #4051b5;
+  font-size: 20px;
+  margin: 0 5px;
+  font-weight: bold;
+}
+
+.workflow-steps {
+  font-size: 15px;
+  line-height: 1.5;
+  text-align: center;
+  margin: 1rem 0;
+  padding: 0 1rem;
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] .workflow-box {
+  background-color: #2a2e4d;
+  border-color: #70d6ff;
+  color: #fff;
+}
+
+[data-md-color-scheme="slate"] .workflow-arrow {
+  color: #70d6ff;
 }
