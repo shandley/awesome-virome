@@ -1351,20 +1351,20 @@ CHERRY uses a combination of convolutional neural networks and LSTM to learn seq
 <h2 id="additional-host-prediction-tools">Additional Host Prediction Tools</h2>
 <h3 id="host-prediction-based-on-sequence-similarity">Host Prediction Based on Sequence Similarity</h3>
 <ul>
-<li><strong>HostPhinder</strong>: K-mer based phage host prediction</li>
-<li><strong>PHP</strong>: Phage host prediction tool</li>
-<li><strong>PHPGCA</strong>: Similarity graphs for phage-host prediction</li>
+<li><a href="https://cge.cbs.dtu.dk/services/HostPhinder/"><strong>HostPhinder</strong></a>: K-mer based phage host prediction</li>
+<li><a href="https://github.com/congyulu-bioinfo/PHP"><strong>PHP</strong></a>: Phage host prediction tool</li>
+<li><a href="https://github.com/JRuyssinck/PHPGCA"><strong>PHPGCA</strong></a>: Similarity graphs for phage-host prediction</li>
 </ul>
 <h3 id="host-prediction-based-on-crispr-spacers">Host Prediction Based on CRISPR Spacers</h3>
 <ul>
-<li><strong>CrisprOpenDB</strong>: CRISPR spacer database for phage-host prediction</li>
-<li><strong>SpacePHARER</strong>: CRISPR spacer phage-host pair finder</li>
+<li><a href="https://github.com/GuillaumeLabas/CrisprOpenDB"><strong>CrisprOpenDB</strong></a>: CRISPR spacer database for phage-host prediction</li>
+<li><a href="https://github.com/soedinglab/spacepharer"><strong>SpacePHARER</strong></a>: CRISPR spacer phage-host pair finder</li>
 </ul>
 <h3 id="host-prediction-based-on-machine-learning">Host Prediction Based on Machine Learning</h3>
 <ul>
-<li><strong>DeepHost</strong>: CNN for phage host prediction</li>
-<li><strong>HostG</strong>: Graph convolutional network for phage host prediction</li>
-<li><strong>PhageHostLearn</strong>: Machine learning for phage-host prediction</li>
+<li><a href="https://github.com/deepomicslab/DeepHost"><strong>DeepHost</strong></a>: CNN for phage host prediction</li>
+<li><a href="https://github.com/KennthShang/HostG"><strong>HostG</strong></a>: Graph convolutional network for phage host prediction</li>
+<li><a href="https://github.com/LongTianPy/PhageHostLearn"><strong>PhageHostLearn</strong></a>: Machine learning for phage-host prediction</li>
 </ul>
 <h2 id="comparison-table">Comparison Table</h2>
 <table>
@@ -1379,42 +1379,42 @@ CHERRY uses a combination of convolutional neural networks and LSTM to learn seq
 </thead>
 <tbody>
 <tr>
-<td>iPHoP</td>
+<td><a href="https://bitbucket.org/srouxjgi/iphop/src/main/">iPHoP</a></td>
 <td>Integrated</td>
 <td>Kingdom to Strain</td>
 <td>Combines multiple methods, high accuracy</td>
 <td>Resource intensive</td>
 </tr>
 <tr>
-<td>CHERRY</td>
+<td><a href="https://github.com/KennthShang/CHERRY">CHERRY</a></td>
 <td>Deep Learning</td>
 <td>Genus, Species</td>
 <td>Works well with novel phages</td>
 <td>Needs substantial computing power</td>
 </tr>
 <tr>
-<td>VirHostMatcher-Net</td>
+<td><a href="https://github.com/WeiliWw/VirHostMatcher-Net">VirHostMatcher-Net</a></td>
 <td>Network-based</td>
 <td>Genus</td>
 <td>Good accuracy at genus level</td>
 <td>Limited to specific host taxa</td>
 </tr>
 <tr>
-<td>WIsH</td>
+<td><a href="https://github.com/soedinglab/WIsH">WIsH</a></td>
 <td>Markov Models</td>
 <td>Species</td>
 <td>Fast, lightweight</td>
 <td>Better with complete genomes</td>
 </tr>
 <tr>
-<td>HostPhinder</td>
+<td><a href="https://cge.cbs.dtu.dk/services/HostPhinder/">HostPhinder</a></td>
 <td>K-mer</td>
 <td>Species</td>
 <td>Simple, efficient</td>
 <td>Limited to known hosts</td>
 </tr>
 <tr>
-<td>CrisprOpenDB</td>
+<td><a href="https://github.com/GuillaumeLabas/CrisprOpenDB">CrisprOpenDB</a></td>
 <td>CRISPR spacers</td>
 <td>Strain</td>
 <td>High specificity</td>
@@ -1442,7 +1442,7 @@ CHERRY uses a combination of convolutional neural networks and LSTM to learn seq
 <h2 id="recommended-workflow">Recommended Workflow</h2>
 <p>For optimal host prediction results, we recommend a multi-tool approach:</p>
 <ol>
-<li><strong>Start with iPHoP</strong>:</li>
+<li><strong>Start with <a href="https://bitbucket.org/srouxjgi/iphop/src/main/">iPHoP</a></strong>:</li>
 <li>Comprehensive predictions with confidence scores</li>
 <li>
 <p>Good starting point for most analyses</p>
@@ -1450,10 +1450,10 @@ CHERRY uses a combination of convolutional neural networks and LSTM to learn seq
 <li>
 <p><strong>Complement with specialized tools</strong>:</p>
 </li>
-<li>For well-studied hosts: WIsH and HostPhinder</li>
-<li>For novel phages: CHERRY and VirHostMatcher-Net</li>
+<li>For well-studied hosts: <a href="https://github.com/soedinglab/WIsH">WIsH</a> and <a href="https://cge.cbs.dtu.dk/services/HostPhinder/">HostPhinder</a></li>
+<li>For novel phages: <a href="https://github.com/KennthShang/CHERRY">CHERRY</a> and <a href="https://github.com/WeiliWw/VirHostMatcher-Net">VirHostMatcher-Net</a></li>
 <li>
-<p>If CRISPR data is available: CrisprOpenDB and SpacePHARER</p>
+<p>If CRISPR data is available: <a href="https://github.com/GuillaumeLabas/CrisprOpenDB">CrisprOpenDB</a> and <a href="https://github.com/soedinglab/spacepharer">SpacePHARER</a></p>
 </li>
 <li>
 <p><strong>Consensus approach</strong>:</p>
