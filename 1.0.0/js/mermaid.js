@@ -10,9 +10,7 @@ function initializeMermaid() {
         flowchart: {
           useMaxWidth: false,
           htmlLabels: true,
-          curve: 'basis',
-          defaultRenderer: 'elk',
-          width: 200
+          curve: 'basis'
         },
         securityLevel: 'loose'
       });
@@ -23,7 +21,7 @@ function initializeMermaid() {
     console.log('Mermaid not defined, loading script...');
     // Load mermaid if not already loaded
     var script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js';
+    script.src = 'https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js';
     script.async = true;
     script.onload = function() {
       console.log('Mermaid loaded, initializing...');
@@ -35,9 +33,7 @@ function initializeMermaid() {
           flowchart: {
             useMaxWidth: false,
             htmlLabels: true,
-            curve: 'basis',
-            defaultRenderer: 'elk',
-            width: 200
+            curve: 'basis'
           },
           securityLevel: 'loose'
         });

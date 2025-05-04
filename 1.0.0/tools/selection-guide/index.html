@@ -1224,7 +1224,7 @@
 <li><strong>Specific Requirements</strong> - Do you have special needs like sensitivity, runtime, or database dependencies?</li>
 </ol>
 <h2 id="decision-flowchart">Decision Flowchart</h2>
-<pre class="mermaid"><code>graph TD
+<div class="mermaid">graph TD
     A[Start] --&gt; B{What is your primary objective?}
     B --&gt;|Virus Detection| C[Identification Tools]
     B --&gt;|Host Prediction| D[Host Prediction Tools]
@@ -1240,7 +1240,7 @@
     D --&gt; D1{Host domain?}
     D1 --&gt;|Bacteria| D2[WIsH, iPHoP, PHIST]
     D1 --&gt;|Eukaryotes| D3[DeepHost, VirHostMatcher-Net] 
-    D1 --&gt;|Any| D4[VirHostMatcher, Host Prediction]</code></pre>
+    D1 --&gt;|Any| D4[VirHostMatcher, Host Prediction]</div>
 <h2 id="tool-selection-by-category">Tool Selection by Category</h2>
 <h3 id="virus-identification">Virus Identification</h3>
 <table>
@@ -1545,7 +1545,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Load mermaid if it's not available
     console.log('Loading mermaid from mermaid.html partial');
     var script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js';
+    script.src = 'https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js';
     script.onload = function() {
       console.log('Mermaid loaded successfully');
       initMermaid();
@@ -1602,7 +1602,7 @@ window.addEventListener('load', function() {
     
       <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
-        <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js"></script>
       
         <script src="../../js/mermaid.js"></script>
       
