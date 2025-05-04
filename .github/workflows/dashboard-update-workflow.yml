@@ -54,11 +54,28 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
+          # Pull the latest changes first to avoid push conflicts
+          git pull --rebase origin main
+          
           # Add the updated impact data file and citation network visualization
           git add impact_data.json debug_urls.html
           
           # Commit only if there are changes
           git diff --staged --quiet || git commit -m "Update dashboard visualization data and citation relationships"
           
-          # Push changes directly to main
-          git push
+          # Try to push, with retry logic in case of conflicts
+          for i in {1..3}; do
+            echo "Push attempt $i"
+            if git push; then
+              echo "Push successful"
+              break
+            else
+              echo "Push failed, retrying after pulling latest changes"
+              git pull --rebase origin main
+              # Exit with failure if this was the last attempt
+              if [ $i -eq 3 ]; then
+                echo "All push attempts failed"
+                exit 1
+              fi
+            fi
+          done
