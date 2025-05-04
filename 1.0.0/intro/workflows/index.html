@@ -1283,50 +1283,50 @@
 <h3 id="step-by-step-guide">Step-by-Step Guide</h3>
 <ol>
 <li><strong>Quality Control of Metagenomic Reads</strong></li>
-<li>Tools: Standard bioinformatics QC tools (Trimmomatic, FastQC, etc.)</li>
+<li><strong>Tools:</strong> Standard bioinformatics QC tools (Trimmomatic, FastQC, etc.)</li>
 <li>
-<p>Purpose: Remove low-quality reads, adapters, and contaminants</p>
+<p><strong>Purpose:</strong> Remove low-quality reads, adapters, and contaminants</p>
 </li>
 <li>
 <p><strong>Assembly of Contigs</strong></p>
 </li>
-<li>Tools: SPAdes, MEGAHIT</li>
+<li><strong>Tools:</strong> SPAdes, MEGAHIT</li>
 <li>
-<p>Purpose: Assemble short reads into longer contiguous sequences (contigs)</p>
+<p><strong>Purpose:</strong> Assemble short reads into longer contiguous sequences (contigs)</p>
 </li>
 <li>
 <p><strong>Identification of Viral Contigs</strong></p>
 </li>
-<li>Tools: VirSorter2, VIBRANT, geNomad</li>
+<li><strong>Tools:</strong> VirSorter2, VIBRANT, geNomad</li>
 <li>
-<p>Purpose: Identify which contigs are of viral origin</p>
+<p><strong>Purpose:</strong> Identify which contigs are of viral origin</p>
 </li>
 <li>
 <p><strong>Quality Assessment</strong></p>
 </li>
-<li>Tools: CheckV</li>
+<li><strong>Tools:</strong> CheckV</li>
 <li>
-<p>Purpose: Assess the completeness and quality of viral genomes</p>
+<p><strong>Purpose:</strong> Assess the completeness and quality of viral genomes</p>
 </li>
 <li>
 <p><strong>Taxonomic Classification</strong></p>
 </li>
-<li>Tools: vConTACT2, PhaGCN</li>
+<li><strong>Tools:</strong> vConTACT2, PhaGCN</li>
 <li>
-<p>Purpose: Assign taxonomy to viral sequences</p>
+<p><strong>Purpose:</strong> Assign taxonomy to viral sequences</p>
 </li>
 <li>
 <p><strong>Host Prediction</strong></p>
 </li>
-<li>Tools: iPHoP, CHERRY</li>
+<li><strong>Tools:</strong> iPHoP, CHERRY</li>
 <li>
-<p>Purpose: Predict the bacterial hosts of phages</p>
+<p><strong>Purpose:</strong> Predict the bacterial hosts of phages</p>
 </li>
 <li>
 <p><strong>Functional Annotation</strong></p>
 </li>
-<li>Tools: Pharokka, DRAMv</li>
-<li>Purpose: Annotate genes and predict functions</li>
+<li><strong>Tools:</strong> Pharokka, DRAMv</li>
+<li><strong>Purpose:</strong> Annotate genes and predict functions</li>
 </ol>
 <h2 id="rna-virus-discovery-workflow">RNA Virus Discovery Workflow</h2>
 <p>For specifically focusing on RNA viruses in your samples:</p>
@@ -1341,15 +1341,15 @@
 <h3 id="key-tools-for-rna-virus-analysis">Key Tools for RNA Virus Analysis</h3>
 <ol>
 <li><strong>RNA Virus Detection</strong></li>
-<li>palmID</li>
-<li>RdRp-scan</li>
+<li><strong>Tools:</strong> palmID, RdRp-scan, metaviralSPAdes-RNA</li>
 <li>
-<p>metaviralSPAdes-RNA</p>
+<p><strong>Purpose:</strong> Identify RNA virus sequences by detecting conserved RdRp domains</p>
 </li>
 <li>
 <p><strong>RNA Virus Annotation</strong></p>
 </li>
-<li>VirMine-RNA</li>
+<li><strong>Tools:</strong> VirMine-RNA</li>
+<li><strong>Purpose:</strong> Functional annotation specific to RNA viral genomes</li>
 </ol>
 <h2 id="prophage-identification-workflow">Prophage Identification Workflow</h2>
 <p>For identifying integrated prophages in bacterial genomes:</p>
@@ -1363,16 +1363,15 @@
 <h3 id="key-tools-for-prophage-analysis">Key Tools for Prophage Analysis</h3>
 <ol>
 <li><strong>Prophage Detection</strong></li>
-<li>PhiSpy</li>
-<li>Phigaro</li>
+<li><strong>Tools:</strong> PhiSpy, Phigaro, PHASTER</li>
 <li>
-<p>PHASTER</p>
+<p><strong>Purpose:</strong> Identify integrated viral sequences within bacterial genomes</p>
 </li>
 <li>
 <p><strong>Prophage Analysis</strong></p>
 </li>
-<li>viralintegration</li>
-<li>hafeZ</li>
+<li><strong>Tools:</strong> viralintegration, hafeZ</li>
+<li><strong>Purpose:</strong> Analyze integration sites and characterize prophage regions</li>
 </ol>
 <h2 id="advanced-workflows">Advanced Workflows</h2>
 <p>These more specialized workflows address specific research questions:</p>
@@ -1380,44 +1379,90 @@
 <p>For analyzing viral population diversity within a sample:</p>
 <ol>
 <li><strong>Strain Reconstruction</strong></li>
-<li>VStrains</li>
+<li><strong>Tools:</strong> VStrains, COBRA</li>
 <li>
-<p>COBRA</p>
+<p><strong>Purpose:</strong> Reconstruct individual viral strains from complex metagenomic samples</p>
 </li>
 <li>
 <p><strong>Quasispecies Analysis</strong></p>
 </li>
-<li>ShoRAH</li>
-<li>CliqueSNV</li>
+<li><strong>Tools:</strong> ShoRAH, CliqueSNV</li>
+<li><strong>Purpose:</strong> Analyze genetic variation and population dynamics within viral communities</li>
 </ol>
 <h3 id="virome-host-interaction-analysis">Virome-Host Interaction Analysis</h3>
 <p>For studying how viruses interact with their hosts:</p>
 <ol>
 <li><strong>CRISPR Analysis</strong></li>
-<li>SpacePHARER</li>
+<li><strong>Tools:</strong> SpacePHARER, CrisprOpenDB</li>
 <li>
-<p>CrisprOpenDB</p>
+<p><strong>Purpose:</strong> Identify CRISPR spacers and predict virus-host relationships</p>
 </li>
 <li>
 <p><strong>Protein-Protein Interactions</strong></p>
 </li>
-<li>DeepVHPPI</li>
+<li><strong>Tools:</strong> DeepVHPPI</li>
+<li><strong>Purpose:</strong> Predict interactions between viral and host proteins</li>
 </ol>
 <h2 id="recommended-tools-by-category">Recommended Tools by Category</h2>
 <p>For newcomers to virome analysis, here are some recommended starting points:</p>
 <ol>
-<li><strong>Viral identification</strong>: VirSorter2, VIBRANT, or geNomad</li>
-<li><strong>Host prediction</strong>: iPHoP or CHERRY</li>
-<li><strong>Genome annotation</strong>: Pharokka or DRAMv</li>
-<li><strong>Taxonomy assignment</strong>: vConTACT2 or PhaGCN</li>
-<li><strong>Quality control</strong>: CheckV</li>
+<li><strong>Viral identification</strong></li>
+<li><strong>Tools:</strong> VirSorter2, VIBRANT, geNomad</li>
+<li><strong>Difficulty:</strong> Beginner to Intermediate</li>
+<li>
+<p><strong>Computational requirements:</strong> Moderate</p>
+</li>
+<li>
+<p><strong>Host prediction</strong></p>
+</li>
+<li><strong>Tools:</strong> iPHoP, CHERRY</li>
+<li><strong>Difficulty:</strong> Intermediate</li>
+<li>
+<p><strong>Computational requirements:</strong> Moderate to High</p>
+</li>
+<li>
+<p><strong>Genome annotation</strong></p>
+</li>
+<li><strong>Tools:</strong> Pharokka, DRAMv</li>
+<li><strong>Difficulty:</strong> Beginner</li>
+<li>
+<p><strong>Computational requirements:</strong> Low to Moderate</p>
+</li>
+<li>
+<p><strong>Taxonomy assignment</strong></p>
+</li>
+<li><strong>Tools:</strong> vConTACT2, PhaGCN</li>
+<li><strong>Difficulty:</strong> Intermediate</li>
+<li>
+<p><strong>Computational requirements:</strong> Moderate</p>
+</li>
+<li>
+<p><strong>Quality control</strong></p>
+</li>
+<li><strong>Tools:</strong> CheckV</li>
+<li><strong>Difficulty:</strong> Beginner</li>
+<li><strong>Computational requirements:</strong> Low</li>
 </ol>
 <h2 id="next-steps">Next Steps</h2>
-<ul>
-<li>Explore the <a href="../../tools/overview/">Tools</a> section for detailed information about each tool</li>
-<li>Check out the <a href="https://shandley.github.io/awesome-virome/dashboard.html">Interactive Dashboard</a> to visualize relationships between tools</li>
-<li>Visit the <a href="../../api/overview/">API Reference</a> to learn how to access the Awesome-Virome database programmatically</li>
-</ul>
+<ol>
+<li><strong>Explore Tools</strong></li>
+<li>Visit the <a href="../../tools/overview/">Tools Overview</a> section for detailed information about each tool</li>
+<li>
+<p>Check the <a href="../../tools/selection-guide/">Selection Guide</a> to find the best tools for your specific needs</p>
+</li>
+<li>
+<p><strong>Learn About Data Access</strong></p>
+</li>
+<li>Review the <a href="../../api/overview/">API Reference</a> to learn how to access the Awesome-Virome database programmatically</li>
+<li>
+<p>See <a href="../../api/examples/">API Examples</a> for code snippets in Python, R, and JavaScript</p>
+</li>
+<li>
+<p><strong>Join the Community</strong></p>
+</li>
+<li>Contribute to the project by following our <a href="../../contributing/guidelines/">Contribution Guidelines</a></li>
+<li>Explore the <a href="https://github.com/shandley/awesome-virome">GitHub repository</a> for the latest updates</li>
+</ol>
 
 
 
