@@ -1273,20 +1273,14 @@
 
 <h2 id="basic-virome-analysis-workflow">Basic Virome Analysis Workflow</h2>
 <p>For general metagenomic virome analysis, this basic workflow provides a solid foundation:</p>
-<div class="mermaid">
-%%{init: {'theme': 'default', 'flowchart': {'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 15}}}%%
-flowchart TD
-    A["Raw Sequencing Data"] --> B["Quality Control"]
-    B --> C["Assembly"]
-    C --> D["Viral Contig Identification"]
-    D --> E["Quality Assessment"]
-    E --> F["Taxonomic Classification"]
-    F --> G["Host Prediction"]
-    G --> H["Functional Annotation"]
-
-    classDef default width:200px;
-</div>
-
+<pre class="mermaid"><code>graph TD
+    A[Raw Sequencing Data] --&gt; B[Quality Control]
+    B --&gt; C[Assembly]
+    C --&gt; D[Viral Contig Identification]
+    D --&gt; E[Quality Assessment]
+    E --&gt; F[Taxonomic Classification]
+    F --&gt; G[Host Prediction]
+    G --&gt; H[Functional Annotation]</code></pre>
 <h3 id="step-by-step-guide">Step-by-Step Guide</h3>
 <ol>
 <li><strong>Quality Control of Metagenomic Reads</strong><br>
@@ -1341,19 +1335,13 @@ flowchart TD
 
 <h2 id="rna-virus-discovery-workflow">RNA Virus Discovery Workflow</h2>
 <p>For specifically focusing on RNA viruses in your samples:</p>
-<div class="mermaid">
-%%{init: {'theme': 'default', 'flowchart': {'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 15}}}%%
-flowchart TD
-    A["Raw RNA-Seq Data"] --> B["Quality Control"]
-    B --> C["Assembly"]
-    C --> D["RdRp Search"]
-    D --> E["RNA Virus Verification"]
-    E --> F["Genome Annotation"]
-    F --> G["Phylogenetic Analysis"]
-
-    classDef default width:200px;
-</div>
-
+<pre class="mermaid"><code>graph TD
+    A[Raw RNA-Seq Data] --&gt; B[Quality Control]
+    B --&gt; C[Assembly]
+    C --&gt; D[RdRp Search]
+    D --&gt; E[RNA Virus Verification]
+    E --&gt; F[Genome Annotation]
+    F --&gt; G[Phylogenetic Analysis]</code></pre>
 <h3 id="key-tools-for-rna-virus-analysis">Key Tools for RNA Virus Analysis</h3>
 <ol>
 <li><strong>RNA Virus Detection</strong><br>
@@ -1373,18 +1361,12 @@ flowchart TD
 
 <h2 id="prophage-identification-workflow">Prophage Identification Workflow</h2>
 <p>For identifying integrated prophages in bacterial genomes:</p>
-<div class="mermaid">
-%%{init: {'theme': 'default', 'flowchart': {'nodeSpacing': 50, 'rankSpacing': 70, 'padding': 15}}}%%
-flowchart TD
-    A["Bacterial Genome"] --> B["Prophage Detection"]
-    B --> C["Prophage Excision"]
-    C --> D["Prophage Verification"]
-    D --> E["Prophage Annotation"]
-    E --> F["Host-Prophage Interaction Analysis"]
-
-    classDef default width:250px;
-</div>
-
+<pre class="mermaid"><code>graph TD
+    A[Bacterial Genome] --&gt; B[Prophage Detection]
+    B --&gt; C[Prophage Excision]
+    C --&gt; D[Prophage Verification]
+    D --&gt; E[Prophage Annotation]
+    E --&gt; F[Host-Prophage Interaction Analysis]</code></pre>
 <h3 id="key-tools-for-prophage-analysis">Key Tools for Prophage Analysis</h3>
 <ol>
 <li><strong>Prophage Detection</strong><br>
