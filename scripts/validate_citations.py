@@ -5,6 +5,8 @@ Citation Data Validation
 This script performs validation checks on citation data in the awesome-virome repository,
 including validating DOIs, checking citation formatting, and ensuring consistency across
 different citation sources.
+
+It can also automatically fix common DOI formatting issues when enabled.
 """
 
 import os
@@ -48,6 +50,14 @@ CITATION_PATTERNS = {
     "apa": r".*?\(\d{4}\)\..*?\..*?\.",
     "mla": r".*?\..*?\..*?\d{4}\.",
 }
+
+# Common DOI formatting issues
+DOI_ISSUES = [
+    (r'\)\.?$', ''),  # Remove trailing ).
+    (r'\.+$', ''),    # Remove trailing periods
+    (r'\)$', ''),     # Remove trailing )
+    (r'\].*$', ''),   # Remove markdown links
+]
 
 def load_data_json() -> Dict[str, Any]:
     """Load the current data.json file"""
@@ -94,12 +104,43 @@ def load_metadata_for_tool(tool_id: str, subdir: Optional[str] = None) -> Dict[s
         logger.warning(f"Error loading metadata for {tool_id} from {subdir}: {e}")
         return {}
 
-def validate_doi(doi: str) -> bool:
+def fix_doi(doi: str) -> Tuple[str, bool, bool]:
+    """
+    Fix common DOI formatting issues and validate
+    
+    Args:
+        doi: The DOI string to fix and validate
+        
+    Returns:
+        tuple: (fixed_doi, was_fixed, is_valid)
+    """
+    if not doi:
+        return doi, False, False
+    
+    original_doi = doi
+    
+    # Fix markdown link format like 10.1093/gigascience/giae020](https://doi.org/10.1093/gigascience/giae020)
+    if '](' in doi:
+        doi = doi.split('](')[0]
+    
+    # Apply common fixes
+    for pattern, replacement in DOI_ISSUES:
+        doi = re.sub(pattern, replacement, doi)
+    
+    was_fixed = doi != original_doi
+    
+    # Basic format validation
+    is_valid = bool(re.match(DOI_PATTERN, doi, re.IGNORECASE))
+    
+    return doi, was_fixed, is_valid
+
+def validate_doi(doi: str, skip_resolution_check: bool = False) -> bool:
     """
     Validate if a DOI is properly formatted and resolvable
     
     Args:
         doi: The DOI string to validate
+        skip_resolution_check: Skip online DOI resolution check
         
     Returns:
         bool: True if the DOI is valid, False otherwise
@@ -108,7 +149,11 @@ def validate_doi(doi: str) -> bool:
     if not re.match(DOI_PATTERN, doi, re.IGNORECASE):
         return False
     
-    # Check if DOI is resolvable (this is optional and can be disabled for bulk operations)
+    # Skip resolution check if requested (for bulk validation)
+    if skip_resolution_check:
+        return True
+    
+    # Check if DOI is resolvable
     try:
         headers = {
             'Accept': 'application/json',
@@ -143,13 +188,20 @@ def validate_citation_format(citation: str, format_type: str) -> bool:
     pattern = CITATION_PATTERNS[format_type]
     return bool(re.match(pattern, citation, re.DOTALL | re.IGNORECASE))
 
-def check_citations_consistency(tool_id: str, data_json_doi: Optional[str] = None) -> Dict[str, Any]:
+def check_citations_consistency(
+    tool_id: str, 
+    data_json_doi: Optional[str] = None, 
+    skip_doi_check: bool = False,
+    auto_fix: bool = False
+) -> Dict[str, Any]:
     """
     Check if citation information is consistent across different sources
     
     Args:
         tool_id: The tool ID to check
         data_json_doi: The DOI from data.json (if available)
+        skip_doi_check: Skip DOI resolution check
+        auto_fix: Fix common DOI formatting issues and update files
         
     Returns:
         Dict with validation results
@@ -162,14 +214,14 @@ def check_citations_consistency(tool_id: str, data_json_doi: Optional[str] = Non
         "has_pubmed_data": False,
         "has_academic_impact": False,
         "citation_formats": [],
-        "issues": []
+        "issues": [],
+        "dois_fixed": 0
     }
     
-    # Check DOI validity if present
-    if data_json_doi:
-        results["doi_valid"] = validate_doi(data_json_doi)
-        if not results["doi_valid"]:
-            results["issues"].append(f"Invalid DOI format: {data_json_doi}")
+    # Get metadata file paths for potential updates
+    general_metadata_path = os.path.join(METADATA_DIR, f"{tool_id}.json")
+    academic_impact_path = os.path.join(ACADEMIC_IMPACT_DIR, f"{tool_id}.json")
+    pubmed_data_path = os.path.join(PUBMED_CITATIONS_DIR, f"{tool_id}.json")
     
     # Load metadata from different sources
     general_metadata = load_metadata_for_tool(tool_id)
@@ -180,19 +232,90 @@ def check_citations_consistency(tool_id: str, data_json_doi: Optional[str] = Non
     results["has_academic_impact"] = bool(academic_impact)
     results["has_pubmed_data"] = bool(pubmed_data)
     
-    # Check DOI consistency across sources
-    dois = set()
+    # Store original DOIs for consistency checks
+    original_dois = {}
+    fixed_dois = {}
+    
+    # Auto-fix DOI in data.json if needed (will be updated separately)
     if data_json_doi:
-        dois.add(data_json_doi)
+        original_dois["data_json"] = data_json_doi
+        fixed_doi, was_fixed, is_valid = fix_doi(data_json_doi)
+        if was_fixed and auto_fix:
+            fixed_dois["data_json"] = fixed_doi
+            results["dois_fixed"] += 1
+            logger.info(f"Fixed DOI for {tool_id} in data.json: {data_json_doi} -> {fixed_doi}")
+        
+        # Validate using either original or fixed DOI
+        doi_to_validate = fixed_doi if was_fixed and auto_fix else data_json_doi
+        results["doi_valid"] = validate_doi(doi_to_validate, skip_doi_check)
+        
+        if not results["doi_valid"]:
+            results["issues"].append(f"Invalid DOI format: {data_json_doi}")
     
+    # Auto-fix DOI in general metadata if needed
     if general_metadata.get("doi"):
-        dois.add(general_metadata["doi"])
+        original_dois["general"] = general_metadata["doi"]
+        fixed_doi, was_fixed, is_valid = fix_doi(general_metadata["doi"])
+        
+        if was_fixed and is_valid and auto_fix:
+            # Update the metadata with fixed DOI
+            general_metadata["doi"] = fixed_doi
+            fixed_dois["general"] = fixed_doi
+            results["dois_fixed"] += 1
+            logger.info(f"Fixed DOI for {tool_id} in general metadata: {original_dois['general']} -> {fixed_doi}")
+            
+            # Write the updated metadata back to file
+            try:
+                with open(general_metadata_path, 'w') as f:
+                    json.dump(general_metadata, f, indent=2)
+            except Exception as e:
+                logger.error(f"Error updating {general_metadata_path}: {e}")
     
+    # Auto-fix DOI in academic impact if needed
     if academic_impact.get("doi"):
-        dois.add(academic_impact["doi"])
+        original_dois["academic"] = academic_impact["doi"]
+        fixed_doi, was_fixed, is_valid = fix_doi(academic_impact["doi"])
+        
+        if was_fixed and is_valid and auto_fix:
+            # Update the metadata with fixed DOI
+            academic_impact["doi"] = fixed_doi
+            fixed_dois["academic"] = fixed_doi
+            results["dois_fixed"] += 1
+            logger.info(f"Fixed DOI for {tool_id} in academic impact: {original_dois['academic']} -> {fixed_doi}")
+            
+            # Write the updated metadata back to file
+            try:
+                with open(academic_impact_path, 'w') as f:
+                    json.dump(academic_impact, f, indent=2)
+            except Exception as e:
+                logger.error(f"Error updating {academic_impact_path}: {e}")
     
+    # Auto-fix DOI in pubmed data if needed
     if pubmed_data.get("doi"):
-        dois.add(pubmed_data["doi"])
+        original_dois["pubmed"] = pubmed_data["doi"]
+        fixed_doi, was_fixed, is_valid = fix_doi(pubmed_data["doi"])
+        
+        if was_fixed and is_valid and auto_fix:
+            # Update the metadata with fixed DOI
+            pubmed_data["doi"] = fixed_doi
+            fixed_dois["pubmed"] = fixed_doi
+            results["dois_fixed"] += 1
+            logger.info(f"Fixed DOI for {tool_id} in pubmed data: {original_dois['pubmed']} -> {fixed_doi}")
+            
+            # Write the updated metadata back to file
+            try:
+                with open(pubmed_data_path, 'w') as f:
+                    json.dump(pubmed_data, f, indent=2)
+            except Exception as e:
+                logger.error(f"Error updating {pubmed_data_path}: {e}")
+    
+    # Check DOI consistency across sources (using either fixed or original DOIs)
+    dois = set()
+    for source, doi in original_dois.items():
+        if source in fixed_dois:
+            dois.add(fixed_dois[source])
+        else:
+            dois.add(doi)
     
     if len(dois) > 1:
         results["doi_consistent"] = False
@@ -234,9 +357,16 @@ def check_citations_consistency(tool_id: str, data_json_doi: Optional[str] = Non
     
     return results
 
-def validate_all_citations() -> Dict[str, Any]:
+def validate_all_citations(
+    skip_doi_check: bool = False,
+    auto_fix: bool = False
+) -> Dict[str, Any]:
     """
     Validate citations for all tools in the repository
+    
+    Args:
+        skip_doi_check: Skip DOI resolution check
+        auto_fix: Automatically fix common DOI formatting issues
     
     Returns:
         Dict with validation results
@@ -258,10 +388,14 @@ def validate_all_citations() -> Dict[str, Any]:
             "tools_with_academic_impact": 0,
             "citation_format_counts": {"bibtex": 0, "apa": 0, "mla": 0},
             "all_issues": ["No tools found in data.json"],
-            "tool_results": []
+            "tool_results": [],
+            "total_dois_fixed": 0
         }
     
-    logger.info(f"Found {len(tools)} tools in data.json")
+    if auto_fix:
+        logger.info(f"Found {len(tools)} tools in data.json - Auto-fix mode enabled")
+    else:
+        logger.info(f"Found {len(tools)} tools in data.json")
     
     results = {
         "timestamp": datetime.datetime.now().isoformat(),
@@ -277,7 +411,8 @@ def validate_all_citations() -> Dict[str, Any]:
             "mla": 0
         },
         "all_issues": [],
-        "tool_results": []
+        "tool_results": [],
+        "total_dois_fixed": 0
     }
     
     # Process each tool
@@ -287,8 +422,17 @@ def validate_all_citations() -> Dict[str, Any]:
             continue
         
         # Validate citations for this tool
-        tool_result = check_citations_consistency(tool_id, tool.get("doi"))
+        tool_result = check_citations_consistency(
+            tool_id, 
+            tool.get("doi"),
+            skip_doi_check=skip_doi_check,
+            auto_fix=auto_fix
+        )
         results["tool_results"].append(tool_result)
+        
+        # Track DOI fixes
+        if "dois_fixed" in tool_result:
+            results["total_dois_fixed"] += tool_result["dois_fixed"]
         
         # Update summary counts
         if tool_result["has_doi"]:
@@ -321,6 +465,9 @@ def validate_all_citations() -> Dict[str, Any]:
         results["pubmed_percentage"] = (results["tools_with_pubmed_data"] / len(tools)) * 100
         results["academic_impact_percentage"] = (results["tools_with_academic_impact"] / len(tools)) * 100
     
+    if auto_fix and results["total_dois_fixed"] > 0:
+        logger.info(f"Auto-fixed {results['total_dois_fixed']} DOI format issues")
+    
     return results
 
 def format_validation_report(results: Dict[str, Any]) -> str:
@@ -336,6 +483,12 @@ def format_validation_report(results: Dict[str, Any]) -> str:
     report = ["# Citation Validation Report", ""]
     report.append(f"Generated: {results.get('timestamp', datetime.datetime.now().isoformat())}")
     report.append("")
+    
+    # Add auto-fix information if any DOIs were fixed
+    total_dois_fixed = results.get('total_dois_fixed', 0)
+    if total_dois_fixed > 0:
+        report.append(f"**Auto-fixed {total_dois_fixed} DOI format issues** during this validation run.")
+        report.append("")
     
     report.append("## Summary")
     total_tools = results.get('total_tools', 0)
@@ -378,6 +531,26 @@ def format_validation_report(results: Dict[str, Any]) -> str:
     report.append(f"- Tools with Academic Impact: {academic_impact} ({academic_impact_percentage:.1f}%)")
     report.append("")
     
+    # Add DOI fixes section if any DOIs were fixed
+    if total_dois_fixed > 0:
+        report.append("## Auto-Fixed DOIs")
+        report.append(f"Automatically fixed {total_dois_fixed} DOI format issues during this validation run.")
+        
+        # List tools with fixed DOIs
+        fixed_tools = []
+        for tool in results.get("tool_results", []):
+            if tool.get("dois_fixed", 0) > 0:
+                fixed_tools.append(f"{tool.get('tool_id', 'unknown')} ({tool.get('dois_fixed')} DOI(s) fixed)")
+        
+        if fixed_tools:
+            report.append("")
+            report.append("Tools with fixed DOIs:")
+            for tool in fixed_tools[:20]:  # Limit to first 20
+                report.append(f"- {tool}")
+            if len(fixed_tools) > 20:
+                report.append(f"- ... and {len(fixed_tools) - 20} more tools")
+        report.append("")
+    
     report.append("## Citation Format Coverage")
     citation_counts = results.get('citation_format_counts', {'bibtex': 0, 'apa': 0, 'mla': 0})
     report.append(f"- BibTeX: {citation_counts.get('bibtex', 0)} tools")
@@ -387,7 +560,7 @@ def format_validation_report(results: Dict[str, Any]) -> str:
     
     all_issues = results.get('all_issues', [])
     if all_issues:
-        report.append("## Issues")
+        report.append("## Remaining Issues")
         for issue in all_issues:
             report.append(f"- {issue}")
     else:
@@ -424,14 +597,28 @@ def main():
                       help="Path to save the human-readable report (default: citation_validation_report.md)")
     parser.add_argument("--skip-doi-check", action="store_true",
                       help="Skip DOI online validation (faster for bulk validation)")
+    parser.add_argument("--auto-fix", action="store_true",
+                      help="Automatically fix common DOI formatting issues")
+    parser.add_argument("--no-auto-fix", action="store_true",
+                      help="Disable automatic DOI fixing (overrides --auto-fix)")
     args = parser.parse_args()
     
     # Make sure the reports directory exists
     os.makedirs(REPORTS_DIR, exist_ok=True)
     
-    # Start validation
-    logger.info("Starting citation validation...")
-    results = validate_all_citations()
+    # Determine if we should auto-fix DOIs
+    auto_fix = args.auto_fix and not args.no_auto_fix
+    
+    if auto_fix:
+        logger.info("Starting citation validation with auto-fix enabled...")
+    else:
+        logger.info("Starting citation validation...")
+    
+    # Run validation
+    results = validate_all_citations(
+        skip_doi_check=args.skip_doi_check,
+        auto_fix=auto_fix
+    )
     
     # Even if no tools were found, we still want to generate an empty report
     # rather than failing completely
@@ -457,7 +644,13 @@ def main():
     
     # Log a summary of the validation results
     all_issues_count = len(results.get('all_issues', []))
-    logger.info(f"Citation validation completed. {all_issues_count} issues found.")
+    fixed_dois_count = results.get('total_dois_fixed', 0)
+    
+    if fixed_dois_count > 0:
+        logger.info(f"Citation validation completed. {all_issues_count} issues found, {fixed_dois_count} DOIs fixed.")
+    else:
+        logger.info(f"Citation validation completed. {all_issues_count} issues found.")
+    
     if results.get('total_tools', 0) > 0:
         logger.info(f"Tools with DOI: {results.get('tools_with_doi', 0)} of {results.get('total_tools', 0)}")
         logger.info(f"Tools with PubMed data: {results.get('tools_with_pubmed_data', 0)} of {results.get('total_tools', 0)}")
