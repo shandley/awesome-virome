@@ -22,6 +22,14 @@ on:
         description: 'Skip DOI online validation (faster)'
         type: boolean
         default: false
+      auto_fix:
+        description: 'Automatically fix DOI format issues'
+        type: boolean
+        default: true
+      no_auto_fix:
+        description: 'Disable automatic fixing of DOI format issues'
+        type: boolean
+        default: false
 
 # Permissions needed for creating and managing PRs
 permissions:
@@ -49,11 +57,32 @@ jobs:
       
       - name: Run citation validation
         run: |
+          # Build command with appropriate arguments
+          CMD="python scripts/validate_citations.py --report"
+          
+          # Add skip DOI check if specified
           if [[ "${{ github.event.inputs.skip_doi_check }}" == "true" ]]; then
-            python scripts/validate_citations.py --report --skip-doi-check
-          else
-            python scripts/validate_citations.py --report
+            CMD="$CMD --skip-doi-check"
           fi
+          
+          # Add auto-fix if specified and not disabled
+          if [[ "${{ github.event.inputs.auto_fix }}" == "true" && "${{ github.event.inputs.no_auto_fix }}" != "true" ]]; then
+            CMD="$CMD --auto-fix"
+          fi
+          
+          # Add no-auto-fix if specified
+          if [[ "${{ github.event.inputs.no_auto_fix }}" == "true" ]]; then
+            CMD="$CMD --no-auto-fix"
+          fi
+          
+          # For scheduled or workflow_run events, use default settings (auto-fix enabled)
+          if [[ "${{ github.event_name }}" == "schedule" || "${{ github.event_name }}" == "workflow_run" ]]; then
+            CMD="$CMD --auto-fix"
+          fi
+          
+          # Run the command
+          echo "Running: $CMD"
+          $CMD
           
       - name: Upload validation report
         uses: actions/upload-artifact@v4
@@ -71,6 +100,7 @@ jobs:
             echo "Citation validation report file not found"
             echo "issues_count=0" >> $GITHUB_OUTPUT
             echo "inconsistent_dois=0" >> $GITHUB_OUTPUT
+            echo "fixed_dois=0" >> $GITHUB_OUTPUT
             echo "CRITICAL_ISSUES=false" >> $GITHUB_OUTPUT
             exit 0
           fi
@@ -80,6 +110,7 @@ jobs:
             echo "Invalid JSON in citation validation report"
             echo "issues_count=0" >> $GITHUB_OUTPUT
             echo "inconsistent_dois=0" >> $GITHUB_OUTPUT
+            echo "fixed_dois=0" >> $GITHUB_OUTPUT
             echo "CRITICAL_ISSUES=false" >> $GITHUB_OUTPUT
             exit 0
           fi
@@ -88,6 +119,7 @@ jobs:
           ISSUES_COUNT=$(jq '.all_issues | length // 0' reports/citation_validation.json)
           TOOLS_WITH_DOI=$(jq '.tools_with_doi // 0' reports/citation_validation.json)
           CONSISTENT_DOIS=$(jq '.consistent_dois // 0' reports/citation_validation.json)
+          FIXED_DOIS=$(jq '.total_dois_fixed // 0' reports/citation_validation.json)
           INCONSISTENT_DOIS=$(jq "($TOOLS_WITH_DOI - $CONSISTENT_DOIS)" 2>/dev/null || echo 0)
           
           # Handle potential arithmetic errors
@@ -97,10 +129,12 @@ jobs:
           
           echo "Total issues found: $ISSUES_COUNT"
           echo "Inconsistent DOIs: $INCONSISTENT_DOIS"
+          echo "DOIs auto-fixed: $FIXED_DOIS"
           
           # Set outputs for next steps
           echo "issues_count=$ISSUES_COUNT" >> $GITHUB_OUTPUT
           echo "inconsistent_dois=$INCONSISTENT_DOIS" >> $GITHUB_OUTPUT
+          echo "fixed_dois=$FIXED_DOIS" >> $GITHUB_OUTPUT
           
           # Check if there are critical issues that need notification
           if [[ $INCONSISTENT_DOIS -gt 5 ]]; then
@@ -117,12 +151,21 @@ jobs:
           script: |
             const fs = require('fs');
             const reportContent = fs.readFileSync('reports/citation_validation_report.md', 'utf8');
+            const fixedDois = ${{ steps.check_issues.outputs.fixed_dois }};
+            
+            let title = 'Citation Data Validation Critical Issues';
+            let bodyIntro = '## Citation Validation Report has identified critical issues';
+            
+            if (fixedDois > 0) {
+              title = `Citation Data Validation: ${fixedDois} DOIs fixed, but critical issues remain`;
+              bodyIntro = `## Citation Validation Report\n\n**${fixedDois} DOI format issues were automatically fixed**, but there are still critical consistency issues that need manual review.`;
+            }
             
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: 'Citation Data Validation Critical Issues',
-              body: `## Citation Validation Report has identified critical issues\n\n${reportContent.substring(0, 3000)}...\n\nSee the full report in the workflow artifacts.`,
+              title: title,
+              body: `${bodyIntro}\n\n${reportContent.substring(0, 3000)}...\n\nSee the full report in the workflow artifacts.`,
               labels: ['citation-data', 'data-quality']
             });
       
@@ -186,7 +229,8 @@ jobs:
             tools_with_academic_impact: (.tools_with_academic_impact // 0),
             academic_impact_percentage: (.academic_impact_percentage // 0),
             citation_format_counts: (.citation_format_counts // {"bibtex": 0, "apa": 0, "mla": 0}),
-            issues_count: ((.all_issues | length) // 0)
+            issues_count: ((.all_issues | length) // 0),
+            total_dois_fixed: (.total_dois_fixed // 0)
           }' reports/citation_validation.json > reports/citations/citation_validation_metrics.json
       
       - name: Prepare changes
@@ -194,15 +238,30 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          
+          # Add any DOI fixes from auto-fix process
+          git add metadata/**/*.json
+          
+          # Add metadata reports
           git add reports/citations/citation_validation_metrics.json
+          
           if git diff --staged --quiet; then
             echo "No changes to commit"
             echo "changes_detected=false" >> $GITHUB_OUTPUT
           else
             # Create a unique branch name with timestamp
             BRANCH_NAME="citation-validation-$(date +%Y%m%d-%H%M%S)"
+            git checkout -b $BRANCH_NAME
             echo "changes_detected=true" >> $GITHUB_OUTPUT
             echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+            
+            # Create commit message based on changes
+            FIXED_DOIS=${{ steps.check_issues.outputs.fixed_dois }}
+            if [[ $FIXED_DOIS -gt 0 ]]; then
+              git commit -m "Update citation validation metrics and fix $FIXED_DOIS DOI format issues"
+            else
+              git commit -m "Update citation validation metrics"
+            fi
           fi
           
       - name: Create Pull Request
@@ -212,17 +271,15 @@ jobs:
         with:
           # Use PAT_TOKEN if available, otherwise fall back to GITHUB_TOKEN
           token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: Update citation validation metrics
-          title: Update citation validation metrics
-          body: |
-            ## Automated PR with citation validation results
-            
-            This PR updates the citation validation metrics based on the latest validation run.
-            
-            Changes include:
-            - Updated citation validation metrics in `reports/citations/citation_validation_metrics.json`
-            
-            Generated automatically by GitHub Actions workflow.
           branch: ${{ steps.prepare.outputs.branch_name }}
           base: main
           delete-branch: true
+          title: Update citation validation metrics and fix DOI formatting issues
+          body: |
+            ## Automated PR with citation validation results
+            
+            This PR includes:
+            - Updated citation validation metrics in `reports/citations/citation_validation_metrics.json`
+            - Automatically fixed DOI formatting issues in metadata files
+            
+            Generated automatically by the Citation Data Validation workflow.
