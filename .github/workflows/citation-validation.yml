@@ -54,6 +54,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install requests
+          
+      - name: Setup GitHub CLI
+        run: |
+          # Authenticate with GitHub CLI
+          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
       
       - name: Run citation validation
         run: |
@@ -239,19 +244,23 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
+          # Create a unique branch name with timestamp
+          BRANCH_NAME="citation-validation-$(date +%Y%m%d-%H%M%S)"
+          
+          # Create branch from the current HEAD
+          git checkout -B $BRANCH_NAME
+          
           # Add any DOI fixes from auto-fix process
-          git add metadata/**/*.json
+          git add metadata/**/*.json || true
           
           # Add metadata reports
-          git add reports/citations/citation_validation_metrics.json
+          git add reports/citations/citation_validation_metrics.json || true
           
+          # Check if there are staged changes
           if git diff --staged --quiet; then
             echo "No changes to commit"
             echo "changes_detected=false" >> $GITHUB_OUTPUT
           else
-            # Create a unique branch name with timestamp
-            BRANCH_NAME="citation-validation-$(date +%Y%m%d-%H%M%S)"
-            git checkout -b $BRANCH_NAME
             echo "changes_detected=true" >> $GITHUB_OUTPUT
             echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
             
@@ -262,24 +271,35 @@ jobs:
             else
               git commit -m "Update citation validation metrics"
             fi
+            
+            # Push the branch
+            git push origin $BRANCH_NAME
           fi
           
       - name: Create Pull Request
         if: steps.prepare.outputs.changes_detected == 'true'
         id: create-pr
-        uses: peter-evans/create-pull-request@v5
-        with:
-          # Use PAT_TOKEN if available, otherwise fall back to GITHUB_TOKEN
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ steps.prepare.outputs.branch_name }}
-          base: main
-          delete-branch: true
-          title: Update citation validation metrics and fix DOI formatting issues
-          body: |
-            ## Automated PR with citation validation results
-            
-            This PR includes:
-            - Updated citation validation metrics in `reports/citations/citation_validation_metrics.json`
-            - Automatically fixed DOI formatting issues in metadata files
-            
-            Generated automatically by the Citation Data Validation workflow.
+        run: |
+          # Create a PR directly using the GitHub CLI
+          FIXED_DOIS=${{ steps.check_issues.outputs.fixed_dois }}
+          if [[ $FIXED_DOIS -gt 0 ]]; then
+            TITLE="Update citation validation metrics and fix $FIXED_DOIS DOI format issues"
+            BODY="## Automated PR with citation validation results
+
+This PR includes:
+- Updated citation validation metrics in \`reports/citations/citation_validation_metrics.json\`
+- Automatically fixed $FIXED_DOIS DOI formatting issues in metadata files
+
+Generated automatically by the Citation Data Validation workflow."
+          else
+            TITLE="Update citation validation metrics"
+            BODY="## Automated PR with citation validation results
+
+This PR includes:
+- Updated citation validation metrics in \`reports/citations/citation_validation_metrics.json\`
+
+Generated automatically by the Citation Data Validation workflow."
+          fi
+          
+          gh pr create --base main --head ${{ steps.prepare.outputs.branch_name }} --title "$TITLE" --body "$BODY" || true
+          echo "PR creation completed"
