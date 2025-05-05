@@ -1,4 +1,4 @@
-name: Update Dashboard with Real Citation Data
+name: Update Dashboard with Comprehensive Citation Data
 
 on:
   # Run after citation validation completes
@@ -32,9 +32,9 @@ jobs:
         with:
           python-version: '3.10'
       
-      - name: Update impact data with real citation statistics
+      - name: Update impact data with comprehensive citation statistics
         run: |
-          python scripts/simplified_update_impact_data.py
+          python scripts/comprehensive_citation_data.py
       
       - name: Commit and push changes
         run: |
@@ -46,7 +46,7 @@ jobs:
             echo "No changes to impact_data.json, skipping commit"
           else
             git add impact_data.json
-            git commit -m "Update citation dashboard with real data [skip ci]" 
+            git commit -m "Update citation dashboard with comprehensive data [skip ci]" 
             git push
-            echo "Updated impact_data.json with real citation data"
+            echo "Updated impact_data.json with comprehensive citation data"
           fi
