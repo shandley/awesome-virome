@@ -284,29 +284,25 @@ jobs:
           FIXED_DOIS=${{ steps.check_issues.outputs.fixed_dois }}
           if [[ $FIXED_DOIS -gt 0 ]]; then
             TITLE="Update citation validation metrics and fix $FIXED_DOIS DOI format issues"
-            # Use sed to replace the placeholder with the actual value
-            BODY=$(cat <<'EOF'
-## Automated PR with citation validation results
+            
+            # Create PR body without using heredoc
+            BODY="## Automated PR with citation validation results
 
 This PR includes:
-- Updated citation validation metrics in `reports/citations/citation_validation_metrics.json`
-- Automatically fixed __FIXED_DOIS__ DOI formatting issues in metadata files
+- Updated citation validation metrics in \`reports/citations/citation_validation_metrics.json\`
+- Automatically fixed $FIXED_DOIS DOI formatting issues in metadata files
 
-Generated automatically by the Citation Data Validation workflow.
-EOF
-)
-            BODY=$(echo "$BODY" | sed "s/__FIXED_DOIS__/$FIXED_DOIS/g")
+Generated automatically by the Citation Data Validation workflow."
           else
             TITLE="Update citation validation metrics"
-            BODY=$(cat <<'EOF'
-## Automated PR with citation validation results
+            
+            # Create PR body without using heredoc
+            BODY="## Automated PR with citation validation results
 
 This PR includes:
-- Updated citation validation metrics in `reports/citations/citation_validation_metrics.json`
+- Updated citation validation metrics in \`reports/citations/citation_validation_metrics.json\`
 
-Generated automatically by the Citation Data Validation workflow.
-EOF
-)
+Generated automatically by the Citation Data Validation workflow."
           fi
           
           gh pr create --base main --head ${{ steps.prepare.outputs.branch_name }} --title "$TITLE" --body "$BODY" || true
