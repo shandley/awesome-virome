@@ -296,7 +296,8 @@ This PR includes:
 Generated automatically by the Citation Data Validation workflow.
 EOL
             # Replace the placeholder with actual value
-            sed -i.bak "s/FIXED_DOIS_PLACEHOLDER/$FIXED_DOIS/g" pr_body.md
+            sed "s/FIXED_DOIS_PLACEHOLDER/$FIXED_DOIS/g" pr_body.md > pr_body_fixed.md
+            mv pr_body_fixed.md pr_body.md
             BODY=$(cat pr_body.md)
           else
             TITLE="Update citation validation metrics"
