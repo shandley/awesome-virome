@@ -16,7 +16,7 @@ from typing import Dict, List, Optional
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from scripts.citation_system.collectors.citation_collector import collect_citations
-from scripts.citation_system.validators.doi_validator import validate_doi
+from scripts.citation_system.validators.doi_validator import DOIValidator
 from scripts.citation_system.api.citation_registry import get_available_sources, get_prioritized_sources
 from scripts.citation_system.api.base_client import BaseAPIClient
 from scripts.citation_system.config import LOG_DIR, LOG_FORMAT, DATA_JSON_PATH, IMPACT_DATA_PATH
@@ -102,7 +102,8 @@ def test_citation_source(source_name: str, doi: str, use_cache: bool = True):
         return
     
     # Validate the DOI
-    if not validate_doi(doi):
+    validator = DOIValidator()
+    if not validator.is_valid_format(doi):
         logger.error(f"Invalid DOI format: {doi}")
         return
     
@@ -156,12 +157,13 @@ def validate_dois():
                 dois.extend(tool_dois)
         
         # Validate DOIs
+        validator = DOIValidator()
         valid_count = 0
         invalid_count = 0
         invalid_dois = []
         
         for doi in dois:
-            if validate_doi(doi):
+            if validator.is_valid_format(doi):
                 valid_count += 1
             else:
                 invalid_count += 1
