@@ -7,6 +7,7 @@ import datetime
 import json
 import logging
 import os
+import sys
 import time
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -17,7 +18,6 @@ from ..api.citation_registry import get_citation_source, get_prioritized_sources
 from ..config import (
     BATCH_SIZE, DATA_JSON_PATH, IMPACT_DATA_PATH, METADATA_DIR, PARALLEL_REQUESTS
 )
-from ..utils.logging_utils import log_section, log_summary, setup_logging
 from ..validators.doi_validator import DOIValidator
 from .citation_aggregator import CitationAggregator
 
@@ -121,7 +121,9 @@ class CitationCollector:
         Returns:
             Dictionary mapping DOIs to citation data
         """
-        log_section(logger, "Collecting Citation Data")
+        logger.info("================================================================================")
+        logger.info("========================= Collecting Citation Data =============================")
+        logger.info("================================================================================")
         
         # Deduplicate DOIs (multiple tools can have the same DOI)
         unique_dois = list(set(dois.values()))
@@ -306,6 +308,12 @@ class CitationCollector:
             'citations_by_year': citations_by_year
         }
         
+        # Add source information
+        if 'primary_source' in citation_data:
+            tool_entry['primary_source'] = citation_data['primary_source']
+        if 'yearly_data_source' in citation_data:
+            tool_entry['yearly_data_source'] = citation_data['yearly_data_source']
+        
         # Add specialized metrics if available
         if 'rcr' in citation_data:
             tool_entry['rcr'] = citation_data['rcr']
@@ -331,7 +339,9 @@ class CitationCollector:
         Returns:
             Generated impact data
         """
-        log_section(logger, "Generating Impact Data")
+        logger.info("================================================================================")
+        logger.info("========================= Generating Impact Data ===============================")
+        logger.info("================================================================================")
         
         # Collect tool metadata
         tool_metadata = self._get_tool_metadata()
@@ -460,10 +470,56 @@ class CitationCollector:
         return impact_data
 
 
+def collect_citations(use_cache: bool = True, test_mode: bool = False, limit: Optional[int] = None) -> bool:
+    """
+    Run citation collection process with specified parameters.
+    
+    Args:
+        use_cache: Whether to use cached responses
+        test_mode: Whether to run in test mode
+        limit: Maximum number of DOIs to process
+    
+    Returns:
+        True if collection was successful, False otherwise
+    """
+    try:
+        # Create collector
+        collector = CitationCollector()
+        
+        # Step 1: Collect tool DOIs
+        tool_dois = collector.collect_tool_dois()
+        
+        # If in test mode, use a limited subset
+        if test_mode or limit:
+            # Sort DOIs by value for consistent results
+            sorted_items = sorted(tool_dois.items(), key=lambda x: x[1])
+            
+            # Use first 'limit' items or 10 if in test mode
+            max_items = limit or 10
+            limited_dois = dict(sorted_items[:max_items])
+            
+            logger.info(f"Test mode: Using {len(limited_dois)}/{len(tool_dois)} tools")
+            tool_dois = limited_dois
+        
+        # Step 2: Collect citation data
+        citation_data = collector.collect_citation_data(
+            tool_dois,
+            use_cache=use_cache
+        )
+        
+        # Step 3: Generate impact data
+        collector.generate_impact_data(citation_data)
+        
+        return True
+    
+    except Exception as e:
+        logger.exception(f"Error during citation collection: {e}")
+        return False
+
+
 def main():
     """Main entry point for the citation collector."""
     import argparse
-    import sys
     
     # Set up argument parser
     parser = argparse.ArgumentParser(description="Citation Collector")
@@ -478,6 +534,16 @@ def main():
         help="Force refresh all citation data"
     )
     parser.add_argument(
+        "--test",
+        action="store_true",
+        help="Run in test mode (limited subset)"
+    )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        help="Maximum number of DOIs to process"
+    )
+    parser.add_argument(
         "--output",
         default=str(IMPACT_DATA_PATH),
         help="Output file path (defaults to impact_data.json)"
@@ -485,25 +551,24 @@ def main():
     
     args = parser.parse_args()
     
-    # Set up logging
-    logger = setup_logging("citation_collector")
+    # Configure logging
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+        handlers=[
+            logging.FileHandler(Path(IMPACT_DATA_PATH).parent / "citation_collector.log"),
+            logging.StreamHandler()
+        ]
+    )
     
-    # Create collector and run
-    collector = CitationCollector()
+    # Run collection
+    success = collect_citations(
+        use_cache=not args.no_cache,
+        test_mode=args.test,
+        limit=args.limit
+    )
     
-    try:
-        impact_data = collector.run_full_collection(
-            use_cache=not args.no_cache,
-            force_refresh=args.force_refresh
-        )
-        
-        # Log summary
-        logger.info(f"Citation collection complete: {impact_data['tools_with_citations']} tools with citation data")
-        return 0
-    
-    except Exception as e:
-        logger.error(f"Citation collection failed: {e}")
-        return 1
+    return 0 if success else 1
 
 
 if __name__ == "__main__":
