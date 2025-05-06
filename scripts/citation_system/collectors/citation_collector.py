@@ -172,6 +172,22 @@ class CitationCollector:
             batch_duration = time.time() - batch_start_time
             logger.info(f"Batch {batch_index + 1} completed in {batch_duration:.2f}s")
         
+        # Citation data integrity check
+        citation_counts = [data.get('total_citations', 0) for data in citation_data.values() if "error" not in data]
+        nonzero_citations = [c for c in citation_counts if c > 0]
+        logger.info(f"Citation integrity check: {len(nonzero_citations)}/{len(citation_counts)} DOIs have non-zero citations")
+        if nonzero_citations:
+            logger.info(f"Sample citation counts: {nonzero_citations[:5]}")
+            logger.info(f"Total citations summed from all DOIs: {sum(citation_counts)}")
+            
+            # Identify top cited DOIs for verification
+            top_cited = []
+            for doi, data in citation_data.items():
+                if "error" not in data and data.get('total_citations', 0) > 0:
+                    top_cited.append((doi, data.get('total_citations', 0)))
+            top_cited.sort(key=lambda x: x[1], reverse=True)
+            logger.info(f"Top 5 cited DOIs: {top_cited[:5]}")
+        
         # Log summary
         successful_dois = sum(1 for d in citation_data.values() if "error" not in d)
         logger.info(f"Citation data collection complete: {successful_dois}/{total_dois} DOIs processed successfully")
@@ -262,8 +278,16 @@ class CitationCollector:
         Returns:
             Tool citation data ready for impact_data.json
         """
+        # Add debug logging for citation processing
+        if citation_data.get('total_citations', 0) > 0:
+            logger.debug(f"Processing tool {tool_name} with {citation_data.get('total_citations', 0)} citations, source: {citation_data.get('source', 'unknown')}")
+        
         # Extract citation information
         total_citations = citation_data.get('total_citations', 0)
+        
+        # More detailed logging for non-zero citation counts
+        if total_citations > 0:
+            logger.info(f"Tool {tool_name} has {total_citations} citations from {citation_data.get('source', 'unknown')}")
         
         # Extract influential citations if available
         influential_citations = citation_data.get('influential_citations', 0)
@@ -352,10 +376,15 @@ class CitationCollector:
         # Sort tools by total citations (descending)
         tool_citation_data.sort(key=lambda x: x['total_citations'], reverse=True)
         
+        # Enhanced logging for citation data
+        logger.info(f"Raw citation count sample: {[tool['total_citations'] for tool in tool_citation_data[:10]]}")
+        logger.info(f"First 5 tools with citations: {[{'name': t['name'], 'citations': t['total_citations']} for t in tool_citation_data[:5]]}")
+        
         # Calculate summary statistics
         total_tools = len(tool_metadata)
         tools_with_citations = len(tool_citation_data)
         total_citations = sum(tool['total_citations'] for tool in tool_citation_data)
+        logger.info(f"Citation sum calculation: sum of {len(tool_citation_data)} tools = {total_citations}")
         average_citations = total_citations / tools_with_citations if tools_with_citations > 0 else 0
         
         # Create impact data structure
@@ -378,6 +407,23 @@ class CitationCollector:
                 with open(IMPACT_DATA_PATH, 'w') as f:
                     json.dump(impact_data, f, indent=2)
                 logger.info(f"Impact data written to {IMPACT_DATA_PATH}")
+                
+                # Verify the file was written correctly
+                try:
+                    with open(IMPACT_DATA_PATH, 'r') as f:
+                        written_data = json.load(f)
+                    
+                    # Verify total_citations was written correctly
+                    if written_data.get('total_citations', 0) != total_citations:
+                        logger.error(f"ERROR: File validation failed - calculated {total_citations} citations but file contains {written_data.get('total_citations', 0)}")
+                        # Fix the file by writing it again
+                        with open(IMPACT_DATA_PATH, 'w') as f:
+                            json.dump(impact_data, f, indent=2)
+                        logger.info("File was corrected after validation failure")
+                    else:
+                        logger.info(f"File validation successful - {total_citations} citations written correctly")
+                except Exception as e:
+                    logger.error(f"Error during file validation: {e}")
             except Exception as e:
                 logger.error(f"Error writing impact data to file: {e}")
         
