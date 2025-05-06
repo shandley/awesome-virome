@@ -11,9 +11,10 @@ import time
 from pathlib import Path
 from typing import Dict, List
 
+from .api.citation_registry import get_available_sources, get_citation_source, get_prioritized_sources
 from .collectors.citation_collector import CitationCollector
 from .collectors.doi_scanner import DOIScanner
-from .config import IMPACT_DATA_PATH, ROOT_DIR
+from .config import CITATION_PRIORITY, IMPACT_DATA_PATH, ROOT_DIR, get_enabled_sources
 from .utils.logging_utils import log_section, log_summary, setup_logging
 from .validators.doi_validator import DOIValidator
 
@@ -132,6 +133,26 @@ def main():
     debug_parser = subparsers.add_parser(
         "debug",
         help="Debug tools and DOIs"
+    )
+    
+    # List available citation sources
+    sources_parser = subparsers.add_parser(
+        "sources",
+        help="List available citation sources"
+    )
+    
+    # Test citation source
+    test_parser = subparsers.add_parser(
+        "test",
+        help="Test a citation source with a DOI"
+    )
+    test_parser.add_argument(
+        "source",
+        help="Citation source to test (e.g., icite, crossref)"
+    )
+    test_parser.add_argument(
+        "doi",
+        help="DOI to test with"
     )
     
     # Validate DOIs command
@@ -260,6 +281,74 @@ def main():
             logger.info(f"Citation collection complete, results saved to {output_path}")
             log_summary(logger, stats)
         
+        elif args.command == "sources":
+            log_section(logger, "Available Citation Sources")
+            
+            # Get all enabled sources
+            enabled_sources = get_enabled_sources()
+            
+            logger.info("Configured citation sources:")
+            for source, enabled in enabled_sources.items():
+                status = "✓ Enabled" if enabled else "✗ Disabled"
+                priority = CITATION_PRIORITY.get(source, 999)
+                logger.info(f"  {source}: {status} (Priority: {priority})")
+            
+            # Get available sources (those that are registered)
+            available_sources = get_available_sources()
+            
+            logger.info(f"\nAvailable citation sources: {', '.join(available_sources)}")
+            logger.info(f"Prioritized order: {', '.join(get_prioritized_sources())}")
+            
+            return 0
+            
+        elif args.command == "test":
+            log_section(logger, f"Testing Citation Source: {args.source}")
+            
+            # Get the specified source
+            source = get_citation_source(args.source)
+            if not source:
+                logger.error(f"Citation source '{args.source}' not found or not enabled")
+                return 1
+            
+            # Clean and validate the DOI
+            validator = DOIValidator()
+            doi = validator.normalize_doi(args.doi)
+            if not doi:
+                logger.error(f"Invalid DOI format: {args.doi}")
+                return 1
+            
+            logger.info(f"Testing source '{args.source}' with DOI: {doi}")
+            
+            # Test the source
+            try:
+                if hasattr(source, "get_citation_data"):
+                    success, data = source.get_citation_data(doi)
+                elif hasattr(source, "get_citation_count"):  # For backward compatibility
+                    success, data = source.get_citation_count(doi)
+                else:
+                    logger.error(f"Source '{args.source}' doesn't implement citation retrieval methods")
+                    return 1
+                
+                if success:
+                    logger.info(f"Success! Citation data retrieved for {doi}:")
+                    if isinstance(data, dict):
+                        for key, value in data.items():
+                            if isinstance(value, dict) and len(str(value)) > 100:
+                                logger.info(f"  {key}: {type(value).__name__} with {len(value)} items")
+                            else:
+                                logger.info(f"  {key}: {value}")
+                    else:
+                        logger.info(f"  Response: {data}")
+                else:
+                    logger.error(f"Failed to get citation data: {data}")
+                    return 1
+            
+            except Exception as e:
+                logger.error(f"Error testing source: {e}")
+                return 1
+            
+            return 0
+            
         elif args.command == "debug":
             log_section(logger, "Debugging Tool DOIs")
             

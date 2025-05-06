@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Citation collector for retrieving and aggregating citation data.
+Enhanced citation collector for retrieving and aggregating citation data.
 """
 
 import datetime
@@ -13,12 +13,13 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
-from ..api.crossref_client import CrossRefClient
+from ..api.citation_registry import get_citation_source, get_prioritized_sources
 from ..config import (
     BATCH_SIZE, DATA_JSON_PATH, IMPACT_DATA_PATH, METADATA_DIR, PARALLEL_REQUESTS
 )
 from ..utils.logging_utils import log_section, log_summary, setup_logging
 from ..validators.doi_validator import DOIValidator
+from .citation_aggregator import CitationAggregator
 
 logger = logging.getLogger(__name__)
 
@@ -29,7 +30,7 @@ class CitationCollector:
     def __init__(self):
         """Initialize the citation collector."""
         self.doi_validator = DOIValidator()
-        self.crossref_client = CrossRefClient()
+        self.citation_aggregator = CitationAggregator()
         self.collection_timestamp = datetime.datetime.now().isoformat()
     
     def collect_tool_dois(self) -> Dict[str, str]:
@@ -77,13 +78,13 @@ class CitationCollector:
         
         # Next, check individual metadata files for DOIs
         try:
-            for metadata_dir in [METADATA_DIR, METADATA_DIR / "academic_impact"]:
+            for metadata_dir in [METADATA_DIR, METADATA_DIR / "academic_impact", METADATA_DIR / "bioinformatics"]:
                 if not metadata_dir.exists():
                     continue
                 
                 for file_path in metadata_dir.glob("*.json"):
                     try:
-                        tool_id = file_path.stem
+                        tool_id = f"tool-{file_path.stem}"
                         
                         with open(file_path, 'r') as f:
                             metadata = json.load(f)
@@ -98,112 +99,23 @@ class CitationCollector:
                         logger.warning(f"Error reading metadata file {file_path}: {e}")
         
         except Exception as e:
-            logger.error(f"Error scanning metadata directory: {e}")
+            logger.error(f"Error reading metadata files: {e}")
         
         logger.info(f"Found {len(tool_dois)} tools with DOIs")
         return tool_dois
     
-    def collect_citations_for_doi(
-        self, 
-        doi: str,
-        use_cache: bool = True
-    ) -> Dict[str, Any]:
-        """
-        Collect citation data for a single DOI.
-        
-        Args:
-            doi: DOI to collect citations for
-            use_cache: Whether to use cached data
-        
-        Returns:
-            Dictionary with citation data
-        """
-        logger.info(f"Collecting citations for DOI: {doi}")
-        
-        # Normalize the DOI
-        normalized_doi = self.doi_validator.normalize_doi(doi)
-        if not normalized_doi:
-            logger.warning(f"Invalid DOI format: {doi}")
-            return {
-                'doi': doi,
-                'source': 'error',
-                'total_citations': 0,
-                'timestamp': self.collection_timestamp,
-                'error': 'Invalid DOI format'
-            }
-        
-        # Get citation data from CrossRef
-        success, result = self.crossref_client.get_citation_count(
-            normalized_doi, 
-            use_cache=use_cache
-        )
-        
-        if not success:
-            logger.warning(f"Failed to get citation data for DOI {normalized_doi}: {result}")
-            return {
-                'doi': normalized_doi,
-                'source': 'error',
-                'total_citations': 0,
-                'timestamp': self.collection_timestamp,
-                'error': result if isinstance(result, str) else 'Unknown error'
-            }
-        
-        citation_data = result
-        logger.info(f"Successfully collected citation data for DOI: {normalized_doi}")
-        
-        return citation_data
-    
-    def collect_citations_batch(
-        self, 
-        dois: List[str],
-        use_cache: bool = True
-    ) -> List[Dict[str, Any]]:
-        """
-        Collect citation data for a batch of DOIs in parallel.
-        
-        Args:
-            dois: List of DOIs to collect citations for
-            use_cache: Whether to use cached data
-        
-        Returns:
-            List of citation data dictionaries
-        """
-        results = []
-        
-        # Use ThreadPoolExecutor for parallel processing
-        with ThreadPoolExecutor(max_workers=PARALLEL_REQUESTS) as executor:
-            future_to_doi = {
-                executor.submit(self.collect_citations_for_doi, doi, use_cache): doi 
-                for doi in dois
-            }
-            
-            for future in as_completed(future_to_doi):
-                doi = future_to_doi[future]
-                try:
-                    result = future.result()
-                    results.append(result)
-                except Exception as e:
-                    logger.error(f"Error collecting citations for DOI {doi}: {e}")
-                    results.append({
-                        'doi': doi,
-                        'source': 'error',
-                        'total_citations': 0,
-                        'timestamp': self.collection_timestamp,
-                        'error': str(e)
-                    })
-        
-        return results
-    
-    def collect_all_citations(
-        self, 
+    def collect_citation_data(
+        self,
+        dois: Dict[str, str],
         use_cache: bool = True,
         force_refresh: bool = False
     ) -> Dict[str, Dict[str, Any]]:
         """
-        Collect citation data for all DOIs.
+        Collect citation data for DOIs.
         
         Args:
-            use_cache: Whether to use cached API responses
+            dois: Dictionary mapping tool IDs to DOIs
+            use_cache: Whether to use cached responses
             force_refresh: Whether to force refresh all citation data
         
         Returns:
@@ -211,46 +123,123 @@ class CitationCollector:
         """
         log_section(logger, "Collecting Citation Data")
         
-        # Collect DOIs for all tools
-        tool_dois = self.collect_tool_dois()
-        dois = list(set(tool_dois.values()))
+        # Deduplicate DOIs (multiple tools can have the same DOI)
+        unique_dois = list(set(dois.values()))
+        total_dois = len(unique_dois)
         
-        logger.info(f"Collecting citations for {len(dois)} unique DOIs")
+        logger.info(f"Collecting citation data for {total_dois} unique DOIs")
         
         # Split DOIs into batches
         doi_batches = [
-            dois[i:i+BATCH_SIZE] 
-            for i in range(0, len(dois), BATCH_SIZE)
+            unique_dois[i:i + BATCH_SIZE]
+            for i in range(0, total_dois, BATCH_SIZE)
         ]
         
-        # Dictionary to store DOI to citation data mapping
-        all_citation_data = {}
+        # Initialize results dictionary
+        citation_data = {}
         
-        # Process each batch
-        for i, batch in enumerate(doi_batches):
-            logger.info(f"Processing batch {i+1}/{len(doi_batches)} ({len(batch)} DOIs)")
+        # Process batches of DOIs
+        for batch_index, doi_batch in enumerate(doi_batches):
+            batch_start_time = time.time()
+            logger.info(f"Processing batch {batch_index + 1}/{len(doi_batches)} ({len(doi_batch)} DOIs)")
             
-            batch_results = self.collect_citations_batch(batch, use_cache=(not force_refresh and use_cache))
+            # Process DOIs in parallel
+            with ThreadPoolExecutor(max_workers=PARALLEL_REQUESTS) as executor:
+                # Submit tasks for each DOI
+                future_to_doi = {
+                    executor.submit(
+                        self.citation_aggregator.collect_citations, 
+                        doi, 
+                        use_cache and not force_refresh
+                    ): doi
+                    for doi in doi_batch
+                }
+                
+                # Process completed tasks
+                for future in as_completed(future_to_doi):
+                    doi = future_to_doi[future]
+                    try:
+                        data = future.result()
+                        citation_data[doi] = data
+                    except Exception as e:
+                        logger.error(f"Error processing DOI {doi}: {e}")
+                        citation_data[doi] = {
+                            "doi": doi,
+                            "error": str(e),
+                            "timestamp": self.collection_timestamp
+                        }
             
-            for result in batch_results:
-                doi = result.get('doi')
-                if doi:
-                    all_citation_data[doi] = result
-            
-            # Log progress
-            success_count = sum(1 for r in batch_results if 'error' not in r)
-            logger.info(f"Batch {i+1} complete: {success_count}/{len(batch)} successful")
-            
-            # Sleep briefly between batches to avoid overloading APIs
-            if i < len(doi_batches) - 1:
-                time.sleep(1)
+            batch_duration = time.time() - batch_start_time
+            logger.info(f"Batch {batch_index + 1} completed in {batch_duration:.2f}s")
         
         # Log summary
-        total_collected = len(all_citation_data)
-        success_count = sum(1 for data in all_citation_data.values() if 'error' not in data)
-        logger.info(f"Citation collection complete: {success_count}/{total_collected} DOIs successful")
+        successful_dois = sum(1 for d in citation_data.values() if "error" not in d)
+        logger.info(f"Citation data collection complete: {successful_dois}/{total_dois} DOIs processed successfully")
         
-        return all_citation_data
+        return citation_data
+    
+    def _get_tool_metadata(self) -> Dict[str, Dict[str, Any]]:
+        """
+        Get metadata for all tools.
+        
+        Returns:
+            Dictionary mapping tool IDs to metadata
+        """
+        tool_metadata = {}
+        
+        # Try to load from data.json first
+        try:
+            if DATA_JSON_PATH.exists():
+                with open(DATA_JSON_PATH, 'r') as f:
+                    data = json.load(f)
+                
+                # Check the structure of data.json
+                tools = []
+                if 'tools' in data:
+                    tools = data['tools']
+                elif 'nodes' in data:
+                    # Filter for nodes of type 'tool'
+                    tools = [node for node in data.get('nodes', []) 
+                            if node.get('type') == 'tool']
+                
+                for tool in tools:
+                    tool_id = tool.get('id')
+                    if tool_id:
+                        tool_metadata[tool_id] = {
+                            'name': tool.get('name', tool_id),
+                            'url': tool.get('url', ''),
+                            'category': tool.get('category', 'Other Tools')
+                        }
+        
+        except Exception as e:
+            logger.error(f"Error reading data.json: {e}")
+        
+        # Check individual metadata files
+        try:
+            for metadata_dir in [METADATA_DIR, METADATA_DIR / "academic_impact", METADATA_DIR / "bioinformatics"]:
+                if not metadata_dir.exists():
+                    continue
+                
+                for file_path in metadata_dir.glob("*.json"):
+                    try:
+                        tool_id = f"tool-{file_path.stem}"
+                        
+                        with open(file_path, 'r') as f:
+                            metadata = json.load(f)
+                        
+                        tool_metadata[tool_id] = {
+                            'name': metadata.get('name', file_path.stem),
+                            'url': metadata.get('url', ''),
+                            'category': metadata.get('category', 'Other Tools')
+                        }
+                    
+                    except Exception as e:
+                        logger.warning(f"Error reading metadata file {file_path}: {e}")
+        
+        except Exception as e:
+            logger.error(f"Error reading metadata files: {e}")
+        
+        return tool_metadata
     
     def _create_tool_citation_data(
         self,
@@ -258,41 +247,31 @@ class CitationCollector:
         tool_name: str,
         tool_url: str,
         citation_data: Dict[str, Any],
-        category: Optional[str] = None
+        category: str = "Other Tools"
     ) -> Dict[str, Any]:
         """
-        Create a tool citation data entry for the impact data file.
+        Create tool citation data from citation data.
         
         Args:
             tool_id: Tool ID
             tool_name: Tool name
             tool_url: Tool URL
-            citation_data: Citation data for the tool
-            category: Optional tool category
+            citation_data: Citation data for the tool's DOI
+            category: Tool category
         
         Returns:
-            Tool citation data entry
+            Tool citation data ready for impact_data.json
         """
-        # Default total citations
-        total_citations = 0
+        # Extract citation information
+        total_citations = citation_data.get('total_citations', 0)
         
-        # Get citations by year if available
-        citations_by_year = {}
-        if 'citations_by_year' in citation_data:
-            citations_by_year = citation_data['citations_by_year']
-            
-            # Calculate total citations from years if available
-            if citations_by_year:
-                total_citations = sum(citations_by_year.values())
+        # Extract influential citations if available
+        influential_citations = citation_data.get('influential_citations', 0)
         
-        # Use provided total if no yearly breakdown
-        if total_citations == 0 and 'total_citations' in citation_data:
-            total_citations = citation_data['total_citations']
+        # Extract citations by year
+        citations_by_year = citation_data.get('citations_by_year', {})
         
-        # Calculate influential citations (approximately 10% of total)
-        influential_citations = max(1, int(total_citations * 0.1)) if total_citations > 0 else 0
-        
-        # Create the tool entry
+        # Create the tool citation data
         tool_entry = {
             'name': tool_name,
             'url': tool_url,
@@ -302,6 +281,14 @@ class CitationCollector:
             'category': category or 'Other Tools',
             'citations_by_year': citations_by_year
         }
+        
+        # Add specialized metrics if available
+        if 'rcr' in citation_data:
+            tool_entry['rcr'] = citation_data['rcr']
+        if 'expected_citations' in citation_data:
+            tool_entry['expected_citations'] = citation_data['expected_citations']
+        if 'field_citation_rate' in citation_data:
+            tool_entry['field_citation_rate'] = citation_data['field_citation_rate']
         
         return tool_entry
     
@@ -337,7 +324,7 @@ class CitationCollector:
         
         for doi, citation in citation_data.items():
             # Skip entries with errors
-            if 'error' in citation:
+            if "error" in citation:
                 continue
             
             # Get tools with this DOI
@@ -396,47 +383,8 @@ class CitationCollector:
         
         return impact_data
     
-    def _get_tool_metadata(self) -> Dict[str, Dict[str, Any]]:
-        """
-        Get metadata for all tools.
-        
-        Returns:
-            Dictionary mapping tool IDs to metadata
-        """
-        metadata = {}
-        
-        # Read data.json for tool metadata
-        try:
-            if DATA_JSON_PATH.exists():
-                with open(DATA_JSON_PATH, 'r') as f:
-                    data = json.load(f)
-                
-                # Check the structure of data.json
-                if 'tools' in data:
-                    tools = data['tools']
-                elif 'nodes' in data:
-                    # Filter for nodes of type 'tool'
-                    tools = [node for node in data.get('nodes', []) 
-                            if node.get('type') == 'tool']
-                else:
-                    tools = []
-                
-                for tool in tools:
-                    tool_id = tool.get('id')
-                    if tool_id:
-                        metadata[tool_id] = {
-                            'name': tool.get('name', tool_id),
-                            'url': tool.get('url', ''),
-                            'category': tool.get('category', 'Other Tools'),
-                            'doi': tool.get('doi', '')
-                        }
-        except Exception as e:
-            logger.error(f"Error reading data.json: {e}")
-        
-        return metadata
-    
     def run_full_collection(
-        self, 
+        self,
         use_cache: bool = True,
         force_refresh: bool = False
     ) -> Dict[str, Any]:
@@ -444,59 +392,57 @@ class CitationCollector:
         Run the full citation collection process.
         
         Args:
-            use_cache: Whether to use cached API responses
+            use_cache: Whether to use cached responses
             force_refresh: Whether to force refresh all citation data
         
         Returns:
             Generated impact data
         """
-        # Collect all citations
-        citation_data = self.collect_all_citations(
+        # Step 1: Collect tool DOIs
+        tool_dois = self.collect_tool_dois()
+        
+        # Step 2: Collect citation data
+        citation_data = self.collect_citation_data(
+            tool_dois,
             use_cache=use_cache,
             force_refresh=force_refresh
         )
         
-        # Generate impact data
+        # Step 3: Generate impact data
         impact_data = self.generate_impact_data(citation_data)
         
         return impact_data
 
 
 def main():
-    """Command-line interface for the citation collector."""
+    """Main entry point for the citation collector."""
     import argparse
     import sys
     
-    # Set up logging
-    logger = setup_logging("citation_collector")
-    
-    # Parse command-line arguments
-    parser = argparse.ArgumentParser(
-        description="Collect citation data for all tools"
-    )
+    # Set up argument parser
+    parser = argparse.ArgumentParser(description="Citation Collector")
     parser.add_argument(
-        "--no-cache", 
+        "--no-cache",
         action="store_true",
         help="Don't use cached API responses"
     )
     parser.add_argument(
-        "--force-refresh", 
+        "--force-refresh",
         action="store_true",
         help="Force refresh all citation data"
     )
     parser.add_argument(
-        "--output", 
+        "--output",
+        default=str(IMPACT_DATA_PATH),
         help="Output file path (defaults to impact_data.json)"
     )
     
     args = parser.parse_args()
     
-    # Set output path if provided
-    if args.output:
-        global IMPACT_DATA_PATH
-        IMPACT_DATA_PATH = Path(args.output)
+    # Set up logging
+    logger = setup_logging("citation_collector")
     
-    # Create collector and run collection
+    # Create collector and run
     collector = CitationCollector()
     
     try:
