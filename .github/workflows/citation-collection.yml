@@ -1,0 +1,131 @@
+name: Citation Data Collection (Authoritative)
+
+on:
+  # Run weekly
+  schedule:
+    # Run every Tuesday at 12:00 UTC (after basic repository updates)
+    - cron: "0 12 * * 2"
+  
+  # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      force_refresh:
+        description: 'Force refresh of all citation data'
+        type: boolean
+        default: false
+
+# Permissions needed for committing changes
+permissions:
+  contents: write
+
+jobs:
+  collect-citations:
+    name: Collect Citation Data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests jsonschema
+      
+      - name: Run citation collection
+        run: |
+          # Create logs directory
+          mkdir -p logs
+          
+          # Build command with appropriate arguments
+          CMD="python -m scripts.citation_system.collect_citations full"
+          
+          # Add force refresh if specified
+          if [[ "${{ github.event.inputs.force_refresh }}" == "true" ]]; then
+            CMD="$CMD --force-refresh"
+          fi
+          
+          # Run the command
+          echo "Running: $CMD"
+          $CMD
+      
+      - name: Upload citation data
+        uses: actions/upload-artifact@v3
+        with:
+          name: citation-data
+          path: |
+            impact_data.json
+            potential_dois.json
+            logs/citation_system.log
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Add changes
+          git add impact_data.json potential_dois.json
+          
+          # Check if there are changes to commit
+          if ! git diff --staged --quiet; then
+            # Create commit message
+            if [[ "${{ github.event.inputs.force_refresh }}" == "true" ]]; then
+              COMMIT_MSG="Update citation data with forced refresh"
+            else
+              COMMIT_MSG="Update citation data from external sources"
+            fi
+            
+            # Add timestamp to commit message
+            TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+            COMMIT_MSG="$COMMIT_MSG [$TIMESTAMP]"
+            
+            # Commit and push
+            git commit -m "$COMMIT_MSG"
+            git push
+            
+            echo "Changes committed and pushed to main"
+          else
+            echo "No changes to commit"
+          fi
+      
+      - name: Generate citation dashboard
+        run: |
+          # Generate dashboard HTML or update visualization files
+          echo "Generating citation dashboard..."
+          
+          # Add any commands to update dashboards or visualizations here
+          # For example, if you have visualization scripts:
+          # python scripts/generate_visualizations.py
+          
+          # For now, this is a placeholder for future dashboard generation
+      
+      - name: Notify on Failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueTitle = 'Citation Data Collection Failed';
+            const issueBody = `
+            ## Citation Data Collection Failed
+            
+            The citation data collection workflow failed at ${new Date().toISOString()}.
+            
+            Please check the [workflow logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.
+            `;
+            
+            try {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: issueTitle,
+                body: issueBody,
+                labels: ['citation-data', 'bug']
+              });
+            } catch (error) {
+              console.error(`Error creating issue: ${error}`);
+            }

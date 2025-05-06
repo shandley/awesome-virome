@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Tool Metadata",
+  "description": "Schema for tool metadata in the awesome-virome repository",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the tool"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the tool"
+    },
+    "url": {
+      "type": "string",
+      "description": "URL to the tool's repository or website"
+    },
+    "doi": {
+      "type": "string",
+      "description": "DOI of the main publication for this tool"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of the tool"
+    },
+    "category": {
+      "type": "string",
+      "description": "Category the tool belongs to"
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Tags associated with the tool"
+    },
+    "publication": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Title of the publication"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Authors of the publication"
+        },
+        "journal": {
+          "type": "string",
+          "description": "Journal where the tool was published"
+        },
+        "year": {
+          "type": "integer",
+          "description": "Year of publication"
+        },
+        "pmid": {
+          "type": "string",
+          "description": "PubMed ID"
+        }
+      }
+    },
+    "citations": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of citations"
+        },
+        "by_year": {
+          "type": "object",
+          "patternProperties": {
+            "^\\d{4}$": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          "description": "Citations broken down by year"
+        },
+        "last_updated": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the citation data was last updated"
+        }
+      }
+    }
+  }
+}

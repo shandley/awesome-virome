@@ -1,0 +1,99 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Citation Data",
+  "description": "Schema for citation data retrieved from external sources",
+  "type": "object",
+  "required": ["doi", "source", "total_citations", "timestamp"],
+  "properties": {
+    "doi": {
+      "type": "string",
+      "description": "Digital Object Identifier for the publication"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["crossref", "pubmed", "google_scholar", "manual"],
+      "description": "Source of the citation data"
+    },
+    "total_citations": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Total number of citations for the publication"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the citation data was collected"
+    },
+    "citations_by_year": {
+      "type": "object",
+      "description": "Citations broken down by year",
+      "patternProperties": {
+        "^\\d{4}$": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "citing_papers": {
+      "type": "array",
+      "description": "List of papers that cite this publication",
+      "items": {
+        "type": "object",
+        "properties": {
+          "doi": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "published_date": {
+            "type": "string"
+          },
+          "journal": {
+            "type": "string"
+          },
+          "is_influential": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata about the publication",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "journal": {
+          "type": "string"
+        },
+        "publication_date": {
+          "type": "string"
+        },
+        "volume": {
+          "type": "string"
+        },
+        "issue": {
+          "type": "string"
+        },
+        "pages": {
+          "type": "string"
+        },
+        "publisher": {
+          "type": "string"
+        }
+      }
+    },
+    "error": {
+      "type": "string",
+      "description": "Error message if citation collection failed"
+    }
+  }
+}
