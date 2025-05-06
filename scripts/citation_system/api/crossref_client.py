@@ -162,8 +162,9 @@ class CrossRefClient(BaseAPIClient):
         logger.info(f"Searching for publication with title: {title}")
         
         # Make API request to the works endpoint with query
+        search_url = "https://api.crossref.org/works"
         success, response = self._make_request(
-            endpoint="works",
+            endpoint="",  # Base URL already includes 'works'
             params={
                 "query.title": title,
                 "rows": limit,

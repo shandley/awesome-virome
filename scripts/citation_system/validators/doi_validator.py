@@ -41,8 +41,12 @@ class DOIValidator:
         if not doi:
             return False
         
-        # Clean up DOI - remove any URL prefix
+        # Clean up DOI - remove any URL prefix, trailing characters, etc.
         cleaned_doi = self._clean_doi(doi)
+        
+        # If the cleaned DOI is different from the original, it had format issues
+        if doi != cleaned_doi and any(c in doi for c in ')].,'):
+            return False
         
         # Check against regex pattern
         return bool(self.pattern.match(cleaned_doi))

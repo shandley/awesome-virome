@@ -10,6 +10,7 @@ from pathlib import Path
 # Directory paths
 ROOT_DIR = Path(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 METADATA_DIR = ROOT_DIR / "metadata"
+DATA_JSON_PATH = ROOT_DIR / "data.json"
 IMPACT_DATA_PATH = ROOT_DIR / "impact_data.json"
 REPORTS_DIR = ROOT_DIR / "reports"
 CITATION_REPORTS_DIR = REPORTS_DIR / "citations"
