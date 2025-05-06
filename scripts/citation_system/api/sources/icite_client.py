@@ -6,6 +6,7 @@ iCite API client for retrieving NIH citation data.
 import datetime
 import logging
 import urllib.parse
+import requests
 from typing import Any, Dict, List, Optional, Tuple, Union
 
 from ..base_client import BaseAPIClient
