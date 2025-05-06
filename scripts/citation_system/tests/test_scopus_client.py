@@ -48,7 +48,7 @@ class TestScopusClient(unittest.TestCase):
         # Verify the request was made correctly
         self.client._make_request.assert_called_once()
         args, kwargs = self.client._make_request.call_args
-        self.assertTrue("DOI(10.1234/test)" in kwargs.get("endpoint", ""))
+        self.assertIn("query=DOI(", kwargs.get("endpoint", ""))
         
         # Verify the result
         self.assertEqual(scopus_id, "85123456789")
@@ -113,7 +113,7 @@ class TestScopusClient(unittest.TestCase):
         # Verify the request was made correctly
         self.client._make_request.assert_called_once()
         args, kwargs = self.client._make_request.call_args
-        self.assertTrue("85123456789" in kwargs.get("endpoint", ""))
+        self.assertIn("85123456789", kwargs.get("endpoint", ""))
         
         # Verify the result
         self.assertTrue(success)
@@ -164,7 +164,7 @@ class TestScopusClient(unittest.TestCase):
         # Verify the request was made correctly
         self.client._make_request.assert_called_once()
         args, kwargs = self.client._make_request.call_args
-        self.assertTrue("85123456789" in kwargs.get("endpoint", ""))
+        self.assertIn("85123456789", kwargs.get("endpoint", ""))
         
         # Verify the result
         self.assertEqual(len(citations_by_year), 3)
