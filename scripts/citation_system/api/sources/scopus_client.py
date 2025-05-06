@@ -39,6 +39,9 @@ class ScopusClient(BaseAPIClient):
             "X-ELS-APIKey": api_key
         }
         
+        # Track if institutional access is available
+        self.has_institutional_access = bool(institutional_token)
+        
         # Add institutional token if provided
         if institutional_token:
             self.headers["X-ELS-Insttoken"] = institutional_token
@@ -57,6 +60,10 @@ class ScopusClient(BaseAPIClient):
         # Clean the DOI and encode for URL
         clean_doi = doi.strip().lower()
         encoded_doi = urllib.parse.quote_plus(clean_doi)
+        
+        # Skip Zenodo DOIs as they're generally not in Scopus
+        if clean_doi.startswith('10.5281/zenodo'):
+            return False, f"DOI {doi} is a Zenodo DOI which is typically not indexed in Scopus"
         
         # First, get the Scopus ID for this DOI
         scopus_id = self._get_scopus_id(clean_doi, use_cache)
@@ -181,7 +188,14 @@ class ScopusClient(BaseAPIClient):
                         authors.append(surname)
             
             # Now get yearly citation breakdown if available
-            citations_by_year = self._get_yearly_citations(scopus_id, use_cache)
+            citations_by_year = {}
+            yearly_citation_success = False
+            
+            if self.has_institutional_access:
+                # Only try to get yearly citations if we have institutional access
+                citations_by_year, yearly_citation_success = self._get_yearly_citations(scopus_id, use_cache)
+            else:
+                logger.debug(f"Skipping yearly citation breakdown for {scopus_id} - requires institutional access")
             
             # Create the citation data object
             citation_data = {
@@ -191,6 +205,7 @@ class ScopusClient(BaseAPIClient):
                 "citations_by_year": citations_by_year,
                 "year": year,
                 "timestamp": datetime.datetime.now().isoformat(),
+                "yearly_data_available": yearly_citation_success,
                 "metadata": {
                     "title": title,
                     "authors": authors,
@@ -209,7 +224,7 @@ class ScopusClient(BaseAPIClient):
             logger.error(error_msg)
             return False, error_msg
     
-    def _get_yearly_citations(self, scopus_id: str, use_cache: bool = True) -> Dict[str, int]:
+    def _get_yearly_citations(self, scopus_id: str, use_cache: bool = True) -> Tuple[Dict[str, int], bool]:
         """
         Get yearly citation breakdown for a Scopus ID.
         
@@ -218,7 +233,9 @@ class ScopusClient(BaseAPIClient):
             use_cache: Whether to use cached responses
         
         Returns:
-            Dictionary mapping years to citation counts
+            Tuple containing:
+            - Dictionary mapping years to citation counts
+            - Boolean indicating success of yearly citation retrieval
         """
         # Get citing documents by year
         endpoint = f"content/abstract/citations?scopus_id={scopus_id}&date=2000-{datetime.datetime.now().year}&view=STANDARD"
@@ -232,15 +249,20 @@ class ScopusClient(BaseAPIClient):
         citations_by_year = {}
         
         if not success:
-            logger.warning(f"Failed to get yearly citation breakdown for Scopus ID {scopus_id}")
-            return citations_by_year
+            # Check if error is due to lack of institutional access (403 Forbidden)
+            if "403" in str(response):
+                logger.debug(f"Yearly citation data requires institutional access for Scopus ID {scopus_id}")
+                return {}, False
+            else:
+                logger.warning(f"Failed to get yearly citation breakdown for Scopus ID {scopus_id}: {response}")
+                return {}, False
         
         try:
             # Extract yearly data from the response
             yearly_data = response.get("abstract-citations-response", {}).get("citeInfoMatrix", {}).get("citeInfoMatrixXML", {}).get("citationMatrix", {}).get("citeInfo", [])
             
             if not yearly_data:
-                return citations_by_year
+                return {}, False
             
             # Scopus returns data as an array of yearly counts
             for year_data in yearly_data:
@@ -250,11 +272,11 @@ class ScopusClient(BaseAPIClient):
                 if year and count and int(count) > 0:
                     citations_by_year[year] = int(count)
             
-            return citations_by_year
+            return citations_by_year, True
             
         except Exception as e:
             logger.error(f"Error extracting yearly citation data for Scopus ID {scopus_id}: {e}")
-            return citations_by_year
+            return {}, False
     
     def batch_get_citation_data(self, dois: List[str], use_cache: bool = True) -> Dict[str, Dict[str, Any]]:
         """
@@ -269,12 +291,27 @@ class ScopusClient(BaseAPIClient):
         """
         results = {}
         
-        for doi in dois:
+        # Filter out Zenodo DOIs
+        filtered_dois = [doi for doi in dois if not doi.strip().lower().startswith('10.5281/zenodo')]
+        
+        if len(filtered_dois) < len(dois):
+            logger.info(f"Filtered out {len(dois) - len(filtered_dois)} Zenodo DOIs which are typically not indexed in Scopus")
+        
+        for doi in filtered_dois:
             success, data = self.get_citation_data(doi, use_cache)
             if success:
                 results[doi] = data
             else:
                 logger.warning(f"Failed to get Scopus data for DOI {doi}: {data}")
-                results[doi] = {"error": str(data)}
+                results[doi] = {"error": str(data), "source": "scopus"}
+        
+        # Add skipped Zenodo DOIs to results
+        for doi in dois:
+            if doi not in results and doi.strip().lower().startswith('10.5281/zenodo'):
+                results[doi] = {
+                    "error": "Zenodo DOI not indexed in Scopus",
+                    "source": "scopus",
+                    "doi": doi
+                }
         
         return results

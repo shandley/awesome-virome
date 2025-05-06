@@ -1,0 +1,90 @@
+name: Test Web of Science Integration
+
+on:
+  workflow_dispatch:  # Allow manual triggering
+  schedule:
+    - cron: '0 0 * * 4'  # Run weekly on Thursday at midnight
+
+jobs:
+  test-wos-integration:
+    runs-on: ubuntu-latest
+    
+    env:
+      # Use repository secrets for API keys
+      WOS_ENABLED: true
+      WOS_API_KEY: ${{ secrets.WOS_API_KEY }}
+      WOS_API_SECRET: ${{ secrets.WOS_API_SECRET }}
+      CACHE_ENABLED: true
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r scripts/citation_system/requirements.txt
+          
+      - name: Verify Web of Science API Credentials
+        run: |
+          if [ -z "$WOS_API_KEY" ] || [ -z "$WOS_API_SECRET" ]; then
+            echo "Error: WOS_API_KEY and WOS_API_SECRET must be set as repository secrets."
+            exit 1
+          fi
+          echo "Web of Science API credentials are set"
+      
+      - name: List available citation sources
+        run: |
+          python -m scripts.citation_system.collect_citations sources
+        
+      - name: Test Web of Science client unit tests
+        run: |
+          python -m unittest scripts.citation_system.tests.test_wos_client
+          
+      - name: Test Web of Science API integration (basic authentication)
+        run: |
+          python -c "
+          import logging
+          import os
+          logging.basicConfig(level=logging.INFO)
+          from scripts.citation_system.api.sources.wos_client import WebOfScienceClient
+          from scripts.citation_system.config import WOS_API_URL
+          
+          # Create a client instance
+          client = WebOfScienceClient(
+              api_url=WOS_API_URL,
+              api_key=os.environ.get('WOS_API_KEY'),
+              api_secret=os.environ.get('WOS_API_SECRET')
+          )
+          
+          # Test authentication
+          auth_success = client._ensure_auth_token()
+          assert auth_success, 'Failed to authenticate with Web of Science API'
+          print('Successfully authenticated with Web of Science API')
+          print(f'Token is valid until {client.auth_token_expiry}')
+          "
+          
+      - name: Test Web of Science Citation Collection
+        run: |
+          # Test with a known DOI that should be in Web of Science
+          python -m scripts.citation_system.collect_citations test wos 10.1093/bioinformatics/btab213
+        
+      - name: Test integration tests
+        run: |
+          python -m unittest scripts.citation_system.tests.test_wos_integration
+          
+      - name: Test full collection with Web of Science
+        run: |
+          # Run collection including Web of Science
+          python -m scripts.citation_system.collect_citations collect --test --limit 5
+          
+      - name: Upload logs as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wos-test-logs
+          path: logs/

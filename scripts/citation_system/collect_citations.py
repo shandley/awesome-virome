@@ -1,413 +1,301 @@
 #!/usr/bin/env python3
 """
-Main entry point for the citation collection system.
+Command-line tool for collecting and processing citation data.
 """
 
 import argparse
 import json
 import logging
 import sys
-import time
+import os
+from datetime import datetime
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
-from .api.citation_registry import get_available_sources, get_citation_source, get_prioritized_sources
-from .collectors.citation_collector import CitationCollector
-from .collectors.doi_scanner import DOIScanner
-from .config import CITATION_PRIORITY, IMPACT_DATA_PATH, ROOT_DIR, get_enabled_sources
-from .utils.logging_utils import log_section, log_summary, setup_logging
-from .validators.doi_validator import DOIValidator
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from scripts.citation_system.collectors.citation_collector import collect_citations
+from scripts.citation_system.validators.doi_validator import validate_doi
+from scripts.citation_system.api.citation_registry import get_available_sources, get_prioritized_sources
+from scripts.citation_system.api.base_client import BaseAPIClient
+from scripts.citation_system.config import LOG_DIR, LOG_FORMAT, DATA_JSON_PATH, IMPACT_DATA_PATH
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format=LOG_FORMAT,
+    handlers=[
+        logging.FileHandler(LOG_DIR / "citation_system.log"),
+        logging.StreamHandler()
+    ]
+)
 
 logger = logging.getLogger(__name__)
 
 
-def validate_dois(dois: List[str], check_resolvable: bool = False) -> Dict[str, int]:
+def setup_logger():
+    """Set up the logger with detailed formatting."""
+    # Create a formatter that includes timestamp, logger name, and level
+    formatter = logging.Formatter(LOG_FORMAT)
+    
+    # Set up file handler
+    file_handler = logging.FileHandler(LOG_DIR / "citation_system.log")
+    file_handler.setFormatter(formatter)
+    
+    # Set up console handler
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(formatter)
+    
+    # Configure root logger
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.INFO)
+    
+    # Remove any existing handlers and add our own
+    for handler in root_logger.handlers[:]:
+        root_logger.removeHandler(handler)
+    
+    root_logger.addHandler(file_handler)
+    root_logger.addHandler(console_handler)
+
+
+def list_available_sources():
+    """List available citation sources."""
+    sources = get_available_sources()
+    prioritized = get_prioritized_sources()
+    
+    logger.info("================================================================================")
+    logger.info("=========================== Available Citation Sources =========================")
+    logger.info("================================================================================")
+    
+    if not sources:
+        logger.info("No citation sources available.")
+        return
+    
+    logger.info(f"Available citation sources: {', '.join(sources)}")
+    logger.info(f"Sources in priority order: {', '.join(prioritized)}")
+    
+    # List each source with more details
+    for i, source_name in enumerate(prioritized):
+        logger.info(f"{i+1}. {source_name.upper()}")
+
+
+def test_citation_source(source_name: str, doi: str, use_cache: bool = True):
     """
-    Validate a list of DOIs.
+    Test a specific citation source with a given DOI.
     
     Args:
-        dois: List of DOIs to validate
-        check_resolvable: Whether to check if DOIs are resolvable
-    
-    Returns:
-        Summary statistics
+        source_name: Name of the citation source to test
+        doi: DOI to look up
+        use_cache: Whether to use cached data
     """
-    validator = DOIValidator()
+    from scripts.citation_system.api.citation_registry import get_citation_source
     
-    total = len(dois)
-    valid_format = 0
-    resolvable = 0
+    logger.info("================================================================================")
+    logger.info(f"========================= Testing {source_name.upper()} ==========================")
+    logger.info("================================================================================")
     
-    for doi in dois:
-        # Check if the DOI has a valid format
-        if validator.is_valid_format(doi):
-            valid_format += 1
+    # Get the citation source
+    source = get_citation_source(source_name)
+    if not source:
+        logger.error(f"Citation source '{source_name}' not found or not enabled.")
+        return
+    
+    # Validate the DOI
+    if not validate_doi(doi):
+        logger.error(f"Invalid DOI format: {doi}")
+        return
+    
+    # Get citation data
+    logger.info(f"Getting citation data for DOI {doi} from {source_name}...")
+    
+    try:
+        if hasattr(source, "get_citation_data"):
+            success, data = source.get_citation_data(doi, use_cache)
+        else:
+            success, data = source.get_citation_count(doi, use_cache)
+        
+        if success:
+            # Pretty print the data
+            logger.info(f"Successfully retrieved citation data from {source_name}:")
+            logger.info(json.dumps(data, indent=2))
             
-            # Check if the DOI is resolvable
-            if check_resolvable and validator.is_resolvable(doi):
-                resolvable += 1
-    
-    logger.info(f"DOI validation: {valid_format}/{total} have valid format")
-    
-    if check_resolvable:
-        logger.info(f"DOI resolution: {resolvable}/{valid_format} are resolvable")
-    
-    return {
-        'total': total,
-        'valid_format': valid_format,
-        'resolvable': resolvable if check_resolvable else None
-    }
+            # Log citation count
+            citation_count = data.get("total_citations", 0)
+            logger.info(f"Citation count: {citation_count}")
+            
+            # Log yearly breakdown if available
+            yearly_data = data.get("citations_by_year", {})
+            if yearly_data:
+                logger.info(f"Yearly citation data available: {len(yearly_data)} years")
+                logger.info(f"Years with data: {', '.join(sorted(yearly_data.keys()))}")
+            else:
+                logger.info("No yearly citation data available")
+        else:
+            logger.error(f"Failed to get citation data: {data}")
+    except Exception as e:
+        logger.exception(f"Error testing citation source: {e}")
 
 
-def scan_for_missing_dois(output_path: Path) -> Dict[str, int]:
+def validate_dois():
+    """Validate DOIs in the repository data."""
+    logger.info("================================================================================")
+    logger.info("=========================== Validating DOIs ==================================")
+    logger.info("================================================================================")
+    
+    try:
+        # Load data.json
+        with open(DATA_JSON_PATH, "r") as f:
+            data = json.load(f)
+        
+        # Extract DOIs from tool entries
+        dois = []
+        for tool in data.get("tools", []):
+            tool_dois = tool.get("dois", [])
+            if tool_dois:
+                dois.extend(tool_dois)
+        
+        # Validate DOIs
+        valid_count = 0
+        invalid_count = 0
+        invalid_dois = []
+        
+        for doi in dois:
+            if validate_doi(doi):
+                valid_count += 1
+            else:
+                invalid_count += 1
+                invalid_dois.append(doi)
+        
+        # Log results
+        logger.info(f"Total DOIs: {len(dois)}")
+        logger.info(f"Valid DOIs: {valid_count}")
+        logger.info(f"Invalid DOIs: {invalid_count}")
+        
+        if invalid_count > 0:
+            logger.warning("Invalid DOIs found:")
+            for doi in invalid_dois:
+                logger.warning(f"  - {doi}")
+        else:
+            logger.info("All DOIs are valid.")
+        
+    except Exception as e:
+        logger.exception(f"Error validating DOIs: {e}")
+
+
+def run_collection(no_cache: bool = False, test_mode: bool = False, limit: Optional[int] = None):
     """
-    Scan for missing DOIs and output potential matches.
+    Run citation collection process.
     
     Args:
-        output_path: Path to write the output file
-    
-    Returns:
-        Summary statistics
+        no_cache: If True, bypass cache for all API requests
+        test_mode: If True, run in test mode (limited subset)
+        limit: Maximum number of DOIs to process
     """
-    scanner = DOIScanner()
-    scanner.export_potential_dois(output_path)
+    logger.info("================================================================================")
+    logger.info("=========================== Collecting Citation Data ===========================")
+    logger.info("================================================================================")
     
-    # Load the output file to get statistics
-    with open(output_path, 'r') as f:
-        data = json.load(f)
-    
-    return {
-        'total_scanned': data.get('total', 0),
-        'potentials_found': len(data.get('tools', []))
-    }
-
-
-def collect_citations(
-    use_cache: bool = True,
-    force_refresh: bool = False,
-    output_path: Path = IMPACT_DATA_PATH
-) -> Dict[str, int]:
-    """
-    Collect citation data and generate impact_data.json.
-    
-    Args:
-        use_cache: Whether to use cached API responses
-        force_refresh: Whether to force refresh all citation data
-        output_path: Path to write the output file
-    
-    Returns:
-        Summary statistics
-    """
-    collector = CitationCollector()
-    
-    # Override the default output path if specified
-    global IMPACT_DATA_PATH
-    IMPACT_DATA_PATH = output_path
-    
-    # Run the full collection process
-    impact_data = collector.run_full_collection(
-        use_cache=use_cache,
-        force_refresh=force_refresh
-    )
-    
-    return {
-        'total_tools': impact_data.get('total_tools', 0),
-        'tools_with_citations': impact_data.get('tools_with_citations', 0),
-        'total_citations': impact_data.get('total_citations', 0)
-    }
+    try:
+        # Get available sources
+        sources = get_available_sources()
+        if not sources:
+            logger.error("No citation sources available. Cannot collect citations.")
+            return
+        
+        # Log collection parameters
+        logger.info(f"Collection mode: {'Test mode' if test_mode else 'Full collection'}")
+        logger.info(f"Using cache: {not no_cache}")
+        if limit is not None:
+            logger.info(f"Processing limit: {limit} DOIs")
+        logger.info(f"Available sources: {', '.join(sources)}")
+        logger.info(f"Sources in priority order: {', '.join(get_prioritized_sources())}")
+        
+        # Run collection
+        success = collect_citations(
+            use_cache=not no_cache,
+            test_mode=test_mode,
+            limit=limit
+        )
+        
+        if success:
+            # Verify impact data was created
+            if os.path.exists(IMPACT_DATA_PATH):
+                # Load and log summary stats
+                with open(IMPACT_DATA_PATH, "r") as f:
+                    impact_data = json.load(f)
+                
+                logger.info("Collection completed successfully")
+                logger.info(f"Total tools: {impact_data.get('total_tools', 0)}")
+                logger.info(f"Tools with citations: {impact_data.get('tools_with_citations', 0)}")
+                logger.info(f"Total citations: {impact_data.get('total_citations', 0)}")
+                
+                # Log data sources used
+                if "tools" in impact_data:
+                    citation_sources = set()
+                    yearly_sources = set()
+                    tools_with_yearly = 0
+                    
+                    for tool in impact_data["tools"]:
+                        if "primary_source" in tool:
+                            citation_sources.add(tool["primary_source"])
+                        if "yearly_data_source" in tool:
+                            yearly_sources.add(tool["yearly_data_source"])
+                            tools_with_yearly += 1
+                    
+                    if citation_sources:
+                        logger.info(f"Citation sources used: {', '.join(citation_sources)}")
+                    if yearly_sources:
+                        logger.info(f"Yearly data sources used: {', '.join(yearly_sources)}")
+                        logger.info(f"Tools with yearly citation data: {tools_with_yearly}")
+            else:
+                logger.error("Collection process did not create impact_data.json")
+        else:
+            logger.error("Collection process failed")
+    except Exception as e:
+        logger.exception(f"Error running collection: {e}")
 
 
 def main():
-    """Command-line interface for the citation system."""
-    # Set up logging
-    logger = setup_logging("citation_system")
-    
-    # Parse command-line arguments
-    parser = argparse.ArgumentParser(
-        description="Awesome Virome Citation Collection System"
-    )
-    
+    """Main entry point for the script."""
+    parser = argparse.ArgumentParser(description="Collect and process citation data")
     subparsers = parser.add_subparsers(dest="command", help="Command to run")
     
-    # Debug command to extract DOIs
-    debug_parser = subparsers.add_parser(
-        "debug",
-        help="Debug tools and DOIs"
-    )
+    # Parser for 'sources' command
+    sources_parser = subparsers.add_parser("sources", help="List available citation sources")
     
-    # List available citation sources
-    sources_parser = subparsers.add_parser(
-        "sources",
-        help="List available citation sources"
-    )
+    # Parser for 'test' command
+    test_parser = subparsers.add_parser("test", help="Test a specific citation source")
+    test_parser.add_argument("source", help="Name of the citation source to test")
+    test_parser.add_argument("doi", help="DOI to look up")
+    test_parser.add_argument("--no-cache", action="store_true", help="Bypass cache for API requests")
     
-    # Test citation source
-    test_parser = subparsers.add_parser(
-        "test",
-        help="Test a citation source with a DOI"
-    )
-    test_parser.add_argument(
-        "source",
-        help="Citation source to test (e.g., icite, crossref)"
-    )
-    test_parser.add_argument(
-        "doi",
-        help="DOI to test with"
-    )
+    # Parser for 'validate' command
+    validate_parser = subparsers.add_parser("validate", help="Validate DOIs in the repository data")
     
-    # Validate DOIs command
-    validate_parser = subparsers.add_parser(
-        "validate", 
-        help="Validate DOIs"
-    )
-    validate_parser.add_argument(
-        "dois", 
-        nargs="*", 
-        help="DOIs to validate"
-    )
-    validate_parser.add_argument(
-        "-f", "--file", 
-        help="File containing DOIs (one per line)"
-    )
-    validate_parser.add_argument(
-        "-r", "--resolve", 
-        action="store_true",
-        help="Check if DOIs are resolvable"
-    )
-    
-    # Scan for missing DOIs command
-    scan_parser = subparsers.add_parser(
-        "scan", 
-        help="Scan for missing DOIs"
-    )
-    scan_parser.add_argument(
-        "-o", "--output", 
-        default=str(ROOT_DIR / "potential_dois.json"),
-        help="Output file for potential DOIs (JSON format)"
-    )
-    
-    # Collect citations command
-    collect_parser = subparsers.add_parser(
-        "collect", 
-        help="Collect citation data"
-    )
-    collect_parser.add_argument(
-        "--no-cache", 
-        action="store_true",
-        help="Don't use cached API responses"
-    )
-    collect_parser.add_argument(
-        "--force-refresh", 
-        action="store_true",
-        help="Force refresh all citation data"
-    )
-    collect_parser.add_argument(
-        "-o", "--output", 
-        default=str(IMPACT_DATA_PATH),
-        help="Output file path (defaults to impact_data.json)"
-    )
-    
-    # Full workflow command
-    full_parser = subparsers.add_parser(
-        "full", 
-        help="Run the full citation workflow"
-    )
-    full_parser.add_argument(
-        "--no-cache", 
-        action="store_true",
-        help="Don't use cached API responses"
-    )
-    full_parser.add_argument(
-        "--force-refresh", 
-        action="store_true",
-        help="Force refresh all citation data"
-    )
+    # Parser for 'collect' command
+    collect_parser = subparsers.add_parser("collect", help="Run citation collection process")
+    collect_parser.add_argument("--no-cache", action="store_true", help="Bypass cache for API requests")
+    collect_parser.add_argument("--test", action="store_true", help="Run in test mode (limited subset)")
+    collect_parser.add_argument("--limit", type=int, help="Maximum number of DOIs to process")
     
     args = parser.parse_args()
     
-    # Handle the selected command
-    try:
-        if args.command == "validate":
-            # Collect DOIs from arguments and/or file
-            dois = args.dois or []
-            
-            if args.file:
-                try:
-                    with open(args.file, 'r') as f:
-                        file_dois = [line.strip() for line in f if line.strip()]
-                        dois.extend(file_dois)
-                except Exception as e:
-                    logger.error(f"Error reading DOI file: {e}")
-                    return 1
-            
-            # If no DOIs provided, collect from tools
-            if not dois:
-                logger.info("No DOIs provided, collecting from tools...")
-                collector = CitationCollector()
-                tool_dois = collector.collect_tool_dois()
-                logger.info(f"Found {len(tool_dois)} tools with DOIs")
-                dois = list(tool_dois.values())
-                logger.info(f"First 5 DOIs: {dois[:5]}")
-                
-            if not dois:
-                logger.error("No DOIs found in tools")
-                return 1
-            
-            # Validate DOIs
-            stats = validate_dois(dois, args.resolve)
-            
-            logger.info("DOI validation complete")
-            log_summary(logger, stats)
-        
-        elif args.command == "scan":
-            log_section(logger, "Scanning for Missing DOIs")
-            
-            output_path = Path(args.output)
-            stats = scan_for_missing_dois(output_path)
-            
-            logger.info(f"DOI scanning complete, results saved to {output_path}")
-            log_summary(logger, stats)
-        
-        elif args.command == "collect":
-            log_section(logger, "Collecting Citation Data")
-            
-            output_path = Path(args.output)
-            stats = collect_citations(
-                use_cache=not args.no_cache,
-                force_refresh=args.force_refresh,
-                output_path=output_path
-            )
-            
-            logger.info(f"Citation collection complete, results saved to {output_path}")
-            log_summary(logger, stats)
-        
-        elif args.command == "sources":
-            log_section(logger, "Available Citation Sources")
-            
-            # Get all enabled sources
-            enabled_sources = get_enabled_sources()
-            
-            logger.info("Configured citation sources:")
-            for source, enabled in enabled_sources.items():
-                status = "✓ Enabled" if enabled else "✗ Disabled"
-                priority = CITATION_PRIORITY.get(source, 999)
-                logger.info(f"  {source}: {status} (Priority: {priority})")
-            
-            # Get available sources (those that are registered)
-            available_sources = get_available_sources()
-            
-            logger.info(f"\nAvailable citation sources: {', '.join(available_sources)}")
-            logger.info(f"Prioritized order: {', '.join(get_prioritized_sources())}")
-            
-            return 0
-            
-        elif args.command == "test":
-            log_section(logger, f"Testing Citation Source: {args.source}")
-            
-            # Get the specified source
-            source = get_citation_source(args.source)
-            if not source:
-                logger.error(f"Citation source '{args.source}' not found or not enabled")
-                return 1
-            
-            # Clean and validate the DOI
-            validator = DOIValidator()
-            doi = validator.normalize_doi(args.doi)
-            if not doi:
-                logger.error(f"Invalid DOI format: {args.doi}")
-                return 1
-            
-            logger.info(f"Testing source '{args.source}' with DOI: {doi}")
-            
-            # Test the source
-            try:
-                if hasattr(source, "get_citation_data"):
-                    success, data = source.get_citation_data(doi)
-                elif hasattr(source, "get_citation_count"):  # For backward compatibility
-                    success, data = source.get_citation_count(doi)
-                else:
-                    logger.error(f"Source '{args.source}' doesn't implement citation retrieval methods")
-                    return 1
-                
-                if success:
-                    logger.info(f"Success! Citation data retrieved for {doi}:")
-                    if isinstance(data, dict):
-                        for key, value in data.items():
-                            if isinstance(value, dict) and len(str(value)) > 100:
-                                logger.info(f"  {key}: {type(value).__name__} with {len(value)} items")
-                            else:
-                                logger.info(f"  {key}: {value}")
-                    else:
-                        logger.info(f"  Response: {data}")
-                else:
-                    logger.error(f"Failed to get citation data: {data}")
-                    return 1
-            
-            except Exception as e:
-                logger.error(f"Error testing source: {e}")
-                return 1
-            
-            return 0
-            
-        elif args.command == "debug":
-            log_section(logger, "Debugging Tool DOIs")
-            
-            collector = CitationCollector()
-            tool_dois = collector.collect_tool_dois()
-            
-            logger.info(f"Found {len(tool_dois)} tools with DOIs")
-            logger.info(f"DOI list: {list(tool_dois.values())[:20]}")
-            
-            # Find empty or bad DOIs
-            empty_dois = [name for name, doi in tool_dois.items() if not doi or doi.strip() == ""]
-            logger.info(f"Tools with empty DOIs: {len(empty_dois)}")
-            if empty_dois:
-                logger.info(f"Examples: {empty_dois[:5]}")
-            
-            # Log a sample of tools and their DOIs
-            logger.info("Sample of tools and their DOIs:")
-            sample = list(tool_dois.items())[:10]
-            for name, doi in sample:
-                logger.info(f"  {name}: {doi}")
-            
-            return 0
-            
-        elif args.command == "full":
-            log_section(logger, "Running Full Citation Workflow")
-            
-            # Step 1: Scan for missing DOIs
-            logger.info("Step 1/3: Scanning for missing DOIs")
-            scan_output_path = ROOT_DIR / "potential_dois.json"
-            scan_stats = scan_for_missing_dois(scan_output_path)
-            log_summary(logger, scan_stats)
-            
-            # Step 2: Validate known DOIs
-            logger.info("Step 2/3: Validating existing DOIs")
-            collector = CitationCollector()
-            tool_dois = collector.collect_tool_dois()
-            validate_stats = validate_dois(list(tool_dois.values()))
-            log_summary(logger, validate_stats)
-            
-            # Step 3: Collect citation data
-            logger.info("Step 3/3: Collecting citation data")
-            collect_stats = collect_citations(
-                use_cache=not args.no_cache,
-                force_refresh=args.force_refresh
-            )
-            log_summary(logger, collect_stats)
-            
-            logger.info("Full citation workflow complete")
-        
-        else:
-            parser.print_help()
-            return 1
-        
-        return 0
+    # Set up logging
+    setup_logger()
     
-    except Exception as e:
-        logger.error(f"Error running command: {e}")
-        return 1
+    # Handle commands
+    if args.command == "sources":
+        list_available_sources()
+    elif args.command == "test":
+        test_citation_source(args.source, args.doi, not args.no_cache)
+    elif args.command == "validate":
+        validate_dois()
+    elif args.command == "collect":
+        run_collection(args.no_cache, args.test, args.limit)
+    else:
+        parser.print_help()
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()
