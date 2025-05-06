@@ -22,10 +22,6 @@ on:
         description: 'Skip DOI online validation (faster)'
         type: boolean
         default: false
-      auto_fix:
-        description: 'Automatically fix DOI format issues'
-        type: boolean
-        default: true
 
 # Permissions needed for committing changes
 permissions:
@@ -81,7 +77,6 @@ jobs:
             echo "Citation validation report file not found"
             echo "issues_count=0" >> $GITHUB_OUTPUT
             echo "inconsistent_dois=0" >> $GITHUB_OUTPUT
-            echo "fixed_dois=0" >> $GITHUB_OUTPUT
             echo "CRITICAL_ISSUES=false" >> $GITHUB_OUTPUT
             exit 0
           fi
@@ -91,7 +86,6 @@ jobs:
             echo "Invalid JSON in citation validation report"
             echo "issues_count=0" >> $GITHUB_OUTPUT
             echo "inconsistent_dois=0" >> $GITHUB_OUTPUT
-            echo "fixed_dois=0" >> $GITHUB_OUTPUT
             echo "CRITICAL_ISSUES=false" >> $GITHUB_OUTPUT
             exit 0
           fi
@@ -100,7 +94,6 @@ jobs:
           ISSUES_COUNT=$(jq '.all_issues | length // 0' reports/citation_validation.json)
           TOOLS_WITH_DOI=$(jq '.tools_with_doi // 0' reports/citation_validation.json)
           CONSISTENT_DOIS=$(jq '.consistent_dois // 0' reports/citation_validation.json)
-          FIXED_DOIS=$(jq '.total_dois_fixed // 0' reports/citation_validation.json)
           INCONSISTENT_DOIS=$(jq "($TOOLS_WITH_DOI - $CONSISTENT_DOIS)" 2>/dev/null || echo 0)
           
           # Handle potential arithmetic errors
@@ -110,12 +103,10 @@ jobs:
           
           echo "Total issues found: $ISSUES_COUNT"
           echo "Inconsistent DOIs: $INCONSISTENT_DOIS"
-          echo "DOIs auto-fixed: $FIXED_DOIS"
           
           # Set outputs for next steps
           echo "issues_count=$ISSUES_COUNT" >> $GITHUB_OUTPUT
           echo "inconsistent_dois=$INCONSISTENT_DOIS" >> $GITHUB_OUTPUT
-          echo "fixed_dois=$FIXED_DOIS" >> $GITHUB_OUTPUT
           
           # Check if there are critical issues that need notification
           if [[ $INCONSISTENT_DOIS -gt 5 ]]; then
@@ -132,15 +123,9 @@ jobs:
           script: |
             const fs = require('fs');
             const reportContent = fs.readFileSync('reports/citation_validation_report.md', 'utf8');
-            const fixedDois = ${{ steps.check_issues.outputs.fixed_dois }};
             
-            let title = 'Citation Data Validation Critical Issues';
-            let bodyIntro = '## Citation Validation Report has identified critical issues';
-            
-            if (fixedDois > 0) {
-              title = `Citation Data Validation: ${fixedDois} DOIs fixed, but critical issues remain`;
-              bodyIntro = `## Citation Validation Report\n\n**${fixedDois} DOI format issues were automatically fixed**, but there are still critical consistency issues that need manual review.`;
-            }
+            const title = 'Citation Data Validation Critical Issues';
+            const bodyIntro = '## Citation Validation Report has identified critical issues';
             
             await github.rest.issues.create({
               owner: context.repo.owner,
@@ -170,8 +155,7 @@ jobs:
               tools_with_academic_impact: (.tools_with_academic_impact // 0),
               academic_impact_percentage: (.academic_impact_percentage // 0),
               citation_format_counts: (.citation_format_counts // {"bibtex": 0, "apa": 0, "mla": 0}),
-              issues_count: ((.all_issues | length) // 0),
-              total_dois_fixed: (.total_dois_fixed // 0)
+              issues_count: ((.all_issues | length) // 0)
             }' reports/citation_validation.json > reports/citations/citation_validation_metrics.json
           else
             # Create empty metrics file if validation results don't exist
@@ -202,15 +186,8 @@ jobs:
           
           # Check if there are changes to commit
           if ! git diff --staged --quiet; then
-            # Get fixed DOIs count
-            FIXED_DOIS=${{ steps.check_issues.outputs.fixed_dois }}
-            
             # Create commit message
-            if [[ $FIXED_DOIS -gt 0 ]]; then
-              COMMIT_MSG="Update citation validation metrics and fix $FIXED_DOIS DOI format issues"
-            else
-              COMMIT_MSG="Update citation validation metrics"
-            fi
+            COMMIT_MSG="Update citation validation metrics"
             
             # Commit and push
             git commit -m "$COMMIT_MSG [skip ci]"
