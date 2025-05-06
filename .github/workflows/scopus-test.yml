@@ -1,0 +1,86 @@
+name: Test Scopus Integration
+
+on:
+  workflow_dispatch:  # Allow manual triggering
+  schedule:
+    - cron: '0 0 * * 3'  # Run weekly on Wednesday at midnight
+
+jobs:
+  test-scopus-integration:
+    runs-on: ubuntu-latest
+    
+    env:
+      # Use repository secrets for API keys
+      SCOPUS_ENABLED: true
+      SCOPUS_API_KEY: ${{ secrets.SCOPUS_API_KEY }}
+      SCOPUS_INSTITUTIONAL_TOKEN: ${{ secrets.SCOPUS_INSTITUTIONAL_TOKEN }}
+      CACHE_ENABLED: true
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r scripts/citation_system/requirements.txt
+          
+      - name: Verify Scopus API Key
+        run: |
+          if [ -z "$SCOPUS_API_KEY" ]; then
+            echo "Error: SCOPUS_API_KEY is not set. Add it as a repository secret."
+            exit 1
+          fi
+          echo "Scopus API key is set"
+      
+      - name: List available citation sources
+        run: |
+          python -m scripts.citation_system.collect_citations sources
+        
+      - name: Test Scopus client
+        run: |
+          python -m unittest scripts.citation_system.tests.test_scopus_client
+          
+      - name: Test Scopus API integration
+        run: |
+          # Test with example DOIs that should be in Scopus
+          python -m scripts.citation_system.examples.scopus_example
+          
+      - name: Test Citation Source Registry with Scopus
+        run: |
+          python -c "
+          import logging
+          logging.basicConfig(level=logging.INFO)
+          from scripts.citation_system.api.citation_registry import get_citation_source, get_available_sources
+          
+          # Check if Scopus is in available sources
+          sources = get_available_sources()
+          print(f'Available sources: {sources}')
+          assert 'scopus' in sources, 'Scopus not in available sources'
+          
+          # Get Scopus client instance
+          scopus = get_citation_source('scopus')
+          assert scopus is not None, 'Failed to get Scopus client'
+          print('Successfully retrieved Scopus client from registry')
+          "
+          
+      - name: Test Scopus Citation Collection
+        run: |
+          # Test with a known DOI that should be in Scopus
+          python -m scripts.citation_system.collect_citations test scopus 10.1093/bioinformatics/btab213
+        
+      - name: Test full collection with Scopus
+        run: |
+          # Run collection including Scopus
+          python -m scripts.citation_system.collect_citations collect --test --limit 10
+          
+      - name: Upload logs as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: scopus-test-logs
+          path: logs/
