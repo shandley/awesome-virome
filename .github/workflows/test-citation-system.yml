@@ -56,8 +56,8 @@ jobs:
       - name: Test iCite integration
         if: ${{ env.ICITE_ENABLED == 'true' }}
         run: |
-          # Test with a known biomedical paper DOI that should be in iCite
-          python -m scripts.citation_system.collect_citations test icite 10.1093/bioinformatics/btab213
+          # Test with a known PubMed paper that should be in iCite
+          python -m scripts.citation_system.collect_citations test icite 10.1038/s41586-020-2008-3  # COVID-19 paper with high citations
         
       - name: Test Scopus integration
         if: ${{ env.SCOPUS_ENABLED == 'true' && env.SCOPUS_API_KEY != '' }}
