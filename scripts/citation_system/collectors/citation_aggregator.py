@@ -87,7 +87,9 @@ class CitationAggregator:
             "total_citations": 0,
             "citations_by_year": {},
             "timestamp": self.timestamp,
-            "metadata": {}
+            "metadata": {},
+            "citation_source": None,  # Which source provided the citation count
+            "yearly_citation_source": None  # Which source provided yearly citation data
         }
         
         # Find the highest priority source for metadata
@@ -109,7 +111,11 @@ class CitationAggregator:
             if "total_citations" in data and data["total_citations"] > 0:
                 aggregated["total_citations"] = data["total_citations"]
                 aggregated["primary_source"] = source_name
+                aggregated["citation_source"] = source_name  # Explicit citation source attribution
                 citation_source_used = source_name
+                
+                # Log which source was used for citation count
+                logger.debug(f"Using citation count from {source_name} for DOI {doi}: {data['total_citations']} citations")
                 
                 # Special metrics from different sources
                 if source_name == "icite":
@@ -131,6 +137,7 @@ class CitationAggregator:
             if "citations_by_year" in data and data["citations_by_year"]:
                 aggregated["citations_by_year"] = data["citations_by_year"]
                 aggregated["yearly_data_source"] = yearly_data_source
+                aggregated["yearly_citation_source"] = yearly_data_source  # Explicit yearly citation source attribution
                 logger.debug(f"Using yearly citation data from {yearly_data_source} for DOI {doi}")
         
         # If no yearly data found but we have citation count, note this in the response

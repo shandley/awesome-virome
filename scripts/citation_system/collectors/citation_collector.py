@@ -308,7 +308,13 @@ class CitationCollector:
             'citations_by_year': citations_by_year
         }
         
-        # Add source information
+        # Add source attribution information
+        if 'citation_source' in citation_data:
+            tool_entry['citation_source'] = citation_data['citation_source']
+        if 'yearly_citation_source' in citation_data:
+            tool_entry['yearly_citation_source'] = citation_data['yearly_citation_source']
+        
+        # Maintain backward compatibility with existing source fields
         if 'primary_source' in citation_data:
             tool_entry['primary_source'] = citation_data['primary_source']
         if 'yearly_data_source' in citation_data:
@@ -397,6 +403,19 @@ class CitationCollector:
         logger.info(f"Citation sum calculation: sum of {len(tool_citation_data)} tools = {total_citations}")
         average_citations = total_citations / tools_with_citations if tools_with_citations > 0 else 0
         
+        # Calculate citation source statistics
+        citation_sources = {}
+        yearly_citation_sources = {}
+        
+        for tool in tool_citation_data:
+            citation_source = tool.get('citation_source')
+            if citation_source:
+                citation_sources[citation_source] = citation_sources.get(citation_source, 0) + 1
+                
+            yearly_source = tool.get('yearly_citation_source')
+            if yearly_source:
+                yearly_citation_sources[yearly_source] = yearly_citation_sources.get(yearly_source, 0) + 1
+        
         # Create impact data structure
         impact_data = {
             'last_updated': self.collection_timestamp,
@@ -404,6 +423,10 @@ class CitationCollector:
             'tools_with_citations': tools_with_citations,
             'total_citations': total_citations,
             'average_citations': average_citations,
+            'citation_sources': {
+                'total_citations': citation_sources,
+                'yearly_citations': yearly_citation_sources
+            },
             'tools': tool_citation_data
         }
         
