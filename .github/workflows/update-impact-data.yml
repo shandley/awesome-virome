@@ -1,0 +1,56 @@
+name: Citation Data Consolidation (DEPRECATED - Moved to Citation Data Collection workflow)
+
+on:
+  # Disable all automatic triggers
+  # workflow_run:
+  #  workflows: ["Citation Validation Direct"]
+  #  types:
+  #    - completed
+  
+  # Only allow manual triggering for maintenance
+  workflow_dispatch:
+  
+  # Disabled automatic schedule
+  # schedule:
+  #   - cron: '0 5 * * 0'  # 5:00 AM UTC every Sunday
+
+permissions:
+  contents: write
+
+jobs:
+  update-impact-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Display deprecation notice
+        run: |
+          echo "================================================================================================="
+          echo "DEPRECATED: This workflow has been deprecated and replaced by the Citation Data Collection workflow"
+          echo "The authoritative source for impact_data.json is now comprehensive_citation_data.py"
+          echo "================================================================================================="
+      
+      - name: Run comprehensive citation data script instead
+        run: |
+          python scripts/comprehensive_citation_data.py
+      
+      - name: Commit and push if changed
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Check if there are changes to commit
+          if git diff --quiet impact_data.json; then
+            echo "No changes to impact_data.json, skipping commit"
+          else
+            git add impact_data.json
+            git commit -m "Update impact data using comprehensive citation data [skip ci]"
+            git push
+          fi

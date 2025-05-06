@@ -9,10 +9,37 @@ This directory contains scripts used for maintaining and enhancing the awesome-v
 - `bioinformatics_metadata.py` - Generate bioinformatics-specific metadata
 - `academic_impact.py` - Collect academic impact metrics for tools
 - `clear_cache.py` - Cache management utilities
+- `comprehensive_citation_data.py` - Authoritative script for generating impact_data.json
+- `auto_fix_dois.py` - Fixes DOI format issues across repositories
 - `monitor_cache.py` - Advanced cache monitoring system
 - `cron_cache_monitor.sh` - Scheduled cache monitoring for production environments
 - `test_cache_monitoring.sh` - Test script for the cache monitoring system
 - `citation_report.py` - Generate citation reports for tools
+
+## Citation Data System
+
+The awesome-virome repository uses a streamlined citation data collection system:
+
+1. **Data Collection** - Citation data is collected from PubMed, CrossRef, and other sources
+2. **DOI Validation** - DOI format is validated and inconsistencies are fixed
+3. **Report Generation** - Citation reports are generated for analysis
+4. **Impact Data** - All citation data is consolidated in impact_data.json
+
+### Citation Data Scripts
+
+- **comprehensive_citation_data.py** - The authoritative script for generating `impact_data.json`
+  - Collects data from multiple sources: academic_impact, bioinformatics, and citation reports
+  - Uses only real citation data with no synthetic data generation
+  - Consolidates all available citation information
+
+- **auto_fix_dois.py** - The authoritative script for DOI format fixing
+  - Used by the `fix-dois.yml` workflow
+  - Automatically fixes common DOI format issues
+
+- **update_citation_counts.py** - Updates citation counts from CrossRef API
+- **pubmed_citations.py** - Collects citation data from PubMed
+- **citation_report.py** - Generates reports based on citation data
+- **validate_citations.py** - Validates DOI consistency across the repository
 
 ## Cache System
 

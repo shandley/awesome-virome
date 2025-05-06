@@ -48,7 +48,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
       
-      - name: Run citation validation
+      - name: Run citation validation (DOI fixing disabled)
         run: |
           # Build command with appropriate arguments
           CMD="python scripts/validate_citations.py --report"
@@ -58,15 +58,8 @@ jobs:
             CMD="$CMD --skip-doi-check"
           fi
           
-          # Add auto-fix if specified
-          if [[ "${{ github.event.inputs.auto_fix }}" == "true" ]]; then
-            CMD="$CMD --auto-fix"
-          fi
-          
-          # For scheduled or workflow_run events, use default settings (auto-fix enabled)
-          if [[ "${{ github.event_name }}" == "schedule" || "${{ github.event_name }}" == "workflow_run" ]]; then
-            CMD="$CMD --auto-fix"
-          fi
+          # IMPORTANT: DOI fixing has been consolidated to the fix-dois.yml workflow
+          # We no longer use the --auto-fix flag here to avoid duplicate fixes
           
           # Run the command
           echo "Running: $CMD"

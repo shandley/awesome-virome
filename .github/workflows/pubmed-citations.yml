@@ -1,4 +1,4 @@
-name: PubMed Citations Collection
+name: Citation Data Collection and Impact Data Generation (Authoritative)
 
 on:
   # Run daily to continuously collect citation data
@@ -54,8 +54,10 @@ jobs:
           # Generate citation reports
           python scripts/citation_report.py
       
-      - name: Update impact_data.json with real citation data
+      - name: Update impact_data.json with real citation data (AUTHORITATIVE SOURCE)
         run: |
+          # This is the authoritative script for generating impact_data.json
+          # It uses only real citation data with no synthetic generation
           python scripts/comprehensive_citation_data.py
       
       - name: Commit changes directly to main

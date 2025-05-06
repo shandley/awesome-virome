@@ -1,4 +1,4 @@
-name: Update Citation Counts
+name: Update Citation Counts from CrossRef (NOT Authoritative for impact_data.json)
 
 on:
   workflow_dispatch:
@@ -34,14 +34,15 @@ jobs:
       run: |
         python scripts/update_citation_counts.py
         
-    - name: Update impact data with real citations
-      run: |
-        python scripts/update_impact_from_citations.py
-        
+    # IMPORTANT: We no longer update impact_data.json from this workflow
+    # This has been consolidated to the Citation Data Collection workflow
+    # which uses comprehensive_citation_data.py as the authoritative source
+    
     - name: Commit and push if changes
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git add impact_data.json metadata/pubmed_citations/*.json
+        # Only commit the citation data, not impact_data.json
+        git add metadata/pubmed_citations/*.json
         git diff --staged --quiet || git commit -m "Update citation counts from CrossRef [skip ci]"
         git push

@@ -1,13 +1,14 @@
-name: Citation Data Validation
+name: Citation Data Validation (DEPRECATED - Use Direct Version)
 
 on:
-  # Run after specific workflows complete
+  # Run after dashboard update workflow completes
   workflow_run:
     workflows:
-      - "PubMed Citations Collection"
-      - "Data Quality Metrics"
+      - "Dashboard Data Update"
     types:
       - completed
+    branches:
+      - main
   
   # Run weekly
   schedule:
@@ -21,20 +22,21 @@ on:
         description: 'Skip DOI online validation (faster)'
         type: boolean
         default: false
+      auto_fix:
+        description: 'Automatically fix DOI format issues'
+        type: boolean
+        default: true
 
-# Permissions needed for creating and managing PRs
+# Permissions needed for committing changes
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   validate-citations:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          # Fetch all history for proper branch creation
-          fetch-depth: 0
+      - name: Checkout repository
+        uses: actions/checkout@v3
       
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -48,12 +50,28 @@ jobs:
       
       - name: Run citation validation
         run: |
+          # Build command with appropriate arguments
+          CMD="python scripts/validate_citations.py --report"
+          
+          # Add skip DOI check if specified
           if [[ "${{ github.event.inputs.skip_doi_check }}" == "true" ]]; then
-            python scripts/validate_citations.py --report --skip-doi-check
-          else
-            python scripts/validate_citations.py --report
+            CMD="$CMD --skip-doi-check"
           fi
           
+          # Add auto-fix if specified
+          if [[ "${{ github.event.inputs.auto_fix }}" == "true" ]]; then
+            CMD="$CMD --auto-fix"
+          fi
+          
+          # For scheduled or workflow_run events, use default settings (auto-fix enabled)
+          if [[ "${{ github.event_name }}" == "schedule" || "${{ github.event_name }}" == "workflow_run" ]]; then
+            CMD="$CMD --auto-fix"
+          fi
+          
+          # Run the command
+          echo "Running: $CMD"
+          $CMD
+      
       - name: Upload validation report
         uses: actions/upload-artifact@v4
         with:
@@ -70,6 +88,7 @@ jobs:
             echo "Citation validation report file not found"
             echo "issues_count=0" >> $GITHUB_OUTPUT
             echo "inconsistent_dois=0" >> $GITHUB_OUTPUT
+            echo "fixed_dois=0" >> $GITHUB_OUTPUT
             echo "CRITICAL_ISSUES=false" >> $GITHUB_OUTPUT
             exit 0
           fi
@@ -79,6 +98,7 @@ jobs:
             echo "Invalid JSON in citation validation report"
             echo "issues_count=0" >> $GITHUB_OUTPUT
             echo "inconsistent_dois=0" >> $GITHUB_OUTPUT
+            echo "fixed_dois=0" >> $GITHUB_OUTPUT
             echo "CRITICAL_ISSUES=false" >> $GITHUB_OUTPUT
             exit 0
           fi
@@ -87,6 +107,7 @@ jobs:
           ISSUES_COUNT=$(jq '.all_issues | length // 0' reports/citation_validation.json)
           TOOLS_WITH_DOI=$(jq '.tools_with_doi // 0' reports/citation_validation.json)
           CONSISTENT_DOIS=$(jq '.consistent_dois // 0' reports/citation_validation.json)
+          FIXED_DOIS=$(jq '.total_dois_fixed // 0' reports/citation_validation.json)
           INCONSISTENT_DOIS=$(jq "($TOOLS_WITH_DOI - $CONSISTENT_DOIS)" 2>/dev/null || echo 0)
           
           # Handle potential arithmetic errors
@@ -96,10 +117,12 @@ jobs:
           
           echo "Total issues found: $ISSUES_COUNT"
           echo "Inconsistent DOIs: $INCONSISTENT_DOIS"
+          echo "DOIs auto-fixed: $FIXED_DOIS"
           
           # Set outputs for next steps
           echo "issues_count=$ISSUES_COUNT" >> $GITHUB_OUTPUT
           echo "inconsistent_dois=$INCONSISTENT_DOIS" >> $GITHUB_OUTPUT
+          echo "fixed_dois=$FIXED_DOIS" >> $GITHUB_OUTPUT
           
           # Check if there are critical issues that need notification
           if [[ $INCONSISTENT_DOIS -gt 5 ]]; then
@@ -116,23 +139,49 @@ jobs:
           script: |
             const fs = require('fs');
             const reportContent = fs.readFileSync('reports/citation_validation_report.md', 'utf8');
+            const fixedDois = ${{ steps.check_issues.outputs.fixed_dois }};
+            
+            let title = 'Citation Data Validation Critical Issues';
+            let bodyIntro = '## Citation Validation Report has identified critical issues';
+            
+            if (fixedDois > 0) {
+              title = `Citation Data Validation: ${fixedDois} DOIs fixed, but critical issues remain`;
+              bodyIntro = `## Citation Validation Report\n\n**${fixedDois} DOI format issues were automatically fixed**, but there are still critical consistency issues that need manual review.`;
+            }
             
             await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: 'Citation Data Validation Critical Issues',
-              body: `## Citation Validation Report has identified critical issues\n\n${reportContent.substring(0, 3000)}...\n\nSee the full report in the workflow artifacts.`,
+              title: title,
+              body: `${bodyIntro}\n\n${reportContent.substring(0, 3000)}...\n\nSee the full report in the workflow artifacts.`,
               labels: ['citation-data', 'data-quality']
             });
       
-      - name: Update data quality summary
+      - name: Update metrics and commit changes
         run: |
           # Create a directory for citation validation metrics
           mkdir -p reports/citations
           
-          # Check if the file exists and is valid JSON
-          if [ ! -f reports/citation_validation.json ]; then
-            echo "Creating empty citation validation metrics file"
+          # Check if the validation file exists and is valid JSON
+          if [ -f reports/citation_validation.json ] && jq empty reports/citation_validation.json 2>/dev/null; then
+            # Extract key metrics with safe defaults for missing values
+            jq '{
+              timestamp: (.timestamp // "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'"),
+              total_tools: (.total_tools // 0),
+              tools_with_doi: (.tools_with_doi // 0),
+              doi_percentage: (.doi_percentage // 0),
+              valid_doi_percentage: (.valid_doi_percentage // 0),
+              consistent_doi_percentage: (.consistent_doi_percentage // 0),
+              tools_with_pubmed_data: (.tools_with_pubmed_data // 0),
+              pubmed_percentage: (.pubmed_percentage // 0),
+              tools_with_academic_impact: (.tools_with_academic_impact // 0),
+              academic_impact_percentage: (.academic_impact_percentage // 0),
+              citation_format_counts: (.citation_format_counts // {"bibtex": 0, "apa": 0, "mla": 0}),
+              issues_count: ((.all_issues | length) // 0),
+              total_dois_fixed: (.total_dois_fixed // 0)
+            }' reports/citation_validation.json > reports/citations/citation_validation_metrics.json
+          else
+            # Create empty metrics file if validation results don't exist
             echo '{
               "timestamp": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'",
               "total_tools": 0,
@@ -148,95 +197,33 @@ jobs:
               "issues_count": 1,
               "error": "No validation data available"
             }' > reports/citations/citation_validation_metrics.json
-            exit 0
           fi
           
-          # Verify JSON is valid
-          if ! jq empty reports/citation_validation.json 2>/dev/null; then
-            echo "Invalid JSON in citation validation report, creating error metrics"
-            echo '{
-              "timestamp": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'",
-              "total_tools": 0,
-              "tools_with_doi": 0,
-              "doi_percentage": 0,
-              "valid_doi_percentage": 0,
-              "consistent_doi_percentage": 0,
-              "tools_with_pubmed_data": 0,
-              "pubmed_percentage": 0,
-              "tools_with_academic_impact": 0,
-              "academic_impact_percentage": 0,
-              "citation_format_counts": {"bibtex": 0, "apa": 0, "mla": 0},
-              "issues_count": 1,
-              "error": "Invalid JSON in validation report"
-            }' > reports/citations/citation_validation_metrics.json
-            exit 0
-          fi
-          
-          # Extract key metrics with safe defaults for missing values
-          jq '{
-            timestamp: (.timestamp // "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'"),
-            total_tools: (.total_tools // 0),
-            tools_with_doi: (.tools_with_doi // 0),
-            doi_percentage: (.doi_percentage // 0),
-            valid_doi_percentage: (.valid_doi_percentage // 0),
-            consistent_doi_percentage: (.consistent_doi_percentage // 0),
-            tools_with_pubmed_data: (.tools_with_pubmed_data // 0),
-            pubmed_percentage: (.pubmed_percentage // 0),
-            tools_with_academic_impact: (.tools_with_academic_impact // 0),
-            academic_impact_percentage: (.academic_impact_percentage // 0),
-            citation_format_counts: (.citation_format_counts // {"bibtex": 0, "apa": 0, "mla": 0}),
-            issues_count: ((.all_issues | length) // 0)
-          }' reports/citation_validation.json > reports/citations/citation_validation_metrics.json
-      
-      - name: Prepare changes
-        id: prepare
-        run: |
+          # Configure git
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add reports/citations/citation_validation_metrics.json
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-            echo "changes_detected=false" >> $GITHUB_OUTPUT
-          else
-            # Create a unique branch name with timestamp
-            BRANCH_NAME="citation-validation-$(date +%Y%m%d-%H%M%S)"
-            echo "changes_detected=true" >> $GITHUB_OUTPUT
-            echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
-          fi
           
-      - name: Create Pull Request
-        if: steps.prepare.outputs.changes_detected == 'true'
-        id: create-pr
-        uses: peter-evans/create-pull-request@v5
-        with:
-          # Use PAT_TOKEN if available, otherwise fall back to GITHUB_TOKEN
-          # You'll need to add PAT_TOKEN as a repository secret
-          token: ${{ secrets.PAT_TOKEN || secrets.GITHUB_TOKEN }}
-          commit-message: Update citation validation metrics
-          title: Update citation validation metrics
-          body: |
-            ## Automated PR with citation validation results
+          # Add changes
+          git add metadata/**/*.json || true
+          git add reports/citations/citation_validation_metrics.json || true
+          
+          # Check if there are changes to commit
+          if ! git diff --staged --quiet; then
+            # Get fixed DOIs count
+            FIXED_DOIS=${{ steps.check_issues.outputs.fixed_dois }}
             
-            This PR updates the citation validation metrics based on the latest validation run.
+            # Create commit message
+            if [[ $FIXED_DOIS -gt 0 ]]; then
+              COMMIT_MSG="Update citation validation metrics and fix $FIXED_DOIS DOI format issues"
+            else
+              COMMIT_MSG="Update citation validation metrics"
+            fi
             
-            Changes include:
-            - Updated citation validation metrics in `reports/citations/citation_validation_metrics.json`
+            # Commit and push
+            git commit -m "$COMMIT_MSG [skip ci]"
+            git push
             
-            Generated automatically by GitHub Actions workflow.
-          branch: ${{ steps.prepare.outputs.branch_name }}
-          base: main
-          delete-branch: false
-      
-      - name: PR Creation Result
-        if: steps.prepare.outputs.changes_detected == 'true'
-        run: |
-          if [[ -n "${{ steps.create-pr.outputs.pull-request-url }}" ]]; then
-            echo "::notice::PR created successfully: ${{ steps.create-pr.outputs.pull-request-url }}"
+            echo "Changes committed and pushed to main"
           else
-            echo "::warning::PR creation failed. You need to configure one of the following:"
-            echo "::warning::1. Add a Personal Access Token (PAT) with 'repo' scope as a repository secret named 'PAT_TOKEN'"
-            echo "::warning::2. Enable 'Allow GitHub Actions to create and approve pull requests' in repository Settings > Actions > General"
-            
-            # Provide manual PR creation URL as fallback
-            echo "::notice::For now, you can create a PR manually at: https://github.com/$GITHUB_REPOSITORY/pull/new/${{ steps.prepare.outputs.branch_name }}"
+            echo "No changes to commit"
           fi

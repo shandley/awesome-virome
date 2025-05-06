@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Comprehensive script to update impact_data.json with citation data for all tools.
+Authoritative script to update impact_data.json with citation data for all tools.
 
 This script gathers citation data from multiple sources:
 1. Academic impact files in metadata/academic_impact/
@@ -9,6 +9,10 @@ This script gathers citation data from multiple sources:
 
 The goal is to create a comprehensive impact_data.json file that includes
 citation data for all tools, not just the most-cited ones.
+
+IMPORTANT: This script is the authoritative source for generating impact_data.json.
+It uses only real citation data from actual sources with no synthetic data generation
+or heuristic estimation.
 """
 
 import json
@@ -70,7 +74,14 @@ def main():
     print(f"Total citations: {impact_data['total_citations']}")
 
 def collect_all_citation_data():
-    """Collect citation data from all available sources."""
+    """Collect citation data from all available sources.
+    
+    This function collects ONLY actual citation data with no synthetic generation or estimates.
+    It aggregates data from multiple sources in this priority order:
+    1. Citation reports (most_cited_report.json, trends_report.json)
+    2. Academic impact files
+    3. Bioinformatics metadata files
+    """
     all_tools_data = {}
     
     # 1. Collect data from most_cited_report.json and citation_trends_report.json
@@ -111,7 +122,7 @@ def collect_from_citation_reports(all_tools_data):
                     "doi": tool.get("doi", ""),
                     "total_citations": tool.get("total_citations", 0),
                     "influential_citations": tool.get("influential_citations", 0),
-                    "category": get_tool_category(name)
+                    "category": "Other Tools"
                 }
             
             # Get yearly citation data if available
@@ -159,7 +170,7 @@ def collect_from_academic_impact(all_tools_data):
                     "name": name,
                     "url": tool_data.get("url", ""),
                     "doi": doi,
-                    "category": get_tool_category(name)
+                    "category": "Other Tools"
                 }
             
             # Update citation data if available
@@ -205,7 +216,7 @@ def collect_from_bioinformatics(all_tools_data):
                     "name": name,
                     "url": tool_data.get("url", ""),
                     "doi": doi,
-                    "category": get_tool_category(name)
+                    "category": "Other Tools"
                 }
             
             # Update citation data if available and not already set
@@ -222,32 +233,15 @@ def collect_from_bioinformatics(all_tools_data):
             print(f"Error reading {file_path}: {e}")
             continue
 
-def get_tool_category(tool_name):
+def get_tool_category(tool_name, tool_data=None):
     """
-    Determine category for a tool based on its name.
+    Get category from existing data instead of using heuristics.
     """
-    # Normalize tool name for comparison
-    tool_lower = tool_name.lower()
-    
-    # Simple heuristic based on tool name
-    if any(term in tool_lower for term in ["phage", "prophage", "phate"]):
-        return "Phage Analysis"
-    elif "host" in tool_lower:
-        return "Host Prediction"
-    elif any(term in tool_lower for term in ["sort", "class", "tax", "bertax"]):
-        return "Taxonomy"
-    elif any(term in tool_lower for term in ["find", "ident", "detect", "seeker"]):
-        return "Virus Identification"
-    elif any(term in tool_lower for term in ["assembl", "spades"]):
-        return "Genome Assembly"
-    elif any(term in tool_lower for term in ["annot", "gene", "protein"]):
-        return "Genome Annotation"
-    elif any(term in tool_lower for term in ["meta", "community"]):
-        return "Metagenomics"
-    elif any(term in tool_lower for term in ["struct", "fold", "alphafold"]):
-        return "Structural Analysis"
-    else:
-        return "Other Tools"
+    # No heuristic categorization based on tool name patterns
+    # Only use actual category data if available, otherwise default to "Other Tools"
+    if tool_data and isinstance(tool_data, dict) and "category" in tool_data:
+        return tool_data["category"]
+    return "Other Tools"
 
 if __name__ == "__main__":
     main()
