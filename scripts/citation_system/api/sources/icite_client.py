@@ -5,6 +5,7 @@ iCite API client for retrieving NIH citation data.
 
 import datetime
 import logging
+import time
 import urllib.parse
 import requests
 from typing import Any, Dict, List, Optional, Tuple, Union
@@ -84,14 +85,18 @@ class ICiteClient(BaseAPIClient):
         
         try:
             # Extract citation count
-            citation_count = int(paper_data.get("citation_count", 0))
+            citation_count_val = paper_data.get("citation_count")
+            citation_count = int(citation_count_val) if citation_count_val is not None else 0
             
             # Extract relative citation ratio (RCR) - an NIH-specific metric
-            rcr = float(paper_data.get("relative_citation_ratio", 0))
+            rcr_val = paper_data.get("relative_citation_ratio")
+            rcr = float(rcr_val) if rcr_val is not None else 0
             
             # Extract other metrics
-            expected_citations = float(paper_data.get("expected_citations_per_year", 0))
-            field_citation_rate = float(paper_data.get("field_citation_rate", 0))
+            expected_val = paper_data.get("expected_citations_per_year")
+            expected_citations = float(expected_val) if expected_val is not None else 0
+            field_rate_val = paper_data.get("field_citation_rate")
+            field_citation_rate = float(field_rate_val) if field_rate_val is not None else 0
             
             # Extract year info
             year = paper_data.get("year", None)
@@ -152,9 +157,16 @@ class ICiteClient(BaseAPIClient):
         Returns:
             PMID as string if found, None otherwise
         """
+        # Skip Zenodo DOIs as they're generally not in PubMed
+        if doi.startswith('10.5281/zenodo'):
+            return None
+            
         try:
             encoded_doi = urllib.parse.quote_plus(doi)
-            url = f"{self.pubmed_api_url}/esearch.fcgi?db=pubmed&term={encoded_doi}[DOI]&retmode=json"
+            url = f"{self.pubmed_api_url}/esearch.fcgi?db=pubmed&term={encoded_doi}[DOI]&retmode=json&tool=awesome-virome&email=email@example.com"
+            
+            # Add delay to respect rate limits
+            time.sleep(0.5)  # Wait 500ms between requests
             
             response = requests.get(url, timeout=10)
             response.raise_for_status()
@@ -165,6 +177,12 @@ class ICiteClient(BaseAPIClient):
             if id_list and len(id_list) > 0:
                 return id_list[0]
                 
+        except requests.exceptions.HTTPError as e:
+            if '429' in str(e):
+                # If rate limited, just skip this DOI lookup
+                logger.debug(f"Rate limited by PubMed API for DOI: {doi}")
+            else:
+                logger.warning(f"Failed to convert DOI to PMID: {str(e)}")
         except Exception as e:
             logger.warning(f"Failed to convert DOI to PMID: {str(e)}")
             
@@ -203,14 +221,18 @@ class ICiteClient(BaseAPIClient):
         
         try:
             # Extract citation count
-            citation_count = int(paper_data.get("citation_count", 0))
+            citation_count_val = paper_data.get("citation_count")
+            citation_count = int(citation_count_val) if citation_count_val is not None else 0
             
             # Extract relative citation ratio (RCR) - an NIH-specific metric
-            rcr = float(paper_data.get("relative_citation_ratio", 0))
+            rcr_val = paper_data.get("relative_citation_ratio")
+            rcr = float(rcr_val) if rcr_val is not None else 0
             
             # Extract other metrics
-            expected_citations = float(paper_data.get("expected_citations_per_year", 0))
-            field_citation_rate = float(paper_data.get("field_citation_rate", 0))
+            expected_val = paper_data.get("expected_citations_per_year")
+            expected_citations = float(expected_val) if expected_val is not None else 0
+            field_rate_val = paper_data.get("field_citation_rate")
+            field_citation_rate = float(field_rate_val) if field_rate_val is not None else 0
             
             # Extract year info
             year = paper_data.get("year", None)
