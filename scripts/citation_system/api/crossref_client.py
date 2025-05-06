@@ -93,30 +93,41 @@ class CrossRefClient(BaseAPIClient):
         # CrossRef doesn't directly provide citation counts, but we can get
         # some useful metadata for our citation system
         
-        # Extract relevant information
+        # Extract relevant information with improved error handling
         try:
-            title = pub_data.get('title', [''])[0]
+            # Safely extract title
+            title = ''
+            if 'title' in pub_data and isinstance(pub_data['title'], list) and pub_data['title']:
+                title = pub_data['title'][0]
             
             # Get publication date
             published_date = None
             if 'published' in pub_data and 'date-parts' in pub_data['published']:
-                date_parts = pub_data['published']['date-parts'][0]
-                if len(date_parts) >= 3:
-                    published_date = datetime.date(date_parts[0], date_parts[1], date_parts[2]).isoformat()
-                elif len(date_parts) >= 1:
-                    published_date = str(date_parts[0])
+                date_parts = pub_data['published']['date-parts']
+                if date_parts and isinstance(date_parts, list) and date_parts[0]:
+                    date_part = date_parts[0]
+                    if len(date_part) >= 3:
+                        try:
+                            published_date = datetime.date(date_part[0], date_part[1], date_part[2]).isoformat()
+                        except (ValueError, TypeError):
+                            published_date = str(date_part[0]) if date_part else None
+                    elif len(date_part) >= 1:
+                        published_date = str(date_part[0])
             
             # Get authors
             authors = []
-            if 'author' in pub_data:
+            if 'author' in pub_data and isinstance(pub_data['author'], list):
                 for author in pub_data['author']:
-                    if 'family' in author and 'given' in author:
-                        authors.append(f"{author['family']}, {author['given']}")
-                    elif 'family' in author:
-                        authors.append(author['family'])
+                    if isinstance(author, dict):
+                        if 'family' in author and 'given' in author:
+                            authors.append(f"{author['family']}, {author['given']}")
+                        elif 'family' in author:
+                            authors.append(author['family'])
             
             # Get journal/container info
-            journal = pub_data.get('container-title', [''])[0]
+            journal = ''
+            if 'container-title' in pub_data and isinstance(pub_data['container-title'], list) and pub_data['container-title']:
+                journal = pub_data['container-title'][0]
             
             # Structure the citation data
             citation_data = {
@@ -137,7 +148,7 @@ class CrossRefClient(BaseAPIClient):
             logger.info(f"Successfully retrieved metadata for DOI: {doi}")
             return True, citation_data
             
-        except (KeyError, IndexError) as e:
+        except Exception as e:
             error_msg = f"Error parsing CrossRef data: {str(e)}"
             logger.error(error_msg)
             return False, error_msg
@@ -162,34 +173,42 @@ class CrossRefClient(BaseAPIClient):
         logger.info(f"Searching for publication with title: {title}")
         
         # Make API request to the works endpoint with query
-        search_url = "https://api.crossref.org/works"
-        success, response = self._make_request(
-            endpoint="",  # Base URL already includes 'works'
-            params={
-                "query.title": title,
-                "rows": limit,
-                "sort": "relevance"
-            },
-            headers=self.headers,
-            use_cache=use_cache
-        )
-        
-        if not success:
-            return False, f"Failed to search for title: {response}"
-        
-        # Check for message and items
-        if 'message' not in response or 'items' not in response['message']:
-            return False, "Invalid response format from CrossRef search"
-        
-        # Extract and return results
-        results = []
-        for item in response['message']['items']:
-            # Only include items with DOIs
-            if 'DOI' in item:
-                results.append({
-                    'doi': item['DOI'],
-                    'title': item.get('title', [''])[0] if 'title' in item and item['title'] else '',
-                    'score': item.get('score', 0)
-                })
-        
-        return True, results
+        try:
+            success, response = self._make_request(
+                endpoint="works",  # Updated endpoint to correct path
+                params={
+                    "query.title": title,
+                    "rows": limit,
+                    "sort": "relevance"
+                },
+                headers=self.headers,
+                use_cache=use_cache
+            )
+            
+            if not success:
+                return False, f"Failed to search for title: {response}"
+            
+            # Check for message and items
+            if 'message' not in response or 'items' not in response['message']:
+                return False, "Invalid response format from CrossRef search"
+            
+            # Extract and return results
+            results = []
+            for item in response['message']['items']:
+                # Only include items with DOIs
+                if 'DOI' in item:
+                    title_text = ''
+                    if 'title' in item and isinstance(item['title'], list) and item['title']:
+                        title_text = item['title'][0]
+                    
+                    results.append({
+                        'doi': item['DOI'],
+                        'title': title_text,
+                        'score': item.get('score', 0)
+                    })
+            
+            return True, results
+        except Exception as e:
+            error_msg = f"Error in search_by_title: {str(e)}"
+            logger.error(error_msg)
+            return False, error_msg

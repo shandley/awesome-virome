@@ -44,11 +44,7 @@ class DOIValidator:
         # Clean up DOI - remove any URL prefix, trailing characters, etc.
         cleaned_doi = self._clean_doi(doi)
         
-        # If the cleaned DOI is different from the original, it had format issues
-        if doi != cleaned_doi and any(c in doi for c in ')].,'):
-            return False
-        
-        # Check against regex pattern
+        # Check against regex pattern - only care about the cleaned version
         return bool(self.pattern.match(cleaned_doi))
     
     def _clean_doi(self, doi: str) -> str:
@@ -78,7 +74,16 @@ class DOIValidator:
             doi = doi[len('DOI:'):].strip()
         
         # Remove trailing punctuation that's not part of the DOI
-        if doi and doi[-1] in '.),;':
+        # Handle multiple trailing punctuation (e.g., ")).")
+        while doi and doi[-1] in '.),;':
+            doi = doi[:-1]
+        
+        # Handle special cases like multiple closing parentheses
+        if doi and doi.endswith(')))'):
+            doi = doi[:-3]
+        elif doi and doi.endswith('))'):
+            doi = doi[:-2]
+        elif doi and doi.endswith(')'):
             doi = doi[:-1]
         
         # Remove markdown link formatting

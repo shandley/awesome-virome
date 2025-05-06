@@ -128,6 +128,12 @@ def main():
     
     subparsers = parser.add_subparsers(dest="command", help="Command to run")
     
+    # Debug command to extract DOIs
+    debug_parser = subparsers.add_parser(
+        "debug",
+        help="Debug tools and DOIs"
+    )
+    
     # Validate DOIs command
     validate_parser = subparsers.add_parser(
         "validate", 
@@ -213,8 +219,17 @@ def main():
                     logger.error(f"Error reading DOI file: {e}")
                     return 1
             
+            # If no DOIs provided, collect from tools
             if not dois:
-                logger.error("No DOIs provided")
+                logger.info("No DOIs provided, collecting from tools...")
+                collector = CitationCollector()
+                tool_dois = collector.collect_tool_dois()
+                logger.info(f"Found {len(tool_dois)} tools with DOIs")
+                dois = list(tool_dois.values())
+                logger.info(f"First 5 DOIs: {dois[:5]}")
+                
+            if not dois:
+                logger.error("No DOIs found in tools")
                 return 1
             
             # Validate DOIs
@@ -245,6 +260,29 @@ def main():
             logger.info(f"Citation collection complete, results saved to {output_path}")
             log_summary(logger, stats)
         
+        elif args.command == "debug":
+            log_section(logger, "Debugging Tool DOIs")
+            
+            collector = CitationCollector()
+            tool_dois = collector.collect_tool_dois()
+            
+            logger.info(f"Found {len(tool_dois)} tools with DOIs")
+            logger.info(f"DOI list: {list(tool_dois.values())[:20]}")
+            
+            # Find empty or bad DOIs
+            empty_dois = [name for name, doi in tool_dois.items() if not doi or doi.strip() == ""]
+            logger.info(f"Tools with empty DOIs: {len(empty_dois)}")
+            if empty_dois:
+                logger.info(f"Examples: {empty_dois[:5]}")
+            
+            # Log a sample of tools and their DOIs
+            logger.info("Sample of tools and their DOIs:")
+            sample = list(tool_dois.items())[:10]
+            for name, doi in sample:
+                logger.info(f"  {name}: {doi}")
+            
+            return 0
+            
         elif args.command == "full":
             log_section(logger, "Running Full Citation Workflow")
             
