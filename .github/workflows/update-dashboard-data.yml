@@ -32,9 +32,9 @@ jobs:
         with:
           python-version: '3.10'
       
-      - name: Update impact data with comprehensive citation statistics
+      - name: Update impact data with real citation statistics only
         run: |
-          python scripts/dashboard_citation_data.py
+          python scripts/real_citation_data.py
       
       - name: Commit and push changes
         run: |
