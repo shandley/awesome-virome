@@ -1,0 +1,54 @@
+name: Auto Fix DOIs
+
+on:
+  # Run weekly
+  schedule:
+    # Run every Saturday at 8:00 UTC (before citation validation)
+    - cron: "0 8 * * 6"
+  
+  # Allow manual triggering
+  workflow_dispatch:
+
+# Permissions needed for committing changes
+permissions:
+  contents: write
+
+jobs:
+  fix-dois:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Run DOI auto-fix script
+        run: |
+          python scripts/auto_fix_dois.py
+      
+      - name: Commit and push changes
+        run: |
+          # Configure git
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Check if there are changes
+          if ! git diff --quiet; then
+            echo "Found DOI issues that were fixed"
+            
+            # Add all changes in metadata directory
+            git add metadata/
+            
+            # Commit with an informative message
+            git commit -m "Auto-fix DOI formatting issues in metadata [skip ci]"
+            
+            # Push directly to main branch
+            git push origin HEAD:main
+            
+            echo "DOI fixes committed and pushed to main"
+          else
+            echo "No DOI issues to fix"
+          fi

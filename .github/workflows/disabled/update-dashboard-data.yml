@@ -1,0 +1,52 @@
+name: Update Dashboard with Comprehensive Citation Data (CURRENT VERSION)
+
+on:
+  # Run after citation validation completes
+  workflow_run:
+    workflows: ["Citation Data Validation"]
+    types:
+      - completed
+    branches:
+      - main
+  
+  # Run weekly
+  schedule:
+    - cron: '0 13 * * 0'  # Run every Sunday at 13:00 UTC (after citation validation)
+  
+  # Allow manual triggering
+  workflow_dispatch:
+
+# Permissions needed for committing changes
+permissions:
+  contents: write
+
+jobs:
+  update-dashboard-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Update impact data with real citation statistics only
+        run: |
+          python scripts/real_citation_data.py
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Check if there are changes to commit
+          if git diff --quiet impact_data.json; then
+            echo "No changes to impact_data.json, skipping commit"
+          else
+            git add impact_data.json
+            git commit -m "Update citation dashboard with comprehensive data [skip ci]" 
+            git push
+            echo "Updated impact_data.json with comprehensive citation data"
+          fi
