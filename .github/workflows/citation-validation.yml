@@ -1,4 +1,4 @@
-name: Citation Data Validation Workflow
+name: Citation Data Validation
 
 on:
   # Run after dashboard update workflow completes
@@ -26,24 +26,17 @@ on:
         description: 'Automatically fix DOI format issues'
         type: boolean
         default: true
-      no_auto_fix:
-        description: 'Disable automatic fixing of DOI format issues'
-        type: boolean
-        default: false
 
-# Permissions needed for creating and managing PRs
+# Permissions needed for committing changes
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   validate-citations:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          # Fetch all history for proper branch creation
-          fetch-depth: 0
+      - name: Checkout repository
+        uses: actions/checkout@v3
       
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -54,11 +47,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install requests
-          
-      - name: Setup GitHub CLI
-        run: |
-          # Authenticate with GitHub CLI
-          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
       
       - name: Run citation validation
         run: |
@@ -70,14 +58,9 @@ jobs:
             CMD="$CMD --skip-doi-check"
           fi
           
-          # Add auto-fix if specified and not disabled
-          if [[ "${{ github.event.inputs.auto_fix }}" == "true" && "${{ github.event.inputs.no_auto_fix }}" != "true" ]]; then
+          # Add auto-fix if specified
+          if [[ "${{ github.event.inputs.auto_fix }}" == "true" ]]; then
             CMD="$CMD --auto-fix"
-          fi
-          
-          # Add no-auto-fix if specified
-          if [[ "${{ github.event.inputs.no_auto_fix }}" == "true" ]]; then
-            CMD="$CMD --no-auto-fix"
           fi
           
           # For scheduled or workflow_run events, use default settings (auto-fix enabled)
@@ -88,7 +71,7 @@ jobs:
           # Run the command
           echo "Running: $CMD"
           $CMD
-          
+      
       - name: Upload validation report
         uses: actions/upload-artifact@v4
         with:
@@ -174,14 +157,31 @@ jobs:
               labels: ['citation-data', 'data-quality']
             });
       
-      - name: Update data quality summary
+      - name: Update metrics and commit changes
         run: |
           # Create a directory for citation validation metrics
           mkdir -p reports/citations
           
-          # Check if the file exists and is valid JSON
-          if [ ! -f reports/citation_validation.json ]; then
-            echo "Creating empty citation validation metrics file"
+          # Check if the validation file exists and is valid JSON
+          if [ -f reports/citation_validation.json ] && jq empty reports/citation_validation.json 2>/dev/null; then
+            # Extract key metrics with safe defaults for missing values
+            jq '{
+              timestamp: (.timestamp // "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'"),
+              total_tools: (.total_tools // 0),
+              tools_with_doi: (.tools_with_doi // 0),
+              doi_percentage: (.doi_percentage // 0),
+              valid_doi_percentage: (.valid_doi_percentage // 0),
+              consistent_doi_percentage: (.consistent_doi_percentage // 0),
+              tools_with_pubmed_data: (.tools_with_pubmed_data // 0),
+              pubmed_percentage: (.pubmed_percentage // 0),
+              tools_with_academic_impact: (.tools_with_academic_impact // 0),
+              academic_impact_percentage: (.academic_impact_percentage // 0),
+              citation_format_counts: (.citation_format_counts // {"bibtex": 0, "apa": 0, "mla": 0}),
+              issues_count: ((.all_issues | length) // 0),
+              total_dois_fixed: (.total_dois_fixed // 0)
+            }' reports/citation_validation.json > reports/citations/citation_validation_metrics.json
+          else
+            # Create empty metrics file if validation results don't exist
             echo '{
               "timestamp": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'",
               "total_tools": 0,
@@ -197,122 +197,33 @@ jobs:
               "issues_count": 1,
               "error": "No validation data available"
             }' > reports/citations/citation_validation_metrics.json
-            exit 0
           fi
           
-          # Verify JSON is valid
-          if ! jq empty reports/citation_validation.json 2>/dev/null; then
-            echo "Invalid JSON in citation validation report, creating error metrics"
-            echo '{
-              "timestamp": "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'",
-              "total_tools": 0,
-              "tools_with_doi": 0,
-              "doi_percentage": 0,
-              "valid_doi_percentage": 0,
-              "consistent_doi_percentage": 0,
-              "tools_with_pubmed_data": 0,
-              "pubmed_percentage": 0,
-              "tools_with_academic_impact": 0,
-              "academic_impact_percentage": 0,
-              "citation_format_counts": {"bibtex": 0, "apa": 0, "mla": 0},
-              "issues_count": 1,
-              "error": "Invalid JSON in validation report"
-            }' > reports/citations/citation_validation_metrics.json
-            exit 0
-          fi
-          
-          # Extract key metrics with safe defaults for missing values
-          jq '{
-            timestamp: (.timestamp // "'$(date -u +"%Y-%m-%dT%H:%M:%SZ")'"),
-            total_tools: (.total_tools // 0),
-            tools_with_doi: (.tools_with_doi // 0),
-            doi_percentage: (.doi_percentage // 0),
-            valid_doi_percentage: (.valid_doi_percentage // 0),
-            consistent_doi_percentage: (.consistent_doi_percentage // 0),
-            tools_with_pubmed_data: (.tools_with_pubmed_data // 0),
-            pubmed_percentage: (.pubmed_percentage // 0),
-            tools_with_academic_impact: (.tools_with_academic_impact // 0),
-            academic_impact_percentage: (.academic_impact_percentage // 0),
-            citation_format_counts: (.citation_format_counts // {"bibtex": 0, "apa": 0, "mla": 0}),
-            issues_count: ((.all_issues | length) // 0),
-            total_dois_fixed: (.total_dois_fixed // 0)
-          }' reports/citation_validation.json > reports/citations/citation_validation_metrics.json
-      
-      - name: Prepare changes
-        id: prepare
-        run: |
+          # Configure git
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # Create a unique branch name with timestamp
-          BRANCH_NAME="citation-validation-$(date +%Y%m%d-%H%M%S)"
-          
-          # Create branch from the current HEAD
-          git checkout -B $BRANCH_NAME
-          
-          # Add any DOI fixes from auto-fix process
+          # Add changes
           git add metadata/**/*.json || true
-          
-          # Add metadata reports
           git add reports/citations/citation_validation_metrics.json || true
           
-          # Check if there are staged changes
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-            echo "changes_detected=false" >> $GITHUB_OUTPUT
-          else
-            echo "changes_detected=true" >> $GITHUB_OUTPUT
-            echo "branch_name=$BRANCH_NAME" >> $GITHUB_OUTPUT
-            
-            # Create commit message based on changes
+          # Check if there are changes to commit
+          if ! git diff --staged --quiet; then
+            # Get fixed DOIs count
             FIXED_DOIS=${{ steps.check_issues.outputs.fixed_dois }}
+            
+            # Create commit message
             if [[ $FIXED_DOIS -gt 0 ]]; then
-              git commit -m "Update citation validation metrics and fix $FIXED_DOIS DOI format issues"
+              COMMIT_MSG="Update citation validation metrics and fix $FIXED_DOIS DOI format issues"
             else
-              git commit -m "Update citation validation metrics"
+              COMMIT_MSG="Update citation validation metrics"
             fi
             
-            # Push the branch
-            git push origin $BRANCH_NAME
-          fi
-          
-      - name: Create Pull Request
-        if: steps.prepare.outputs.changes_detected == 'true'
-        id: create-pr
-        run: |
-          # Create a PR directly using the GitHub CLI
-          FIXED_DOIS=${{ steps.check_issues.outputs.fixed_dois }}
-          if [[ $FIXED_DOIS -gt 0 ]]; then
-            TITLE="Update citation validation metrics and fix $FIXED_DOIS DOI format issues"
+            # Commit and push
+            git commit -m "$COMMIT_MSG [skip ci]"
+            git push
             
-            # Create a file for the PR body
-            cat > pr_body.md << 'EOL'
-## Automated PR with citation validation results
-
-This PR includes:
-- Updated citation validation metrics in `reports/citations/citation_validation_metrics.json`
-- Automatically fixed FIXED_DOIS_PLACEHOLDER DOI formatting issues in metadata files
-
-Generated automatically by the Citation Data Validation workflow.
-EOL
-            # Replace the placeholder with actual value
-            sed "s/FIXED_DOIS_PLACEHOLDER/$FIXED_DOIS/g" pr_body.md > pr_body_fixed.md
-            mv pr_body_fixed.md pr_body.md
-            BODY=$(cat pr_body.md)
+            echo "Changes committed and pushed to main"
           else
-            TITLE="Update citation validation metrics"
-            
-            # Create a file for the PR body
-            cat > pr_body.md << 'EOL'
-## Automated PR with citation validation results
-
-This PR includes:
-- Updated citation validation metrics in `reports/citations/citation_validation_metrics.json`
-
-Generated automatically by the Citation Data Validation workflow.
-EOL
-            BODY=$(cat pr_body.md)
+            echo "No changes to commit"
           fi
-          
-          gh pr create --base main --head ${{ steps.prepare.outputs.branch_name }} --title "$TITLE" --body "$BODY" || true
-          echo "PR creation completed"
