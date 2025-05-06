@@ -33,7 +33,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install biopython beautifulsoup4 matplotlib requests
+          pip install biopython beautifulsoup4 matplotlib requests networkx
       
       - name: Collect PubMed citation data
         id: collect
