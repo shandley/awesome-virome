@@ -41,6 +41,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pages-
       
+      - name: Debug citation data
+        run: |
+          echo "Checking impact_data.json content:"
+          jq '.tools | length' impact_data.json
+          echo "First few tools:"
+          jq '.tools | .[:5] | .[] | .name' impact_data.json
+      
       - name: Generate visualization assets
         run: |
           # If you have any scripts that generate charts or other visualization assets
