@@ -133,7 +133,9 @@ def add_attribution_to_impact_data(impact_data_path: str = IMPACT_DATA_PATH) -> 
 
 def main():
     """Add attribution to impact_data.json."""
-    return 0 if add_attribution_to_impact_data() else 1
+    add_attribution_to_impact_data()
+    # Always return success, even if no changes were made
+    return 0
 
 
 if __name__ == "__main__":

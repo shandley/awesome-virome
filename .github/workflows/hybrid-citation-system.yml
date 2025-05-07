@@ -32,6 +32,8 @@ jobs:
         run: |
           echo "Adding citation source attribution..."
           python scripts/add_citation_attribution.py
+          # Always exit with success even if no changes were made
+          exit 0
       
       - name: Generate citation visualizations
         run: |
