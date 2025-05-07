@@ -10,22 +10,65 @@ The citation system collects real citation data from published papers about viro
 2. Show tool impact in the citation dashboard
 3. Support analysis of the virome tool ecosystem
 
-## Key Principles
+## Citation Systems
 
-- **Real data only**: All citation data is collected from real sources (PubMed, CrossRef, etc.) with no synthetic data generation
+The repository has two citation collection systems:
+
+### 1. Real Data System
+
+- **Real data only**: All citation data is collected from real sources (PubMed, CrossRef, etc.)
 - **Single source of truth**: Each task (data collection, DOI fixing, etc.) has one authoritative source
 - **Maintainable workflows**: Clear separation of responsibilities between workflows
+
+### 2. Hybrid System (New)
+
+- **Prioritizes real data**: Uses real citation data from PubMed, CrossRef, etc. when available
+- **Transparent source attribution**: Clearly indicates which source provided each citation count 
+- **Visualization support**: For tools without real citation data, generates synthetic data for visualization purposes only
+- **Clear marking**: All synthetic data is clearly marked with `citation_source: "synthetic"`
+
+## Citation Sources
+
+Citations are collected from the following sources, in order of priority:
+
+1. **PubMed** - Citation data from PubMed Central and PubMed, stored in `metadata/pubmed_citations/*.json`
+2. **iCite** - NIH's iCite API provides citation data for papers with PMIDs
+3. **Scopus** - When configured with API credentials, provides citation data from Elsevier's Scopus database
+4. **Web of Science** - When configured with API credentials, provides citation data from Clarivate's Web of Science
+5. **CrossRef** - Provides basic citation data for papers with DOIs
+
+## Attribution Fields
+
+Each tool in `impact_data.json` includes the following attribution fields:
+
+- `citation_source`: The source of the total citation count (e.g., "pubmed", "icite", "scopus", "synthetic")
+- `yearly_citation_source`: The source of yearly citation breakdown data
+- `total_citations`: Total citation count from the specified source
+- `citations_by_year`: Yearly breakdown of citations, if available
 
 ## Authoritative Components
 
 ### Scripts
 
-1. **comprehensive_citation_data.py** - The authoritative script for generating `impact_data.json`
+1. **comprehensive_citation_data.py** - The authoritative script for generating `impact_data.json` with real data only
    - Collects data from multiple sources: academic_impact, bioinformatics, and citation reports
    - Uses only real citation data with no synthetic data generation
    - Consolidates all available citation information
 
-2. **auto_fix_dois.py** - The authoritative script for DOI format fixing
+2. **update_citation_data.py** - The hybrid approach script for citation data
+   - Combines real citation data with synthetic data for visualization
+   - Clearly attributes all data to its source
+   - Prioritizes real data over synthetic data
+
+3. **add_citation_attribution.py** - Adds source attribution to citation data
+   - Ensures all citation data has proper source attribution
+   - Works with both real and synthetic data
+
+4. **citation_source_heatmap.py** - Generates visualizations of citation sources
+   - Creates heatmaps showing which citation sources were used for which tools
+   - Creates distribution charts of citation sources
+
+5. **auto_fix_dois.py** - The authoritative script for DOI format fixing
    - Used by the `fix-dois.yml` workflow
    - Automatically fixes common DOI format issues
 
@@ -36,11 +79,17 @@ The citation system collects real citation data from published papers about viro
    - Generates citation reports
    - Creates the authoritative `impact_data.json` file using comprehensive_citation_data.py
 
-2. **DOI Format Fixing** (fix-dois.yml)
+2. **Hybrid Citation System** (hybrid-citation-system.yml)
+   - Runs update_citation_data.py to combine real and synthetic data
+   - Adds source attribution with add_citation_attribution.py
+   - Generates visualizations with citation_source_heatmap.py
+   - Commits changes with clear indication of data sources
+
+3. **DOI Format Fixing** (fix-dois.yml)
    - Runs the authoritative DOI fixing script auto_fix_dois.py
    - Fixes common DOI formatting issues across all metadata files
 
-3. **Citation Data Validation** (citation-validation-direct.yml)
+4. **Citation Data Validation** (citation-validation-direct.yml)
    - Validates DOI consistency and data quality
    - Creates validation reports
    - Does NOT modify DOIs (this is handled by the DOI Format Fixing workflow)
@@ -58,46 +107,32 @@ The citation system collects real citation data from published papers about viro
 
 3. **Impact Data Generation**:
    - All citation data is consolidated into `impact_data.json`
+   - With the hybrid approach, synthetic data is added for visualization purposes
+   - All data points are attributed to their source
    - This file is used by the dashboard for visualization
 
-## Recent Improvements
+## Visualization
 
-The citation data system has been refactored to:
+Citation source data is visualized in two primary ways:
 
-1. **Remove synthetic data generation**:
-   - Eliminated artificial citation distribution algorithms
-   - Removed percentage-based "influential citations" estimates
-   - Removed heuristic tool categorization
+1. **Citation Source Heatmap** (`citation_source_heatmap.png`) - Shows citation sources by category
+2. **Citation Source Distribution** (`citation_source_distribution.png`) - Shows the distribution of citation sources across all tools
 
-2. **Consolidate responsibilities**:
-   - Made comprehensive_citation_data.py the single source of truth for impact_data.json
-   - Consolidated DOI fixing to auto_fix_dois.py and its workflow
-   - Removed redundant impact data generation from other workflows
+## Choosing the Right System
 
-3. **Simplify workflow structure**:
-   - Removed deprecated workflows
-   - Updated remaining workflows to have clear, non-overlapping responsibilities
-   - Added clear naming to indicate authoritative sources
+### When to use the Real Data System
+- For scientific analysis of citation impact
+- When transparency about data limitations is most important
+- When you want to guarantee all data comes from academic sources
 
-## Maintenance Guidelines
-
-When making changes to the citation system:
-
-1. **Follow the authoritative pattern**:
-   - Use the designated scripts for their specific purposes
-   - Don't create new scripts that duplicate functionality
-
-2. **Avoid synthetic data**:
-   - Never generate synthetic citation data
-   - If data is missing, leave it empty rather than estimating
-
-3. **Keep workflows focused**:
-   - Each workflow should have a clear, non-overlapping responsibility
-   - workflows.md contains details about each workflow's purpose and schedule
+### When to use the Hybrid System
+- For comprehensive visualizations that include all tools
+- When a complete picture is more important than 100% real data
+- For dashboards and user interfaces that need data for all tools
 
 ## Testing Before Pushing Changes
 
-Before pushing changes to GitHub, run the test suite to verify that workflows function correctly and don't generate synthetic data:
+Before pushing changes to GitHub, run the test suite to verify that workflows function correctly:
 
 ```bash
 # Run all tests
@@ -112,10 +147,8 @@ python scripts/tests/verify_impact_data.py
 ```
 
 The test suite verifies:
-1. Scripts don't generate synthetic data
+1. Scripts function correctly
 2. DOI fixing works correctly
 3. Workflow files don't have syntax errors
 4. Workflows can run without errors
-5. impact_data.json contains only real data
-
-If any test fails, fix the issues before pushing to GitHub.
+5. impact_data.json contains correctly attributed data
