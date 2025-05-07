@@ -24,9 +24,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 # Constants
-DEFAULT_SOURCE = "icite"  # Default source to use if none is specified
+DEFAULT_SOURCE = "pubmed"  # Default source for legacy data
 IMPACT_DATA_PATH = "impact_data.json"
-KNOWN_SOURCES = ["scopus", "wos", "icite", "crossref"]
+KNOWN_SOURCES = ["scopus", "wos", "icite", "pubmed", "crossref"]
 
 
 def add_attribution_to_impact_data(impact_data_path: str = IMPACT_DATA_PATH) -> bool:
@@ -53,22 +53,32 @@ def add_attribution_to_impact_data(impact_data_path: str = IMPACT_DATA_PATH) -> 
         
         # Process all tools
         tools = impact_data.get('tools', [])
+        logger.info(f"Processing {len(tools)} tools in impact data")
+        tools_with_citations = 0
+        tools_needing_attribution = 0
         
         for tool in tools:
             if tool.get('total_citations', 0) <= 0:
                 continue
                 
+            tools_with_citations += 1
+            
             # Add citation source attribution
             if 'citation_source' not in tool:
+                # Determine source
+                source = None
+                
                 # Try to get source from existing fields
-                source = (
-                    tool.get('primary_source') or 
-                    DEFAULT_SOURCE
-                )
+                if 'primary_source' in tool:
+                    source = tool['primary_source']
+                else:
+                    # Default for tools from the pubmed_citations directory
+                    source = DEFAULT_SOURCE
                 
                 tool['citation_source'] = source
                 citation_sources[source] = citation_sources.get(source, 0) + 1
                 changed = True
+                tools_needing_attribution += 1
                 logger.debug(f"Added citation_source={source} to {tool.get('name')}")
             else:
                 # Count existing sources
@@ -93,6 +103,9 @@ def add_attribution_to_impact_data(impact_data_path: str = IMPACT_DATA_PATH) -> 
                 source = tool['yearly_citation_source']
                 yearly_citation_sources[source] = yearly_citation_sources.get(source, 0) + 1
         
+        logger.info(f"Found {tools_with_citations} tools with citations")
+        logger.info(f"Added attribution to {tools_needing_attribution} tools")
+        
         # Add citation sources summary if needed
         if (changed or 'citation_sources' not in impact_data) and (citation_sources or yearly_citation_sources):
             impact_data['citation_sources'] = {
@@ -100,7 +113,8 @@ def add_attribution_to_impact_data(impact_data_path: str = IMPACT_DATA_PATH) -> 
                 'yearly_citations': yearly_citation_sources
             }
             changed = True
-            logger.info(f"Added citation_sources summary: {json.dumps(impact_data['citation_sources'])}")
+            logger.info(f"Added citation_sources summary: {citation_sources}")
+            logger.info(f"Added yearly_citation_sources summary: {yearly_citation_sources}")
         
         # Save changes if needed
         if changed:

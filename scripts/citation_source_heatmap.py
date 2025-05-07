@@ -32,12 +32,13 @@ logger = logging.getLogger(__name__)
 BASE_DIR = Path(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 IMPACT_DATA_PATH = BASE_DIR / "impact_data.json"
 OUTPUT_DIR = BASE_DIR
-KNOWN_SOURCES = ["scopus", "wos", "icite", "crossref"]
+KNOWN_SOURCES = ["scopus", "wos", "icite", "pubmed", "crossref"]
 SOURCE_COLORS = {
     "scopus": "#5470c6",     # Blue
     "wos": "#91cc75",        # Green
     "icite": "#fac858",      # Yellow
-    "crossref": "#ee6666",   # Red
+    "pubmed": "#ee6666",     # Red
+    "crossref": "#73c0de",   # Light Blue
     "unknown": "#cccccc"     # Gray
 }
 
