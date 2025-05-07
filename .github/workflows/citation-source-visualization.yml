@@ -8,6 +8,7 @@ on:
     paths:
       - 'impact_data.json'
       - 'scripts/citation_source_heatmap.py'
+      - 'scripts/add_citation_attribution.py'
 
 jobs:
   generate-visualizations:
@@ -29,66 +30,16 @@ jobs:
       
       - name: Add source attribution if missing
         run: |
-          echo "Checking for citation source attribution in impact_data.json..."
-          if ! grep -q "citation_source" impact_data.json; then
-            echo "Citation source attribution missing - adding it..."
-            
-            # Create a simple script to add attribution
-            cat > add_attribution.py << 'EOF'
-#!/usr/bin/env python3
-import json
-import os
-
-# Load impact data
-with open('impact_data.json', 'r') as f:
-    impact_data = json.load(f)
-
-# Check if we need to add attribution
-citation_sources = {}
-yearly_citation_sources = {}
-tools_changed = 0
-
-# Process each tool
-for tool in impact_data.get('tools', []):
-    # Only process tools with citations
-    if tool.get('total_citations', 0) > 0:
-        # Add citation source if missing
-        if 'citation_source' not in tool:
-            source = tool.get('primary_source', 'unknown')
-            tool['citation_source'] = source
-            citation_sources[source] = citation_sources.get(source, 0) + 1
-            tools_changed += 1
-            
-        # Add yearly citation source if missing
-        if 'yearly_citation_source' not in tool and tool.get('citations_by_year'):
-            source = tool.get('yearly_data_source', tool.get('citation_source', 'unknown'))
-            tool['yearly_citation_source'] = source
-            yearly_citation_sources[source] = yearly_citation_sources.get(source, 0) + 1
-            tools_changed += 1
-
-# Add summary section if changed
-if tools_changed > 0:
-    impact_data['citation_sources'] = {
-        'total_citations': citation_sources,
-        'yearly_citations': yearly_citation_sources
-    }
-    
-    # Save updated impact data
-    with open('impact_data.json', 'w') as f:
-        json.dump(impact_data, f, indent=2)
-    
-    print(f"Added attribution to {tools_changed} tools")
-else:
-    print("No changes needed")
-EOF
-            
-            # Make it executable
-            chmod +x add_attribution.py
-            
-            # Run it
-            python add_attribution.py
+          echo "Running citation attribution script..."
+          python scripts/add_citation_attribution.py
+          
+          # Verify attribution was added
+          echo "Checking for attribution fields in impact_data.json..."
+          if grep -q "citation_source" impact_data.json; then
+            echo "Attribution added successfully"
           else
-            echo "Citation source attribution already present"
+            echo "Warning: Attribution fields not found in impact_data.json"
+            # Continue anyway to generate visualizations with defaults
           fi
           
       - name: Generate citation source visualizations
