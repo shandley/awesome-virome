@@ -1,0 +1,109 @@
+name: Test Citation System
+
+on:
+  push:
+    branches: [ main, fix-citation-counting ]
+    paths:
+      - 'scripts/citation_system/**'
+      - '.github/workflows/test-citation-system.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'scripts/citation_system/**'
+      - '.github/workflows/test-citation-system.yml'
+  workflow_dispatch:  # Allow manual triggering
+  schedule:
+    - cron: '0 0 * * 0'  # Run weekly at midnight on Sunday
+
+jobs:
+  test-citation-system:
+    runs-on: ubuntu-latest
+    
+    env:
+      # Default configuration for testing
+      ICITE_ENABLED: ${{ secrets.ICITE_ENABLED || 'true' }}
+      ICITE_RATE_LIMIT: 10.0
+      SCOPUS_ENABLED: ${{ secrets.SCOPUS_ENABLED || 'false' }}
+      SCOPUS_API_KEY: ${{ secrets.SCOPUS_API_KEY || '' }}
+      SCOPUS_INSTITUTIONAL_TOKEN: ${{ secrets.SCOPUS_INSTITUTIONAL_TOKEN || '' }}
+      WOS_ENABLED: ${{ secrets.WOS_ENABLED || 'false' }}
+      WOS_API_KEY: ${{ secrets.WOS_API_KEY || '' }}
+      WOS_API_SECRET: ${{ secrets.WOS_API_SECRET || '' }}
+      CACHE_ENABLED: true
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r scripts/citation_system/requirements.txt
+          
+      - name: List available citation sources
+        run: |
+          python -m scripts.citation_system.collect_citations sources
+        
+      - name: Validate DOIs in repository
+        run: |
+          python -m scripts.citation_system.collect_citations validate
+        
+      - name: Test iCite integration
+        if: ${{ env.ICITE_ENABLED == 'true' }}
+        run: |
+          # Test with a known PubMed paper that should be in iCite
+          python -m scripts.citation_system.collect_citations test icite 10.1038/s41586-020-2008-3  # COVID-19 paper with high citations
+        
+      - name: Test Scopus integration
+        if: ${{ env.SCOPUS_ENABLED == 'true' && env.SCOPUS_API_KEY != '' }}
+        run: |
+          # Test with a known DOI that should be in Scopus
+          python -m scripts.citation_system.collect_citations test scopus 10.1093/bioinformatics/btab213
+        
+      - name: Test Web of Science integration
+        if: ${{ env.WOS_ENABLED == 'true' && env.WOS_API_KEY != '' && env.WOS_API_SECRET != '' }}
+        run: |
+          # Test with a known DOI that should be in Web of Science
+          python -m scripts.citation_system.collect_citations test wos 10.1093/bioinformatics/btab213
+        
+      - name: Run citation collection
+        run: |
+          # Run collection with only enabled sources
+          python -m scripts.citation_system.collect_citations collect --no-cache
+        
+      - name: Validate impact data
+        run: |
+          # Check that impact_data.json was created
+          if [ ! -f impact_data.json ]; then
+            echo "Error: impact_data.json was not created!"
+            exit 1
+          fi
+          
+          # Check basic structure of impact data
+          python -c "
+          import json
+          with open('impact_data.json', 'r') as f:
+              data = json.load(f)
+          assert 'last_updated' in data, 'Missing last_updated field'
+          assert 'tools' in data, 'Missing tools field'
+          assert 'total_tools' in data, 'Missing total_tools field'
+          assert 'tools_with_citations' in data, 'Missing tools_with_citations field'
+          print(f'Impact data validated successfully. Found {data[\"tools_with_citations\"]} tools with citations.')
+          "
+        
+      - name: Upload impact data as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: impact-data
+          path: impact_data.json
+          
+      - name: Upload logs as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: citation-logs
+          path: logs/

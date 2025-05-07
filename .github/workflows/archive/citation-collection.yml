@@ -1,0 +1,193 @@
+name: Citation Data Collection (Authoritative)
+
+on:
+  # Run weekly
+  schedule:
+    # Run every Tuesday at 12:00 UTC (after basic repository updates)
+    - cron: "0 12 * * 2"
+  
+  # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      force_refresh:
+        description: 'Force refresh of all citation data'
+        type: boolean
+        default: false
+
+# Permissions needed for committing changes
+permissions:
+  contents: write
+
+jobs:
+  collect-citations:
+    name: Collect Citation Data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install requests jsonschema pandas numpy seaborn matplotlib
+      
+      - name: Debug citation attribution
+        run: |
+          # Create logs directory
+          mkdir -p logs
+          
+          # Run diagnostic script to check attribution implementation
+          echo "Running diagnostic script..."
+          python scripts/debug_citation_attribution.py
+          
+          # List available commands in collect_citations.py
+          echo "Checking available commands in citation collector..."
+          python -m scripts.citation_system.collect_citations --help
+          
+          # Check the collect_citations implementation
+          echo "Checking collect_citations implementation..."
+          head -n 50 scripts/citation_system/collect_citations.py
+          
+      - name: Inspect code files
+        run: |
+          echo "Checking citation collector implementation in use..."
+          echo "=============== Citation Collector Implementation ==============="
+          cat scripts/citation_system/collectors/citation_collector.py | grep -A 20 "_create_tool_citation_data"
+          
+          echo "=============== Citation Aggregator Implementation ==============="
+          cat scripts/citation_system/collectors/citation_aggregator.py | grep -A 20 "_aggregate_citation_data"
+          
+          echo "=============== Available Commands ==============="
+          python -m scripts.citation_system.collect_citations --help
+          
+      - name: Run citation collection with our updated code
+        run: |
+          echo "Ensuring our updated code is in place..."
+          
+          # Update the citation_collector.py file directly to add source attribution
+          cat > scripts/citation_system/collectors/citation_collector.py.patch << 'EOF'
+--- a/scripts/citation_system/collectors/citation_collector.py
++++ b/scripts/citation_system/collectors/citation_collector.py
+@@ -301,7 +301,9 @@
+             'doi': citation_data.get('doi', ''),
+             'total_citations': total_citations,
+             'influential_citations': influential_citations,
+-            'category': category or 'Other Tools'
++            'category': category or 'Other Tools',
++            'citation_source': citation_data.get('citation_source', citation_data.get('primary_source')),
++            'yearly_citation_source': citation_data.get('yearly_citation_source', citation_data.get('yearly_data_source'))
+         }
+         
+         # Add source information
+EOF
+          
+          # Apply the patch if the file exists
+          if [ -f scripts/citation_system/collectors/citation_collector.py ]; then
+            patch -p1 scripts/citation_system/collectors/citation_collector.py < scripts/citation_system/collectors/citation_collector.py.patch || echo "Patch might have already been applied"
+          else
+            echo "Citation collector file not found!"
+          fi
+          
+          # Now run the collection with the correct command
+          # Determine the correct command to use
+          if python -m scripts.citation_system.collect_citations --help | grep -q "collect"; then
+            CMD="python -m scripts.citation_system.collect_citations collect"
+          else
+            CMD="python -m scripts.citation_system.collect_citations"
+          fi
+          
+          # Add force refresh if specified
+          if [[ "${{ github.event.inputs.force_refresh }}" == "true" ]]; then
+            CMD="$CMD --force-refresh"
+          fi
+          
+          # Run the command with detailed output
+          echo "Running: $CMD"
+          $CMD
+          
+          # Check if impact_data.json has attribution fields
+          echo "Checking for attribution fields in impact_data.json..."
+          grep -o "citation_source" impact_data.json || echo "No citation_source field found!"
+      
+      - name: Upload citation data
+        uses: actions/upload-artifact@v4
+        with:
+          name: citation-data
+          path: |
+            impact_data.json
+            potential_dois.json
+            logs/citation_system.log
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Add changes
+          git add impact_data.json potential_dois.json
+          
+          # Check if there are changes to commit
+          if ! git diff --staged --quiet; then
+            # Create commit message
+            if [[ "${{ github.event.inputs.force_refresh }}" == "true" ]]; then
+              COMMIT_MSG="Update citation data with forced refresh"
+            else
+              COMMIT_MSG="Update citation data from external sources"
+            fi
+            
+            # Add timestamp to commit message
+            TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+            COMMIT_MSG="$COMMIT_MSG [$TIMESTAMP]"
+            
+            # Commit and push
+            git commit -m "$COMMIT_MSG"
+            git push
+            
+            echo "Changes committed and pushed to main"
+          else
+            echo "No changes to commit"
+          fi
+      
+      - name: Generate citation dashboard
+        run: |
+          # Generate dashboard HTML or update visualization files
+          echo "Generating citation dashboard..."
+          
+          # Add any commands to update dashboards or visualizations here
+          # For example, if you have visualization scripts:
+          # python scripts/generate_visualizations.py
+          
+          # For now, this is a placeholder for future dashboard generation
+      
+      - name: Notify on Failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueTitle = 'Citation Data Collection Failed';
+            const issueBody = `
+            ## Citation Data Collection Failed
+            
+            The citation data collection workflow failed at ${new Date().toISOString()}.
+            
+            Please check the [workflow logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.
+            `;
+            
+            try {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: issueTitle,
+                body: issueBody,
+                labels: ['citation-data', 'bug']
+              });
+            } catch (error) {
+              console.error(`Error creating issue: ${error}`);
+            }

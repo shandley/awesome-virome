@@ -1,0 +1,61 @@
+name: Citation Source Visualization
+
+on:
+  workflow_dispatch:  # Allow manual triggering
+  schedule:
+    - cron: '0 2 * * 1'  # Run every Monday at 2 AM UTC
+  push:
+    paths:
+      - 'impact_data.json'
+      - 'scripts/citation_source_heatmap.py'
+      - 'scripts/add_citation_attribution.py'
+
+jobs:
+  generate-visualizations:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Add source attribution if missing
+        run: |
+          echo "Running citation attribution script..."
+          python scripts/add_citation_attribution.py
+          
+          # Verify attribution was added
+          echo "Checking for attribution fields in impact_data.json..."
+          if grep -q "citation_source" impact_data.json; then
+            echo "Attribution added successfully"
+          else
+            echo "Warning: Attribution fields not found in impact_data.json"
+            # Continue anyway to generate visualizations with defaults
+          fi
+          
+      - name: Generate citation source visualizations
+        run: python scripts/citation_source_heatmap.py
+      
+      - name: Check if visualizations were created
+        run: |
+          if [ ! -f citation_source_heatmap.png ] || [ ! -f citation_source_distribution.png ]; then
+            echo "Visualization files were not generated properly"
+            exit 1
+          fi
+      
+      - name: Commit and push visualizations
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add citation_source_heatmap.png citation_source_distribution.png
+          git commit -m "Update citation source visualizations [skip ci]" || exit 0
+          git push

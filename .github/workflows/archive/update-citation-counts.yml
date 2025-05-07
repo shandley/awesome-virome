@@ -1,0 +1,48 @@
+name: Update Citation Counts from CrossRef (NOT Authoritative for impact_data.json)
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Run weekly on Sunday at 3:00 AM UTC
+    - cron: '0 3 * * 0'
+  
+jobs:
+  update-citations:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+        
+    - name: Fix citation counts directly from CrossRef
+      run: |
+        python scripts/fix_citation_counts.py
+        
+    - name: Update citation counts from CrossRef
+      run: |
+        python scripts/update_citation_counts.py
+        
+    # IMPORTANT: We no longer update impact_data.json from this workflow
+    # This has been consolidated to the Citation Data Collection workflow
+    # which uses comprehensive_citation_data.py as the authoritative source
+    
+    - name: Commit and push if changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        # Only commit the citation data, not impact_data.json
+        git add metadata/pubmed_citations/*.json
+        git diff --staged --quiet || git commit -m "Update citation counts from CrossRef [skip ci]"
+        git push

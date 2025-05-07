@@ -1,0 +1,112 @@
+name: Update Citation Data
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'  # Run weekly at midnight on Monday
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  update-citations:
+    runs-on: ubuntu-latest
+    
+    env:
+      # Environment configuration
+      ICITE_ENABLED: ${{ secrets.ICITE_ENABLED || 'true' }}
+      ICITE_RATE_LIMIT: 10.0
+      SCOPUS_ENABLED: ${{ secrets.SCOPUS_ENABLED || 'false' }}
+      SCOPUS_API_KEY: ${{ secrets.SCOPUS_API_KEY || '' }}
+      SCOPUS_INSTITUTIONAL_TOKEN: ${{ secrets.SCOPUS_INSTITUTIONAL_TOKEN || '' }}
+      WOS_ENABLED: ${{ secrets.WOS_ENABLED || 'false' }}
+      WOS_API_KEY: ${{ secrets.WOS_API_KEY || '' }}
+      WOS_API_SECRET: ${{ secrets.WOS_API_SECRET || '' }}
+      CACHE_ENABLED: true
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r scripts/citation_system/requirements.txt
+          
+      - name: Show available citation sources
+        run: |
+          python -m scripts.citation_system.collect_citations sources
+        
+      - name: Update citation data
+        run: |
+          python -m scripts.citation_system.collect_citations full
+        
+      - name: Validate updated impact data
+        run: |
+          python -c "
+          import json
+          with open('impact_data.json', 'r') as f:
+              data = json.load(f)
+          assert 'last_updated' in data, 'Missing last_updated field'
+          assert 'tools' in data, 'Missing tools field'
+          assert 'total_tools' in data, 'Missing total_tools field'
+          assert 'tools_with_citations' in data, 'Missing tools_with_citations field'
+          print(f'Impact data validated successfully. Found {data[\"tools_with_citations\"]} tools with citations out of {data[\"total_tools\"]} total tools.')
+          print(f'Total citation count: {data[\"total_citations\"]}')
+          "
+          
+      - name: Setup Git
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+      
+      - name: Commit and push updated impact data
+        run: |
+          # Check if there are changes to commit
+          if git diff --exit-code impact_data.json; then
+            echo "No changes to impact_data.json, skipping commit"
+          else
+            echo "Changes detected in impact_data.json, committing updates"
+            git add impact_data.json
+            git commit -m "Update citation data [skip ci]" -m "Updated via GitHub Actions workflow"
+            git push
+          fi
+      
+      - name: Generate citation summary
+        run: |
+          python -c "
+          import json, datetime
+          with open('impact_data.json', 'r') as f:
+              data = json.load(f)
+          
+          # Create summary
+          summary = []
+          summary.append('# Citation Data Update Summary')
+          summary.append(f'**Last Updated:** {data[\"last_updated\"]}')
+          summary.append(f'**Total Tools:** {data[\"total_tools\"]}')
+          summary.append(f'**Tools with Citations:** {data[\"tools_with_citations\"]}')
+          summary.append(f'**Total Citations:** {data[\"total_citations\"]}')
+          summary.append(f'**Average Citations per Tool:** {data[\"average_citations\"]:.2f}')
+          
+          # Top 10 most cited tools
+          summary.append('\n## Top 10 Most Cited Tools')
+          tools_sorted = sorted(data['tools'], key=lambda x: x['total_citations'], reverse=True)[:10]
+          for i, tool in enumerate(tools_sorted):
+              summary.append(f'{i+1}. **{tool[\"name\"]}** - {tool[\"total_citations\"]} citations')
+          
+          # Write summary
+          with open('citation_summary.md', 'w') as f:
+              f.write('\\n'.join(summary))
+          "
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: citation-data
+          path: |
+            impact_data.json
+            citation_summary.md
+            logs/

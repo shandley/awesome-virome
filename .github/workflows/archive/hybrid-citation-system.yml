@@ -1,0 +1,119 @@
+name: Hybrid Citation Data System
+
+on:
+  schedule:
+    - cron: '0 2 * * 1'  # Run weekly at 2 AM on Monday
+  workflow_dispatch:  # Allow manual triggering
+
+jobs:
+  update-citations:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas matplotlib seaborn
+          
+      - name: Update citation data using hybrid approach
+        run: |
+          echo "Collecting citation data using hybrid approach..."
+          python scripts/update_citation_data.py
+          
+      - name: Add source attribution
+        run: |
+          echo "Adding citation source attribution..."
+          python scripts/add_citation_attribution.py
+          # Always exit with success even if no changes were made
+          exit 0
+      
+      - name: Generate citation visualizations
+        run: |
+          echo "Generating citation source visualizations..."
+          python scripts/citation_source_heatmap.py
+          
+      - name: Validate updated impact data
+        run: |
+          python -c "
+          import json
+          with open('impact_data.json', 'r') as f:
+              data = json.load(f)
+          assert 'last_updated' in data, 'Missing last_updated field'
+          assert 'tools' in data, 'Missing tools field'
+          assert 'total_tools' in data, 'Missing total_tools field'
+          assert 'tools_with_citations' in data, 'Missing tools_with_citations field'
+          assert 'citation_sources' in data, 'Missing citation_sources field'
+          print(f'Impact data validated successfully. Found {data[\"tools_with_citations\"]} tools with citations out of {data[\"total_tools\"]} total tools.')
+          print(f'Total citation count: {data[\"total_citations\"]}')
+          print(f'Citation sources: {data[\"citation_sources\"]}')
+          "
+          
+      - name: Setup Git
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+      
+      - name: Commit and push updated data
+        run: |
+          # Check if there are changes to commit
+          if git diff --exit-code impact_data.json citation_source_heatmap.png citation_source_distribution.png; then
+            echo "No changes to citation data or visualizations, skipping commit"
+          else
+            echo "Changes detected in citation data or visualizations, committing updates"
+            git add impact_data.json citation_source_heatmap.png citation_source_distribution.png
+            git commit -m "Update citation data with hybrid approach [skip ci]" -m "Updated via hybrid citation system that combines real citation data with transparent attribution"
+            git push
+          fi
+      
+      - name: Generate citation summary
+        run: |
+          python -c "
+          import json, datetime
+          with open('impact_data.json', 'r') as f:
+              data = json.load(f)
+          
+          # Create summary
+          summary = []
+          summary.append('# Citation Data Update Summary')
+          summary.append(f'**Last Updated:** {data[\"last_updated\"]}')
+          summary.append(f'**Total Tools:** {data[\"total_tools\"]}')
+          summary.append(f'**Tools with Citations:** {data[\"tools_with_citations\"]}')
+          summary.append(f'**Total Citations:** {data[\"total_citations\"]}')
+          summary.append(f'**Average Citations per Tool:** {data[\"average_citations\"]:.2f}')
+          
+          # Citation sources breakdown
+          if 'citation_sources' in data:
+              summary.append('\\n## Citation Sources')
+              sources = data['citation_sources']['total_citations']
+              for source, count in sources.items():
+                  summary.append(f'- **{source}**: {count} tools')
+          
+          # Top 10 most cited tools
+          summary.append('\\n## Top 10 Most Cited Tools')
+          tools_sorted = sorted(data['tools'], key=lambda x: x['total_citations'], reverse=True)[:10]
+          for i, tool in enumerate(tools_sorted):
+              source = tool.get('citation_source', 'unknown')
+              summary.append(f'{i+1}. **{tool[\"name\"]}** - {tool[\"total_citations\"]} citations (Source: {source})')
+          
+          # Write summary
+          with open('citation_summary.md', 'w') as f:
+              f.write('\\n'.join(summary))
+          "
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: citation-data
+          path: |
+            impact_data.json
+            citation_summary.md
+            citation_source_heatmap.png
+            citation_source_distribution.png

@@ -1,0 +1,316 @@
+name: Citation Data Validation
+
+on:
+  # Run after citation data collection
+  workflow_run:
+    workflows:
+      - "iCite Citation Data Collection"
+    types:
+      - completed
+    branches:
+      - main
+  
+  # Allow manual triggering
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  validate-citation-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests matplotlib pandas numpy
+      
+      - name: Check if impact_data.json exists
+        id: check_file
+        run: |
+          if [ -f "impact_data.json" ]; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Validate impact_data.json structure
+        if: steps.check_file.outputs.exists == 'true'
+        id: validate_structure
+        run: |
+          echo "Validating impact_data.json structure..."
+          python -c "
+          import json
+          import sys
+          
+          # Load impact data
+          with open('impact_data.json', 'r') as f:
+              data = json.load(f)
+          
+          # Check required fields
+          required_fields = ['last_updated', 'tools', 'total_tools', 'tools_with_citations', 'total_citations']
+          missing = [field for field in required_fields if field not in data]
+          
+          if missing:
+              print(f'ERROR: Missing required fields: {missing}')
+              sys.exit(1)
+          
+          # Check data types
+          if not isinstance(data['tools'], list):
+              print('ERROR: Tools field is not a list')
+              sys.exit(1)
+              
+          if not isinstance(data['total_tools'], int):
+              print('ERROR: total_tools is not an integer')
+              sys.exit(1)
+              
+          if not isinstance(data['tools_with_citations'], int):
+              print('ERROR: tools_with_citations is not an integer')
+              sys.exit(1)
+              
+          if not isinstance(data['total_citations'], int):
+              print('ERROR: total_citations is not an integer')
+              sys.exit(1)
+          
+          # Check consistency
+          if len(data['tools']) != data['total_tools']:
+              print(f'ERROR: tools array length ({len(data['tools'])}) does not match total_tools ({data['total_tools']})')
+              sys.exit(1)
+              
+          tools_with_citations_actual = sum(1 for tool in data['tools'] if tool.get('total_citations', 0) > 0)
+          if tools_with_citations_actual != data['tools_with_citations']:
+              print(f'ERROR: Actual tools with citations ({tools_with_citations_actual}) does not match tools_with_citations ({data['tools_with_citations']})')
+              sys.exit(1)
+              
+          total_citations_actual = sum(tool.get('total_citations', 0) for tool in data['tools'])
+          if total_citations_actual != data['total_citations']:
+              print(f'ERROR: Sum of tool citations ({total_citations_actual}) does not match total_citations ({data['total_citations']})')
+              sys.exit(1)
+          
+          # Check for synthetic data
+          synthetic_tools = [tool['name'] for tool in data['tools'] 
+                            if tool.get('citation_source') not in ['icite', 'none']]
+          
+          if synthetic_tools:
+              print(f'ERROR: Found {len(synthetic_tools)} tools with synthetic citation data:')
+              for name in synthetic_tools[:5]:
+                  print(f'- {name}')
+              if len(synthetic_tools) > 5:
+                  print(f'- ...and {len(synthetic_tools) - 5} more')
+              sys.exit(1)
+          
+          # Validate tool entries
+          for i, tool in enumerate(data['tools']):
+              # Check required tool fields
+              required_tool_fields = ['name', 'total_citations']
+              missing_tool_fields = [field for field in required_tool_fields if field not in tool]
+              
+              if missing_tool_fields:
+                  print(f'ERROR: Tool at index {i} is missing required fields: {missing_tool_fields}')
+                  sys.exit(1)
+              
+              # Check citations_by_year format if present
+              if 'citations_by_year' in tool:
+                  if not isinstance(tool['citations_by_year'], dict):
+                      print(f'ERROR: citations_by_year for tool {tool['name']} is not a dictionary')
+                      sys.exit(1)
+                  
+                  for year, count in tool['citations_by_year'].items():
+                      if not isinstance(count, int) or count < 0:
+                          print(f'ERROR: Invalid citation count for year {year} in tool {tool['name']}: {count}')
+                          sys.exit(1)
+          
+          print('SUCCESS: impact_data.json structure is valid')
+          "
+      
+      - name: Generate validation report
+        if: steps.check_file.outputs.exists == 'true'
+        run: |
+          echo "Generating validation report..."
+          mkdir -p reports
+          
+          python -c "
+          import json
+          import matplotlib.pyplot as plt
+          import numpy as np
+          from datetime import datetime
+          
+          # Load impact data
+          with open('impact_data.json', 'r') as f:
+              data = json.load(f)
+          
+          # Basic statistics
+          total_tools = data['total_tools']
+          tools_with_citations = data['tools_with_citations']
+          total_citations = data['total_citations']
+          coverage_percent = tools_with_citations / total_tools * 100 if total_tools > 0 else 0
+          
+          # Citation distribution
+          citation_counts = [tool.get('total_citations', 0) for tool in data['tools']]
+          citation_counts.sort(reverse=True)
+          
+          # Tools with highest citations
+          top_tools = sorted(data['tools'], key=lambda x: x.get('total_citations', 0), reverse=True)[:10]
+          
+          # Create visualizations directory
+          import os
+          os.makedirs('reports/visualizations', exist_ok=True)
+          
+          # Plot citation distribution
+          plt.figure(figsize=(10, 6))
+          plt.bar(range(len(citation_counts)), citation_counts)
+          plt.xlabel('Tools (sorted by citation count)')
+          plt.ylabel('Number of Citations')
+          plt.title('Citation Distribution Across Tools')
+          plt.tight_layout()
+          plt.savefig('reports/visualizations/citation_distribution.png')
+          plt.close()
+          
+          # Plot citation source breakdown
+          source_counts = {}
+          for tool in data['tools']:
+              source = tool.get('citation_source', 'unknown')
+              if source in source_counts:
+                  source_counts[source] += 1
+              else:
+                  source_counts[source] = 1
+          
+          plt.figure(figsize=(8, 8))
+          plt.pie(source_counts.values(), labels=source_counts.keys(), autopct='%1.1f%%')
+          plt.title('Citation Source Distribution')
+          plt.savefig('reports/visualizations/citation_sources.png')
+          plt.close()
+          
+          # Create report content
+          report = [
+              '# Citation Data Validation Report',
+              '',
+              f'Generated: {datetime.now().strftime(\"%Y-%m-%d %H:%M:%S\")}',
+              '',
+              '## Summary',
+              '',
+              f'- **Total Tools**: {total_tools}',
+              f'- **Tools with Citations**: {tools_with_citations} ({coverage_percent:.1f}%)',
+              f'- **Total Citations**: {total_citations:,}',
+              f'- **Average Citations per Tool with Citations**: {total_citations/tools_with_citations if tools_with_citations > 0 else 0:.2f}',
+              '',
+              '## Citation Sources',
+              ''
+          ]
+          
+          for source, count in source_counts.items():
+              report.append(f'- **{source}**: {count} tools ({count/total_tools*100:.1f}%)')
+          
+          report.extend([
+              '',
+              '## Top 10 Most Cited Tools',
+              '',
+              '| Tool | Citations | Source |',
+              '| ---- | --------- | ------ |'
+          ])
+          
+          for tool in top_tools:
+              name = tool.get('name', 'Unknown')
+              citations = tool.get('total_citations', 0)
+              source = tool.get('citation_source', 'unknown')
+              report.append(f'| {name} | {citations:,} | {source} |')
+          
+          report.extend([
+              '',
+              '## Visualizations',
+              '',
+              '### Citation Distribution',
+              '',
+              '![Citation Distribution](visualizations/citation_distribution.png)',
+              '',
+              '### Citation Sources',
+              '',
+              '![Citation Sources](visualizations/citation_sources.png)',
+              ''
+          ])
+          
+          # Write report to file
+          with open('reports/citation_validation_report.md', 'w') as f:
+              f.write('\\n'.join(report))
+          
+          print('Validation report generated successfully!')
+          "
+      
+      - name: Upload validation report
+        if: steps.check_file.outputs.exists == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: citation-validation
+          path: |
+            reports/citation_validation_report.md
+            reports/visualizations/
+      
+      - name: Create issue for validation failures
+        if: failure() && steps.check_file.outputs.exists == 'true'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            
+            const issueTitle = '⚠️ Citation Data Validation Failed';
+            const issueBody = `
+            # Citation Data Validation Failed
+            
+            The workflow to validate citation data has failed. 
+            
+            ## Error Details
+            
+            Please check the workflow logs for detailed error information: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            
+            ## Possible Causes
+            
+            - Structure of impact_data.json is invalid
+            - Citation counts don't match reported totals
+            - Synthetic data was detected (only real data from iCite is allowed)
+            
+            ## Next Steps
+            
+            1. Review the validation errors in the workflow logs
+            2. Fix the issues in the citation collection process
+            3. Re-run the citation data collection workflow
+            
+            This issue was automatically created by the Citation Data Validation workflow.
+            `;
+            
+            // Check if there's already an open issue
+            const query = `repo:${context.repo.owner}/${context.repo.repo} is:issue is:open label:citation-validation`;
+            const issues = await github.rest.search.issuesAndPullRequests({ q: query });
+            
+            if (issues.data.items.length > 0) {
+              // Update existing issue
+              const issueNumber = issues.data.items[0].number;
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: issueNumber,
+                title: issueTitle,
+                body: issueBody
+              });
+              console.log(`Updated existing issue #${issueNumber}`);
+            } else {
+              // Create new issue
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: issueTitle,
+                body: issueBody,
+                labels: ['citation-validation', 'bug']
+              });
+              console.log('Created new issue for citation validation failure');
+            }

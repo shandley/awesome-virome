@@ -1,0 +1,170 @@
+name: iCite Citation Data Collection
+
+on:
+  # Run weekly to update citation data
+  schedule:
+    - cron: "0 0 * * 0"  # Every Sunday at midnight UTC
+  
+  # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      force_refresh:
+        description: 'Force refresh of all citation data'
+        type: boolean
+        default: false
+
+# Permissions needed for creating changes
+permissions:
+  contents: write
+
+jobs:
+  collect-citation-data:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+      
+      - name: Create logs directory
+        run: |
+          mkdir -p logs
+          mkdir -p metadata/citations
+      
+      - name: Collect citation data from iCite
+        id: collection
+        run: |
+          echo "Starting iCite citation data collection..."
+          python scripts/citation_core/citation_collector.py --output metadata/citations
+          echo "Citation data collection complete."
+      
+      - name: Build impact_data.json
+        run: |
+          echo "Building impact_data.json from citation data..."
+          python scripts/citation_core/impact_data_builder.py --citations metadata/citations
+          echo "Impact data building complete."
+      
+      - name: Validate impact data
+        run: |
+          echo "Validating impact_data.json..."
+          python -c "
+          import json
+          import sys
+          
+          # Load impact data
+          with open('impact_data.json', 'r') as f:
+              data = json.load(f)
+          
+          # Perform validation
+          required_fields = ['last_updated', 'tools', 'total_tools', 'tools_with_citations', 'total_citations']
+          missing = [field for field in required_fields if field not in data]
+          
+          if missing:
+              print(f'Error: Missing required fields: {missing}')
+              sys.exit(1)
+          
+          # Check tool count
+          if len(data['tools']) != data['total_tools']:
+              print(f'Error: Tool count mismatch. tools array has {len(data["tools"])} items but total_tools is {data["total_tools"]}')
+              sys.exit(1)
+          
+          # Check citation counts
+          total_citations = sum(tool.get('total_citations', 0) for tool in data['tools'])
+          if total_citations != data['total_citations']:
+              print(f'Error: Citation count mismatch. Sum of tool citations is {total_citations} but total_citations is {data["total_citations"]}')
+              sys.exit(1)
+          
+          # Check for synthetic data
+          for tool in data['tools']:
+              if tool.get('citation_source') not in ['icite', 'none']:
+                  print(f'Error: Invalid citation source {tool.get("citation_source")} for tool {tool.get("name")}')
+                  sys.exit(1)
+          
+          print('Validation successful!')
+          "
+          echo "Impact data validation complete."
+      
+      - name: Generate citation report
+        run: |
+          echo "Generating citation report..."
+          python -c "
+          import json
+          import os
+          from datetime import datetime
+          
+          # Load impact data
+          with open('impact_data.json', 'r') as f:
+              data = json.load(f)
+          
+          # Create report content
+          report = [
+              '# Citation Data Report',
+              '',
+              f'Generated: {datetime.now().strftime(\"%Y-%m-%d %H:%M:%S\")}',
+              '',
+              '## Summary',
+              '',
+              f'- **Total Tools**: {data[\"total_tools\"]}',
+              f'- **Tools with Citations**: {data[\"tools_with_citations\"]} ({data[\"tools_with_citations\"]/data[\"total_tools\"]*100:.1f}%)',
+              f'- **Total Citations**: {data[\"total_citations\"]:,}',
+              f'- **Average Citations per Tool**: {data[\"average_citations\"]}',
+              '',
+              '## Top 10 Most Cited Tools',
+              ''
+          ]
+          
+          # Add top 10 most cited tools
+          for i, tool in enumerate(sorted(data['tools'], key=lambda x: x.get('total_citations', 0), reverse=True)[:10]):
+              citations = tool.get('total_citations', 0)
+              if citations > 0:
+                  report.append(f'{i+1}. **{tool[\"name\"]}** - {citations:,} citations')
+          
+          report.append('')
+          report.append('## Citation Source')
+          report.append('')
+          report.append(f'All citation data is from **iCite API** ({data[\"citation_sources\"][\"total_citations\"][\"icite\"]} tools)')
+          report.append('')
+          
+          # Write report to file
+          os.makedirs('reports', exist_ok=True)
+          with open('reports/citation_report.md', 'w') as f:
+              f.write('\\n'.join(report))
+          
+          print('Citation report generated successfully!')
+          "
+          echo "Citation report generation complete."
+      
+      - name: Commit changes
+        id: commit
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          git add metadata/citations/ impact_data.json reports/citation_report.md
+          
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update citation data from iCite [skip ci]" -m "Updated citation data using the NIH iCite API with real citation counts only"
+            git push
+            echo "Citation data updated successfully"
+          fi
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: citation-data
+          path: |
+            metadata/citations/
+            impact_data.json
+            reports/citation_report.md
+            logs/

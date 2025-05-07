@@ -1,0 +1,167 @@
+name: Test All Citation Sources
+
+on:
+  workflow_dispatch:  # Allow manual triggering
+  schedule:
+    - cron: '0 0 * * 0'  # Run weekly on Sunday at midnight
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'scripts/citation_system/**'
+      - '.github/workflows/citation-*.yml'
+
+jobs:
+  test-all-citation-sources:
+    runs-on: ubuntu-latest
+    
+    env:
+      # Default configuration with all sources enabled if secrets are available
+      ICITE_ENABLED: true
+      ICITE_RATE_LIMIT: 10.0
+      SCOPUS_ENABLED: ${{ secrets.SCOPUS_API_KEY != '' }}
+      SCOPUS_API_KEY: ${{ secrets.SCOPUS_API_KEY }}
+      SCOPUS_INSTITUTIONAL_TOKEN: ${{ secrets.SCOPUS_INSTITUTIONAL_TOKEN }}
+      WOS_ENABLED: ${{ secrets.WOS_API_KEY != '' && secrets.WOS_API_SECRET != '' }}
+      WOS_API_KEY: ${{ secrets.WOS_API_KEY }}
+      WOS_API_SECRET: ${{ secrets.WOS_API_SECRET }}
+      CACHE_ENABLED: true
+      
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r scripts/citation_system/requirements.txt
+          
+      - name: Check status of citation sources
+        run: |
+          echo "iCite Enabled: $ICITE_ENABLED"
+          echo "Scopus Enabled: $SCOPUS_ENABLED"
+          echo "Web of Science Enabled: $WOS_ENABLED"
+          
+          if [ "$SCOPUS_ENABLED" = "true" ] && [ -n "$SCOPUS_INSTITUTIONAL_TOKEN" ]; then
+            echo "Scopus Institutional Access: Available"
+          elif [ "$SCOPUS_ENABLED" = "true" ]; then
+            echo "Scopus Institutional Access: Not Available"
+          fi
+          
+          # List available citation sources
+          python -m scripts.citation_system.collect_citations sources
+      
+      - name: Run unit tests for all clients
+        run: |
+          # Run all client unit tests
+          python -m unittest discover -s scripts/citation_system/tests -p "test_*_client.py"
+        
+      - name: Test iCite integration (always available)
+        run: |
+          # Test with a known DOI that should be in iCite
+          python -m scripts.citation_system.collect_citations test icite 10.1038/s41586-020-2008-3
+          
+      - name: Test Scopus integration
+        if: env.SCOPUS_ENABLED == 'true'
+        run: |
+          # Test with a known DOI that should be in Scopus
+          python -m scripts.citation_system.collect_citations test scopus 10.1093/bioinformatics/btab213
+          
+      - name: Test Web of Science integration
+        if: env.WOS_ENABLED == 'true'
+        run: |
+          # Test with a known DOI that should be in Web of Science
+          python -m scripts.citation_system.collect_citations test wos 10.1093/bioinformatics/btab213
+          
+      - name: Test aggregator with multiple sources
+        run: |
+          # Test aggregation across enabled sources
+          python -c "
+          import logging
+          logging.basicConfig(level=logging.INFO)
+          from scripts.citation_system.collectors.citation_aggregator import CitationAggregator
+          from scripts.citation_system.api.citation_registry import get_available_sources, get_prioritized_sources
+          
+          # List available sources
+          sources = get_available_sources()
+          print(f'Available citation sources: {sources}')
+          
+          # List prioritized sources
+          prioritized = get_prioritized_sources()
+          print(f'Prioritized citation sources: {prioritized}')
+          
+          # Test aggregation on a well-known DOI
+          aggregator = CitationAggregator()
+          result = aggregator.collect_citations('10.1038/s41586-020-2008-3')
+          
+          # Print results
+          print(f'Citation count: {result.get(\"total_citations\")}')
+          print(f'Primary source: {result.get(\"primary_source\")}')
+          if 'yearly_data_source' in result:
+              print(f'Yearly data source: {result.get(\"yearly_data_source\")}')
+              print(f'Years with data: {list(result.get(\"citations_by_year\", {}).keys())}')
+          "
+          
+      - name: Run citation collection test with all sources
+        run: |
+          # Test collection with multiple DOIs
+          python -m scripts.citation_system.collect_citations collect --test --limit 10
+          
+      - name: Validate impact data
+        run: |
+          # Check that impact_data.json was created
+          if [ ! -f impact_data.json ]; then
+            echo "Error: impact_data.json was not created!"
+            exit 1
+          fi
+          
+          # Check structure and data quality
+          python -c "
+          import json
+          import os
+          
+          with open('impact_data.json', 'r') as f:
+              data = json.load(f)
+              
+          # Basic validation
+          assert 'last_updated' in data, 'Missing last_updated field'
+          assert 'tools' in data, 'Missing tools field'
+          assert 'total_tools' in data, 'Missing total_tools field'
+          assert 'tools_with_citations' in data, 'Missing tools_with_citations field'
+          assert 'total_citations' in data, 'Missing total_citations field'
+          
+          # Log citation sources used
+          citation_sources = set()
+          yearly_sources = set()
+          tools_with_yearly = 0
+          
+          for tool in data.get('tools', []):
+              if tool.get('primary_source'):
+                  citation_sources.add(tool.get('primary_source'))
+              if tool.get('yearly_data_source'):
+                  yearly_sources.add(tool.get('yearly_data_source'))
+                  tools_with_yearly += 1
+          
+          print(f'Total tools: {data[\"total_tools\"]}')
+          print(f'Tools with citations: {data[\"tools_with_citations\"]}')
+          print(f'Total citations: {data[\"total_citations\"]}')
+          print(f'Citation sources used: {citation_sources}')
+          print(f'Yearly data sources used: {yearly_sources}')
+          print(f'Tools with yearly citation data: {tools_with_yearly}')
+          "
+          
+      - name: Upload impact data as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-sources-impact-data
+          path: impact_data.json
+          
+      - name: Upload logs as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-sources-logs
+          path: logs/
