@@ -1,12 +1,12 @@
 {
-  "cache_date": "2025-05-11T08:28:04.248534",
+  "cache_date": "2025-06-15T08:28:35.971429",
   "data": [
     {
-      "url": "https://api.github.com/repos/WrightonLabCSU/DRAM/releases/210001282",
-      "assets_url": "https://api.github.com/repos/WrightonLabCSU/DRAM/releases/210001282/assets",
-      "upload_url": "https://uploads.github.com/repos/WrightonLabCSU/DRAM/releases/210001282/assets{?name,label}",
-      "html_url": "https://github.com/WrightonLabCSU/DRAM/releases/tag/v2.0.0-beta6",
-      "id": 210001282,
+      "url": "https://api.github.com/repos/WrightonLabCSU/DRAM/releases/224662323",
+      "assets_url": "https://api.github.com/repos/WrightonLabCSU/DRAM/releases/224662323/assets",
+      "upload_url": "https://uploads.github.com/repos/WrightonLabCSU/DRAM/releases/224662323/assets{?name,label}",
+      "html_url": "https://github.com/WrightonLabCSU/DRAM/releases/tag/v2.0.0-beta11",
+      "id": 224662323,
       "author": {
         "login": "madeline-scyphers",
         "id": 93053005,
@@ -28,18 +28,18 @@
         "user_view_type": "public",
         "site_admin": false
       },
-      "node_id": "RE_kwDOCiVGq84MhF2C",
-      "tag_name": "v2.0.0-beta6",
+      "node_id": "RE_kwDOCiVGq84NZBMz",
+      "tag_name": "v2.0.0-beta11",
       "target_commitish": "dev",
-      "name": "v2.0.0-beta6 Release ",
+      "name": "v2.0.0-beta11",
       "draft": false,
       "prerelease": true,
-      "created_at": "2025-04-03T04:48:55Z",
-      "published_at": "2025-04-03T04:57:16Z",
+      "created_at": "2025-06-11T16:16:16Z",
+      "published_at": "2025-06-11T16:17:44Z",
       "assets": [],
-      "tarball_url": "https://api.github.com/repos/WrightonLabCSU/DRAM/tarball/v2.0.0-beta6",
-      "zipball_url": "https://api.github.com/repos/WrightonLabCSU/DRAM/zipball/v2.0.0-beta6",
-      "body": "## What's Changed\r\n* Replace sample with input_fasta for output by @madeline-scyphers in https://github.com/WrightonLabCSU/DRAM/pull/404\r\n* Changing rename to run all fasta at once instead of 1 at a time by @madeline-scyphers in https://github.com/WrightonLabCSU/DRAM/pull/406\r\n* Package/refactor for older nextflow by @madeline-scyphers in https://github.com/WrightonLabCSU/DRAM/pull/407\r\n* Docs/update docs for new refactor by @madeline-scyphers in https://github.com/WrightonLabCSU/DRAM/pull/409\r\n* Package/restructure to nf core style by @madeline-scyphers in https://github.com/WrightonLabCSU/DRAM/pull/410\r\n\r\n# BREAKING\r\n\r\nOld DRAM2 config no longer works, please replace with new DRAM2 config\r\n\r\n# Summary\r\n\r\nMove to [nf-core](https://nf-co.re) style nextflow structure. Allowing more flexibility, easier user deployment on different HPC environments and easier user customization (such as customizing memory and time per job easier). Other benefits include a community of support, developed Nextflow tools and plugins that we can and are now tapping to. Easier testing. Already written instition HPC configs, and more.\r\n\r\n- [Add nf-core assets for slack report emails, etc.](https://github.com/WrightonLabCSU/DRAM/commit/f6ffbb2848048a63ed86f0ea7db38042d7f5a7e7)\r\n- [Simplify annotate NF workflow](https://github.com/WrightonLabCSU/DRAM/commit/3b625a8021d6d2a5ae05cbebaa7aad9cdcf2f66d)\r\n- [Replace sample with input_fasta for output](https://github.com/WrightonLabCSU/DRAM/commit/e61535daeeb20f81e875c2359a4931104f4e2820) \r\nin DRAM 1, output (like raw-annotations) like had the column fasta\r\nin DRAM 2 it was renamed to sample, which is incorrect since it isn't\r\nthe sample, it is the fasta. Reverting it to fasta like in DRAM 1\r\nis a bit more logistically difficult because a large number of\r\nnf processes (nf functions), and some python files use fasta\r\nfor the fastas file paths. So replacing sample with fasta\r\nwould cause collisions, and therefore we would need to first\r\nreplace all fasta keyworks with something like fasta_path\r\nand then all sample with fasta. This route was easier\r\nand probably less likely to introduce bugs.\r\n- [Changing rename to run all fasta at once instead of 1 at a time](https://github.com/WrightonLabCSU/DRAM/commit/2c3445195332cb8bff675f3d43d5579d3d3d5a13) \r\nrename currently runs 1 fasta at a time which means for  things\r\nlike slurm it submits 1 job per fasta. rename takes in the realm\r\nof seconds. It is much more efficient to batch them together.\r\n- [downgrade nf-schema to 2.0.1 so nextflow can be down to 23 or even 22\u2026](https://github.com/WrightonLabCSU/DRAM/commit/2033031709749b4e532cc40daa2448a0035425d0) \r\n\u2026 something so known users stuck on 23.something can use DRAM 2\r\n- [Update rename for dependencies](https://github.com/WrightonLabCSU/DRAM/commit/e7a61a562638635716b53a9a7fe5198fad87a83e)\r\n- [Update modules code to include wave seqera container](https://github.com/WrightonLabCSU/DRAM/commit/cc9b372f1aae59fa94aabcef3944d4d37e6077e2) \r\nusing wave-cli, with cmd\r\nfor every module in modules/local, then adding the outputted url to\r\ncontainer outputer.url for the modules nextflow script, under the conda line.\r\nThis allows users to not just use conda, but also containers, and we don't have to build them\r\nIdeally this would be added to a CI, but I haven't see where nf-core is doing that with a CI yet.\r\n- [Add kegg formatting option](https://github.com/WrightonLabCSU/DRAM/commit/45bb6dfa5c421679840e861a4faf8b3b8e5664db)\r\n- [Add processes to modules.conf](https://github.com/WrightonLabCSU/DRAM/commit/518c1dfc5760a940b34241f468f8e25cef61a724) \r\nAdd processes to modules.conf to add publishDir information so they output\r\ntheir contents where I want them to.\r\nAlso added process labels to processes so that NF knows cpus, memory, and time\r\nlimits to give different processes.\r\n- [Add slurm option to launch with slurm executor](https://github.com/WrightonLabCSU/DRAM/commit/a55cddf07936762cb980e16fcc9a4b2e136092b8)\r\n- [Update README with some basic install instructions](https://github.com/WrightonLabCSU/DRAM/commit/0db581c820b5dabe41a5fb6469557f7e1f6b276c)\r\n\r\n\r\n**Full Changelog**: https://github.com/WrightonLabCSU/DRAM/compare/v2.0.0-beta5...v2.0.0-beta6",
+      "tarball_url": "https://api.github.com/repos/WrightonLabCSU/DRAM/tarball/v2.0.0-beta11",
+      "zipball_url": "https://api.github.com/repos/WrightonLabCSU/DRAM/zipball/v2.0.0-beta11",
+      "body": "## What's Changed\r\n* Add slurm_node config option (nodelist) by @madeline-scyphers in https://github.com/WrightonLabCSU/DRAM/pull/429\r\n\r\n\r\n**Full Changelog**: https://github.com/WrightonLabCSU/DRAM/compare/v2.0.0-beta10...v2.0.0-beta11\r\n\r\nQuick release to allow slurm nodelist to be directly in the configuration without having to write a custom slurm.config",
       "mentions_count": 1
     }
   ]
