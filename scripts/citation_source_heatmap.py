@@ -82,6 +82,16 @@ def get_source_data(impact_data: Dict[str, Any]) -> Tuple[pd.DataFrame, Dict[str
         citation_source = tool.get('citation_source') or tool.get('primary_source')
         yearly_source = tool.get('yearly_citation_source') or tool.get('yearly_data_source')
         
+        # Handle missing attribution - we need to add it
+        # This allows the visualization to work even if attribution was not added
+        if not citation_source:
+            citation_source = "icite"  # Default source
+            logger.warning(f"Missing citation source for {name}, using default: {citation_source}")
+            
+        if not yearly_source and tool.get('citations_by_year'):
+            yearly_source = citation_source  # Use the same source as citation count
+            logger.warning(f"Missing yearly citation source for {name}, using: {yearly_source}")
+        
         # Standardize source names
         if citation_source and citation_source.lower() in [s.lower() for s in KNOWN_SOURCES]:
             citation_source = next(s for s in KNOWN_SOURCES if s.lower() == citation_source.lower())
@@ -110,6 +120,13 @@ def get_source_data(impact_data: Dict[str, Any]) -> Tuple[pd.DataFrame, Dict[str
     
     # Convert to DataFrame
     df = pd.DataFrame(data)
+    
+    if df.empty:
+        logger.warning("No citation data found with attribution - visualization will be empty")
+    else:
+        logger.info(f"Found {len(df)} tools with citation data for visualization")
+        logger.info(f"Citation sources: {df['Citation Source'].value_counts().to_dict()}")
+    
     return df, categories
 
 

@@ -8,6 +8,7 @@ on:
     paths:
       - 'impact_data.json'
       - 'scripts/citation_source_heatmap.py'
+      - 'scripts/add_citation_attribution.py'
 
 jobs:
   generate-visualizations:
@@ -27,6 +28,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       
+      - name: Add source attribution if missing
+        run: |
+          echo "Running citation attribution script..."
+          python scripts/add_citation_attribution.py
+          
+          # Verify attribution was added
+          echo "Checking for attribution fields in impact_data.json..."
+          if grep -q "citation_source" impact_data.json; then
+            echo "Attribution added successfully"
+          else
+            echo "Warning: Attribution fields not found in impact_data.json"
+            # Continue anyway to generate visualizations with defaults
+          fi
+          
       - name: Generate citation source visualizations
         run: python scripts/citation_source_heatmap.py
       
