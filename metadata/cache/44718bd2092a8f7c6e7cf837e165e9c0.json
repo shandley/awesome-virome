@@ -1,9 +1,326 @@
 {
-  "cache_date": "2025-05-01T09:58:16.345185",
+  "cache_date": "2025-08-01T11:58:10.053103",
   "data": [
     {
+      "created": "2025-07-04T21:24:08.422604+00:00",
+      "modified": "2025-07-04T21:29:45.840001+00:00",
+      "id": 15809334,
+      "conceptrecid": "14876709",
+      "doi": "10.5281/zenodo.15809334",
+      "conceptdoi": "10.5281/zenodo.14876709",
+      "doi_url": "https://doi.org/10.5281/zenodo.15809334",
+      "metadata": {
+        "title": "Combined antibiogram dataset from NCBI, ENA, BV-BRC, and more",
+        "doi": "10.5281/zenodo.15809334",
+        "publication_date": "2025-07-04",
+        "description": "<p>The <strong>antibiograms.tsv.zip</strong> dataset collects antibiograms found in NCBI, ENA and BV-BRC. Each row corresponds to an antibiotic susceptibility test (AST) for a given sample against a specific antibiotic. The dataset is a table with 14 columns:</p>\n<ol>\n<li><strong>biosample</strong>. A unique identifier for the sample from the <a href=\"https://ncbi.nlm.nih.gov/biosample/\" target=\"_blank\" rel=\"noopener\">NCBI BioSample database</a>.</li>\n<li><strong>sra_biosample</strong>.&nbsp;If given, a space-separated list of sample identifiers from the NCBI SRA Sample Database.</li>\n<li><strong>species</strong>. The species the sample belongs to, and, in some cases, with subspecies information.</li>\n<li><strong>antibiotic</strong>. The name of the antibiotic against which the sample is tested.</li>\n<li><strong>phenotype</strong>. The interpreted phenotype from the AST standard used during testing.</li>\n<li><strong>measurement_sign</strong>. If given, corresponds to the <em>sign</em> of the raw result from the AST. Its interpretation depends on the typing method.</li>\n<li><strong>measurement_value</strong>.&nbsp;If given, corresponds to the <em>value</em> of the raw result from the AST. Its interpretation depends on the typing method.</li>\n<li><strong>measurement_units</strong>. If given, corresponds to the <em>units</em> of the raw result from the AST.</li>\n<li><strong>typing_method</strong>. Name of the technique used for AST.</li>\n<li><strong>typing_platform</strong>. Name of the platform used for AST.</li>\n<li><strong>standard</strong>. Testing standard used for the interpretation of the phenotype.</li>\n<li><strong>genomes</strong>. Space-separated list of genome identifiers from the <a href=\"https://www.ncbi.nlm.nih.gov/datasets/genome/\" target=\"_blank\" rel=\"noopener\">NCBI Genome Database</a> (starting with <code>GCA_</code> or <code>GCF_</code>), the <a href=\"https://www.bv-brc.org/view/Bacteria/2\" target=\"_blank\" rel=\"noopener\">BV-BRC Genome Database</a> (starting with <code>BVBRC_</code>), or the <a href=\"https://ftp.sra.ebi.ac.uk/\" target=\"_blank\" rel=\"noopener\">ENA FTP Site</a> (starting with <code>ftp://ftp.sra.ebi.ac.uk/vol1/analysis/</code>).</li>\n<li><strong>reads</strong>. Space-separated list of read run identifiers from the <a href=\"https://www.ncbi.nlm.nih.gov/sra\" target=\"_blank\" rel=\"noopener\">NCBI SRA database</a>.</li>\n<li><strong>read_type</strong>. Space-separated list with the same length as the reads column, storing the type of read of each corresponding read run.</li>\n</ol>\n<p>The&nbsp;<strong>gn-genomes.zip</strong> file contains some extra genomes with associated AST metadata found in&nbsp;<strong>metadata.xlsx</strong> file within it.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Pashkov, Anton",
+            "affiliation": "Universidad Nacional Aut\u00f3noma de M\u00e9xico",
+            "orcid": "0009-0005-7232-4375"
+          },
+          {
+            "name": "Aguilar, C\u00e9sar",
+            "affiliation": "Purdue University West Lafayette",
+            "orcid": "0000-0001-7044-2419"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 3,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "14876709"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Combined antibiogram dataset from NCBI, ENA, BV-BRC, and more",
+      "links": {
+        "self": "https://zenodo.org/api/records/15809334",
+        "self_html": "https://zenodo.org/records/15809334",
+        "preview_html": "https://zenodo.org/records/15809334?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15809334",
+        "self_doi": "https://doi.org/10.5281/zenodo.15809334",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15809334",
+        "reserve_doi": "https://zenodo.org/api/records/15809334/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/14876709",
+        "parent_html": "https://zenodo.org/records/14876709",
+        "parent_doi": "https://doi.org/10.5281/zenodo.14876709",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14876709",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15809334/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15809334/sequence/default",
+        "files": "https://zenodo.org/api/records/15809334/files",
+        "media_files": "https://zenodo.org/api/records/15809334/media-files",
+        "archive": "https://zenodo.org/api/records/15809334/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15809334/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15809334/versions/latest",
+        "latest_html": "https://zenodo.org/records/15809334/latest",
+        "versions": "https://zenodo.org/api/records/15809334/versions",
+        "draft": "https://zenodo.org/api/records/15809334/draft",
+        "access_links": "https://zenodo.org/api/records/15809334/access/links",
+        "access_grants": "https://zenodo.org/api/records/15809334/access/grants",
+        "access_users": "https://zenodo.org/api/records/15809334/access/users",
+        "access_request": "https://zenodo.org/api/records/15809334/access/request",
+        "access": "https://zenodo.org/api/records/15809334/access",
+        "communities": "https://zenodo.org/api/records/15809334/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15809334/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15809334/requests"
+      },
+      "updated": "2025-07-04T21:29:45.840001+00:00",
+      "recid": "15809334",
+      "revision": 6,
+      "files": [
+        {
+          "id": "0d3350bb-ed0b-42e6-9c71-1bb9ef5174be",
+          "key": "antibiograms.tsv.zip",
+          "size": 9618908,
+          "checksum": "md5:ff8234420e3cafa64e148b7ea6a2fa8f",
+          "links": {
+            "self": "https://zenodo.org/api/records/15809334/files/antibiograms.tsv.zip/content"
+          }
+        },
+        {
+          "id": "c00bf207-5b58-4102-8f94-531856e40d82",
+          "key": "gn-genomes.zip",
+          "size": 169141739,
+          "checksum": "md5:bc7e09cf160463efb243856b3ff36b37",
+          "links": {
+            "self": "https://zenodo.org/api/records/15809334/files/gn-genomes.zip/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "541680"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1035,
+        "unique_downloads": 1030,
+        "views": 106,
+        "unique_views": 86,
+        "version_downloads": 3,
+        "version_unique_downloads": 3,
+        "version_unique_views": 9,
+        "version_views": 10
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-07-03T08:29:02.071708+00:00",
+      "modified": "2025-07-03T08:29:02.736629+00:00",
+      "id": 15755816,
+      "conceptrecid": "14126593",
+      "doi": "10.5281/zenodo.15755816",
+      "conceptdoi": "10.5281/zenodo.14126593",
+      "doi_url": "https://doi.org/10.5281/zenodo.15755816",
+      "metadata": {
+        "title": "BV-BRC Klebsiella pneumoniae AMR Annotations",
+        "doi": "10.5281/zenodo.15755816",
+        "publication_date": "2025-07-03",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Kristina, Kordoca",
+            "affiliation": "University of Cambridge",
+            "orcid": "0009-0000-0033-5386"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 1,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "14126593"
+              }
+            }
+          ]
+        }
+      },
+      "title": "BV-BRC Klebsiella pneumoniae AMR Annotations",
+      "links": {
+        "self": "https://zenodo.org/api/records/15755816",
+        "self_html": "https://zenodo.org/records/15755816",
+        "preview_html": "https://zenodo.org/records/15755816?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15755816",
+        "self_doi": "https://doi.org/10.5281/zenodo.15755816",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15755816",
+        "reserve_doi": "https://zenodo.org/api/records/15755816/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/14126593",
+        "parent_html": "https://zenodo.org/records/14126593",
+        "parent_doi": "https://doi.org/10.5281/zenodo.14126593",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14126593",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15755816/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15755816/sequence/default",
+        "files": "https://zenodo.org/api/records/15755816/files",
+        "media_files": "https://zenodo.org/api/records/15755816/media-files",
+        "archive": "https://zenodo.org/api/records/15755816/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15755816/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15755816/versions/latest",
+        "latest_html": "https://zenodo.org/records/15755816/latest",
+        "versions": "https://zenodo.org/api/records/15755816/versions",
+        "draft": "https://zenodo.org/api/records/15755816/draft",
+        "access_links": "https://zenodo.org/api/records/15755816/access/links",
+        "access_grants": "https://zenodo.org/api/records/15755816/access/grants",
+        "access_users": "https://zenodo.org/api/records/15755816/access/users",
+        "access_request": "https://zenodo.org/api/records/15755816/access/request",
+        "access": "https://zenodo.org/api/records/15755816/access",
+        "communities": "https://zenodo.org/api/records/15755816/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15755816/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15755816/requests"
+      },
+      "updated": "2025-07-03T08:29:02.736629+00:00",
+      "recid": "15755816",
+      "revision": 4,
+      "files": [
+        {
+          "id": "da4950db-79b2-4d8a-a416-da755e47b946",
+          "key": "Kleborate_annotations.csv",
+          "size": 582544,
+          "checksum": "md5:fd103679dcbf807d5d62e0bc08b1974a",
+          "links": {
+            "self": "https://zenodo.org/api/records/15755816/files/Kleborate_annotations.csv/content"
+          }
+        },
+        {
+          "id": "dc8e4fd1-aec2-4790-a85c-0f82b42f78d7",
+          "key": "Kleborate_class_to_columns.csv",
+          "size": 5223,
+          "checksum": "md5:c1fc250b76197c57d035cbe426531bb1",
+          "links": {
+            "self": "https://zenodo.org/api/records/15755816/files/Kleborate_class_to_columns.csv/content"
+          }
+        },
+        {
+          "id": "d03daaf6-b208-4c34-b3a5-9b4f1efed60a",
+          "key": "SraX_annotations.csv",
+          "size": 10680879,
+          "checksum": "md5:3dfbaf42268159ab93196945f8c16ff2",
+          "links": {
+            "self": "https://zenodo.org/api/records/15755816/files/SraX_annotations.csv/content"
+          }
+        },
+        {
+          "id": "26ec72ff-c474-4e00-99ee-f0f2a912792b",
+          "key": "RGI_annotations.csv",
+          "size": 26166294,
+          "checksum": "md5:790ee44cc195bbfc66fbbe011dbc4987",
+          "links": {
+            "self": "https://zenodo.org/api/records/15755816/files/RGI_annotations.csv/content"
+          }
+        },
+        {
+          "id": "b4faf3d6-7597-4181-87d1-cc2254071b24",
+          "key": "Drugs_per_class.csv",
+          "size": 2315,
+          "checksum": "md5:0c103907ea061ac99eb6bd4ba3383f63",
+          "links": {
+            "self": "https://zenodo.org/api/records/15755816/files/Drugs_per_class.csv/content"
+          }
+        },
+        {
+          "id": "2719f841-0824-4205-ac45-f32a224ca737",
+          "key": "Supplementary Table 4.xlsx",
+          "size": 165232,
+          "checksum": "md5:caec344508148e06d7de97c105dbb559",
+          "links": {
+            "self": "https://zenodo.org/api/records/15755816/files/Supplementary Table 4.xlsx/content"
+          }
+        },
+        {
+          "id": "c9218f11-ee03-428d-8dcc-d86d82ae962c",
+          "key": "Abricate_annotations.csv",
+          "size": 10430459,
+          "checksum": "md5:e8d90e89700c855e102738ae0e2eaee5",
+          "links": {
+            "self": "https://zenodo.org/api/records/15755816/files/Abricate_annotations.csv/content"
+          }
+        },
+        {
+          "id": "f5fff09b-44a0-4575-be9b-92b24e803bfa",
+          "key": "DeepARG_annotations.csv",
+          "size": 8849451,
+          "checksum": "md5:8736ed7273371abdd15adc5119c2e8cb",
+          "links": {
+            "self": "https://zenodo.org/api/records/15755816/files/DeepARG_annotations.csv/content"
+          }
+        },
+        {
+          "id": "d3502e94-9106-4b11-8e71-700368ab17b9",
+          "key": "AMRFinder_annotations.csv",
+          "size": 6480189,
+          "checksum": "md5:c278a218bee886f3119d59807cb64bc0",
+          "links": {
+            "self": "https://zenodo.org/api/records/15755816/files/AMRFinder_annotations.csv/content"
+          }
+        },
+        {
+          "id": "47674e74-858b-4b06-8676-aaf866d941b6",
+          "key": "Star_annotations.csv",
+          "size": 7130019,
+          "checksum": "md5:958e0917da441a81281c4ee67429b354",
+          "links": {
+            "self": "https://zenodo.org/api/records/15755816/files/Star_annotations.csv/content"
+          }
+        },
+        {
+          "id": "955b58d7-5335-41f1-b7e7-59568ecdd1b2",
+          "key": "ResFinder_annotations.csv",
+          "size": 4478278,
+          "checksum": "md5:11017c7397950b65f21de0bcb9cd9764",
+          "links": {
+            "self": "https://zenodo.org/api/records/15755816/files/ResFinder_annotations.csv/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1219047"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 189,
+        "unique_downloads": 171,
+        "views": 68,
+        "unique_views": 62,
+        "version_downloads": 4,
+        "version_unique_downloads": 2,
+        "version_unique_views": 1,
+        "version_views": 2
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
       "created": "2025-04-28T11:53:08.447195+00:00",
-      "modified": "2025-04-28T11:53:08.596673+00:00",
+      "modified": "2025-05-05T07:28:41.229207+00:00",
       "id": 15296232,
       "conceptrecid": "15296231",
       "doi": "10.5281/zenodo.15296232",
@@ -18,7 +335,8 @@
         "creators": [
           {
             "name": "Ossetek, Kilian",
-            "affiliation": "Friedrich Schiller University Jena"
+            "affiliation": "Friedrich Schiller University Jena",
+            "orcid": "0009-0007-0313-2593"
           },
           {
             "name": "Saghaei, Shahram",
@@ -81,6 +399,7 @@
         "doi": "https://doi.org/10.5281/zenodo.15296232",
         "self_doi": "https://doi.org/10.5281/zenodo.15296232",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15296232",
+        "reserve_doi": "https://zenodo.org/api/records/15296232/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/15296231",
         "parent_html": "https://zenodo.org/records/15296231",
         "parent_doi": "https://doi.org/10.5281/zenodo.15296231",
@@ -95,7 +414,6 @@
         "latest_html": "https://zenodo.org/records/15296232/latest",
         "versions": "https://zenodo.org/api/records/15296232/versions",
         "draft": "https://zenodo.org/api/records/15296232/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15296232/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/15296232/access/links",
         "access_grants": "https://zenodo.org/api/records/15296232/access/grants",
         "access_users": "https://zenodo.org/api/records/15296232/access/users",
@@ -105,9 +423,9 @@
         "communities-suggestions": "https://zenodo.org/api/records/15296232/communities-suggestions",
         "requests": "https://zenodo.org/api/records/15296232/requests"
       },
-      "updated": "2025-04-28T11:53:08.596673+00:00",
+      "updated": "2025-05-05T07:28:41.229207+00:00",
       "recid": "15296232",
-      "revision": 4,
+      "revision": 6,
       "files": [],
       "swh": {},
       "owners": [
@@ -117,384 +435,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 2,
-        "unique_downloads": 2,
-        "views": 5,
-        "unique_views": 5,
-        "version_downloads": 2,
-        "version_unique_downloads": 2,
-        "version_unique_views": 5,
-        "version_views": 5
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-02-25T00:01:11.880608+00:00",
-      "modified": "2025-02-25T00:01:12.072318+00:00",
-      "id": 14920612,
-      "conceptrecid": "14876709",
-      "doi": "10.5281/zenodo.14920612",
-      "conceptdoi": "10.5281/zenodo.14876709",
-      "doi_url": "https://doi.org/10.5281/zenodo.14920612",
-      "metadata": {
-        "title": "Combined antibiogram dataset from NCBI, ENA, BV-BRC, and more",
-        "doi": "10.5281/zenodo.14920612",
-        "publication_date": "2025-02-24",
-        "description": "<p>The <strong>antibiograms.tsv.zip</strong> dataset collects antibiograms found in NCBI, ENA and BV-BRC. Each row corresponds to an antibiotic susceptibility test (AST) for a given sample against a specific antibiotic. The dataset is a table with 13 columns:</p>\n<ol>\n<li><strong>biosample</strong>. A unique identifier for the sample from the <a href=\"https://ncbi.nlm.nih.gov/biosample/\" target=\"_blank\" rel=\"noopener\">NCBI BioSample database</a>.</li>\n<li><strong>species</strong>. The species the sample belongs to, and, in some cases, with subspecies information.</li>\n<li><strong>antibiotic</strong>. The name of the antibiotic against which the sample is tested.</li>\n<li><strong>phenotype</strong>. The interpreted phenotype from the AST standard used during testing.</li>\n<li><strong>measurement_sign</strong>. If given, corresponds to the <em>sign</em> of the raw result from the AST. Its interpretation depends on the typing method.</li>\n<li><strong>measurement_value</strong>.&nbsp;If given, corresponds to the <em>value</em> of the raw result from the AST. Its interpretation depends on the typing method.</li>\n<li><strong>measurement_units</strong>. If given, corresponds to the <em>units</em> of the raw result from the AST.</li>\n<li><strong>typing_method</strong>. Name of the technique used for AST.</li>\n<li><strong>typing_platform</strong>. Name of the platform used for AST.</li>\n<li><strong>standard</strong>. Testing standard used for the interpretation of the phenotype.</li>\n<li><strong>genomes</strong>. Space-separated list of genome identifiers from the <a href=\"https://www.ncbi.nlm.nih.gov/datasets/genome/\" target=\"_blank\" rel=\"noopener\">NCBI Genome database</a>.</li>\n<li><strong>reads</strong>. Space-separated list of read run identifiers from the <a href=\"https://www.ncbi.nlm.nih.gov/sra\" target=\"_blank\" rel=\"noopener\">NCBI SRA database</a>.</li>\n<li><strong>read_type</strong>. Space-separated list with the same length as the reads column, storing the type of read of each corresponding read run.</li>\n</ol>\n<p>The&nbsp;<strong>gn-genomes.zip</strong> file contains some extra genomes with associated AST metadata found in&nbsp;<strong>metadata.xlsx</strong> file within it.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Pashkov, Anton",
-            "affiliation": "Universidad Nacional Aut\u00f3noma de M\u00e9xico",
-            "orcid": "0009-0005-7232-4375"
-          },
-          {
-            "name": "Aguilar, C\u00e9sar",
-            "affiliation": "Purdue University West Lafayette",
-            "orcid": "0000-0001-7044-2419"
-          }
-        ],
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 2,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "14876709"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Combined antibiogram dataset from NCBI, ENA, BV-BRC, and more",
-      "links": {
-        "self": "https://zenodo.org/api/records/14920612",
-        "self_html": "https://zenodo.org/records/14920612",
-        "preview_html": "https://zenodo.org/records/14920612?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.14920612",
-        "self_doi": "https://doi.org/10.5281/zenodo.14920612",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14920612",
-        "parent": "https://zenodo.org/api/records/14876709",
-        "parent_html": "https://zenodo.org/records/14876709",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14876709",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14876709",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14920612/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14920612/sequence/default",
-        "files": "https://zenodo.org/api/records/14920612/files",
-        "media_files": "https://zenodo.org/api/records/14920612/media-files",
-        "archive": "https://zenodo.org/api/records/14920612/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14920612/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14920612/versions/latest",
-        "latest_html": "https://zenodo.org/records/14920612/latest",
-        "versions": "https://zenodo.org/api/records/14920612/versions",
-        "draft": "https://zenodo.org/api/records/14920612/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14920612/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14920612/access/links",
-        "access_grants": "https://zenodo.org/api/records/14920612/access/grants",
-        "access_users": "https://zenodo.org/api/records/14920612/access/users",
-        "access_request": "https://zenodo.org/api/records/14920612/access/request",
-        "access": "https://zenodo.org/api/records/14920612/access",
-        "communities": "https://zenodo.org/api/records/14920612/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14920612/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14920612/requests"
-      },
-      "updated": "2025-02-25T00:01:12.072318+00:00",
-      "recid": "14920612",
-      "revision": 4,
-      "files": [
-        {
-          "id": "c00bf207-5b58-4102-8f94-531856e40d82",
-          "key": "gn-genomes.zip",
-          "size": 169141739,
-          "checksum": "md5:bc7e09cf160463efb243856b3ff36b37",
-          "links": {
-            "self": "https://zenodo.org/api/records/14920612/files/gn-genomes.zip/content"
-          }
-        },
-        {
-          "id": "08d34a8f-adb2-41cf-a303-647965dc7cc2",
-          "key": "antibiograms.tsv.zip",
-          "size": 7637920,
-          "checksum": "md5:d31ad86b7444cc25827b8f3da806e397",
-          "links": {
-            "self": "https://zenodo.org/api/records/14920612/files/antibiograms.tsv.zip/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "541680"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 107,
-        "unique_downloads": 105,
-        "views": 50,
-        "unique_views": 32,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 3,
-        "version_views": 5
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-02-14T17:15:56.583272+00:00",
-      "modified": "2025-02-14T17:15:57.253725+00:00",
-      "id": 14126594,
-      "conceptrecid": "14126593",
-      "doi": "10.5281/zenodo.14126594",
-      "conceptdoi": "10.5281/zenodo.14126593",
-      "doi_url": "https://doi.org/10.5281/zenodo.14126594",
-      "metadata": {
-        "title": "BV-BRC Klebsiella pneumoniae AMR Annotations",
-        "doi": "10.5281/zenodo.14126594",
-        "publication_date": "2024-11-13",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Kristina, Kordoca",
-            "affiliation": "Cambridge College",
-            "orcid": "0009-0000-0033-5386"
-          }
-        ],
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "14126593"
-              }
-            }
-          ]
-        }
-      },
-      "title": "BV-BRC Klebsiella pneumoniae AMR Annotations",
-      "links": {
-        "self": "https://zenodo.org/api/records/14126594",
-        "self_html": "https://zenodo.org/records/14126594",
-        "preview_html": "https://zenodo.org/records/14126594?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.14126594",
-        "self_doi": "https://doi.org/10.5281/zenodo.14126594",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14126594",
-        "parent": "https://zenodo.org/api/records/14126593",
-        "parent_html": "https://zenodo.org/records/14126593",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14126593",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14126593",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14126594/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14126594/sequence/default",
-        "files": "https://zenodo.org/api/records/14126594/files",
-        "media_files": "https://zenodo.org/api/records/14126594/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:14126594:Supplementary_table_1.png/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:14126594:Supplementary_table_1.png/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:14126594:Supplementary_table_1.png/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:14126594:Supplementary_table_1.png/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:14126594:Supplementary_table_1.png/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:14126594:Supplementary_table_1.png/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/14126594/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14126594/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14126594/versions/latest",
-        "latest_html": "https://zenodo.org/records/14126594/latest",
-        "versions": "https://zenodo.org/api/records/14126594/versions",
-        "draft": "https://zenodo.org/api/records/14126594/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14126594/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14126594/access/links",
-        "access_grants": "https://zenodo.org/api/records/14126594/access/grants",
-        "access_users": "https://zenodo.org/api/records/14126594/access/users",
-        "access_request": "https://zenodo.org/api/records/14126594/access/request",
-        "access": "https://zenodo.org/api/records/14126594/access",
-        "communities": "https://zenodo.org/api/records/14126594/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14126594/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14126594/requests"
-      },
-      "updated": "2025-02-14T17:15:57.253725+00:00",
-      "recid": "14126594",
-      "revision": 4,
-      "files": [
-        {
-          "id": "ec84bba1-93a8-4e59-a175-c0092fd26ba3",
-          "key": "SraX_annotations.csv",
-          "size": 10680879,
-          "checksum": "md5:3dfbaf42268159ab93196945f8c16ff2",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/SraX_annotations.csv/content"
-          }
-        },
-        {
-          "id": "e5511594-ff2a-4be8-9a4c-d8ad95254c22",
-          "key": "Star_annotations.csv",
-          "size": 7130019,
-          "checksum": "md5:958e0917da441a81281c4ee67429b354",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/Star_annotations.csv/content"
-          }
-        },
-        {
-          "id": "74eb8bba-089d-48bb-b3f4-c30f6e525f6a",
-          "key": "Supplementary_table_4.xlsx",
-          "size": 331493,
-          "checksum": "md5:1ca2f06675ddefd183e25527ea86db63",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/Supplementary_table_4.xlsx/content"
-          }
-        },
-        {
-          "id": "c0aaf946-41d5-41ff-912f-e30d5eeebb1b",
-          "key": "Drugs_per_class.csv",
-          "size": 2293,
-          "checksum": "md5:1317884934b747664ccbe5e92b7ceff1",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/Drugs_per_class.csv/content"
-          }
-        },
-        {
-          "id": "7d51e544-e2b8-41f1-ac01-a2e0080cea34",
-          "key": "Supplementary_table_1.png",
-          "size": 198495,
-          "checksum": "md5:4fe4c5ffcd6548c1f51688b81c01721d",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/Supplementary_table_1.png/content"
-          }
-        },
-        {
-          "id": "1682b458-8175-4dae-a664-78d85864ec0f",
-          "key": "concatinated_Kleborate.txt",
-          "size": 1435200,
-          "checksum": "md5:174264e38ca0c75fe9f4ca3bb34c6ef2",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/concatinated_Kleborate.txt/content"
-          }
-        },
-        {
-          "id": "36ca1b7b-4f2f-49ab-b202-2caad15b3786",
-          "key": "Abrikate_annotations.csv",
-          "size": 10430459,
-          "checksum": "md5:e8d90e89700c855e102738ae0e2eaee5",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/Abrikate_annotations.csv/content"
-          }
-        },
-        {
-          "id": "24ec65d3-0be7-4bff-9ed3-043d0d83b892",
-          "key": "ResFinder_annotations.csv",
-          "size": 4478278,
-          "checksum": "md5:11017c7397950b65f21de0bcb9cd9764",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/ResFinder_annotations.csv/content"
-          }
-        },
-        {
-          "id": "a5169474-e965-4265-a924-6816578bd473",
-          "key": "Kleborate_annotations.csv",
-          "size": 582544,
-          "checksum": "md5:fd103679dcbf807d5d62e0bc08b1974a",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/Kleborate_annotations.csv/content"
-          }
-        },
-        {
-          "id": "737d87da-0031-4e25-8efb-39c7e847f7e9",
-          "key": "AMRFinder_annotations.csv",
-          "size": 6480189,
-          "checksum": "md5:c278a218bee886f3119d59807cb64bc0",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/AMRFinder_annotations.csv/content"
-          }
-        },
-        {
-          "id": "794569da-1137-42e6-b2da-20c6479bd0d3",
-          "key": "Patric_AMR_data.csv",
-          "size": 9157096,
-          "checksum": "md5:c6eb3d0723a934c4e18112e9bdfbfa1d",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/Patric_AMR_data.csv/content"
-          }
-        },
-        {
-          "id": "583c9227-2954-40e6-b7aa-7d91bffa167d",
-          "key": "DeepARG_annotations.csv",
-          "size": 8849451,
-          "checksum": "md5:8736ed7273371abdd15adc5119c2e8cb",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/DeepARG_annotations.csv/content"
-          }
-        },
-        {
-          "id": "2ad843b4-44fa-42c7-91e4-e43b7f7e18ed",
-          "key": "RGI_annotations.csv",
-          "size": 26166294,
-          "checksum": "md5:790ee44cc195bbfc66fbbe011dbc4987",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/RGI_annotations.csv/content"
-          }
-        },
-        {
-          "id": "d86e12f9-faae-4d21-836c-179eefaca269",
-          "key": "Supplementary_table_2.png",
-          "size": 319174,
-          "checksum": "md5:19688f58779c4b61a99d2363398bcbea",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/Supplementary_table_2.png/content"
-          }
-        },
-        {
-          "id": "df342cc9-6165-468f-991d-eea08d3260b3",
-          "key": "Supplementary_table_3.png",
-          "size": 1078435,
-          "checksum": "md5:61dd359ad0d2061be829d19fb9ba3887",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/Supplementary_table_3.png/content"
-          }
-        },
-        {
-          "id": "aff79d2b-9a97-4dba-a966-b5fd96f25a0f",
-          "key": "Kleborate_class_to_columns.csv",
-          "size": 5223,
-          "checksum": "md5:c1fc250b76197c57d035cbe426531bb1",
-          "links": {
-            "self": "https://zenodo.org/api/records/14126594/files/Kleborate_class_to_columns.csv/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1219047"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 86,
-        "unique_downloads": 79,
-        "views": 26,
-        "unique_views": 24,
-        "version_downloads": 86,
-        "version_unique_downloads": 79,
-        "version_unique_views": 24,
-        "version_views": 26
+        "downloads": 7,
+        "unique_downloads": 5,
+        "views": 20,
+        "unique_views": 18,
+        "version_downloads": 7,
+        "version_unique_downloads": 5,
+        "version_unique_views": 18,
+        "version_views": 20
       },
       "state": "done",
       "submitted": true
@@ -528,10 +476,10 @@
         },
         "communities": [
           {
-            "id": "eu"
+            "id": "elixir-gr"
           },
           {
-            "id": "elixir-gr"
+            "id": "eu"
           }
         ],
         "relations": {
@@ -555,6 +503,7 @@
         "doi": "https://doi.org/10.5281/zenodo.14654716",
         "self_doi": "https://doi.org/10.5281/zenodo.14654716",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14654716",
+        "reserve_doi": "https://zenodo.org/api/records/14654716/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/14654715",
         "parent_html": "https://zenodo.org/records/14654715",
         "parent_doi": "https://doi.org/10.5281/zenodo.14654715",
@@ -564,12 +513,12 @@
         "files": "https://zenodo.org/api/records/14654716/files",
         "media_files": "https://zenodo.org/api/records/14654716/media-files",
         "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:14654716:AMR_prediction_AMR.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:14654716:AMR_prediction_AMR.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:14654716:AMR_prediction_AMR.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:14654716:AMR_prediction_AMR.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:14654716:AMR_prediction_AMR.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:14654716:AMR_prediction_AMR.pdf/full/^1200,/0/default.jpg"
+          "10": "https://zenodo.org/api/iiif/record:14654716:AMR_prediction_AMR.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:14654716:AMR_prediction_AMR.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:14654716:AMR_prediction_AMR.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:14654716:AMR_prediction_AMR.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:14654716:AMR_prediction_AMR.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:14654716:AMR_prediction_AMR.pdf/full/%5E1200,/0/default.jpg"
         },
         "archive": "https://zenodo.org/api/records/14654716/files-archive",
         "archive_media": "https://zenodo.org/api/records/14654716/media-files-archive",
@@ -577,7 +526,6 @@
         "latest_html": "https://zenodo.org/records/14654716/latest",
         "versions": "https://zenodo.org/api/records/14654716/versions",
         "draft": "https://zenodo.org/api/records/14654716/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14654716/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/14654716/access/links",
         "access_grants": "https://zenodo.org/api/records/14654716/access/grants",
         "access_users": "https://zenodo.org/api/records/14654716/access/users",
@@ -609,14 +557,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 30,
-        "unique_downloads": 26,
-        "views": 70,
-        "unique_views": 67,
-        "version_downloads": 30,
-        "version_unique_downloads": 26,
-        "version_unique_views": 67,
-        "version_views": 70
+        "downloads": 40,
+        "unique_downloads": 36,
+        "views": 76,
+        "unique_views": 73,
+        "version_downloads": 40,
+        "version_unique_downloads": 36,
+        "version_unique_views": 73,
+        "version_views": 76
       },
       "state": "done",
       "submitted": true
@@ -724,6 +672,7 @@
         "doi": "https://doi.org/10.5281/zenodo.14019165",
         "self_doi": "https://doi.org/10.5281/zenodo.14019165",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14019165",
+        "reserve_doi": "https://zenodo.org/api/records/14019165/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/10444557",
         "parent_html": "https://zenodo.org/records/10444557",
         "parent_doi": "https://doi.org/10.5281/zenodo.10444557",
@@ -738,7 +687,6 @@
         "latest_html": "https://zenodo.org/records/14019165/latest",
         "versions": "https://zenodo.org/api/records/14019165/versions",
         "draft": "https://zenodo.org/api/records/14019165/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14019165/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/14019165/access/links",
         "access_grants": "https://zenodo.org/api/records/14019165/access/grants",
         "access_users": "https://zenodo.org/api/records/14019165/access/users",
@@ -851,14 +799,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 25,
-        "unique_downloads": 25,
-        "views": 129,
-        "unique_views": 119,
-        "version_downloads": 22,
-        "version_unique_downloads": 22,
-        "version_unique_views": 33,
-        "version_views": 37
+        "downloads": 48,
+        "unique_downloads": 48,
+        "views": 142,
+        "unique_views": 132,
+        "version_downloads": 45,
+        "version_unique_downloads": 45,
+        "version_unique_views": 43,
+        "version_views": 47
       },
       "state": "done",
       "submitted": true
@@ -912,6 +860,7 @@
         "doi": "https://doi.org/10.5281/zenodo.11226678",
         "self_doi": "https://doi.org/10.5281/zenodo.11226678",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.11226678",
+        "reserve_doi": "https://zenodo.org/api/records/11226678/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/11226677",
         "parent_html": "https://zenodo.org/records/11226677",
         "parent_doi": "https://doi.org/10.5281/zenodo.11226677",
@@ -926,7 +875,6 @@
         "latest_html": "https://zenodo.org/records/11226678/latest",
         "versions": "https://zenodo.org/api/records/11226678/versions",
         "draft": "https://zenodo.org/api/records/11226678/draft",
-        "reserve_doi": "https://zenodo.org/api/records/11226678/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/11226678/access/links",
         "access_grants": "https://zenodo.org/api/records/11226678/access/grants",
         "access_users": "https://zenodo.org/api/records/11226678/access/users",
@@ -967,14 +915,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 17,
-        "unique_downloads": 9,
-        "views": 46,
-        "unique_views": 39,
-        "version_downloads": 17,
-        "version_unique_downloads": 9,
-        "version_unique_views": 39,
-        "version_views": 46
+        "downloads": 20,
+        "unique_downloads": 11,
+        "views": 49,
+        "unique_views": 42,
+        "version_downloads": 20,
+        "version_unique_downloads": 11,
+        "version_unique_views": 42,
+        "version_views": 49
       },
       "state": "done",
       "submitted": true
@@ -1028,6 +976,7 @@
         "doi": "https://doi.org/10.5281/zenodo.11210820",
         "self_doi": "https://doi.org/10.5281/zenodo.11210820",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.11210820",
+        "reserve_doi": "https://zenodo.org/api/records/11210820/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/11210819",
         "parent_html": "https://zenodo.org/records/11210819",
         "parent_doi": "https://doi.org/10.5281/zenodo.11210819",
@@ -1042,7 +991,6 @@
         "latest_html": "https://zenodo.org/records/11210820/latest",
         "versions": "https://zenodo.org/api/records/11210820/versions",
         "draft": "https://zenodo.org/api/records/11210820/draft",
-        "reserve_doi": "https://zenodo.org/api/records/11210820/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/11210820/access/links",
         "access_grants": "https://zenodo.org/api/records/11210820/access/grants",
         "access_users": "https://zenodo.org/api/records/11210820/access/users",
@@ -1092,14 +1040,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 19,
-        "unique_downloads": 19,
-        "views": 29,
-        "unique_views": 27,
-        "version_downloads": 19,
-        "version_unique_downloads": 19,
-        "version_unique_views": 27,
-        "version_views": 29
+        "downloads": 39,
+        "unique_downloads": 39,
+        "views": 44,
+        "unique_views": 42,
+        "version_downloads": 39,
+        "version_unique_downloads": 39,
+        "version_unique_views": 42,
+        "version_views": 44
       },
       "state": "done",
       "submitted": true
@@ -1216,6 +1164,7 @@
         "doi": "https://doi.org/10.5281/zenodo.10029976",
         "self_doi": "https://doi.org/10.5281/zenodo.10029976",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10029976",
+        "reserve_doi": "https://zenodo.org/api/records/10029976/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/10029975",
         "parent_html": "https://zenodo.org/records/10029975",
         "parent_doi": "https://doi.org/10.5281/zenodo.10029975",
@@ -1225,12 +1174,12 @@
         "files": "https://zenodo.org/api/records/10029976/files",
         "media_files": "https://zenodo.org/api/records/10029976/media-files",
         "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:10029976:6%20Bioinformatic%20challenge%20on%20prostate.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:10029976:6%20Bioinformatic%20challenge%20on%20prostate.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:10029976:6%20Bioinformatic%20challenge%20on%20prostate.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:10029976:6%20Bioinformatic%20challenge%20on%20prostate.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:10029976:6%20Bioinformatic%20challenge%20on%20prostate.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:10029976:6%20Bioinformatic%20challenge%20on%20prostate.pdf/full/^1200,/0/default.jpg"
+          "10": "https://zenodo.org/api/iiif/record:10029976:6%20Bioinformatic%20challenge%20on%20prostate.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:10029976:6%20Bioinformatic%20challenge%20on%20prostate.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:10029976:6%20Bioinformatic%20challenge%20on%20prostate.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:10029976:6%20Bioinformatic%20challenge%20on%20prostate.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:10029976:6%20Bioinformatic%20challenge%20on%20prostate.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:10029976:6%20Bioinformatic%20challenge%20on%20prostate.pdf/full/%5E1200,/0/default.jpg"
         },
         "archive": "https://zenodo.org/api/records/10029976/files-archive",
         "archive_media": "https://zenodo.org/api/records/10029976/media-files-archive",
@@ -1238,7 +1187,6 @@
         "latest_html": "https://zenodo.org/records/10029976/latest",
         "versions": "https://zenodo.org/api/records/10029976/versions",
         "draft": "https://zenodo.org/api/records/10029976/draft",
-        "reserve_doi": "https://zenodo.org/api/records/10029976/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/10029976/access/links",
         "access_grants": "https://zenodo.org/api/records/10029976/access/grants",
         "access_users": "https://zenodo.org/api/records/10029976/access/users",
@@ -1270,14 +1218,134 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 182,
-        "unique_downloads": 143,
-        "views": 232,
-        "unique_views": 210,
-        "version_downloads": 182,
-        "version_unique_downloads": 143,
-        "version_unique_views": 210,
-        "version_views": 232
+        "downloads": 189,
+        "unique_downloads": 150,
+        "views": 243,
+        "unique_views": 221,
+        "version_downloads": 189,
+        "version_unique_downloads": 150,
+        "version_unique_views": 221,
+        "version_views": 243
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-05-28T15:03:09.319156+00:00",
+      "modified": "2025-06-05T11:42:31.270332+00:00",
+      "id": 15537213,
+      "conceptrecid": "15537212",
+      "doi": "10.5281/zenodo.15537213",
+      "conceptdoi": "10.5281/zenodo.15537212",
+      "doi_url": "https://doi.org/10.5281/zenodo.15537213",
+      "metadata": {
+        "title": "gpaasi/ebolavirus-gl-phylogeography: Hierarchical Patterns of Ebola-Virus Movement: A 1976\u20132025 Multilayered Phylogeographic Analysis",
+        "doi": "10.5281/zenodo.15537213",
+        "publication_date": "2025-05-28",
+        "description": "<p>ABSTRACT\nBackground:\nThe Great-Lakes basin of central Africa experiences recurrent outbreaks of Zaire ebolavirus (ZEBOV) Sudan ebolavirus (SUDV) and Bundibugyo ebolavirus (BDBV) that often cross national borders. However, the long-term reservoir, principal transmission corridors and fine-scale diffusion dynamics remain poorly characterized, limiting the ability to target cross-border surveillance and intervention.\nMethods:\nWe retrieved 151 public Ebolavirus genomes (1976\u20132025) from GenBank and BVBRC, applied QC filters to retain 110-complete genomes (\u226518 000 nt, \u22645 % Ns, dated), and aligned them with MAFFT v7.505 before trimming in AliView v1.28 and trimAl v1.4. A maximum-likelihood scaffold was inferred in IQ-TREE v2.3.5 and temporal signal assessed in TempEst v1.5.3. Time-scaled phylogenies were estimated in BEAST v1.10.5 (HKY+\u03934, uncorrelated log-normal relaxed clock, exponential-growth coalescent; two 100 M-state MCMC, ESS &gt; 200). Discrete phylogeography treated sampling country as a CTMC trait with BSSVS (Poisson \u03bb=6, Exponential \u03bc=1; 300 M MCMC) to compute Bayes factors and Markov-jump counts via SPREAD4. Continuous diffusion of latitude/longitude was modelled under a Cauchy RRW (LogNormal branch variances; uniform root prior; 300 M MCMC with BEAGLE), and MCC trees were visualized interactively in EvoLaps v4.2. Discrete and continuous outputs were overlaid, and robustness was tested by varying HPD mass, jack-knifing (10 % genome removal) and Mantel regressions against environmental rasters.\nResults:\nDiscrete BSSVS identified 11 supported cross-border routes (BF \u2265 3), of which eight were strong (BF \u2265 10). The DRC\u2013Uganda corridor dominated (DFC \u2192 UGA BF=32.1; UGA \u2192 DRC BF=26.4; medians 7.3 and 6.1 jumps; 77 % of all transitions). Secondary links fed Rwanda (DRC \u2192 RWA BF=14.2; UGA \u2192 RWA BF=10.8; medians 4.2 and 3.5 jumps), and a single founder event reached Cameroon/Gabon (BF=6.4; one jump). Continuous RRW diffusion yielded a mean branch rate of 7.9 km year\u207b\u00b9 (95 % HPD: 5.4\u201310.6 km year\u207b\u00b9), wave-front velocity of 57.8 km\u00b7yr\u207b\u00b9 (38.4\u201377.3) and diffusion coefficient 1.4 \u00d7 10\u2074 km\u00b2\u00b7yr\u207b\u00b9 (0.9\u20132.3 \u00d7 10\u2074). Discrete and continuous layers overlapped spatially, confirming corridor concordance.\n\n\n\n\n</p>\n<p>Conclusions:\nEVD in the Great-Lakes region is rooted in an Yambuku-Ituri/Nord-Kivu reservoir and spreads predominantly along a bidirectional DRC\u2013Uganda axis, with secondary spill-overs into Rwanda and rare long-distance exports. The dual discrete-continuous framework coupled with EvoLaps visualization provides a statistically robust, spatially explicit basis for prioritizing cross-border surveillance, ring vaccination and rapid-response efforts along empirically defined transmission corridors.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "gpaasi",
+            "affiliation": null
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/gpaasi/ebolavirus-gl-phylogeography/tree/v1.0.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v1.0.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/gpaasi/ebolavirus-gl-phylogeography"
+        },
+        "resource_type": {
+          "title": "Workflow",
+          "type": "workflow"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15537212"
+              }
+            }
+          ]
+        }
+      },
+      "title": "gpaasi/ebolavirus-gl-phylogeography: Hierarchical Patterns of Ebola-Virus Movement: A 1976\u20132025 Multilayered Phylogeographic Analysis",
+      "links": {
+        "self": "https://zenodo.org/api/records/15537213",
+        "self_html": "https://zenodo.org/records/15537213",
+        "preview_html": "https://zenodo.org/records/15537213?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15537213",
+        "self_doi": "https://doi.org/10.5281/zenodo.15537213",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15537213",
+        "reserve_doi": "https://zenodo.org/api/records/15537213/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/15537212",
+        "parent_html": "https://zenodo.org/records/15537212",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15537212",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15537212",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15537213/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15537213/sequence/default",
+        "files": "https://zenodo.org/api/records/15537213/files",
+        "media_files": "https://zenodo.org/api/records/15537213/media-files",
+        "archive": "https://zenodo.org/api/records/15537213/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15537213/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15537213/versions/latest",
+        "latest_html": "https://zenodo.org/records/15537213/latest",
+        "versions": "https://zenodo.org/api/records/15537213/versions",
+        "draft": "https://zenodo.org/api/records/15537213/draft",
+        "access_links": "https://zenodo.org/api/records/15537213/access/links",
+        "access_grants": "https://zenodo.org/api/records/15537213/access/grants",
+        "access_users": "https://zenodo.org/api/records/15537213/access/users",
+        "access_request": "https://zenodo.org/api/records/15537213/access/request",
+        "access": "https://zenodo.org/api/records/15537213/access",
+        "communities": "https://zenodo.org/api/records/15537213/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15537213/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15537213/requests"
+      },
+      "updated": "2025-06-05T11:42:31.270332+00:00",
+      "recid": "15537213",
+      "revision": 5,
+      "files": [
+        {
+          "id": "c9420ae5-1967-46b5-8c85-ecd2a1fc35dd",
+          "key": "gpaasi/ebolavirus-gl-phylogeography-v1.0.0.zip",
+          "size": 11511634,
+          "checksum": "md5:893f79f625aa01b5ad5244dccd771842",
+          "links": {
+            "self": "https://zenodo.org/api/records/15537213/files/gpaasi/ebolavirus-gl-phylogeography-v1.0.0.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:77d765fb43c6fb2274010d80087c10a6c39fd45c;origin=https://doi.org/10.5281/zenodo.15537212;visit=swh:1:snp:864821c416b59bf41cdf70d513fe5c8deb1be6e2;anchor=swh:1:rel:674a709ea23b77ff959cf7ef802ac34dc0a2d773;path=gpaasi-ebolavirus-gl-phylogeography-1a5e704"
+      },
+      "owners": [
+        {
+          "id": "1329344"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 18,
+        "unique_views": 10,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 10,
+        "version_views": 18
       },
       "state": "done",
       "submitted": true

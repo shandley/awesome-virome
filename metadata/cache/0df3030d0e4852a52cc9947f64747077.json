@@ -1,6 +1,577 @@
 {
-  "cache_date": "2025-05-01T09:57:24.311983",
+  "cache_date": "2025-08-01T11:56:26.486775",
   "data": [
+    {
+      "created": "2025-07-25T14:20:28.490786+00:00",
+      "modified": "2025-07-25T14:20:28.628195+00:00",
+      "id": 16421454,
+      "conceptrecid": "15547393",
+      "doi": "10.5281/zenodo.16421454",
+      "conceptdoi": "10.5281/zenodo.15547393",
+      "doi_url": "https://doi.org/10.5281/zenodo.16421454",
+      "metadata": {
+        "title": "github.com/umccr/cwl-ica/dragen-somatic-with-germline-pipeline_4_2_4",
+        "doi": "10.5281/zenodo.16421454",
+        "publication_date": "2024-11-14",
+        "description": "<h1>dragen-somatic-with-germline-pipeline 4.2.4 workflow</h1>\n<h2>Table of Contents</h2>\n<ul>\n<li><a href=\"#dragen-somatic-with-germline-pipeline-v424-overview\">Overview</a></li>\n<li><a href=\"#visual-workflow-overview\">Visual</a></li>\n<li><a href=\"#related-links\">Links</a></li>\n<li><a href=\"#dragen-somatic-with-germline-pipeline-v424-inputs\">Inputs</a></li>\n<li><a href=\"#dragen-somatic-with-germline-pipeline-v424-steps\">Steps</a></li>\n<li><a href=\"#dragen-somatic-with-germline-pipeline-v424-outputs\">Outputs</a></li>\n<li><a href=\"#ica\">ICA</a></li>\n</ul>\n<h2>dragen-somatic-with-germline-pipeline v(4.2.4) Overview</h2>\n<blockquote>\n<p>ID: dragen-somatic-with-germline-pipeline--4.2.4<br>\nmd5sum: 47a79066959406c485ef5504102a82d4</p>\n</blockquote>\n<h3>dragen-somatic-with-germline-pipeline v(4.2.4) documentation</h3>\n<p>Documentation for dragen-somatic-with-germline-pipeline\nv4.2.4</p>\n<h3>Categories</h3>\n<h2>Visual Workflow Overview</h2>\n<p><a href=\"https://github.com/umccr/cwl-ica/raw/main/.github/catalogue/images/workflows/dragen-somatic-with-germline-pipeline/4.2.4/dragen-somatic-with-germline-pipeline__4.2.4.svg\"></a></p>\n<h2>Related Links</h2>\n<ul>\n<li><a href=\"../../../../../../workflows/dragen-somatic-with-germline-pipeline/4.2.4/dragen-somatic-with-germline-pipeline__4.2.4.cwl\">CWL File Path</a></li>\n</ul>\n<h3>Uses</h3>\n<ul>\n<li><a href=\"../../../tools/custom-touch-file/1.0.0/custom-touch-file__1.0.0.md\">custom-touch-file 1.0.0 :construction:</a></li>\n<li><a href=\"../../../expressions/get-first-non-null-bam-file/1.0.0/get-first-non-null-bam-file__1.0.0.md\">get-first-non-null-bam-file 1.0.0 :construction:</a></li>\n<li><a href=\"../../../tools/dragen-germline/4.2.4/dragen-germline__4.2.4.md\">dragen-germline 4.2.4</a></li>\n<li><a href=\"../../../tools/multiqc/1.14.0/multiqc__1.14.0.md\">multiqc 1.14.0</a></li>\n<li><a href=\"../../../tools/dragen-somatic/4.2.4/dragen-somatic__4.2.4.md\">dragen-somatic 4.2.4</a></li>\n</ul>\n<h2>dragen-somatic-with-germline-pipeline v(4.2.4) Inputs</h2>\n<h3>bam input</h3>\n<blockquote>\n<p>ID: bam_input</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nInput a normal BAM file for the variant calling stage</p>\n<h3>cnv enable self normalization</h3>\n<blockquote>\n<p>ID: cnv_enable_self_normalization</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable CNV self normalization.\nSelf Normalization requires that the DRAGEN hash table be generated with the enable-cnv=true option.</p>\n<h3>cnv normal b allele vcf</h3>\n<blockquote>\n<p>ID: cnv_normal_b_allele_vcf</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nSpecify a matched normal SNV VCF.</p>\n<h3>cnv normal cnv vcf</h3>\n<blockquote>\n<p>ID: cnv_normal_cnv_vcf</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nSpecify germline CNVs from the matched normal sample.</p>\n<h3>cnv population b allele vcf</h3>\n<blockquote>\n<p>ID: cnv_population_b_allele_vcf</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nSpecify a population SNP catalog.</p>\n<h3>cnv somatic enable het calling</h3>\n<blockquote>\n<p>ID: cnv_somatic_enable_het_calling</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable HET-calling mode for heterogeneous segments.</p>\n<h3>cnv somatic enable lower ploidy limit</h3>\n<blockquote>\n<p>ID: cnv_somatic_enable_lower_ploidy_limit</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nTo improve accuracy on the tumor ploidy model estimation, the somatic WGS CNV caller estimates whether the chosen model calls\nhomozygous deletions on regions that are likely to reduce the overall fitness of cells,\nwhich are therefore deemed to be &quot;essential&quot; and under negative selection.\nIn the current literature, recent efforts tried to map such cell-essential genes (eg, in 2015 - https://www.science.org/doi/10.1126/science.aac7041).\nThe check on essential regions is controlled with --cnv-somatic-enable-lower-ploidy-limit (default true).</p>\n<h3>cnv somatic essential genes bed</h3>\n<blockquote>\n<p>ID: cnv_somatic_essential_genes_bed</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>['string', 'File']</code><br>\n<strong>Docs:</strong><br>\nDefault bedfiles describing the essential regions are provided for hg19, GRCh37, hs37d5, GRCh38,\nbut a custom bedfile can also be provided in input through the\n--cnv-somatic-essential-genes-bed=&lt;BEDFILE_PATH&gt; parameter.\nIn such case, the feature is automatically enabled.\nA custom essential regions bedfile needs to have the following format: 4-column, tab-separated,\nwhere the first 3 columns identify the coordinates of the essential region (chromosome, 0-based start, excluded end).\nThe fourth column is the region id (string type). For the purpose of the algorithm, currently only the first 3 columns are used.\nHowever, the fourth might be helpful to investigate manually which regions drove the decisions on model plausibility made by the caller.</p>\n<h3>cnv use somatic vc baf</h3>\n<blockquote>\n<p>ID: cnv_use_somatic_vc_baf</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nIf running in tumor-normal mode with the SNV caller enabled, use this option\nto specify the germline heterozygous sites.</p>\n<h3>cnv use somatic vc vaf</h3>\n<blockquote>\n<p>ID: cnv_use_somatic_vc_vaf</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nUse the variant allele frequencies (VAFs) from the somatic SNVs to help select\nthe tumor model for the sample.</p>\n<h3>cram input</h3>\n<blockquote>\n<p>ID: cram_input</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nInput a normal CRAM file for the variant calling stage</p>\n<h3>cram reference</h3>\n<blockquote>\n<p>ID: cram_reference</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nPath to the reference fasta file for the CRAM input.\nRequired only if the input is a cram file AND not the reference in the tarball</p>\n<h3>dbsnp annotation</h3>\n<blockquote>\n<p>ID: dbsnp_annotation</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nIn Germline, Tumor-Normal somatic, or Tumor-Only somatic modes,\nDRAGEN can look up variant calls in a dbSNP database and add annotations for any matches that it finds there.\nTo enable the dbSNP database search, set the --dbsnp option to the full path to the dbSNP database\nVCF or .vcf.gz file, which must be sorted in reference order.</p>\n<h3>deduplicate minimum quality</h3>\n<blockquote>\n<p>ID: dedup_min_qual</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\nSpecifies the Phred quality score below which a base should be excluded from the quality score\ncalculation used for choosing among duplicate reads.</p>\n<h3>deduplicate minimum quality germline</h3>\n<blockquote>\n<p>ID: dedup_min_qual_germline</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\nSpecifies the Phred quality score below which a base should be excluded from the quality score\ncalculation used for choosing among duplicate reads.</p>\n<h3>deduplicate minimum quality somatic</h3>\n<blockquote>\n<p>ID: dedup_min_qual_somatic</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\nSpecifies the Phred quality score below which a base should be excluded from the quality score\ncalculation used for choosing among duplicate reads.</p>\n<h3>enable cnv calling</h3>\n<blockquote>\n<p>ID: enable_cnv</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable CNV processing in the DRAGEN Host Software.</p>\n<h3>enable cnv germline</h3>\n<blockquote>\n<p>ID: enable_cnv_germline</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable CNV processing in the DRAGEN Host Software (somatic only)</p>\n<h3>enable cnv somatic</h3>\n<blockquote>\n<p>ID: enable_cnv_somatic</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable CNV processing in the DRAGEN Host Software (germline only)</p>\n<h3>enable duplicate marking</h3>\n<blockquote>\n<p>ID: enable_duplicate_marking</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable the flagging of duplicate output\nalignment records.</p>\n<h3>enable duplicate marking germline</h3>\n<blockquote>\n<p>ID: enable_duplicate_marking_germline</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable the flagging of duplicate output\nalignment records.</p>\n<h3>enable duplicate marking somatic</h3>\n<blockquote>\n<p>ID: enable_duplicate_marking_somatic</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable the flagging of duplicate output\nalignment records.</p>\n<h3>enable hla</h3>\n<blockquote>\n<p>ID: enable_hla</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable HLA typing by setting --enable-hla flag to true</p>\n<h3>enable hrd</h3>\n<blockquote>\n<p>ID: enable_hrd</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nSet to true to enable HRD scoring to quantify genomic instability.\nRequires somatic CNV calls.</p>\n<h3>enable map align</h3>\n<blockquote>\n<p>ID: enable_map_align</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnabled by default since --enable-variant-caller option is set to true.\nSet this value to false if using bam_input</p>\n<h3>enable map align germline</h3>\n<blockquote>\n<p>ID: enable_map_align_germline</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnabled by default since --enable-variant-caller option is set to true.\nSet this value to false if using bam_input</p>\n<h3>enable map align output</h3>\n<blockquote>\n<p>ID: enable_map_align_output</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnables saving the output from the\nmap/align stage. Default is true when only\nrunning map/align. Default is false if\nrunning the variant caller.</p>\n<h3>enable map align output germline</h3>\n<blockquote>\n<p>ID: enable_map_align_output_germline</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnables saving the output from the\nmap/align stage. Default is true when only\nrunning map/align. Default is false if\nrunning the variant caller.</p>\n<h3>enable map align output somatic</h3>\n<blockquote>\n<p>ID: enable_map_align_output_somatic</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnables saving the output from the\nmap/align stage. Default is true when only\nrunning map/align. Default is false if\nrunning the variant caller.</p>\n<h3>enable map align somatic</h3>\n<blockquote>\n<p>ID: enable_map_align_somatic</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnabled by default since --enable-variant-caller option is set to true.\nSet this value to false if using bam_input</p>\n<h3>enable rna</h3>\n<blockquote>\n<p>ID: enable_rna</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nSet this option for running RNA samples through T/N workflow</p>\n<h3>enable sort</h3>\n<blockquote>\n<p>ID: enable_sort</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nTrue by default, only set this to false if using --bam-input parameter</p>\n<h3>enable sort germline</h3>\n<blockquote>\n<p>ID: enable_sort_germline</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nTrue by default, only set this to false if using --bam-input parameter</p>\n<h3>enable sort somatic</h3>\n<blockquote>\n<p>ID: enable_sort_somatic</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nTrue by default, only set this to false if using --bam-input parameter</p>\n<h3>enable sv</h3>\n<blockquote>\n<p>ID: enable_sv</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable/disable structural variant\ncaller. Default is false.</p>\n<h3>enable sv germline</h3>\n<blockquote>\n<p>ID: enable_sv_germline</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable/disable structural variant\ncaller. Default is false.</p>\n<h3>enable sv somatic</h3>\n<blockquote>\n<p>ID: enable_sv_somatic</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable/disable structural variant\ncaller. Default is false.</p>\n<h3>enable tmb</h3>\n<blockquote>\n<p>ID: enable_tmb</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnables TMB. If set, the small variant caller, Illumina Annotation Engine,\nand the related callability report are enabled.</p>\n<h3>fastq list</h3>\n<blockquote>\n<p>ID: fastq_list</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nCSV file that contains a list of FASTQ files for normal sample\nto process.</p>\n<h3>Row of fastq lists</h3>\n<blockquote>\n<p>ID: fastq_list_rows</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>fastq-list-row[]</code><br>\n<strong>Docs:</strong><br>\nThe row of fastq lists.\nEach row has the following attributes:</p>\n<ul>\n<li>RGID</li>\n<li>RGLB</li>\n<li>RGSM</li>\n<li>Lane</li>\n<li>Read1File</li>\n<li>Read2File (optional)</li>\n</ul>\n<h3>hla allele frequency file</h3>\n<blockquote>\n<p>ID: hla_allele_frequency_file</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nUse the population-level HLA allele frequency file to break ties if one or more HLA allele produces the same or similar results.\nThe input HLA allele frequency file must be in CSV format and contain the HLA alleles and the occurrence frequency in population.\nIf --hla-allele-frequency-file is not specified, DRAGEN automatically uses hla_classI_allele_frequency.csv from /opt/edico/config/.\nPopulation-level allele frequencies can be obtained from the Allele Frequency Net database.</p>\n<h3>hla bed file</h3>\n<blockquote>\n<p>ID: hla_bed_file</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nUse the HLA region BED input file to specify the region to extract HLA reads from.\nDRAGEN HLA Caller parses the input file for regions within the BED file, and then\nextracts reads accordingly to align with the HLA allele reference.</p>\n<h3>hla min reads</h3>\n<blockquote>\n<p>ID: hla_min_reads</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\nSet the minimum number of reads to align to HLA alleles to ensure sufficient coverage and perform HLA typing.\nThe default value is 1000 and suggested for WES samples. If using samples with less coverage, you can use a\nlower threshold value.</p>\n<h3>hla reference file</h3>\n<blockquote>\n<p>ID: hla_reference_file</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nUse the HLA allele reference file to specify the reference alleles to align against.\nThe input HLA reference file must be in FASTA format and contain the protein sequence separated into exons.\nIf --hla-reference-file is not specified, DRAGEN uses hla_classI_ref_freq.fasta from /opt/edico/config/.\nThe reference HLA sequences are obtained from the IMGT/HLA database.</p>\n<h3>hla tiebreaker threshold</h3>\n<blockquote>\n<p>ID: hla_tiebreaker_threshold</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>float</code><br>\n<strong>Docs:</strong><br>\nIf more than one allele has a similar number of reads aligned and there is not a clear indicator for the best allele,\nthe alleles are considered as ties. The HLA Caller places the tied alleles into a candidate set for tie breaking based\non the population allele frequency. If an allele has more than the specified fraction of reads aligned (normalized to\nthe top hit), then the allele is included into the candidate set for tie breaking. The default value is 0.97.</p>\n<h3>hla zygosity threshold</h3>\n<blockquote>\n<p>ID: hla_zygosity_threshold</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>float</code><br>\n<strong>Docs:</strong><br>\nIf the minor allele at a given locus has fewer reads mapped than a fraction of the read count of the major allele,\nthen the HLA Caller infers homozygosity for the given HLA-I gene. You can use this option to specify the fraction value.\nThe default value is 0.15.</p>\n<h3>license instance id location</h3>\n<blockquote>\n<p>ID: lic_instance_id_location</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>['File', 'string']</code><br>\n<strong>Docs:</strong><br>\nYou may wish to place your own in.\nOptional value, default set to /opt/instance-identity\nwhich is a path inside the dragen container</p>\n<h3>ora reference tar</h3>\n<blockquote>\n<p>ID: ora_reference_tar</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nPath to ref data tarball</p>\n<h3>output prefix germline</h3>\n<blockquote>\n<p>ID: output_prefix_germline</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>False</code><br>\n<strong>Type:</strong> <code>string</code><br>\n<strong>Docs:</strong><br>\nThe prefix given to all outputs for the dragen germline pipeline</p>\n<h3>output prefix somatic</h3>\n<blockquote>\n<p>ID: output_prefix_somatic</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>False</code><br>\n<strong>Type:</strong> <code>string</code><br>\n<strong>Docs:</strong><br>\nThe prefix given to all outputs for the dragen somatic pipeline</p>\n<h3>qc coverage ignore overlaps</h3>\n<blockquote>\n<p>ID: qc_coverage_ignore_overlaps</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nSet to true to resolve all of the alignments for each fragment and avoid double-counting any\noverlapping bases. This might result in marginally longer run times.\nThis option also requires setting --enable-map-align=true.</p>\n<h3>qc coverage region 1</h3>\n<blockquote>\n<p>ID: qc_coverage_region_1</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nGenerates coverage region report using bed file 1.</p>\n<h3>qc coverage region 2</h3>\n<blockquote>\n<p>ID: qc_coverage_region_2</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nGenerates coverage region report using bed file 2.</p>\n<h3>qc coverage region 3</h3>\n<blockquote>\n<p>ID: qc_coverage_region_3</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nGenerates coverage region report using bed file 3.</p>\n<h3>reference tar</h3>\n<blockquote>\n<p>ID: reference_tar</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>False</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nPath to ref data tarball</p>\n<h3>repeat genotype enable</h3>\n<blockquote>\n<p>ID: repeat_genotype_enable</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnables repeat expansion detection.</p>\n<h3>repeat genotype specs</h3>\n<blockquote>\n<p>ID: repeat_genotype_specs</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nSpecifies the full path to the JSON file that contains the\nrepeat variant catalog (specification) describing the loci to call.\nIf the option is not provided, DRAGEN attempts to autodetect the applicable catalog file\nfrom /opt/edico/repeat-specs/ based on the reference provided.</p>\n<h3>repeat genotype use catalog</h3>\n<blockquote>\n<p>ID: repeat_genotype_use_catalog</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>[ default | default_plus_smn | expanded  ]</code><br>\n<strong>Docs:</strong><br>\nRepeat variant catalog type to use (default - ~60 repeats, default_plus_smn -\nsame as default with SMN repeat, expanded - ~50K repeats)</p>\n<h3>sample sex</h3>\n<blockquote>\n<p>ID: sample_sex</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>[ male | female  ]</code><br>\n<strong>Docs:</strong><br>\nSpecifies the sex of a sample</p>\n<h3>sv call regions bed</h3>\n<blockquote>\n<p>ID: sv_call_regions_bed</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nSpecifies a BED file containing the set of regions to call.</p>\n<h3>sv discovery</h3>\n<blockquote>\n<p>ID: sv_discovery</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable SV discovery. This flag can be set to false only when --sv-forcegt-vcf is used.\nWhen set to false, SV discovery is disabled and only the forced genotyping input variants\nare processed. The default is true.</p>\n<h3>sv enable liquid tumor mode</h3>\n<blockquote>\n<p>ID: sv_enable_liquid_tumor_mode</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable liquid tumor mode.</p>\n<h3>sv enable somatic ins tandup hotspot regions</h3>\n<blockquote>\n<p>ID: sv_enable_somatic_ins_tandup_hotspot_regions</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable or disable the ITD hotspot region input. The default is true in somatic variant analysis.</p>\n<h3>sv exome</h3>\n<blockquote>\n<p>ID: sv_exome</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nSet to true to configure the variant caller for targeted sequencing inputs,\nwhich includes disabling high depth filters.\nIn integrated mode, the default is to autodetect targeted sequencing input,\nand in standalone mode the default is false.</p>\n<h3>sv forcegt vcf</h3>\n<blockquote>\n<p>ID: sv_forcegt_vcf</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nSpecify a VCF of structural variants for forced genotyping. The variants are scored and emitted\nin the output VCF even if not found in the sample data.\nThe variants are merged with any additional variants discovered directly from the sample data.</p>\n<h3>sv output contigs</h3>\n<blockquote>\n<p>ID: sv_output_contigs</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nSet to true to have assembled contig sequences output in a VCF file. The default is false.</p>\n<h3>sv region</h3>\n<blockquote>\n<p>ID: sv_region</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>string</code><br>\n<strong>Docs:</strong><br>\nLimit the analysis to a specified region of the genome for debugging purposes.\nThis option can be specified multiple times to build a list of regions.\nThe value must be in the format &quot;chr:startPos-endPos&quot;..</p>\n<h3>sv use overlap pair evidence</h3>\n<blockquote>\n<p>ID: sv_se_overlap_pair_evidence</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nAllow overlapping read pairs to be considered as evidence.\nBy default, DRAGEN uses autodetect on the fraction of overlapping read pairs if &lt;20%.</p>\n<h3>sv somatic ins tandup hotspot regions bed</h3>\n<blockquote>\n<p>ID: sv_somatic_ins_tandup_hotspot_regions_bed</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nSpecify a BED of ITD hotspot regions to increase sensitivity for calling ITDs in somatic variant analysis.\nBy default, DRAGEN SV automatically selects areference-specific hotspots BED file from\n/opt/edico/config/sv_somatic_ins_tandup_hotspot_*.bed.</p>\n<h3>sv tin contam tolerance</h3>\n<blockquote>\n<p>ID: sv_tin_contam_tolerance</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>float</code><br>\n<strong>Docs:</strong><br>\nSet the Tumor-in-Normal (TiN) contamination tolerance level.\nYou can enter any value between 0-1. The default maximum TiN contamination tolerance is 0.15.</p>\n<h3>tmb db threshold</h3>\n<blockquote>\n<p>ID: tmb_db_threshold</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\nSpecify the minimum allele count (total number of observations) for an allele in gnomAD or 1000 Genome\nto be considered a germline variant.  Variant calls that have the same positions and allele are ignored\nfrom the TMB calculation. The default value is 10.</p>\n<h3>tmb vaf threshold</h3>\n<blockquote>\n<p>ID: tmb_vaf_threshold</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>float</code><br>\n<strong>Docs:</strong><br>\nSpecify the minimum VAF threshold for a variant. Variants that do not meet the threshold are filtered out.\nThe default value is 0.05.</p>\n<h3>tumor bam input</h3>\n<blockquote>\n<p>ID: tumor_bam_input</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nInput a tumor BAM file for the variant calling stage</p>\n<h3>tumor cram input</h3>\n<blockquote>\n<p>ID: tumor_cram_input</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nInput a tumor CRAM file for the variant calling stage</p>\n<h3>tumor fastq list</h3>\n<blockquote>\n<p>ID: tumor_fastq_list</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nCSV file that contains a list of FASTQ files\nto process.</p>\n<h3>Row of fastq lists</h3>\n<blockquote>\n<p>ID: tumor_fastq_list_rows</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>fastq-list-row[]</code><br>\n<strong>Docs:</strong><br>\nThe row of fastq lists.\nEach row has the following attributes:</p>\n<ul>\n<li>RGID</li>\n<li>RGLB</li>\n<li>RGSM</li>\n<li>Lane</li>\n<li>Read1File</li>\n<li>Read2File (optional)</li>\n</ul>\n<h3>vc af call threshold</h3>\n<blockquote>\n<p>ID: vc_af_call_threshold</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>float</code><br>\n<strong>Docs:</strong><br>\nSet the allele frequency call threshold to emit a call in the VCF if the AF filter is enabled.\nThe default is 0.01.</p>\n<h3>vc af call threshold mito</h3>\n<blockquote>\n<p>ID: vc_af_call_threshold_mito</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nIf the AF filter is enabled using --vc-enable-af-filter-mito=true,\nthe option sets the allele frequency call threshold to emit a call in the VCF for mitochondrial variant calling.\nThe default value is 0.01.</p>\n<h3>vc af filter threshold</h3>\n<blockquote>\n<p>ID: vc_af_filter_threshold</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>float</code><br>\n<strong>Docs:</strong><br>\nSet the allele frequency filter threshold to mark emitted VCF calls as filtered if the AF filter is\nenabled.\nThe default is 0.05.</p>\n<h3>vc af filter threshold mito</h3>\n<blockquote>\n<p>ID: vc_af_filter_threshold_mito</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>float</code><br>\n<strong>Docs:</strong><br>\nIf the AF filter is enabled using --vc-enable-af-filter-mito=true,\nthe option sets the allele frequency filter threshold to mark emitted VCF calls\nas filtered for mitochondrial variant calling. The default value is 0.02.</p>\n<h3>vc base qual threshold</h3>\n<blockquote>\n<p>ID: vc_base_qual_threshold</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\n(Replaces --vc-min-base-qual)\nSpecifies the minimum base quality to be considered in the active region detection of the small variant caller.\nThe default value is 10.</p>\n<h3>vc base qual threshold germline</h3>\n<blockquote>\n<p>ID: vc_base_qual_threshold_germline</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\n(Replaces --vc-min-base-qual)\nSpecifies the minimum base quality to be considered in the active region detection of the small variant caller.\nThe default value is 10.</p>\n<h3>vc base qual threshold somatic</h3>\n<blockquote>\n<p>ID: vc_base_qual_threshold_somatic</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\n(Replaces --vc-min-base-qual)\nSpecifies the minimum base quality to be considered in the active region detection of the small variant caller.\nThe default value is 10.</p>\n<h3>vc callability normal thresh</h3>\n<blockquote>\n<p>ID: vc_callability_normal_thresh</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\nThe --vc-callability-normal-thresh option specifies the callability threshold for normal samples.\nThe somatic callable regions report includes all regions with normal coverage above the normal threshold.</p>\n<h3>vc callability tumor thresh</h3>\n<blockquote>\n<p>ID: vc_callability_tumor_thresh</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\nThe --vc-callability-tumor-thresh option specifies the callability threshold for tumor samples. The\nsomatic callable regions report includes all regions with tumor coverage above the tumor threshold.</p>\n<h3>vc combine phased variants distance somatic</h3>\n<blockquote>\n<p>ID: vc_combine_phased_variants_distance_somatic</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\nWhen the specified value is greater than 0, combines all phased variants in the phasing set that have a distance\nless than or equal to the provided value. The max allowed phasing distance is 15.\nThe default value is 0, which disables the option.</p>\n<h3>vc combine phased variants max vaf delta somatic</h3>\n<blockquote>\n<p>ID: vc_combine_phased_variants_max_vaf_delta_somatic</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>float</code><br>\n<strong>Docs:</strong><br>\nComponent SNVs/INDELs of MNV calls are output only if the VAF of the component\ncall is greater than that of the MNV by more than 0.1. The VAF difference\nthreshold for outputting component calls along with MNV calls can be controlled by\nthe --vc-combine-phased-variants-max-vaf-delta option.\nThis option is mutually exclusive with --vc-mnv-emit-component-calls</p>\n<h3>vc decoy contigs</h3>\n<blockquote>\n<p>ID: vc_decoy_contigs</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>string</code><br>\n<strong>Docs:</strong><br>\nThe --vc-decoy-contigs option specifies a comma-separated list of contigs to skip during variant calling.\nThis option can be set in the configuration file.</p>\n<h3>vc enable af filter</h3>\n<blockquote>\n<p>ID: vc_enable_af_filter</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnables the allele frequency filter. The default value is false. When set to true, the VCF excludes variants\nwith allele frequencies below the AF call threshold or variants with an allele frequency below the AF filter\nthreshold and tagged with low AF filter tag. The default AF call threshold is 1% and the default AF filter\nthreshold is 5%.\nTo change the threshold values, use the following command line options:\n--vc-af-callthreshold and --vc-af-filter-threshold.</p>\n<h3>vc enable baf</h3>\n<blockquote>\n<p>ID: vc_enable_baf</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable or disable B-allele frequency output. Enabled by default.</p>\n<h3>vc enable decoy contigs</h3>\n<blockquote>\n<p>ID: vc_enable_decoy_contigs</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nIf --vc-enable-decoy-contigs is set to true, variant calls on the decoy contigs are enabled.\nThe default value is false.</p>\n<h3>vc enable gatk acceleration</h3>\n<blockquote>\n<p>ID: vc_enable_gatk_acceleration</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nIf is set to true, the variant caller runs in GATK mode\n(concordant with GATK 3.7 in germline mode and GATK 4.0 in somatic mode).</p>\n<h3>vc enable liquid tumor mode</h3>\n<blockquote>\n<p>ID: vc_enable_liquid_tumor_mode</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nIn a tumor-normal analysis, DRAGEN accounts for tumor-in-normal (TiN) contamination by running liquid\ntumor mode. Liquid tumor mode is disabled by default. When liquid tumor mode is enabled, DRAGEN is\nable to call variants in the presence of TiN contamination up to a specified maximum tolerance level.\nvc-enable-liquid-tumor-mode enables liquid tumor mode with a default maximum contamination\nTiN tolerance of 0.15. If using the default maximum contamination TiN tolerance, somatic variants are\nexpected to be observed in the normal sample with allele frequencies up to 15% of the corresponding\nallele in the tumor sample.</p>\n<h3>vc enable non homoref normal filter</h3>\n<blockquote>\n<p>ID: vc_enable_non_homref_normal_filter</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnables the non-homref normal filter. The default value is true. When set to true, the VCF filters out\nvariants if the normal sample genotype is not a homozygous reference.</p>\n<h3>vc enable non primary allelic filter</h3>\n<blockquote>\n<p>ID: vc_enable_non_primary_allelic_filter</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nSimilar to vc-enable-triallelic-filter, but less aggressive.\nKeep the allele per position with highest alt AD, and only filter the rest.\nThe default is false. Not compatible with vc-enable-triallelic-filter.</p>\n<h3>vc enable orientation bias filter</h3>\n<blockquote>\n<p>ID: vc_enable_orientation_bias_filter</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnables the orientation bias filter. The default value is false, which means the option is disabled.</p>\n<h3>vc enable orientation bias filter artifacts</h3>\n<blockquote>\n<p>ID: vc_enable_orientation_bias_filter_artifacts</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>string</code><br>\n<strong>Docs:</strong><br>\nThe artifact type to be filtered can be specified with the --vc-orientation-bias-filter-artifacts option.\nThe default is C/T,G/T, which correspond to OxoG and FFPE artifacts. Valid values include C/T, or G/T, or C/T,G/T,C/A.\nAn artifact (or an artifact and its reverse compliment) cannot be listed twice.\nFor example, C/T,G/A is not valid, because C-&gt;G and T-&gt;A are reverse compliments.</p>\n<h3>vc enable phasing</h3>\n<blockquote>\n<p>ID: vc_enable_phasing</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nThe -vc-enable-phasing option enables variants to be phased when possible. The default value is true.</p>\n<h3>vc enable roh</h3>\n<blockquote>\n<p>ID: vc_enable_roh</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnable or disable the ROH caller by setting this option to true or false. Enabled by default for human autosomes only.</p>\n<h3>vc enable triallelic filter</h3>\n<blockquote>\n<p>ID: vc_enable_triallelic_filter</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nEnables the multiallelic filter. The default is true.</p>\n<h3>vc enable unequal ntd</h3>\n<blockquote>\n<p>ID: vc_enable_unequal_ntd</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>['boolean', &lt;cwl_utils.parser.cwl_v1_1.InputEnumSchema object at 0x7fd01a1a9b50&gt;]</code><br>\n<strong>Docs:</strong><br>\nNucleotide (NTD) Error Bias Estimation is on by default and recommended as a replacement for the orientation bias filter.\nBoth methods take account of strand-specific biases (systematic differences between F1R2 and F2R1 reads).\nIn addition, NTD error estimation accounts for non-strand-specific biases such as sample-wide elevation of a certain SNV type,\neg C-&gt;T or any other transition or transversion.\nNTD error estimation can also capture the biases in a trinucleotide context.</p>\n<h3>vc enable vcf output</h3>\n<blockquote>\n<p>ID: vc_enable_vcf_output</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nThe -vc-enable-vcf-output option enables VCF file output during a gVCF run. The default value is false.</p>\n<h3>vc forcegt vcf</h3>\n<blockquote>\n<p>ID: vc_forcegt_vcf</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nAGENsupports force genotyping (ForceGT) for Germline SNV variant calling.\nTo use ForceGT, use the --vc-forcegt-vcf option with a list of small variants to force genotype.\nThe input list of small variants can be a .vcf or .vcf.gz file.</p>\n<p>The current limitations of ForceGT are as follows:</p>\n<ul>\n<li>ForceGT is supported for Germline SNV variant calling in the V3 mode.\nThe V1, V2, and V2+ modes are not supported.</li>\n<li>ForceGT is not supported for Somatic SNV variant calling.</li>\n<li>ForceGT variants do not propagate through Joint Genotyping.</li>\n</ul>\n<h3>vc hard filter</h3>\n<blockquote>\n<p>ID: vc_hard_filter</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>string</code><br>\n<strong>Docs:</strong><br>\nDRAGEN provides post-VCF variant filtering based on annotations present in the VCF records.\nHowever, due to the nature of DRAGEN's algorithms, which incorporate the hypothesis of correlated errors\nfrom within the core of variant caller, the pipeline has improved capabilities in distinguishing\nthe true variants from noise, and therefore the dependency on post-VCF filtering is substantially reduced.\nFor this reason, the default post-VCF filtering in DRAGEN is very simple</p>\n<h3>vc hotspot log10 prior boost</h3>\n<blockquote>\n<p>ID: vc_hotspot_log10_prior_boost</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\nThe size of the hotspot adjustment can be controlled via vc-hotspotlog10-prior-boost,\nwhich has a default value of 4 (log10 scale) corresponding to an increase of 40 phred.</p>\n<h3>vc max reads per active region</h3>\n<blockquote>\n<p>ID: vc_max_reads_per_active_region</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\nspecifies the maximum number of reads covering a given active region.\nDefault is 10000 for the somatic workflow</p>\n<h3>vc max reads per raw region</h3>\n<blockquote>\n<p>ID: vc_max_reads_per_raw_region</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\nspecifies the maximum number of reads covering a given raw region.\nDefault is 30000 for the somatic workflow</p>\n<h3>vc min tumor read qual</h3>\n<blockquote>\n<p>ID: vc_min_tumor_read_qual</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\nThe --vc-min-tumor-read-qual option specifies the minimum read quality (MAPQ) to be considered for\nvariant calling. The default value is 3 for tumor-normal analysis or 20 for tumor-only analysis.</p>\n<h3>vc mnv emit component calls somatic</h3>\n<blockquote>\n<p>ID: vc_mnv_emit_component_calls_somatic</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nTo output all component SNVs/INDELs of MNVs, regardless of VAF difference,\nwhen enabled, use the option --vc-mnv-emit-component-calls.\nThis option is mutually exclusive with --vc-combine-phased-variants-max-vaf-delta</p>\n<h3>vc remove all soft clips</h3>\n<blockquote>\n<p>ID: vc_remove_all_soft_clips</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>boolean</code><br>\n<strong>Docs:</strong><br>\nIf is set to true, the variant caller does not use soft clips of reads to determine variants.</p>\n<h3>vc roh blacklist bed</h3>\n<blockquote>\n<p>ID: vc_roh_blacklist_bed</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nIf provided, the ROH caller ignores variants that are contained in any region in the blacklist BED file.\nDRAGEN distributes blacklist files for all popular human genomes and automatically selects a blacklist to\nmatch the genome in use, unless this option is used explicitly select a file.</p>\n<h3>vc somatic hotspots</h3>\n<blockquote>\n<p>ID: vc_somatic_hotspots</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nThe somatic hotspots option allows an input VCF to specify the positions where the risk for somatic\nmutations are assumed to be significantly elevated. DRAGEN genotyping priors are boosted for all\npostions specified in the VCF, so it is possible to call a variant at one of these sites with fewer supporting\nreads. The cosmic database in VCF format can be used as one source of prior information to boost\nsensitivity for known somatic mutations.</p>\n<h3>vc sq call threshold</h3>\n<blockquote>\n<p>ID: vc_sq_call_threshold</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>float</code><br>\n<strong>Docs:</strong><br>\nEmits calls in the VCF. The default is 3.\nIf the value for vc-sq-filter-threshold is lower than vc-sq-callthreshold,\nthe filter threshold value is used instead of the call threshold value</p>\n<h3>vc sq filter threshold</h3>\n<blockquote>\n<p>ID: vc_sq_filter_threshold</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>float</code><br>\n<strong>Docs:</strong><br>\nMarks emitted VCF calls as filtered.\nThe default is 17.5 for tumor-normal and 6.5 for tumor-only.</p>\n<h3>vc target bed</h3>\n<blockquote>\n<p>ID: vc_target_bed</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nThis is an optional command line input that restricts processing of the small variant caller,\ntarget bed related coverage, and callability metrics to regions specified in a BED file.</p>\n<h3>vc target bed padding</h3>\n<blockquote>\n<p>ID: vc_target_bed_padding</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\nThis is an optional command line input that can be used to pad all of the target\nBED regions with the specified value.\nFor example, if a BED region is 1:1000-2000 and a padding value of 100 is used,\nit is equivalent to using a BED region of 1:900-2100 and a padding value of 0.</p>\n<p>Any padding added to --vc-target-bed-padding is used by the small variant caller\nand by the target bed coverage/callability reports. The default padding is 0.</p>\n<h3>vc target coverage</h3>\n<blockquote>\n<p>ID: vc_target_coverage</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>int</code><br>\n<strong>Docs:</strong><br>\nThe --vc-target-coverage option specifies the target coverage for down-sampling.\nThe default value is 500 for germline mode and 50 for somatic mode.</p>\n<h3>vc target vaf somatic</h3>\n<blockquote>\n<p>ID: vc_target_vaf_somatic</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>float</code><br>\n<strong>Docs:</strong><br>\nThe vc-target-vaf is used to select the variant allele frequencies of interest.\nThe variant caller will aim to detect variants with allele frequencies larger than this setting.\nWe recommend adding a small safety factor, e.g. to ensure variants in the ballpark of 1% are detected,\nthe minimum vc-target-vaf can be specified as 0.009 (0.9%). This setting will not apply a hard threshold,\nand it is possible to detect variants with allele frequencies lower than the selected threshold.\nOn high coverage and clean datasets, a lower target-vaf may help increase sensitivity.\nOn noisy samples (like FFPE) a higher target-vaf (like 0.03) maybe help reduce false positives.\nUsing a low target-vaf may also increase runtime. Set the vc-target-vaf to 0 to disable this feature.\nWhen this feature is disabled the variant caller will require at least 2 supporting reads to discover a candidate variant.\nDefault=0.01.</p>\n<h3>vc tin contam tolerance</h3>\n<blockquote>\n<p>ID: vc_tin_contam_tolerance</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Type:</strong> <code>float</code><br>\n<strong>Docs:</strong><br>\nvc-tin-contam-tolerance enables liquid tumor mode and allows you to\nset the maximum contamination TiN tolerance. The maximum contamination TiN tolerance must be\ngreater than zero. For example, vc-tin-contam-tolerance=-0.1.</p>\n<h2>dragen-somatic-with-germline-pipeline v(4.2.4) Steps</h2>\n<h3>Create dummy file</h3>\n<blockquote>\n<p>ID: dragen-somatic-with-germline-pipeline--4.2.4/create_dummy_file_step</p>\n</blockquote>\n<p><strong>Step Type:</strong> tool<br>\n<strong>Docs:</strong></p>\n<p>Intermediate step for letting multiqc-interop be placed in stream mode</p>\n<h4>Links</h4>\n<p><a href=\"../../../../../../tools/custom-touch-file/1.0.0/custom-touch-file__1.0.0.cwl\">CWL File Path</a><br>\n<a href=\"../../../tools/custom-touch-file/1.0.0/custom-touch-file__1.0.0.md\">CWL File Help Page :construction:</a></p>\n<h3>get normal bam out</h3>\n<blockquote>\n<p>ID: dragen-somatic-with-germline-pipeline--4.2.4/get_normal_bam_out</p>\n</blockquote>\n<p><strong>Step Type:</strong> expression<br>\n<strong>Docs:</strong></p>\n<p>Get the normal bam value from one of the two available options\nFrom the germline step (preferred)\nFrom the somatic step (backup option)</p>\n<h4>Links</h4>\n<p><a href=\"../../../../../../expressions/get-first-non-null-bam-file/1.0.0/get-first-non-null-bam-file__1.0.0.cwl\">CWL File Path</a><br>\n<a href=\"../../../expressions/get-first-non-null-bam-file/1.0.0/get-first-non-null-bam-file__1.0.0.md\">CWL File Help Page :construction:</a></p>\n<h3>run dragen germline step</h3>\n<blockquote>\n<p>ID: dragen-somatic-with-germline-pipeline--4.2.4/run_dragen_germline_step</p>\n</blockquote>\n<p><strong>Step Type:</strong> tool<br>\n<strong>Docs:</strong></p>\n<p>Runs the dragen germline workflow on the FPGA.\nTakes in either a fastq list as a file or a fastq_list_rows schema object</p>\n<h4>Links</h4>\n<p><a href=\"../../../../../../tools/dragen-germline/4.2.4/dragen-germline__4.2.4.cwl\">CWL File Path</a><br>\n<a href=\"../../../tools/dragen-germline/4.2.4/dragen-germline__4.2.4.md\">CWL File Help Page</a></p>\n<h3>dragen qc step</h3>\n<blockquote>\n<p>ID: dragen-somatic-with-germline-pipeline--4.2.4/run_dragen_qc_step</p>\n</blockquote>\n<p><strong>Step Type:</strong> tool<br>\n<strong>Docs:</strong></p>\n<p>The dragen qc step - this takes in an array of dirs</p>\n<h4>Links</h4>\n<p><a href=\"../../../../../../tools/multiqc/1.14.0/multiqc__1.14.0.cwl\">CWL File Path</a><br>\n<a href=\"../../../tools/multiqc/1.14.0/multiqc__1.14.0.md\">CWL File Help Page</a></p>\n<h3>run dragen somatic step</h3>\n<blockquote>\n<p>ID: dragen-somatic-with-germline-pipeline--4.2.4/run_dragen_somatic_step</p>\n</blockquote>\n<p><strong>Step Type:</strong> tool<br>\n<strong>Docs:</strong></p>\n<p>Run dragen somatic v4.2.4</p>\n<h4>Links</h4>\n<p><a href=\"../../../../../../tools/dragen-somatic/4.2.4/dragen-somatic__4.2.4.cwl\">CWL File Path</a><br>\n<a href=\"../../../tools/dragen-somatic/4.2.4/dragen-somatic__4.2.4.md\">CWL File Help Page</a></p>\n<h2>dragen-somatic-with-germline-pipeline v(4.2.4) Outputs</h2>\n<h3>dragen germline output directory</h3>\n<blockquote>\n<p>ID: dragen-somatic-with-germline-pipeline--4.2.4/dragen_germline_output_directory</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>False</code><br>\n<strong>Output Type:</strong> <code>Directory</code><br>\n<strong>Docs:</strong><br>\nThe output directory containing all germline output files</p>\n<h3>dragen somatic output directory</h3>\n<blockquote>\n<p>ID: dragen-somatic-with-germline-pipeline--4.2.4/dragen_somatic_output_directory</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>False</code><br>\n<strong>Output Type:</strong> <code>Directory</code><br>\n<strong>Docs:</strong><br>\nOutput directory containing all outputs of the somatic dragen run</p>\n<h3>germline snv vcf out</h3>\n<blockquote>\n<p>ID: dragen-somatic-with-germline-pipeline--4.2.4/germline_snv_vcf_out</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Output Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nThe output vcf file of germline step</p>\n<h3>multiqc output directory</h3>\n<blockquote>\n<p>ID: dragen-somatic-with-germline-pipeline--4.2.4/multiqc_output_directory</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>False</code><br>\n<strong>Output Type:</strong> <code>Directory</code><br>\n<strong>Docs:</strong><br>\nThe output directory for multiqc</p>\n<h3>output normal bam</h3>\n<blockquote>\n<p>ID: dragen-somatic-with-germline-pipeline--4.2.4/normal_bam_out</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Output Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nBam file of the normal sample</p>\n<h3>somatic snv vcf filetered</h3>\n<blockquote>\n<p>ID: dragen-somatic-with-germline-pipeline--4.2.4/somatic_snv_vcf_hard_filtered_out</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Output Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nOutput of the snv vcf filtered tumor calls</p>\n<h3>somatic snv vcf</h3>\n<blockquote>\n<p>ID: dragen-somatic-with-germline-pipeline--4.2.4/somatic_snv_vcf_out</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Output Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nOutput of the snv vcf tumor calls</p>\n<h3>somatic sv vcf filetered</h3>\n<blockquote>\n<p>ID: dragen-somatic-with-germline-pipeline--4.2.4/somatic_structural_vcf_out</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Output Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nOutput of the sv vcf filtered tumor calls.\nExists only if --enable-sv is set to true.</p>\n<h3>output tumor bam</h3>\n<blockquote>\n<p>ID: dragen-somatic-with-germline-pipeline--4.2.4/tumor_bam_out</p>\n</blockquote>\n<p><strong>Optional:</strong> <code>True</code><br>\n<strong>Output Type:</strong> <code>File</code><br>\n<strong>Docs:</strong><br>\nBam file of the tumor sample</p>\n<h2>ICA</h2>\n<h3>ToC</h3>\n<ul>\n<li><a href=\"#project-development_workflows\">development_workflows</a></li>\n<li><a href=\"#project-production_workflows\">production_workflows</a></li>\n</ul>\n<h3>Project: development_workflows</h3>\n<blockquote>\n<p>wfl id: wfl.a4056543ef9a474d8b16182a4e6b6c50</p>\n</blockquote>\n<p><strong>workflow name:</strong> dragen-somatic-with-germline-pipeline_dev-wf<br>\n<strong>wfl version name:</strong> 4.2.4</p>\n<h3>Project: production_workflows</h3>\n<blockquote>\n<p>wfl id: wfl.5830565f0858423cb49de2a1534d65c5</p>\n</blockquote>\n<p><strong>workflow name:</strong> dragen-somatic-with-germline-pipeline_prod-wf<br>\n<strong>wfl version name:</strong> 4.2.4--a796b5d</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Alexis Lucattini",
+            "affiliation": null
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://dockstore.org/aliases/workflow-versions/10.5281-zenodo.16421454",
+            "relation": "isIdenticalTo",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://dockstore.org/workflows/github.com/umccr/cwl-ica/dragen-somatic-with-germline-pipeline_4_2_4:dragen-somatic-with-germline-pipeline/4.2.4__20241114104619",
+            "relation": "isIdenticalTo",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://dockstore.org/api/ga4gh/trs/v2/tools/%23workflow%2Fgithub.com%2Fumccr%2Fcwl-ica%2Fdragen-somatic-with-germline-pipeline_4_2_4/versions/dragen-somatic-with-germline-pipeline/4.2.4__20241114104619/PLAIN-CWL/descriptor/dragen-somatic-with-germline-pipeline__4.2.4.packed.cwl.json",
+            "relation": "isIdenticalTo",
+            "scheme": "url"
+          }
+        ],
+        "version": "dragen-somatic-with-germline-pipeline/4.2.4__20241114104619",
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "dockstore"
+          },
+          {
+            "id": "f312c6b6-0dd6-4fb2-a224-7c4960394ac1"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 3,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15547393"
+              }
+            }
+          ]
+        }
+      },
+      "title": "github.com/umccr/cwl-ica/dragen-somatic-with-germline-pipeline_4_2_4",
+      "links": {
+        "self": "https://zenodo.org/api/records/16421454",
+        "self_html": "https://zenodo.org/records/16421454",
+        "preview_html": "https://zenodo.org/records/16421454?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16421454",
+        "self_doi": "https://doi.org/10.5281/zenodo.16421454",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16421454",
+        "reserve_doi": "https://zenodo.org/api/records/16421454/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/15547393",
+        "parent_html": "https://zenodo.org/records/15547393",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15547393",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15547393",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16421454/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16421454/sequence/default",
+        "files": "https://zenodo.org/api/records/16421454/files",
+        "media_files": "https://zenodo.org/api/records/16421454/media-files",
+        "archive": "https://zenodo.org/api/records/16421454/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16421454/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16421454/versions/latest",
+        "latest_html": "https://zenodo.org/records/16421454/latest",
+        "versions": "https://zenodo.org/api/records/16421454/versions",
+        "draft": "https://zenodo.org/api/records/16421454/draft",
+        "access_links": "https://zenodo.org/api/records/16421454/access/links",
+        "access_grants": "https://zenodo.org/api/records/16421454/access/grants",
+        "access_users": "https://zenodo.org/api/records/16421454/access/users",
+        "access_request": "https://zenodo.org/api/records/16421454/access/request",
+        "access": "https://zenodo.org/api/records/16421454/access",
+        "communities": "https://zenodo.org/api/records/16421454/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16421454/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16421454/requests"
+      },
+      "updated": "2025-07-25T14:20:28.628195+00:00",
+      "recid": "16421454",
+      "revision": 4,
+      "files": [
+        {
+          "id": "a7a18a97-3235-44a9-ac06-1143b58ad75e",
+          "key": "github.com-umccr-cwl-ica-dragen-somatic-with-germline-pipeline_4_2_4_dragen-somatic-with-germline-pipeline-4.2.4__20241114104619.zip",
+          "size": 51939,
+          "checksum": "md5:fdb7dc0ee88d772c33b07dea8e90f80e",
+          "links": {
+            "self": "https://zenodo.org/api/records/16421454/files/github.com-umccr-cwl-ica-dragen-somatic-with-germline-pipeline_4_2_4_dragen-somatic-with-germline-pipeline-4.2.4__20241114104619.zip/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "76183"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 16,
+        "unique_views": 16,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-07-16T11:23:17.894519+00:00",
+      "modified": "2025-07-16T11:23:18.240478+00:00",
+      "id": 15721816,
+      "conceptrecid": "15721815",
+      "doi": "10.5281/zenodo.15721816",
+      "conceptdoi": "10.5281/zenodo.15721815",
+      "doi_url": "https://doi.org/10.5281/zenodo.15721816",
+      "metadata": {
+        "title": "Convergent evolution of artemisinin and chloroquine resistance in Ethiopian Plasmodium falciparum parasites",
+        "doi": "10.5281/zenodo.15721816",
+        "publication_date": "2025-07-16",
+        "description": "<p>The emergence of antimalarial drug resistance has threatened the control and elimination of malaria in Africa. Ethiopia, once a success story in case reduction, is now facing resurgence. This study examined the key drug resistance genes (<em>Pfmdr1</em>, <em>Pfcrt</em>, <em>Pfk13</em>, <em>Pfdhfr</em>, and <em>Pfdhps</em>) and mitochondrial genomes of 605 <em>Plasmodium falciparum</em> isolates from 15 districts across Ethiopia, varying in transmission intensity and <em>P. vivax</em> co-endemicity. A dominant <em>Pf</em>MDR1 NFSND haplotype, associated with reduced lumefantrine susceptibility, was identified alongside near-fixation of the <em>Pf</em>CRT CVIET chloroquine-resistant haplotype in specific areas. Concerningly, <em>Pf</em>K13 variants associated with partial artemisinin resistance \u2013 R622I (10%), A675V (1.7%), and P441L (1.1%) \u2013 were expanding. Drug resistance markers were primarily found in settings with low transmission of <em>P. falciparum</em> and high levels of <em>P. vivax</em> coendemicity. Along with a distinct parasite lineage and limited gene flow, these findings suggest that local evolutionary and therapeutic pressures shape resistance. This underscores the urgent need for targeted genomic surveillance to guide tailored interventions and contain the spread of multidrug-resistant <em>P. falciparum.</em></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Letebo, Alemayehu",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Vanheer, Leen N.",
+            "affiliation": "London School of Hygiene & Tropical Medicine"
+          },
+          {
+            "name": "Engdaw, Mengst",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Alemayehu, Dawit Hailu",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Deressa, Jimma Dinsa",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Adnew, Bethlehem",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Ayele, Abaysew",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Keffale, Migbaru",
+            "affiliation": "Radboud University Medical Center"
+          },
+          {
+            "name": "Demisse, Mulugeta",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Seyoum, Tamrayehu",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Shiferaw, Meklit",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Sime, Heven",
+            "affiliation": "Ethiopian Public Health Institute"
+          },
+          {
+            "name": "Gebreegziabxier, Atsbeha",
+            "affiliation": "Ethiopian Public Health Institute"
+          },
+          {
+            "name": "Shimelash, Amanuel",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Tafa, Elias B.",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Chali, Wakweya",
+            "affiliation": "Radboud University Medical Center"
+          },
+          {
+            "name": "Alemayehu, Lina",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Kassa, Fikregabrail Aberra",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Zeleke, Ayalew Jejaw",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Hamza, Tajudin Abdurhaman",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Tamirat, Abel Beliyu",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Misganaw, Tadesse",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Bogale, Alayu",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Abriham, Zufan Yiheyis",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Nasir, Yasin",
+            "affiliation": "Addis Ababa University"
+          },
+          {
+            "name": "Jebessa, Gutema",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Ejigu, Legesse Alamerie",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Yohannes, Metmiku",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Kebede, Betelhem Akililu",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Ayele, Matiwos Kidane",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Abdo, Melat",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Habtamu, Getinet",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Gizat, Addisu",
+            "affiliation": "Armauer Hansen Research Institute"
+          },
+          {
+            "name": "Phelan, Jody",
+            "affiliation": "London School of Hygiene & Tropical Medicine"
+          },
+          {
+            "name": "Matlock, Bryce",
+            "affiliation": "Oak Ridge Institute for Science and Education"
+          },
+          {
+            "name": "Fidock, David A.",
+            "affiliation": "Columbia University Irving Medical Center"
+          },
+          {
+            "name": "Campino, Susana",
+            "affiliation": "London School of Hygiene & Tropical Medicine"
+          },
+          {
+            "name": "Assefa, Ashenafi",
+            "affiliation": "University of North Carolina at Chapel Hill"
+          },
+          {
+            "name": "Koepfli, Cristian",
+            "affiliation": "University of Notre Dame"
+          },
+          {
+            "name": "Massebo, Fekadu",
+            "affiliation": "Arba Minch University"
+          },
+          {
+            "name": "Tadesse, Fitsum G.",
+            "affiliation": "Armauer Hansen Research Institute",
+            "orcid": "0000-0003-1931-1442"
+          }
+        ],
+        "keywords": [
+          "Malaria",
+          "Antimicrobial resistance",
+          "Genomics"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.12688/verixiv.1201.1",
+            "relation": "isCitedBy",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "https://github.com/leenvh/EMAGEN",
+            "relation": "isDerivedFrom",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://github.com/LSHTMPathogenSeqLab/malaria-hub",
+            "relation": "isDerivedFrom",
+            "scheme": "url"
+          },
+          {
+            "identifier": "10.5061/dryad.1vhhmgr6c",
+            "relation": "isDerivedFrom",
+            "scheme": "doi"
+          }
+        ],
+        "resource_type": {
+          "title": "Other",
+          "type": "other"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "dryad"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15721815"
+              }
+            }
+          ]
+        },
+        "notes": "<p>Funding provided by: Gates Foundation<br>ROR ID: https://ror.org/0456r8d26<br>Award Number: </p>",
+        "method": "<p>Surveillance sites and sample collection</p>\n<p>Fifteen sites across Ethiopia's administrative districts were selected for genomic surveillance of antimalarial resistance (Fig. 1A). Site selection prioritized settings that reported malaria outbreaks [31,68,69], markers of drug-resistant parasites [34],high\u00a0<em>pfhrp2/3</em>\u00a0deletion rates<sup> </sup>[34], representation of the transmission strata of the country (ranging from low and unstable to high, Fig. 1B), varying <em>P. vivax </em>co-endemicity with\u00a0<em>P. falciparum</em> (Fig. 1C), and areas prone to importation of parasites from neighboring countries.</p>\n<p>A total of 605 blood samples were collected from symptomatic <em>P. falciparum</em> between October 2019 and January 2023. Finger-prick blood samples (0.5 mL) collected in EDTA microtainer tubes were used for malaria diagnosis by microscopy and to prepare dried blood spots (DBS) on Whatman 3MM filter paper.</p>\n<p>Ethical Consideration</p>\n<p>The study protocol was approved by the Armauer Hansen Research Institute and ALERT Hospital Ethics Review Committee (PO/46/20) and the University of Notre Dame Institutional Review Board (approval no. 20-12-6350). Written informed consent was obtained from all study participants and their parents or guardians before recruitment. The study adhered to the Declaration of Helsinki principles.</p>\n<p>DNA extraction, <em>P. falciparum</em> species confirmation, parasite quantification</p>\n<p>Genomic DNA was extracted from 6 mm diameter punches of DBS using a MagMAX magnetic bead-based DNA multi-sample kit on a Kingfisher Flex robotic extractor machine (Thermo Fisher Scientific) following the manufacturer's protocol and eluted in 150 \u00b5L low-salt elution buffer. Quantitative polymerase chain reaction<a>[P1]</a>\u00a0 (qPCR) targeting the <em>P. falciparum</em> 18S rRNA small subunit gene for <em>P. falciparum</em> was performed using primer and probe sequences as previously described [70], using TaqMan Fast Advanced Master Mix (Applied Biosystems). <em>P. falciparum</em> parasites were quantified using standard curves generated from a serial dilution of NF54 ring-stage parasites (10^6 to 10^3 parasites/mL). Samples with parasitemia of 50 parasite/\u03bcL or higher were selected for drug resistance marker genotyping.\u00a0</p>\n<p>Amplification of Antimalarial Drug Resistance Genes, Sample and Library Preparation, and Targeted Deep-Amplicon Sequencing</p>\n<p>Amplicon sequencing targeting the entire length of six antimalarial drug resistance genes (<em>Pfcrt</em>, <em>Pfmdr1</em>, <em>Pfk13</em>, <em>Pfdhfr</em>, and <em>Pfdhps</em>) and the mitochondrial genome were employed as described before [71] with few modifications as detailed in Supplementary Information; Single gene PCR amplification assays were modified into two multiplex PCR reactions: Multiplex-I for\u00a0<em>Pfk13</em>,\u00a0<em>Pfmdr1</em>, and\u00a0<em>Pfcytb</em>\u00a0genes; and Multiplex-II for\u00a0<em>PfMit</em>,\u00a0<em>Pfcrt</em>,\u00a0<em>Pfdhps</em> and\u00a0<em>Pfdhfr</em>\u00a0genes amplification. Normalized amplicons pooled from each patient sample were used for library preparation using the Nextera DNA Flex Library Preparation Kit (Illumina, USA). Seven PCR cycles were used for indexing followed by standard purification of the final libraries. Library quantification was performed using a Qubit 4.0 fluorometer with a DNA HS kit (Invitrogen, USA), and fragment size distribution was assessed using a Bioanalyzer 2100 with a DNA HS assay kit (Agilent, Germany). All libraries were normalized to 4 nM, pooled, and sequenced on a NextSeq 500/550 (Illumina, Singapore) using 2 \u00d7 149 bp paired-end reads. In total, 605 <em>P. falciparum</em>isolates were successfully amplified and pooled, and sequencing data were obtained for 604 isolates.</p>\n<p>Sequence alignment, variant and haplotype identification</p>\n<p>Raw Illumina paired-end reads were quality-controlled using the next-generation Sequence Analysis Toolkit \u00a0(<a href=\"https://github.com/CDCgov/Nf-NeST\">https://github.com/yyr4/Nf-NeST/)</a>. Reads with a Phred score below 20 and length below 100 bp were removed. SNPs were identified using the same pipeline, which employs an ensemble of four variant callers (Samtools, freeBayes, HaplotypeCaller, and VarDict_v1.8.2) to increase the detection confidence. Known drug-resistance-associated SNPs were filtered for a minimum read coverage of 5\u00b4 at the corresponding position. Novel SNPs were reported only if they were detected by at least two variant callers and were present in at least ten samples. After quality control and removal of low-depth coverage samples, 586 isolates were retained for downstream analysis. Haplotypes were constructed for\u00a0<em>Pfcrt</em>\u00a0(codons 72-76),\u00a0<em>Pfmdr1</em>\u00a0(codons 86, 184, 1034, 1042, and 1246),\u00a0<em>Pfdhps</em>\u00a0(codons 431, 436, 437, 540, 581, and 613), and\u00a0<em>Pfdhfr</em> (codons 16, 51, 59, 108, and 164) using a variant allele frequency threshold of \u226595% for mutant alleles and \u22645% for wild-type alleles [73]. Samples that did not meet these criteria, which are potentially indicative of polyclonal infections, were excluded from the haplotype analysis.</p>\n<p>Statistical and Population genetic analyses</p>\n<p>Field data were initially collected using paper-based forms and subsequently double-entered into RedCap (mobile application version 5.20.11). Any discrepancies identified during the data entry process were resolved by cross-referencing the original paper forms and reaching a consensus among the data managers.</p>\n<p>Associations between haplotype frequencies, the annual parasite index (API), and the fraction of <em>P. vivax</em> and total infections were analyzed using Spearman's correlation. To adjust for small sample sizes and to achieve robust estimates, 200 bootstrap resampling iterations were used. The API was based on the total confirmed malaria cases and was calculated as follows: (total confirmed malaria cases per year \u00f7 population at risk) \u00d7 1,000. Co-occurrence patterns of key missense mutation pairs were evaluated using chi-square tests, highlighting statistically significant associations. Geographic variation in SNP and haplotype frequencies was assessed using chi-squared tests (statistical significance:\u00a0<em>p</em> &lt; 0.05), and the Wilson score interval method was used to calculate 95% confidence intervals. The median and interquartile range (IQR) were used to summarize the age distribution across sites.</p>\n<p>For haplotype analysis of <em>P. falciparum</em> drug resistance genes (<em>Pfcrt</em>, <em>Pfmdr1</em>, <em>Pfk13</em>, <em>Pfdhps</em>, <em>Pfdhfr</em>), full-gene amplicon sequences were aligned using MAFFT software [74]. Haplotype networks were constructed using R package <em>pegas </em>[75]. SNP-based principal component analysis (PCA) was conducted using the <em>scikit-allel</em> Python package [76]. Publicly available <em>P. falciparum</em> genomic sequences were obtained from previous studies in East Africa and the Horns of Africa [77\u201379]. A neighbor-joining tree was created using pairwise genetic distance matrices and <em>ape</em> R package [75].\u00a0Identity-by-descent (IBD) was used to assess relatedness between isolates by estimating the pairwise fraction of shared ancestry between the sequenced segments. This was done using the <em>hmmIBD</em> software, which applies a hidden Markov model-based approach to estimate shared ancestry while taking recombination into account [81]. Network graphs were created using the <em>igraph</em> R package (v.1.3.5) [82]. The codes used for the bioinformatics and statistical analyses are available at <a href=\"https://github.com/leenvh/EMAGEN\">https://github.com/leenvh/EMAGEN</a>.</p>"
+      },
+      "title": "Convergent evolution of artemisinin and chloroquine resistance in Ethiopian Plasmodium falciparum parasites",
+      "links": {
+        "self": "https://zenodo.org/api/records/15721816",
+        "self_html": "https://zenodo.org/records/15721816",
+        "preview_html": "https://zenodo.org/records/15721816?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15721816",
+        "self_doi": "https://doi.org/10.5281/zenodo.15721816",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15721816",
+        "reserve_doi": "https://zenodo.org/api/records/15721816/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/15721815",
+        "parent_html": "https://zenodo.org/records/15721815",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15721815",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15721815",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15721816/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15721816/sequence/default",
+        "files": "https://zenodo.org/api/records/15721816/files",
+        "media_files": "https://zenodo.org/api/records/15721816/media-files",
+        "archive": "https://zenodo.org/api/records/15721816/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15721816/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15721816/versions/latest",
+        "latest_html": "https://zenodo.org/records/15721816/latest",
+        "versions": "https://zenodo.org/api/records/15721816/versions",
+        "draft": "https://zenodo.org/api/records/15721816/draft",
+        "access_links": "https://zenodo.org/api/records/15721816/access/links",
+        "access_grants": "https://zenodo.org/api/records/15721816/access/grants",
+        "access_users": "https://zenodo.org/api/records/15721816/access/users",
+        "access_request": "https://zenodo.org/api/records/15721816/access/request",
+        "access": "https://zenodo.org/api/records/15721816/access",
+        "communities": "https://zenodo.org/api/records/15721816/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15721816/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15721816/requests"
+      },
+      "updated": "2025-07-16T11:23:18.240478+00:00",
+      "recid": "15721816",
+      "revision": 5,
+      "files": [
+        {
+          "id": "3ccaf965-f333-4102-af88-f8a1168884d1",
+          "key": "Supplementary_Information.docx",
+          "size": 33913,
+          "checksum": "md5:edc62807d443319ecad5bb05ddebab90",
+          "links": {
+            "self": "https://zenodo.org/api/records/15721816/files/Supplementary_Information.docx/content"
+          }
+        },
+        {
+          "id": "142a6c22-0992-4dd7-b88e-21e2b7a5c86c",
+          "key": "Extended_Data.docx",
+          "size": 1972356,
+          "checksum": "md5:708b3796f0d9afba968015fe8423e132",
+          "links": {
+            "self": "https://zenodo.org/api/records/15721816/files/Extended_Data.docx/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "90070"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 5,
+        "unique_downloads": 4,
+        "views": 9,
+        "unique_views": 8,
+        "version_downloads": 5,
+        "version_unique_downloads": 4,
+        "version_unique_views": 8,
+        "version_views": 9
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-05-29T16:59:58.630535+00:00",
+      "modified": "2025-05-29T16:59:59.004435+00:00",
+      "id": 15547386,
+      "conceptrecid": "15547385",
+      "doi": "10.5281/zenodo.15547386",
+      "conceptdoi": "10.5281/zenodo.15547385",
+      "doi_url": "https://doi.org/10.5281/zenodo.15547386",
+      "metadata": {
+        "title": "github.com/CDPHE-bioinformatics/CDPHE-Enterovirus/EV-D68_seq_results",
+        "doi": "10.5281/zenodo.15547386",
+        "publication_date": "2023-11-01",
+        "description": "<h1>CDPHE Enterovirus repository</h1>\n<p><strong>Disclaimer: Next generation sequencing and bioinformatic and genomic analysis at CDPHE is not CLIA validated at this time. These workflows and their outputs are not to be used for diagnostic purposes and should only be used for public health action and surveillance purposes. CDPHE is not responsible for the incorrect or inappropriate use of these workflows or their results.</strong></p>\n<p>In this repository you will find all things related to Enterovirus D68 (EV-D68) bioinformatics and analysis. The general directory stucture is as follows:</p>\n<pre><code>CDPHE_EV-D68\n| README_EV-D68_overview.md # this document\n| dockstore.yml\n| workflows # terra workflows you can find in dockstore and push to your terra workspace\n      | EV-D68_illumina_pe_assembly.wdl\n      | EV-D68_seq_results.wdl\n| scripts # custom python scripts for analysess used in wdl workflows\n      | ev-d68_calc_percent_coverage.py\n      | ev-d68_concat_assembly_software_illumina.py\n      | ev_d68_concat_seq_results.py\n| workspace_data # reference data\n| workflow_diagrams      \n</code></pre>\n<h1>CDPHE_EV-D68 Workflows</h1>\n<h2>Table of Contents</h2>\n<ol>\n<li><a href=\"#overview\">Overview</a></li>\n<li><a href=\"#getting-set-up\">Getting Set Up</a></li>\n<li><a href=\"#reference-based-assembly-workflows\">Reference Based Assembly Workflow</a></li>\n<li><a href=\"#results-summary-workflows\">Results Summary Workflow</a></li>\n<li><a href=\"#evd68-genotyping-method\">EV-D68 Genotyping</a></li>\n</ol>\n<h2>Overview</h2>\n<p>The following documentation describes the Colorado Department of Public Health and Environments's workflows for the assembly and analysis of whole genome sequencing data for Enterovirus D68 (EV-D68) on GCP's Terra.bio platform. Workflows are written in WDL and can be imported into a Terra.bio workspace through dockstore.</p>\n<p>Our EV-D68 whole genome reference-based assembly workflows are highly adaptable and facilitate the assembly and analysis of tiled amplicon based sequencing data of EV-D68. The workflows can accomodate various amplicon primer schemes, as well as diffent sequencing technology platforms including both Illumina and Oxford Nanopore Technology (ONT - COMING SOON!). Below is a high level overview of our workflows followed by detailed descriptions of each workflow which you can access by clicking the dropdown menus.</p>\n<p>Briefly, using the platform appropriate assembly workflow on Terra.bio (r.g. <code>EV-D68_illumina_pe_assembly</code>), we perform quality control, trimming, and filtering of raw reads, and perform reference-guided whole genome assembly. Following assembly, intermediate and results files are transfered to a user defined google storage bucket. Next, we produce a results summary file for the set of sequences analyzed using the <code>EV-D68_seq_results</code> workflow. Finally, genotyping is performed using an open source online tool.</p>\n<br>\n<h2>Getting set up</h2>\n<p>Prior to running any of the workflows, you must set up the terra table and link reference files and custom python scripts to your workspace data. Below is a table detailing the workspace data you will need to set up.</p>\n<br>\n<h4>Workspace data</h4>\n<p>The reference files can be found in this repository in the <code>workspace_data</code> directory. Python scripts can be found in the <code>scripts</code> directory.</p>\n<p>| workspace variable name | workflow|  file name | description |\n|:---------------------------------------|:---------------------------------------|:---------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|\n|<code>adapters_and_contaminants_fa</code>|<code>EV-D68_illumina_pe_assembly</code>|Adapters_plus_PhiX_174.fasta | adapaters sequences and contaiment sequences removed during fastq cleaning and filtering using SeqyClean. Thanks to Erin Young at Utah Public Health Laboratory for providing this file!|\n|<code>ev-d68_genome_gff</code>|<code>EV-D68_illumina_pe_assembly</code>, <code>EV-D68_ont_assembly</code>|KT285485-1_annotations_20230811.gff|whole genome reference sequence annotation file in gff format (we use NCBI genbank ID KT285485.1 with liftover annotations from NC_038308.1)|\n|<code>ev-d68_genome_fa</code>|<code>EV-D68_illumina_pe_assembly</code>, <code>EV-D68_ont_assembly</code>|KT285485-1.fasta |EV-D68 whole genome reference sequence in fasta format (we use NCBI genbank ID KT285485.1)|\n|<code>primer_bed</code>|<code>EV-D68_illumina_pe_assembly</code>, <code>EV-D68_ont_assembly</code>|{primer_scheme}.primer.bed|primer bed file for your amplicon primer set. We obtained tiled amplicon primers from https://drive.google.com/file/d/1fEqBT7_NvG04Pemb5IdzvBDLW08aPafK/view](https://www.medrxiv.org/content/10.1101/2023.11.20.23297677v2 |\n|<code>ev-d68_calc_per_cov_py</code>|<code>EV-D68_illumina_pe_assembly</code>, <code>EV-D68_ont_assembly</code>|ev-d68_calc_percent_coverage.py|see detailed description in the readme file found in <code>./python_scripts/</code> repo directory|\n|<code>ev-d68_concat_assembly_software_illumina_py</code>|<code>EV-D68_illumina_pe_assembly</code>|<code>ev-d68_concat_assembly_software_illumina.py</code>|see detailed description in the readme file found in <code>./python_scripts/</code> repo directory|\n|<code>ev-d68_concat_results_py</code>|<code>EV-D68_seq_results</code>|ev_d68_concat_seq_results.py |see detailed description in the readme file found in <code>./python_scripts</code> repo directory|</p>\n<br>\n<h2>Reference-Based Assembly workflows</h2>\n<p>The following workflows describe the reference based assembly methods for paired-end illumina sequencing data sequencing data. The workflow accepts &quot;sample&quot; as the root entity type. Click the drop down to expand for details. For preprocessing fastq files and generating terra data tables prior to assembly and analysis on Terra.bio, we use the following script and README (https://github.com/CDPHE-bioinformatics/seq_data_preprocessing-private).</p>\n<br>\n<h3>EV-D68_illumina_pe_assembly.wdl</h3>\n<h3>Overview</h3>\n<p>This workflow was developed for the assembly of Illumina paired-end read data. The workflow accepts &quot;sample&quot; as the root entity type. The workflow will:</p>\n<ol>\n<li>Use Seqyclean to quality filter and trim raw fastq files</li>\n</ol>\n<ul>\n<li>Seqyclean parameters include a minimum read length set to 70 bp and quality trimming set to a minimum Phred quality score of 30.</li>\n</ul>\n<ol>\n<li>Run FastQC on both the raw and cleaned reads</li>\n<li>Align reads to the reference genome using bwa and then sort the bam by coordinates using Samtools</li>\n<li>Use iVar trim to trim primer regions and then sort the trimmed bam by coordinates using Samtools</li>\n<li>Use iVar variants to call variants from the trimmed and sorted bam</li>\n</ol>\n<ul>\n<li>iVar variants parameters include a minimum quality score set to 20, a minimum variant base frequency set to 0.6 and a minimum read depth set to 10.</li>\n</ul>\n<ol>\n<li>Use iVar consensus to call the consensus genome sequence from the trimmed and sorted bam</li>\n</ol>\n<ul>\n<li>iVar consensus parameters include a minimum quality score set to 20, a minimum variant base frequency set to 0.6 and a minimum read depth set to 10.</li>\n</ul>\n<ol>\n<li>Use Samtools flagstat, stats, depth, and coverage to output statistics from the bam</li>\n<li>Rename the fasta header of consensus sequences in the GISAID-acceptable format: CO-CDPHE-{sample_id}</li>\n<li>Calculate the percent coverage using the <a href=\"./python_scripts/calc_percent_coverage.py\">ev-d68_calc_percent_coverage.py</a> script available in the <a href=\"./python_scripts/\">python_scripts</a> directory of this repo.</li>\n<li>Use gsutils to transfer the outputs and results to a user-specified google bucket</li>\n</ol>\n<p></p>\n<br>\n<h3>Inputs</h3>\n<ol>\n<li>\n<p>Terra data table.</p>\n<p>The terra data table must include the following columns as listed below. Note that optional columns are not neccessary for the assembly workflow but must be present for the EV-D68_seq_results.wdl workflow described below.</p>\n</li>\n</ol>\n<p>| column header | description |\n|:--------------------|:-----------------------------------------------------------------------------------|\n|<code>entity:sample_id</code>| column with the list of sample names. (e.g. <code>entity:evd68-0203_id</code>)|\n|<code>fastq_1</code>|The google bucket path to the R1 fastq file|\n|<code>fastq_2</code>|The google bucket path to the R2 fastq file|\n|<code>out_dir</code>|User defined google bucket for where the files will be transfered during the transfer task|\n|<code>terra_data_table_path</code>|(optional; required for results summary workflow)|\n|<code>project_name</code>|(optional; requried for results summary workflow)|</p>\n<br>\n<ol>\n<li>Terra Workspace Data.</li>\n</ol>\n<p>See <a href=\"#getting-set-up\">Getting set up</a> above.</p>\n<br>\n<ol>\n<li>Setting up the workflow inputs</li>\n</ol>\n<p>For setting up the worklfow inputs, use the <code>EV-D68_illumina_pe_assembly-input.json</code> in the <code>workflow_inputs</code> directory.</p>\n<p>|workflow variable| attribute (input syntax into workflow) |\n|:-----------------------------|:--------------------------------------------|\n|<code>adapters_and_contaminants</code>|workspace.adapters_and_contaminants_fa|\n|<code>concat_assembly_software_illumina_py</code>|workspace.ev-d68_concat_assembly_software_illumina_py|\n|<code>evd68_calc_percent_coverage_py</code>|workspace.evd68_calc_percent_coverage_py|\n|<code>evd68_genome</code>|workspace.evd68_genome_fa|\n|<code>evd68_gff</code>|workspace.evd68_genome_gff|\n|<code>fastq_1</code>|this.fastq_1|\n|<code>fastq_2</code>|this.fastq_2|\n|<code>out_dir</code>|this.out_dir|\n|<code>primer_bed</code>|workspace.primers_bed|\n|<code>sample_name</code>|this.{entity_name}_id|\n|<code>project_name</code>|this.project_name|</p>\n<br>\n<h3>Outputs</h3>\n<p>| WDL task name | software/program | variable name | description |\n|:--------------------------|:--------------------------------|:-------------------|:--------------------------------------------------------|\n|seqyclean|seqyclean|<code>filtered_reads_1</code>|file|\n|seqyclean|seqyclean|<code>filtered_reads_2</code>|file|\n|seqyclean|seqyclean|<code>seqyclean_summary</code>|file|\n|fastqc as fastqc_raw|fastqc|<code>fastqc_raw1_html</code>|file|\n|fastqc as fastqc_raw|fastqc|<code>fastqc_raw2_html</code>|file|\n|fastqc as fastqc_cleaned|fastqc|<code>fastqc_clean1_html</code>|file|\n|fastqc as fastqc_cleaned|fastqc|<code>fastqc_clean2_html</code>|file|\n|ivar trim|ivar trim and samtools|<code>trimsort_bam</code>|file|\n|ivar trim|ivar trim and samtools|<code>trimsort_bamindex</code>|file|\n|ivar variants|ivar variants|<code>variants</code>|vcf file formatted as a tsv|\n|ivar consensus|ivar consnesus|<code>consensus</code>|fasta file of conensus genome, Ns are called in places with less than 10 bp read depth|\n|bam_stats|samtools flagstat, stats, percent_coverage|<code>flagstat_out</code>|file|\n|bam_stats|samtools flagstat, stats, percent_coverage|<code>stats_out</code>|file|\n|bam_stats|samtools flagstat, stats, percent_coverage|<code>covhist_out</code>|file|\n|bam_stats|samtools flagstat, stats, percent_coverage|<code>cov_out</code>|file|\n|bam_stats|samtools flagstat, stats, percent_coverage|<code>depth_out</code>|file|\n|rename_fasta|N/A|<code>renamed_consensus</code>|fasta file; consesnus genome sequence with the fasta header renamed to be CO-CDPHE-{sample_name}|\n|calc_percent_cvg|ev-d68_calc_percent_coverage.py|<code>percent_cvg_csv</code>|csv file, see ev-d68_calc_percent_cvg.py script readme for details found in the ./python_scripts directory of this repository|\n|align_reads|bwa and samtools|<code>assembler_software_file`|file recording the version for bwa and ivar| |align_reads|bwa|</code>bwa_version`|string recording the version for bwa, this information is used later for submitting to public repositories|\n|ivar trim|ivar version|<code>ivar_version</code>|String|</p>\n<br>\n<h3>EV-D68_seq_results.wdl</h3>\n<p>This workflow should be run following assembly with one of the reference based assembly workflows. The workflow accepts &quot;sample_set&quot; as the root entity type and uses the data table from either assembly workflows. Both assembly workflows (illumina pe and ont) are compatible with this workflow. Breifly the workflow performs the following:</p>\n<ol>\n<li>Concaenates sequencing assembly metrics (e.g. percent coverage, assembler version), and sequence metadata (e.g. plate name, sample well location) into a single csv file.</li>\n<li>Generates a csv file with sequencing assembly metrics that can be used to parse sequencing data into our LIMS.</li>\n<li>Transfers intermediate and summary files to a user defined google bucket.</li>\n</ol>\n<p></p>\n<h3>Inputs</h3>\n<p>Below is a summary of the workflow input variables along with the syntax used for the attribute column when setting up the workflow to run on Terra.bio. For the attributes, the &quot;&quot;this.sample{terra_datatable_name}s.&quot; syntax refers Terra to pull the variable from the terra datatable as used for sample sets. These variables were either in the original terra datatable as inputs for the assembly workflow (see referece based assembly workflow inputs sections above for more details) or added as outputs during the assemlby workflow (see reference based assembly workflow outputs sections for more details). The &quot;workspace.&quot; syntax refers Terra to pull the variable from the terra workspace data. Workspace data is describe in the <code>Getting Started</code> drop down menu above.</p>\n<p>|workflow variable| attribute (input syntax into workflow) |\n|:--------------------------------|:---------------------------------------------------------|\n|<code>assembler_version_array</code>|this.sample{terra_datatable_name}s.assembler_version|\n|<code>ev-d68_concat_seq_results_py</code>|workspace.ev-d68_concat_results_py|\n|<code>cov_out</code>|this.sample{terra_datatable_name}s.cov_out|\n|<code>out_dir_array</code>|this.sample{terra_datatable_name}s.out_dir|\n|<code>percent_cvg_csv</code>|this.sample{terra_datatable_name}s.percent_cvg_csv|\n|<code>project_name_array</code>|this.sample{terra_datatable_name}s.project_name |\n|<code>renamed_consensus</code>|this.sample{terra_datatable_name}s.renamed_consesnus|\n|<code>sample_name</code>|this.sample{terra_datatable_name}s.sample{terra_datatable_name}_id|\n|<code>workbook_path_array</code>|this.sample{terra_datatable_name}s.workbook_path|</p>\n<h3>Outputs</h3>\n<p>This workflow generates several output files which are transfered to the user defined user google bucket as defined by this.sample{terra_datatable_name}s.out_dir. The table below details each output. For more detailed regarding the values in each column for the outputs see either the software readmes or the readme for the specific python script as listed in the description.</p>\n<p>|output variable name| file_name | description | google bucket path|\n|:-------------------------------|:----------------------------------------|:--------------------------------------------------------------|-----------------------------------|\n|<code>sequencing_results_csv</code>|<code>{seq_run}_sequencing_results.csv</code>|summary of the sequencing metrics for each sequence generated from the <code>ev-d68_concat_seq_results.py</code>|<code>gs://{user_defined_gcp_bucket}/summary_results/</code>|\n|<code>wgs_horizon_report_csv</code>|<code>{seq_run}_wgs_horizon_report.csv</code>|results csv used for parsing results into our LIMS. This file is generated from the <code>ev-d68_concat_seq_results.py</code>|<code>gs://{user_defined_gcp_bucket}/summary_results/</code>|</p>\n<br>\n<h3>EV-D68 Genotyping</h3>\n<p>Finally, we use the publicly available Enterovirus Genotyping Tool (available here: https://www.rivm.nl/mpf/typingtool/enterovirus/) for genotyping the consensus genome assemblies.</p>\n<br>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "CDPHE-bioinformatics",
+            "affiliation": null
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://dockstore.org/aliases/workflow-versions/10.5281-zenodo.15547386",
+            "relation": "isIdenticalTo",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://dockstore.org/workflows/github.com/CDPHE-bioinformatics/CDPHE-Enterovirus/EV-D68_seq_results:v.1.0.0",
+            "relation": "isIdenticalTo",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://dockstore.org/api/ga4gh/trs/v2/tools/%23workflow%2Fgithub.com%2FCDPHE-bioinformatics%2FCDPHE-Enterovirus%2FEV-D68_seq_results/versions/v.1.0.0/PLAIN-WDL/descriptor/EV-D68_seq_results.wdl",
+            "relation": "isIdenticalTo",
+            "scheme": "url"
+          }
+        ],
+        "version": "v.1.0.0",
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "dockstore"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15547385"
+              }
+            }
+          ]
+        }
+      },
+      "title": "github.com/CDPHE-bioinformatics/CDPHE-Enterovirus/EV-D68_seq_results",
+      "links": {
+        "self": "https://zenodo.org/api/records/15547386",
+        "self_html": "https://zenodo.org/records/15547386",
+        "preview_html": "https://zenodo.org/records/15547386?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15547386",
+        "self_doi": "https://doi.org/10.5281/zenodo.15547386",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15547386",
+        "reserve_doi": "https://zenodo.org/api/records/15547386/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/15547385",
+        "parent_html": "https://zenodo.org/records/15547385",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15547385",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15547385",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15547386/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15547386/sequence/default",
+        "files": "https://zenodo.org/api/records/15547386/files",
+        "media_files": "https://zenodo.org/api/records/15547386/media-files",
+        "archive": "https://zenodo.org/api/records/15547386/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15547386/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15547386/versions/latest",
+        "latest_html": "https://zenodo.org/records/15547386/latest",
+        "versions": "https://zenodo.org/api/records/15547386/versions",
+        "draft": "https://zenodo.org/api/records/15547386/draft",
+        "access_links": "https://zenodo.org/api/records/15547386/access/links",
+        "access_grants": "https://zenodo.org/api/records/15547386/access/grants",
+        "access_users": "https://zenodo.org/api/records/15547386/access/users",
+        "access_request": "https://zenodo.org/api/records/15547386/access/request",
+        "access": "https://zenodo.org/api/records/15547386/access",
+        "communities": "https://zenodo.org/api/records/15547386/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15547386/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15547386/requests"
+      },
+      "updated": "2025-05-29T16:59:59.004435+00:00",
+      "recid": "15547386",
+      "revision": 5,
+      "files": [
+        {
+          "id": "9c0bde9c-7c85-4cb3-a767-4edc30f86d34",
+          "key": "github.com-CDPHE-bioinformatics-CDPHE-Enterovirus-EV-D68_seq_results_v.1.0.0.zip",
+          "size": 1406,
+          "checksum": "md5:712f343342233de64ba33ca8e5dd9989",
+          "links": {
+            "self": "https://zenodo.org/api/records/15547386/files/github.com-CDPHE-bioinformatics-CDPHE-Enterovirus-EV-D68_seq_results_v.1.0.0.zip/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "76183"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 3,
+        "unique_views": 3,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 3,
+        "version_views": 3
+      },
+      "state": "done",
+      "submitted": true
+    },
     {
       "created": "2025-04-16T20:47:05.132005+00:00",
       "modified": "2025-04-16T20:47:56.609072+00:00",
@@ -114,6 +685,7 @@
         "doi": "https://doi.org/10.5281/zenodo.15232458",
         "self_doi": "https://doi.org/10.5281/zenodo.15232458",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15232458",
+        "reserve_doi": "https://zenodo.org/api/records/15232458/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/15232457",
         "parent_html": "https://zenodo.org/records/15232457",
         "parent_doi": "https://doi.org/10.5281/zenodo.15232457",
@@ -128,7 +700,6 @@
         "latest_html": "https://zenodo.org/records/15232458/latest",
         "versions": "https://zenodo.org/api/records/15232458/versions",
         "draft": "https://zenodo.org/api/records/15232458/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15232458/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/15232458/access/links",
         "access_grants": "https://zenodo.org/api/records/15232458/access/grants",
         "access_users": "https://zenodo.org/api/records/15232458/access/users",
@@ -152,12 +723,12 @@
       "stats": {
         "downloads": 0,
         "unique_downloads": 0,
-        "views": 5,
-        "unique_views": 4,
+        "views": 25,
+        "unique_views": 23,
         "version_downloads": 0,
         "version_unique_downloads": 0,
-        "version_unique_views": 4,
-        "version_views": 5
+        "version_unique_views": 23,
+        "version_views": 25
       },
       "state": "done",
       "submitted": true
@@ -278,6 +849,7 @@
         "doi": "https://doi.org/10.5281/zenodo.15028960",
         "self_doi": "https://doi.org/10.5281/zenodo.15028960",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15028960",
+        "reserve_doi": "https://zenodo.org/api/records/15028960/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/15028959",
         "parent_html": "https://zenodo.org/records/15028959",
         "parent_doi": "https://doi.org/10.5281/zenodo.15028959",
@@ -292,7 +864,6 @@
         "latest_html": "https://zenodo.org/records/15028960/latest",
         "versions": "https://zenodo.org/api/records/15028960/versions",
         "draft": "https://zenodo.org/api/records/15028960/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15028960/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/15028960/access/links",
         "access_grants": "https://zenodo.org/api/records/15028960/access/grants",
         "access_users": "https://zenodo.org/api/records/15028960/access/users",
@@ -316,12 +887,12 @@
       "stats": {
         "downloads": 5,
         "unique_downloads": 4,
-        "views": 7,
-        "unique_views": 7,
+        "views": 12,
+        "unique_views": 12,
         "version_downloads": 5,
         "version_unique_downloads": 4,
-        "version_unique_views": 7,
-        "version_views": 7
+        "version_unique_views": 12,
+        "version_views": 12
       },
       "state": "done",
       "submitted": true
@@ -372,6 +943,7 @@
         "doi": "https://doi.org/10.5281/zenodo.3674784",
         "self_doi": "https://doi.org/10.5281/zenodo.3674784",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.3674784",
+        "reserve_doi": "https://zenodo.org/api/records/3674784/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/3674783",
         "parent_html": "https://zenodo.org/records/3674783",
         "parent_doi": "https://doi.org/10.5281/zenodo.3674783",
@@ -386,7 +958,6 @@
         "latest_html": "https://zenodo.org/records/3674784/latest",
         "versions": "https://zenodo.org/api/records/3674784/versions",
         "draft": "https://zenodo.org/api/records/3674784/draft",
-        "reserve_doi": "https://zenodo.org/api/records/3674784/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/3674784/access/links",
         "access_grants": "https://zenodo.org/api/records/3674784/access/grants",
         "access_users": "https://zenodo.org/api/records/3674784/access/users",
@@ -429,12 +1000,12 @@
       "stats": {
         "downloads": 7,
         "unique_downloads": 6,
-        "views": 5,
-        "unique_views": 5,
+        "views": 7,
+        "unique_views": 7,
         "version_downloads": 7,
         "version_unique_downloads": 6,
-        "version_unique_views": 5,
-        "version_views": 5
+        "version_unique_views": 7,
+        "version_views": 7
       },
       "state": "done",
       "submitted": true
@@ -1100,6 +1671,7 @@
         "doi": "https://doi.org/10.11646/zootaxa.5584.2.1",
         "self_doi": "https://doi.org/10.11646/zootaxa.5584.2.1",
         "self_doi_html": "https://zenodo.org/doi/10.11646/zootaxa.5584.2.1",
+        "reserve_doi": "https://zenodo.org/api/records/14830734/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/14830733",
         "parent_html": "https://zenodo.org/records/14830733",
         "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14830734/manifest",
@@ -1112,7 +1684,6 @@
         "latest_html": "https://zenodo.org/records/14830734/latest",
         "versions": "https://zenodo.org/api/records/14830734/versions",
         "draft": "https://zenodo.org/api/records/14830734/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14830734/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/14830734/access/links",
         "access_grants": "https://zenodo.org/api/records/14830734/access/grants",
         "access_users": "https://zenodo.org/api/records/14830734/access/users",
@@ -1136,12 +1707,12 @@
       "stats": {
         "downloads": 0,
         "unique_downloads": 0,
-        "views": 4,
-        "unique_views": 4,
+        "views": 20,
+        "unique_views": 20,
         "version_downloads": 0,
         "version_unique_downloads": 0,
-        "version_unique_views": 4,
-        "version_views": 4
+        "version_unique_views": 20,
+        "version_views": 20
       },
       "state": "done",
       "submitted": true
@@ -1222,6 +1793,7 @@
         "doi": "https://doi.org/10.5281/zenodo.14759204",
         "self_doi": "https://doi.org/10.5281/zenodo.14759204",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14759204",
+        "reserve_doi": "https://zenodo.org/api/records/14759204/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/7884251",
         "parent_html": "https://zenodo.org/records/7884251",
         "parent_doi": "https://doi.org/10.5281/zenodo.7884251",
@@ -1236,7 +1808,6 @@
         "latest_html": "https://zenodo.org/records/14759204/latest",
         "versions": "https://zenodo.org/api/records/14759204/versions",
         "draft": "https://zenodo.org/api/records/14759204/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14759204/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/14759204/access/links",
         "access_grants": "https://zenodo.org/api/records/14759204/access/grants",
         "access_users": "https://zenodo.org/api/records/14759204/access/users",
@@ -1270,14 +1841,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 84,
-        "unique_downloads": 84,
-        "views": 436,
-        "unique_views": 423,
-        "version_downloads": 2,
-        "version_unique_downloads": 2,
-        "version_unique_views": 11,
-        "version_views": 11
+        "downloads": 97,
+        "unique_downloads": 97,
+        "views": 481,
+        "unique_views": 468,
+        "version_downloads": 7,
+        "version_unique_downloads": 7,
+        "version_unique_views": 25,
+        "version_views": 25
       },
       "state": "done",
       "submitted": true
@@ -1375,6 +1946,7 @@
         "doi": "https://doi.org/10.5281/zenodo.14738884",
         "self_doi": "https://doi.org/10.5281/zenodo.14738884",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14738884",
+        "reserve_doi": "https://zenodo.org/api/records/14738884/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/14738883",
         "parent_html": "https://zenodo.org/records/14738883",
         "parent_doi": "https://doi.org/10.5281/zenodo.14738883",
@@ -1384,12 +1956,12 @@
         "files": "https://zenodo.org/api/records/14738884/files",
         "media_files": "https://zenodo.org/api/records/14738884/media-files",
         "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:14738884:Pipeline_TPG.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:14738884:Pipeline_TPG.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:14738884:Pipeline_TPG.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:14738884:Pipeline_TPG.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:14738884:Pipeline_TPG.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:14738884:Pipeline_TPG.pdf/full/^1200,/0/default.jpg"
+          "10": "https://zenodo.org/api/iiif/record:14738884:Pipeline_TPG.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:14738884:Pipeline_TPG.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:14738884:Pipeline_TPG.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:14738884:Pipeline_TPG.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:14738884:Pipeline_TPG.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:14738884:Pipeline_TPG.pdf/full/%5E1200,/0/default.jpg"
         },
         "archive": "https://zenodo.org/api/records/14738884/files-archive",
         "archive_media": "https://zenodo.org/api/records/14738884/media-files-archive",
@@ -1397,7 +1969,6 @@
         "latest_html": "https://zenodo.org/records/14738884/latest",
         "versions": "https://zenodo.org/api/records/14738884/versions",
         "draft": "https://zenodo.org/api/records/14738884/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14738884/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/14738884/access/links",
         "access_grants": "https://zenodo.org/api/records/14738884/access/grants",
         "access_users": "https://zenodo.org/api/records/14738884/access/users",
@@ -1429,14 +2000,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 17,
-        "unique_downloads": 17,
-        "views": 11,
-        "unique_views": 11,
-        "version_downloads": 17,
-        "version_unique_downloads": 17,
-        "version_unique_views": 11,
-        "version_views": 11
+        "downloads": 22,
+        "unique_downloads": 22,
+        "views": 18,
+        "unique_views": 18,
+        "version_downloads": 22,
+        "version_unique_downloads": 22,
+        "version_unique_views": 18,
+        "version_views": 18
       },
       "state": "done",
       "submitted": true
@@ -1534,6 +2105,7 @@
         "doi": "https://doi.org/10.5281/zenodo.14422886",
         "self_doi": "https://doi.org/10.5281/zenodo.14422886",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14422886",
+        "reserve_doi": "https://zenodo.org/api/records/14422886/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/14422884",
         "parent_html": "https://zenodo.org/records/14422884",
         "parent_doi": "https://doi.org/10.5281/zenodo.14422884",
@@ -1548,7 +2120,6 @@
         "latest_html": "https://zenodo.org/records/14422886/latest",
         "versions": "https://zenodo.org/api/records/14422886/versions",
         "draft": "https://zenodo.org/api/records/14422886/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14422886/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/14422886/access/links",
         "access_grants": "https://zenodo.org/api/records/14422886/access/grants",
         "access_users": "https://zenodo.org/api/records/14422886/access/users",
@@ -1627,445 +2198,12 @@
       "stats": {
         "downloads": 78,
         "unique_downloads": 73,
-        "views": 26,
-        "unique_views": 24,
+        "views": 30,
+        "unique_views": 28,
         "version_downloads": 78,
         "version_unique_downloads": 73,
-        "version_unique_views": 24,
-        "version_views": 26
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-01-14T12:22:36.719658+00:00",
-      "modified": "2025-01-14T12:39:50.173827+00:00",
-      "id": 14645009,
-      "conceptrecid": "14645008",
-      "doi": "10.5281/zenodo.14645009",
-      "conceptdoi": "10.5281/zenodo.14645008",
-      "doi_url": "https://doi.org/10.5281/zenodo.14645009",
-      "metadata": {
-        "title": "ONT_data_analysis v1.0",
-        "doi": "10.5281/zenodo.14645009",
-        "publication_date": "2025-01-14",
-        "description": "<p>Here you will find a collection of scripts to analyse long-read sequencing raw data obtained with the Oxford Nanopore Technology. Each script will run a PBS job on a HPC cluster, but it can be modified to meet other requirements (e.g. SLURM, local...).</p>\n<ul>\n<li>\n<p><strong>Script 1: 01_basecalling_dorado.pbs</strong>. This script performs barcode classification in-line with basecalling using&nbsp;<a href=\"https://github.com/nanoporetech/dorado\">Dorado</a>&nbsp;under the most accurate basecalling method (it requires more time). The .fast5 file generated by the sequencer should be located in the directory&nbsp;<code>./00_data/00_raw</code>. Depending on the library preparation kit used, you might have to change the value of the option&nbsp;<code>--kit-name</code>. Then, the BAM file is splitted into a BAM file per barcode. This job is computationally expensive, so make sure you provide enough resources (GPU).</p>\n</li>\n<li>\n<p><strong>Script 2: 02_read_statistics.pbs</strong>. This script analyses the quality of the raw reads using&nbsp;<a href=\"https://github.com/wdecoster/NanoPlot\">NanoPlot</a>&nbsp;(also provides some statistics) and&nbsp;<a href=\"https://www.bioinformatics.babraham.ac.uk/projects/fastqc/\" rel=\"nofollow\">FastQC</a>.</p>\n</li>\n<li>\n<p><strong>Script 3: 03_quality_filtering_porechop.pbs</strong>. This script finds and removes adapters from the reads using&nbsp;<a href=\"https://github.com/rrwick/Porechop\">Porechop</a>.</p>\n</li>\n<li>\n<p><strong>Script 4: 04_rename_IDs.pbs</strong>. This script renames the header of the fastq reads so that they are unique for downstream analyses. Basically, the headers of the sequences are modified to include a suffix derived from the last _ of the last field in the header line.</p>\n</li>\n<li>\n<p><strong>Script 5: 05_quality_filtering_bbmap.pbs</strong>. This script performs quality filering of the reads using&nbsp;<a href=\"https://jgi.doe.gov/data-and-tools/software-tools/bbtools/bb-tools-user-guide/bbmap-guide/\" rel=\"nofollow\">BBMap</a>. First,&nbsp;<code>reformat.sh</code>&nbsp;will discard any sequences shorter than 250 bp, and, second,&nbsp;<code>bbduk.sh</code>&nbsp;will trim both ends of the reads to a minimum quality of 10 using the Phred algorithm.</p>\n</li>\n<li>\n<p><strong>Script 6: 06_reads_statistics.pbs</strong>. This script analyses the quality of the filtered reads using&nbsp;<a href=\"https://github.com/wdecoster/NanoPlot\">NanoPlot</a>&nbsp;and&nbsp;<a href=\"https://www.bioinformatics.babraham.ac.uk/projects/fastqc/\" rel=\"nofollow\">FastQC</a>.</p>\n</li>\n<li>\n<p><strong>Script 7: 07_assembly_flye.pbs</strong>. This script assemblies the reads into contings using&nbsp;<a href=\"https://github.com/mikolmogorov/Flye\">Flye</a>&nbsp;for high quality reads (in combination with&nbsp;<code>dorado basecaller sup</code>&nbsp;in script 1).</p>\n</li>\n<li>\n<p><strong>Script 8: 08_assembly_polishing_medaka.pbs</strong>. This script creates consensus assembled genomes using&nbsp;<a href=\"https://github.com/nanoporetech/medaka\">Medaka</a>.</p>\n</li>\n<li>\n<p><strong>Script 9: 09_quast.pbs</strong>. This script calculates the statistics of the assembled genomes using&nbsp;<a href=\"https://github.com/ablab/quast\">Quast</a>.</p>\n</li>\n<li>\n<p><strong>Script 10: 10_checkM.pbs</strong>. This script assesses the quality of the assembled draft genomes using&nbsp;<a href=\"https://github.com/Ecogenomics/CheckM/wiki\">CheckM</a>.</p>\n</li>\n<li>\n<p><strong>Script 11: 11_genome_coverage.pbs</strong>. This script calculates the genome coverage of the assembled draft genome by mapping the fastq reads used for assembly using&nbsp;<a href=\"https://github.com/lh3/minimap2\">minimap2</a>&nbsp;and&nbsp;<a href=\"https://www.htslib.org/doc/samtools.html\" rel=\"nofollow\">SAMtools</a>.</p>\n</li>\n<li>\n<p><strong>Script 12: 12_reordering_genomes_mauve.pbs</strong>. This script reorder draft contigs according to the reference genome using&nbsp;<a href=\"https://darlinglab.org/mauve/user-guide/progressivemauve.html\" rel=\"nofollow\">Mauve</a>. It will help to determine global rearrangement structures based on next gene annotations.</p>\n</li>\n<li>\n<p><strong>Script 13: 13_annotation_prokka.pbs</strong>. This script annotated the assembled genomes using&nbsp;<a href=\"https://github.com/tseemann/prokka\">Prokka</a>. Annotations will be first added from a reference genome with the parameter&nbsp;<code>--proteins</code>. Modify the command as desired.</p>\n</li>\n<li>\n<p><strong>Script 14: 14_AMR_ABRicate.pbs</strong>. This script looks for antimicrobial resistance using all the databases in&nbsp;<a href=\"https://github.com/tseemann/abricate\">ABRicate</a>.</p>\n</li>\n<li>\n<p><strong>Script 15: 15_pangenome_roary.pbs</strong>. This script construct the pangenome using&nbsp;<a href=\"https://github.com/sanger-pathogens/Roary\">Roary</a>&nbsp;with the annotations from&nbsp;<a href=\"https://github.com/tseemann/prokka\">Prokka</a></p>\n</li>\n</ul>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Irene Ortega Sanz",
-            "affiliation": null
-          }
-        ],
-        "keywords": [
-          "Bioinformatics"
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "https://github.com/ireneortega/ONT_data_analysis/tree/v0.1",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
-          }
-        ],
-        "version": "v0.1",
-        "language": "eng",
-        "custom": {
-          "code:codeRepository": "https://github.com/ireneortega/ONT_data_analysis"
-        },
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "gpl-3.0-or-later"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "14645008"
-              }
-            }
-          ]
-        }
-      },
-      "title": "ONT_data_analysis v1.0",
-      "links": {
-        "self": "https://zenodo.org/api/records/14645009",
-        "self_html": "https://zenodo.org/records/14645009",
-        "preview_html": "https://zenodo.org/records/14645009?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.14645009",
-        "self_doi": "https://doi.org/10.5281/zenodo.14645009",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14645009",
-        "parent": "https://zenodo.org/api/records/14645008",
-        "parent_html": "https://zenodo.org/records/14645008",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14645008",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14645008",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14645009/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14645009/sequence/default",
-        "files": "https://zenodo.org/api/records/14645009/files",
-        "media_files": "https://zenodo.org/api/records/14645009/media-files",
-        "archive": "https://zenodo.org/api/records/14645009/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14645009/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14645009/versions/latest",
-        "latest_html": "https://zenodo.org/records/14645009/latest",
-        "versions": "https://zenodo.org/api/records/14645009/versions",
-        "draft": "https://zenodo.org/api/records/14645009/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14645009/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14645009/access/links",
-        "access_grants": "https://zenodo.org/api/records/14645009/access/grants",
-        "access_users": "https://zenodo.org/api/records/14645009/access/users",
-        "access_request": "https://zenodo.org/api/records/14645009/access/request",
-        "access": "https://zenodo.org/api/records/14645009/access",
-        "communities": "https://zenodo.org/api/records/14645009/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14645009/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14645009/requests"
-      },
-      "updated": "2025-01-14T12:39:50.173827+00:00",
-      "recid": "14645009",
-      "revision": 10,
-      "files": [
-        {
-          "id": "41786cc2-2f17-47a3-8b35-61a80e375940",
-          "key": "ireneortega/ONT_data_analysis-v0.1.zip",
-          "size": 23036,
-          "checksum": "md5:7bcfada5f5acd3f6896ce43e13e8158d",
-          "links": {
-            "self": "https://zenodo.org/api/records/14645009/files/ireneortega/ONT_data_analysis-v0.1.zip/content"
-          }
-        }
-      ],
-      "swh": {
-        "swhid": "swh:1:dir:ef6cebc4546e62072f3e77b83a89392ebf576728;origin=https://doi.org/10.5281/zenodo.14645008;visit=swh:1:snp:aa035b7b6c37d29c9b0012583183e84adfc2489b;anchor=swh:1:rel:df29d3334dc25dbac49f673ebf6df0ac3b9a93b8;path=ireneortega-ONT_data_analysis-3deed82"
-      },
-      "owners": [
-        {
-          "id": "1036996"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 4,
-        "unique_downloads": 4,
-        "views": 33,
-        "unique_views": 24,
-        "version_downloads": 4,
-        "version_unique_downloads": 4,
-        "version_unique_views": 24,
-        "version_views": 33
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2024-12-25T21:00:57.273631+00:00",
-      "modified": "2024-12-26T00:01:01.014476+00:00",
-      "id": 14556246,
-      "conceptrecid": "14556245",
-      "doi": "10.5281/zenodo.14556246",
-      "conceptdoi": "10.5281/zenodo.14556245",
-      "doi_url": "https://doi.org/10.5281/zenodo.14556246",
-      "metadata": {
-        "title": "ACE-AB1: Automated Comprehensive Editing and BLAST-based Assignment for AB1 Files",
-        "doi": "10.5281/zenodo.14556246",
-        "publication_date": "2024-12-25",
-        "description": "<p>ACE-AB1 is a powerful tool that ensures high-quality sequence analysis and reduces the risk of low-quality submissions to public databases. By integrating accessibility, efficiency, and adaptability, the tool supports the integrity of genomic research while democratizing access to reliable sequence processing methods. Its design makes it an indispensable asset for researchers, educators, and laboratories worldwide.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Sosa Reyes, Diego",
-            "affiliation": "Departamento de Ingenier\u00eda Gen\u00e9tica, Centro de Investigaci\u00f3n y de Estudios Avanzados del I.P.N., Campus Guanajuato, AP 629, Irapuato, Guanajuato,\u00a036500,\u00a0M\u00e9xico"
-          },
-          {
-            "name": "R. Amores, Gerardo",
-            "affiliation": "Departamento de Ingenier\u00eda Gen\u00e9tica, Centro de Investigaci\u00f3n y de Estudios Avanzados del I.P.N., Campus Guanajuato, AP 629, Irapuato, Guanajuato,\u00a036500,\u00a0M\u00e9xico",
-            "orcid": "0000-0001-7905-6741"
-          }
-        ],
-        "contributors": [
-          {
-            "name": "Departamento de Ingenier\u00eda Gen\u00e9tica, Centro de Investigaci\u00f3n y de Estudios Avanzados del I.P.N., Campus Guanajuato, AP 629, Irapuato, Guanajuato,\u00a036500,\u00a0M\u00e9xico",
-            "affiliation": null,
-            "type": "HostingInstitution"
-          }
-        ],
-        "keywords": [
-          "Python",
-          "Google Colab",
-          "Phred Scores",
-          "Chromatogram",
-          "AB1 file",
-          "BLAST"
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "https://github.com/IngDiegoSosa/ACE-AB1/tree/V1.0.0",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
-          }
-        ],
-        "version": "V1.0.0",
-        "references": [
-          "1.\tDaisley, B., Vancuren, S. J., Brettingham, D. J., Wilde, J., Renwick, S., Macpherson, C. V., ... & Allen-Vercoe, E. (2024). isolateR: an R package for generating microbial libraries from Sanger sequencing data. Bioinformatics, 40(7), btae448. https://doi.org/10.1093/bioinformatics/btae448",
-          "2.\tBoratyn, G. M., Camacho, C., Cooper, P. S., Coulouris, G., Fong, A., Ma, N., ... & Zaretskaya, I. (2013). BLAST: a more efficient report with usability improvements. Nucleic acids research, 41(W1), W29-W33.",
-          "3.\tEwing, B., Hillier, L., Wendl, M. C., & Green, P. (1998). Base-calling of automated sequencer traces using Phred. I. Accuracy assessment. Genome research, 8(3), 175-185.",
-          "4.\tNaik, P., Naik, G., & Patil, M. (2022). Conceptualizing Python in Google COLAB. India: Shashwat Publication",
-          "5.\tArindrarto, W. (2011). abifpy [Software]. Retrieved from https://github.com/bow/abifpy November 22, 2024"
-        ],
-        "language": "eng",
-        "custom": {
-          "code:codeRepository": "https://github.com/IngDiegoSosa/ACE-AB1",
-          "code:programmingLanguage": [
-            {
-              "id": "python",
-              "title": {
-                "en": "Python"
-              }
-            }
-          ],
-          "code:developmentStatus": {
-            "id": "active",
-            "title": {
-              "en": "Active"
-            }
-          }
-        },
-        "resource_type": {
-          "title": "Workflow",
-          "type": "workflow"
-        },
-        "license": {
-          "id": "gpl-3.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "14556245"
-              }
-            }
-          ]
-        }
-      },
-      "title": "ACE-AB1: Automated Comprehensive Editing and BLAST-based Assignment for AB1 Files",
-      "links": {
-        "self": "https://zenodo.org/api/records/14556246",
-        "self_html": "https://zenodo.org/records/14556246",
-        "preview_html": "https://zenodo.org/records/14556246?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.14556246",
-        "self_doi": "https://doi.org/10.5281/zenodo.14556246",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14556246",
-        "parent": "https://zenodo.org/api/records/14556245",
-        "parent_html": "https://zenodo.org/records/14556245",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14556245",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14556245",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14556246/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14556246/sequence/default",
-        "files": "https://zenodo.org/api/records/14556246/files",
-        "media_files": "https://zenodo.org/api/records/14556246/media-files",
-        "archive": "https://zenodo.org/api/records/14556246/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14556246/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14556246/versions/latest",
-        "latest_html": "https://zenodo.org/records/14556246/latest",
-        "versions": "https://zenodo.org/api/records/14556246/versions",
-        "draft": "https://zenodo.org/api/records/14556246/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14556246/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14556246/access/links",
-        "access_grants": "https://zenodo.org/api/records/14556246/access/grants",
-        "access_users": "https://zenodo.org/api/records/14556246/access/users",
-        "access_request": "https://zenodo.org/api/records/14556246/access/request",
-        "access": "https://zenodo.org/api/records/14556246/access",
-        "communities": "https://zenodo.org/api/records/14556246/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14556246/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14556246/requests"
-      },
-      "updated": "2024-12-26T00:01:01.014476+00:00",
-      "recid": "14556246",
-      "revision": 6,
-      "files": [
-        {
-          "id": "c7e58324-75db-4235-9791-c7404fb375c1",
-          "key": "IngDiegoSosa/ACE-AB1-V1.0.0.zip",
-          "size": 1678666,
-          "checksum": "md5:303de5b86ae601e3aa78df478555c90a",
-          "links": {
-            "self": "https://zenodo.org/api/records/14556246/files/IngDiegoSosa/ACE-AB1-V1.0.0.zip/content"
-          }
-        }
-      ],
-      "swh": {
-        "swhid": "swh:1:dir:3327777ae3424acdc5f61625da1fb2cfd708b0ab;origin=https://doi.org/10.5281/zenodo.14556245;visit=swh:1:snp:bc7d7105955727bb7654dd47986c63dd779a0b71;anchor=swh:1:rel:33f4fac98f8740a99a12abbb2f5498f2e9db7d3c;path=IngDiegoSosa-ACE-AB1-81ae9b2"
-      },
-      "owners": [
-        {
-          "id": "1220070"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 4,
-        "unique_downloads": 4,
-        "views": 194,
-        "unique_views": 160,
-        "version_downloads": 4,
-        "version_unique_downloads": 4,
-        "version_unique_views": 160,
-        "version_views": 194
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2024-12-16T05:57:15.499343+00:00",
-      "modified": "2024-12-16T05:57:16.138236+00:00",
-      "id": 14210489,
-      "conceptrecid": "14210488",
-      "doi": "10.5281/zenodo.14210489",
-      "conceptdoi": "10.5281/zenodo.14210488",
-      "doi_url": "https://doi.org/10.5281/zenodo.14210489",
-      "metadata": {
-        "title": "Data from: The evolution of a placenta accelerates the evolution of post-copulatory reproductive isolation",
-        "doi": "10.5281/zenodo.14210489",
-        "publication_date": "2024-12-16",
-        "description": "<p>The evolution of placentation is predicted to intensify intergenomic conflicts between mothers and offspring over optimal levels of maternal investment by providing offspring opportunities to manipulate mothers into allocating more resources. Parent-offspring conflicts can result in the evolution of reproductive isolation among populations when conflicts resolve in different ways. Postzygotic reproductive isolation is hypothesized to evolve more rapidly following the evolution of placentation due to the predicted increase in conflict. We tested this\u00a0hypothesis by performing interpopulation crosses within placental and non-placental species of Poeciliopsis to determine if the relationship between genetic distance and measures of postzygotic reproductive success differed as function of reproductive mode. We did not observe any differences in offspring viability or sterility among crosses. Offspring size declined rapidly as a function of interpopulation genetic distance within the placental species, but not among our\u00a0non-placental species. The decrease in offspring size in the placental species was beyond normal variation, likely representing a major fitness cost, consistent with the prediction that negative epistatic interactions are evolving more quickly among populations in our placental species than the non-placental species. We discuss how our results support the role parent-offspring conflicts play in the evolution of reproductive isolation and reproductive mode.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Morrison, Keenan",
-            "affiliation": "University of California, Riverside",
-            "orcid": "0000-0002-1195-5940"
-          },
-          {
-            "name": "Z\u00fa\u00f1iga-Vega, Jaime",
-            "affiliation": "National Autonomous University of Mexico"
-          },
-          {
-            "name": "Travis, Joseph",
-            "affiliation": "Florida State University"
-          },
-          {
-            "name": "Reznick, David",
-            "affiliation": "University of California, Riverside"
-          }
-        ],
-        "keywords": [
-          "reproductive isolation",
-          "reproductive strategies",
-          "Speciation",
-          "Experimental Evolution"
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "10.5061/dryad.wpzgmsbzg",
-            "relation": "isDerivedFrom",
-            "scheme": "doi"
-          }
-        ],
-        "resource_type": {
-          "title": "Other",
-          "type": "other"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "communities": [
-          {
-            "id": "dryad"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "14210488"
-              }
-            }
-          ]
-        },
-        "notes": "<p>Funding provided by: University of California, Riverside<br>ROR ID: https://ror.org/03nawhv43<br>Award Number: A01857-69085-44-NSGMO</p><p>Funding provided by: University of California, Riverside<br>ROR ID: https://ror.org/03nawhv43<br>Award Number: A01857-69085-44-NSGKM</p><p>Funding provided by: University of California, Riverside<br>ROR ID: https://ror.org/03nawhv43<br>Award Number: A01857-69085-44-NSDNR-NSGKM</p><p>Funding provided by: University of California, Riverside<br>ROR ID: https://ror.org/03nawhv43<br>Award Number: A01081-07431-43-NSUAN</p><p>Funding provided by: University of California, Riverside<br>ROR ID: https://ror.org/03nawhv43<br>Award Number: A01857-19900-44-NSDR1</p>",
-        "method": "<p>We assessed interfertility among populations from three species of Poeciliopsis. We\u00a0selected <em>Poeciliopsis prolifica</em> and <em>Poeciliopsis infans</em> to represent a paired comparison of\u00a0closely related placental and non-placental species from the same clade, respectively (Reznick,\u00a0Mateos et al. 2002, Pollux, Meredith et al. 2014). Poeciliopsis gracilis, was included as an\u00a0additional non-placental species from a separate clade (Reznick, Mateos et al. 2002). We\u00a0established lab populations at the University of California Riverside with 15 wild-caught\u00a0pregnant females and five adult males from 4 populations of P. prolifica, 4 populations of P.\u00a0nfans, and 2 populations of P. gracilis (Table S1) between 2014-2015. Fish from an additional\u00a0population of P. gracilis collected in 2004 and maintained in 3 stock tanks were also included\u00a0(Table S1). To ensure allopatry, we collected each population from a different river (Figure 1;\u00a0Table S1). Schrader et al. (2013) found in their crosses among populations of H. formosa that\u00a0differences among populations in offspring size cause reductions in the viability of offspring\u00a0from hybrid crosses. We exploited existing data for <em>P. infans</em> and <em>P. gracilis</em> (Fr\u00edas-Alvarez,\u00a0Mac\u00edas Garcia et al. 2014) to choose sites with large differences in late-stage embryo size. We\u00a0recorded water pH, water temperature, canopy cover, and elevation at each collection site (Table\u00a0S1) and combined that with the annual rainfall data for each locale so that we could assess the\u00a0potential influence of local adaptation as a contributor to our results. We do not have\u00a0environmental data for the population of P. gracilis collected in 2004.\u00a0Wild-caught adults were housed in 19 or 38 L aquaria with clumps of aquatic moss\u00a0(Vesicularia dubyana) to provide cover for newborn offspring. We removed F1 offspring daily\u00a0and reared them in group tanks. We used the metamorphosis of the male anal fin into the\u00a0gonopodium, the intromittent organ, to identify the sex of individuals while they were immature,\u00a0then moved them into single-sex aquaria to rear them to maturity. Lab-born male tanks were\u00a0seeded with two females from the same population to stimulate sperm production. As lab-born\u00a0females approached sexual maturity, we isolated them into individual 2-gallon tanks containing\u00a0gravel and aquatic moss, and fed them ad libitum. Once individual lab-born females reached\u00a0sexual maturity, we used them in a single intrapopulation or interpopulation cross.</p>\n<p>We performed three replicate crosses in all possible interpopulation cross directions, and\u00a0six intrapopulation crosses within each population as a control. We placed lab-born adult males\u00a0into the tanks of isolated virgin females for 7 days, after which time they were removed. We\u00a0monitored the mated females daily in order to record the latency time (in days) between mating\u00a0and producing their first brood. Once females gave birth to their first brood, daily monitoring\u00a0continued for a period of 60 days, after which females were euthanized using MS-222 and\u00a0preserved in 95% ethanol. We removed newborn offspring from the female tanks daily to ensure\u00a0individuals were less than 24-hours old at the time of collection. The first 10 offspring born to a\u00a0given female were immediately euthanized in MS-222 and preserved in 95% ethanol. All\u00a0remaining offspring of both sexes were placed in a 2-gallon stock tank and allowed to reach\u00a0sexual maturity. We monitored these tanks for 6 months to see if the offspring that resulted from\u00a0interpopulation crosses produced offspring of their own as a measure of hybrid sterility, recorded\u00a0as the presence of healthy newborn offspring within the tank. Crosses were deemed unsuccessful\u00a0if females showed no visible signs of pregnancy within 120 days following the end of their 7-day\u00a0male exposure period.\u00a0We took multiple measures from the outcome of each cross to serve as an index of\u00a0fitness. The total number of offspring born to a given female over the 2-month monitoring period\u00a0was recorded as a measure of fecundity. Preserved offspring were measured for body length\u00a0(mm), wet weight (mg), and dry weight (mg) at birth. We dissected females and removed all\u00a0embryonic tissue to record the total number of developing embryos and the wet weight (g) of all\u00a0the reproductive tissue. We then treated the wet mass of all reproductive tissue, including\u00a0embryos divided by the total wet mass as a dependent variable (reproductive allocation) which\u00a0represents the proportion of total wet mass devoted to reproduction. All species in the genus</p>\n<p>Poeciliopsis have superfetation, which means that a reproducing female normally carries\u00a0multiple litters of developing offspring, each in discretely different stages of development. A\u00a0consequence of superfetation is that litters of offspring are produced more frequently.\u00a0Reproductive allocation is thus a composite of number of offspring per litter, offspring size and\u00a0number of developing litters. Reproductive allocation was analyzed as a proportion of female\u00a0wet weight to account for differences in the size of individual females.<br>Embryos were independently scored as viable or inviable by a group of individuals unfamiliar with the working hypothesis, based on whether the embryos exhibited the typical\u00a0phenotype of a normally developing embryo (Haynes 1995). Inviable embryos exhibited the\u00a0characteristic markers of their developmental stage, but were typically smaller, duller in color,\u00a0and more semisolid than viable embryos. Embryos were scored as ambiguous whenever there\u00a0was disagreement between individual scorers or when they only exhibited a subset of the\u00a0characteristics of inviability. We measured the focal females for body length (g) and wet weight\u00a0(g) to control for the influence of female size on offspring size and number.\u00a0All procedures were approved and done in compliance with the guidelines set by the\u00a0Institutional Animal Care and Use Committee (IACUC) at the University of California Riverside\u00a0(Animal use protocols #20110007 and #20140003).</p>\n<p>Sequencing and Bioinformatics<br>To assess genetic distance among the populations, we extracted DNA from the tail tissue of five male and five female wild-caught individuals from each population. Extractions were performed using a Qiagen\u00ae DNeasy Blood &amp;amp; Tissue Kit, with two modifications to the spin-column protocol; we extended the duration of proteinase K treatment to 10 hours then incubated each sample in 8 \u03bcL of RNAse for 30-minutes at 37 O C. We quantified DNA concentrations with a Qubit 2.0 Fluorescence Reader, and each sample was adjusted to a concentration of 10ng/ \u03bcL using a Zymo Research DNA Clean &amp;amp; Concentrator\u2122 kit. ddRAD sequencing was performed by the University of Texas at Austin Genomics Sequencing and Analysis Facility (GSAF), including enzyme digestion, size selection, adaptor ligation, and sequencing. We selected the EcoRI-MspI enzyme pair for digestion, and 200-300 base-pair fragments were retained for sequencing. 2x150bp reads of the digested samples were obtained using the Illumina HiSeq 2500 system. We performed all demultiplexing, de novo assembly, and genetic distance calculations using the STACKS pipeline (Catchen, Hohenlohe et al. 2013). Each species was processed independently and all individuals within a species were processed and analyzed simultaneously. We used the process_radtags program to filter out low quality reads with raw phred scores below 10 (&amp;lt; 90% probability of being correct) and uncalled bases. The STACKS core modules ('ustacks', 'cstacks', 'sstacks', and 'populations') were executed through the denovomap.pl program with a minimum stack depth of 3 reads, a maximum number of mismatches allowed between loci within an individual (M) of 2, a maximum number of mismatches between loci in a catalog (m) of 1, and the deleveraging and highly repetitive stack removal algorithms enabled. We used the 'populations' function to estimate intrapopulation heterozygosity and pairwise F ST between all population combinations (Table S2).</p>"
-      },
-      "title": "Data from: The evolution of a placenta accelerates the evolution of post-copulatory reproductive isolation",
-      "links": {
-        "self": "https://zenodo.org/api/records/14210489",
-        "self_html": "https://zenodo.org/records/14210489",
-        "preview_html": "https://zenodo.org/records/14210489?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.14210489",
-        "self_doi": "https://doi.org/10.5281/zenodo.14210489",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14210489",
-        "parent": "https://zenodo.org/api/records/14210488",
-        "parent_html": "https://zenodo.org/records/14210488",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14210488",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14210488",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14210489/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14210489/sequence/default",
-        "files": "https://zenodo.org/api/records/14210489/files",
-        "media_files": "https://zenodo.org/api/records/14210489/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:14210489:Supplemental_Information.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:14210489:Supplemental_Information.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:14210489:Supplemental_Information.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:14210489:Supplemental_Information.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:14210489:Supplemental_Information.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:14210489:Supplemental_Information.pdf/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/14210489/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14210489/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14210489/versions/latest",
-        "latest_html": "https://zenodo.org/records/14210489/latest",
-        "versions": "https://zenodo.org/api/records/14210489/versions",
-        "draft": "https://zenodo.org/api/records/14210489/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14210489/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14210489/access/links",
-        "access_grants": "https://zenodo.org/api/records/14210489/access/grants",
-        "access_users": "https://zenodo.org/api/records/14210489/access/users",
-        "access_request": "https://zenodo.org/api/records/14210489/access/request",
-        "access": "https://zenodo.org/api/records/14210489/access",
-        "communities": "https://zenodo.org/api/records/14210489/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14210489/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14210489/requests"
-      },
-      "updated": "2024-12-16T05:57:16.138236+00:00",
-      "recid": "14210489",
-      "revision": 5,
-      "files": [
-        {
-          "id": "058429ce-30b0-45ab-b14d-8804dc0e74f9",
-          "key": "Supplemental_Information.pdf",
-          "size": 370774,
-          "checksum": "md5:291c4e0546e947d250a75ff35fa19cd7",
-          "links": {
-            "self": "https://zenodo.org/api/records/14210489/files/Supplemental_Information.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "90070"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 11,
-        "unique_downloads": 11,
-        "views": 9,
-        "unique_views": 9,
-        "version_downloads": 11,
-        "version_unique_downloads": 11,
-        "version_unique_views": 9,
-        "version_views": 9
+        "version_unique_views": 28,
+        "version_views": 30
       },
       "state": "done",
       "submitted": true

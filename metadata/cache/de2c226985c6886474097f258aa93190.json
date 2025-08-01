@@ -1,156 +1,19 @@
 {
-  "cache_date": "2025-05-01T09:45:39.538394",
+  "cache_date": "2025-08-01T09:54:53.640628",
   "data": [
     {
-      "created": "2025-04-14T19:43:13.671776+00:00",
-      "modified": "2025-04-14T19:43:13.842213+00:00",
-      "id": 15213869,
-      "conceptrecid": "15090769",
-      "doi": "10.5281/zenodo.15213869",
-      "conceptdoi": "10.5281/zenodo.15090769",
-      "doi_url": "https://doi.org/10.5281/zenodo.15213869",
-      "metadata": {
-        "title": "sanger-tol/metagenomeassembly v1.1.0 - The Elfin Knight",
-        "doi": "10.5281/zenodo.15213869",
-        "publication_date": "2025-04-14",
-        "description": "<h2>[1.1.0] - The Elfin Knight - [2025-04-14]</h2>\n<h3><code>Added</code></h3>\n<ul>\n<li>Adds genomad for classification of circular contigs to determine whether they are plasmids (by @prototaxites)<ul>\n<li>adds <code>--enable_genomad</code> to turn on and off this step (enabled by default)</li>\n<li>adds <code>--genomad_splits</code> to control memory usage - increasing this value from the default 1 increases\nchunking of the genomad database, reducing memory usage at the cost of increased runtime</li>\n</ul>\n</li>\n</ul>\n<h3><code>Fixed</code></h3>\n<ul>\n<li>Fixed missing output channel in gtdbtk/classifywf (by @prototaxites)</li>\n<li>Add in some previously-excluded parts of the template (by @prototaxites)</li>\n</ul>\n<h3><code>Dependencies</code></h3>\n<p>| module           | tools                | old versions | new versions          |\n| ---------------- | -------------------- | ------------ | --------------------- |\n| find_circles     | seqkit,samtools,gawk | 2.9.0, -, -  | 2.10.0, 1.21.0, 5.3.0 |\n| genomad/download | genomad              | -            | 1.11.0                |\n| genomad/endtoend | genomad              | -            | 1.11.0                |</p>\n<h3><code>Deprecated</code></h3>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Downie, Jim",
-            "affiliation": "Wellcome Sanger Institute",
-            "orcid": "0000-0002-7175-0533"
-          },
-          {
-            "name": "Eagles, Will",
-            "affiliation": "Wellcome Sanger Institute",
-            "orcid": "0009-0006-9956-0404"
-          },
-          {
-            "name": "Gettle, Noah",
-            "affiliation": "Wellcome Sanger Institute",
-            "orcid": "0000-0003-3407-4086"
-          }
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "https://github.com/sanger-tol/metagenomeassembly/tree/1.1.0",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
-          }
-        ],
-        "version": "1.1.0",
-        "custom": {
-          "code:codeRepository": "https://github.com/sanger-tol/metagenomeassembly"
-        },
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "mit-license"
-        },
-        "communities": [
-          {
-            "id": "sanger-tol"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 4,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15090769"
-              }
-            }
-          ]
-        },
-        "notes": "If you use this software, please cite it using the metadata from this file and all references from CITATIONS.md ."
-      },
-      "title": "sanger-tol/metagenomeassembly v1.1.0 - The Elfin Knight",
-      "links": {
-        "self": "https://zenodo.org/api/records/15213869",
-        "self_html": "https://zenodo.org/records/15213869",
-        "preview_html": "https://zenodo.org/records/15213869?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15213869",
-        "self_doi": "https://doi.org/10.5281/zenodo.15213869",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15213869",
-        "parent": "https://zenodo.org/api/records/15090769",
-        "parent_html": "https://zenodo.org/records/15090769",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15090769",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15090769",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15213869/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15213869/sequence/default",
-        "files": "https://zenodo.org/api/records/15213869/files",
-        "media_files": "https://zenodo.org/api/records/15213869/media-files",
-        "archive": "https://zenodo.org/api/records/15213869/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15213869/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15213869/versions/latest",
-        "latest_html": "https://zenodo.org/records/15213869/latest",
-        "versions": "https://zenodo.org/api/records/15213869/versions",
-        "draft": "https://zenodo.org/api/records/15213869/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15213869/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15213869/access/links",
-        "access_grants": "https://zenodo.org/api/records/15213869/access/grants",
-        "access_users": "https://zenodo.org/api/records/15213869/access/users",
-        "access_request": "https://zenodo.org/api/records/15213869/access/request",
-        "access": "https://zenodo.org/api/records/15213869/access",
-        "communities": "https://zenodo.org/api/records/15213869/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15213869/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15213869/requests"
-      },
-      "updated": "2025-04-14T19:43:13.842213+00:00",
-      "recid": "15213869",
-      "revision": 4,
-      "files": [
-        {
-          "id": "d58f6c72-6cca-49ec-bfe6-9ded5c40b5c2",
-          "key": "sanger-tol/metagenomeassembly-1.1.0.zip",
-          "size": 5358834,
-          "checksum": "md5:545a4d05138856b62bbf4d57e950c0c0",
-          "links": {
-            "self": "https://zenodo.org/api/records/15213869/files/sanger-tol/metagenomeassembly-1.1.0.zip/content"
-          }
-        }
-      ],
-      "swh": {
-        "swhid": "swh:1:dir:e3491ec0921b36be76dcbebd01e8975e9892783e;origin=https://doi.org/10.5281/zenodo.15090769;visit=swh:1:snp:8c6bc36a7fab1bb04c0e9463a689cf39ebaf27ea;anchor=swh:1:rel:40d9aaefb21a5021f72047be6815764fd00f0d52;path=sanger-tol-metagenomeassembly-3c7bdfb"
-      },
-      "owners": [
-        {
-          "id": "305572"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 19,
-        "unique_downloads": 19,
-        "views": 85,
-        "unique_views": 71,
-        "version_downloads": 10,
-        "version_unique_downloads": 10,
-        "version_unique_views": 28,
-        "version_views": 28
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-02-18T19:49:13.951089+00:00",
-      "modified": "2025-02-18T19:49:14.065949+00:00",
-      "id": 14889429,
+      "created": "2025-06-10T21:26:40.253195+00:00",
+      "modified": "2025-06-10T21:26:40.441772+00:00",
+      "id": 15635930,
       "conceptrecid": "7013076",
-      "doi": "10.5281/zenodo.14889429",
+      "doi": "10.5281/zenodo.15635930",
       "conceptdoi": "10.5281/zenodo.7013076",
-      "doi_url": "https://doi.org/10.5281/zenodo.14889429",
+      "doi_url": "https://doi.org/10.5281/zenodo.15635930",
       "metadata": {
-        "title": "apcamargo/genomad: geNomad v1.11.0",
-        "doi": "10.5281/zenodo.14889429",
-        "publication_date": "2025-02-18",
-        "description": "<h3>Added</h3>\n<ul>\n<li>Add the <code>--lenient-taxonomy</code> and <code>--full-ictv-lineage</code> options to the <code>annotate</code>, <code>find-proviruses</code>, and <code>end-to-end</code> modules. The <code>--lenient-taxonomy</code> option enables assignment of genomes to taxa below the family rank (subfamily, genus, subgenus, and species). The <code>--full-ictv-lineage</code> option enables the output of the full ICTV lineage of each genome, including ranks that are hidden by default (subrealm, subkingdom, subphylum, subclass, suborder, subfamily, and subgenus).</li>\n</ul>\n<h3>Changed</h3>\n<ul>\n<li>Remove the <code>--conservative-taxonomy</code> option of the <code>annotate</code> and <code>end-to-end</code> modules.</li>\n</ul>",
+        "title": "apcamargo/genomad: geNomad v1.11.1",
+        "doi": "10.5281/zenodo.15635930",
+        "publication_date": "2025-06-10",
+        "description": "<h3>Changed</h3>\n<ul>\n<li>Simplify the <code>softmax</code> function implementation and add an <code>axis</code> parameter.</li>\n<li>Use <code>os.sched_getaffinity</code> instead of <code>multiprocessing.cpu_count()</code> to determine the number of available CPUs.</li>\n</ul>",
         "access_right": "open",
         "creators": [
           {
@@ -158,7 +21,7 @@
             "affiliation": "DOE Joint Genome Institute"
           },
           {
-            "name": "LanderDC",
+            "name": "Lander De Coninck",
             "affiliation": null
           },
           {
@@ -168,13 +31,13 @@
         ],
         "related_identifiers": [
           {
-            "identifier": "https://github.com/apcamargo/genomad/tree/v1.11.0",
+            "identifier": "https://github.com/apcamargo/genomad/tree/v1.11.1",
             "relation": "isSupplementTo",
             "resource_type": "software",
             "scheme": "url"
           }
         ],
-        "version": "v1.11.0",
+        "version": "v1.11.1",
         "custom": {
           "code:codeRepository": "https://github.com/apcamargo/genomad"
         },
@@ -188,7 +51,7 @@
         "relations": {
           "version": [
             {
-              "index": 24,
+              "index": 25,
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
@@ -198,54 +61,54 @@
           ]
         }
       },
-      "title": "apcamargo/genomad: geNomad v1.11.0",
+      "title": "apcamargo/genomad: geNomad v1.11.1",
       "links": {
-        "self": "https://zenodo.org/api/records/14889429",
-        "self_html": "https://zenodo.org/records/14889429",
-        "preview_html": "https://zenodo.org/records/14889429?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.14889429",
-        "self_doi": "https://doi.org/10.5281/zenodo.14889429",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14889429",
+        "self": "https://zenodo.org/api/records/15635930",
+        "self_html": "https://zenodo.org/records/15635930",
+        "preview_html": "https://zenodo.org/records/15635930?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15635930",
+        "self_doi": "https://doi.org/10.5281/zenodo.15635930",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15635930",
+        "reserve_doi": "https://zenodo.org/api/records/15635930/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/7013076",
         "parent_html": "https://zenodo.org/records/7013076",
         "parent_doi": "https://doi.org/10.5281/zenodo.7013076",
         "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.7013076",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14889429/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14889429/sequence/default",
-        "files": "https://zenodo.org/api/records/14889429/files",
-        "media_files": "https://zenodo.org/api/records/14889429/media-files",
-        "archive": "https://zenodo.org/api/records/14889429/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14889429/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14889429/versions/latest",
-        "latest_html": "https://zenodo.org/records/14889429/latest",
-        "versions": "https://zenodo.org/api/records/14889429/versions",
-        "draft": "https://zenodo.org/api/records/14889429/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14889429/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14889429/access/links",
-        "access_grants": "https://zenodo.org/api/records/14889429/access/grants",
-        "access_users": "https://zenodo.org/api/records/14889429/access/users",
-        "access_request": "https://zenodo.org/api/records/14889429/access/request",
-        "access": "https://zenodo.org/api/records/14889429/access",
-        "communities": "https://zenodo.org/api/records/14889429/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14889429/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14889429/requests"
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15635930/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15635930/sequence/default",
+        "files": "https://zenodo.org/api/records/15635930/files",
+        "media_files": "https://zenodo.org/api/records/15635930/media-files",
+        "archive": "https://zenodo.org/api/records/15635930/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15635930/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15635930/versions/latest",
+        "latest_html": "https://zenodo.org/records/15635930/latest",
+        "versions": "https://zenodo.org/api/records/15635930/versions",
+        "draft": "https://zenodo.org/api/records/15635930/draft",
+        "access_links": "https://zenodo.org/api/records/15635930/access/links",
+        "access_grants": "https://zenodo.org/api/records/15635930/access/grants",
+        "access_users": "https://zenodo.org/api/records/15635930/access/users",
+        "access_request": "https://zenodo.org/api/records/15635930/access/request",
+        "access": "https://zenodo.org/api/records/15635930/access",
+        "communities": "https://zenodo.org/api/records/15635930/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15635930/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15635930/requests"
       },
-      "updated": "2025-02-18T19:49:14.065949+00:00",
-      "recid": "14889429",
+      "updated": "2025-06-10T21:26:40.441772+00:00",
+      "recid": "15635930",
       "revision": 4,
       "files": [
         {
-          "id": "87f66eb7-c2d9-4d00-9e8e-081d2e63901b",
-          "key": "apcamargo/genomad-v1.11.0.zip",
-          "size": 28381991,
-          "checksum": "md5:cc93bf2848a9b76e71cb78ea9cb435c2",
+          "id": "88efce0e-e387-446e-bbd0-7c8daacfc71b",
+          "key": "apcamargo/genomad-v1.11.1.zip",
+          "size": 28382153,
+          "checksum": "md5:181b8c4f859e342b07a271806f45433a",
           "links": {
-            "self": "https://zenodo.org/api/records/14889429/files/apcamargo/genomad-v1.11.0.zip/content"
+            "self": "https://zenodo.org/api/records/15635930/files/apcamargo/genomad-v1.11.1.zip/content"
           }
         }
       ],
       "swh": {
-        "swhid": "swh:1:dir:b5fedd4740b431a065395f46cf1dbf63395023aa;origin=https://doi.org/10.5281/zenodo.7013076;visit=swh:1:snp:16cc11d8da4d1083f62e9f96dfeaf68d6574ec55;anchor=swh:1:rel:bdfb39e6b28d9130c276a2ec34ee02b82ae49e32;path=apcamargo-genomad-1462fab"
+        "swhid": "swh:1:dir:4618fe988382c558ec2c8dec4283ab2d6c1e6127;origin=https://doi.org/10.5281/zenodo.7013076;visit=swh:1:snp:d5d248d29a26720c5f27086070549da5cdeaa7df;anchor=swh:1:rel:230f7d0034b052c90f2f51a0faa85fafe23fe43d;path=apcamargo-genomad-2ba0fbd"
       },
       "owners": [
         {
@@ -254,14 +117,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 129,
-        "unique_downloads": 116,
-        "views": 1341,
-        "unique_views": 1277,
-        "version_downloads": 2,
-        "version_unique_downloads": 2,
-        "version_unique_views": 19,
-        "version_views": 19
+        "downloads": 214,
+        "unique_downloads": 201,
+        "views": 1448,
+        "unique_views": 1382,
+        "version_downloads": 7,
+        "version_unique_downloads": 7,
+        "version_unique_views": 9,
+        "version_views": 9
       },
       "state": "done",
       "submitted": true
@@ -322,6 +185,7 @@
         "doi": "https://doi.org/10.5281/zenodo.14886553",
         "self_doi": "https://doi.org/10.5281/zenodo.14886553",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14886553",
+        "reserve_doi": "https://zenodo.org/api/records/14886553/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/6994741",
         "parent_html": "https://zenodo.org/records/6994741",
         "parent_doi": "https://doi.org/10.5281/zenodo.6994741",
@@ -336,7 +200,6 @@
         "latest_html": "https://zenodo.org/records/14886553/latest",
         "versions": "https://zenodo.org/api/records/14886553/versions",
         "draft": "https://zenodo.org/api/records/14886553/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14886553/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/14886553/access/links",
         "access_grants": "https://zenodo.org/api/records/14886553/access/grants",
         "access_users": "https://zenodo.org/api/records/14886553/access/users",
@@ -395,14 +258,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 9308,
-        "unique_downloads": 4830,
-        "views": 7185,
-        "unique_views": 6467,
-        "version_downloads": 914,
-        "version_unique_downloads": 598,
-        "version_unique_views": 477,
-        "version_views": 571
+        "downloads": 10568,
+        "unique_downloads": 5742,
+        "views": 8141,
+        "unique_views": 7330,
+        "version_downloads": 1769,
+        "version_unique_downloads": 1187,
+        "version_unique_views": 935,
+        "version_views": 1104
       },
       "state": "done",
       "submitted": true
@@ -465,6 +328,7 @@
         "doi": "https://doi.org/10.5281/zenodo.13737161",
         "self_doi": "https://doi.org/10.5281/zenodo.13737161",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13737161",
+        "reserve_doi": "https://zenodo.org/api/records/13737161/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/13737160",
         "parent_html": "https://zenodo.org/records/13737160",
         "parent_doi": "https://doi.org/10.5281/zenodo.13737160",
@@ -479,7 +343,6 @@
         "latest_html": "https://zenodo.org/records/13737161/latest",
         "versions": "https://zenodo.org/api/records/13737161/versions",
         "draft": "https://zenodo.org/api/records/13737161/draft",
-        "reserve_doi": "https://zenodo.org/api/records/13737161/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/13737161/access/links",
         "access_grants": "https://zenodo.org/api/records/13737161/access/grants",
         "access_users": "https://zenodo.org/api/records/13737161/access/users",
@@ -529,14 +392,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 23,
-        "unique_downloads": 22,
-        "views": 28,
-        "unique_views": 28,
-        "version_downloads": 23,
-        "version_unique_downloads": 22,
-        "version_unique_views": 28,
-        "version_views": 28
+        "downloads": 27,
+        "unique_downloads": 26,
+        "views": 34,
+        "unique_views": 34,
+        "version_downloads": 27,
+        "version_unique_downloads": 26,
+        "version_unique_views": 34,
+        "version_views": 34
       },
       "state": "done",
       "submitted": true
@@ -601,6 +464,7 @@
         "doi": "https://doi.org/10.5281/zenodo.13643307",
         "self_doi": "https://doi.org/10.5281/zenodo.13643307",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13643307",
+        "reserve_doi": "https://zenodo.org/api/records/13643307/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/13643306",
         "parent_html": "https://zenodo.org/records/13643306",
         "parent_doi": "https://doi.org/10.5281/zenodo.13643306",
@@ -615,7 +479,6 @@
         "latest_html": "https://zenodo.org/records/13643307/latest",
         "versions": "https://zenodo.org/api/records/13643307/versions",
         "draft": "https://zenodo.org/api/records/13643307/draft",
-        "reserve_doi": "https://zenodo.org/api/records/13643307/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/13643307/access/links",
         "access_grants": "https://zenodo.org/api/records/13643307/access/grants",
         "access_users": "https://zenodo.org/api/records/13643307/access/users",
@@ -665,14 +528,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 38,
-        "unique_downloads": 30,
-        "views": 30,
-        "unique_views": 25,
-        "version_downloads": 38,
-        "version_unique_downloads": 30,
-        "version_unique_views": 25,
-        "version_views": 30
+        "downloads": 46,
+        "unique_downloads": 38,
+        "views": 37,
+        "unique_views": 32,
+        "version_downloads": 46,
+        "version_unique_downloads": 38,
+        "version_unique_views": 32,
+        "version_views": 37
       },
       "state": "done",
       "submitted": true
@@ -730,6 +593,7 @@
         "doi": "https://doi.org/10.5281/zenodo.13686166",
         "self_doi": "https://doi.org/10.5281/zenodo.13686166",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13686166",
+        "reserve_doi": "https://zenodo.org/api/records/13686166/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/13686165",
         "parent_html": "https://zenodo.org/records/13686165",
         "parent_doi": "https://doi.org/10.5281/zenodo.13686165",
@@ -744,7 +608,6 @@
         "latest_html": "https://zenodo.org/records/13686166/latest",
         "versions": "https://zenodo.org/api/records/13686166/versions",
         "draft": "https://zenodo.org/api/records/13686166/draft",
-        "reserve_doi": "https://zenodo.org/api/records/13686166/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/13686166/access/links",
         "access_grants": "https://zenodo.org/api/records/13686166/access/grants",
         "access_users": "https://zenodo.org/api/records/13686166/access/users",
@@ -776,14 +639,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 16,
-        "unique_downloads": 14,
-        "views": 12,
-        "unique_views": 12,
-        "version_downloads": 16,
-        "version_unique_downloads": 14,
-        "version_unique_views": 12,
-        "version_views": 12
+        "downloads": 20,
+        "unique_downloads": 18,
+        "views": 16,
+        "unique_views": 16,
+        "version_downloads": 20,
+        "version_unique_downloads": 18,
+        "version_unique_views": 16,
+        "version_views": 16
       },
       "state": "done",
       "submitted": true
@@ -838,6 +701,7 @@
         "doi": "https://doi.org/10.5281/zenodo.11945948",
         "self_doi": "https://doi.org/10.5281/zenodo.11945948",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.11945948",
+        "reserve_doi": "https://zenodo.org/api/records/11945948/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/11945947",
         "parent_html": "https://zenodo.org/records/11945947",
         "parent_doi": "https://doi.org/10.5281/zenodo.11945947",
@@ -852,7 +716,6 @@
         "latest_html": "https://zenodo.org/records/11945948/latest",
         "versions": "https://zenodo.org/api/records/11945948/versions",
         "draft": "https://zenodo.org/api/records/11945948/draft",
-        "reserve_doi": "https://zenodo.org/api/records/11945948/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/11945948/access/links",
         "access_grants": "https://zenodo.org/api/records/11945948/access/grants",
         "access_users": "https://zenodo.org/api/records/11945948/access/users",
@@ -884,14 +747,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 64,
-        "unique_downloads": 62,
-        "views": 27,
-        "unique_views": 27,
-        "version_downloads": 64,
-        "version_unique_downloads": 62,
-        "version_unique_views": 27,
-        "version_views": 27
+        "downloads": 168,
+        "unique_downloads": 121,
+        "views": 35,
+        "unique_views": 34,
+        "version_downloads": 168,
+        "version_unique_downloads": 121,
+        "version_unique_views": 34,
+        "version_views": 35
       },
       "state": "done",
       "submitted": true
@@ -959,6 +822,7 @@
         "doi": "https://doi.org/10.5281/zenodo.11225564",
         "self_doi": "https://doi.org/10.5281/zenodo.11225564",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.11225564",
+        "reserve_doi": "https://zenodo.org/api/records/11225564/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/11225563",
         "parent_html": "https://zenodo.org/records/11225563",
         "parent_doi": "https://doi.org/10.5281/zenodo.11225563",
@@ -973,7 +837,6 @@
         "latest_html": "https://zenodo.org/records/11225564/latest",
         "versions": "https://zenodo.org/api/records/11225564/versions",
         "draft": "https://zenodo.org/api/records/11225564/draft",
-        "reserve_doi": "https://zenodo.org/api/records/11225564/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/11225564/access/links",
         "access_grants": "https://zenodo.org/api/records/11225564/access/grants",
         "access_users": "https://zenodo.org/api/records/11225564/access/users",
@@ -1176,14 +1039,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 57,
-        "unique_downloads": 55,
-        "views": 41,
-        "unique_views": 40,
-        "version_downloads": 57,
-        "version_unique_downloads": 55,
-        "version_unique_views": 40,
-        "version_views": 41
+        "downloads": 61,
+        "unique_downloads": 59,
+        "views": 47,
+        "unique_views": 46,
+        "version_downloads": 61,
+        "version_unique_downloads": 59,
+        "version_unique_views": 46,
+        "version_views": 47
       },
       "state": "done",
       "submitted": true
@@ -1235,6 +1098,7 @@
         "doi": "https://doi.org/10.5281/zenodo.10008202",
         "self_doi": "https://doi.org/10.5281/zenodo.10008202",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10008202",
+        "reserve_doi": "https://zenodo.org/api/records/10008202/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/10008201",
         "parent_html": "https://zenodo.org/records/10008201",
         "parent_doi": "https://doi.org/10.5281/zenodo.10008201",
@@ -1249,7 +1113,6 @@
         "latest_html": "https://zenodo.org/records/10008202/latest",
         "versions": "https://zenodo.org/api/records/10008202/versions",
         "draft": "https://zenodo.org/api/records/10008202/draft",
-        "reserve_doi": "https://zenodo.org/api/records/10008202/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/10008202/access/links",
         "access_grants": "https://zenodo.org/api/records/10008202/access/grants",
         "access_users": "https://zenodo.org/api/records/10008202/access/users",
@@ -1283,12 +1146,12 @@
       "stats": {
         "downloads": 1,
         "unique_downloads": 1,
-        "views": 26,
-        "unique_views": 24,
+        "views": 30,
+        "unique_views": 28,
         "version_downloads": 1,
         "version_unique_downloads": 1,
-        "version_unique_views": 24,
-        "version_views": 26
+        "version_unique_views": 28,
+        "version_views": 30
       },
       "state": "done",
       "submitted": true
@@ -1341,6 +1204,7 @@
         "doi": "https://doi.org/10.5281/zenodo.8384702",
         "self_doi": "https://doi.org/10.5281/zenodo.8384702",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.8384702",
+        "reserve_doi": "https://zenodo.org/api/records/8384702/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/8384701",
         "parent_html": "https://zenodo.org/records/8384701",
         "parent_doi": "https://doi.org/10.5281/zenodo.8384701",
@@ -1355,7 +1219,6 @@
         "latest_html": "https://zenodo.org/records/8384702/latest",
         "versions": "https://zenodo.org/api/records/8384702/versions",
         "draft": "https://zenodo.org/api/records/8384702/draft",
-        "reserve_doi": "https://zenodo.org/api/records/8384702/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/8384702/access/links",
         "access_grants": "https://zenodo.org/api/records/8384702/access/grants",
         "access_users": "https://zenodo.org/api/records/8384702/access/users",
@@ -1387,14 +1250,122 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 1,
-        "unique_downloads": 1,
-        "views": 43,
-        "unique_views": 43,
-        "version_downloads": 1,
-        "version_unique_downloads": 1,
-        "version_unique_views": 42,
-        "version_views": 42
+        "downloads": 2,
+        "unique_downloads": 2,
+        "views": 44,
+        "unique_views": 44,
+        "version_downloads": 2,
+        "version_unique_downloads": 2,
+        "version_unique_views": 43,
+        "version_views": 43
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2023-06-17T00:26:27.114444+00:00",
+      "modified": "2023-06-17T02:26:52.674017+00:00",
+      "id": 8049246,
+      "conceptrecid": "7697489",
+      "doi": "10.5281/zenodo.8049246",
+      "conceptdoi": "10.5281/zenodo.7697489",
+      "doi_url": "https://doi.org/10.5281/zenodo.8049246",
+      "metadata": {
+        "title": "Additional data and code for \"You can move, but you can't hide: identification of mobile genetic elements with geNomad\"",
+        "doi": "10.5281/zenodo.8049246",
+        "publication_date": "2023-03-04",
+        "description": "<ul>\n\t<li><strong>benchmark_data:</strong> Data used to train and evaluate the classification models.</li>\n\t<li><strong>giant_virus_data:</strong> Sequences and metadata of giant viruses identified in public metagenomes.</li>\n\t<li><strong>neural_network_training:</strong> Code used to train geNomad&#39;s neural network-based classification model.</li>\n\t<li><strong>provirus_data:</strong> Data used to train and evaluate the conditional random field model employed by geNomad to identify provirus regions.</li>\n\t<li><strong>reference_sequences:</strong> Sequences of chromosomes, plasmids, and viruses that were used to build geNomad&#39;s marker dataset and to generate the training data for the classification models.</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Camargo, Antonio",
+            "affiliation": "DOE Joint Genome Institute, Lawrence Berkeley National Laboratory, Berkeley, CA 94720, USA",
+            "orcid": "0000-0003-3913-2484"
+          }
+        ],
+        "version": "1.0",
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 1,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "7697489"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Additional data and code for \"You can move, but you can't hide: identification of mobile genetic elements with geNomad\"",
+      "links": {
+        "self": "https://zenodo.org/api/records/8049246",
+        "self_html": "https://zenodo.org/records/8049246",
+        "preview_html": "https://zenodo.org/records/8049246?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.8049246",
+        "self_doi": "https://doi.org/10.5281/zenodo.8049246",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.8049246",
+        "reserve_doi": "https://zenodo.org/api/records/8049246/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/7697489",
+        "parent_html": "https://zenodo.org/records/7697489",
+        "parent_doi": "https://doi.org/10.5281/zenodo.7697489",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.7697489",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:8049246/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:8049246/sequence/default",
+        "files": "https://zenodo.org/api/records/8049246/files",
+        "media_files": "https://zenodo.org/api/records/8049246/media-files",
+        "archive": "https://zenodo.org/api/records/8049246/files-archive",
+        "archive_media": "https://zenodo.org/api/records/8049246/media-files-archive",
+        "latest": "https://zenodo.org/api/records/8049246/versions/latest",
+        "latest_html": "https://zenodo.org/records/8049246/latest",
+        "versions": "https://zenodo.org/api/records/8049246/versions",
+        "draft": "https://zenodo.org/api/records/8049246/draft",
+        "access_links": "https://zenodo.org/api/records/8049246/access/links",
+        "access_grants": "https://zenodo.org/api/records/8049246/access/grants",
+        "access_users": "https://zenodo.org/api/records/8049246/access/users",
+        "access_request": "https://zenodo.org/api/records/8049246/access/request",
+        "access": "https://zenodo.org/api/records/8049246/access",
+        "communities": "https://zenodo.org/api/records/8049246/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/8049246/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/8049246/requests"
+      },
+      "updated": "2023-06-17T02:26:52.674017+00:00",
+      "recid": "8049246",
+      "revision": 2,
+      "files": [
+        {
+          "id": "43c39472-c7f0-4c50-95a7-f4079802b0fe",
+          "key": "genomad_supplementary_data_code.zip",
+          "size": 8564676184,
+          "checksum": "md5:25ea62a5b626bdfd6790a36cb3b310b7",
+          "links": {
+            "self": "https://zenodo.org/api/records/8049246/files/genomad_supplementary_data_code.zip/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "84401"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 415,
+        "unique_downloads": 231,
+        "views": 945,
+        "unique_views": 874,
+        "version_downloads": 371,
+        "version_unique_downloads": 191,
+        "version_unique_views": 654,
+        "version_views": 718
       },
       "state": "done",
       "submitted": true

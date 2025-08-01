@@ -1,6 +1,227 @@
 {
-  "cache_date": "2025-05-01T09:44:24.191441",
+  "cache_date": "2025-08-01T09:36:26.145747",
   "data": [
+    {
+      "created": "2025-06-22T15:36:19.151726+00:00",
+      "modified": "2025-06-22T15:36:19.311033+00:00",
+      "id": 15714874,
+      "conceptrecid": "15714873",
+      "doi": "10.5281/zenodo.15714874",
+      "conceptdoi": "10.5281/zenodo.15714873",
+      "doi_url": "https://doi.org/10.5281/zenodo.15714874",
+      "metadata": {
+        "title": "Analysis Code for:  \"Virus-Induced Dominance of Sulfur-Oxidizing Bacteria via Enhanced Substrate Access and Competitor Suppression\"",
+        "doi": "10.5281/zenodo.15714874",
+        "publication_date": "2025-06-22",
+        "description": "<p>This repository contains the analysis scripts and workflows used in the study:</p>\n<p>&nbsp;<strong>\"Virus-Induced Dominance of Sulfur-Oxidizing Bacteria via Enhanced Substrate Access and Competitor Suppression\"</strong>.</p>\n<p>It includes complete pipelines for:</p>\n<ul>\n<li>\n<p>16S rRNA amplicon processing using QIIME2</p>\n</li>\n<li>\n<p>Metagenomic assembly with MEGAHIT</p>\n</li>\n<li>\n<p>Metagenome binning using MetaWRAP (MetaBAT2, MaxBin2, CONCOCT), followed by bin classification with GTDB-Tk</p>\n</li>\n<li>\n<p>Viral detection via VirSorter2 and vContact2</p>\n</li>\n<li>\n<p>Functional annotation with eggNOG-mapper and hmmersearch against SCycDB for sulfur metabolism genes</p>\n</li>\n<li>\n<p>Gene/contig abundance estimation using CoverM</p>\n</li>\n<li>\n<p>Virus-host prediction using WiSH</p>\n</li>\n<li>\n<p>Statistical analysis and visualization using R (vegan, phyloseq, ggplot2)</p>\n</li>\n</ul>\n<h3>How to Run:</h3>\n<div dir=\"auto\">\n<ul>\n<li><strong>Process 16S rRNA amplicon data:</strong></li>\n</ul>\n<p>bash scripts/16S_qiime2_pipeline.sh</p>\n</div>\n<div dir=\"auto\">\n<ul>\n<li><strong>Assemble metagenomes and identify viral contigs:</strong></li>\n</ul>\n</div>\n<p dir=\"auto\">bash scripts/metagenomic_data_pipeline.sh</p>\n<p dir=\"auto\">bash scripts/virome_data_pipeline.sh</p>\n<ul>\n<li><strong>Generate statistical plots:</strong></li>\n</ul>\n<p dir=\"auto\">Rscript analysis/analysis_plot.R <em>(All required data files are included in the <code>data/</code> directory)</em></p>",
+        "access_right": "embargoed",
+        "embargo_date": "2025-12-31",
+        "creators": [
+          {
+            "name": "Yang, Zhaoyue",
+            "affiliation": "Central South University",
+            "orcid": "0009-0007-7184-9457"
+          }
+        ],
+        "resource_type": {
+          "title": "Workflow",
+          "type": "workflow"
+        },
+        "journal": {
+          "title": "Virus-Induced Dominance of Sulfur-Oxidizing Bacteria via Enhanced Substrate Access and Competitor Suppression"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15714873"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Analysis Code for:  \"Virus-Induced Dominance of Sulfur-Oxidizing Bacteria via Enhanced Substrate Access and Competitor Suppression\"",
+      "links": {
+        "self": "https://zenodo.org/api/records/15714874",
+        "self_html": "https://zenodo.org/records/15714874",
+        "preview_html": "https://zenodo.org/records/15714874?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15714874",
+        "self_doi": "https://doi.org/10.5281/zenodo.15714874",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15714874",
+        "reserve_doi": "https://zenodo.org/api/records/15714874/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/15714873",
+        "parent_html": "https://zenodo.org/records/15714873",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15714873",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15714873",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15714874/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15714874/sequence/default",
+        "files": "https://zenodo.org/api/records/15714874/files",
+        "media_files": "https://zenodo.org/api/records/15714874/media-files",
+        "archive": "https://zenodo.org/api/records/15714874/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15714874/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15714874/versions/latest",
+        "latest_html": "https://zenodo.org/records/15714874/latest",
+        "versions": "https://zenodo.org/api/records/15714874/versions",
+        "draft": "https://zenodo.org/api/records/15714874/draft",
+        "access_links": "https://zenodo.org/api/records/15714874/access/links",
+        "access_grants": "https://zenodo.org/api/records/15714874/access/grants",
+        "access_users": "https://zenodo.org/api/records/15714874/access/users",
+        "access_request": "https://zenodo.org/api/records/15714874/access/request",
+        "access": "https://zenodo.org/api/records/15714874/access",
+        "communities": "https://zenodo.org/api/records/15714874/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15714874/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15714874/requests"
+      },
+      "updated": "2025-06-22T15:36:19.311033+00:00",
+      "recid": "15714874",
+      "revision": 4,
+      "files": [],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1348442"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 14,
+        "unique_views": 8,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 8,
+        "version_views": 14
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-06-17T19:24:31.478621+00:00",
+      "modified": "2025-06-17T19:24:31.704749+00:00",
+      "id": 15637204,
+      "conceptrecid": "8357141",
+      "doi": "10.5281/zenodo.15637204",
+      "conceptdoi": "10.5281/zenodo.8357141",
+      "doi_url": "https://doi.org/10.5281/zenodo.15637204",
+      "metadata": {
+        "title": "Final_9963_ssDNA_dsDNA_vOTUs",
+        "doi": "10.5281/zenodo.15637204",
+        "publication_date": "2025-06-17",
+        "description": "<p>ssDNA and dsDNA vOTUs sequences associated with manuscript Population ecology and biogeochemical implications of ssDNA and dsDNA viruses along a permafrost thaw gradient. Updated to remove ssDNA vOTUs &lt;500 bases. Updated again using Virsorter2 amd geNomad.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Gary Trubl",
+            "affiliation": "Lawrence Livermore National Laboratory",
+            "orcid": "0000-0001-5008-1476"
+          },
+          {
+            "name": "Simon Roux",
+            "affiliation": "Lawrence Berkeley National Laboratory",
+            "orcid": "0000-0002-5831-5895"
+          },
+          {
+            "name": "Arvind Varsani",
+            "affiliation": "Arizona State University",
+            "orcid": "0000-0003-0581-2422"
+          }
+        ],
+        "keywords": [
+          "fasta"
+        ],
+        "resource_type": {
+          "title": "Other",
+          "type": "other"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 3,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "8357141"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Final_9963_ssDNA_dsDNA_vOTUs",
+      "links": {
+        "self": "https://zenodo.org/api/records/15637204",
+        "self_html": "https://zenodo.org/records/15637204",
+        "preview_html": "https://zenodo.org/records/15637204?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15637204",
+        "self_doi": "https://doi.org/10.5281/zenodo.15637204",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15637204",
+        "reserve_doi": "https://zenodo.org/api/records/15637204/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/8357141",
+        "parent_html": "https://zenodo.org/records/8357141",
+        "parent_doi": "https://doi.org/10.5281/zenodo.8357141",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.8357141",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15637204/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15637204/sequence/default",
+        "files": "https://zenodo.org/api/records/15637204/files",
+        "media_files": "https://zenodo.org/api/records/15637204/media-files",
+        "archive": "https://zenodo.org/api/records/15637204/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15637204/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15637204/versions/latest",
+        "latest_html": "https://zenodo.org/records/15637204/latest",
+        "versions": "https://zenodo.org/api/records/15637204/versions",
+        "draft": "https://zenodo.org/api/records/15637204/draft",
+        "access_links": "https://zenodo.org/api/records/15637204/access/links",
+        "access_grants": "https://zenodo.org/api/records/15637204/access/grants",
+        "access_users": "https://zenodo.org/api/records/15637204/access/users",
+        "access_request": "https://zenodo.org/api/records/15637204/access/request",
+        "access": "https://zenodo.org/api/records/15637204/access",
+        "communities": "https://zenodo.org/api/records/15637204/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15637204/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15637204/requests"
+      },
+      "updated": "2025-06-17T19:24:31.704749+00:00",
+      "recid": "15637204",
+      "revision": 4,
+      "files": [
+        {
+          "id": "eba9f1cc-ea07-4bdb-a824-fbdd2e80fadb",
+          "key": "9963_vOTUs_May_2025.fa",
+          "size": 207511291,
+          "checksum": "md5:057b88b4574b66200439648a52f8c03f",
+          "links": {
+            "self": "https://zenodo.org/api/records/15637204/files/9963_vOTUs_May_2025.fa/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "610855"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 128,
+        "unique_downloads": 121,
+        "views": 256,
+        "unique_views": 253,
+        "version_downloads": 6,
+        "version_unique_downloads": 6,
+        "version_unique_views": 7,
+        "version_views": 8
+      },
+      "state": "done",
+      "submitted": true
+    },
     {
       "created": "2024-05-27T21:43:54.551008+00:00",
       "modified": "2024-05-27T21:43:54.764687+00:00",
@@ -67,6 +288,7 @@
         "doi": "https://doi.org/10.5281/zenodo.11359567",
         "self_doi": "https://doi.org/10.5281/zenodo.11359567",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.11359567",
+        "reserve_doi": "https://zenodo.org/api/records/11359567/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/11359566",
         "parent_html": "https://zenodo.org/records/11359566",
         "parent_doi": "https://doi.org/10.5281/zenodo.11359566",
@@ -81,7 +303,6 @@
         "latest_html": "https://zenodo.org/records/11359567/latest",
         "versions": "https://zenodo.org/api/records/11359567/versions",
         "draft": "https://zenodo.org/api/records/11359567/draft",
-        "reserve_doi": "https://zenodo.org/api/records/11359567/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/11359567/access/links",
         "access_grants": "https://zenodo.org/api/records/11359567/access/grants",
         "access_users": "https://zenodo.org/api/records/11359567/access/users",
@@ -113,14 +334,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 8,
-        "unique_downloads": 8,
-        "views": 31,
-        "unique_views": 31,
-        "version_downloads": 8,
-        "version_unique_downloads": 8,
-        "version_unique_views": 31,
-        "version_views": 31
+        "downloads": 10,
+        "unique_downloads": 10,
+        "views": 35,
+        "unique_views": 35,
+        "version_downloads": 10,
+        "version_unique_downloads": 10,
+        "version_unique_views": 35,
+        "version_views": 35
       },
       "state": "done",
       "submitted": true
@@ -179,6 +400,7 @@
         "doi": "https://doi.org/10.5281/zenodo.10452879",
         "self_doi": "https://doi.org/10.5281/zenodo.10452879",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10452879",
+        "reserve_doi": "https://zenodo.org/api/records/10452879/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/10279115",
         "parent_html": "https://zenodo.org/records/10279115",
         "parent_doi": "https://doi.org/10.5281/zenodo.10279115",
@@ -193,7 +415,6 @@
         "latest_html": "https://zenodo.org/records/10452879/latest",
         "versions": "https://zenodo.org/api/records/10452879/versions",
         "draft": "https://zenodo.org/api/records/10452879/draft",
-        "reserve_doi": "https://zenodo.org/api/records/10452879/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/10452879/access/links",
         "access_grants": "https://zenodo.org/api/records/10452879/access/grants",
         "access_users": "https://zenodo.org/api/records/10452879/access/users",
@@ -225,14 +446,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 7,
-        "unique_downloads": 7,
-        "views": 38,
-        "unique_views": 35,
-        "version_downloads": 2,
-        "version_unique_downloads": 2,
-        "version_unique_views": 18,
-        "version_views": 18
+        "downloads": 8,
+        "unique_downloads": 8,
+        "views": 44,
+        "unique_views": 41,
+        "version_downloads": 3,
+        "version_unique_downloads": 3,
+        "version_unique_views": 23,
+        "version_views": 23
       },
       "state": "done",
       "submitted": true

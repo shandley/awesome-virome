@@ -1,748 +1,130 @@
 {
-  "cache_date": "2025-03-17T23:21:00.703538",
+  "cache_date": "2025-08-01T08:43:17.060409",
   "data": [
     {
-      "created": "2025-03-17T23:15:03.674172+00:00",
-      "modified": "2025-03-17T23:15:03.867312+00:00",
-      "id": 15042573,
-      "conceptrecid": "15033628",
-      "doi": "10.5281/zenodo.15042573",
-      "conceptdoi": "10.5281/zenodo.15033628",
-      "doi_url": "https://doi.org/10.5281/zenodo.15042573",
+      "created": "2025-08-01T08:39:16.546076+00:00",
+      "modified": "2025-08-01T08:39:16.784351+00:00",
+      "id": 16676301,
+      "conceptrecid": "10282345",
+      "doi": "10.5281/zenodo.16676301",
+      "conceptdoi": "10.5281/zenodo.10282345",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676301",
       "metadata": {
-        "title": "Natural history specimens collected and/or identified and deposited.",
-        "doi": "10.5281/zenodo.15042573",
-        "publication_date": "2025-03-17",
-        "description": "Natural history specimen data collected and/or identified by Judith A. Harpel, <a href=\"http://www.wikidata.org/entity/Q88827183\">http://www.wikidata.org/entity/Q88827183</a>. Claims or attributions were made on Bionomia, <a href=\"https://bionomia.net\">https://bionomia.net</a> using specimen data from the Global Biodiversity Information Facility, <a href=\"https://gbif.org\">https://gbif.org</a>.",
+        "title": "bodkan/slendr: slendr 1.2.0",
+        "doi": "10.5281/zenodo.16676301",
+        "publication_date": "2025-08-01",
+        "description": "<ul>\n<li><p>Due to new issues related to conda activating environments in an incorrect path which <a href=\"https://github.com/bodkan/slendr/issues/179\">started to pop up</a> (possibly due to a misfeature in the <em>reticulate</em> package), activating procedure in <em>slendr</em> was reverted to a slower, but apparently <a href=\"https://github.com/bodkan/slendr/pull/182/commits/de868c160fb8eafd278676b98fd99edc90373c61\">more robust approach</a>. This will unfortunately make running massively parallelized simulations on Windows problematic due to a suspected-but-hard-to-detect race condition in conda on Windows, which manifested in many parallel environment activations (one for each simulation process) on this platform. For the time being, users are advised to execute big parallelized simulations (we're talking thousands of simulations in an ABC setting) on unix systems. (<a href=\"https://github.com/bodkan/slendr/pull/182\">PR #182</a>)</p>\n</li>\n<li><p><em>slendr</em> now allows recording of specific singular samples under unique names. See the documentation to <code>schedule_sampling()</code> for an example. (<a href=\"https://github.com/bodkan/slendr/pull/181\">PR #181</a>)</p>\n</li>\n<li><p>The dependency <em>rnaturalearth</em> has introduced some low-level changes that required minor tweaks to <em>slendr</em>'s spatial internals. Thanks to @PMassicotte for his kind help on fixing this! (<a href=\"https://github.com/bodkan/slendr/pull/180\">PR #180</a>)</p>\n</li>\n<li><p>Fixed an issue with setting <code>lock = TRUE</code> in the <code>set_range()</code> function (issue #176 reported by @Sgornard -- thank you!). (<a href=\"https://github.com/bodkan/slendr/commit/6d01e407\">#6d01e407</a>)</p>\n</li>\n<li><p>If a non-spatial population is created which has a spatial parent population, <em>slendr</em> gives an informative error message. (<a href=\"https://github.com/bodkan/slendr/commit/6bb646\">#6bb646</a>)</p>\n</li>\n<li><p><code>plot_model()</code> now uses the same color for population ranges and population labels.  (<a href=\"https://github.com/bodkan/slendr/commit/c54632e5\">#c54632e5</a>)</p>\n</li>\n<li><p><code>plot_map()</code> can now optionally visualize splits in a spatial setting (<a href=\"https://github.com/bodkan/slendr/commit/4664388c\">#4664388c</a>)</p>\n</li>\n<li><p><code>plot_model()</code> now plots y-axis time using a more readable integer scale.  (<a href=\"https://github.com/bodkan/slendr/commit/6b0e7fcc\">#6b0e7fcc</a>)</p>\n</li>\n</ul>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Judith A. Harpel",
+            "name": "Martin Petr",
+            "affiliation": null
+          },
+          {
+            "name": "Ben Haller",
+            "affiliation": "Cornell University, Stick Software"
+          },
+          {
+            "name": "Philippe Massicotte",
+            "affiliation": null
+          },
+          {
+            "name": "GKresearch",
             "affiliation": null
           }
         ],
-        "keywords": [
-          "specimen",
-          "natural history",
-          "taxonomy"
-        ],
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-zero"
-        },
-        "communities": [
+        "related_identifiers": [
           {
-            "id": "bionomia"
+            "identifier": "https://github.com/bodkan/slendr/tree/v1.2.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
           }
         ],
+        "version": "v1.2.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/bodkan/slendr"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
         "relations": {
           "version": [
             {
-              "index": 1,
+              "index": 6,
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "15033628"
+                "pid_value": "10282345"
               }
             }
           ]
-        },
-        "notes": "http://www.wikidata.org/entity/Q88827183"
+        }
       },
-      "title": "Natural history specimens collected and/or identified and deposited.",
+      "title": "bodkan/slendr: slendr 1.2.0",
       "links": {
-        "self": "https://zenodo.org/api/records/15042573",
-        "self_html": "https://zenodo.org/records/15042573",
-        "doi": "https://doi.org/10.5281/zenodo.15042573",
-        "self_doi": "https://doi.org/10.5281/zenodo.15042573",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042573",
-        "parent": "https://zenodo.org/api/records/15033628",
-        "parent_html": "https://zenodo.org/records/15033628",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15033628",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15033628",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042573/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042573/sequence/default",
-        "files": "https://zenodo.org/api/records/15042573/files",
-        "media_files": "https://zenodo.org/api/records/15042573/media-files",
-        "archive": "https://zenodo.org/api/records/15042573/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15042573/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15042573/versions/latest",
-        "latest_html": "https://zenodo.org/records/15042573/latest",
-        "versions": "https://zenodo.org/api/records/15042573/versions",
-        "draft": "https://zenodo.org/api/records/15042573/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15042573/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15042573/access/links",
-        "access_grants": "https://zenodo.org/api/records/15042573/access/grants",
-        "access_users": "https://zenodo.org/api/records/15042573/access/users",
-        "access_request": "https://zenodo.org/api/records/15042573/access/request",
-        "access": "https://zenodo.org/api/records/15042573/access",
-        "communities": "https://zenodo.org/api/records/15042573/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15042573/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15042573/requests"
+        "self": "https://zenodo.org/api/records/16676301",
+        "self_html": "https://zenodo.org/records/16676301",
+        "preview_html": "https://zenodo.org/records/16676301?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676301",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676301",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676301",
+        "reserve_doi": "https://zenodo.org/api/records/16676301/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/10282345",
+        "parent_html": "https://zenodo.org/records/10282345",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10282345",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10282345",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676301/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676301/sequence/default",
+        "files": "https://zenodo.org/api/records/16676301/files",
+        "media_files": "https://zenodo.org/api/records/16676301/media-files",
+        "archive": "https://zenodo.org/api/records/16676301/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676301/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676301/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676301/latest",
+        "versions": "https://zenodo.org/api/records/16676301/versions",
+        "draft": "https://zenodo.org/api/records/16676301/draft",
+        "access_links": "https://zenodo.org/api/records/16676301/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676301/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676301/access/users",
+        "access_request": "https://zenodo.org/api/records/16676301/access/request",
+        "access": "https://zenodo.org/api/records/16676301/access",
+        "communities": "https://zenodo.org/api/records/16676301/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676301/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676301/requests"
       },
-      "updated": "2025-03-17T23:15:03.867312+00:00",
-      "recid": "15042573",
+      "updated": "2025-08-01T08:39:16.784351+00:00",
+      "recid": "16676301",
       "revision": 4,
       "files": [
         {
-          "id": "75a38a30-462e-430e-a8c3-e6517fbfbac1",
-          "key": "Q88827183.csv",
-          "size": 2769968,
-          "checksum": "md5:c1addc2b7cd0651ee86471c86f96e7d1",
+          "id": "e2809f1d-d3a9-4309-aa5f-8c80e2571030",
+          "key": "bodkan/slendr-v1.2.0.zip",
+          "size": 12860156,
+          "checksum": "md5:47784cd8192b1bae28944cdbb1f8eb45",
           "links": {
-            "self": "https://zenodo.org/api/records/15042573/files/Q88827183.csv/content"
-          }
-        },
-        {
-          "id": "2a6e63ab-50c0-4978-8253-276f6dae7e02",
-          "key": "Q88827183.json",
-          "size": 7516184,
-          "checksum": "md5:b1ae40fe5e584a4ed8ffdb79b34ca5fc",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042573/files/Q88827183.json/content"
+            "self": "https://zenodo.org/api/records/16676301/files/bodkan/slendr-v1.2.0.zip/content"
           }
         }
       ],
-      "swh": {},
+      "swh": {
+        "swhid": "swh:1:dir:ba599d222cb84302e97de9d2d7f6f4ca60fe67d7;origin=https://doi.org/10.5281/zenodo.10282345;visit=swh:1:snp:5aa5c7c40cbf434e48d03f83ad855c6584faa469;anchor=swh:1:rel:03e2c99189b6d7e01e0df0a834495d7b80b2fd91;path=bodkan-slendr-7edefc3"
+      },
       "owners": [
         {
-          "id": "107122"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 43,
-        "unique_downloads": 42,
-        "views": 21,
-        "unique_views": 21,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-03-17T23:14:56.076392+00:00",
-      "modified": "2025-03-17T23:14:56.183309+00:00",
-      "id": 15042572,
-      "conceptrecid": "15039245",
-      "doi": "10.5281/zenodo.15042572",
-      "conceptdoi": "10.5281/zenodo.15039245",
-      "doi_url": "https://doi.org/10.5281/zenodo.15042572",
-      "metadata": {
-        "title": "Natural history specimens collected and/or identified and deposited.",
-        "doi": "10.5281/zenodo.15042572",
-        "publication_date": "2025-03-17",
-        "description": "Natural history specimen data collected and/or identified by Lucien W. Stilwell (1844-1932), <a href=\"http://www.wikidata.org/entity/Q133295642\">http://www.wikidata.org/entity/Q133295642</a>. Claims or attributions were made on Bionomia, <a href=\"https://bionomia.net\">https://bionomia.net</a> using specimen data from the Global Biodiversity Information Facility, <a href=\"https://gbif.org\">https://gbif.org</a>.",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Lucien W. Stilwell (1844-1932)",
-            "affiliation": null
-          }
-        ],
-        "keywords": [
-          "specimen",
-          "natural history",
-          "taxonomy"
-        ],
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-zero"
-        },
-        "communities": [
-          {
-            "id": "bionomia"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 1,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15039245"
-              }
-            }
-          ]
-        },
-        "notes": "http://www.wikidata.org/entity/Q133295642"
-      },
-      "title": "Natural history specimens collected and/or identified and deposited.",
-      "links": {
-        "self": "https://zenodo.org/api/records/15042572",
-        "self_html": "https://zenodo.org/records/15042572",
-        "doi": "https://doi.org/10.5281/zenodo.15042572",
-        "self_doi": "https://doi.org/10.5281/zenodo.15042572",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042572",
-        "parent": "https://zenodo.org/api/records/15039245",
-        "parent_html": "https://zenodo.org/records/15039245",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15039245",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15039245",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042572/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042572/sequence/default",
-        "files": "https://zenodo.org/api/records/15042572/files",
-        "media_files": "https://zenodo.org/api/records/15042572/media-files",
-        "archive": "https://zenodo.org/api/records/15042572/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15042572/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15042572/versions/latest",
-        "latest_html": "https://zenodo.org/records/15042572/latest",
-        "versions": "https://zenodo.org/api/records/15042572/versions",
-        "draft": "https://zenodo.org/api/records/15042572/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15042572/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15042572/access/links",
-        "access_grants": "https://zenodo.org/api/records/15042572/access/grants",
-        "access_users": "https://zenodo.org/api/records/15042572/access/users",
-        "access_request": "https://zenodo.org/api/records/15042572/access/request",
-        "access": "https://zenodo.org/api/records/15042572/access",
-        "communities": "https://zenodo.org/api/records/15042572/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15042572/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15042572/requests"
-      },
-      "updated": "2025-03-17T23:14:56.183309+00:00",
-      "recid": "15042572",
-      "revision": 4,
-      "files": [
-        {
-          "id": "cf46e93f-9f0b-4904-b08f-65bf896f4e3a",
-          "key": "Q133295642.json",
-          "size": 128474,
-          "checksum": "md5:ac836cb66e8f792462a10762d22f70b0",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042572/files/Q133295642.json/content"
-          }
-        },
-        {
-          "id": "1312a676-0adb-4587-9803-f3a6841c3e94",
-          "key": "Q133295642.csv",
-          "size": 44458,
-          "checksum": "md5:6a94a8e45c8d57926681f95b508d275b",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042572/files/Q133295642.csv/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "107122"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 18,
-        "unique_downloads": 18,
-        "views": 11,
-        "unique_views": 11,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-03-17T23:14:48.197464+00:00",
-      "modified": "2025-03-17T23:14:48.352531+00:00",
-      "id": 15042571,
-      "conceptrecid": "15033621",
-      "doi": "10.5281/zenodo.15042571",
-      "conceptdoi": "10.5281/zenodo.15033621",
-      "doi_url": "https://doi.org/10.5281/zenodo.15042571",
-      "metadata": {
-        "title": "Natural history specimens collected and/or identified and deposited.",
-        "doi": "10.5281/zenodo.15042571",
-        "publication_date": "2025-03-17",
-        "description": "Natural history specimen data collected and/or identified by Auguste Jaccard, <a href=\"http://www.wikidata.org/entity/Q15626812\">http://www.wikidata.org/entity/Q15626812</a>. Claims or attributions were made on Bionomia, <a href=\"https://bionomia.net\">https://bionomia.net</a> using specimen data from the Global Biodiversity Information Facility, <a href=\"https://gbif.org\">https://gbif.org</a>.",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Auguste Jaccard",
-            "affiliation": null
-          }
-        ],
-        "keywords": [
-          "specimen",
-          "natural history",
-          "taxonomy"
-        ],
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-zero"
-        },
-        "communities": [
-          {
-            "id": "bionomia"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 1,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15033621"
-              }
-            }
-          ]
-        },
-        "notes": "http://www.wikidata.org/entity/Q15626812"
-      },
-      "title": "Natural history specimens collected and/or identified and deposited.",
-      "links": {
-        "self": "https://zenodo.org/api/records/15042571",
-        "self_html": "https://zenodo.org/records/15042571",
-        "doi": "https://doi.org/10.5281/zenodo.15042571",
-        "self_doi": "https://doi.org/10.5281/zenodo.15042571",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042571",
-        "parent": "https://zenodo.org/api/records/15033621",
-        "parent_html": "https://zenodo.org/records/15033621",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15033621",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15033621",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042571/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042571/sequence/default",
-        "files": "https://zenodo.org/api/records/15042571/files",
-        "media_files": "https://zenodo.org/api/records/15042571/media-files",
-        "archive": "https://zenodo.org/api/records/15042571/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15042571/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15042571/versions/latest",
-        "latest_html": "https://zenodo.org/records/15042571/latest",
-        "versions": "https://zenodo.org/api/records/15042571/versions",
-        "draft": "https://zenodo.org/api/records/15042571/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15042571/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15042571/access/links",
-        "access_grants": "https://zenodo.org/api/records/15042571/access/grants",
-        "access_users": "https://zenodo.org/api/records/15042571/access/users",
-        "access_request": "https://zenodo.org/api/records/15042571/access/request",
-        "access": "https://zenodo.org/api/records/15042571/access",
-        "communities": "https://zenodo.org/api/records/15042571/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15042571/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15042571/requests"
-      },
-      "updated": "2025-03-17T23:14:48.352531+00:00",
-      "recid": "15042571",
-      "revision": 4,
-      "files": [
-        {
-          "id": "5177faf3-125e-4393-bca7-2c0a489c446c",
-          "key": "Q15626812.json",
-          "size": 1779034,
-          "checksum": "md5:c928cc05a19d5514a6eb1ec1dc039820",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042571/files/Q15626812.json/content"
-          }
-        },
-        {
-          "id": "6167c54c-17e2-4b95-a8ec-0b3603abe556",
-          "key": "Q15626812.csv",
-          "size": 579766,
-          "checksum": "md5:160de1e190c8890045a2e6e31576d8ea",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042571/files/Q15626812.csv/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "107122"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 32,
-        "unique_downloads": 32,
-        "views": 19,
-        "unique_views": 19,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-03-17T23:14:44.001893+00:00",
-      "modified": "2025-03-17T23:14:44.179957+00:00",
-      "id": 15042570,
-      "conceptrecid": "14028556",
-      "doi": "10.5281/zenodo.15042570",
-      "conceptdoi": "10.5281/zenodo.14028556",
-      "doi_url": "https://doi.org/10.5281/zenodo.15042570",
-      "metadata": {
-        "title": "Natural history specimens collected and/or identified and deposited.",
-        "doi": "10.5281/zenodo.15042570",
-        "publication_date": "2025-03-17",
-        "description": "Natural history specimen data collected and/or identified by Eugene Marie Aubourg de Boury, <a href=\"http://www.wikidata.org/entity/Q113134974\">http://www.wikidata.org/entity/Q113134974</a>. Claims or attributions were made on Bionomia, <a href=\"https://bionomia.net\">https://bionomia.net</a> using specimen data from the Global Biodiversity Information Facility, <a href=\"https://gbif.org\">https://gbif.org</a>.",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Eugene Marie Aubourg de Boury",
-            "affiliation": null
-          }
-        ],
-        "keywords": [
-          "specimen",
-          "natural history",
-          "taxonomy"
-        ],
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-zero"
-        },
-        "communities": [
-          {
-            "id": "bionomia"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 2,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "14028556"
-              }
-            }
-          ]
-        },
-        "notes": "http://www.wikidata.org/entity/Q113134974"
-      },
-      "title": "Natural history specimens collected and/or identified and deposited.",
-      "links": {
-        "self": "https://zenodo.org/api/records/15042570",
-        "self_html": "https://zenodo.org/records/15042570",
-        "doi": "https://doi.org/10.5281/zenodo.15042570",
-        "self_doi": "https://doi.org/10.5281/zenodo.15042570",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042570",
-        "parent": "https://zenodo.org/api/records/14028556",
-        "parent_html": "https://zenodo.org/records/14028556",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14028556",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14028556",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042570/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042570/sequence/default",
-        "files": "https://zenodo.org/api/records/15042570/files",
-        "media_files": "https://zenodo.org/api/records/15042570/media-files",
-        "archive": "https://zenodo.org/api/records/15042570/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15042570/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15042570/versions/latest",
-        "latest_html": "https://zenodo.org/records/15042570/latest",
-        "versions": "https://zenodo.org/api/records/15042570/versions",
-        "draft": "https://zenodo.org/api/records/15042570/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15042570/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15042570/access/links",
-        "access_grants": "https://zenodo.org/api/records/15042570/access/grants",
-        "access_users": "https://zenodo.org/api/records/15042570/access/users",
-        "access_request": "https://zenodo.org/api/records/15042570/access/request",
-        "access": "https://zenodo.org/api/records/15042570/access",
-        "communities": "https://zenodo.org/api/records/15042570/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15042570/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15042570/requests"
-      },
-      "updated": "2025-03-17T23:14:44.179957+00:00",
-      "recid": "15042570",
-      "revision": 4,
-      "files": [
-        {
-          "id": "5a0ad977-13d3-4de4-9ace-f7ccbcaa8493",
-          "key": "Q113134974.json",
-          "size": 257051,
-          "checksum": "md5:8c91dbd724362e099309fd8ab643085a",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042570/files/Q113134974.json/content"
-          }
-        },
-        {
-          "id": "f1361053-1daa-468c-b0b8-fa7198a9c018",
-          "key": "Q113134974.csv",
-          "size": 101730,
-          "checksum": "md5:c3285c7040f7270fa3f198d19c10deaf",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042570/files/Q113134974.csv/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "107122"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 59,
-        "unique_downloads": 56,
-        "views": 124,
-        "unique_views": 124,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-03-17T23:14:37.374595+00:00",
-      "modified": "2025-03-17T23:14:37.509422+00:00",
-      "id": 15042569,
-      "conceptrecid": "10202496",
-      "doi": "10.5281/zenodo.15042569",
-      "conceptdoi": "10.5281/zenodo.10202496",
-      "doi_url": "https://doi.org/10.5281/zenodo.15042569",
-      "metadata": {
-        "title": "Natural history specimens collected and/or identified and deposited.",
-        "doi": "10.5281/zenodo.15042569",
-        "publication_date": "2025-03-17",
-        "description": "Natural history specimen data collected and/or identified by Mercedes Chanek, <a href=\"http://www.wikidata.org/entity/Q109252120\">http://www.wikidata.org/entity/Q109252120</a>. Claims or attributions were made on Bionomia, <a href=\"https://bionomia.net\">https://bionomia.net</a> using specimen data from the Global Biodiversity Information Facility, <a href=\"https://gbif.org\">https://gbif.org</a>.",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Mercedes Chanek",
-            "affiliation": null
-          }
-        ],
-        "keywords": [
-          "specimen",
-          "natural history",
-          "taxonomy"
-        ],
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-zero"
-        },
-        "communities": [
-          {
-            "id": "bionomia"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 11,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "10202496"
-              }
-            }
-          ]
-        },
-        "notes": "http://www.wikidata.org/entity/Q109252120"
-      },
-      "title": "Natural history specimens collected and/or identified and deposited.",
-      "links": {
-        "self": "https://zenodo.org/api/records/15042569",
-        "self_html": "https://zenodo.org/records/15042569",
-        "doi": "https://doi.org/10.5281/zenodo.15042569",
-        "self_doi": "https://doi.org/10.5281/zenodo.15042569",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042569",
-        "parent": "https://zenodo.org/api/records/10202496",
-        "parent_html": "https://zenodo.org/records/10202496",
-        "parent_doi": "https://doi.org/10.5281/zenodo.10202496",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10202496",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042569/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042569/sequence/default",
-        "files": "https://zenodo.org/api/records/15042569/files",
-        "media_files": "https://zenodo.org/api/records/15042569/media-files",
-        "archive": "https://zenodo.org/api/records/15042569/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15042569/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15042569/versions/latest",
-        "latest_html": "https://zenodo.org/records/15042569/latest",
-        "versions": "https://zenodo.org/api/records/15042569/versions",
-        "draft": "https://zenodo.org/api/records/15042569/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15042569/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15042569/access/links",
-        "access_grants": "https://zenodo.org/api/records/15042569/access/grants",
-        "access_users": "https://zenodo.org/api/records/15042569/access/users",
-        "access_request": "https://zenodo.org/api/records/15042569/access/request",
-        "access": "https://zenodo.org/api/records/15042569/access",
-        "communities": "https://zenodo.org/api/records/15042569/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15042569/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15042569/requests"
-      },
-      "updated": "2025-03-17T23:14:37.509422+00:00",
-      "recid": "15042569",
-      "revision": 4,
-      "files": [
-        {
-          "id": "282eb268-8258-43d9-b3b9-eda11e4ad86e",
-          "key": "Q109252120.json",
-          "size": 269011,
-          "checksum": "md5:07f2d4986498b88c55a50e14f4e11501",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042569/files/Q109252120.json/content"
-          }
-        },
-        {
-          "id": "d267f7ab-5e57-4307-95a1-ef64d7f5bd1f",
-          "key": "Q109252120.csv",
-          "size": 97671,
-          "checksum": "md5:d4d26a5e88c16319514f3bb2b8721a26",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042569/files/Q109252120.csv/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "107122"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 197,
-        "unique_downloads": 194,
-        "views": 663,
-        "unique_views": 654,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-03-17T23:14:36.285210+00:00",
-      "modified": "2025-03-17T23:14:36.384641+00:00",
-      "id": 15042568,
-      "conceptrecid": "15033633",
-      "doi": "10.5281/zenodo.15042568",
-      "conceptdoi": "10.5281/zenodo.15033633",
-      "doi_url": "https://doi.org/10.5281/zenodo.15042568",
-      "metadata": {
-        "title": "Natural history specimens collected and/or identified and deposited.",
-        "doi": "10.5281/zenodo.15042568",
-        "publication_date": "2025-03-17",
-        "description": "Natural history specimen data collected and/or identified by Richard Fortey, <a href=\"http://www.wikidata.org/entity/Q322782\">http://www.wikidata.org/entity/Q322782</a>. Claims or attributions were made on Bionomia, <a href=\"https://bionomia.net\">https://bionomia.net</a> using specimen data from the Global Biodiversity Information Facility, <a href=\"https://gbif.org\">https://gbif.org</a>.",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Richard Fortey",
-            "affiliation": null
-          }
-        ],
-        "keywords": [
-          "specimen",
-          "natural history",
-          "taxonomy"
-        ],
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-zero"
-        },
-        "communities": [
-          {
-            "id": "bionomia"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 1,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15033633"
-              }
-            }
-          ]
-        },
-        "notes": "http://www.wikidata.org/entity/Q322782"
-      },
-      "title": "Natural history specimens collected and/or identified and deposited.",
-      "links": {
-        "self": "https://zenodo.org/api/records/15042568",
-        "self_html": "https://zenodo.org/records/15042568",
-        "doi": "https://doi.org/10.5281/zenodo.15042568",
-        "self_doi": "https://doi.org/10.5281/zenodo.15042568",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042568",
-        "parent": "https://zenodo.org/api/records/15033633",
-        "parent_html": "https://zenodo.org/records/15033633",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15033633",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15033633",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042568/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042568/sequence/default",
-        "files": "https://zenodo.org/api/records/15042568/files",
-        "media_files": "https://zenodo.org/api/records/15042568/media-files",
-        "archive": "https://zenodo.org/api/records/15042568/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15042568/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15042568/versions/latest",
-        "latest_html": "https://zenodo.org/records/15042568/latest",
-        "versions": "https://zenodo.org/api/records/15042568/versions",
-        "draft": "https://zenodo.org/api/records/15042568/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15042568/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15042568/access/links",
-        "access_grants": "https://zenodo.org/api/records/15042568/access/grants",
-        "access_users": "https://zenodo.org/api/records/15042568/access/users",
-        "access_request": "https://zenodo.org/api/records/15042568/access/request",
-        "access": "https://zenodo.org/api/records/15042568/access",
-        "communities": "https://zenodo.org/api/records/15042568/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15042568/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15042568/requests"
-      },
-      "updated": "2025-03-17T23:14:36.384641+00:00",
-      "recid": "15042568",
-      "revision": 4,
-      "files": [
-        {
-          "id": "3b2b0bd5-610c-49ac-ab53-f463c49780ff",
-          "key": "Q322782.csv",
-          "size": 1933407,
-          "checksum": "md5:e3deeb9ab1fd98587590d0c6ac37fc65",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042568/files/Q322782.csv/content"
-          }
-        },
-        {
-          "id": "7d1b88f6-e33d-4b9e-9c93-ada1841c28b8",
-          "key": "Q322782.json",
-          "size": 6278064,
-          "checksum": "md5:ff962e8388203ca1494cb102766b3d14",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042568/files/Q322782.json/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "107122"
+          "id": "107104"
         }
       ],
       "status": "published",
       "stats": {
         "downloads": 25,
         "unique_downloads": 25,
-        "views": 25,
-        "unique_views": 25,
+        "views": 181,
+        "unique_views": 149,
         "version_downloads": 0,
         "version_unique_downloads": 0,
         "version_unique_views": 0,
@@ -752,242 +134,187 @@
       "submitted": true
     },
     {
-      "created": "2025-03-17T23:14:29.705487+00:00",
-      "modified": "2025-03-17T23:14:29.872235+00:00",
-      "id": 15042567,
-      "conceptrecid": "8070335",
-      "doi": "10.5281/zenodo.15042567",
-      "conceptdoi": "10.5281/zenodo.8070335",
-      "doi_url": "https://doi.org/10.5281/zenodo.15042567",
+      "created": "2025-08-01T08:30:45.372114+00:00",
+      "modified": "2025-08-01T08:30:45.903484+00:00",
+      "id": 16676028,
+      "conceptrecid": "16676027",
+      "doi": "10.5281/zenodo.16676028",
+      "conceptdoi": "10.5281/zenodo.16676027",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676028",
       "metadata": {
-        "title": "Natural history specimens collected and/or identified and deposited.",
-        "doi": "10.5281/zenodo.15042567",
-        "publication_date": "2025-03-17",
-        "description": "Natural history specimen data collected and/or identified by Percival Hildebrand Gentle, <a href=\"http://www.wikidata.org/entity/Q106742450\">http://www.wikidata.org/entity/Q106742450</a>. Claims or attributions were made on Bionomia, <a href=\"https://bionomia.net\">https://bionomia.net</a> using specimen data from the Global Biodiversity Information Facility, <a href=\"https://gbif.org\">https://gbif.org</a>.",
+        "title": "Fig. 12 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+        "doi": "10.5281/zenodo.16676028",
+        "publication_date": "2025-07-28",
+        "description": "Fig. 12. Geographic distribution of Pristimantis flavus sp. nov. (yellow circles) and P. fouqueti sp. nov. (red circles). Stars indicate the type localities of each species.",
         "access_right": "open",
         "creators": [
           {
-            "name": "Percival Hildebrand Gentle",
+            "name": "M\u00f4nico, Alexander Tamanini",
+            "affiliation": "Coordena\u00e7\u00e3o de Biodiversidade, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Courtois, Elodie A.",
+            "affiliation": "ENIA (Naturalist Expertise Instrumentation and Analysis), independent researcher, Remire-Montjoly, French Guiana."
+          },
+          {
+            "name": "Koch, Esteban Diego",
+            "affiliation": "Programa de P\u00f3s-Gradua\u00e7\u00e3o em Gen\u00e9tica, Conserva\u00e7\u00e3o e Biologia Evolutiva, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Dewynter, Michel Blanc Ma\u00ebl",
             "affiliation": null
+          },
+          {
+            "name": "Kok, Philippe J.R.",
+            "affiliation": "Department of Ecology and Vertebrate Zoology, Faculty of Biology and Environmental Protection, University of Lodz, Lodz, Poland. & Department of Life Sciences, The Natural History Museum, London, United Kingdom."
           }
         ],
         "keywords": [
-          "specimen",
-          "natural history",
-          "taxonomy"
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Amphibia",
+          "Anura",
+          "Craugastoridae",
+          "Pristimantis"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5852/ejt.2025.1004.2977",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/16675974",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C784F5136021486FCBBF82B",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C704F4A361311A5FE93FBB9",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
         ],
         "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "pages": "259-293",
+          "title": "European Journal of Taxonomy",
+          "volume": "1004"
         },
         "license": {
-          "id": "cc-zero"
+          "id": "cc-by-4.0"
         },
         "communities": [
           {
-            "id": "bionomia"
+            "id": "biosyslit"
           }
         ],
         "relations": {
           "version": [
             {
-              "index": 33,
+              "index": 0,
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "8070335"
+                "pid_value": "16676027"
               }
             }
           ]
         },
-        "notes": "http://www.wikidata.org/entity/Q106742450"
+        "notes": "Published as part of <i>M\u00f4nico, Alexander Tamanini, Courtois, Elodie A., Koch, Esteban Diego, Dewynter, Michel Blanc Ma\u00ebl &amp; Kok, Philippe J.R., 2025, Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands, pp. 259-293 in European Journal of Taxonomy 1004</i> on page 281, DOI: 10.5852/ejt.2025.1004.2977, <a href=\"http://zenodo.org/record/16675974\">http://zenodo.org/record/16675974</a>"
       },
-      "title": "Natural history specimens collected and/or identified and deposited.",
+      "title": "Fig. 12 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
       "links": {
-        "self": "https://zenodo.org/api/records/15042567",
-        "self_html": "https://zenodo.org/records/15042567",
-        "doi": "https://doi.org/10.5281/zenodo.15042567",
-        "self_doi": "https://doi.org/10.5281/zenodo.15042567",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042567",
-        "parent": "https://zenodo.org/api/records/8070335",
-        "parent_html": "https://zenodo.org/records/8070335",
-        "parent_doi": "https://doi.org/10.5281/zenodo.8070335",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.8070335",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042567/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042567/sequence/default",
-        "files": "https://zenodo.org/api/records/15042567/files",
-        "media_files": "https://zenodo.org/api/records/15042567/media-files",
-        "archive": "https://zenodo.org/api/records/15042567/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15042567/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15042567/versions/latest",
-        "latest_html": "https://zenodo.org/records/15042567/latest",
-        "versions": "https://zenodo.org/api/records/15042567/versions",
-        "draft": "https://zenodo.org/api/records/15042567/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15042567/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15042567/access/links",
-        "access_grants": "https://zenodo.org/api/records/15042567/access/grants",
-        "access_users": "https://zenodo.org/api/records/15042567/access/users",
-        "access_request": "https://zenodo.org/api/records/15042567/access/request",
-        "access": "https://zenodo.org/api/records/15042567/access",
-        "communities": "https://zenodo.org/api/records/15042567/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15042567/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15042567/requests"
-      },
-      "updated": "2025-03-17T23:14:29.872235+00:00",
-      "recid": "15042567",
-      "revision": 4,
-      "files": [
-        {
-          "id": "e09111d0-b2e7-42da-85af-c3eb88c98554",
-          "key": "Q106742450.csv",
-          "size": 7614864,
-          "checksum": "md5:2713ab4dd1700a2f6e2c67bc8ec1148d",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042567/files/Q106742450.csv/content"
-          }
+        "self": "https://zenodo.org/api/records/16676028",
+        "self_html": "https://zenodo.org/records/16676028",
+        "preview_html": "https://zenodo.org/records/16676028?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676028",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676028",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676028",
+        "reserve_doi": "https://zenodo.org/api/records/16676028/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16676027",
+        "parent_html": "https://zenodo.org/records/16676027",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16676027",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676027",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676028/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676028/sequence/default",
+        "files": "https://zenodo.org/api/records/16676028/files",
+        "media_files": "https://zenodo.org/api/records/16676028/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16676028:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16676028:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16676028:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16676028:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16676028:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16676028:figure.png/full/%5E1200,/0/default.jpg"
         },
-        {
-          "id": "e77aaddf-b6df-4095-b816-82a097e0506d",
-          "key": "Q106742450.json",
-          "size": 21261425,
-          "checksum": "md5:8ab477e89a5da9366b793595a84837e8",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042567/files/Q106742450.json/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "107122"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 687,
-        "unique_downloads": 641,
-        "views": 1990,
-        "unique_views": 1972,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
+        "archive": "https://zenodo.org/api/records/16676028/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676028/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676028/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676028/latest",
+        "versions": "https://zenodo.org/api/records/16676028/versions",
+        "draft": "https://zenodo.org/api/records/16676028/draft",
+        "access_links": "https://zenodo.org/api/records/16676028/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676028/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676028/access/users",
+        "access_request": "https://zenodo.org/api/records/16676028/access/request",
+        "access": "https://zenodo.org/api/records/16676028/access",
+        "communities": "https://zenodo.org/api/records/16676028/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676028/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676028/requests"
       },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-03-17T23:14:20.012777+00:00",
-      "modified": "2025-03-17T23:14:20.289782+00:00",
-      "id": 15042566,
-      "conceptrecid": "7343214",
-      "doi": "10.5281/zenodo.15042566",
-      "conceptdoi": "10.5281/zenodo.7343214",
-      "doi_url": "https://doi.org/10.5281/zenodo.15042566",
-      "metadata": {
-        "title": "Natural history specimens collected and/or identified and deposited.",
-        "doi": "10.5281/zenodo.15042566",
-        "publication_date": "2025-03-17",
-        "description": "Natural history specimen data collected and/or identified by Petr Hubatka, <a href=\"https://orcid.org/0000-0001-8178-5230\">https://orcid.org/0000-0001-8178-5230</a>. Claims or attributions were made on Bionomia, <a href=\"https://bionomia.net\">https://bionomia.net</a> using specimen data from the Global Biodiversity Information Facility, <a href=\"https://gbif.org\">https://gbif.org</a>.",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Petr Hubatka",
-            "affiliation": null,
-            "orcid": "0000-0001-8178-5230"
-          }
-        ],
-        "keywords": [
-          "specimen",
-          "natural history",
-          "taxonomy"
-        ],
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-zero"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 5,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "7343214"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Natural history specimens collected and/or identified and deposited.",
-      "links": {
-        "self": "https://zenodo.org/api/records/15042566",
-        "self_html": "https://zenodo.org/records/15042566",
-        "doi": "https://doi.org/10.5281/zenodo.15042566",
-        "self_doi": "https://doi.org/10.5281/zenodo.15042566",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042566",
-        "parent": "https://zenodo.org/api/records/7343214",
-        "parent_html": "https://zenodo.org/records/7343214",
-        "parent_doi": "https://doi.org/10.5281/zenodo.7343214",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.7343214",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042566/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042566/sequence/default",
-        "files": "https://zenodo.org/api/records/15042566/files",
-        "media_files": "https://zenodo.org/api/records/15042566/media-files",
-        "archive": "https://zenodo.org/api/records/15042566/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15042566/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15042566/versions/latest",
-        "latest_html": "https://zenodo.org/records/15042566/latest",
-        "versions": "https://zenodo.org/api/records/15042566/versions",
-        "draft": "https://zenodo.org/api/records/15042566/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15042566/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15042566/access/links",
-        "access_grants": "https://zenodo.org/api/records/15042566/access/grants",
-        "access_users": "https://zenodo.org/api/records/15042566/access/users",
-        "access_request": "https://zenodo.org/api/records/15042566/access/request",
-        "access": "https://zenodo.org/api/records/15042566/access",
-        "communities": "https://zenodo.org/api/records/15042566/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15042566/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15042566/requests"
-      },
-      "updated": "2025-03-17T23:14:20.289782+00:00",
-      "recid": "15042566",
+      "updated": "2025-08-01T08:30:45.903484+00:00",
+      "recid": "16676028",
       "revision": 5,
       "files": [
         {
-          "id": "183c2b46-e5b7-4be5-972d-ecb9b66f7882",
-          "key": "0000-0001-8178-5230.csv",
-          "size": 965995,
-          "checksum": "md5:1c06f200c383373c77054daf569ce3a0",
+          "id": "a65bcc29-79fb-40a4-a2f6-64ad87224d83",
+          "key": "figure.png",
+          "size": 1635961,
+          "checksum": "md5:3e3e9f17bede2dfe9156e4a28e8df1ec",
           "links": {
-            "self": "https://zenodo.org/api/records/15042566/files/0000-0001-8178-5230.csv/content"
-          }
-        },
-        {
-          "id": "b8f8118e-e5bb-4fe5-83e5-06114d475e19",
-          "key": "0000-0001-8178-5230.json",
-          "size": 4331824,
-          "checksum": "md5:4d00eb3c52d73f9e24aceac4982d6c7b",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042566/files/0000-0001-8178-5230.json/content"
+            "self": "https://zenodo.org/api/records/16676028/files/figure.png/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "442758"
+          "id": "1161"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 49,
-        "unique_downloads": 45,
-        "views": 463,
-        "unique_views": 460,
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
         "version_downloads": 0,
         "version_unique_downloads": 0,
         "version_unique_views": 0,
@@ -997,122 +324,181 @@
       "submitted": true
     },
     {
-      "created": "2025-03-17T23:14:04.747941+00:00",
-      "modified": "2025-03-17T23:14:04.921800+00:00",
-      "id": 15042565,
-      "conceptrecid": "8053523",
-      "doi": "10.5281/zenodo.15042565",
-      "conceptdoi": "10.5281/zenodo.8053523",
-      "doi_url": "https://doi.org/10.5281/zenodo.15042565",
+      "created": "2025-08-01T08:30:42.689766+00:00",
+      "modified": "2025-08-01T08:30:43.347055+00:00",
+      "id": 16676024,
+      "conceptrecid": "16676023",
+      "doi": "10.5281/zenodo.16676024",
+      "conceptdoi": "10.5281/zenodo.16676023",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676024",
       "metadata": {
-        "title": "Natural history specimens collected and/or identified and deposited.",
-        "doi": "10.5281/zenodo.15042565",
-        "publication_date": "2025-03-17",
-        "description": "Natural history specimen data collected and/or identified by Bernice Marguerite Speese, <a href=\"http://www.wikidata.org/entity/Q111654236\">http://www.wikidata.org/entity/Q111654236</a>. Claims or attributions were made on Bionomia, <a href=\"https://bionomia.net\">https://bionomia.net</a> using specimen data from the Global Biodiversity Information Facility, <a href=\"https://gbif.org\">https://gbif.org</a>.",
+        "title": "Fig. 11 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+        "doi": "10.5281/zenodo.16676024",
+        "publication_date": "2025-07-28",
+        "description": "Fig. 11. Forests in the surroundings of the Inselberg Nouragues \u2013 French Guiana, inhabited by Pristimantis fouqueti sp. nov. Photography by Elodie Courtois.",
         "access_right": "open",
         "creators": [
           {
-            "name": "Bernice Marguerite Speese",
+            "name": "M\u00f4nico, Alexander Tamanini",
+            "affiliation": "Coordena\u00e7\u00e3o de Biodiversidade, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Courtois, Elodie A.",
+            "affiliation": "ENIA (Naturalist Expertise Instrumentation and Analysis), independent researcher, Remire-Montjoly, French Guiana."
+          },
+          {
+            "name": "Koch, Esteban Diego",
+            "affiliation": "Programa de P\u00f3s-Gradua\u00e7\u00e3o em Gen\u00e9tica, Conserva\u00e7\u00e3o e Biologia Evolutiva, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Dewynter, Michel Blanc Ma\u00ebl",
             "affiliation": null
+          },
+          {
+            "name": "Kok, Philippe J.R.",
+            "affiliation": "Department of Ecology and Vertebrate Zoology, Faculty of Biology and Environmental Protection, University of Lodz, Lodz, Poland. & Department of Life Sciences, The Natural History Museum, London, United Kingdom."
           }
         ],
         "keywords": [
-          "specimen",
-          "natural history",
-          "taxonomy"
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Amphibia",
+          "Anura",
+          "Craugastoridae",
+          "Pristimantis"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5852/ejt.2025.1004.2977",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/16675974",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C704F4A361311A5FE93FBB9",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
         ],
         "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "pages": "259-293",
+          "title": "European Journal of Taxonomy",
+          "volume": "1004"
         },
         "license": {
-          "id": "cc-zero"
+          "id": "cc-by-4.0"
         },
         "communities": [
           {
-            "id": "bionomia"
+            "id": "biosyslit"
           }
         ],
         "relations": {
           "version": [
             {
-              "index": 1,
+              "index": 0,
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "8053523"
+                "pid_value": "16676023"
               }
             }
           ]
         },
-        "notes": "http://www.wikidata.org/entity/Q111654236"
+        "notes": "Published as part of <i>M\u00f4nico, Alexander Tamanini, Courtois, Elodie A., Koch, Esteban Diego, Dewynter, Michel Blanc Ma\u00ebl &amp; Kok, Philippe J.R., 2025, Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands, pp. 259-293 in European Journal of Taxonomy 1004</i> on page 280, DOI: 10.5852/ejt.2025.1004.2977, <a href=\"http://zenodo.org/record/16675974\">http://zenodo.org/record/16675974</a>"
       },
-      "title": "Natural history specimens collected and/or identified and deposited.",
+      "title": "Fig. 11 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
       "links": {
-        "self": "https://zenodo.org/api/records/15042565",
-        "self_html": "https://zenodo.org/records/15042565",
-        "doi": "https://doi.org/10.5281/zenodo.15042565",
-        "self_doi": "https://doi.org/10.5281/zenodo.15042565",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042565",
-        "parent": "https://zenodo.org/api/records/8053523",
-        "parent_html": "https://zenodo.org/records/8053523",
-        "parent_doi": "https://doi.org/10.5281/zenodo.8053523",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.8053523",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042565/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042565/sequence/default",
-        "files": "https://zenodo.org/api/records/15042565/files",
-        "media_files": "https://zenodo.org/api/records/15042565/media-files",
-        "archive": "https://zenodo.org/api/records/15042565/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15042565/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15042565/versions/latest",
-        "latest_html": "https://zenodo.org/records/15042565/latest",
-        "versions": "https://zenodo.org/api/records/15042565/versions",
-        "draft": "https://zenodo.org/api/records/15042565/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15042565/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15042565/access/links",
-        "access_grants": "https://zenodo.org/api/records/15042565/access/grants",
-        "access_users": "https://zenodo.org/api/records/15042565/access/users",
-        "access_request": "https://zenodo.org/api/records/15042565/access/request",
-        "access": "https://zenodo.org/api/records/15042565/access",
-        "communities": "https://zenodo.org/api/records/15042565/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15042565/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15042565/requests"
+        "self": "https://zenodo.org/api/records/16676024",
+        "self_html": "https://zenodo.org/records/16676024",
+        "preview_html": "https://zenodo.org/records/16676024?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676024",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676024",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676024",
+        "reserve_doi": "https://zenodo.org/api/records/16676024/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16676023",
+        "parent_html": "https://zenodo.org/records/16676023",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16676023",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676023",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676024/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676024/sequence/default",
+        "files": "https://zenodo.org/api/records/16676024/files",
+        "media_files": "https://zenodo.org/api/records/16676024/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16676024:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16676024:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16676024:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16676024:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16676024:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16676024:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16676024/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676024/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676024/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676024/latest",
+        "versions": "https://zenodo.org/api/records/16676024/versions",
+        "draft": "https://zenodo.org/api/records/16676024/draft",
+        "access_links": "https://zenodo.org/api/records/16676024/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676024/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676024/access/users",
+        "access_request": "https://zenodo.org/api/records/16676024/access/request",
+        "access": "https://zenodo.org/api/records/16676024/access",
+        "communities": "https://zenodo.org/api/records/16676024/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676024/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676024/requests"
       },
-      "updated": "2025-03-17T23:14:04.921800+00:00",
-      "recid": "15042565",
-      "revision": 4,
+      "updated": "2025-08-01T08:30:43.347055+00:00",
+      "recid": "16676024",
+      "revision": 5,
       "files": [
         {
-          "id": "96f5111f-c2e9-4165-aefa-a1959dfb96bc",
-          "key": "Q111654236.json",
-          "size": 269226,
-          "checksum": "md5:762177d397dcc32a3f219842c8feede3",
+          "id": "eb92ae9d-4759-4c1a-b594-a64fd4cb2971",
+          "key": "figure.png",
+          "size": 4986579,
+          "checksum": "md5:0b775721b414076ffce06ed7688f7758",
           "links": {
-            "self": "https://zenodo.org/api/records/15042565/files/Q111654236.json/content"
-          }
-        },
-        {
-          "id": "8689ef61-2e8e-4a56-a741-21e6dded8c12",
-          "key": "Q111654236.csv",
-          "size": 100737,
-          "checksum": "md5:d2c06ccb0cb1611ffaff9c3af7926a55",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042565/files/Q111654236.csv/content"
+            "self": "https://zenodo.org/api/records/16676024/files/figure.png/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "107122"
+          "id": "1161"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 6,
-        "unique_downloads": 5,
-        "views": 107,
-        "unique_views": 107,
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
         "version_downloads": 0,
         "version_unique_downloads": 0,
         "version_unique_views": 0,
@@ -1122,122 +508,1276 @@
       "submitted": true
     },
     {
-      "created": "2025-03-17T23:13:56.851936+00:00",
-      "modified": "2025-03-17T23:13:57.024068+00:00",
-      "id": 15042564,
-      "conceptrecid": "14213294",
-      "doi": "10.5281/zenodo.15042564",
-      "conceptdoi": "10.5281/zenodo.14213294",
-      "doi_url": "https://doi.org/10.5281/zenodo.15042564",
+      "created": "2025-08-01T08:30:42.525651+00:00",
+      "modified": "2025-08-01T08:30:42.744920+00:00",
+      "id": 16676018,
+      "conceptrecid": "6379973",
+      "doi": "10.5281/zenodo.16676018",
+      "conceptdoi": "10.5281/zenodo.6379973",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676018",
       "metadata": {
-        "title": "Natural history specimens collected and/or identified and deposited.",
-        "doi": "10.5281/zenodo.15042564",
-        "publication_date": "2025-03-17",
-        "description": "Natural history specimen data collected and/or identified by Casimir Ubaghs, <a href=\"http://www.wikidata.org/entity/Q94899311\">http://www.wikidata.org/entity/Q94899311</a>. Claims or attributions were made on Bionomia, <a href=\"https://bionomia.net\">https://bionomia.net</a> using specimen data from the Global Biodiversity Information Facility, <a href=\"https://gbif.org\">https://gbif.org</a>.",
+        "title": "Research Software Directory (as a service)",
+        "doi": "10.5281/zenodo.16676018",
+        "publication_date": "2025-08-01",
+        "description": "The Research Software Directory (as a service) is a content management system that is tailored to research software. Its main goal is to increase the visibility, impact and reuse of research software.",
         "access_right": "open",
         "creators": [
           {
-            "name": "Casimir Ubaghs",
-            "affiliation": null
+            "name": "Cahen, Ewan Jacov",
+            "affiliation": "Netherlands eScience Center"
+          },
+          {
+            "name": "Mijatovic, Dusan",
+            "affiliation": "Netherlands eScience Center",
+            "orcid": "0000-0002-1898-4461"
+          },
+          {
+            "name": "Garcia Gonzalez, Jesus",
+            "affiliation": "Netherlands eScience Center",
+            "orcid": "0000-0002-2170-3253"
+          },
+          {
+            "name": "Maassen, Jason",
+            "affiliation": "Netherlands eScience Center",
+            "orcid": "0000-0002-8172-4865"
+          },
+          {
+            "name": "Jong, Maaike",
+            "affiliation": "Netherlands eScience Center",
+            "orcid": "0000-0003-4803-7411"
+          },
+          {
+            "name": "Mee\u00dfen, Christian",
+            "affiliation": "Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences",
+            "orcid": "0000-0001-8151-8722"
+          },
+          {
+            "name": "R\u00fcster, Matthias",
+            "affiliation": "Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences",
+            "orcid": "0000-0001-7305-9044"
+          },
+          {
+            "name": "Hanisch, Marc",
+            "affiliation": "Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences",
+            "orcid": "0000-0001-5272-4674"
+          },
+          {
+            "name": "Ziegner, Norman",
+            "affiliation": "Helmholtz Centre for Environmental Research GmbH - UFZ",
+            "orcid": "0000-0001-7579-216X"
+          },
+          {
+            "name": "Stock, Paula",
+            "affiliation": "Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences"
           }
         ],
         "keywords": [
-          "specimen",
-          "natural history",
-          "taxonomy"
+          "Research Software",
+          "Software Citation",
+          "FAIR Sofware",
+          "Software Impact",
+          "Software Reuse"
         ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/research-software-directory/RSD-as-a-service/tree/v4.1.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v4.1.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/research-software-directory/RSD-as-a-service"
+        },
         "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
+          "title": "Software",
+          "type": "software"
         },
         "license": {
-          "id": "cc-zero"
+          "id": "apache2.0"
         },
         "communities": [
           {
-            "id": "bionomia"
+            "id": "nlesc"
           }
         ],
         "relations": {
           "version": [
             {
-              "index": 2,
+              "index": 79,
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "14213294"
+                "pid_value": "6379973"
               }
             }
           ]
         },
-        "notes": "http://www.wikidata.org/entity/Q94899311"
+        "notes": "Please cite this software using the information provided in this file."
       },
-      "title": "Natural history specimens collected and/or identified and deposited.",
+      "title": "Research Software Directory (as a service)",
       "links": {
-        "self": "https://zenodo.org/api/records/15042564",
-        "self_html": "https://zenodo.org/records/15042564",
-        "doi": "https://doi.org/10.5281/zenodo.15042564",
-        "self_doi": "https://doi.org/10.5281/zenodo.15042564",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15042564",
-        "parent": "https://zenodo.org/api/records/14213294",
-        "parent_html": "https://zenodo.org/records/14213294",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14213294",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14213294",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15042564/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15042564/sequence/default",
-        "files": "https://zenodo.org/api/records/15042564/files",
-        "media_files": "https://zenodo.org/api/records/15042564/media-files",
-        "archive": "https://zenodo.org/api/records/15042564/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15042564/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15042564/versions/latest",
-        "latest_html": "https://zenodo.org/records/15042564/latest",
-        "versions": "https://zenodo.org/api/records/15042564/versions",
-        "draft": "https://zenodo.org/api/records/15042564/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15042564/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15042564/access/links",
-        "access_grants": "https://zenodo.org/api/records/15042564/access/grants",
-        "access_users": "https://zenodo.org/api/records/15042564/access/users",
-        "access_request": "https://zenodo.org/api/records/15042564/access/request",
-        "access": "https://zenodo.org/api/records/15042564/access",
-        "communities": "https://zenodo.org/api/records/15042564/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15042564/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15042564/requests"
+        "self": "https://zenodo.org/api/records/16676018",
+        "self_html": "https://zenodo.org/records/16676018",
+        "preview_html": "https://zenodo.org/records/16676018?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676018",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676018",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676018",
+        "reserve_doi": "https://zenodo.org/api/records/16676018/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/6379973",
+        "parent_html": "https://zenodo.org/records/6379973",
+        "parent_doi": "https://doi.org/10.5281/zenodo.6379973",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.6379973",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676018/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676018/sequence/default",
+        "files": "https://zenodo.org/api/records/16676018/files",
+        "media_files": "https://zenodo.org/api/records/16676018/media-files",
+        "archive": "https://zenodo.org/api/records/16676018/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676018/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676018/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676018/latest",
+        "versions": "https://zenodo.org/api/records/16676018/versions",
+        "draft": "https://zenodo.org/api/records/16676018/draft",
+        "access_links": "https://zenodo.org/api/records/16676018/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676018/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676018/access/users",
+        "access_request": "https://zenodo.org/api/records/16676018/access/request",
+        "access": "https://zenodo.org/api/records/16676018/access",
+        "communities": "https://zenodo.org/api/records/16676018/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676018/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676018/requests"
       },
-      "updated": "2025-03-17T23:13:57.024068+00:00",
-      "recid": "15042564",
+      "updated": "2025-08-01T08:30:42.744920+00:00",
+      "recid": "16676018",
       "revision": 4,
       "files": [
         {
-          "id": "33829eb8-e2a7-4feb-9f70-f47f0159eecc",
-          "key": "Q94899311.json",
-          "size": 36011,
-          "checksum": "md5:90d72ce5f7685a81e4982468d9e5ce5d",
+          "id": "c7e9a20a-1591-42c0-8606-b867361d2fd3",
+          "key": "research-software-directory/RSD-as-a-service-v4.1.0.zip",
+          "size": 180542565,
+          "checksum": "md5:4b59a3a9bbda9a20b69710eead477421",
           "links": {
-            "self": "https://zenodo.org/api/records/15042564/files/Q94899311.json/content"
-          }
-        },
-        {
-          "id": "b2d6eb45-e6b1-48f2-a73a-6615062bb768",
-          "key": "Q94899311.csv",
-          "size": 12321,
-          "checksum": "md5:c84f2b8da7b203256e8369f872f075d0",
-          "links": {
-            "self": "https://zenodo.org/api/records/15042564/files/Q94899311.csv/content"
+            "self": "https://zenodo.org/api/records/16676018/files/research-software-directory/RSD-as-a-service-v4.1.0.zip/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "107122"
+          "id": "19643"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 43,
-        "unique_downloads": 41,
-        "views": 59,
-        "unique_views": 58,
+        "downloads": 356,
+        "unique_downloads": 354,
+        "views": 16493,
+        "unique_views": 8999,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:30:35.934545+00:00",
+      "modified": "2025-08-01T08:30:36.999000+00:00",
+      "id": 16676020,
+      "conceptrecid": "16676019",
+      "doi": "10.5281/zenodo.16676020",
+      "conceptdoi": "10.5281/zenodo.16676019",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676020",
+      "metadata": {
+        "title": "Fig. 10 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+        "doi": "10.5281/zenodo.16676020",
+        "publication_date": "2025-07-28",
+        "description": "Fig. 10. Advertisement call of Pristimantis fouqueti sp. nov., holotype, \u2642 (MNHN-RA-2023.0003) recorded at Patawa camp, Kaw Mountain, French Guiana.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "M\u00f4nico, Alexander Tamanini",
+            "affiliation": "Coordena\u00e7\u00e3o de Biodiversidade, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Courtois, Elodie A.",
+            "affiliation": "ENIA (Naturalist Expertise Instrumentation and Analysis), independent researcher, Remire-Montjoly, French Guiana."
+          },
+          {
+            "name": "Koch, Esteban Diego",
+            "affiliation": "Programa de P\u00f3s-Gradua\u00e7\u00e3o em Gen\u00e9tica, Conserva\u00e7\u00e3o e Biologia Evolutiva, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Dewynter, Michel Blanc Ma\u00ebl",
+            "affiliation": null
+          },
+          {
+            "name": "Kok, Philippe J.R.",
+            "affiliation": "Department of Ecology and Vertebrate Zoology, Faculty of Biology and Environmental Protection, University of Lodz, Lodz, Poland. & Department of Life Sciences, The Natural History Museum, London, United Kingdom."
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Amphibia",
+          "Anura",
+          "Craugastoridae",
+          "Pristimantis"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5852/ejt.2025.1004.2977",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/16675974",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C704F4A361311A5FE93FBB9",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "pages": "259-293",
+          "title": "European Journal of Taxonomy",
+          "volume": "1004"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16676019"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>M\u00f4nico, Alexander Tamanini, Courtois, Elodie A., Koch, Esteban Diego, Dewynter, Michel Blanc Ma\u00ebl &amp; Kok, Philippe J.R., 2025, Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands, pp. 259-293 in European Journal of Taxonomy 1004</i> on page 278, DOI: 10.5852/ejt.2025.1004.2977, <a href=\"http://zenodo.org/record/16675974\">http://zenodo.org/record/16675974</a>"
+      },
+      "title": "Fig. 10 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+      "links": {
+        "self": "https://zenodo.org/api/records/16676020",
+        "self_html": "https://zenodo.org/records/16676020",
+        "preview_html": "https://zenodo.org/records/16676020?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676020",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676020",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676020",
+        "reserve_doi": "https://zenodo.org/api/records/16676020/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16676019",
+        "parent_html": "https://zenodo.org/records/16676019",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16676019",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676019",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676020/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676020/sequence/default",
+        "files": "https://zenodo.org/api/records/16676020/files",
+        "media_files": "https://zenodo.org/api/records/16676020/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16676020:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16676020:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16676020:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16676020:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16676020:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16676020:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16676020/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676020/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676020/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676020/latest",
+        "versions": "https://zenodo.org/api/records/16676020/versions",
+        "draft": "https://zenodo.org/api/records/16676020/draft",
+        "access_links": "https://zenodo.org/api/records/16676020/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676020/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676020/access/users",
+        "access_request": "https://zenodo.org/api/records/16676020/access/request",
+        "access": "https://zenodo.org/api/records/16676020/access",
+        "communities": "https://zenodo.org/api/records/16676020/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676020/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676020/requests"
+      },
+      "updated": "2025-08-01T08:30:36.999000+00:00",
+      "recid": "16676020",
+      "revision": 5,
+      "files": [
+        {
+          "id": "709d2ae8-3b04-45d8-a6f6-f28c810fd343",
+          "key": "figure.png",
+          "size": 226348,
+          "checksum": "md5:1f1ecaf48c153057c720c9c007affe68",
+          "links": {
+            "self": "https://zenodo.org/api/records/16676020/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:30:31.591362+00:00",
+      "modified": "2025-08-01T08:30:32.759750+00:00",
+      "id": 16676017,
+      "conceptrecid": "16676016",
+      "doi": "10.5281/zenodo.16676017",
+      "conceptdoi": "10.5281/zenodo.16676016",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676017",
+      "metadata": {
+        "title": "Fig. 9 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+        "doi": "10.5281/zenodo.16676017",
+        "publication_date": "2025-07-28",
+        "description": "Fig. 9. Ventral coloration of males of Pristimantis flavus sp. nov. in life. A. Holotype (MNHN- RA-2023.0003). B. Paratype (MZUSP 160343). C. Paratype (MNHN-RA-2023.0005). Photographs by Antoine Fouquet.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "M\u00f4nico, Alexander Tamanini",
+            "affiliation": "Coordena\u00e7\u00e3o de Biodiversidade, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Courtois, Elodie A.",
+            "affiliation": "ENIA (Naturalist Expertise Instrumentation and Analysis), independent researcher, Remire-Montjoly, French Guiana."
+          },
+          {
+            "name": "Koch, Esteban Diego",
+            "affiliation": "Programa de P\u00f3s-Gradua\u00e7\u00e3o em Gen\u00e9tica, Conserva\u00e7\u00e3o e Biologia Evolutiva, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Dewynter, Michel Blanc Ma\u00ebl",
+            "affiliation": null
+          },
+          {
+            "name": "Kok, Philippe J.R.",
+            "affiliation": "Department of Ecology and Vertebrate Zoology, Faculty of Biology and Environmental Protection, University of Lodz, Lodz, Poland. & Department of Life Sciences, The Natural History Museum, London, United Kingdom."
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Amphibia",
+          "Anura",
+          "Craugastoridae",
+          "Pristimantis"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5852/ejt.2025.1004.2977",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/16675974",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C704F4A361311A5FE93FBB9",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "pages": "259-293",
+          "title": "European Journal of Taxonomy",
+          "volume": "1004"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16676016"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>M\u00f4nico, Alexander Tamanini, Courtois, Elodie A., Koch, Esteban Diego, Dewynter, Michel Blanc Ma\u00ebl &amp; Kok, Philippe J.R., 2025, Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands, pp. 259-293 in European Journal of Taxonomy 1004</i> on page 277, DOI: 10.5852/ejt.2025.1004.2977, <a href=\"http://zenodo.org/record/16675974\">http://zenodo.org/record/16675974</a>"
+      },
+      "title": "Fig. 9 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+      "links": {
+        "self": "https://zenodo.org/api/records/16676017",
+        "self_html": "https://zenodo.org/records/16676017",
+        "preview_html": "https://zenodo.org/records/16676017?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676017",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676017",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676017",
+        "reserve_doi": "https://zenodo.org/api/records/16676017/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16676016",
+        "parent_html": "https://zenodo.org/records/16676016",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16676016",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676016",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676017/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676017/sequence/default",
+        "files": "https://zenodo.org/api/records/16676017/files",
+        "media_files": "https://zenodo.org/api/records/16676017/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16676017:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16676017:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16676017:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16676017:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16676017:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16676017:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16676017/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676017/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676017/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676017/latest",
+        "versions": "https://zenodo.org/api/records/16676017/versions",
+        "draft": "https://zenodo.org/api/records/16676017/draft",
+        "access_links": "https://zenodo.org/api/records/16676017/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676017/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676017/access/users",
+        "access_request": "https://zenodo.org/api/records/16676017/access/request",
+        "access": "https://zenodo.org/api/records/16676017/access",
+        "communities": "https://zenodo.org/api/records/16676017/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676017/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676017/requests"
+      },
+      "updated": "2025-08-01T08:30:32.759750+00:00",
+      "recid": "16676017",
+      "revision": 6,
+      "files": [
+        {
+          "id": "ed42fb9e-50ef-4cec-a9de-117f2eecbe55",
+          "key": "figure.png",
+          "size": 2390033,
+          "checksum": "md5:ca17289b31511d15710622c0f81f050d",
+          "links": {
+            "self": "https://zenodo.org/api/records/16676017/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:30:23.770087+00:00",
+      "modified": "2025-08-01T08:30:27.399789+00:00",
+      "id": 16676011,
+      "conceptrecid": "16676010",
+      "doi": "10.5281/zenodo.16676011",
+      "conceptdoi": "10.5281/zenodo.16676010",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676011",
+      "metadata": {
+        "title": "Fig. 8 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+        "doi": "10.5281/zenodo.16676011",
+        "publication_date": "2025-07-28",
+        "description": "Fig. 8. Male individuals of Pristimantis fouqueti sp. nov. in life. A. Holotype (MNHN-RA-2023.0003). B. Paratype (MZUSP 160343). C. Paratype (MNHN-RA-2023.0005). Photographs by Antoine Fouquet.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "M\u00f4nico, Alexander Tamanini",
+            "affiliation": "Coordena\u00e7\u00e3o de Biodiversidade, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Courtois, Elodie A.",
+            "affiliation": "ENIA (Naturalist Expertise Instrumentation and Analysis), independent researcher, Remire-Montjoly, French Guiana."
+          },
+          {
+            "name": "Koch, Esteban Diego",
+            "affiliation": "Programa de P\u00f3s-Gradua\u00e7\u00e3o em Gen\u00e9tica, Conserva\u00e7\u00e3o e Biologia Evolutiva, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Dewynter, Michel Blanc Ma\u00ebl",
+            "affiliation": null
+          },
+          {
+            "name": "Kok, Philippe J.R.",
+            "affiliation": "Department of Ecology and Vertebrate Zoology, Faculty of Biology and Environmental Protection, University of Lodz, Lodz, Poland. & Department of Life Sciences, The Natural History Museum, London, United Kingdom."
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Amphibia",
+          "Anura",
+          "Craugastoridae",
+          "Pristimantis"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5852/ejt.2025.1004.2977",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/16675974",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C704F4A361311A5FE93FBB9",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "pages": "259-293",
+          "title": "European Journal of Taxonomy",
+          "volume": "1004"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16676010"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>M\u00f4nico, Alexander Tamanini, Courtois, Elodie A., Koch, Esteban Diego, Dewynter, Michel Blanc Ma\u00ebl &amp; Kok, Philippe J.R., 2025, Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands, pp. 259-293 in European Journal of Taxonomy 1004</i> on page 276, DOI: 10.5852/ejt.2025.1004.2977, <a href=\"http://zenodo.org/record/16675974\">http://zenodo.org/record/16675974</a>"
+      },
+      "title": "Fig. 8 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+      "links": {
+        "self": "https://zenodo.org/api/records/16676011",
+        "self_html": "https://zenodo.org/records/16676011",
+        "preview_html": "https://zenodo.org/records/16676011?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676011",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676011",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676011",
+        "reserve_doi": "https://zenodo.org/api/records/16676011/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16676010",
+        "parent_html": "https://zenodo.org/records/16676010",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16676010",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676010",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676011/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676011/sequence/default",
+        "files": "https://zenodo.org/api/records/16676011/files",
+        "media_files": "https://zenodo.org/api/records/16676011/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16676011:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16676011:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16676011:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16676011:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16676011:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16676011:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16676011/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676011/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676011/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676011/latest",
+        "versions": "https://zenodo.org/api/records/16676011/versions",
+        "draft": "https://zenodo.org/api/records/16676011/draft",
+        "access_links": "https://zenodo.org/api/records/16676011/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676011/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676011/access/users",
+        "access_request": "https://zenodo.org/api/records/16676011/access/request",
+        "access": "https://zenodo.org/api/records/16676011/access",
+        "communities": "https://zenodo.org/api/records/16676011/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676011/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676011/requests"
+      },
+      "updated": "2025-08-01T08:30:27.399789+00:00",
+      "recid": "16676011",
+      "revision": 6,
+      "files": [
+        {
+          "id": "c6c45c1e-f59a-483c-8738-9faac2c2bd4b",
+          "key": "figure.png",
+          "size": 7796824,
+          "checksum": "md5:b4a6805f75c551b3f1f533c169efab24",
+          "links": {
+            "self": "https://zenodo.org/api/records/16676011/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:30:17.917579+00:00",
+      "modified": "2025-08-01T08:30:18.722906+00:00",
+      "id": 16676009,
+      "conceptrecid": "16676008",
+      "doi": "10.5281/zenodo.16676009",
+      "conceptdoi": "10.5281/zenodo.16676008",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676009",
+      "metadata": {
+        "title": "Fig. 7 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+        "doi": "10.5281/zenodo.16676009",
+        "publication_date": "2025-07-28",
+        "description": "Fig. 7. Pristimantis fouqueti sp. nov., preserved holotype, \u2642 (MNHN-RA-2023.0003, field no. PG705) from Mitaraka, French Guiana. A. Dorsal view. B. Ventral view. C. Right hand. D. Left foot. Photographs by Antoine Fouquet.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "M\u00f4nico, Alexander Tamanini",
+            "affiliation": "Coordena\u00e7\u00e3o de Biodiversidade, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Courtois, Elodie A.",
+            "affiliation": "ENIA (Naturalist Expertise Instrumentation and Analysis), independent researcher, Remire-Montjoly, French Guiana."
+          },
+          {
+            "name": "Koch, Esteban Diego",
+            "affiliation": "Programa de P\u00f3s-Gradua\u00e7\u00e3o em Gen\u00e9tica, Conserva\u00e7\u00e3o e Biologia Evolutiva, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Dewynter, Michel Blanc Ma\u00ebl",
+            "affiliation": null
+          },
+          {
+            "name": "Kok, Philippe J.R.",
+            "affiliation": "Department of Ecology and Vertebrate Zoology, Faculty of Biology and Environmental Protection, University of Lodz, Lodz, Poland. & Department of Life Sciences, The Natural History Museum, London, United Kingdom."
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Amphibia",
+          "Anura",
+          "Craugastoridae",
+          "Pristimantis"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5852/ejt.2025.1004.2977",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/16675974",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C704F4A361311A5FE93FBB9",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "pages": "259-293",
+          "title": "European Journal of Taxonomy",
+          "volume": "1004"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16676008"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>M\u00f4nico, Alexander Tamanini, Courtois, Elodie A., Koch, Esteban Diego, Dewynter, Michel Blanc Ma\u00ebl &amp; Kok, Philippe J.R., 2025, Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands, pp. 259-293 in European Journal of Taxonomy 1004</i> on page 275, DOI: 10.5852/ejt.2025.1004.2977, <a href=\"http://zenodo.org/record/16675974\">http://zenodo.org/record/16675974</a>"
+      },
+      "title": "Fig. 7 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+      "links": {
+        "self": "https://zenodo.org/api/records/16676009",
+        "self_html": "https://zenodo.org/records/16676009",
+        "preview_html": "https://zenodo.org/records/16676009?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676009",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676009",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676009",
+        "reserve_doi": "https://zenodo.org/api/records/16676009/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16676008",
+        "parent_html": "https://zenodo.org/records/16676008",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16676008",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676008",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676009/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676009/sequence/default",
+        "files": "https://zenodo.org/api/records/16676009/files",
+        "media_files": "https://zenodo.org/api/records/16676009/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16676009:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16676009:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16676009:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16676009:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16676009:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16676009:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16676009/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676009/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676009/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676009/latest",
+        "versions": "https://zenodo.org/api/records/16676009/versions",
+        "draft": "https://zenodo.org/api/records/16676009/draft",
+        "access_links": "https://zenodo.org/api/records/16676009/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676009/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676009/access/users",
+        "access_request": "https://zenodo.org/api/records/16676009/access/request",
+        "access": "https://zenodo.org/api/records/16676009/access",
+        "communities": "https://zenodo.org/api/records/16676009/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676009/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676009/requests"
+      },
+      "updated": "2025-08-01T08:30:18.722906+00:00",
+      "recid": "16676009",
+      "revision": 6,
+      "files": [
+        {
+          "id": "6ed6c58a-033b-45eb-bcd4-7e853c70798e",
+          "key": "figure.png",
+          "size": 1633947,
+          "checksum": "md5:0a3ab96f5fff765a82d7753e5f8549c1",
+          "links": {
+            "self": "https://zenodo.org/api/records/16676009/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:30:14.596587+00:00",
+      "modified": "2025-08-01T08:30:15.185972+00:00",
+      "id": 16676003,
+      "conceptrecid": "16676002",
+      "doi": "10.5281/zenodo.16676003",
+      "conceptdoi": "10.5281/zenodo.16676002",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676003",
+      "metadata": {
+        "title": "Fig. 6 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+        "doi": "10.5281/zenodo.16676003",
+        "publication_date": "2025-07-28",
+        "description": "Fig. 6. Forests in the surroundings of the Mitaraka massif \u2013 French Guiana, inhabited by Pristimantis flavus sp. nov. Photography by Ma\u00ebl Dewynter.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "M\u00f4nico, Alexander Tamanini",
+            "affiliation": "Coordena\u00e7\u00e3o de Biodiversidade, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Courtois, Elodie A.",
+            "affiliation": "ENIA (Naturalist Expertise Instrumentation and Analysis), independent researcher, Remire-Montjoly, French Guiana."
+          },
+          {
+            "name": "Koch, Esteban Diego",
+            "affiliation": "Programa de P\u00f3s-Gradua\u00e7\u00e3o em Gen\u00e9tica, Conserva\u00e7\u00e3o e Biologia Evolutiva, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Dewynter, Michel Blanc Ma\u00ebl",
+            "affiliation": null
+          },
+          {
+            "name": "Kok, Philippe J.R.",
+            "affiliation": "Department of Ecology and Vertebrate Zoology, Faculty of Biology and Environmental Protection, University of Lodz, Lodz, Poland. & Department of Life Sciences, The Natural History Museum, London, United Kingdom."
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Amphibia",
+          "Anura",
+          "Craugastoridae",
+          "Pristimantis"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5852/ejt.2025.1004.2977",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/16675974",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C784F5136021486FCBBF82B",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "pages": "259-293",
+          "title": "European Journal of Taxonomy",
+          "volume": "1004"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16676002"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>M\u00f4nico, Alexander Tamanini, Courtois, Elodie A., Koch, Esteban Diego, Dewynter, Michel Blanc Ma\u00ebl &amp; Kok, Philippe J.R., 2025, Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands, pp. 259-293 in European Journal of Taxonomy 1004</i> on page 273, DOI: 10.5852/ejt.2025.1004.2977, <a href=\"http://zenodo.org/record/16675974\">http://zenodo.org/record/16675974</a>"
+      },
+      "title": "Fig. 6 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+      "links": {
+        "self": "https://zenodo.org/api/records/16676003",
+        "self_html": "https://zenodo.org/records/16676003",
+        "preview_html": "https://zenodo.org/records/16676003?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676003",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676003",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676003",
+        "reserve_doi": "https://zenodo.org/api/records/16676003/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16676002",
+        "parent_html": "https://zenodo.org/records/16676002",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16676002",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676002",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676003/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676003/sequence/default",
+        "files": "https://zenodo.org/api/records/16676003/files",
+        "media_files": "https://zenodo.org/api/records/16676003/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16676003:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16676003:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16676003:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16676003:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16676003:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16676003:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16676003/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676003/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676003/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676003/latest",
+        "versions": "https://zenodo.org/api/records/16676003/versions",
+        "draft": "https://zenodo.org/api/records/16676003/draft",
+        "access_links": "https://zenodo.org/api/records/16676003/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676003/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676003/access/users",
+        "access_request": "https://zenodo.org/api/records/16676003/access/request",
+        "access": "https://zenodo.org/api/records/16676003/access",
+        "communities": "https://zenodo.org/api/records/16676003/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676003/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676003/requests"
+      },
+      "updated": "2025-08-01T08:30:15.185972+00:00",
+      "recid": "16676003",
+      "revision": 5,
+      "files": [
+        {
+          "id": "514bb9c0-1538-4ed5-b4dc-6d3111d21cf7",
+          "key": "figure.png",
+          "size": 5469840,
+          "checksum": "md5:ce37955e308d9322062ef132ecf63b21",
+          "links": {
+            "self": "https://zenodo.org/api/records/16676003/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:30:04.780200+00:00",
+      "modified": "2025-08-01T08:30:08.688813+00:00",
+      "id": 16675995,
+      "conceptrecid": "16675994",
+      "doi": "10.5281/zenodo.16675995",
+      "conceptdoi": "10.5281/zenodo.16675994",
+      "doi_url": "https://doi.org/10.5281/zenodo.16675995",
+      "metadata": {
+        "title": "Fig. 5 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+        "doi": "10.5281/zenodo.16675995",
+        "publication_date": "2025-07-28",
+        "description": "Fig. 5. Advertisement call of Pristimantis flavus sp. nov., holotype (MNHN-RA-2023.0010) recorded at Mitaraka, French Guiana.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "M\u00f4nico, Alexander Tamanini",
+            "affiliation": "Coordena\u00e7\u00e3o de Biodiversidade, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Courtois, Elodie A.",
+            "affiliation": "ENIA (Naturalist Expertise Instrumentation and Analysis), independent researcher, Remire-Montjoly, French Guiana."
+          },
+          {
+            "name": "Koch, Esteban Diego",
+            "affiliation": "Programa de P\u00f3s-Gradua\u00e7\u00e3o em Gen\u00e9tica, Conserva\u00e7\u00e3o e Biologia Evolutiva, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Dewynter, Michel Blanc Ma\u00ebl",
+            "affiliation": null
+          },
+          {
+            "name": "Kok, Philippe J.R.",
+            "affiliation": "Department of Ecology and Vertebrate Zoology, Faculty of Biology and Environmental Protection, University of Lodz, Lodz, Poland. & Department of Life Sciences, The Natural History Museum, London, United Kingdom."
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Amphibia",
+          "Anura",
+          "Craugastoridae",
+          "Pristimantis"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5852/ejt.2025.1004.2977",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/16675974",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C784F5136021486FCBBF82B",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "pages": "259-293",
+          "title": "European Journal of Taxonomy",
+          "volume": "1004"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16675994"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>M\u00f4nico, Alexander Tamanini, Courtois, Elodie A., Koch, Esteban Diego, Dewynter, Michel Blanc Ma\u00ebl &amp; Kok, Philippe J.R., 2025, Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands, pp. 259-293 in European Journal of Taxonomy 1004</i> on page 269, DOI: 10.5852/ejt.2025.1004.2977, <a href=\"http://zenodo.org/record/16675974\">http://zenodo.org/record/16675974</a>"
+      },
+      "title": "Fig. 5 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+      "links": {
+        "self": "https://zenodo.org/api/records/16675995",
+        "self_html": "https://zenodo.org/records/16675995",
+        "preview_html": "https://zenodo.org/records/16675995?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16675995",
+        "self_doi": "https://doi.org/10.5281/zenodo.16675995",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16675995",
+        "reserve_doi": "https://zenodo.org/api/records/16675995/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16675994",
+        "parent_html": "https://zenodo.org/records/16675994",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16675994",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16675994",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16675995/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16675995/sequence/default",
+        "files": "https://zenodo.org/api/records/16675995/files",
+        "media_files": "https://zenodo.org/api/records/16675995/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16675995:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16675995:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16675995:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16675995:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16675995:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16675995:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16675995/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16675995/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16675995/versions/latest",
+        "latest_html": "https://zenodo.org/records/16675995/latest",
+        "versions": "https://zenodo.org/api/records/16675995/versions",
+        "draft": "https://zenodo.org/api/records/16675995/draft",
+        "access_links": "https://zenodo.org/api/records/16675995/access/links",
+        "access_grants": "https://zenodo.org/api/records/16675995/access/grants",
+        "access_users": "https://zenodo.org/api/records/16675995/access/users",
+        "access_request": "https://zenodo.org/api/records/16675995/access/request",
+        "access": "https://zenodo.org/api/records/16675995/access",
+        "communities": "https://zenodo.org/api/records/16675995/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16675995/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16675995/requests"
+      },
+      "updated": "2025-08-01T08:30:08.688813+00:00",
+      "recid": "16675995",
+      "revision": 5,
+      "files": [
+        {
+          "id": "3cfb4b06-1c1a-45e6-94bc-2c64b6dc0495",
+          "key": "figure.png",
+          "size": 236598,
+          "checksum": "md5:14940ff10892ca27cce13d3fc635d3c6",
+          "links": {
+            "self": "https://zenodo.org/api/records/16675995/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
         "version_downloads": 0,
         "version_unique_downloads": 0,
         "version_unique_views": 0,

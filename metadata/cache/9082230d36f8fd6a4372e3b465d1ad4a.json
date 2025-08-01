@@ -1,6 +1,170 @@
 {
-  "cache_date": "2025-05-01T09:01:04.446010",
+  "cache_date": "2025-08-01T12:59:20.988149",
   "data": [
+    {
+      "created": "2025-05-09T05:43:13.872322+00:00",
+      "modified": "2025-05-09T05:43:14.024014+00:00",
+      "id": 15369287,
+      "conceptrecid": "3564666",
+      "doi": "10.5281/zenodo.15369287",
+      "conceptdoi": "10.5281/zenodo.3564666",
+      "doi_url": "https://doi.org/10.5281/zenodo.15369287",
+      "metadata": {
+        "title": "nf-core/epitopeprediction: 3.0.0 - Wanne - 2025-05-09",
+        "doi": "10.5281/zenodo.15369287",
+        "publication_date": "2025-05-09",
+        "description": "<h3><code>Added</code></h3>\n<ul>\n<li><a href=\"https://github.com/nf-core/epitopeprediction/pull/275\">#275</a> - Added bcftools/stats to add MultiQC plots for variant input</li>\n</ul>\n<h3><code>Added</code></h3>\n<ul>\n<li><a href=\"https://github.com/nf-core/epitopeprediction/pull/279\">#279</a> - Add <code>SUMMARIZE_RESULTS</code> module and MultiQC plots. BREAKING output structure change from<code>&lt;outdir&gt;/predictions/&lt;meta.id&gt;/&lt;meta.id&gt;.tsv</code> to <code>&lt;outdir&gt;/predictions/&lt;meta.id&gt;.tsv</code></li>\n<li><a href=\"https://github.com/nf-core/epitopeprediction/pull/270\">#270</a> Added option <code>--wide_format_output</code> to provide wide format output with additional information instead of long format (default)</li>\n</ul>\n<h3><code>Changed</code></h3>\n<ul>\n<li><a href=\"https://github.com/nf-core/epitopeprediction/pull/247\">#247</a> - Update to nf-core template <code>3.0.2</code></li>\n<li><a href=\"https://github.com/nf-core/epitopeprediction/pull/256\">#255</a> - Update to nf-core template <code>3.1.2</code></li>\n<li><a href=\"https://github.com/nf-core/epitopeprediction/pull/250\">#250</a> - Implemented <code>netmhcpan</code> module. Removed legacy netmhc tools. Only the latest netmhcpan and netmhciipan versions will be supported (netmhcpan-4.1b, netmhciipan-4.3e)</li>\n<li><a href=\"https://github.com/nf-core/epitopeprediction/pull/252\">#252</a> - Implemented <code>netmhciipan</code> module</li>\n<li><a href=\"https://github.com/nf-core/epitopeprediction/pull/253\">#253</a> - Implemented <code>mhcflurry</code> module</li>\n<li><a href=\"https://github.com/nf-core/epitopeprediction/pull/259\">#259</a> - Implemented <code>mhcnuggets</code> and <code>mhcnuggetsii</code> module</li>\n<li><a href=\"https://github.com/nf-core/epitopeprediction/pull/260\">#260</a>, <a href=\"https://github.com/nf-core/epitopeprediction/pull/270\">#270</a> - Major refactoring to new, modular MHC binding subworkflow (see Meta-Issue <a href=\"https://github.com/nf-core/epitopeprediction/issues/205\">#205</a>). Removed legacy predictor <code>syfpeithi</code>. Predictors that can be specified via <code>--tools</code> are: <code>mhcflurry,mhcnuggets(default),mhcnuggetsii,netmhcpan,netmhciipan</code>. Changed <code>--min_peptide_length</code> and <code>max_peptide_length</code> to <code>min_peptide_length_classI</code> and <code>--max_peptide_length_classI</code>.</li>\n<li><a href=\"https://github.com/nf-core/epitopeprediction/pull/263\">#263</a> - Rearrange supported alleles per predictor</li>\n<li><a href=\"https://github.com/nf-core/epitopeprediction/pull/266\">#266</a>, <a href=\"https://github.com/nf-core/epitopeprediction/pull/268\">#268</a> - Refactor variant prediction with <code>epytope</code></li>\n<li><a href=\"https://github.com/nf-core/epitopeprediction/pull/282\">#282</a> - Update to nf-core template <code>3.2.1</code></li>\n</ul>\n<h3><code>Fixed</code></h3>\n<ul>\n<li><a href=\"https://github.com/nf-core/epitopeprediction/pull/278\">#278</a> - Fixed an issue where relative paths were not properly staged</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Christopher Mohr",
+            "affiliation": null
+          },
+          {
+            "name": "Jonas Scheid",
+            "affiliation": "Peptide-based Immunotherapy"
+          },
+          {
+            "name": "Gisela Gabernet",
+            "affiliation": null
+          },
+          {
+            "name": "Alexander Peltzer",
+            "affiliation": "Boehringer Ingelheim"
+          },
+          {
+            "name": "Sabrina Krakau",
+            "affiliation": "@qbicsoftware"
+          },
+          {
+            "name": "nf-core bot",
+            "affiliation": null
+          },
+          {
+            "name": "Marissa Dubbelaar",
+            "affiliation": null
+          },
+          {
+            "name": "Leon Kuchenbecker",
+            "affiliation": "German Human Genome-Phenome Archive"
+          },
+          {
+            "name": "alina-bauer",
+            "affiliation": null
+          },
+          {
+            "name": "Mark Polster",
+            "affiliation": null
+          },
+          {
+            "name": "Maxime U Garcia",
+            "affiliation": "@seqeralabs"
+          },
+          {
+            "name": "Kevin Menden",
+            "affiliation": "Robert Bosch GmbH"
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/nf-core/epitopeprediction/tree/3.0.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "3.0.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/nf-core/epitopeprediction"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "mit-license"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 8,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "3564666"
+              }
+            }
+          ]
+        }
+      },
+      "title": "nf-core/epitopeprediction: 3.0.0 - Wanne - 2025-05-09",
+      "links": {
+        "self": "https://zenodo.org/api/records/15369287",
+        "self_html": "https://zenodo.org/records/15369287",
+        "preview_html": "https://zenodo.org/records/15369287?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15369287",
+        "self_doi": "https://doi.org/10.5281/zenodo.15369287",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15369287",
+        "reserve_doi": "https://zenodo.org/api/records/15369287/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/3564666",
+        "parent_html": "https://zenodo.org/records/3564666",
+        "parent_doi": "https://doi.org/10.5281/zenodo.3564666",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.3564666",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15369287/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15369287/sequence/default",
+        "files": "https://zenodo.org/api/records/15369287/files",
+        "media_files": "https://zenodo.org/api/records/15369287/media-files",
+        "archive": "https://zenodo.org/api/records/15369287/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15369287/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15369287/versions/latest",
+        "latest_html": "https://zenodo.org/records/15369287/latest",
+        "versions": "https://zenodo.org/api/records/15369287/versions",
+        "draft": "https://zenodo.org/api/records/15369287/draft",
+        "access_links": "https://zenodo.org/api/records/15369287/access/links",
+        "access_grants": "https://zenodo.org/api/records/15369287/access/grants",
+        "access_users": "https://zenodo.org/api/records/15369287/access/users",
+        "access_request": "https://zenodo.org/api/records/15369287/access/request",
+        "access": "https://zenodo.org/api/records/15369287/access",
+        "communities": "https://zenodo.org/api/records/15369287/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15369287/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/15369287/requests"
+      },
+      "updated": "2025-05-09T05:43:14.024014+00:00",
+      "recid": "15369287",
+      "revision": 4,
+      "files": [
+        {
+          "id": "632c7157-e81c-46ba-b78a-c76139b9551c",
+          "key": "nf-core/epitopeprediction-3.0.0.zip",
+          "size": 415905,
+          "checksum": "md5:90ec645e8c83165efdb5bde8263eda1b",
+          "links": {
+            "self": "https://zenodo.org/api/records/15369287/files/nf-core/epitopeprediction-3.0.0.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:b9d64e684f00a36b12a5cb55b34726e92b45e87f;origin=https://doi.org/10.5281/zenodo.3564666;visit=swh:1:snp:8748fdd58314d10cd06cd6bf1a68326f161d256b;anchor=swh:1:rel:fecbdb3cb7fb403c6242c9a2b55694997fdddd7b;path=nf-core-epitopeprediction-37c08f0"
+      },
+      "owners": [
+        {
+          "id": "20760"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 69,
+        "unique_downloads": 69,
+        "views": 766,
+        "unique_views": 705,
+        "version_downloads": 4,
+        "version_unique_downloads": 4,
+        "version_unique_views": 33,
+        "version_views": 35
+      },
+      "state": "done",
+      "submitted": true
+    },
     {
       "created": "2025-02-13T22:31:32.366209+00:00",
       "modified": "2025-02-13T22:54:28.251688+00:00",
@@ -72,6 +236,7 @@
         "doi": "https://doi.org/10.5281/zenodo.14867946",
         "self_doi": "https://doi.org/10.5281/zenodo.14867946",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14867946",
+        "reserve_doi": "https://zenodo.org/api/records/14867946/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/14833812",
         "parent_html": "https://zenodo.org/records/14833812",
         "parent_doi": "https://doi.org/10.5281/zenodo.14833812",
@@ -86,7 +251,6 @@
         "latest_html": "https://zenodo.org/records/14867946/latest",
         "versions": "https://zenodo.org/api/records/14867946/versions",
         "draft": "https://zenodo.org/api/records/14867946/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14867946/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/14867946/access/links",
         "access_grants": "https://zenodo.org/api/records/14867946/access/grants",
         "access_users": "https://zenodo.org/api/records/14867946/access/users",
@@ -181,14 +345,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 50,
-        "unique_downloads": 50,
-        "views": 240,
-        "unique_views": 184,
-        "version_downloads": 49,
-        "version_unique_downloads": 49,
-        "version_unique_views": 164,
-        "version_views": 209
+        "downloads": 247,
+        "unique_downloads": 238,
+        "views": 314,
+        "unique_views": 253,
+        "version_downloads": 197,
+        "version_unique_downloads": 188,
+        "version_unique_views": 228,
+        "version_views": 278
       },
       "state": "done",
       "submitted": true
@@ -245,6 +409,7 @@
         "doi": "https://doi.org/10.5281/zenodo.14286754",
         "self_doi": "https://doi.org/10.5281/zenodo.14286754",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14286754",
+        "reserve_doi": "https://zenodo.org/api/records/14286754/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/14286753",
         "parent_html": "https://zenodo.org/records/14286753",
         "parent_doi": "https://doi.org/10.5281/zenodo.14286753",
@@ -259,7 +424,6 @@
         "latest_html": "https://zenodo.org/records/14286754/latest",
         "versions": "https://zenodo.org/api/records/14286754/versions",
         "draft": "https://zenodo.org/api/records/14286754/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14286754/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/14286754/access/links",
         "access_grants": "https://zenodo.org/api/records/14286754/access/grants",
         "access_users": "https://zenodo.org/api/records/14286754/access/users",
@@ -471,14 +635,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 354,
-        "unique_downloads": 323,
-        "views": 62,
-        "unique_views": 59,
-        "version_downloads": 354,
-        "version_unique_downloads": 323,
-        "version_unique_views": 59,
-        "version_views": 62
+        "downloads": 921,
+        "unique_downloads": 877,
+        "views": 75,
+        "unique_views": 72,
+        "version_downloads": 921,
+        "version_unique_downloads": 877,
+        "version_unique_views": 72,
+        "version_views": 75
       },
       "state": "done",
       "submitted": true
@@ -630,6 +794,7 @@
         "doi": "https://doi.org/10.5281/zenodo.11116273",
         "self_doi": "https://doi.org/10.5281/zenodo.11116273",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.11116273",
+        "reserve_doi": "https://zenodo.org/api/records/11116273/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/11116272",
         "parent_html": "https://zenodo.org/records/11116272",
         "parent_doi": "https://doi.org/10.5281/zenodo.11116272",
@@ -644,7 +809,6 @@
         "latest_html": "https://zenodo.org/records/11116273/latest",
         "versions": "https://zenodo.org/api/records/11116273/versions",
         "draft": "https://zenodo.org/api/records/11116273/draft",
-        "reserve_doi": "https://zenodo.org/api/records/11116273/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/11116273/access/links",
         "access_grants": "https://zenodo.org/api/records/11116273/access/grants",
         "access_users": "https://zenodo.org/api/records/11116273/access/users",
@@ -676,14 +840,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 3,
-        "unique_downloads": 3,
-        "views": 24,
-        "unique_views": 21,
-        "version_downloads": 3,
-        "version_unique_downloads": 3,
-        "version_unique_views": 21,
-        "version_views": 24
+        "downloads": 5,
+        "unique_downloads": 5,
+        "views": 28,
+        "unique_views": 25,
+        "version_downloads": 5,
+        "version_unique_downloads": 5,
+        "version_unique_views": 25,
+        "version_views": 28
       },
       "state": "done",
       "submitted": true
@@ -746,6 +910,7 @@
         "doi": "https://doi.org/10.5281/zenodo.5212342",
         "self_doi": "https://doi.org/10.5281/zenodo.5212342",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.5212342",
+        "reserve_doi": "https://zenodo.org/api/records/5212342/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/5140653",
         "parent_html": "https://zenodo.org/records/5140653",
         "parent_doi": "https://doi.org/10.5281/zenodo.5140653",
@@ -760,7 +925,6 @@
         "latest_html": "https://zenodo.org/records/5212342/latest",
         "versions": "https://zenodo.org/api/records/5212342/versions",
         "draft": "https://zenodo.org/api/records/5212342/draft",
-        "reserve_doi": "https://zenodo.org/api/records/5212342/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/5212342/access/links",
         "access_grants": "https://zenodo.org/api/records/5212342/access/grants",
         "access_users": "https://zenodo.org/api/records/5212342/access/users",
@@ -784,12 +948,12 @@
       "stats": {
         "downloads": 0,
         "unique_downloads": 0,
-        "views": 88,
-        "unique_views": 84,
+        "views": 101,
+        "unique_views": 97,
         "version_downloads": 0,
         "version_unique_downloads": 0,
-        "version_unique_views": 32,
-        "version_views": 32
+        "version_unique_views": 39,
+        "version_views": 39
       },
       "state": "done",
       "submitted": true
@@ -863,6 +1027,7 @@
         "doi": "https://doi.org/10.5061/dryad.gmsbcc2hx",
         "self_doi": "https://doi.org/10.5061/dryad.gmsbcc2hx",
         "self_doi_html": "https://zenodo.org/doi/10.5061/dryad.gmsbcc2hx",
+        "reserve_doi": "https://zenodo.org/api/records/4986338/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/4986337",
         "parent_html": "https://zenodo.org/records/4986337",
         "self_iiif_manifest": "https://zenodo.org/api/iiif/record:4986338/manifest",
@@ -875,7 +1040,6 @@
         "latest_html": "https://zenodo.org/records/4986338/latest",
         "versions": "https://zenodo.org/api/records/4986338/versions",
         "draft": "https://zenodo.org/api/records/4986338/draft",
-        "reserve_doi": "https://zenodo.org/api/records/4986338/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/4986338/access/links",
         "access_grants": "https://zenodo.org/api/records/4986338/access/grants",
         "access_users": "https://zenodo.org/api/records/4986338/access/users",
@@ -925,14 +1089,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 31,
-        "unique_downloads": 31,
-        "views": 110,
-        "unique_views": 110,
-        "version_downloads": 31,
-        "version_unique_downloads": 31,
-        "version_unique_views": 110,
-        "version_views": 110
+        "downloads": 40,
+        "unique_downloads": 40,
+        "views": 111,
+        "unique_views": 111,
+        "version_downloads": 40,
+        "version_unique_downloads": 40,
+        "version_unique_views": 111,
+        "version_views": 111
       },
       "state": "done",
       "submitted": true
@@ -993,6 +1157,7 @@
         "doi": "https://doi.org/10.5281/zenodo.4056421",
         "self_doi": "https://doi.org/10.5281/zenodo.4056421",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.4056421",
+        "reserve_doi": "https://zenodo.org/api/records/4056421/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/593878",
         "parent_html": "https://zenodo.org/records/593878",
         "parent_doi": "https://doi.org/10.5281/zenodo.593878",
@@ -1007,7 +1172,6 @@
         "latest_html": "https://zenodo.org/records/4056421/latest",
         "versions": "https://zenodo.org/api/records/4056421/versions",
         "draft": "https://zenodo.org/api/records/4056421/draft",
-        "reserve_doi": "https://zenodo.org/api/records/4056421/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/4056421/access/links",
         "access_grants": "https://zenodo.org/api/records/4056421/access/grants",
         "access_users": "https://zenodo.org/api/records/4056421/access/users",
@@ -1039,14 +1203,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 45,
-        "unique_downloads": 40,
-        "views": 294,
-        "unique_views": 287,
-        "version_downloads": 20,
-        "version_unique_downloads": 20,
-        "version_unique_views": 104,
-        "version_views": 106
+        "downloads": 54,
+        "unique_downloads": 49,
+        "views": 327,
+        "unique_views": 320,
+        "version_downloads": 26,
+        "version_unique_downloads": 26,
+        "version_unique_views": 113,
+        "version_views": 115
       },
       "state": "done",
       "submitted": true
@@ -1105,6 +1269,7 @@
         "doi": "https://doi.org/10.5281/zenodo.3676908",
         "self_doi": "https://doi.org/10.5281/zenodo.3676908",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.3676908",
+        "reserve_doi": "https://zenodo.org/api/records/3676908/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/3676907",
         "parent_html": "https://zenodo.org/records/3676907",
         "parent_doi": "https://doi.org/10.5281/zenodo.3676907",
@@ -1119,7 +1284,6 @@
         "latest_html": "https://zenodo.org/records/3676908/latest",
         "versions": "https://zenodo.org/api/records/3676908/versions",
         "draft": "https://zenodo.org/api/records/3676908/draft",
-        "reserve_doi": "https://zenodo.org/api/records/3676908/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/3676908/access/links",
         "access_grants": "https://zenodo.org/api/records/3676908/access/grants",
         "access_users": "https://zenodo.org/api/records/3676908/access/users",
@@ -1169,14 +1333,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 203,
-        "unique_downloads": 138,
-        "views": 636,
-        "unique_views": 551,
-        "version_downloads": 203,
-        "version_unique_downloads": 138,
-        "version_unique_views": 551,
-        "version_views": 636
+        "downloads": 235,
+        "unique_downloads": 170,
+        "views": 654,
+        "unique_views": 569,
+        "version_downloads": 235,
+        "version_unique_downloads": 170,
+        "version_unique_views": 569,
+        "version_views": 654
       },
       "state": "done",
       "submitted": true
@@ -1238,6 +1402,7 @@
         "doi": "https://doi.org/10.5281/zenodo.3676886",
         "self_doi": "https://doi.org/10.5281/zenodo.3676886",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.3676886",
+        "reserve_doi": "https://zenodo.org/api/records/3676886/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/3676885",
         "parent_html": "https://zenodo.org/records/3676885",
         "parent_doi": "https://doi.org/10.5281/zenodo.3676885",
@@ -1252,7 +1417,6 @@
         "latest_html": "https://zenodo.org/records/3676886/latest",
         "versions": "https://zenodo.org/api/records/3676886/versions",
         "draft": "https://zenodo.org/api/records/3676886/draft",
-        "reserve_doi": "https://zenodo.org/api/records/3676886/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/3676886/access/links",
         "access_grants": "https://zenodo.org/api/records/3676886/access/grants",
         "access_users": "https://zenodo.org/api/records/3676886/access/users",
@@ -1311,14 +1475,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 566,
-        "unique_downloads": 434,
-        "views": 1145,
-        "unique_views": 1027,
-        "version_downloads": 566,
-        "version_unique_downloads": 434,
-        "version_unique_views": 1026,
-        "version_views": 1144
+        "downloads": 592,
+        "unique_downloads": 460,
+        "views": 1163,
+        "unique_views": 1045,
+        "version_downloads": 592,
+        "version_unique_downloads": 460,
+        "version_unique_views": 1044,
+        "version_views": 1162
       },
       "state": "done",
       "submitted": true
@@ -1371,6 +1535,7 @@
         "doi": "https://doi.org/10.5281/zenodo.1453418",
         "self_doi": "https://doi.org/10.5281/zenodo.1453418",
         "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.1453418",
+        "reserve_doi": "https://zenodo.org/api/records/1453418/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/1345741",
         "parent_html": "https://zenodo.org/records/1345741",
         "parent_doi": "https://doi.org/10.5281/zenodo.1345741",
@@ -1385,7 +1550,6 @@
         "latest_html": "https://zenodo.org/records/1453418/latest",
         "versions": "https://zenodo.org/api/records/1453418/versions",
         "draft": "https://zenodo.org/api/records/1453418/draft",
-        "reserve_doi": "https://zenodo.org/api/records/1453418/draft/pids/doi",
         "access_links": "https://zenodo.org/api/records/1453418/access/links",
         "access_grants": "https://zenodo.org/api/records/1453418/access/grants",
         "access_users": "https://zenodo.org/api/records/1453418/access/users",
@@ -27652,136 +27816,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 75437,
-        "unique_downloads": 43882,
-        "views": 900,
-        "unique_views": 819,
-        "version_downloads": 75310,
-        "version_unique_downloads": 43756,
-        "version_unique_views": 635,
-        "version_views": 711
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-04-03T12:13:35.501991+00:00",
-      "modified": "2025-04-14T13:52:56.816113+00:00",
-      "id": 15126599,
-      "conceptrecid": "15126598",
-      "doi": "10.5281/zenodo.15126599",
-      "conceptdoi": "10.5281/zenodo.15126598",
-      "doi_url": "https://doi.org/10.5281/zenodo.15126599",
-      "metadata": {
-        "title": "Exhaustive Human 9-mer Mutanome with NetMHCPan Scores",
-        "doi": "10.5281/zenodo.15126599",
-        "publication_date": "2025-04-02",
-        "description": "<p>Two data files are included here:</p>\n<ol>\n<li>human_proteome_lookup_table.csv; This is a lookup table for the sources of the peptides in the second file. Each transcript in the human proteome is numbered to save on storage space using the column `sequence_id`.&nbsp;</li>\n<li>full_synthetic_mutanome.csv.gz; This contains information on the entire human mutanome, including the mutant peptide scored, the wild type peptide which is the source of the mutant peptide, and the location of the wild type peptide in the human proteome. For example, for a peptide AAAAAAAAG, the wild type peptide could be AAAAAAAAA, and the source would be 505_22_31 (meaning it is from sequence 505 in the lookup table above, from residues 22 - 31. Note that the wild type peptides and sources are nested, as the same mutant peptide can arise from different similar source peptides. The remaining columns are named as alleles, with NetMHCPan 4.1 associated scores. Again, note that due to the volume of data,&nbsp;<strong>we do not store scores for non-binders, only predicted binders with scores &gt; 0.05</strong>. Hence, if for a given peptide all allele columns are empty, it has been predicted as a non-binder against all of these alleles. Where a score is present in the allele columns, it will always be greater than 0.05, and indicates predicted binding to the given MHC-I allele.&nbsp;</li>\n</ol>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "InstaDeep",
-            "affiliation": null
-          },
-          {
-            "name": "BioNTech",
-            "affiliation": null
-          }
-        ],
-        "custom": {
-          "code:codeRepository": "https://github.com/instadeepai/tcr-dataset-size-estimation"
-        },
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "gpl-3.0-or-later"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15126598"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Exhaustive Human 9-mer Mutanome with NetMHCPan Scores",
-      "links": {
-        "self": "https://zenodo.org/api/records/15126599",
-        "self_html": "https://zenodo.org/records/15126599",
-        "preview_html": "https://zenodo.org/records/15126599?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15126599",
-        "self_doi": "https://doi.org/10.5281/zenodo.15126599",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15126599",
-        "parent": "https://zenodo.org/api/records/15126598",
-        "parent_html": "https://zenodo.org/records/15126598",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15126598",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15126598",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15126599/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15126599/sequence/default",
-        "files": "https://zenodo.org/api/records/15126599/files",
-        "media_files": "https://zenodo.org/api/records/15126599/media-files",
-        "archive": "https://zenodo.org/api/records/15126599/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15126599/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15126599/versions/latest",
-        "latest_html": "https://zenodo.org/records/15126599/latest",
-        "versions": "https://zenodo.org/api/records/15126599/versions",
-        "draft": "https://zenodo.org/api/records/15126599/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15126599/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15126599/access/links",
-        "access_grants": "https://zenodo.org/api/records/15126599/access/grants",
-        "access_users": "https://zenodo.org/api/records/15126599/access/users",
-        "access_request": "https://zenodo.org/api/records/15126599/access/request",
-        "access": "https://zenodo.org/api/records/15126599/access",
-        "communities": "https://zenodo.org/api/records/15126599/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15126599/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15126599/requests"
-      },
-      "updated": "2025-04-14T13:52:56.816113+00:00",
-      "recid": "15126599",
-      "revision": 5,
-      "files": [
-        {
-          "id": "b47557be-d4ba-416d-a17e-93af87b59bb2",
-          "key": "human_proteome_lookup_table.csv",
-          "size": 13553364,
-          "checksum": "md5:fd5e5b3ebddd4dd5bcc0b426f4ec00b7",
-          "links": {
-            "self": "https://zenodo.org/api/records/15126599/files/human_proteome_lookup_table.csv/content"
-          }
-        },
-        {
-          "id": "39dc2745-0010-4d89-82cd-acc95763b8b6",
-          "key": "full_synthetic_mutanome.csv.gz",
-          "size": 7744453963,
-          "checksum": "md5:05d7004551afe028278a42bca45dd503",
-          "links": {
-            "self": "https://zenodo.org/api/records/15126599/files/full_synthetic_mutanome.csv.gz/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1294353"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 34,
-        "unique_downloads": 17,
-        "views": 33,
-        "unique_views": 19,
-        "version_downloads": 34,
-        "version_unique_downloads": 17,
-        "version_unique_views": 19,
-        "version_views": 33
+        "downloads": 85319,
+        "unique_downloads": 53764,
+        "views": 921,
+        "unique_views": 840,
+        "version_downloads": 85191,
+        "version_unique_downloads": 53637,
+        "version_unique_views": 654,
+        "version_views": 730
       },
       "state": "done",
       "submitted": true

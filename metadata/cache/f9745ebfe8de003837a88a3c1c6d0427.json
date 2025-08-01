@@ -1,33 +1,159 @@
 {
-  "cache_date": "2025-04-01T08:47:22.474622",
+  "cache_date": "2025-08-01T08:44:37.360192",
   "data": [
     {
-      "created": "2025-04-01T08:46:59.726158+00:00",
-      "modified": "2025-04-01T08:47:00.239009+00:00",
-      "id": 15118347,
-      "conceptrecid": "15118346",
-      "doi": "10.5281/zenodo.15118347",
-      "conceptdoi": "10.5281/zenodo.15118346",
-      "doi_url": "https://doi.org/10.5281/zenodo.15118347",
+      "created": "2025-08-01T08:39:16.546076+00:00",
+      "modified": "2025-08-01T08:39:16.784351+00:00",
+      "id": 16676301,
+      "conceptrecid": "10282345",
+      "doi": "10.5281/zenodo.16676301",
+      "conceptdoi": "10.5281/zenodo.10282345",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676301",
       "metadata": {
-        "title": "Modal analysis of Quaternary borehole samples from Sava valley in Eastern Croatia",
-        "doi": "10.5281/zenodo.15118347",
-        "publication_date": "2025-04-01",
+        "title": "bodkan/slendr: slendr 1.2.0",
+        "doi": "10.5281/zenodo.16676301",
+        "publication_date": "2025-08-01",
+        "description": "<ul>\n<li><p>Due to new issues related to conda activating environments in an incorrect path which <a href=\"https://github.com/bodkan/slendr/issues/179\">started to pop up</a> (possibly due to a misfeature in the <em>reticulate</em> package), activating procedure in <em>slendr</em> was reverted to a slower, but apparently <a href=\"https://github.com/bodkan/slendr/pull/182/commits/de868c160fb8eafd278676b98fd99edc90373c61\">more robust approach</a>. This will unfortunately make running massively parallelized simulations on Windows problematic due to a suspected-but-hard-to-detect race condition in conda on Windows, which manifested in many parallel environment activations (one for each simulation process) on this platform. For the time being, users are advised to execute big parallelized simulations (we're talking thousands of simulations in an ABC setting) on unix systems. (<a href=\"https://github.com/bodkan/slendr/pull/182\">PR #182</a>)</p>\n</li>\n<li><p><em>slendr</em> now allows recording of specific singular samples under unique names. See the documentation to <code>schedule_sampling()</code> for an example. (<a href=\"https://github.com/bodkan/slendr/pull/181\">PR #181</a>)</p>\n</li>\n<li><p>The dependency <em>rnaturalearth</em> has introduced some low-level changes that required minor tweaks to <em>slendr</em>'s spatial internals. Thanks to @PMassicotte for his kind help on fixing this! (<a href=\"https://github.com/bodkan/slendr/pull/180\">PR #180</a>)</p>\n</li>\n<li><p>Fixed an issue with setting <code>lock = TRUE</code> in the <code>set_range()</code> function (issue #176 reported by @Sgornard -- thank you!). (<a href=\"https://github.com/bodkan/slendr/commit/6d01e407\">#6d01e407</a>)</p>\n</li>\n<li><p>If a non-spatial population is created which has a spatial parent population, <em>slendr</em> gives an informative error message. (<a href=\"https://github.com/bodkan/slendr/commit/6bb646\">#6bb646</a>)</p>\n</li>\n<li><p><code>plot_model()</code> now uses the same color for population ranges and population labels.  (<a href=\"https://github.com/bodkan/slendr/commit/c54632e5\">#c54632e5</a>)</p>\n</li>\n<li><p><code>plot_map()</code> can now optionally visualize splits in a spatial setting (<a href=\"https://github.com/bodkan/slendr/commit/4664388c\">#4664388c</a>)</p>\n</li>\n<li><p><code>plot_model()</code> now plots y-axis time using a more readable integer scale.  (<a href=\"https://github.com/bodkan/slendr/commit/6b0e7fcc\">#6b0e7fcc</a>)</p>\n</li>\n</ul>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Ivani\u0161evi\u0107, Danijel",
-            "affiliation": "Croatian Geological Survey",
-            "orcid": "0000-0001-7705-7230"
+            "name": "Martin Petr",
+            "affiliation": null
+          },
+          {
+            "name": "Ben Haller",
+            "affiliation": "Cornell University, Stick Software"
+          },
+          {
+            "name": "Philippe Massicotte",
+            "affiliation": null
+          },
+          {
+            "name": "GKresearch",
+            "affiliation": null
           }
         ],
-        "keywords": [
-          "modal analysis",
-          "shallow boreholes",
-          "Quaternary sediments",
-          "Sava valley"
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/bodkan/slendr/tree/v1.2.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
         ],
-        "language": "eng",
+        "version": "v1.2.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/bodkan/slendr"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 6,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10282345"
+              }
+            }
+          ]
+        }
+      },
+      "title": "bodkan/slendr: slendr 1.2.0",
+      "links": {
+        "self": "https://zenodo.org/api/records/16676301",
+        "self_html": "https://zenodo.org/records/16676301",
+        "preview_html": "https://zenodo.org/records/16676301?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676301",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676301",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676301",
+        "reserve_doi": "https://zenodo.org/api/records/16676301/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/10282345",
+        "parent_html": "https://zenodo.org/records/10282345",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10282345",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10282345",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676301/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676301/sequence/default",
+        "files": "https://zenodo.org/api/records/16676301/files",
+        "media_files": "https://zenodo.org/api/records/16676301/media-files",
+        "archive": "https://zenodo.org/api/records/16676301/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676301/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676301/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676301/latest",
+        "versions": "https://zenodo.org/api/records/16676301/versions",
+        "draft": "https://zenodo.org/api/records/16676301/draft",
+        "access_links": "https://zenodo.org/api/records/16676301/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676301/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676301/access/users",
+        "access_request": "https://zenodo.org/api/records/16676301/access/request",
+        "access": "https://zenodo.org/api/records/16676301/access",
+        "communities": "https://zenodo.org/api/records/16676301/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676301/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676301/requests"
+      },
+      "updated": "2025-08-01T08:39:16.784351+00:00",
+      "recid": "16676301",
+      "revision": 4,
+      "files": [
+        {
+          "id": "e2809f1d-d3a9-4309-aa5f-8c80e2571030",
+          "key": "bodkan/slendr-v1.2.0.zip",
+          "size": 12860156,
+          "checksum": "md5:47784cd8192b1bae28944cdbb1f8eb45",
+          "links": {
+            "self": "https://zenodo.org/api/records/16676301/files/bodkan/slendr-v1.2.0.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:ba599d222cb84302e97de9d2d7f6f4ca60fe67d7;origin=https://doi.org/10.5281/zenodo.10282345;visit=swh:1:snp:5aa5c7c40cbf434e48d03f83ad855c6584faa469;anchor=swh:1:rel:03e2c99189b6d7e01e0df0a834495d7b80b2fd91;path=bodkan-slendr-7edefc3"
+      },
+      "owners": [
+        {
+          "id": "107104"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 25,
+        "unique_downloads": 25,
+        "views": 181,
+        "unique_views": 149,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:38:54.501351+00:00",
+      "modified": "2025-08-01T08:38:54.677856+00:00",
+      "id": 16676252,
+      "conceptrecid": "16612749",
+      "doi": "10.5281/zenodo.16676252",
+      "conceptdoi": "10.5281/zenodo.16612749",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676252",
+      "metadata": {
+        "title": "Athletics gender gap",
+        "doi": "10.5281/zenodo.16676252",
+        "publication_date": "2025-08-01",
+        "description": "<p>Data and R code to replicate analysis of gender gap in running performance (version 2).</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Jucker, Tommaso",
+            "affiliation": "University of Bristol",
+            "orcid": "0000-0002-0751-6312"
+          }
+        ],
         "resource_type": {
           "title": "Dataset",
           "type": "dataset"
@@ -38,66 +164,209 @@
         "relations": {
           "version": [
             {
-              "index": 0,
+              "index": 1,
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "15118346"
+                "pid_value": "16612749"
               }
             }
           ]
         }
       },
-      "title": "Modal analysis of Quaternary borehole samples from Sava valley in Eastern Croatia",
+      "title": "Athletics gender gap",
       "links": {
-        "self": "https://zenodo.org/api/records/15118347",
-        "self_html": "https://zenodo.org/records/15118347",
-        "preview_html": "https://zenodo.org/records/15118347?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15118347",
-        "self_doi": "https://doi.org/10.5281/zenodo.15118347",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15118347",
-        "parent": "https://zenodo.org/api/records/15118346",
-        "parent_html": "https://zenodo.org/records/15118346",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15118346",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15118346",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15118347/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15118347/sequence/default",
-        "files": "https://zenodo.org/api/records/15118347/files",
-        "media_files": "https://zenodo.org/api/records/15118347/media-files",
-        "archive": "https://zenodo.org/api/records/15118347/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15118347/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15118347/versions/latest",
-        "latest_html": "https://zenodo.org/records/15118347/latest",
-        "versions": "https://zenodo.org/api/records/15118347/versions",
-        "draft": "https://zenodo.org/api/records/15118347/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15118347/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15118347/access/links",
-        "access_grants": "https://zenodo.org/api/records/15118347/access/grants",
-        "access_users": "https://zenodo.org/api/records/15118347/access/users",
-        "access_request": "https://zenodo.org/api/records/15118347/access/request",
-        "access": "https://zenodo.org/api/records/15118347/access",
-        "communities": "https://zenodo.org/api/records/15118347/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15118347/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15118347/requests"
+        "self": "https://zenodo.org/api/records/16676252",
+        "self_html": "https://zenodo.org/records/16676252",
+        "preview_html": "https://zenodo.org/records/16676252?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676252",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676252",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676252",
+        "reserve_doi": "https://zenodo.org/api/records/16676252/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16612749",
+        "parent_html": "https://zenodo.org/records/16612749",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16612749",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16612749",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676252/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676252/sequence/default",
+        "files": "https://zenodo.org/api/records/16676252/files",
+        "media_files": "https://zenodo.org/api/records/16676252/media-files",
+        "archive": "https://zenodo.org/api/records/16676252/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676252/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676252/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676252/latest",
+        "versions": "https://zenodo.org/api/records/16676252/versions",
+        "draft": "https://zenodo.org/api/records/16676252/draft",
+        "access_links": "https://zenodo.org/api/records/16676252/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676252/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676252/access/users",
+        "access_request": "https://zenodo.org/api/records/16676252/access/request",
+        "access": "https://zenodo.org/api/records/16676252/access",
+        "communities": "https://zenodo.org/api/records/16676252/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676252/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676252/requests"
       },
-      "updated": "2025-04-01T08:47:00.239009+00:00",
-      "recid": "15118347",
+      "updated": "2025-08-01T08:38:54.677856+00:00",
+      "recid": "16676252",
       "revision": 4,
       "files": [
         {
-          "id": "32d7d63f-c654-4016-9cf7-0eae88096734",
-          "key": "Raw_data.xlsx",
-          "size": 24415,
-          "checksum": "md5:d4c4304ce16a8b618c2ee726a95b5c50",
+          "id": "a8b798a5-81f3-4a3f-9c76-a7fc254d3dd3",
+          "key": "performances.csv",
+          "size": 2610154,
+          "checksum": "md5:ecba0070df9c44b2ddee82e286024c9e",
           "links": {
-            "self": "https://zenodo.org/api/records/15118347/files/Raw_data.xlsx/content"
+            "self": "https://zenodo.org/api/records/16676252/files/performances.csv/content"
+          }
+        },
+        {
+          "id": "1b1c694f-f01f-4d59-94db-3449fc9814ec",
+          "key": "gender_gap_athletics.R",
+          "size": 19413,
+          "checksum": "md5:d401c05ee8d045b247b46ade74e4263e",
+          "links": {
+            "self": "https://zenodo.org/api/records/16676252/files/gender_gap_athletics.R/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "1293456"
+          "id": "348446"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 6,
+        "unique_downloads": 3,
+        "views": 5,
+        "unique_views": 3,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:38:16.941874+00:00",
+      "modified": "2025-08-01T08:43:36.206656+00:00",
+      "id": 16676127,
+      "conceptrecid": "16676126",
+      "doi": "10.5281/zenodo.16676127",
+      "conceptdoi": "10.5281/zenodo.16676126",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676127",
+      "metadata": {
+        "title": "Nature Guide to The Listening Point",
+        "doi": "10.5281/zenodo.16676127",
+        "publication_date": "2025-08-01",
+        "description": "<p><a href=\"https://zenodo.org/records/16657751\"><strong>CODES Framework</strong></a></p>\n<p><strong>Description</strong></p>\n<p>This document is a structured hypothesis.</p>\n<p>It maps 30 ecological observations from Quetico Provincial Park as if biological emergence is governed by deterministic coherence laws&mdash;not randomness, not adaptation.</p>\n<p>Each system&mdash;geological, botanical, faunal, atmospheric&mdash;is analyzed using coherence logic derived from the CODES and RIC substrate architectures. These include:<br>&ndash; PAS (Phase Alignment Score)<br>&ndash; CHORDLOCK (anchor logic)<br>&ndash; AURA_OUT (visibility gating)<br>&ndash; ELF (feedback correction loop)</p>\n<p>While this substrate is not yet formally deployed in ecological inference engines, the document functions as a proof-of-structure: a recursive field test of symbolic emergence as lawful, observable, and reproducible.</p>\n<p>Unlike conventional field guides or ecological surveys, this work encodes substrate legality across time, temperature, and signal layers&mdash;offering the first symbolic ecology framework for recursive environmental mapping.</p>\n<p>Each entry is self-contained, phase-gated, and structurally coherent.</p>\n<p>This is not a metaphorical reading of nature.<br>It is nature, reframed as a lawful emission system.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Bostick, Devin",
+            "affiliation": null
+          }
+        ],
+        "keywords": [
+          "Structured Resonance Ecology",
+          "Phase Alignment Score",
+          "Emergence Mapping",
+          "Quetico Provincial Park",
+          "CODES Framework",
+          "RIC Substrate",
+          "CHORDLOCK",
+          "AURA_OUT",
+          "ELF Loop",
+          "Symbolic Emergence",
+          "Deterministic Ecology",
+          "Coherence Field Analysis",
+          "Recursive Natural Systems",
+          "PAS_zeta",
+          "Nature Field Guide",
+          "Ecological Phase Logic",
+          "Biological Inference Substrate"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Publication",
+          "type": "publication"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16676126"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Nature Guide to The Listening Point",
+      "links": {
+        "self": "https://zenodo.org/api/records/16676127",
+        "self_html": "https://zenodo.org/records/16676127",
+        "preview_html": "https://zenodo.org/records/16676127?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676127",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676127",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676127",
+        "reserve_doi": "https://zenodo.org/api/records/16676127/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16676126",
+        "parent_html": "https://zenodo.org/records/16676126",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16676126",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676126",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676127/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676127/sequence/default",
+        "files": "https://zenodo.org/api/records/16676127/files",
+        "media_files": "https://zenodo.org/api/records/16676127/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16676127:Nature%20Guide%20to%20The%20Listening%20Point.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16676127:Nature%20Guide%20to%20The%20Listening%20Point.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16676127:Nature%20Guide%20to%20The%20Listening%20Point.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16676127:Nature%20Guide%20to%20The%20Listening%20Point.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16676127:Nature%20Guide%20to%20The%20Listening%20Point.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16676127:Nature%20Guide%20to%20The%20Listening%20Point.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16676127/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676127/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676127/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676127/latest",
+        "versions": "https://zenodo.org/api/records/16676127/versions",
+        "draft": "https://zenodo.org/api/records/16676127/draft",
+        "access_links": "https://zenodo.org/api/records/16676127/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676127/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676127/access/users",
+        "access_request": "https://zenodo.org/api/records/16676127/access/request",
+        "access": "https://zenodo.org/api/records/16676127/access",
+        "communities": "https://zenodo.org/api/records/16676127/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676127/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676127/requests"
+      },
+      "updated": "2025-08-01T08:43:36.206656+00:00",
+      "recid": "16676127",
+      "revision": 6,
+      "files": [
+        {
+          "id": "80510568-ac5c-4d7e-99ea-35f044ede25a",
+          "key": "Nature Guide to The Listening Point.pdf",
+          "size": 899156,
+          "checksum": "md5:877ffa7bc71518d8504d682d42fb6c5c",
+          "links": {
+            "self": "https://zenodo.org/api/records/16676127/files/Nature Guide to The Listening Point.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1256110"
         }
       ],
       "status": "published",
@@ -115,58 +384,234 @@
       "submitted": true
     },
     {
-      "created": "2025-04-01T08:43:09.868739+00:00",
-      "modified": "2025-04-01T08:43:10.123643+00:00",
-      "id": 15118331,
-      "conceptrecid": "15118330",
-      "doi": "10.5281/zenodo.15118331",
-      "conceptdoi": "10.5281/zenodo.15118330",
-      "doi_url": "https://doi.org/10.5281/zenodo.15118331",
+      "created": "2025-08-01T08:32:53.624569+00:00",
+      "modified": "2025-08-01T08:32:54.247368+00:00",
+      "id": 16675878,
+      "conceptrecid": "16675877",
+      "doi": "10.5281/zenodo.16675878",
+      "conceptdoi": "10.5281/zenodo.16675877",
+      "doi_url": "https://doi.org/10.5281/zenodo.16675878",
       "metadata": {
-        "title": "Understanding the Sustainable Use and Mechanical Characteristics of Recycled Permeable Concrete: Sustainable Low-Carbon Concrete Technology",
-        "doi": "10.5281/zenodo.15118331",
-        "publication_date": "2025-04-01",
-        "description": "<p><em><span>Enhancing the performance of reclaimed permeable concrete plays a crucial role in reducing energy consumption during building material production while fostering sustainable development. To optimize the composition of reclaimed permeable concrete and improve its mechanical properties, this study investigates the impact of aggregate particle size distribution. Through experimental analysis, the effects of particle size distribution on the mechanical behavior of recycled aggregate permeable concrete were examined. The results indicated that when the water-cement ratios were set at 0.28, 0.30, and 0.32 with a porosity of 10%, the permeability coefficient increased by 28.1%, 50.9%, and 29.0%, respectively. The lowest recorded permeability coefficient of 1.23 mm/s was observed when the recycled permeable concrete had a water-cement ratio of 0.30 and an aggregate grading of 8:2 at a target porosity of 10%. The designed recycled permeable concrete met the permeability coefficient requirements outlined in the CJJ/T135-2009 standard, which mandates a minimum of 1 mm/s. Existing research on the influence of aggregate grading and other factors affecting the performance of recycled permeable concrete suggests that optimizing the mixture proportions can enhance its efficiency. Additionally, customizing the concrete composition based on specific construction requirements can significantly lower the manufacturing costs of building materials.<span>&nbsp; </span></span></em></p>",
+        "title": "Analysis of the Misuse of Digital Buying and Selling Circumstances",
+        "doi": "10.5281/zenodo.16675878",
+        "publication_date": "2025-08-01",
+        "description": "<p>The rapid development of e-commerce has influenced the way consumers transact, offering convenience and speed in digital shopping. However, this phenomenon also brings new challenges in terms of consumer protection, particularly in relation to psychology-based marketing techniques that can exploit consumers' emotional states. This research aims to examine whether psychological marketing strategies, such as fear of missing out (FOMO), social proof, and urgency bias, can be categorized as a form of abuse of circumstances in e-commerce transactions in Indonesia. Using a civil law approach, this study analyzes whether marketing techniques that manipulate consumer decisions can violate the principle of free will and harm consumers. The results show that techniques such as fake countdowns and non-factual scarcity claims can create emotional distress that interferes with consumers' freedom to make rational decisions. Therefore, stricter regulations and transparency in digital marketing are needed to protect consumers from unethical practices. This research also recommends regulatory updates and increased digital literacy for consumers to raise awareness of manipulative marketing techniques. Practically, the findings contribute to the development of consumer protection policies and can serve as a basis for regulators to create regulations that are more responsive to the evolving dynamics of digital marketing.</p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Mohammed Zameer Ahamed J.",
-            "affiliation": null
+            "name": "Mia Aulia Hutagalung",
+            "affiliation": "Master of Law Faculty, Parahyangan Catholic University, Bandung, Indonesia"
+          },
+          {
+            "name": "Bernadette M. Waluyo",
+            "affiliation": "Faculty of Law, Parahyangan Catholic University, Bandung, Indonesia"
           }
         ],
         "keywords": [
-          "Reclaimed permeable concrete, recycled aggregate, sustainable development, energy-efficient materials"
+          "Marketing Psychology, Misrepresentation, E-Commerce, Consumer Protection, Digital Regulation"
         ],
-        "references": [
-          "1.\tChen, Y., Ning, Y., Chen, X., Xuan, W., & Guo, Y. (2023). Experimental investigation on the effect of curing condition and admixture on meso-structure of recycled aggregate concrete based on X-ray CT. International Journal of Concrete Structures and Materials, 17(1), 1\u201314. https://doi.org/10.1186/s40069-022-00572-2",
-          "2.\tSaravanakumar, P., Manoj, D., & Jagan, S. (2021). Properties of concrete having treated recycled coarse aggregate and slag. Revista de la construcci\u00f3n, 20(2), 249\u2013258. https://doi.org/10.7764/rdlc.20.2.249",
-          "3.\tAravind, N., & Abdulrehman, T. I. (2021). A review and sequel experimental analysis on physical and mechanical properties of permeable concrete for pavement construction. International Journal of Pavement Engineering, 23(12), 4160\u20134173. https://doi.org/10.1080/102984",
-          "4.\tAli, B., Kurda, R., Ahmed, H., & Alyousef, R. (2022). Effect of recycled tire steel fiber on flexural toughness, residual strength, and chloride permeability of high-performance concrete (HPC). Journal of Sustainable Cement-Based Materials, 12(2), 141\u2013157. https://doi.org/10.1080/21650373.2021.2025165",
-          "5.\tBarma, M., & Modibbo, U. M. (2023). Multi-objective mathematical optimization model for municipal solid waste management with economic analysis of reuse/recycling recovered waste materials. Journal of Computational and Cognitive Engineering, 1(3), 122\u2013137. https://doi.org/10.47852/bonviewJCCE149145",
-          "6.\tRahu, A. A., Memon, B. A., Oad, M., Dahri, S. A., Memon, A. R., & Bhutto, A. H. (2023). Assessment of the flexural strength of no-fines recycled aggregate concrete prisms. Engineering, Technology & Applied Science Research, 13(1), 10067\u201310072. https://doi.org/10.48084/etasr.5458",
-          "7.\tCai, X., Wu, K., Huang, W., Yu, J., & Yu, H. (2021). Application of recycled concrete aggregates and crushed bricks on permeable concrete road base. Road Materials and Pavement Design, 22(10), 2181\u20132196. https://doi.org/10.1080/14680629.2020.1742193",
-          "8.\tAragoncillo, A. M., & Lomboy, G. (2022). Correlation of electrical resistivity and formation factor with chloride and water permeability of recycled aggregate concrete. Transportation Research Record, 2676(6), 788\u2013796. https://doi.org/10.1177/0361198122107",
-          "9.\tAli, B. (2022). Development of environment-friendly and ductile recycled aggregate concrete through synergistic use of hybrid fibers. Environmental Science and Pollution Research, 29(23), 34452\u201334463. https://doi.org/10.1007/s11356-022-18627-y",
-          "10.\tJian, S., Wei, B., Zhi, X., Tan, H., Li, B., Li, X., & Lv, Y. (2021). Abrasion resistance improvement of recycled aggregate pervious concrete with granulated blast furnace slag and copper slag. Journal of Advanced Concrete Technology, 19(11), 1088\u20131099. https://doi.org/10.3151/jact.19.1088"
-        ],
-        "language": "eng",
+        "language": "ang",
         "resource_type": {
           "title": "Journal article",
           "type": "publication",
           "subtype": "article"
         },
         "journal": {
-          "issue": "2",
-          "pages": "24-33",
-          "title": "Journal of Sustainable Construction Engineering and Project Management",
-          "volume": "8"
+          "issue": "07",
+          "pages": "5056-5064",
+          "title": "Journal of Economics, Finance And Management Studies",
+          "volume": "08"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16675877"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Analysis of the Misuse of Digital Buying and Selling Circumstances",
+      "links": {
+        "self": "https://zenodo.org/api/records/16675878",
+        "self_html": "https://zenodo.org/records/16675878",
+        "preview_html": "https://zenodo.org/records/16675878?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16675878",
+        "self_doi": "https://doi.org/10.5281/zenodo.16675878",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16675878",
+        "reserve_doi": "https://zenodo.org/api/records/16675878/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16675877",
+        "parent_html": "https://zenodo.org/records/16675877",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16675877",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16675877",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16675878/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16675878/sequence/default",
+        "files": "https://zenodo.org/api/records/16675878/files",
+        "media_files": "https://zenodo.org/api/records/16675878/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16675878:91.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16675878:91.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16675878:91.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16675878:91.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16675878:91.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16675878:91.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16675878/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16675878/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16675878/versions/latest",
+        "latest_html": "https://zenodo.org/records/16675878/latest",
+        "versions": "https://zenodo.org/api/records/16675878/versions",
+        "draft": "https://zenodo.org/api/records/16675878/draft",
+        "access_links": "https://zenodo.org/api/records/16675878/access/links",
+        "access_grants": "https://zenodo.org/api/records/16675878/access/grants",
+        "access_users": "https://zenodo.org/api/records/16675878/access/users",
+        "access_request": "https://zenodo.org/api/records/16675878/access/request",
+        "access": "https://zenodo.org/api/records/16675878/access",
+        "communities": "https://zenodo.org/api/records/16675878/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16675878/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16675878/requests"
+      },
+      "updated": "2025-08-01T08:32:54.247368+00:00",
+      "recid": "16675878",
+      "revision": 4,
+      "files": [
+        {
+          "id": "bd40217e-1e8e-42de-bf4e-46eefc0be245",
+          "key": "91.pdf",
+          "size": 252722,
+          "checksum": "md5:aca2be5f269961962eb410521ebfe16f",
+          "links": {
+            "self": "https://zenodo.org/api/records/16675878/files/91.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "190052"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:30:45.372114+00:00",
+      "modified": "2025-08-01T08:30:45.903484+00:00",
+      "id": 16676028,
+      "conceptrecid": "16676027",
+      "doi": "10.5281/zenodo.16676028",
+      "conceptdoi": "10.5281/zenodo.16676027",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676028",
+      "metadata": {
+        "title": "Fig. 12 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+        "doi": "10.5281/zenodo.16676028",
+        "publication_date": "2025-07-28",
+        "description": "Fig. 12. Geographic distribution of Pristimantis flavus sp. nov. (yellow circles) and P. fouqueti sp. nov. (red circles). Stars indicate the type localities of each species.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "M\u00f4nico, Alexander Tamanini",
+            "affiliation": "Coordena\u00e7\u00e3o de Biodiversidade, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Courtois, Elodie A.",
+            "affiliation": "ENIA (Naturalist Expertise Instrumentation and Analysis), independent researcher, Remire-Montjoly, French Guiana."
+          },
+          {
+            "name": "Koch, Esteban Diego",
+            "affiliation": "Programa de P\u00f3s-Gradua\u00e7\u00e3o em Gen\u00e9tica, Conserva\u00e7\u00e3o e Biologia Evolutiva, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Dewynter, Michel Blanc Ma\u00ebl",
+            "affiliation": null
+          },
+          {
+            "name": "Kok, Philippe J.R.",
+            "affiliation": "Department of Ecology and Vertebrate Zoology, Faculty of Biology and Environmental Protection, University of Lodz, Lodz, Poland. & Department of Life Sciences, The Natural History Museum, London, United Kingdom."
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Amphibia",
+          "Anura",
+          "Craugastoridae",
+          "Pristimantis"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5852/ejt.2025.1004.2977",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/16675974",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C784F5136021486FCBBF82B",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C704F4A361311A5FE93FBB9",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "pages": "259-293",
+          "title": "European Journal of Taxonomy",
+          "volume": "1004"
         },
         "license": {
           "id": "cc-by-4.0"
         },
         "communities": [
           {
-            "id": "civilpub"
+            "id": "biosyslit"
           }
         ],
         "relations": {
@@ -176,70 +621,71 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "15118330"
+                "pid_value": "16676027"
               }
             }
           ]
-        }
-      },
-      "title": "Understanding the Sustainable Use and Mechanical Characteristics of Recycled Permeable Concrete: Sustainable Low-Carbon Concrete Technology",
-      "links": {
-        "self": "https://zenodo.org/api/records/15118331",
-        "self_html": "https://zenodo.org/records/15118331",
-        "preview_html": "https://zenodo.org/records/15118331?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15118331",
-        "self_doi": "https://doi.org/10.5281/zenodo.15118331",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15118331",
-        "parent": "https://zenodo.org/api/records/15118330",
-        "parent_html": "https://zenodo.org/records/15118330",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15118330",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15118330",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15118331/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15118331/sequence/default",
-        "files": "https://zenodo.org/api/records/15118331/files",
-        "media_files": "https://zenodo.org/api/records/15118331/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:15118331:%2824-33%29Understanding%20the%20Sustainable.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:15118331:%2824-33%29Understanding%20the%20Sustainable.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:15118331:%2824-33%29Understanding%20the%20Sustainable.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:15118331:%2824-33%29Understanding%20the%20Sustainable.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:15118331:%2824-33%29Understanding%20the%20Sustainable.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:15118331:%2824-33%29Understanding%20the%20Sustainable.pdf/full/^1200,/0/default.jpg"
         },
-        "archive": "https://zenodo.org/api/records/15118331/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15118331/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15118331/versions/latest",
-        "latest_html": "https://zenodo.org/records/15118331/latest",
-        "versions": "https://zenodo.org/api/records/15118331/versions",
-        "draft": "https://zenodo.org/api/records/15118331/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15118331/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15118331/access/links",
-        "access_grants": "https://zenodo.org/api/records/15118331/access/grants",
-        "access_users": "https://zenodo.org/api/records/15118331/access/users",
-        "access_request": "https://zenodo.org/api/records/15118331/access/request",
-        "access": "https://zenodo.org/api/records/15118331/access",
-        "communities": "https://zenodo.org/api/records/15118331/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15118331/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15118331/requests"
+        "notes": "Published as part of <i>M\u00f4nico, Alexander Tamanini, Courtois, Elodie A., Koch, Esteban Diego, Dewynter, Michel Blanc Ma\u00ebl &amp; Kok, Philippe J.R., 2025, Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands, pp. 259-293 in European Journal of Taxonomy 1004</i> on page 281, DOI: 10.5852/ejt.2025.1004.2977, <a href=\"http://zenodo.org/record/16675974\">http://zenodo.org/record/16675974</a>"
       },
-      "updated": "2025-04-01T08:43:10.123643+00:00",
-      "recid": "15118331",
-      "revision": 4,
+      "title": "Fig. 12 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+      "links": {
+        "self": "https://zenodo.org/api/records/16676028",
+        "self_html": "https://zenodo.org/records/16676028",
+        "preview_html": "https://zenodo.org/records/16676028?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676028",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676028",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676028",
+        "reserve_doi": "https://zenodo.org/api/records/16676028/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16676027",
+        "parent_html": "https://zenodo.org/records/16676027",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16676027",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676027",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676028/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676028/sequence/default",
+        "files": "https://zenodo.org/api/records/16676028/files",
+        "media_files": "https://zenodo.org/api/records/16676028/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16676028:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16676028:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16676028:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16676028:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16676028:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16676028:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16676028/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676028/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676028/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676028/latest",
+        "versions": "https://zenodo.org/api/records/16676028/versions",
+        "draft": "https://zenodo.org/api/records/16676028/draft",
+        "access_links": "https://zenodo.org/api/records/16676028/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676028/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676028/access/users",
+        "access_request": "https://zenodo.org/api/records/16676028/access/request",
+        "access": "https://zenodo.org/api/records/16676028/access",
+        "communities": "https://zenodo.org/api/records/16676028/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676028/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676028/requests"
+      },
+      "updated": "2025-08-01T08:30:45.903484+00:00",
+      "recid": "16676028",
+      "revision": 5,
       "files": [
         {
-          "id": "49d84c1a-2141-4830-9570-21566e91e9e0",
-          "key": "(24-33)Understanding the Sustainable.pdf",
-          "size": 466566,
-          "checksum": "md5:039e968e7f7ac0c233a2396ed9b48486",
+          "id": "a65bcc29-79fb-40a4-a2f6-64ad87224d83",
+          "key": "figure.png",
+          "size": 1635961,
+          "checksum": "md5:3e3e9f17bede2dfe9156e4a28e8df1ec",
           "links": {
-            "self": "https://zenodo.org/api/records/15118331/files/(24-33)Understanding the Sustainable.pdf/content"
+            "self": "https://zenodo.org/api/records/16676028/files/figure.png/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "109376"
+          "id": "1161"
         }
       ],
       "status": "published",
@@ -257,129 +703,356 @@
       "submitted": true
     },
     {
-      "created": "2025-04-01T08:31:53.388211+00:00",
-      "modified": "2025-04-01T08:31:53.582009+00:00",
-      "id": 15118312,
-      "conceptrecid": "10492373",
-      "doi": "10.5281/zenodo.15118312",
-      "conceptdoi": "10.5281/zenodo.10492373",
-      "doi_url": "https://doi.org/10.5281/zenodo.15118312",
+      "created": "2025-08-01T08:30:42.689766+00:00",
+      "modified": "2025-08-01T08:30:43.347055+00:00",
+      "id": 16676024,
+      "conceptrecid": "16676023",
+      "doi": "10.5281/zenodo.16676024",
+      "conceptdoi": "10.5281/zenodo.16676023",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676024",
       "metadata": {
-        "title": "QuaSi-Software/resie: v0.11.0",
-        "doi": "10.5281/zenodo.15118312",
-        "publication_date": "2025-04-01",
-        "description": "<h2>Key Features</h2>\n<h4>New CLI</h4>\n<p>The CLI of ReSiE, and how simulations are performed with it, has been restructured. Instead of a single call to the CLI script, that runs the simulation and then returns to the shell, it now puts the user into an interactive CLI that keeps prompting for commands until exited. This has the advantage that performing multiple runs without changing the code results in a significant performance boost for runs after the first one, as the code does not have be compiled again and is reused.</p>\n<p>The interactive part can be circumvented by adding the command and associated arguments to the call starting the CLI. An optional argument --exit-after-run will exit the CLI after the simulation is done. Additional output during a simulation has also been added to make it clearer in what state the simulation currently is in.</p>\n<p><strong>Note: This is a breaking change</strong>, as the previous command to run a simulation, e.g. julia --project=. src/resie-cli.jl examples/simple_heat_pump.json, no longer works. With the new CLI a single simulation run with no interactive part now looks like this: julia --project=. src/resie-cli.jl run --exit-after-run examples/simple_heat_pump.json. Please update any scripts or automated processes to reflect these changes.</p>\n<h4>More detailed component models</h4>\n<p>The models for energy system components of several types have been extended in more detail, as described in the documentation.</p>\n<h5>Heat Pump</h5>\n<p>The model has been extended to include several effects that affect how the heat pump operates:</p>\n<ul>\n<li>Calculation of the COP as a customisable function of the source and sink temperatures</li>\n<li>Customisable temperature-dependent minimum/maximum power functions</li>\n<li>Part load ratio (PLR) dependent efficiency as customisable function modifying the COP depending on the PLR</li>\n<li>Optimisation of the PLR if the heat pump is not working under full load. This is a useful feature for inverter heat pumps, that typically work most efficiently at a PLR of less than 100%. Note: this optimisation could be improved and does not always calculate the true optimum. There also known problems where activating this feature will lead to energy balances not quite working out. Hopefully this will be fixed in future updates.</li>\n<li>Handling multiple combinations of input and output (so-called &quot;slices&quot;) in each timestep. For example a heat pump can supply both room heating and domestic hot water (DHW) demands at the same time, calculating each with a different COP and power</li>\n<li>Losses of power and heat input that are not included in the heat output as these represent true losses to the environment, as compared to losses of efficiency, which are included in the COP function.</li>\n<li>More output channels to make it easier to understand how the heat pump works</li>\n</ul>\n<h5>Buffer tank / STTES</h5>\n<p>Three different models have been made available, each with and without losses:</p>\n<ul>\n<li>ideally stratified: Supplies energy consistently at &quot;high_temperature&quot;. Losses reduce energy but do not affect temperature.</li>\n<li>ideally mixed: Fully mixed model, with temperature output depending on the current load. Losses decrease both energy and temperature.</li>\n<li>balanced: Combines both models. A full tank behaves as ideally stratified, transitioning to ideally mixed as the tank empties.</li>\n</ul>\n<h5>Geothermal collector</h5>\n<p>Finalisation of the model, successfully validated agains TRNSYS and DELPHIN:</p>\n<ul>\n<li>Revision of the entire model, including bug fixed and improvements</li>\n<li>Add automatic generation of the numerical grid</li>\n<li>Add time-shiftable plot of the temperature distribution (requires GLMakie package, activate with auxiliary_plots)</li>\n<li>Add scenario using the geothermal collector</li>\n</ul>\n<h4>Profiles and interpolation/segmentation</h4>\n<p>Especially for weather profiles and other externally given data, new functionality has been implemented for profiles:</p>\n<ul>\n<li>Add the possibility to output the weather data from EPW and dat-files to the lineplot and CSV output</li>\n<li>Add two more interpolation methods for segmentation of data: &quot;stepwise&quot;, &quot;linear_classic&quot;, &quot;linear_time_preserving&quot;, &quot;linear_solar_radiation&quot;</li>\n<li>The time zone can now be specified in the simulation_parameters to overwrite the time zone provided by the weather file</li>\n</ul>\n<h2>Other changes</h2>\n<ul>\n<li>New control module &quot;temperature_sorting&quot;, which enables sorting the inputs or outputs of a heat pump by temperature. This can be used to override a static order, derived from priorities on a bus, with an order that chooses the highest or lowest temperature first.</li>\n<li>Add workaround for storage_driven control module not recognizing a full storage if losses are activated. This can be done cleaner in the future.</li>\n<li>Add the possibility to create optional figures at the end of the simulation period</li>\n<li>Update installation instructions for ReSiE</li>\n<li>Bugfix for order of operation not determining middle busses with grids correctly</li>\n<li>Bugfix in grid (sink) setting wrong min/max temperature in control</li>\n</ul>",
+        "title": "Fig. 11 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+        "doi": "10.5281/zenodo.16676024",
+        "publication_date": "2025-07-28",
+        "description": "Fig. 11. Forests in the surroundings of the Inselberg Nouragues \u2013 French Guiana, inhabited by Pristimantis fouqueti sp. nov. Photography by Elodie Courtois.",
         "access_right": "open",
         "creators": [
           {
-            "name": "Etienne Ott",
-            "affiliation": "siz energieplus"
+            "name": "M\u00f4nico, Alexander Tamanini",
+            "affiliation": "Coordena\u00e7\u00e3o de Biodiversidade, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
           },
           {
-            "name": "Heiner Steinacker",
-            "affiliation": "Steinbeis Innovationszentrum energieplus"
+            "name": "Courtois, Elodie A.",
+            "affiliation": "ENIA (Naturalist Expertise Instrumentation and Analysis), independent researcher, Remire-Montjoly, French Guiana."
           },
           {
-            "name": "Maksim Helmann",
+            "name": "Koch, Esteban Diego",
+            "affiliation": "Programa de P\u00f3s-Gradua\u00e7\u00e3o em Gen\u00e9tica, Conserva\u00e7\u00e3o e Biologia Evolutiva, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Dewynter, Michel Blanc Ma\u00ebl",
             "affiliation": null
           },
           {
-            "name": "Adrian Vollmer",
-            "affiliation": null
+            "name": "Kok, Philippe J.R.",
+            "affiliation": "Department of Ecology and Vertebrate Zoology, Faculty of Biology and Environmental Protection, University of Lodz, Lodz, Poland. & Department of Life Sciences, The Natural History Museum, London, United Kingdom."
           }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Amphibia",
+          "Anura",
+          "Craugastoridae",
+          "Pristimantis"
         ],
         "related_identifiers": [
           {
-            "identifier": "https://github.com/QuaSi-Software/resie/tree/v0.11.0",
+            "identifier": "10.5852/ejt.2025.1004.2977",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/16675974",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C704F4A361311A5FE93FBB9",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "pages": "259-293",
+          "title": "European Journal of Taxonomy",
+          "volume": "1004"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16676023"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>M\u00f4nico, Alexander Tamanini, Courtois, Elodie A., Koch, Esteban Diego, Dewynter, Michel Blanc Ma\u00ebl &amp; Kok, Philippe J.R., 2025, Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands, pp. 259-293 in European Journal of Taxonomy 1004</i> on page 280, DOI: 10.5852/ejt.2025.1004.2977, <a href=\"http://zenodo.org/record/16675974\">http://zenodo.org/record/16675974</a>"
+      },
+      "title": "Fig. 11 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+      "links": {
+        "self": "https://zenodo.org/api/records/16676024",
+        "self_html": "https://zenodo.org/records/16676024",
+        "preview_html": "https://zenodo.org/records/16676024?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676024",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676024",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676024",
+        "reserve_doi": "https://zenodo.org/api/records/16676024/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16676023",
+        "parent_html": "https://zenodo.org/records/16676023",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16676023",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676023",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676024/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676024/sequence/default",
+        "files": "https://zenodo.org/api/records/16676024/files",
+        "media_files": "https://zenodo.org/api/records/16676024/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16676024:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16676024:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16676024:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16676024:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16676024:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16676024:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16676024/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676024/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676024/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676024/latest",
+        "versions": "https://zenodo.org/api/records/16676024/versions",
+        "draft": "https://zenodo.org/api/records/16676024/draft",
+        "access_links": "https://zenodo.org/api/records/16676024/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676024/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676024/access/users",
+        "access_request": "https://zenodo.org/api/records/16676024/access/request",
+        "access": "https://zenodo.org/api/records/16676024/access",
+        "communities": "https://zenodo.org/api/records/16676024/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676024/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676024/requests"
+      },
+      "updated": "2025-08-01T08:30:43.347055+00:00",
+      "recid": "16676024",
+      "revision": 5,
+      "files": [
+        {
+          "id": "eb92ae9d-4759-4c1a-b594-a64fd4cb2971",
+          "key": "figure.png",
+          "size": 4986579,
+          "checksum": "md5:0b775721b414076ffce06ed7688f7758",
+          "links": {
+            "self": "https://zenodo.org/api/records/16676024/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:30:42.525651+00:00",
+      "modified": "2025-08-01T08:30:42.744920+00:00",
+      "id": 16676018,
+      "conceptrecid": "6379973",
+      "doi": "10.5281/zenodo.16676018",
+      "conceptdoi": "10.5281/zenodo.6379973",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676018",
+      "metadata": {
+        "title": "Research Software Directory (as a service)",
+        "doi": "10.5281/zenodo.16676018",
+        "publication_date": "2025-08-01",
+        "description": "The Research Software Directory (as a service) is a content management system that is tailored to research software. Its main goal is to increase the visibility, impact and reuse of research software.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Cahen, Ewan Jacov",
+            "affiliation": "Netherlands eScience Center"
+          },
+          {
+            "name": "Mijatovic, Dusan",
+            "affiliation": "Netherlands eScience Center",
+            "orcid": "0000-0002-1898-4461"
+          },
+          {
+            "name": "Garcia Gonzalez, Jesus",
+            "affiliation": "Netherlands eScience Center",
+            "orcid": "0000-0002-2170-3253"
+          },
+          {
+            "name": "Maassen, Jason",
+            "affiliation": "Netherlands eScience Center",
+            "orcid": "0000-0002-8172-4865"
+          },
+          {
+            "name": "Jong, Maaike",
+            "affiliation": "Netherlands eScience Center",
+            "orcid": "0000-0003-4803-7411"
+          },
+          {
+            "name": "Mee\u00dfen, Christian",
+            "affiliation": "Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences",
+            "orcid": "0000-0001-8151-8722"
+          },
+          {
+            "name": "R\u00fcster, Matthias",
+            "affiliation": "Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences",
+            "orcid": "0000-0001-7305-9044"
+          },
+          {
+            "name": "Hanisch, Marc",
+            "affiliation": "Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences",
+            "orcid": "0000-0001-5272-4674"
+          },
+          {
+            "name": "Ziegner, Norman",
+            "affiliation": "Helmholtz Centre for Environmental Research GmbH - UFZ",
+            "orcid": "0000-0001-7579-216X"
+          },
+          {
+            "name": "Stock, Paula",
+            "affiliation": "Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences"
+          }
+        ],
+        "keywords": [
+          "Research Software",
+          "Software Citation",
+          "FAIR Sofware",
+          "Software Impact",
+          "Software Reuse"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/research-software-directory/RSD-as-a-service/tree/v4.1.0",
             "relation": "isSupplementTo",
             "resource_type": "software",
             "scheme": "url"
           }
         ],
-        "version": "v0.11.0",
+        "version": "v4.1.0",
         "custom": {
-          "code:codeRepository": "https://github.com/QuaSi-Software/resie"
+          "code:codeRepository": "https://github.com/research-software-directory/RSD-as-a-service"
         },
         "resource_type": {
           "title": "Software",
           "type": "software"
         },
         "license": {
-          "id": "mit-license"
+          "id": "apache2.0"
         },
+        "communities": [
+          {
+            "id": "nlesc"
+          }
+        ],
         "relations": {
           "version": [
             {
-              "index": 4,
+              "index": 79,
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "10492373"
+                "pid_value": "6379973"
               }
             }
           ]
-        }
+        },
+        "notes": "Please cite this software using the information provided in this file."
       },
-      "title": "QuaSi-Software/resie: v0.11.0",
+      "title": "Research Software Directory (as a service)",
       "links": {
-        "self": "https://zenodo.org/api/records/15118312",
-        "self_html": "https://zenodo.org/records/15118312",
-        "preview_html": "https://zenodo.org/records/15118312?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15118312",
-        "self_doi": "https://doi.org/10.5281/zenodo.15118312",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15118312",
-        "parent": "https://zenodo.org/api/records/10492373",
-        "parent_html": "https://zenodo.org/records/10492373",
-        "parent_doi": "https://doi.org/10.5281/zenodo.10492373",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10492373",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15118312/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15118312/sequence/default",
-        "files": "https://zenodo.org/api/records/15118312/files",
-        "media_files": "https://zenodo.org/api/records/15118312/media-files",
-        "archive": "https://zenodo.org/api/records/15118312/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15118312/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15118312/versions/latest",
-        "latest_html": "https://zenodo.org/records/15118312/latest",
-        "versions": "https://zenodo.org/api/records/15118312/versions",
-        "draft": "https://zenodo.org/api/records/15118312/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15118312/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15118312/access/links",
-        "access_grants": "https://zenodo.org/api/records/15118312/access/grants",
-        "access_users": "https://zenodo.org/api/records/15118312/access/users",
-        "access_request": "https://zenodo.org/api/records/15118312/access/request",
-        "access": "https://zenodo.org/api/records/15118312/access",
-        "communities": "https://zenodo.org/api/records/15118312/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15118312/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15118312/requests"
+        "self": "https://zenodo.org/api/records/16676018",
+        "self_html": "https://zenodo.org/records/16676018",
+        "preview_html": "https://zenodo.org/records/16676018?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676018",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676018",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676018",
+        "reserve_doi": "https://zenodo.org/api/records/16676018/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/6379973",
+        "parent_html": "https://zenodo.org/records/6379973",
+        "parent_doi": "https://doi.org/10.5281/zenodo.6379973",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.6379973",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676018/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676018/sequence/default",
+        "files": "https://zenodo.org/api/records/16676018/files",
+        "media_files": "https://zenodo.org/api/records/16676018/media-files",
+        "archive": "https://zenodo.org/api/records/16676018/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676018/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676018/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676018/latest",
+        "versions": "https://zenodo.org/api/records/16676018/versions",
+        "draft": "https://zenodo.org/api/records/16676018/draft",
+        "access_links": "https://zenodo.org/api/records/16676018/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676018/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676018/access/users",
+        "access_request": "https://zenodo.org/api/records/16676018/access/request",
+        "access": "https://zenodo.org/api/records/16676018/access",
+        "communities": "https://zenodo.org/api/records/16676018/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676018/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676018/requests"
       },
-      "updated": "2025-04-01T08:31:53.582009+00:00",
-      "recid": "15118312",
+      "updated": "2025-08-01T08:30:42.744920+00:00",
+      "recid": "16676018",
       "revision": 4,
       "files": [
         {
-          "id": "eeac3a46-8976-4e10-8f41-2025842087e7",
-          "key": "QuaSi-Software/resie-v0.11.0.zip",
-          "size": 58787170,
-          "checksum": "md5:f69253cebd7b685e813b996744e07153",
+          "id": "c7e9a20a-1591-42c0-8606-b867361d2fd3",
+          "key": "research-software-directory/RSD-as-a-service-v4.1.0.zip",
+          "size": 180542565,
+          "checksum": "md5:4b59a3a9bbda9a20b69710eead477421",
           "links": {
-            "self": "https://zenodo.org/api/records/15118312/files/QuaSi-Software/resie-v0.11.0.zip/content"
+            "self": "https://zenodo.org/api/records/16676018/files/research-software-directory/RSD-as-a-service-v4.1.0.zip/content"
           }
         }
       ],
-      "swh": {
-        "swhid": "swh:1:dir:6180801c3d33f452d27bed031306f79dd6d974c9;origin=https://doi.org/10.5281/zenodo.10492373;visit=swh:1:snp:b6ffaeef2c55a10aa55f1e7c9eebaa42ada13c62;anchor=swh:1:rel:a8b9b18b538e94f2937795d4fe0ce0a67ea8d29c;path=QuaSi-Software-resie-c2b7dc9"
-      },
+      "swh": {},
       "owners": [
         {
-          "id": "1010669"
+          "id": "19643"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 7,
-        "unique_downloads": 7,
-        "views": 69,
-        "unique_views": 57,
+        "downloads": 356,
+        "unique_downloads": 354,
+        "views": 16493,
+        "unique_views": 8999,
         "version_downloads": 0,
         "version_unique_downloads": 0,
         "version_unique_views": 0,
@@ -389,1029 +1062,101 @@
       "submitted": true
     },
     {
-      "created": "2025-04-01T08:30:18.457891+00:00",
-      "modified": "2025-04-01T08:30:18.787042+00:00",
-      "id": 15118295,
-      "conceptrecid": "15118294",
-      "doi": "10.5281/zenodo.15118295",
-      "conceptdoi": "10.5281/zenodo.15118294",
-      "doi_url": "https://doi.org/10.5281/zenodo.15118295",
+      "created": "2025-08-01T08:30:35.934545+00:00",
+      "modified": "2025-08-01T08:30:36.999000+00:00",
+      "id": 16676020,
+      "conceptrecid": "16676019",
+      "doi": "10.5281/zenodo.16676020",
+      "conceptdoi": "10.5281/zenodo.16676019",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676020",
       "metadata": {
-        "title": "Real-time traffic object detection using detectron 2 with faster R-CNN",
-        "doi": "10.5281/zenodo.15118295",
-        "publication_date": "2024-11-30",
-        "description": "<p>Object detection is becoming more and more important in daily life, especially in applications like advanced traffic analysis, intelligent driver assistance systems, and driverless cars. The accurate identification of objects from real-time video is crucial for effective traffic analysis. These systems play a vital role in providing drivers and authorities a comprehensive understanding of the road and surrounding environment. Modern algorithms and neural network-based architecture with extremely high detection accuracy, like Faster R-CNN are crucial to achieving this. This study investigates an advanced object detection system designed for urban traffic applications using an interactive Gradio interface and Detectron2&rsquo;s Faster R-CNN model. The research focuses on developing a model capable of identifying key traffic objects such as traffic lights, vehicles, buses, crossroads etc., with high accuracy and precision. A significant contribution of this study is the integration of Gradio-based interface that enables users to upload images or videos from their local storage or webcam and view the results in real time making the model both accessible and practical. Our findings demonstrate that the Detectron2 framework, paired with Gradio&rsquo;s interactive interface offers a reliable and scalable solution for traffic monitoring and safety applications.</p>",
+        "title": "Fig. 10 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+        "doi": "10.5281/zenodo.16676020",
+        "publication_date": "2025-07-28",
+        "description": "Fig. 10. Advertisement call of Pristimantis fouqueti sp. nov., holotype, \u2642 (MNHN-RA-2023.0003) recorded at Patawa camp, Kaw Mountain, French Guiana.",
         "access_right": "open",
         "creators": [
           {
-            "name": "Abiamamela Obi-Obuoha",
-            "affiliation": "AI Facilitator, National Centre for Artificial Intelligence and Robotics, National Information Technology Development Agency, Abuja, Nigeria."
+            "name": "M\u00f4nico, Alexander Tamanini",
+            "affiliation": "Coordena\u00e7\u00e3o de Biodiversidade, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
           },
           {
-            "name": "Victor Samuel Rizama",
-            "affiliation": "Intern, National Centre for Artificial Intelligence and Robotics, National Information Technology Development Agency, Abuja, Nigeria."
+            "name": "Courtois, Elodie A.",
+            "affiliation": "ENIA (Naturalist Expertise Instrumentation and Analysis), independent researcher, Remire-Montjoly, French Guiana."
           },
           {
-            "name": "Ifeanyichukwu Okafor",
-            "affiliation": "Intern, National Centre for Artificial Intelligence and Robotics, National Information Technology Development Agency, Abuja, Nigeria."
+            "name": "Koch, Esteban Diego",
+            "affiliation": "Programa de P\u00f3s-Gradua\u00e7\u00e3o em Gen\u00e9tica, Conserva\u00e7\u00e3o e Biologia Evolutiva, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
           },
           {
-            "name": "Haggai Edore Ovwenkekpere",
-            "affiliation": "Department of Electrical and Electronics Engineering, Petroleum Training Institute, Effurun, Delta, Nigeria."
+            "name": "Dewynter, Michel Blanc Ma\u00ebl",
+            "affiliation": null
           },
           {
-            "name": "Kehinde Obe",
-            "affiliation": "Department of Computer Science with Mathematics, Obafemi Awolowo University, Osun, Nigeria."
-          },
-          {
-            "name": "Jeremiah Ekundayo",
-            "affiliation": "Department of Library and Information Science, Ahmadu Bello University, Zaria, Kaduna, Nigeria."
+            "name": "Kok, Philippe J.R.",
+            "affiliation": "Department of Ecology and Vertebrate Zoology, Faculty of Biology and Environmental Protection, University of Lodz, Lodz, Poland. & Department of Life Sciences, The Natural History Museum, London, United Kingdom."
           }
         ],
         "keywords": [
-          "Detectron2",
-          "Faster R-CNN",
-          "Gradio",
-          "Intelligent Traffic System (ITS)",
-          "Object Detection",
-          "Real-time Detection."
-        ],
-        "language": "eng",
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
-        },
-        "journal": {
-          "issue": "2",
-          "pages": "2173\u20132189",
-          "title": "World Journal of Advanced Research and Reviews",
-          "volume": "24"
-        },
-        "alternate_identifiers": [
-          {
-            "identifier": "10.30574/wjarr.2024.24.2.3559"
-          }
-        ],
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "communities": [
-          {
-            "id": "wjarr"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15118294"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Real-time traffic object detection using detectron 2 with faster R-CNN",
-      "links": {
-        "self": "https://zenodo.org/api/records/15118295",
-        "self_html": "https://zenodo.org/records/15118295",
-        "preview_html": "https://zenodo.org/records/15118295?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15118295",
-        "self_doi": "https://doi.org/10.5281/zenodo.15118295",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15118295",
-        "parent": "https://zenodo.org/api/records/15118294",
-        "parent_html": "https://zenodo.org/records/15118294",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15118294",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15118294",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15118295/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15118295/sequence/default",
-        "files": "https://zenodo.org/api/records/15118295/files",
-        "media_files": "https://zenodo.org/api/records/15118295/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:15118295:WJARR-2024-3559.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:15118295:WJARR-2024-3559.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:15118295:WJARR-2024-3559.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:15118295:WJARR-2024-3559.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:15118295:WJARR-2024-3559.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:15118295:WJARR-2024-3559.pdf/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/15118295/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15118295/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15118295/versions/latest",
-        "latest_html": "https://zenodo.org/records/15118295/latest",
-        "versions": "https://zenodo.org/api/records/15118295/versions",
-        "draft": "https://zenodo.org/api/records/15118295/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15118295/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15118295/access/links",
-        "access_grants": "https://zenodo.org/api/records/15118295/access/grants",
-        "access_users": "https://zenodo.org/api/records/15118295/access/users",
-        "access_request": "https://zenodo.org/api/records/15118295/access/request",
-        "access": "https://zenodo.org/api/records/15118295/access",
-        "communities": "https://zenodo.org/api/records/15118295/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15118295/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15118295/requests"
-      },
-      "updated": "2025-04-01T08:30:18.787042+00:00",
-      "recid": "15118295",
-      "revision": 4,
-      "files": [
-        {
-          "id": "3e3972ac-aef4-4414-a237-e722209e2802",
-          "key": "WJARR-2024-3559.pdf",
-          "size": 804799,
-          "checksum": "md5:51bd2960f751b4c8454ff1fe4121ea0e",
-          "links": {
-            "self": "https://zenodo.org/api/records/15118295/files/WJARR-2024-3559.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "155121"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 0,
-        "unique_downloads": 0,
-        "views": 0,
-        "unique_views": 0,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-04-01T08:27:37.408398+00:00",
-      "modified": "2025-04-01T08:27:37.776426+00:00",
-      "id": 15118271,
-      "conceptrecid": "11654167",
-      "doi": "10.5281/zenodo.15118271",
-      "conceptdoi": "10.5281/zenodo.11654167",
-      "doi_url": "https://doi.org/10.5281/zenodo.15118271",
-      "metadata": {
-        "title": "Bentonite-based LC3 low carbon cements  and activation by C-S-H nucleation seeding.",
-        "doi": "10.5281/zenodo.15118271",
-        "publication_date": "2025-03-12",
-        "description": "<p>Laboratory X-ray powder diffraction (raw clay, &lt;2 &micro;m clay fraction, calcined clay: bentonite-LC3&nbsp;and quartz-containing pastes at 1, 7 and 28 days)</p>\n<p>Thermal analysis (raw clays and bentonite-LC3&nbsp;pastes at 1, 7 and 28 days)</p>\n<p>Particle size distribution by laser diffraction (raw and calcined clays)</p>\n<p>Isothermal calorimetry (R3 calcined clays, bentonite-LC3 pastes)</p>\n<p>Mercury intrusion porosimetry (bentonite-LC3 pastes at 1 and 28 days)</p>\n<p>&nbsp;</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Vallina, Diego",
-            "affiliation": "University of M\u00e1laga"
-          },
-          {
-            "name": "Rodr\u00edguez-Ruiz, Maria Dolores",
-            "affiliation": "University Of M\u00e1laga"
-          },
-          {
-            "name": "Morales -Cantero, Alejandro",
-            "affiliation": "University of M\u00e1laga"
-          },
-          {
-            "name": "Cuesta, Ana",
-            "affiliation": "University of M\u00e1laga"
-          },
-          {
-            "name": "Santacruz, Isabel",
-            "affiliation": "University Of M\u00e1laga"
-          },
-          {
-            "name": "Dalla-Libera, Alessandro",
-            "affiliation": "Master Builders Solutions Italy"
-          },
-          {
-            "name": "Borralleras, Pere",
-            "affiliation": "Master Builders Solutions Spain"
-          },
-          {
-            "name": "Dhers, Sebastien",
-            "affiliation": "Master Builders Solutions Deutschland"
-          },
-          {
-            "name": "Schwesig, Peter",
-            "affiliation": "Master Builders Solutions Deutschland"
-          },
-          {
-            "name": "Mazanec, Oliver",
-            "affiliation": "Master Builders Solutions Italy"
-          },
-          {
-            "name": "Aranda, Miguel A.G.",
-            "affiliation": "University Of M\u00e1laga"
-          },
-          {
-            "name": "De la Torre, Angeles G.",
-            "affiliation": "University Of M\u00e1laga"
-          }
-        ],
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
-        },
-        "journal": {
-          "title": "Cement and Concrete Composites"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 2,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "11654167"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Bentonite-based LC3 low carbon cements  and activation by C-S-H nucleation seeding.",
-      "links": {
-        "self": "https://zenodo.org/api/records/15118271",
-        "self_html": "https://zenodo.org/records/15118271",
-        "preview_html": "https://zenodo.org/records/15118271?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15118271",
-        "self_doi": "https://doi.org/10.5281/zenodo.15118271",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15118271",
-        "parent": "https://zenodo.org/api/records/11654167",
-        "parent_html": "https://zenodo.org/records/11654167",
-        "parent_doi": "https://doi.org/10.5281/zenodo.11654167",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.11654167",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15118271/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15118271/sequence/default",
-        "files": "https://zenodo.org/api/records/15118271/files",
-        "media_files": "https://zenodo.org/api/records/15118271/media-files",
-        "archive": "https://zenodo.org/api/records/15118271/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15118271/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15118271/versions/latest",
-        "latest_html": "https://zenodo.org/records/15118271/latest",
-        "versions": "https://zenodo.org/api/records/15118271/versions",
-        "draft": "https://zenodo.org/api/records/15118271/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15118271/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15118271/access/links",
-        "access_grants": "https://zenodo.org/api/records/15118271/access/grants",
-        "access_users": "https://zenodo.org/api/records/15118271/access/users",
-        "access_request": "https://zenodo.org/api/records/15118271/access/request",
-        "access": "https://zenodo.org/api/records/15118271/access",
-        "communities": "https://zenodo.org/api/records/15118271/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15118271/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15118271/requests"
-      },
-      "updated": "2025-04-01T08:27:37.776426+00:00",
-      "recid": "15118271",
-      "revision": 4,
-      "files": [
-        {
-          "id": "fa43d32f-ec9a-485e-b391-632e1939ed4d",
-          "key": "Calorimetry.rar",
-          "size": 20207131,
-          "checksum": "md5:56b565f0f4544c86cfbf85db811dddad",
-          "links": {
-            "self": "https://zenodo.org/api/records/15118271/files/Calorimetry.rar/content"
-          }
-        },
-        {
-          "id": "3525c2bc-3235-48eb-92d7-5495a70b64da",
-          "key": "PSD.rar",
-          "size": 848572,
-          "checksum": "md5:1c04078775cfcc26822b4dff5911ecac",
-          "links": {
-            "self": "https://zenodo.org/api/records/15118271/files/PSD.rar/content"
-          }
-        },
-        {
-          "id": "c4b9c899-d7c6-4d25-9d0b-55b808756c80",
-          "key": "XRD.rar",
-          "size": 1886351,
-          "checksum": "md5:c7b5eda6a75d767627ee5d7ee31fd94e",
-          "links": {
-            "self": "https://zenodo.org/api/records/15118271/files/XRD.rar/content"
-          }
-        },
-        {
-          "id": "c2e4faab-3b23-40a0-a6dd-0ad388af264a",
-          "key": "ATD.rar",
-          "size": 3973695,
-          "checksum": "md5:c8a1bf7faa5512f113c371f41a8b04dd",
-          "links": {
-            "self": "https://zenodo.org/api/records/15118271/files/ATD.rar/content"
-          }
-        },
-        {
-          "id": "d2c7268d-ae98-4ce8-8c76-ef47cbc144d7",
-          "key": "MIP.rar",
-          "size": 315142,
-          "checksum": "md5:467eb57b5bdcf158ed83c76ec245df5f",
-          "links": {
-            "self": "https://zenodo.org/api/records/15118271/files/MIP.rar/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "588060"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 37,
-        "unique_downloads": 37,
-        "views": 81,
-        "unique_views": 59,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-04-01T08:25:29.203356+00:00",
-      "modified": "2025-04-01T08:25:29.387534+00:00",
-      "id": 15118187,
-      "conceptrecid": "15118186",
-      "doi": "10.1101/2025.03.25.645164",
-      "doi_url": "https://doi.org/10.1101/2025.03.25.645164",
-      "metadata": {
-        "title": "DGrowthR-App: Statistical end-to-end analysis of large-scale microbial growth data",
-        "doi": "10.1101/2025.03.25.645164",
-        "publication_date": "2025-04-01",
-        "description": "<p>A standalone application for the integrative analysis of large growth experiments. DGrowthR-App comprises methods for data pre-processing and standardization, exploratory functional data analysis, and non-parametric modeling of growth curves using Gaussian Process regression. Importantly, DGrowthR-App includes a rigorous statistical testing framework for differential growth analysis.</p>\n<p>This download provides the standalone application for Apple Mac (Intel and Arm) and Windows platforms.</p>\n<p><strong>Privacy Note:</strong> Using this download, you don't have to upload your data anywhere. You can use the software on your computer locally, ensuring your research data remains completely private and secure.</p>\n<p>For the complete R package and documentation, please visit:</p>\n<ul>\n<li>GitHub: <a href=\"https://github.com/bio-datascience/DGrowthR\">https://github.com/bio-datascience/DGrowthR</a></li>\n<li>Manual: <a href=\"https://bio-datascience.github.io/DGrowthR/\">https://bio-datascience.github.io/DGrowthR/</a></li>\n</ul>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Feldl, Medina",
-            "affiliation": "Helmholtz Munich",
-            "orcid": "0009-0001-0360-610X"
-          },
-          {
-            "name": "Olayo Alarc\u00f3n, Roberto",
-            "affiliation": "Ludwig-Maximilians-Universit\u00e4t M\u00fcnchen",
-            "orcid": "0000-0002-5459-5420"
-          }
-        ],
-        "keywords": [
-          "Gaussian Process",
-          "Growth Curves",
-          "Microbial Statistics"
-        ],
-        "references": [
-          "https://www.biorxiv.org/content/10.1101/2025.03.25.645164v2"
-        ],
-        "custom": {
-          "code:codeRepository": "https://github.com/bio-datascience/DGrowthR",
-          "code:programmingLanguage": [
-            {
-              "id": "r",
-              "title": {
-                "en": "R"
-              }
-            }
-          ],
-          "code:developmentStatus": {
-            "id": "active",
-            "title": {
-              "en": "Active"
-            }
-          }
-        },
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15118186"
-              }
-            }
-          ]
-        }
-      },
-      "title": "DGrowthR-App: Statistical end-to-end analysis of large-scale microbial growth data",
-      "links": {
-        "self": "https://zenodo.org/api/records/15118187",
-        "self_html": "https://zenodo.org/records/15118187",
-        "preview_html": "https://zenodo.org/records/15118187?preview=1",
-        "doi": "https://doi.org/10.1101/2025.03.25.645164",
-        "self_doi": "https://doi.org/10.1101/2025.03.25.645164",
-        "self_doi_html": "https://zenodo.org/doi/10.1101/2025.03.25.645164",
-        "parent": "https://zenodo.org/api/records/15118186",
-        "parent_html": "https://zenodo.org/records/15118186",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15118187/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15118187/sequence/default",
-        "files": "https://zenodo.org/api/records/15118187/files",
-        "media_files": "https://zenodo.org/api/records/15118187/media-files",
-        "archive": "https://zenodo.org/api/records/15118187/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15118187/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15118187/versions/latest",
-        "latest_html": "https://zenodo.org/records/15118187/latest",
-        "versions": "https://zenodo.org/api/records/15118187/versions",
-        "draft": "https://zenodo.org/api/records/15118187/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15118187/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15118187/access/links",
-        "access_grants": "https://zenodo.org/api/records/15118187/access/grants",
-        "access_users": "https://zenodo.org/api/records/15118187/access/users",
-        "access_request": "https://zenodo.org/api/records/15118187/access/request",
-        "access": "https://zenodo.org/api/records/15118187/access",
-        "communities": "https://zenodo.org/api/records/15118187/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15118187/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15118187/requests"
-      },
-      "updated": "2025-04-01T08:25:29.387534+00:00",
-      "recid": "15118187",
-      "revision": 4,
-      "files": [
-        {
-          "id": "b08acba5-7700-4f55-b8cf-45d727f9c2ab",
-          "key": "Windows.zip",
-          "size": 234951986,
-          "checksum": "md5:5ad6a4a3747a41a7a2d44cb4816eff73",
-          "links": {
-            "self": "https://zenodo.org/api/records/15118187/files/Windows.zip/content"
-          }
-        },
-        {
-          "id": "a2908cbc-728d-40ef-8889-37ed90fbd85b",
-          "key": "Apple.zip",
-          "size": 395140698,
-          "checksum": "md5:ca360c8da545d4eacb8278c75311c675",
-          "links": {
-            "self": "https://zenodo.org/api/records/15118187/files/Apple.zip/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1293428"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 0,
-        "unique_downloads": 0,
-        "views": 0,
-        "unique_views": 0,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-04-01T08:21:37.101924+00:00",
-      "modified": "2025-04-01T08:21:37.290745+00:00",
-      "id": 15118265,
-      "conceptrecid": "15118264",
-      "doi": "10.5281/zenodo.15118265",
-      "conceptdoi": "10.5281/zenodo.15118264",
-      "doi_url": "https://doi.org/10.5281/zenodo.15118265",
-      "metadata": {
-        "title": "Exploring the landscape: Applications and comparative analysis of object detection algorithms",
-        "doi": "10.5281/zenodo.15118265",
-        "publication_date": "2024-11-30",
-        "description": "<div>The review provides an in-depth overview of object detection algorithms in computer vision, addressing a broad spectrum of methods and techniques. It thoroughly examines key algorithms such as HOG, R-CNN, SSD, and YOLO, highlighting their respective strengths and limitations. By assessing the performance of each algorithm in various scenarios, the review offers insights into their practical applications across diverse fields, such as surveillance, healthcare, and autonomous systems. Additionally, it discusses current challenges faced in object detection, such as balancing speed and accuracy, and outlines potential research directions aimed at enhancing robustness, efficiency, and adaptability in future applications.</div>\n<div>&nbsp;</div>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Harshita Mathur",
-            "affiliation": "Faculty of Computer Science, Lachoo Memorial College of Science and Technology (Autonomous), Jodhpur, Rajasthan, India."
-          },
-          {
-            "name": "Vaibhav Gupta",
-            "affiliation": "Faculty of Computer Science, Lachoo Memorial College of Science and Technology (Autonomous), Jodhpur, Rajasthan, India."
-          }
-        ],
-        "keywords": [
-          "Computer vision",
-          "Deep learning",
-          "DPM",
-          "HOG",
-          "Object detection",
-          "R-CNN",
-          "SSD",
-          "YOLO"
-        ],
-        "language": "eng",
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
-        },
-        "journal": {
-          "issue": "2",
-          "pages": "2157\u20132163",
-          "title": "World Journal of Advanced Research and Reviews",
-          "volume": "24"
-        },
-        "alternate_identifiers": [
-          {
-            "identifier": "10.30574/wjarr.2024.24.2.3584"
-          }
-        ],
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "communities": [
-          {
-            "id": "wjarr"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15118264"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Exploring the landscape: Applications and comparative analysis of object detection algorithms",
-      "links": {
-        "self": "https://zenodo.org/api/records/15118265",
-        "self_html": "https://zenodo.org/records/15118265",
-        "preview_html": "https://zenodo.org/records/15118265?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15118265",
-        "self_doi": "https://doi.org/10.5281/zenodo.15118265",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15118265",
-        "parent": "https://zenodo.org/api/records/15118264",
-        "parent_html": "https://zenodo.org/records/15118264",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15118264",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15118264",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15118265/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15118265/sequence/default",
-        "files": "https://zenodo.org/api/records/15118265/files",
-        "media_files": "https://zenodo.org/api/records/15118265/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:15118265:WJARR-2024-3584.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:15118265:WJARR-2024-3584.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:15118265:WJARR-2024-3584.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:15118265:WJARR-2024-3584.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:15118265:WJARR-2024-3584.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:15118265:WJARR-2024-3584.pdf/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/15118265/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15118265/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15118265/versions/latest",
-        "latest_html": "https://zenodo.org/records/15118265/latest",
-        "versions": "https://zenodo.org/api/records/15118265/versions",
-        "draft": "https://zenodo.org/api/records/15118265/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15118265/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15118265/access/links",
-        "access_grants": "https://zenodo.org/api/records/15118265/access/grants",
-        "access_users": "https://zenodo.org/api/records/15118265/access/users",
-        "access_request": "https://zenodo.org/api/records/15118265/access/request",
-        "access": "https://zenodo.org/api/records/15118265/access",
-        "communities": "https://zenodo.org/api/records/15118265/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15118265/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15118265/requests"
-      },
-      "updated": "2025-04-01T08:21:37.290745+00:00",
-      "recid": "15118265",
-      "revision": 4,
-      "files": [
-        {
-          "id": "348d1e93-6b6f-4f15-8f3a-aa7923dc35bd",
-          "key": "WJARR-2024-3584.pdf",
-          "size": 574922,
-          "checksum": "md5:9a08ad6969dfc47c289f742b9926279b",
-          "links": {
-            "self": "https://zenodo.org/api/records/15118265/files/WJARR-2024-3584.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "155121"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 0,
-        "unique_downloads": 0,
-        "views": 0,
-        "unique_views": 0,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-04-01T08:20:54.028406+00:00",
-      "modified": "2025-04-01T08:20:54.272055+00:00",
-      "id": 15118091,
-      "conceptrecid": "15118090",
-      "doi": "10.3390/engproc2025090087",
-      "doi_url": "https://doi.org/10.3390/engproc2025090087",
-      "metadata": {
-        "title": "Assessing Advanced Propulsion Systems Using the Impact Monitor Framework",
-        "doi": "10.3390/engproc2025090087",
-        "publication_date": "2025-03-18",
-        "description": "<p>Presented in this paper is the Impact Monitor framework and interactive Dashboard Application (DA) validated through a use case, focusing on investigating the viability<br>and competitiveness of future propulsion architectures for next-generation aircraft concepts. This paper presents a novel collaborative framework for integrated aircraft-level assessments, focusing on secure, remote workflows that protect intellectual property (IP) while enabling comprehensive and automated analyses. The research addresses a key gap in the aerospace domain: the seamless matching and sizing of aircraft engines within an automated workflow that integrates multiple tools and facilitates real-time data exchanges. Specifically, thrust requirements are iteratively shared between aircraft and engine modeling environments for synchronized sizing. Subsequently, the fully defined aircraft data are transferred to other tools for trajectory analysis and emissions and other assessments. The Impact Monitor framework and Dashboard Application demonstrate improved efficiency and data security, promoting effective collaboration across institutions and industry partners.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Gupta, Utkarsh",
-            "affiliation": "Cranfield University",
-            "orcid": "0009-0000-1329-6064"
-          },
-          {
-            "name": "Riaz, Atif",
-            "affiliation": "Cranfield University",
-            "orcid": "0000-0001-8383-8826"
-          },
-          {
-            "name": "Brenner, Felix",
-            "affiliation": null,
-            "orcid": "0000-0002-9765-6035"
-          },
-          {
-            "name": "Thierry, Lefebvre",
-            "affiliation": "ONERA Toulouse",
-            "orcid": "0009-0004-6800-2448"
-          },
-          {
-            "name": "Ratei, Patrick",
-            "affiliation": null,
-            "orcid": "0000-0002-5161-8025"
-          },
-          {
-            "name": "Alder, Marko",
-            "affiliation": "Deutsches Zentrum f\u00fcr Luft- und Raumfahrt e. V. (DLR)",
-            "orcid": "0000-0001-7439-2500"
-          },
-          {
-            "name": "Shiva Prakasha, Prajwal",
-            "affiliation": null,
-            "orcid": "0000-0001-5694-5538"
-          },
-          {
-            "name": "Weber, Lukas",
-            "affiliation": null,
-            "orcid": "0000-0003-1554-7757"
-          },
-          {
-            "name": "Pons-Prats, Jordi",
-            "affiliation": null,
-            "orcid": "0000-0002-4930-9135"
-          },
-          {
-            "name": "Markatos, Dionysios",
-            "affiliation": null,
-            "orcid": "0000-0001-8265-7708"
-          }
-        ],
-        "resource_type": {
-          "title": "Conference proceeding",
-          "type": "publication",
-          "subtype": "conferenceproceeding"
-        },
-        "journal": {
-          "issue": "1",
-          "pages": "87",
-          "title": "Engineering Proceedings",
-          "volume": "90"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "grants": [
-          {
-            "code": "101097011",
-            "internal_id": "10.13039/501100000780::101097011",
-            "funder": {
-              "name": "European Commission",
-              "doi": "10.13039/501100000780",
-              "acronym": "EC"
-            },
-            "title": "Impact Monitor",
-            "acronym": "Impact Monitor",
-            "program": "HORIZON.2.5",
-            "url": "https://cordis.europa.eu/projects/101097011"
-          }
-        ],
-        "communities": [
-          {
-            "id": "impactmonitor"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15118090"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Assessing Advanced Propulsion Systems Using the Impact Monitor Framework",
-      "links": {
-        "self": "https://zenodo.org/api/records/15118091",
-        "self_html": "https://zenodo.org/records/15118091",
-        "preview_html": "https://zenodo.org/records/15118091?preview=1",
-        "doi": "https://doi.org/10.3390/engproc2025090087",
-        "self_doi": "https://doi.org/10.3390/engproc2025090087",
-        "self_doi_html": "https://zenodo.org/doi/10.3390/engproc2025090087",
-        "parent": "https://zenodo.org/api/records/15118090",
-        "parent_html": "https://zenodo.org/records/15118090",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15118091/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15118091/sequence/default",
-        "files": "https://zenodo.org/api/records/15118091/files",
-        "media_files": "https://zenodo.org/api/records/15118091/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:15118091:engproc-90-00087.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:15118091:engproc-90-00087.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:15118091:engproc-90-00087.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:15118091:engproc-90-00087.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:15118091:engproc-90-00087.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:15118091:engproc-90-00087.pdf/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/15118091/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15118091/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15118091/versions/latest",
-        "latest_html": "https://zenodo.org/records/15118091/latest",
-        "versions": "https://zenodo.org/api/records/15118091/versions",
-        "draft": "https://zenodo.org/api/records/15118091/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15118091/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15118091/access/links",
-        "access_grants": "https://zenodo.org/api/records/15118091/access/grants",
-        "access_users": "https://zenodo.org/api/records/15118091/access/users",
-        "access_request": "https://zenodo.org/api/records/15118091/access/request",
-        "access": "https://zenodo.org/api/records/15118091/access",
-        "communities": "https://zenodo.org/api/records/15118091/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15118091/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15118091/requests"
-      },
-      "updated": "2025-04-01T08:20:54.272055+00:00",
-      "recid": "15118091",
-      "revision": 4,
-      "files": [
-        {
-          "id": "1ca526d8-5f8b-44f8-be19-3f8e515b4e5a",
-          "key": "engproc-90-00087.pdf",
-          "size": 3825907,
-          "checksum": "md5:806d8d4c5335e2ed7d8da50497f645e6",
-          "links": {
-            "self": "https://zenodo.org/api/records/15118091/files/engproc-90-00087.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1057573"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 2,
-        "unique_downloads": 1,
-        "views": 0,
-        "unique_views": 0,
-        "version_downloads": 2,
-        "version_unique_downloads": 1,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-04-01T08:20:03.306245+00:00",
-      "modified": "2025-04-01T08:20:03.698925+00:00",
-      "id": 15117981,
-      "conceptrecid": "15117980",
-      "doi": "10.3390/engproc2025090061",
-      "doi_url": "https://doi.org/10.3390/engproc2025090061",
-      "metadata": {
-        "title": "Impact Monitor Framework: Development and Implementation of a Collaborative Framework for Aviation Impact Assessment",
-        "doi": "10.3390/engproc2025090061",
-        "publication_date": "2025-03-18",
-        "description": "<p>The development and implementation of a collaborative framework for aviation impact assessment studies is presented. The focus is on which technologies can be used to enable the collaborative aspect, including the use of a common data model, the secure transfer of data between domain experts in different locations, and the automated execution of impact assessment workflows. It is demonstrated how the selected technologies can be extended to meet the requirements of air transport systems assessment and how they can be integrated into a common framework. The results of the developments are discussed in terms of their technical capabilities and the lessons learned from their practical use. The proposed framework shows that collaborative impact assessment studies can be conducted efficiently and securely. This forms the basis for three application studies in the same research project.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Alder, Marko",
-            "affiliation": "Deutsches Zentrum f\u00fcr Luft- und Raumfahrt e. V. (DLR)",
-            "orcid": "0000-0001-7439-2500"
-          },
-          {
-            "name": "Ratei, Patrick",
-            "affiliation": null,
-            "orcid": "0000-0002-5161-8025"
-          },
-          {
-            "name": "Riaz, Atif",
-            "affiliation": "Cranfield University",
-            "orcid": "0000-0001-8383-8826"
-          },
-          {
-            "name": "Gupta, Utkarsh",
-            "affiliation": "Cranfield University",
-            "orcid": "0009-0000-1329-6064"
-          },
-          {
-            "name": "Thierry, Lefebvre",
-            "affiliation": "ONERA Toulouse",
-            "orcid": "0009-0004-6800-2448"
-          },
-          {
-            "name": "Shiva Prakasha, Prajwal",
-            "affiliation": null,
-            "orcid": "0000-0001-5694-5538"
-          }
-        ],
-        "resource_type": {
-          "title": "Conference proceeding",
-          "type": "publication",
-          "subtype": "conferenceproceeding"
-        },
-        "journal": {
-          "issue": "1",
-          "pages": "61",
-          "title": "Engineering Proceedings",
-          "volume": "90"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "grants": [
-          {
-            "code": "101097011",
-            "internal_id": "10.13039/501100000780::101097011",
-            "funder": {
-              "name": "European Commission",
-              "doi": "10.13039/501100000780",
-              "acronym": "EC"
-            },
-            "title": "Impact Monitor",
-            "acronym": "Impact Monitor",
-            "program": "HORIZON.2.5",
-            "url": "https://cordis.europa.eu/projects/101097011"
-          }
-        ],
-        "communities": [
-          {
-            "id": "impactmonitor"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15117980"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Impact Monitor Framework: Development and Implementation of a Collaborative Framework for Aviation Impact Assessment",
-      "links": {
-        "self": "https://zenodo.org/api/records/15117981",
-        "self_html": "https://zenodo.org/records/15117981",
-        "preview_html": "https://zenodo.org/records/15117981?preview=1",
-        "doi": "https://doi.org/10.3390/engproc2025090061",
-        "self_doi": "https://doi.org/10.3390/engproc2025090061",
-        "self_doi_html": "https://zenodo.org/doi/10.3390/engproc2025090061",
-        "parent": "https://zenodo.org/api/records/15117980",
-        "parent_html": "https://zenodo.org/records/15117980",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15117981/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15117981/sequence/default",
-        "files": "https://zenodo.org/api/records/15117981/files",
-        "media_files": "https://zenodo.org/api/records/15117981/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:15117981:engproc-90-00061.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:15117981:engproc-90-00061.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:15117981:engproc-90-00061.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:15117981:engproc-90-00061.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:15117981:engproc-90-00061.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:15117981:engproc-90-00061.pdf/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/15117981/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15117981/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15117981/versions/latest",
-        "latest_html": "https://zenodo.org/records/15117981/latest",
-        "versions": "https://zenodo.org/api/records/15117981/versions",
-        "draft": "https://zenodo.org/api/records/15117981/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15117981/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15117981/access/links",
-        "access_grants": "https://zenodo.org/api/records/15117981/access/grants",
-        "access_users": "https://zenodo.org/api/records/15117981/access/users",
-        "access_request": "https://zenodo.org/api/records/15117981/access/request",
-        "access": "https://zenodo.org/api/records/15117981/access",
-        "communities": "https://zenodo.org/api/records/15117981/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15117981/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15117981/requests"
-      },
-      "updated": "2025-04-01T08:20:03.698925+00:00",
-      "recid": "15117981",
-      "revision": 4,
-      "files": [
-        {
-          "id": "17c685af-12ab-4f61-bfd6-b70a822f76a0",
-          "key": "engproc-90-00061.pdf",
-          "size": 1606673,
-          "checksum": "md5:0009c081d206fffb47d87d8d8f8e2af1",
-          "links": {
-            "self": "https://zenodo.org/api/records/15117981/files/engproc-90-00061.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1057573"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 5,
-        "unique_downloads": 1,
-        "views": 0,
-        "unique_views": 0,
-        "version_downloads": 5,
-        "version_unique_downloads": 1,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-04-01T08:19:18.001621+00:00",
-      "modified": "2025-04-01T08:19:18.178724+00:00",
-      "id": 15117971,
-      "conceptrecid": "15117970",
-      "doi": "10.5281/zenodo.15117971",
-      "conceptdoi": "10.5281/zenodo.15117970",
-      "doi_url": "https://doi.org/10.5281/zenodo.15117971",
-      "metadata": {
-        "title": "SCOIR Institutional Open Access Policy Report",
-        "doi": "10.5281/zenodo.15117971",
-        "publication_date": "2025-04-01",
-        "description": "<p><span>The SCOIR project is two-year project (2023-2025) funded by the&nbsp;</span><span><a href=\"https://norf.ie/\"><span>National Open Research Forum (NORF)</span></a></span><span>. SCOIR aims to support the goal of 100% open access to publicly-funded research publications by adopting a two-pronged approach to policy and legislative change:</span></p>\n<p><span>1.&nbsp;&nbsp;&nbsp;&nbsp; Develop a secondary publishing right for Ireland, drafting legislation in support of secondary publication rights based on an analysis of international and Irish law.</span></p>\n<p><span>2.&nbsp;&nbsp;&nbsp;&nbsp; Develop an open access policy framework for both funders and institutions that is aligned with the&nbsp;</span><span><a href=\"https://norf.ie/wp-content/uploads/2022/11/National-Action-Plan-for-Open-Research-webversion.pdf\"><span>National Action Plan for Open Research</span></a></span><span>&nbsp;and international best practice.</span></p>\n<p><span>The project is jointly led by&nbsp;</span><span><a href=\"https://www.tcd.ie/\"><span>Trinity College Dublin</span></a></span><span>&nbsp;and&nbsp;</span><span><a href=\"https://www.tudublin.ie/\"><span>Technological University Dublin</span></a></span><span>&nbsp;and is supported by a consortium of a wide range of partners and affiliates along with an international advisory board.</span></p>\n<p><span>This document is an outcome of (2) above.</span></p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "SCOIR Project",
-            "affiliation": "Trinity College Dublin"
-          }
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Amphibia",
+          "Anura",
+          "Craugastoridae",
+          "Pristimantis"
         ],
         "related_identifiers": [
           {
-            "identifier": "10.5281/zenodo.15114072",
-            "relation": "describes",
-            "resource_type": "publication-deliverable",
+            "identifier": "10.5852/ejt.2025.1004.2977",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
             "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/16675974",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C704F4A361311A5FE93FBB9",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
           }
         ],
-        "language": "eng",
         "resource_type": {
-          "title": "Project deliverable",
-          "type": "publication",
-          "subtype": "deliverable"
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "pages": "259-293",
+          "title": "European Journal of Taxonomy",
+          "volume": "1004"
         },
         "license": {
           "id": "cc-by-4.0"
         },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
         "relations": {
           "version": [
             {
@@ -1419,70 +1164,439 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "15117970"
+                "pid_value": "16676019"
               }
             }
           ]
-        }
-      },
-      "title": "SCOIR Institutional Open Access Policy Report",
-      "links": {
-        "self": "https://zenodo.org/api/records/15117971",
-        "self_html": "https://zenodo.org/records/15117971",
-        "preview_html": "https://zenodo.org/records/15117971?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15117971",
-        "self_doi": "https://doi.org/10.5281/zenodo.15117971",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15117971",
-        "parent": "https://zenodo.org/api/records/15117970",
-        "parent_html": "https://zenodo.org/records/15117970",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15117970",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15117970",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15117971/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15117971/sequence/default",
-        "files": "https://zenodo.org/api/records/15117971/files",
-        "media_files": "https://zenodo.org/api/records/15117971/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:15117971:SCOIR%20Institutional%20Open%20Access%20Policy%20Report.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:15117971:SCOIR%20Institutional%20Open%20Access%20Policy%20Report.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:15117971:SCOIR%20Institutional%20Open%20Access%20Policy%20Report.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:15117971:SCOIR%20Institutional%20Open%20Access%20Policy%20Report.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:15117971:SCOIR%20Institutional%20Open%20Access%20Policy%20Report.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:15117971:SCOIR%20Institutional%20Open%20Access%20Policy%20Report.pdf/full/^1200,/0/default.jpg"
         },
-        "archive": "https://zenodo.org/api/records/15117971/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15117971/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15117971/versions/latest",
-        "latest_html": "https://zenodo.org/records/15117971/latest",
-        "versions": "https://zenodo.org/api/records/15117971/versions",
-        "draft": "https://zenodo.org/api/records/15117971/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15117971/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15117971/access/links",
-        "access_grants": "https://zenodo.org/api/records/15117971/access/grants",
-        "access_users": "https://zenodo.org/api/records/15117971/access/users",
-        "access_request": "https://zenodo.org/api/records/15117971/access/request",
-        "access": "https://zenodo.org/api/records/15117971/access",
-        "communities": "https://zenodo.org/api/records/15117971/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15117971/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15117971/requests"
+        "notes": "Published as part of <i>M\u00f4nico, Alexander Tamanini, Courtois, Elodie A., Koch, Esteban Diego, Dewynter, Michel Blanc Ma\u00ebl &amp; Kok, Philippe J.R., 2025, Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands, pp. 259-293 in European Journal of Taxonomy 1004</i> on page 278, DOI: 10.5852/ejt.2025.1004.2977, <a href=\"http://zenodo.org/record/16675974\">http://zenodo.org/record/16675974</a>"
       },
-      "updated": "2025-04-01T08:19:18.178724+00:00",
-      "recid": "15117971",
-      "revision": 4,
+      "title": "Fig. 10 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+      "links": {
+        "self": "https://zenodo.org/api/records/16676020",
+        "self_html": "https://zenodo.org/records/16676020",
+        "preview_html": "https://zenodo.org/records/16676020?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676020",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676020",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676020",
+        "reserve_doi": "https://zenodo.org/api/records/16676020/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16676019",
+        "parent_html": "https://zenodo.org/records/16676019",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16676019",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676019",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676020/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676020/sequence/default",
+        "files": "https://zenodo.org/api/records/16676020/files",
+        "media_files": "https://zenodo.org/api/records/16676020/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16676020:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16676020:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16676020:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16676020:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16676020:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16676020:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16676020/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676020/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676020/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676020/latest",
+        "versions": "https://zenodo.org/api/records/16676020/versions",
+        "draft": "https://zenodo.org/api/records/16676020/draft",
+        "access_links": "https://zenodo.org/api/records/16676020/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676020/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676020/access/users",
+        "access_request": "https://zenodo.org/api/records/16676020/access/request",
+        "access": "https://zenodo.org/api/records/16676020/access",
+        "communities": "https://zenodo.org/api/records/16676020/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676020/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676020/requests"
+      },
+      "updated": "2025-08-01T08:30:36.999000+00:00",
+      "recid": "16676020",
+      "revision": 5,
       "files": [
         {
-          "id": "dda74e97-2662-4a33-8977-55debd901649",
-          "key": "SCOIR Institutional Open Access Policy Report.pdf",
-          "size": 280145,
-          "checksum": "md5:4f66eef7ec1a7225eb5253694eaa2687",
+          "id": "709d2ae8-3b04-45d8-a6f6-f28c810fd343",
+          "key": "figure.png",
+          "size": 226348,
+          "checksum": "md5:1f1ecaf48c153057c720c9c007affe68",
           "links": {
-            "self": "https://zenodo.org/api/records/15117971/files/SCOIR Institutional Open Access Policy Report.pdf/content"
+            "self": "https://zenodo.org/api/records/16676020/files/figure.png/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "59558"
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:30:31.591362+00:00",
+      "modified": "2025-08-01T08:30:32.759750+00:00",
+      "id": 16676017,
+      "conceptrecid": "16676016",
+      "doi": "10.5281/zenodo.16676017",
+      "conceptdoi": "10.5281/zenodo.16676016",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676017",
+      "metadata": {
+        "title": "Fig. 9 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+        "doi": "10.5281/zenodo.16676017",
+        "publication_date": "2025-07-28",
+        "description": "Fig. 9. Ventral coloration of males of Pristimantis flavus sp. nov. in life. A. Holotype (MNHN- RA-2023.0003). B. Paratype (MZUSP 160343). C. Paratype (MNHN-RA-2023.0005). Photographs by Antoine Fouquet.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "M\u00f4nico, Alexander Tamanini",
+            "affiliation": "Coordena\u00e7\u00e3o de Biodiversidade, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Courtois, Elodie A.",
+            "affiliation": "ENIA (Naturalist Expertise Instrumentation and Analysis), independent researcher, Remire-Montjoly, French Guiana."
+          },
+          {
+            "name": "Koch, Esteban Diego",
+            "affiliation": "Programa de P\u00f3s-Gradua\u00e7\u00e3o em Gen\u00e9tica, Conserva\u00e7\u00e3o e Biologia Evolutiva, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Dewynter, Michel Blanc Ma\u00ebl",
+            "affiliation": null
+          },
+          {
+            "name": "Kok, Philippe J.R.",
+            "affiliation": "Department of Ecology and Vertebrate Zoology, Faculty of Biology and Environmental Protection, University of Lodz, Lodz, Poland. & Department of Life Sciences, The Natural History Museum, London, United Kingdom."
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Amphibia",
+          "Anura",
+          "Craugastoridae",
+          "Pristimantis"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5852/ejt.2025.1004.2977",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/16675974",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C704F4A361311A5FE93FBB9",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "pages": "259-293",
+          "title": "European Journal of Taxonomy",
+          "volume": "1004"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16676016"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>M\u00f4nico, Alexander Tamanini, Courtois, Elodie A., Koch, Esteban Diego, Dewynter, Michel Blanc Ma\u00ebl &amp; Kok, Philippe J.R., 2025, Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands, pp. 259-293 in European Journal of Taxonomy 1004</i> on page 277, DOI: 10.5852/ejt.2025.1004.2977, <a href=\"http://zenodo.org/record/16675974\">http://zenodo.org/record/16675974</a>"
+      },
+      "title": "Fig. 9 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+      "links": {
+        "self": "https://zenodo.org/api/records/16676017",
+        "self_html": "https://zenodo.org/records/16676017",
+        "preview_html": "https://zenodo.org/records/16676017?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676017",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676017",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676017",
+        "reserve_doi": "https://zenodo.org/api/records/16676017/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16676016",
+        "parent_html": "https://zenodo.org/records/16676016",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16676016",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676016",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676017/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676017/sequence/default",
+        "files": "https://zenodo.org/api/records/16676017/files",
+        "media_files": "https://zenodo.org/api/records/16676017/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16676017:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16676017:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16676017:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16676017:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16676017:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16676017:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16676017/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676017/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676017/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676017/latest",
+        "versions": "https://zenodo.org/api/records/16676017/versions",
+        "draft": "https://zenodo.org/api/records/16676017/draft",
+        "access_links": "https://zenodo.org/api/records/16676017/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676017/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676017/access/users",
+        "access_request": "https://zenodo.org/api/records/16676017/access/request",
+        "access": "https://zenodo.org/api/records/16676017/access",
+        "communities": "https://zenodo.org/api/records/16676017/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676017/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676017/requests"
+      },
+      "updated": "2025-08-01T08:30:32.759750+00:00",
+      "recid": "16676017",
+      "revision": 6,
+      "files": [
+        {
+          "id": "ed42fb9e-50ef-4cec-a9de-117f2eecbe55",
+          "key": "figure.png",
+          "size": 2390033,
+          "checksum": "md5:ca17289b31511d15710622c0f81f050d",
+          "links": {
+            "self": "https://zenodo.org/api/records/16676017/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:30:23.770087+00:00",
+      "modified": "2025-08-01T08:30:27.399789+00:00",
+      "id": 16676011,
+      "conceptrecid": "16676010",
+      "doi": "10.5281/zenodo.16676011",
+      "conceptdoi": "10.5281/zenodo.16676010",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676011",
+      "metadata": {
+        "title": "Fig. 8 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+        "doi": "10.5281/zenodo.16676011",
+        "publication_date": "2025-07-28",
+        "description": "Fig. 8. Male individuals of Pristimantis fouqueti sp. nov. in life. A. Holotype (MNHN-RA-2023.0003). B. Paratype (MZUSP 160343). C. Paratype (MNHN-RA-2023.0005). Photographs by Antoine Fouquet.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "M\u00f4nico, Alexander Tamanini",
+            "affiliation": "Coordena\u00e7\u00e3o de Biodiversidade, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Courtois, Elodie A.",
+            "affiliation": "ENIA (Naturalist Expertise Instrumentation and Analysis), independent researcher, Remire-Montjoly, French Guiana."
+          },
+          {
+            "name": "Koch, Esteban Diego",
+            "affiliation": "Programa de P\u00f3s-Gradua\u00e7\u00e3o em Gen\u00e9tica, Conserva\u00e7\u00e3o e Biologia Evolutiva, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Dewynter, Michel Blanc Ma\u00ebl",
+            "affiliation": null
+          },
+          {
+            "name": "Kok, Philippe J.R.",
+            "affiliation": "Department of Ecology and Vertebrate Zoology, Faculty of Biology and Environmental Protection, University of Lodz, Lodz, Poland. & Department of Life Sciences, The Natural History Museum, London, United Kingdom."
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Amphibia",
+          "Anura",
+          "Craugastoridae",
+          "Pristimantis"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5852/ejt.2025.1004.2977",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/651D2F612C7E4F5C347A156EFFB3FF92",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/16675974",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C704F4A361311A5FE93FBB9",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "pages": "259-293",
+          "title": "European Journal of Taxonomy",
+          "volume": "1004"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16676010"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>M\u00f4nico, Alexander Tamanini, Courtois, Elodie A., Koch, Esteban Diego, Dewynter, Michel Blanc Ma\u00ebl &amp; Kok, Philippe J.R., 2025, Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands, pp. 259-293 in European Journal of Taxonomy 1004</i> on page 276, DOI: 10.5852/ejt.2025.1004.2977, <a href=\"http://zenodo.org/record/16675974\">http://zenodo.org/record/16675974</a>"
+      },
+      "title": "Fig. 8 in Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+      "links": {
+        "self": "https://zenodo.org/api/records/16676011",
+        "self_html": "https://zenodo.org/records/16676011",
+        "preview_html": "https://zenodo.org/records/16676011?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676011",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676011",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676011",
+        "reserve_doi": "https://zenodo.org/api/records/16676011/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16676010",
+        "parent_html": "https://zenodo.org/records/16676010",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16676010",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676010",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676011/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676011/sequence/default",
+        "files": "https://zenodo.org/api/records/16676011/files",
+        "media_files": "https://zenodo.org/api/records/16676011/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16676011:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16676011:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16676011:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16676011:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16676011:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16676011:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16676011/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676011/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676011/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676011/latest",
+        "versions": "https://zenodo.org/api/records/16676011/versions",
+        "draft": "https://zenodo.org/api/records/16676011/draft",
+        "access_links": "https://zenodo.org/api/records/16676011/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676011/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676011/access/users",
+        "access_request": "https://zenodo.org/api/records/16676011/access/request",
+        "access": "https://zenodo.org/api/records/16676011/access",
+        "communities": "https://zenodo.org/api/records/16676011/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676011/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676011/requests"
+      },
+      "updated": "2025-08-01T08:30:27.399789+00:00",
+      "recid": "16676011",
+      "revision": 6,
+      "files": [
+        {
+          "id": "c6c45c1e-f59a-483c-8738-9faac2c2bd4b",
+          "key": "figure.png",
+          "size": 7796824,
+          "checksum": "md5:b4a6805f75c551b3f1f533c169efab24",
+          "links": {
+            "self": "https://zenodo.org/api/records/16676011/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
         }
       ],
       "status": "published",

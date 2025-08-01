@@ -1,816 +1,289 @@
 {
-  "cache_date": "2025-05-01T09:47:01.617383",
+  "cache_date": "2025-08-01T10:00:18.369636",
   "data": [
     {
-      "created": "2025-05-01T06:32:58.256425+00:00",
-      "modified": "2025-05-01T06:32:58.502716+00:00",
-      "id": 15314652,
-      "conceptrecid": "15314651",
-      "doi": "10.5281/zenodo.15314652",
-      "conceptdoi": "10.5281/zenodo.15314651",
-      "doi_url": "https://doi.org/10.5281/zenodo.15314652",
+      "created": "2025-08-01T01:44:05.951015+00:00",
+      "modified": "2025-08-01T01:44:06.088663+00:00",
+      "id": 16661469,
+      "conceptrecid": "7697217",
+      "doi": "10.5281/zenodo.16661469",
+      "conceptdoi": "10.5281/zenodo.7697217",
+      "doi_url": "https://doi.org/10.5281/zenodo.16661469",
       "metadata": {
-        "title": "Brain Tumor Prediction with Machine Learning",
-        "doi": "10.5281/zenodo.15314652",
-        "publication_date": "2025-05-01",
-        "description": "<p><em><span>This<span> </span>review<span> </span>aims<span> </span>to<span> </span>systematically analyze ML models from four aspects: The investigation<span> </span>is<span> </span>based<span> </span>on<span> </span>the<span> </span>nurture<span> </span>of<span> </span>the<span> </span>ML technique, estimation precision, model evolution, and estimation setting. The <span>systematic</span><span> </span><span>literature</span><span> </span><span>review</span><span> </span><span>of</span><span> </span><span>empirical</span><span> </span><span>studies </span>focused<span> </span>on<span> </span>the published<span> </span>articles<span> </span>on<span> </span>ML<span> </span>models of the last decades. From the above sources, fifty-one primary studies concerning the objective of this research were identified on analy</span></em><span>zi<em>ng these studies; five ML techniques have been using it in the classification and prediction of brain tumors. the accuracies achieved by the estimated ML<span> </span>models can<span> </span>be <span>consistories</span><span> </span><span>satisfactory,</span><span> </span><span>as</span><span> </span><span>they</span><span> </span><span>either</span><span> </span><span>match</span><span> </span><span>or </span>surpass those of non-</em>3f<em>L models. The phenomenon of using improved machine learning models to classify and<span> </span>predict brain tumors him been the subject of numerous studies. Accenting to the mutters of the corresponding words, the genetic algorithm achieve&lsaquo;t the highest level of prediction accuracy<span> </span>more<span> </span>than<span> </span>10<span> a</span>mong<span> </span>null<span> </span>the models that were tried. However, because of <span>their</span><span> </span><span>complexity,</span><span> </span><span>these</span><span> </span></em><span>3f<em>L</em></span><em><span> </span><span>models</span><span> </span><span>have</span><span> </span><span>not</span><span> </span><span>yet </span>been adopted by the industry and thus need more development.</em></span></p>",
+        "title": "pola-rs/polars: Python Polars 1.32.0",
+        "doi": "10.5281/zenodo.16661469",
+        "publication_date": "2025-08-01",
+        "description": "<h2>\ud83c\udfc6 Highlights</h2>\n<ul>\n<li>Make <code>Selector</code> a concrete part of the DSL (#23351)</li>\n<li>Rework Categorical/Enum to use (Frozen)Categories (#23016)</li>\n</ul>\n<h2>\ud83d\ude80 Performance improvements</h2>\n<ul>\n<li>Lower Expr.slice to streaming engine (#23683)</li>\n<li>Elide bound check (#23653)</li>\n<li>Preserve <code>Column</code> repr in <code>ColumnTransform</code> operations (#23648)</li>\n<li>Lower any() and all() to streaming engine (#23640)</li>\n<li>Lower row-separable functions in streaming engine (#23633)</li>\n<li>Lower int_range(len()) to with_row_index (#23576)</li>\n<li>Avoid double field resolution in with_columns (#23530)</li>\n<li>Rolling quantile lower time complexity (#23443)</li>\n<li>Use single-key optimization with Categorical (#23436)</li>\n<li>Improve null-preserving identification for boolean functions (#23317)</li>\n<li>Improve boolean bitwise aggregate performance (#23325)</li>\n<li>Enable Parquet expressions and dedup <code>is_in</code> values in Parquet predicates (#23293)</li>\n<li>Re-write join types during filter pushdown (#23275)</li>\n<li>Generate PQ ZSTD decompression context once (#23200)</li>\n<li>Trigger cache/cse optimizations when multiplexing (#23274)</li>\n<li>Cache FileInfo upon DSL -&gt; IR conversion (#23263)</li>\n<li>Push more filters past joins (#23240)</li>\n<li>Optimize <code>Bitmap::make_mut</code> (#23138)</li>\n</ul>\n<h2>\u2728 Enhancements</h2>\n<ul>\n<li>Add Python-side caching for credentials and provider auto-initialization (#23736)</li>\n<li>Expand on <code>DataTypeExpr</code> (#23249)</li>\n<li>Lower row-separable functions in streaming engine (#23633)</li>\n<li>Add scalar checks to range expressions (#23632)</li>\n<li>Expose <code>POLARS_DOT_SVG_VIEWER</code> to automatically dispatch to SVG viewer (#23592)</li>\n<li>Implement mean function in <code>arr</code> namespace (#23486)</li>\n<li>Implement <code>vec_hash</code> for <code>List</code> and <code>Array</code> (#23578)</li>\n<li>Add unstable <code>pl.row_index()</code> expression (#23556)</li>\n<li>Add Categories on the Python side (#23543)</li>\n<li>Implement partitioned sinks for the in-memory engine (#23522)</li>\n<li>Raise and Warn on UDF's without <code>return_dtype</code> set (#23353)</li>\n<li>IR pruning (#23499)</li>\n<li>Support min/max reducer for null dtype in streaming engine (#23465)</li>\n<li>Implement streaming Categorical/Enum min/max (#23440)</li>\n<li>Allow cast to Categorical inside list.eval (#23432)</li>\n<li>Support <code>pathlib.Path</code> as source for <code>read/scan_delta()</code> (#23411)</li>\n<li>Enable default set of <code>ScanCastOptions</code> for native <code>scan_iceberg()</code> (#23416)</li>\n<li>Pass payload in <code>ExprRegistry</code> (#23412)</li>\n<li>Support reading nanosecond/Int96 timestamps and schema evolved datasets in <code>scan_delta()</code> (#23398)</li>\n<li>Support row group skipping with filters when <code>cast_options</code> is given (#23356)</li>\n<li>Execute bitwise reductions in streaming engine (#23321)</li>\n<li>Use <code>scan_parquet().collect_schema()</code> for <code>read_parquet_schema</code> (#23359)</li>\n<li>Add dtype to str.to_integer() (#22239)</li>\n<li>Add <code>arr.slice</code>, <code>arr.head</code> and <code>arr.tail</code> methods to <code>arr</code> namespace (#23150)</li>\n<li>Add <code>is_close</code> method (#23273)</li>\n<li>Drop superfluous casts from optimized plan (#23269)</li>\n<li>Added <code>drop_nulls</code> option to <code>to_dummies</code> (#23215)</li>\n<li>Support comma as decimal separator for CSV write (#23238)</li>\n<li>Don't format keys if they're empty in dot (#23247)</li>\n<li>Improve arity simplification (#23242)</li>\n<li>Allow expression input for <code>length</code> parameter in <code>pad_start</code>, <code>pad_end</code>, and <code>zfill</code> (#23182)</li>\n</ul>\n<h2>\ud83d\udc1e Bug fixes</h2>\n<ul>\n<li>Load <code>_expiry_time</code> from botocore <code>Credentials</code> in CredentialProviderAWS (#23753)</li>\n<li>Fix credential refresh logic (#23730)</li>\n<li>Fix <code>to_datetime()</code> fallible identification (#23735)</li>\n<li>Correct output datatype for <code>dt.with_time_unit</code> (#23734)</li>\n<li>Fix incorrect native Iceberg scan from tables with renamed/dropped columns/fields (#23713)</li>\n<li>Allow DataType expressions with selectors (#23720)</li>\n<li>Match output type to engine for <code>interpolate</code> on <code>Decimal</code> (#23706)</li>\n<li>Remaining bugs in <code>with_exprs_and_input</code> and pruning (#23710)</li>\n<li>Match output dtype to engine for <code>cum_sum_horizontal</code> (#23686)</li>\n<li>Field names for <code>pl.struct</code> in group-by (#23703)</li>\n<li>Fix output for <code>str.extract_groups</code> with empty string pattern (#23698)</li>\n<li>Match output type to engine for <code>rolling_map</code> (#23702)</li>\n<li>Moved passing <code>DeltaTable._storage_options</code> (#23673)</li>\n<li>Fix incorrect join on single Int128 column for in-memory engine (#23694)</li>\n<li>Match output field name to lhs for <code>BusinessDaycount</code> (#23679)</li>\n<li>Correct the planner output datatype for <code>strptime</code> (#23676)</li>\n<li>Sort and Scan <code>with_exprs_and_input</code> (#23675)</li>\n<li>Revert to old behavior with <code>name.keep</code> (#23670)</li>\n<li>Fix panic loading from arrow <code>Map</code> containing timestamps (#23662)</li>\n<li>Selectors in <code>self</code> part of <code>list.eval</code> (#23668)</li>\n<li>Fix output field dtype for <code>ToInteger</code> (#23664)</li>\n<li>Allow <code>decimal_comma</code> with <code>,</code> separator in <code>read_csv</code> (#23657)</li>\n<li>Fix handling of UTF-8 in <code>write_csv</code> to <code>IO[str]</code> (#23647)</li>\n<li>Selectors in <code>{Lazy,Data}Frame.filter</code> (#23631)</li>\n<li>Stop splitfields iterator at eol in simd branch (#23652)</li>\n<li>Correct output datatype of dt.year and dt.mil (#23646)</li>\n<li>Logic of broadcast_rhs in binary functions to correct list.set_intersection for list[str] columns (#23584)</li>\n<li>Order-preserving equi-join didn't always flush final matches (#23639)</li>\n<li>Fix ColumnNotFound error when joining on <code>col().cast()</code> (#23622)</li>\n<li>Fix agg groups on <code>when/then</code> in <code>group_by</code> context (#23628)</li>\n<li>Output type for sign (#23572)</li>\n<li>Apply <code>agg_fn</code> on <code>null</code> values in <code>pivot</code> (#23586)</li>\n<li>Remove nonsensical duration variance (#23621)</li>\n<li>Don't panic when sinking nested categorical to Parquet (#23610)</li>\n<li>Correctly set value count output field name (#23611)</li>\n<li>Casting unused columns in to_torch (#23606)</li>\n<li>Allow inferring of hours-only timezone offset (#23605)</li>\n<li>Bug in Categorical &lt;-&gt; str compare with nulls (#23609)</li>\n<li>Honor <code>n=0</code> in all cases of <code>str.replace</code> (#23598)</li>\n<li>Remove arbitrary 25 item limit from implicit Python list -&gt; Series infer (#23603)</li>\n<li>Relabel duplicate sequence IDs in distributor (#23593)</li>\n<li>Round-trip Enum and Categorical metadata in plugins (#23588)</li>\n<li>Fix incorrect <code>join_asof</code> with <code>by</code> followed by <code>head/slice</code> (#23585)</li>\n<li>Change return typing of <code>get_index_type()</code> from <code>DataType</code> to <code>PolarsIntegerType</code> (#23558)</li>\n<li>Allow writing nested Int128 data to Parquet (#23580)</li>\n<li>Enum serialization assert (#23574)</li>\n<li>Output type for peak_min / peak_max (#23573)</li>\n<li>Make Scalar Categorical, Enum and Struct values serializable (#23565)</li>\n<li>Preserve row order within partition when sinking parquet (#23462)</li>\n<li>Prevent in-mem partition sink deadlock (#23562)</li>\n<li>Update AWS cloud documentation (#23563)</li>\n<li>Correctly handle null values when comparing structs (#23560)</li>\n<li>Make fold/reduce/cum_reduce/cum_fold serializable (#23524)</li>\n<li>Make <code>Expr.append</code> serializable (#23515)</li>\n<li>Float by float division dtype (#23529)</li>\n<li>Division on empty DataFrame generating null row (#23516)</li>\n<li>Partition sink <code>copy_exprs</code> and <code>with_exprs_and_input</code> (#23511)</li>\n<li>Unreachable with <code>pl.self_dtype</code> (#23507)</li>\n<li>Rolling median incorrect min_samples with nulls (#23481)</li>\n<li>Make <code>Int128</code> roundtrippable via Parquet (#23494)</li>\n<li>Fix panic when common subplans contain IEJoins (#23487)</li>\n<li>Properly handle non-finite floats in rolling_sum/mean (#23482)</li>\n<li>Make <code>read_csv_batched</code> respect <code>skip_rows</code> and <code>skip_lines</code> (#23484)</li>\n<li>Always use <code>cloudpickle</code> for the python objects in cloud plans (#23474)</li>\n<li>Support string literals in index_of() on categoricals (#23458)</li>\n<li>Don't panic for <code>finish_callback</code> with nested datatypes (#23464)</li>\n<li>Pass <code>DeltaTable._storage_options</code> if no storage_options are provided (#23456)</li>\n<li>Support min/max aggregation for DataFrame/LazyFrame Categoricals (#23455)</li>\n<li>Fix var/moment dtypes (#23453)</li>\n<li>Fix agg_groups dtype (#23450)</li>\n<li>Fix incorrect <code>_get_path_scheme</code> (#23444)</li>\n<li>Fix missing overload defaults in <code>read_ods</code> and <code>tree_format</code> (#23442)</li>\n<li>Clear cached_schema when apply changes dtype (#23439)</li>\n<li>Allow structured conversion to/from numpy with Array types, preserving shape (#23438)</li>\n<li>Null handling in full-null group_by_dynamic mean/sum (#23435)</li>\n<li>Enable default set of <code>ScanCastOptions</code> for native <code>scan_iceberg()</code> (#23416)</li>\n<li>Fix index calculation for <code>nearest</code> interpolation (#23418)</li>\n<li>Overload for <code>eager</code> default in <code>Schema.to_frame</code> was <code>False</code> instead of <code>True</code> (#23413)</li>\n<li>Fix <code>read_excel</code> overloads so that passing <code>list[str]</code> to <code>sheet_name</code> does not raise (#23388)</li>\n<li>Removed special handling for bytes like objects in read_ndjson (#23361)</li>\n<li>Parse parquet footer length into unsigned integer (#23357)</li>\n<li>Fix incorrect results with <code>group_by</code> aggregation on empty groups (#23358)</li>\n<li>Fix boolean <code>min()</code> in <code>group_by</code> aggregation (streaming) (#23344)</li>\n<li>Respect data-model in <code>map_elements</code> (#23340)</li>\n<li>Properly join URI paths in <code>PlPath</code> (#23350)</li>\n<li>Ignore null values in <code>bitwise</code> aggregation on bools (#23324)</li>\n<li>Fix panic filtering after left join (#23310)</li>\n<li>Out-of-bounds index in hot hash table (#23311)</li>\n<li>Fix scanning '?' from cloud with <code>glob=False</code> (#23304)</li>\n<li>Fix filters on inserted columns did not remove rows (#23303)</li>\n<li>Don't ignore return_dtype (#23309)</li>\n<li>Raise error instead of return in Series class (#23301)</li>\n<li>Use safe parsing for <code>get_normal_components</code> (#23284)</li>\n<li>Fix output column names/order of streaming coalesced right-join (#23278)</li>\n<li>Restore <code>concat_arr</code> inputs expansion (#23271)</li>\n<li>Expose FieldsMapper (#23232)</li>\n<li>Fix time zone handling in <code>dt.iso_year</code> and <code>dt.is_leap_year</code> (#23125)</li>\n</ul>\n<h2>\ud83d\udcd6 Documentation</h2>\n<ul>\n<li>Fix <code>str.replace_many</code> examples trigger deprecation warning (#23695)</li>\n<li>Point the R Polars version on R-multiverse (#23660)</li>\n<li>Update example for writing to cloud storage (#20265)</li>\n<li>Update GPU docs for RAPIDS CUDA 11 deprecation (#23620)</li>\n<li>Add docs of Expr.list.filter and Series.list.filter (#23589)</li>\n<li>Add page about billing to Polars Cloud user guide (#23564)</li>\n<li>Small user-guide improvement and fixes (#23549)</li>\n<li>Correct note in <code>from_pandas</code> about data being cloned (#23552)</li>\n<li>Fix a few typos in the &quot;Streaming&quot; section (#23536)</li>\n<li>Update streaming page (#23535)</li>\n<li>Update structure of Polars Cloud documentation (#23496)</li>\n<li>Update example code in pandas migration guide (#23403)</li>\n<li>Correct plugins user guide to reflect that teaching <code>Expr.language</code> is in a different section (#23377)</li>\n<li>Add example of using OR in <code>join_where</code> (#23375)</li>\n<li>Update when_then in user guide (#23245)</li>\n</ul>\n<h2>\ud83d\udce6 Build system</h2>\n<ul>\n<li>Update all rand code (#23387)</li>\n</ul>\n<h2>\ud83d\udee0\ufe0f Other improvements</h2>\n<ul>\n<li>Remove unused functions from the rust side (#23757)</li>\n<li>Add hashes json (#23758)</li>\n<li>Add <code>AExpr::is_expr_equal_to</code> (#23740)</li>\n<li>Fix rank test to respect maintain order (#23723)</li>\n<li>IR inputs and exprs iterators (#23722)</li>\n<li>Store more granular schema hashes to reduce merge conflicts (#23709)</li>\n<li>Use UUID for UniqueID (#23704)</li>\n<li>Remove scan id (#23697)</li>\n<li>Propagate Iceberg physical ID schema to IR (#23671)</li>\n<li>Remove unused and confusing match arm (#23691)</li>\n<li>Remove unused <code>ALLOW_GROUP_AWARE</code> flag (#23690)</li>\n<li>Remove unused <code>evaluate_inline</code> (#23687)</li>\n<li>Remove unused field from <code>AggregationContext</code> (#23685)</li>\n<li>Remove <code>node_to_lp</code> (#23678)</li>\n<li>Fix cloud bytes scanning and read_* functions (#23642)</li>\n<li>Group By maintain order on test (#23643)</li>\n<li>Add maintain_order tests for streaming joins (#23577)</li>\n<li>Continue on cloud testing (#23616)</li>\n<li>Add pyo3-polars (#23571)</li>\n<li>Remove _fetch (#23607)</li>\n<li>Replace <code>agg_list</code> in <code>AExpr::to_field</code> with <code>is_scalar_ae</code> (#23582)</li>\n<li>Mark select test case as <code>write_disk</code> (#23566)</li>\n<li>Rolling order checking of test (#23568)</li>\n<li>Multiple in-mem plans with reused cache #23561 (#23567)</li>\n<li>Reduce warning in docs serve (#23534)</li>\n<li>Remove left-behind print statement (#23533)</li>\n<li>Make <code>list.to_struct</code> and <code>arr.to_struct</code> serializable (#23504)</li>\n<li>Small conftest improvement (#23508)</li>\n<li>Improve Categories error message (#23510)</li>\n<li>Add test to ensure the global categories gets cleaned up (#23502)</li>\n<li>Add more testing to group_by sorted test (#23500)</li>\n<li>Pruning follow-up (#23501)</li>\n<li>Make <code>arg_min</code>, <code>arg_max</code>, <code>arg_sort</code> and <code>product</code> into concrete DSL and IR constructs (#23493)</li>\n<li>Simpify arena iterators (#23495)</li>\n<li>Remove unnecessary may_fail_auto_streaming (#23477)</li>\n<li>Remove StringCache from the test suite (#23473)</li>\n<li>Make <code>Selector</code> a concrete part of the DSL (#23351)</li>\n<li>Add streaming engine to code-coverage (#23441)</li>\n<li>Remove hashbrown_nightly_hack (#23445)</li>\n<li>Rework Categorical/Enum to use (Frozen)Categories (#23016)</li>\n<li>Fix typing error from new pandas-stubs release (#23414)</li>\n<li>Ignore Sort if 'by' is empty (#23320)</li>\n<li>Rename from_buffer()/FromBuffer to reinterpret()/Reinterpret (#23362)</li>\n<li>Only conver to <code>ExprIR</code> once in <code>with_columns</code> (#23352)</li>\n<li>Update rust version in nix flake (#23347)</li>\n<li>Update toolchain and fix clippy issues (#23334)</li>\n<li>Improve cloud tests (#23312)</li>\n<li>Casting from binview to primitives code moved from polars-ops to polars-compute (#23234)</li>\n<li>Improve DSL source cache (#23282)</li>\n<li>Add new <code>PlPath</code> that abstracts over PathBuf and URI (#23280)</li>\n<li>Add <code>may_fail_cloud</code> mark for pytest (#23279)</li>\n<li>Organize <code>dsl_to_ir</code> logic into modules (#23277)</li>\n<li>Add flag for auto distributed testing (#23220)</li>\n<li>Remove unused PyDataType (#23265)</li>\n<li>Split FileScan in FileScanDsl and FileScanIR (#23260)</li>\n<li>Update Rust Polars versions (#23239)</li>\n<li>Connect Python <code>assert_dataframe_equal()</code> to Rust back-end (#23207)</li>\n<li>Fix time zone handling in <code>dt.iso_year</code> and <code>dt.is_leap_year</code> (#23125)</li>\n<li>Update Rust Polars versions (#23229)</li>\n</ul>\n<p>Thank you to all our contributors for making this release possible!\n@Declow, @JakubValtar, @Kevin-Patyk, @Liyixin95, @MarcoGorelli, @Matt711, @TheLostLambda, @Washiil, @borchero, @c-peters, @cmdlineluser, @coastalwhite, @deanm0000, @eitsupi, @etiennebacher, @florian-klein, @gfvioli, @habaneraa, @itamarst, @kdn36, @ldhwaddell, @math-hiyoko, @mcrumiller, @mrkn, @nameexhaustion, @orlp, @othijssens, @r-brink, @ritchie46, @stijnherfst and @zyctree</p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Tamirah Sharieff",
+            "name": "Ritchie Vink",
             "affiliation": null
           },
           {
-            "name": "Zoya Harmain",
+            "name": "Stijn de Gooijer",
             "affiliation": null
           },
           {
-            "name": "ShafiyaNoorain",
+            "name": "Alexander Beedie",
             "affiliation": null
           },
           {
-            "name": "Sarah Smyrline R",
+            "name": "Gijs Burghoorn",
+            "affiliation": "Polars"
+          },
+          {
+            "name": "nameexhaustion",
             "affiliation": null
           },
           {
-            "name": "Dr.Deepak NR",
+            "name": "Orson Peters",
+            "affiliation": "Polars"
+          },
+          {
+            "name": "Marco Edward Gorelli",
+            "affiliation": "Quansight"
+          },
+          {
+            "name": "reswqa",
             "affiliation": null
           },
           {
-            "name": "Om Prakash B",
+            "name": "Jeroen van Zundert",
             "affiliation": null
+          },
+          {
+            "name": "Marshall",
+            "affiliation": null
+          },
+          {
+            "name": "Gert Hulselmans",
+            "affiliation": "@aertslab"
+          },
+          {
+            "name": "Cory Grinstead",
+            "affiliation": null
+          },
+          {
+            "name": "Luke Manley",
+            "affiliation": null
+          },
+          {
+            "name": "chielP",
+            "affiliation": null
+          },
+          {
+            "name": "Itamar Turner-Trauring",
+            "affiliation": null
+          },
+          {
+            "name": "Kuba Valtar",
+            "affiliation": "Polars"
+          },
+          {
+            "name": "Koen Denecker",
+            "affiliation": null
+          },
+          {
+            "name": "Lawrence Mitchell",
+            "affiliation": null
+          },
+          {
+            "name": "eitsupi",
+            "affiliation": null
+          },
+          {
+            "name": "Matteo Santamaria",
+            "affiliation": "University of California, Berkeley"
+          },
+          {
+            "name": "Karl Genockey",
+            "affiliation": null
+          },
+          {
+            "name": "Henry Harbeck",
+            "affiliation": null
+          },
+          {
+            "name": "deanm0000",
+            "affiliation": null
+          },
+          {
+            "name": "Dani\u00ebl Heres",
+            "affiliation": "@coralogix"
+          },
+          {
+            "name": "Robin",
+            "affiliation": null
+          },
+          {
+            "name": "Josh Magarick",
+            "affiliation": null
+          },
+          {
+            "name": "Ion Koutsouris",
+            "affiliation": null
+          },
+          {
+            "name": "Oliver Borchert",
+            "affiliation": "@Quantco"
+          },
+          {
+            "name": "Moritz Wilksch",
+            "affiliation": "@QuantCo"
           }
         ],
-        "keywords": [
-          "Brain Turner; Machine Learning; Prediction, Medical Imaging; Classification, Neurul Networks; Computer Aided Diagnosis Early Detection"
-        ],
-        "references": [
-          "1.\tAmerican Cancer Society. (2021). Cancer facts & figures 2021.",
-          "2.\tChen, J., et al. (2020). Reading the fine print of machine learning for healthcare. IEEE Access.",
-          "3.\tClark, K., et al. (2013). The Cancer Imaging Archive (TCIA): The need to run and sustain a public information archive. Journal of Digital Imaging.",
-          "4.\tHavaei, M., et al. (2017). Using advances in computer-assisted interventions and medical imaging, Havaei and colleagues investigated the potential of deep learning to enhance prostate cancer detection.",
-          "5.\tJiang, R., et al. (2020). Machine learning for brain tumour early detection. Frontiers in Neuroscience.",
-          "6.\tKhosravi, P., et al. (2019). Personalized medicine in cancer: Opportunities and challenges. Journal of Personalized Medicine.",
-          "7.\tMarcus, D. S., et al. (2007). OASIS: The Open Access Series of Imaging Studies. NeuroImage.",
-          "8.\tMenze, B. H., et al. (2015). Multimodal brain tumor image segmentation: The BRATS challenge. IEEE Periodicals on Medical Imaging.",
-          "9.\tM\u00fcller, H. W., et al. (2019). Application of PET scan in therapy of brain tumors. Current Treatment Options in Oncology.",
-          "10.\tMorris, E. R., et al. (2018). Machine learning in neurology: A paper close to clinical practice. Journal of Neurology."
-        ],
-        "language": "eng",
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
-        },
-        "journal": {
-          "issue": "2",
-          "pages": "17-24",
-          "title": "Journal of Advancement in Parallel Computing",
-          "volume": "8"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "communities": [
+        "related_identifiers": [
           {
-            "id": "compub"
+            "identifier": "https://github.com/pola-rs/polars/tree/py-1.32.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
           }
         ],
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15314651"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Brain Tumor Prediction with Machine Learning",
-      "links": {
-        "self": "https://zenodo.org/api/records/15314652",
-        "self_html": "https://zenodo.org/records/15314652",
-        "preview_html": "https://zenodo.org/records/15314652?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15314652",
-        "self_doi": "https://doi.org/10.5281/zenodo.15314652",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15314652",
-        "parent": "https://zenodo.org/api/records/15314651",
-        "parent_html": "https://zenodo.org/records/15314651",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15314651",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15314651",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15314652/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15314652/sequence/default",
-        "files": "https://zenodo.org/api/records/15314652/files",
-        "media_files": "https://zenodo.org/api/records/15314652/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:15314652:BRAIN%20TUMOR%20PREDICTION%20WITH%20MACHINE%20LEARNING%20-Formatted%20Paper.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:15314652:BRAIN%20TUMOR%20PREDICTION%20WITH%20MACHINE%20LEARNING%20-Formatted%20Paper.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:15314652:BRAIN%20TUMOR%20PREDICTION%20WITH%20MACHINE%20LEARNING%20-Formatted%20Paper.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:15314652:BRAIN%20TUMOR%20PREDICTION%20WITH%20MACHINE%20LEARNING%20-Formatted%20Paper.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:15314652:BRAIN%20TUMOR%20PREDICTION%20WITH%20MACHINE%20LEARNING%20-Formatted%20Paper.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:15314652:BRAIN%20TUMOR%20PREDICTION%20WITH%20MACHINE%20LEARNING%20-Formatted%20Paper.pdf/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/15314652/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15314652/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15314652/versions/latest",
-        "latest_html": "https://zenodo.org/records/15314652/latest",
-        "versions": "https://zenodo.org/api/records/15314652/versions",
-        "draft": "https://zenodo.org/api/records/15314652/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15314652/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15314652/access/links",
-        "access_grants": "https://zenodo.org/api/records/15314652/access/grants",
-        "access_users": "https://zenodo.org/api/records/15314652/access/users",
-        "access_request": "https://zenodo.org/api/records/15314652/access/request",
-        "access": "https://zenodo.org/api/records/15314652/access",
-        "communities": "https://zenodo.org/api/records/15314652/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15314652/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15314652/requests"
-      },
-      "updated": "2025-05-01T06:32:58.502716+00:00",
-      "recid": "15314652",
-      "revision": 4,
-      "files": [
-        {
-          "id": "c055efac-b13f-4b16-8a19-c3c13e4c08fc",
-          "key": "BRAIN TUMOR PREDICTION WITH MACHINE LEARNING -Formatted Paper.pdf",
-          "size": 292961,
-          "checksum": "md5:1bc0c9c47bb67dc1e8375f922aadad4e",
-          "links": {
-            "self": "https://zenodo.org/api/records/15314652/files/BRAIN TUMOR PREDICTION WITH MACHINE LEARNING -Formatted Paper.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "109378"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 0,
-        "unique_downloads": 0,
-        "views": 1,
-        "unique_views": 1,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 1,
-        "version_views": 1
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-04-30T19:12:46.758762+00:00",
-      "modified": "2025-04-30T19:12:46.878974+00:00",
-      "id": 15312646,
-      "conceptrecid": "15312645",
-      "doi": "10.5281/zenodo.15312646",
-      "conceptdoi": "10.5281/zenodo.15312645",
-      "doi_url": "https://doi.org/10.5281/zenodo.15312646",
-      "metadata": {
-        "title": "Bio-oil composition",
-        "doi": "10.5281/zenodo.15312646",
-        "publication_date": "2025-04-30",
-        "description": "<p>Bio-oil samples are analyzed with an Agilent 7890A gas chromatography system (GC) coupled with a mass spectrometer MS 5975C-VLMSD. The GC is equipped with a 624 capillary column, which works with helium as gas carrier. The bio-oil samples are highly diluted in acetone (ca. 10 % bio-oil and 90 % acetone) before the injection in the GC-MS that occurs through an autosampler. 1 &micro;L of sample is injected for each analysis, whose run time was about 118 minutes. The column is heated according to the following temperature program: 4 minutes at 45 &deg;C, heating up to 235 &deg;C with a heating rate of 3 &deg;C/min and 50 minutes at 235 &deg;C. The sample is injected in &ldquo;split mode&rdquo; and carried by a flux of helium of 1.8 mL/min. The detector is set to scan a range of m/Z between 35 and 350; the lower limit is set to detect small species like acetic acid while avoiding causing too much baseline noise.</p>\n<p><br>Bio-oil compounds identification is carried out by matching the obtained spectra with the National Institute of Standards and Technology (NIST) library. The quantification of representative compounds is carried out with the Agilent MassHunter Quantitative Analysis (Quant My-Way) software. The calibration curve for each compound is obtained with standard solutions in acetone at weight concentrations between 1% and 0.01% (except for acetic acid, whose calibration range is between 2% and 0.4%); each calibration curve results in a R2 index &gt;0.99. Fluoranthene is added as Internal Standard (IS) at a concentration of 0.025 wt. %.</p>",
-        "access_right": "embargoed",
-        "embargo_date": "2026-04-30",
-        "creators": [
-          {
-            "name": "National Research Council",
-            "affiliation": null
-          }
-        ],
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "grants": [
-          {
-            "code": "101115506",
-            "internal_id": "10.13039/501100000780::101115506",
-            "funder": {
-              "name": "European Commission",
-              "doi": "10.13039/501100000780",
-              "acronym": "EC"
-            },
-            "title": "MILD Combustion with Nitrogen and Carbon Dioxide Reforming",
-            "acronym": "MINICOR",
-            "program": "HORIZON.3.1",
-            "url": "https://cordis.europa.eu/projects/101115506"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15312645"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Bio-oil composition",
-      "links": {
-        "self": "https://zenodo.org/api/records/15312646",
-        "self_html": "https://zenodo.org/records/15312646",
-        "preview_html": "https://zenodo.org/records/15312646?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15312646",
-        "self_doi": "https://doi.org/10.5281/zenodo.15312646",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15312646",
-        "parent": "https://zenodo.org/api/records/15312645",
-        "parent_html": "https://zenodo.org/records/15312645",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15312645",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15312645",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15312646/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15312646/sequence/default",
-        "files": "https://zenodo.org/api/records/15312646/files",
-        "media_files": "https://zenodo.org/api/records/15312646/media-files",
-        "archive": "https://zenodo.org/api/records/15312646/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15312646/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15312646/versions/latest",
-        "latest_html": "https://zenodo.org/records/15312646/latest",
-        "versions": "https://zenodo.org/api/records/15312646/versions",
-        "draft": "https://zenodo.org/api/records/15312646/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15312646/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15312646/access/links",
-        "access_grants": "https://zenodo.org/api/records/15312646/access/grants",
-        "access_users": "https://zenodo.org/api/records/15312646/access/users",
-        "access_request": "https://zenodo.org/api/records/15312646/access/request",
-        "access": "https://zenodo.org/api/records/15312646/access",
-        "communities": "https://zenodo.org/api/records/15312646/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15312646/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15312646/requests"
-      },
-      "updated": "2025-04-30T19:12:46.878974+00:00",
-      "recid": "15312646",
-      "revision": 4,
-      "files": [],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1103932"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 0,
-        "unique_downloads": 0,
-        "views": 1,
-        "unique_views": 1,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 1,
-        "version_views": 1
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-04-30T14:33:11.731019+00:00",
-      "modified": "2025-04-30T14:33:11.990542+00:00",
-      "id": 15310946,
-      "conceptrecid": "14467875",
-      "doi": "10.5281/zenodo.15310946",
-      "conceptdoi": "10.5281/zenodo.14467875",
-      "doi_url": "https://doi.org/10.5281/zenodo.15310946",
-      "metadata": {
-        "title": "Dataset of \"Enhanced Electrochemical Performance of Renewable Flexible Supercapacitors through the Synergistic Effects of Nitrogen-Doped Carbonaceous Fillers and Controlled Polypyrrole Nanostructuring on Nanocellulose Fibers\"",
-        "doi": "10.5281/zenodo.15310946",
-        "publication_date": "2025-04-30",
-        "description": "<p>In recent years, the demand for lightweight, flexible, cost-effective and environmentally friendly energy storage devices has increased significantly. In this study, we developed polypyrrole (PPy) based flexible conductive electrodes with carbonaceous fillers derived from polypyrrole nanotubes (PPy-NT) with activated surface via KOH treatment, using a simple and environmentally friendly approach. This approach consisted of in-situ polymerization of PPy nanostructures in presence of selected carbonaceous fillers and cellulose nanofibers (CNF). CNF works as a flexible matrix for electrochemically active material. The morphology of PPy was controlled by using methyl orange azo dye (MO), popular for reliable nanostructuring of conducting polymers. The influence of morphology, textural properties and electrical conductivity of the flexible PPy-based electrodes on their electrochemical performance was investigated.&nbsp;</p>\n<p>The maximum specific capacitance was performed by electrode containing PPy-NT and CNF (172 F/g at 5 mV/s scan rate). However, significant enhancement of capacitance retention was observed in case of PPy-based electrodes enhanced by carbonaceous fillers. In order to test prepared electrodes in two electrode setup, cellulose hydrogel prepared via physical crosslinking was fabricated and successfully incorporated into supercapacitor device as a electrolyte reservoir and separator. In all electrochemical tests, 1 M sulfuric acid electrolyte was used. This study shows possible ways of using renewable materials in supercapacitors and energy storage devices.</p>",
-        "access_right": "embargoed",
-        "embargo_date": "2027-05-08",
-        "creators": [
-          {
-            "name": "Lapka, Tom\u00e1\u0161",
-            "affiliation": "University of Chemistry and Technology",
-            "orcid": "0000-0002-1074-2337"
-          },
-          {
-            "name": "Pau\u0161ov\u00e1, \u0160\u00e1rka",
-            "affiliation": "University of Chemistry and Technology",
-            "orcid": "0000-0003-2494-1510"
-          },
-          {
-            "name": "Bouzek, Karel",
-            "affiliation": "University of Chemistry and Technology",
-            "orcid": "0000-0002-0394-0634"
-          }
-        ],
-        "keywords": [
-          "VZ1",
-          "VSCHT",
-          "214 021",
-          "214 024",
-          "cellulose nanofibers",
-          "Polypyrrole",
-          "Supercapacitor",
-          "Energy storage",
-          "KOH activation",
-          "Flexible film",
-          "Electrochemical properties"
-        ],
-        "dates": [
-          {
-            "type": "submitted",
-            "description": "Sent to peer review process"
-          }
-        ],
-        "version": "version 2",
-        "language": "eng",
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "grants": [
-          {
-            "code": "CZ.02.01.01/00/22_008/0004617",
-            "internal_id": "037n8p820::CZ.02.01.01/00/22_008/0004617",
-            "funder": {
-              "name": "Ministry of Education Youth and Sports"
-            },
-            "title": "The Energy Conversion and Storage"
-          }
-        ],
-        "communities": [
-          {
-            "id": "ecostor"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 1,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "14467875"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Dataset of \"Enhanced Electrochemical Performance of Renewable Flexible Supercapacitors through the Synergistic Effects of Nitrogen-Doped Carbonaceous Fillers and Controlled Polypyrrole Nanostructuring on Nanocellulose Fibers\"",
-      "links": {
-        "self": "https://zenodo.org/api/records/15310946",
-        "self_html": "https://zenodo.org/records/15310946",
-        "preview_html": "https://zenodo.org/records/15310946?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15310946",
-        "self_doi": "https://doi.org/10.5281/zenodo.15310946",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15310946",
-        "parent": "https://zenodo.org/api/records/14467875",
-        "parent_html": "https://zenodo.org/records/14467875",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14467875",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14467875",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15310946/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15310946/sequence/default",
-        "files": "https://zenodo.org/api/records/15310946/files",
-        "media_files": "https://zenodo.org/api/records/15310946/media-files",
-        "archive": "https://zenodo.org/api/records/15310946/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15310946/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15310946/versions/latest",
-        "latest_html": "https://zenodo.org/records/15310946/latest",
-        "versions": "https://zenodo.org/api/records/15310946/versions",
-        "draft": "https://zenodo.org/api/records/15310946/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15310946/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15310946/access/links",
-        "access_grants": "https://zenodo.org/api/records/15310946/access/grants",
-        "access_users": "https://zenodo.org/api/records/15310946/access/users",
-        "access_request": "https://zenodo.org/api/records/15310946/access/request",
-        "access": "https://zenodo.org/api/records/15310946/access",
-        "communities": "https://zenodo.org/api/records/15310946/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15310946/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15310946/requests"
-      },
-      "updated": "2025-04-30T14:33:11.990542+00:00",
-      "recid": "15310946",
-      "revision": 4,
-      "files": [],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1063184"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 0,
-        "unique_downloads": 0,
-        "views": 8,
-        "unique_views": 7,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 1,
-        "version_views": 1
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-04-30T12:27:39.431860+00:00",
-      "modified": "2025-04-30T12:27:39.731235+00:00",
-      "id": 15310117,
-      "conceptrecid": "15310116",
-      "doi": "10.1002/anie.202413383",
-      "doi_url": "https://doi.org/10.1002/anie.202413383",
-      "metadata": {
-        "title": "Electrochemical C O and C N Arylation using Alternating Polarity in flow for Compound Libraries",
-        "doi": "10.1002/anie.202413383",
-        "publication_date": "2024-10-01",
-        "description": "<p>Etherification and amination of aryl halide scaffolds are commonly used reactions in parallel medicinal&nbsp;<br>chemistry to rapidly scan structure&ndash;activity relationships with abundant building blocks. Electrochemical methods for&nbsp;<br>aryl etherification and amination demonstrate broad functional group tolerance and extended nucleophile scope&nbsp;<br>compared to traditional methods. Nevertheless, there is a need for robust and scale-transferable workflows for&nbsp;<br>electrochemical compound library synthesis. Herein we describe a platform for automated electrochemical synthesis of&nbsp;<br>C X arylation (X=NH, OH) in flow to access compound libraries. A comprehensive Design of Experiment (DoE) study&nbsp;<br>identifies an optimal protocol which generates high yields across&gt;30 aryl halide scaffolds, diverse amines (including&nbsp;<br>electron-deficient sulfonamides, sulfoximines, amides, and anilines) and alcohols (including serine residues within&nbsp;<br>peptides). Reaction sequences are automated on commercially available equipment to generate libraries of anilines and&nbsp;<br>aryl ethers. The unprecedented application of potentiostatic alternating polarity in flow is essential to avoid accumulating&nbsp;<br>electrode passivation. Moreover, it enables reactions to be performed in air, without supporting electrolyte and with high&nbsp;<br>reproducibility over consecutive runs. Our method represents a powerful means to rapidly generate nucleophile&nbsp;<br>independent C X arylation compound libraries using flow electrochemistry.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Morgan, Jennifer",
-            "affiliation": null
-          },
-          {
-            "name": "Kuijpers, Koen P. L.",
-            "affiliation": null
-          },
-          {
-            "name": "Fanfair, Dayne",
-            "affiliation": null
-          },
-          {
-            "name": "Tang, Bingqing",
-            "affiliation": null
-          },
-          {
-            "name": "Bartkowiak, Karolina",
-            "affiliation": null
-          },
-          {
-            "name": "van Eynde, Lars",
-            "affiliation": null
-          },
-          {
-            "name": "Renders, Evelien",
-            "affiliation": null
-          },
-          {
-            "name": "Alcazar, Jesus",
-            "affiliation": null
-          },
-          {
-            "name": "Buijnsters, Peter J. J. A.",
-            "affiliation": null
-          },
-          {
-            "name": "Carvalho, Marie-Ambre",
-            "affiliation": null
-          },
-          {
-            "name": "Jones, Alexander X.",
-            "affiliation": null
-          }
-        ],
-        "language": "eng",
-        "resource_type": {
-          "title": "Publication",
-          "type": "publication"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15310116"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Electrochemical C O and C N Arylation using Alternating Polarity in flow for Compound Libraries",
-      "links": {
-        "self": "https://zenodo.org/api/records/15310117",
-        "self_html": "https://zenodo.org/records/15310117",
-        "preview_html": "https://zenodo.org/records/15310117?preview=1",
-        "doi": "https://doi.org/10.1002/anie.202413383",
-        "self_doi": "https://doi.org/10.1002/anie.202413383",
-        "self_doi_html": "https://zenodo.org/doi/10.1002/anie.202413383",
-        "parent": "https://zenodo.org/api/records/15310116",
-        "parent_html": "https://zenodo.org/records/15310116",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15310117/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15310117/sequence/default",
-        "files": "https://zenodo.org/api/records/15310117/files",
-        "media_files": "https://zenodo.org/api/records/15310117/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:15310117:Angew-Chem-Int-Ed-2024-Morvan-Electrochemical-C-O-and-C-N-Arylation-using-Alternating-Polarity-in-flow-for-Compound.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:15310117:Angew-Chem-Int-Ed-2024-Morvan-Electrochemical-C-O-and-C-N-Arylation-using-Alternating-Polarity-in-flow-for-Compound.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:15310117:Angew-Chem-Int-Ed-2024-Morvan-Electrochemical-C-O-and-C-N-Arylation-using-Alternating-Polarity-in-flow-for-Compound.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:15310117:Angew-Chem-Int-Ed-2024-Morvan-Electrochemical-C-O-and-C-N-Arylation-using-Alternating-Polarity-in-flow-for-Compound.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:15310117:Angew-Chem-Int-Ed-2024-Morvan-Electrochemical-C-O-and-C-N-Arylation-using-Alternating-Polarity-in-flow-for-Compound.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:15310117:Angew-Chem-Int-Ed-2024-Morvan-Electrochemical-C-O-and-C-N-Arylation-using-Alternating-Polarity-in-flow-for-Compound.pdf/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/15310117/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15310117/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15310117/versions/latest",
-        "latest_html": "https://zenodo.org/records/15310117/latest",
-        "versions": "https://zenodo.org/api/records/15310117/versions",
-        "draft": "https://zenodo.org/api/records/15310117/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15310117/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15310117/access/links",
-        "access_grants": "https://zenodo.org/api/records/15310117/access/grants",
-        "access_users": "https://zenodo.org/api/records/15310117/access/users",
-        "access_request": "https://zenodo.org/api/records/15310117/access/request",
-        "access": "https://zenodo.org/api/records/15310117/access",
-        "communities": "https://zenodo.org/api/records/15310117/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15310117/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15310117/requests"
-      },
-      "updated": "2025-04-30T12:27:39.731235+00:00",
-      "recid": "15310117",
-      "revision": 4,
-      "files": [
-        {
-          "id": "08d3eab7-9b9a-427a-80cc-0032cab03395",
-          "key": "Angew-Chem-Int-Ed-2024-Morvan-Electrochemical-C-O-and-C-N-Arylation-using-Alternating-Polarity-in-flow-for-Compound.pdf",
-          "size": 12897389,
-          "checksum": "md5:e85054c8233c652d356320ca0c4d5463",
-          "links": {
-            "self": "https://zenodo.org/api/records/15310117/files/Angew-Chem-Int-Ed-2024-Morvan-Electrochemical-C-O-and-C-N-Arylation-using-Alternating-Polarity-in-flow-for-Compound.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1281074"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 1,
-        "unique_downloads": 1,
-        "views": 1,
-        "unique_views": 1,
-        "version_downloads": 1,
-        "version_unique_downloads": 1,
-        "version_unique_views": 1,
-        "version_views": 1
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-04-29T08:15:39.394549+00:00",
-      "modified": "2025-04-29T08:20:35.226361+00:00",
-      "id": 15301607,
-      "conceptrecid": "14957320",
-      "doi": "10.5281/zenodo.15301607",
-      "conceptdoi": "10.5281/zenodo.14957320",
-      "doi_url": "https://doi.org/10.5281/zenodo.15301607",
-      "metadata": {
-        "title": "TRISTAN gadoxetate kinetics",
-        "doi": "10.5281/zenodo.15301607",
-        "publication_date": "2025-04-29",
-        "description": "<h1>Database</h1>\n<p><strong>Summary</strong></p>\n<p>Signal versus time curves measured with gadoxetate-enhanced MRI in the liver, with and without drugs.</p>\n<p><strong>Subjects</strong></p>\n<p>Human healthy volunteers, patients and rats.</p>\n<p><strong>Background</strong></p>\n<p>The data are taken from a series of preclinical and clinical studies performed by the&nbsp;<a href=\"https://www.imi-tristan.eu\">TRISTAN project</a>, in the period 2018-2024. The aim of these studies was to test if the effect of drugs on uptake and excretory function of the liver can be measured reliably with dynamic gadoxetate-enhanced MRI. Combined these studies provide proof of concept for a new MRI-based biomarker to predict the risk of liver-mediated drug-drug interactions, and of drug-induced liver injury.&nbsp;</p>\n<p>The data have been used to support a submission to the FDA's biomarker qualification program (<a href=\"https://www.fda.gov/media/149415/download\">details</a>).</p>\n<p><strong>Format</strong></p>\n<p>All data are in dmr format - a folder with three csv files:</p>\n<ul>\n<li><strong>data.csv</strong>: Data dictionary</li>\n<li><strong>rois.csv</strong>: ROI curves</li>\n<li><strong>pars.csv</strong>: Subject parameters</li>\n</ul>\n<p>The data can be read and manipulated interactively with common applications such as excel, or programmatically with the python package <a href=\"https://openmiblab.github.io/pydmr/\">pydmr</a>.&nbsp;</p>\n<p><strong>Example usage</strong></p>\n<ul>\n<li>Rats multiple dosing: <a href=\"https://dcmri.org/generated/examples/liver/plot_tristan_mdosing.html\">https://dcmri.org/examples/liver/plot_tristan_mdosing.html</a></li>\n<li>Rat six test drugs: <a href=\"https://dcmri.org/generated/examples/liver/plot_tristan6drugs.html\">https://dcmri.org/examples/liver/plot_tristan6drugs.html</a></li>\n<li>Rat reproducibility: <a href=\"https://dcmri.org/generated/examples/liver/plot_tristan_repro.html\">https://dcmri.org/examples/liver/plot_tristan_repro.html</a></li>\n<li>Healthy volunteers: <a href=\"https://dcmri.org/generated/examples/liver/plot_tristan_volunteers_2scan.html\">https://dcmri.org/examples/liver/plot_tristan_volunteers_2scan.html</a></li>\n<li>Patients: <a href=\"https://dcmri.org/generated/examples/liver/plot_tristan_patients.html\">https://dcmri.org/examples/liver/plot_tristan_patients.html</a><strong> </strong></li>\n</ul>\n<p><strong>Version history</strong></p>\n<ul>\n<li>v0.0.1\n<ul>\n<li>Removed duplicate human results and combined all controls without treatment in a single file</li>\n<li>Unique naming of subject ID's by adding a study acronym to the subject number: LDS for Leeds subjects, SHF for Sheffield subjects and GOT for Gothenburg subjects</li>\n</ul>\n</li>\n<li>v0.0.0\n<ul>\n<li>Combined various formats of previous studies in a coherent dmr format</li>\n</ul>\n</li>\n</ul>\n<h1>Datasets</h1>\n<p><strong><em>tristan_humans_healthy_rifampicin</em></strong></p>\n<div>The data were acquired in the aorta and liver of 8 healthy volunteers with dynamic gadoxetate-enhanced MRI, before and after administration of a drug (rifampicin) which is known to inhibit liver function. The assessments were done on two separate visits at least 2 weeks apart. On each visit, the volunteer had two scans each with a separate contrast agent injection of a quarter dose each. the scans were separated by a gap of about 1 hour to enable gadoxetate to clear from the liver. This design was deemed necessary for reliable measurement of excretion rate when liver function was inhibited.</div>\n<div><br>The research question was to what extent rifampicin inhibits&nbsp;gadoxetate uptake rate from the extracellular space into the&nbsp;liver hepatocytes (khe, mL/min/100mL) and excretion rate from&nbsp;hepatocytes to bile (kbh, mL/100mL/min). 2 of the volunteers only&nbsp;had the baseline assessment, the other 8 volunteers completed the&nbsp;full study. The results showed consistent and strong inhibition of&nbsp;khe (95%) and kbh (40%) by rifampicin. This implies that&nbsp;rifampicin poses a risk of drug-drug interactions (DDI), meaning&nbsp;it can cause another drug to circulate in the body for far longer&nbsp;than expected, potentially causing harm or raising a need for dose&nbsp;adjustment.</div>\n<div>\n<div>&nbsp;</div>\n<div>The following data are available for each subject (see data.csv for more detail):</div>\n<div>\n<ul>\n<li><strong>time_1</strong>: acquisition times of the first scan</li>\n<li><strong>time_2</strong>: acquisition times of the second scan</li>\n<li><strong>aorta_1</strong>: aorta signals in the first scan</li>\n<li><strong>aorta_2</strong>: aorta signals in the second scan</li>\n<li><strong>liver_1</strong>: liver signals in the first scan</li>\n<li><strong>liver_2</strong>: liver signals in the second scan</li>\n<li><strong>aorta_1_accept</strong>: valid aorta signals in the first scan</li>\n<li><strong>aorta_2_accept</strong>: valid aorta signals in the second scan</li>\n<li><strong>liver_1_accept</strong>: valid liver signals in the first scan</li>\n<li><strong>liver_2_accept</strong>: valid liver signals in the second scan</li>\n<li><strong>weight</strong>: subject weight in kg.</li>\n<li><strong>dose_1</strong>: contrast agent doses of first scan in mL/kg.</li>\n<li><strong>dose_2</strong>: contrast agent doses of second scan in mL/kg.</li>\n<li><strong>rate</strong>: contrast agent injection rate in mL/sec.</li>\n<li><strong>FA_1</strong>: Flip angle in degrees of the first scan</li>\n<li><strong>FA_2</strong>: Flip angle in degrees of the second scan</li>\n<li><strong>TR</strong>: repetition time in sec</li>\n<li><strong>t0</strong>: baseline length</li>\n<li><strong>T1_aorta_1</strong>: precontrast T1 of blood</li>\n<li><strong>T1_aorta_2</strong>: T1 of blood after 1st dynamic</li>\n<li><strong>T1_aorta_3</strong>: T1 of blood at the start of the 2nd scan</li>\n<li><strong>T1_liver_1</strong>: precontrast T1 of the liver</li>\n<li><strong>T1_liver_2</strong>: T1 of the liver after 1st dynamic</li>\n<li><strong>T1_liver_3</strong>: T1 of the liver at the start of the 2nd scan</li>\n<li><strong>liver_volume</strong>: liver volume in mL.</li>\n</ul>\n</div>\n<div>\n<div>Please reference the following abstract when using these data (manuscript in preparation):</div>\n</div>\n<div>Thazin Min, Marta Tibiletti, Paul Hockings, Aleksandra Galetin, Ebony Gunwhy, Gerry Kenna, Nicola Melillo, Geoff JM Parker, Gunnar Schuetz, Daniel Scotcher, John Waterton, Ian Rowe, and Steven Sourbron. Measurement of liver function with dynamic gadoxetate-enhanced MRI: a validation study in healthy volunteers. <a href=\"https://archive.ismrm.org/2024/4015.html\">Proc Intl Soc Mag Reson Med, Singapore 2024.</a></div>\n<br>\n<div><strong><em>tristan_humans_healthy_metformin</em></strong></div>\n<div>&nbsp;</div>\n<div>Data from a similar experiment as the rifampicin study in healthy volunteers, but with the drug metformin and performed in another center with a different scanner vendor. The study includes 6 volunteers.</div>\n<div>&nbsp;</div>\n<div>The variables are the same as in the rifampicin study.</div>\n<div>&nbsp;</div>\n<div>\n<div>Manuscript in preparation.</div>\n</div>\n<div>&nbsp;</div>\n<div>\n<div><strong><em>tristan_humans_healthy_ciclosporin</em></strong></div>\n<div>&nbsp;</div>\n<div>Data from a similar experiment as the metformin study in healthy volunteers, but with the drug ciclosporin.&nbsp;</div>\n<div>&nbsp;</div>\n<div>The variables are the same as in the rifampicin study.</div>\n<div>&nbsp;</div>\n<div>\n<div>Manuscript in preparation.</div>\n</div>\n<div>&nbsp;</div>\n<div>\n<div><strong><em>tristan_humans_healthy_controls</em></strong></div>\n<div>&nbsp;</div>\n<div>Five subjects enrolled in the rifampicin, metformin and ciclosporin studies had their baseline assessment but did not go on to have the the treatment visit, for various reasons. These data are combined together in this file. They can be added to the baseline data of the other studies to form a control cohort.</div>\n</div>\n</div>\n<br>\n<div><strong><em>tristan_humans_patients_rifampicin</em></strong></div>\n<div>&nbsp;</div>\nThe study aimed to demonstrates the effect of rifampicin on liver function of patients with impaired function.</div>\n<div>&nbsp;</div>\n<div>The data were acquired in the aorta and liver in 3 patients with dynamic gadoxetate-enhanced MRI. The study participants take rifampicin as part of their routine clinical workup, with an aim to promote their liver function. For this study, they were taken off rifampicin 3 days before the first scan, and placed back on rifampicin 3 days before the second scan. The aim was to determine the effect if rifampicin in uptake and excretion function of the liver.</div>\n<div><br>The data confirmed that patients had significantly reduced uptake&nbsp;and excretion function in the absence of rifampicin. Rifampicin&nbsp;administration improved their excretory function but had no effect&nbsp;on their uptake function.</div>\n<div>&nbsp;</div>\n<div>The variables are the same as in the rifampicin study in healthy volunteers, but the patient study was performed in a different center.</div>\n<div>&nbsp;</div>\n<div>Manuscript in preparation.</div>\n<div>&nbsp;</div>\n<div>\n<div><strong><em>tristan_rats_healthy_six_drugs</em></strong></div>\n<div>&nbsp;</div>\nThe study presented here measured gadoxetate uptake and excretion&nbsp;in healthy rats before and after injection of 6 test drugs (up to&nbsp;6 rats per drug). Studies were performed in preclinical MRI&nbsp;scanners at 3 different centers and 2 different field strengths.</div>\n<div>\n<div>&nbsp;</div>\n<div>Results demonstrated that two of the tested drugs (rifampicin and cyclosporine) showed strong inhibition of both uptake and excretion. One drug (ketoconazole) inhibited uptake but not excretion. Three drugs (pioglitazone, bosentan and asunaprevir) inhibited excretion but not uptake.</div>\n<br>\n<div>The following data are available for each subject (see data.csv for more detail):</div>\n<ul>\n<li><strong>time</strong>: array of time points in sec</li>\n<li><strong>spleen</strong>: array of spleen signals in arbitrary units</li>\n<li><strong>liver</strong>: array of liver signals in arbitrary units.</li>\n<li><strong>FA</strong>: Flip angle in degrees</li>\n<li><strong>TR</strong>: repetition time in sec</li>\n<li><strong>n0</strong>: number of precontrast acquisitions</li>\n<li><strong>study</strong>: an integer identifying the substudy the scan was taken in</li>\n<li><strong>subject</strong>: a study-specific identifier of the subject in the range 1-6.</li>\n<li><strong>visit</strong>: either 1 (baseline) or 2 (drug or vehicle/saline).</li>\n<li><strong>center</strong>: center wehere the study was performed, either E, G or D.</li>\n<li><strong>field_strength</strong>: B0-field of scanner on whuch the study was performed</li>\n<li><strong>substance</strong>: what was injected, eg. saline, vehicle or drug name.</li>\n<li><strong>BAT</strong>: Bolus arrival time</li>\n<li><strong>duration</strong>: duration on the injection in sec.</li>\n</ul>\nPlease reference the following paper when using these data:</div>\n<div><br>\n<div>Melillo N, Scotcher D, Kenna JG, Green C, Hines CDG, Laitinen I,&nbsp;Hockings PD, Ogungbenro K, Gunwhy ER, Sourbron S, et al. Use of&nbsp;In Vivo Imaging and Physiologically-Based Kinetic Modelling to&nbsp;Predict Hepatic Transporter Mediated Drug&ndash;Drug Interactions in&nbsp;Rats. <a href=\"https://doi.org/10.3390/pharmaceutics15030896\">Pharmaceutics. 2023; 15(3):896</a>.</div>\n<br><strong><em>tristan_rats_healthy_reproducibility</em></strong></div>\n<div><br>Data from a study that aimed to determine the repreducibility&nbsp;and repeatability of gadoxetate uptake and excretion measurements&nbsp;in healthy rats. Data were acquired in different centers and field&nbsp;strengths to identify contributing factors. Some of the studies&nbsp;involved repeat scans in the same subject. In some studies data&nbsp;on the second day were taken after adminstration of a drug&nbsp;(rifampicin) to test if effect sizes were reproducible.<br>\n<div>&nbsp;</div>\nAvailable data for each subject are the same as in the six drugs study (see data.csv for more detail)</div>\n<div><br>Please reference the following paper when using these data:</div>\n<div>\n<div>&nbsp;</div>\n<div>Ebony R. Gunwhy, Catherine D. G. Hines, Claudia Green, Iina Laitinen, Sirisha Tadimalla, Paul D. Hockings, Gunnar Sch&uuml;tz, J. Gerry Kenna, Steven Sourbron, and John C. Waterton. Assessment of hepatic transporter function in rats using dynamic gadoxetate-enhanced MRI: A reproducibility study. MAGMA<br>. 2024 Aug;37(4):697-708. <a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC11417070/\">doi: 10.1007/s10334-024-01192-5</a>.&nbsp;</div>\n<br><strong><em>tristan_rats_healthy_multiple_dosing</em></strong><br>\n<div>&nbsp;</div>\n<div>These data are taken from a preclinical study&nbsp;which aimed to investigate the potential of gadoxetate-enhanced&nbsp;DCE-MRI to study acute inhibition of hepatocyte transporters of&nbsp;drug-induced liver injury (DILI) causing drugs, and to study&nbsp;potential changes in transporter function after chronic dosing.</div>\n<br>\n<div>\n<div>Available data for each subject are the same as in the six drugs study (see data.csv for more detail)</div>\n<div><br>Please reference the following abstract when using these data (manuscript in preparation):</div>\n</div>\n<br>\n<div>Mikael Montelius, Steven Sourbron, Nicola Melillo, Daniel Scotcher,&nbsp;Aleksandra Galetin, Gunnar Schuetz, Claudia Green, Edvin Johansson,&nbsp;John C. Waterton, and Paul Hockings. Acute and chronic rifampicin&nbsp;effect on gadoxetate uptake in rats using gadoxetate DCE-MRI. <a href=\"https://archive.ismrm.org/2021/2764.html\">Int&nbsp;Soc Mag Reson Med 2021; 2674.</a></div>\n</div>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "TRISTAN consortium",
-            "affiliation": null
-          }
-        ],
-        "version": "0.0.2",
+        "version": "py-1.32.0",
         "custom": {
-          "code:developmentStatus": {
-            "id": "active",
-            "title": {
-              "en": "Active"
-            }
-          }
+          "code:codeRepository": "https://github.com/pola-rs/polars"
         },
         "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
+          "title": "Software",
+          "type": "software"
         },
         "license": {
           "id": "cc-by-4.0"
         },
-        "grants": [
-          {
-            "code": "116106",
-            "internal_id": "10.13039/501100000780::116106",
-            "funder": {
-              "name": "European Commission",
-              "doi": "10.13039/501100000780",
-              "acronym": "EC"
-            },
-            "title": "Imaging Biomarkers (IBs) for Safer Drugs: Validation of Translational Imaging Methods in Drug Safety Assessment - Sofia ref.: 116106",
-            "acronym": "IB4SD-TRISTAN",
-            "program": "H2020-EU.3.1.",
-            "url": "https://cordis.europa.eu/projects/116106"
-          }
-        ],
-        "communities": [
-          {
-            "id": "miblab"
-          }
-        ],
         "relations": {
           "version": [
             {
-              "index": 2,
+              "index": 182,
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "14957320"
+                "pid_value": "7697217"
               }
             }
           ]
         }
       },
-      "title": "TRISTAN gadoxetate kinetics",
+      "title": "pola-rs/polars: Python Polars 1.32.0",
       "links": {
-        "self": "https://zenodo.org/api/records/15301607",
-        "self_html": "https://zenodo.org/records/15301607",
-        "preview_html": "https://zenodo.org/records/15301607?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15301607",
-        "self_doi": "https://doi.org/10.5281/zenodo.15301607",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15301607",
-        "parent": "https://zenodo.org/api/records/14957320",
-        "parent_html": "https://zenodo.org/records/14957320",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14957320",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14957320",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15301607/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15301607/sequence/default",
-        "files": "https://zenodo.org/api/records/15301607/files",
-        "media_files": "https://zenodo.org/api/records/15301607/media-files",
-        "archive": "https://zenodo.org/api/records/15301607/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15301607/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15301607/versions/latest",
-        "latest_html": "https://zenodo.org/records/15301607/latest",
-        "versions": "https://zenodo.org/api/records/15301607/versions",
-        "draft": "https://zenodo.org/api/records/15301607/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15301607/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15301607/access/links",
-        "access_grants": "https://zenodo.org/api/records/15301607/access/grants",
-        "access_users": "https://zenodo.org/api/records/15301607/access/users",
-        "access_request": "https://zenodo.org/api/records/15301607/access/request",
-        "access": "https://zenodo.org/api/records/15301607/access",
-        "communities": "https://zenodo.org/api/records/15301607/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15301607/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15301607/requests"
+        "self": "https://zenodo.org/api/records/16661469",
+        "self_html": "https://zenodo.org/records/16661469",
+        "preview_html": "https://zenodo.org/records/16661469?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16661469",
+        "self_doi": "https://doi.org/10.5281/zenodo.16661469",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16661469",
+        "reserve_doi": "https://zenodo.org/api/records/16661469/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/7697217",
+        "parent_html": "https://zenodo.org/records/7697217",
+        "parent_doi": "https://doi.org/10.5281/zenodo.7697217",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.7697217",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16661469/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16661469/sequence/default",
+        "files": "https://zenodo.org/api/records/16661469/files",
+        "media_files": "https://zenodo.org/api/records/16661469/media-files",
+        "archive": "https://zenodo.org/api/records/16661469/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16661469/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16661469/versions/latest",
+        "latest_html": "https://zenodo.org/records/16661469/latest",
+        "versions": "https://zenodo.org/api/records/16661469/versions",
+        "draft": "https://zenodo.org/api/records/16661469/draft",
+        "access_links": "https://zenodo.org/api/records/16661469/access/links",
+        "access_grants": "https://zenodo.org/api/records/16661469/access/grants",
+        "access_users": "https://zenodo.org/api/records/16661469/access/users",
+        "access_request": "https://zenodo.org/api/records/16661469/access/request",
+        "access": "https://zenodo.org/api/records/16661469/access",
+        "communities": "https://zenodo.org/api/records/16661469/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16661469/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16661469/requests"
       },
-      "updated": "2025-04-29T08:20:35.226361+00:00",
-      "recid": "15301607",
-      "revision": 6,
+      "updated": "2025-08-01T01:44:06.088663+00:00",
+      "recid": "16661469",
+      "revision": 4,
       "files": [
         {
-          "id": "c94e4d03-c090-4f5b-b2e1-5db60d4be27b",
-          "key": "tristan_humans_healthy_ciclosporin.dmr.zip",
-          "size": 528709,
-          "checksum": "md5:91e5ef15f2f44c26b8af16baf5ef3bf6",
+          "id": "6edcf0f4-8e56-4355-a78a-b92aca6b81dd",
+          "key": "pola-rs/polars-py-1.32.0.zip",
+          "size": 6030060,
+          "checksum": "md5:cca59acdfaf66cd62b6028323b90e9ce",
           "links": {
-            "self": "https://zenodo.org/api/records/15301607/files/tristan_humans_healthy_ciclosporin.dmr.zip/content"
-          }
-        },
-        {
-          "id": "7f0b97c8-f919-4e63-ad4a-aa1da411bbf3",
-          "key": "tristan_humans_healthy_controls.dmr.zip",
-          "size": 244190,
-          "checksum": "md5:ec64cbdf86261e9210555582e4d849c3",
-          "links": {
-            "self": "https://zenodo.org/api/records/15301607/files/tristan_humans_healthy_controls.dmr.zip/content"
-          }
-        },
-        {
-          "id": "546c5355-013a-4327-97f6-3b77100948c8",
-          "key": "tristan_humans_patients_rifampicin.dmr.zip",
-          "size": 186476,
-          "checksum": "md5:c17b17f60350c7032e89809d956c135c",
-          "links": {
-            "self": "https://zenodo.org/api/records/15301607/files/tristan_humans_patients_rifampicin.dmr.zip/content"
-          }
-        },
-        {
-          "id": "378374db-8bb2-4d23-8b1c-20127fa04bbc",
-          "key": "tristan_rats_healthy_six_drugs.dmr.zip",
-          "size": 15556,
-          "checksum": "md5:f3412bce8b6cabdfb3c97a26d915413d",
-          "links": {
-            "self": "https://zenodo.org/api/records/15301607/files/tristan_rats_healthy_six_drugs.dmr.zip/content"
-          }
-        },
-        {
-          "id": "74dd2bc4-b9f1-4279-8313-be0b7b29ef13",
-          "key": "tristan_humans_healthy_metformin.dmr.zip",
-          "size": 481508,
-          "checksum": "md5:a3446a00533d6198ea580b7dbfcde5dc",
-          "links": {
-            "self": "https://zenodo.org/api/records/15301607/files/tristan_humans_healthy_metformin.dmr.zip/content"
-          }
-        },
-        {
-          "id": "4f9c47e0-c6af-473a-9411-e68bbc066023",
-          "key": "tristan_rats_healthy_multiple_dosing.dmr.zip",
-          "size": 27210,
-          "checksum": "md5:0d3ce85913056f4df8b0c526959c3998",
-          "links": {
-            "self": "https://zenodo.org/api/records/15301607/files/tristan_rats_healthy_multiple_dosing.dmr.zip/content"
-          }
-        },
-        {
-          "id": "bbc3e20d-dcb2-4bb8-be5d-146a9b93b4a6",
-          "key": "tristan_humans_healthy_rifampicin.dmr.zip",
-          "size": 1558482,
-          "checksum": "md5:4c349447fc3a00654b35922325b3d5f1",
-          "links": {
-            "self": "https://zenodo.org/api/records/15301607/files/tristan_humans_healthy_rifampicin.dmr.zip/content"
-          }
-        },
-        {
-          "id": "963f1825-e071-4af4-9ebc-8736f0d52297",
-          "key": "tristan_rats_healthy_reproducibility.dmr.zip",
-          "size": 26358,
-          "checksum": "md5:e9ebda6086dcda144a7cb8f4c5a672f6",
-          "links": {
-            "self": "https://zenodo.org/api/records/15301607/files/tristan_rats_healthy_reproducibility.dmr.zip/content"
+            "self": "https://zenodo.org/api/records/16661469/files/pola-rs/polars-py-1.32.0.zip/content"
           }
         }
       ],
-      "swh": {},
+      "swh": {
+        "swhid": "swh:1:dir:3f8d088cc158a8060a3b9d66a258da13e9473d3b;origin=https://doi.org/10.5281/zenodo.7697217;visit=swh:1:snp:31a32fd284c910d7176e26e0c35edec427210867;anchor=swh:1:rel:75697aea26f61fa530e7a2d9f0f10a7deebcf9d7;path=pola-rs-polars-c57de4b"
+      },
       "owners": [
         {
-          "id": "109478"
+          "id": "506001"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 387,
-        "unique_downloads": 385,
-        "views": 146,
-        "unique_views": 133,
-        "version_downloads": 40,
-        "version_unique_downloads": 40,
-        "version_unique_views": 14,
-        "version_views": 15
+        "downloads": 777,
+        "unique_downloads": 770,
+        "views": 7696,
+        "unique_views": 7371,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 2,
+        "version_views": 2
       },
       "state": "done",
       "submitted": true
     },
     {
-      "created": "2025-04-29T06:32:43.315849+00:00",
-      "modified": "2025-04-29T06:32:43.578137+00:00",
-      "id": 15301112,
-      "conceptrecid": "15301111",
-      "doi": "10.5281/zenodo.15301112",
-      "conceptdoi": "10.5281/zenodo.15301111",
-      "doi_url": "https://doi.org/10.5281/zenodo.15301112",
+      "created": "2025-07-31T17:01:21.681228+00:00",
+      "modified": "2025-07-31T17:01:22.692283+00:00",
+      "id": 16644563,
+      "conceptrecid": "16644562",
+      "doi": "10.23919/EuCAP63536.2025.10999189",
+      "doi_url": "https://doi.org/10.23919/EuCAP63536.2025.10999189",
       "metadata": {
-        "title": "Integrating Aesthetic and Reconstructive Surgery: A Case Report on Abdominoplasty with Polypropylene Mesh for Rectus Diastasis and Ventral Hernia Repair",
-        "doi": "10.5281/zenodo.15301112",
-        "publication_date": "2025-04-29",
-        "description": "<p>Background: Rectus abdominis diastasis (RAD) is the excessive widening of the midline separation between rectus abdominis muscles, commonly seen in postpartum women and middle-aged men with central obesity. Severe cases can cause abdominal wall dysfunction and ventral hernias, necessitating surgical intervention. This report highlights a collaborative approach integrating aesthetic and functional reconstruction.<br>Case Report: A 41-year-old woman presented with persistent abdominal bulging after her third vaginal delivery. A CT scan confirmed a 7 cm RAD with a ventral hernia. Given the need for both functional repair and cosmetic enhancement, a multidisciplinary team performed the surgery. The plastic surgery team began with an abdominoplasty incision, followed by the digestive surgeon&rsquo;s laparotomy for abdominal wall reconstruction with polypropylene mesh. The procedure concluded with aesthetic refinement by the plastic surgeon. The patient recovered well, with significant symptomatic improvement and no complications.&nbsp;<br>Discussion: This case emphasizes the value of an interdisciplinary approach in managing RAD with ventral hernias. Combining abdominoplasty with mesh-reinforced repair offers both functional and aesthetic benefits. Mesh reinforcement ensures durability and prevents recurrence, making it superior to suture plication alone. Collaboration between plastic and digestive surgeons enables comprehensive restoration of abdominal wall integrity while achieving optimal cosmetic outcomes.<br>Conclusion: A combined surgical approach using abdominoplasty and polypropylene mesh reinforcement effectively addresses both functional and aesthetic concerns in RAD with ventral hernia, ensuring long-term structural integrity and enhanced patient satisfaction.</p>\n<p>&nbsp;</p>",
+        "title": "Metasurface Dome Antennas with Non-Locality Compensation",
+        "doi": "10.23919/EuCAP63536.2025.10999189",
+        "publication_date": "2025-04-07",
+        "description": "<p>Steerable antennas typically struggle to maintain optimal radiation performance at large scan angles. This field of view (FoV) limitation becomes critical for the implementation of efficient transmitters in reconfigurable intelligent surfaces (RIS) based networks. The inclusion of a static metasurface (MTS) dome in the antenna system has been previously proposed to increase the scan range. However, preceding investigations based the wide-angle matching on a predistortion calculated under the assumption of refraction locality. In this paper, we demonstrate that non-locality compensation provides an outperforming solution for the scan range expansion. Full-wave simulations are reported, demonstrating the enhanced performance of the metadome (MTD) system compared to the standalone antenna, as well as the superiority of the non-local approach over the compensation assuming locality.</p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Febe Alodia Widjaja",
-            "affiliation": "Intern of Division of Plastic Reconstructive and Aesthetic Surgery, Department of Surgery, RSPAL Dr. Ramelan Hospital, Surabaya, Indonesia"
+            "name": "Garc\u00eda-Fern\u00e1ndez, Joaqu\u00edn",
+            "affiliation": "Wave Up (Italy)",
+            "orcid": "0000-0002-7543-2276"
           },
           {
-            "name": "Bambang Wicaksono",
-            "affiliation": "Division of Plastic Reconstructive and Aesthetic Surgery Division, Department of Surgery, RSPAL Dr. Ramelan Hospital, Surabaya, Indonesia"
+            "name": "caminita, francesco",
+            "affiliation": "Wave Up (Italy)",
+            "orcid": "0000-0002-6525-7697"
           },
           {
-            "name": "Timotius Hansen Arista",
-            "affiliation": "Division of Plastic Reconstructive and Aesthetic Surgery Division, Department of Surgery, RSPAL Dr. Ramelan Hospital, Surabaya, Indonesia"
+            "name": "Della Giovampaola, Cristian",
+            "affiliation": "Wave Up (Italy)",
+            "orcid": "0000-0002-0374-7121"
+          },
+          {
+            "name": "Nannetti, Massimo",
+            "affiliation": "Wave Up (Italy)"
+          },
+          {
+            "name": "Martini, Enrica",
+            "affiliation": "University of Siena",
+            "orcid": "0000-0001-6319-8040"
+          },
+          {
+            "name": "MACI, Stefano",
+            "affiliation": "University of Siena",
+            "orcid": "0000-0003-3145-0074"
           }
         ],
-        "keywords": [
-          "Diastasis recti, Ventral Hernia, Abdominoplasty, Polypropylene Mesh."
-        ],
-        "language": "ang",
         "resource_type": {
-          "title": "Journal article",
+          "title": "Conference paper",
           "type": "publication",
-          "subtype": "article"
+          "subtype": "conferencepaper"
         },
-        "journal": {
-          "issue": "04",
-          "pages": "234-239",
-          "title": "INTERNATIONAL JOURNAL OF HEALTH & MEDICAL RESEARCH",
-          "volume": "04"
+        "meeting": {
+          "title": "2025 19th European Conference on Antennas and Propagation (EuCAP)"
         },
         "license": {
           "id": "cc-by-4.0"
@@ -822,70 +295,783 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "15301111"
+                "pid_value": "16644562"
               }
             }
           ]
         }
       },
-      "title": "Integrating Aesthetic and Reconstructive Surgery: A Case Report on Abdominoplasty with Polypropylene Mesh for Rectus Diastasis and Ventral Hernia Repair",
+      "title": "Metasurface Dome Antennas with Non-Locality Compensation",
       "links": {
-        "self": "https://zenodo.org/api/records/15301112",
-        "self_html": "https://zenodo.org/records/15301112",
-        "preview_html": "https://zenodo.org/records/15301112?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15301112",
-        "self_doi": "https://doi.org/10.5281/zenodo.15301112",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15301112",
-        "parent": "https://zenodo.org/api/records/15301111",
-        "parent_html": "https://zenodo.org/records/15301111",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15301111",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15301111",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15301112/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15301112/sequence/default",
-        "files": "https://zenodo.org/api/records/15301112/files",
-        "media_files": "https://zenodo.org/api/records/15301112/media-files",
+        "self": "https://zenodo.org/api/records/16644563",
+        "self_html": "https://zenodo.org/records/16644563",
+        "preview_html": "https://zenodo.org/records/16644563?preview=1",
+        "doi": "https://doi.org/10.23919/EuCAP63536.2025.10999189",
+        "self_doi": "https://doi.org/10.23919/EuCAP63536.2025.10999189",
+        "self_doi_html": "https://zenodo.org/doi/10.23919/EuCAP63536.2025.10999189",
+        "reserve_doi": "https://zenodo.org/api/records/16644563/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16644562",
+        "parent_html": "https://zenodo.org/records/16644562",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16644563/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16644563/sequence/default",
+        "files": "https://zenodo.org/api/records/16644563/files",
+        "media_files": "https://zenodo.org/api/records/16644563/media-files",
         "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:15301112:5.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:15301112:5.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:15301112:5.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:15301112:5.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:15301112:5.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:15301112:5.pdf/full/^1200,/0/default.jpg"
+          "10": "https://zenodo.org/api/iiif/record:16644563:Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16644563:Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16644563:Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16644563:Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16644563:Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16644563:Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf/full/%5E1200,/0/default.jpg"
         },
-        "archive": "https://zenodo.org/api/records/15301112/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15301112/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15301112/versions/latest",
-        "latest_html": "https://zenodo.org/records/15301112/latest",
-        "versions": "https://zenodo.org/api/records/15301112/versions",
-        "draft": "https://zenodo.org/api/records/15301112/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15301112/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15301112/access/links",
-        "access_grants": "https://zenodo.org/api/records/15301112/access/grants",
-        "access_users": "https://zenodo.org/api/records/15301112/access/users",
-        "access_request": "https://zenodo.org/api/records/15301112/access/request",
-        "access": "https://zenodo.org/api/records/15301112/access",
-        "communities": "https://zenodo.org/api/records/15301112/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15301112/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15301112/requests"
+        "archive": "https://zenodo.org/api/records/16644563/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16644563/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16644563/versions/latest",
+        "latest_html": "https://zenodo.org/records/16644563/latest",
+        "versions": "https://zenodo.org/api/records/16644563/versions",
+        "draft": "https://zenodo.org/api/records/16644563/draft",
+        "access_links": "https://zenodo.org/api/records/16644563/access/links",
+        "access_grants": "https://zenodo.org/api/records/16644563/access/grants",
+        "access_users": "https://zenodo.org/api/records/16644563/access/users",
+        "access_request": "https://zenodo.org/api/records/16644563/access/request",
+        "access": "https://zenodo.org/api/records/16644563/access",
+        "communities": "https://zenodo.org/api/records/16644563/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16644563/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16644563/requests"
       },
-      "updated": "2025-04-29T06:32:43.578137+00:00",
-      "recid": "15301112",
+      "updated": "2025-07-31T17:01:22.692283+00:00",
+      "recid": "16644563",
       "revision": 4,
       "files": [
         {
-          "id": "f15732c8-f567-4d8f-ae42-ca041e8be510",
-          "key": "5.pdf",
-          "size": 193673,
-          "checksum": "md5:4e7973f0b13259f0d21c7d9b1e69d992",
+          "id": "ab248038-9f58-4445-bd0c-efd486947ce1",
+          "key": "Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf",
+          "size": 787653,
+          "checksum": "md5:c759780e7488b138fd45054305d7855b",
           "links": {
-            "self": "https://zenodo.org/api/records/15301112/files/5.pdf/content"
+            "self": "https://zenodo.org/api/records/16644563/files/Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "409570"
+          "id": "1377417"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 4,
+        "unique_downloads": 3,
+        "views": 4,
+        "unique_views": 3,
+        "version_downloads": 4,
+        "version_unique_downloads": 3,
+        "version_unique_views": 3,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-07-31T09:18:19.959115+00:00",
+      "modified": "2025-07-31T09:18:20.159320+00:00",
+      "id": 16631395,
+      "conceptrecid": "16631394",
+      "doi": "10.5281/zenodo.16631395",
+      "conceptdoi": "10.5281/zenodo.16631394",
+      "doi_url": "https://doi.org/10.5281/zenodo.16631395",
+      "metadata": {
+        "title": "lucrezialaccetti8/Genome-association-analyses: Genome association analyses in the wild plant Brassica incana",
+        "doi": "10.5281/zenodo.16631395",
+        "publication_date": "2025-07-31",
+        "description": "<p>This repository stores the R codes used to perform all the genomic analyses related to the publication of Laccetti et al: &quot;Genomic signatures of seed trait adaptation in the wild plant Brassica incana&quot;. The study combines genome-wide association, genome-environment association and a genome-wide scan of spatial genomic differentiation to identify putative signatures of adaptation in seed traits and to climate and pollinators across 14 populations of the wild plant Brassica incana.</p>\n<p>Sequencing data from Pacbio and Illumina used for this study are available at the ENA database (project number PRJEB54646). The bionano raw data and assembled optical maps are available at NCBI database (sample name PRJNA859008). Data on seed trait and ecological variables are provided in Supplementary material (Supplementary Data 1) of the publication.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "lucrezialaccetti8",
+            "affiliation": null
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/lucrezialaccetti8/Genome-association-analyses/tree/v1.0.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v1.0.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/lucrezialaccetti8/Genome-association-analyses"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "mit-license"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16631394"
+              }
+            }
+          ]
+        }
+      },
+      "title": "lucrezialaccetti8/Genome-association-analyses: Genome association analyses in the wild plant Brassica incana",
+      "links": {
+        "self": "https://zenodo.org/api/records/16631395",
+        "self_html": "https://zenodo.org/records/16631395",
+        "preview_html": "https://zenodo.org/records/16631395?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16631395",
+        "self_doi": "https://doi.org/10.5281/zenodo.16631395",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16631395",
+        "reserve_doi": "https://zenodo.org/api/records/16631395/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16631394",
+        "parent_html": "https://zenodo.org/records/16631394",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16631394",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16631394",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16631395/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16631395/sequence/default",
+        "files": "https://zenodo.org/api/records/16631395/files",
+        "media_files": "https://zenodo.org/api/records/16631395/media-files",
+        "archive": "https://zenodo.org/api/records/16631395/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16631395/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16631395/versions/latest",
+        "latest_html": "https://zenodo.org/records/16631395/latest",
+        "versions": "https://zenodo.org/api/records/16631395/versions",
+        "draft": "https://zenodo.org/api/records/16631395/draft",
+        "access_links": "https://zenodo.org/api/records/16631395/access/links",
+        "access_grants": "https://zenodo.org/api/records/16631395/access/grants",
+        "access_users": "https://zenodo.org/api/records/16631395/access/users",
+        "access_request": "https://zenodo.org/api/records/16631395/access/request",
+        "access": "https://zenodo.org/api/records/16631395/access",
+        "communities": "https://zenodo.org/api/records/16631395/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16631395/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16631395/requests"
+      },
+      "updated": "2025-07-31T09:18:20.159320+00:00",
+      "recid": "16631395",
+      "revision": 4,
+      "files": [
+        {
+          "id": "e6477f3a-e3d0-46d9-81b2-c09a7a5995cd",
+          "key": "lucrezialaccetti8/Genome-association-analyses-v1.0.0.zip",
+          "size": 11441,
+          "checksum": "md5:9472644543a1745639c25c6adbcbe0c3",
+          "links": {
+            "self": "https://zenodo.org/api/records/16631395/files/lucrezialaccetti8/Genome-association-analyses-v1.0.0.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:4e4790d1da36f2da4b51c719c56591ac50082def;origin=https://doi.org/10.5281/zenodo.16631394;visit=swh:1:snp:9e414fea3234ce845bdc06afc85695c8fb704b6a;anchor=swh:1:rel:aef44bed5a1db4c457f3f329964b4c52db8759c7;path=lucrezialaccetti8-Genome-association-analyses-a9812bd"
+      },
+      "owners": [
+        {
+          "id": "1322367"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-07-31T01:04:54.900479+00:00",
+      "modified": "2025-07-31T01:04:55.150539+00:00",
+      "id": 16624097,
+      "conceptrecid": "16624096",
+      "doi": "10.5281/zenodo.16624097",
+      "conceptdoi": "10.5281/zenodo.16624096",
+      "doi_url": "https://doi.org/10.5281/zenodo.16624097",
+      "metadata": {
+        "title": "Predicted Decay Channels and Detection Strategies for the 12.87 GeV Chronos Dark Resonance",
+        "doi": "10.5281/zenodo.16624097",
+        "publication_date": "2025-07-30",
+        "description": "<p>This paper presents a falsifiable prediction of a metastable resonance at 12.87 GeV, linked to curvature band index&nbsp;in Chronos Theory. Positioned between tau and electroweak scales, this resonance is proposed as a potential dark sector bridge, with decay modes favoring muon, tau, and meson channels, and possible missing energy signals. Detection strategies focus on displaced vertices and invariant mass clustering below 13 GeV. The study provides explicit collider test conditions and outlines the implications for dark matter coupling and recursive curvature models.</p>",
+        "access_right": "restricted",
+        "creators": [
+          {
+            "name": "Hall, Matthew",
+            "affiliation": null,
+            "orcid": "0009-0001-7066-2558"
+          }
+        ],
+        "keywords": [
+          "Chronos Theory",
+          "12.87 GeV Resonance",
+          "Dark Sector Bridge",
+          "Curvature Band",
+          "Falsifiable Prediction",
+          "Leptonic Decay",
+          "Metastable Particle",
+          "Collider Physics",
+          "Invariant Mass Scan",
+          "Missing Energy",
+          "Recursive Curvature",
+          "Dark Matter Coupling",
+          "Time-Structured Quantum Dynamics"
+        ],
+        "version": "V1.0",
+        "language": "eng",
+        "resource_type": {
+          "title": "Preprint",
+          "type": "publication",
+          "subtype": "preprint"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16624096"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Predicted Decay Channels and Detection Strategies for the 12.87 GeV Chronos Dark Resonance",
+      "links": {
+        "self": "https://zenodo.org/api/records/16624097",
+        "self_html": "https://zenodo.org/records/16624097",
+        "preview_html": "https://zenodo.org/records/16624097?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16624097",
+        "self_doi": "https://doi.org/10.5281/zenodo.16624097",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16624097",
+        "reserve_doi": "https://zenodo.org/api/records/16624097/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16624096",
+        "parent_html": "https://zenodo.org/records/16624096",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16624096",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16624096",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16624097/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16624097/sequence/default",
+        "files": "https://zenodo.org/api/records/16624097/files",
+        "media_files": "https://zenodo.org/api/records/16624097/media-files",
+        "archive": "https://zenodo.org/api/records/16624097/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16624097/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16624097/versions/latest",
+        "latest_html": "https://zenodo.org/records/16624097/latest",
+        "versions": "https://zenodo.org/api/records/16624097/versions",
+        "draft": "https://zenodo.org/api/records/16624097/draft",
+        "access_links": "https://zenodo.org/api/records/16624097/access/links",
+        "access_grants": "https://zenodo.org/api/records/16624097/access/grants",
+        "access_users": "https://zenodo.org/api/records/16624097/access/users",
+        "access_request": "https://zenodo.org/api/records/16624097/access/request",
+        "access": "https://zenodo.org/api/records/16624097/access",
+        "communities": "https://zenodo.org/api/records/16624097/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16624097/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16624097/requests"
+      },
+      "updated": "2025-07-31T01:04:55.150539+00:00",
+      "recid": "16624097",
+      "revision": 4,
+      "files": [],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1264473"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 2,
+        "unique_downloads": 2,
+        "views": 2,
+        "unique_views": 2,
+        "version_downloads": 2,
+        "version_unique_downloads": 2,
+        "version_unique_views": 2,
+        "version_views": 2
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-07-31T00:55:05.731059+00:00",
+      "modified": "2025-07-31T01:20:53.950971+00:00",
+      "id": 16624061,
+      "conceptrecid": "16624060",
+      "doi": "10.5281/zenodo.16624061",
+      "conceptdoi": "10.5281/zenodo.16624060",
+      "doi_url": "https://doi.org/10.5281/zenodo.16624061",
+      "metadata": {
+        "title": "The 4.63 GeV Chronos Transition Node: Recursive Decay Mapping and Experimental Verification",
+        "doi": "10.5281/zenodo.16624061",
+        "publication_date": "2025-07-30",
+        "description": "<p>This paper explores the predicted 4.63 GeV resonance in Chronos Theory, associated with curvature band index. Positioned between known leptonic states and higher-mass recursive transitions, this node functions as a decay anchor in the Chronos curvature lattice. The work details decay pathways, suppressed transitions, and cross-section profiles, with specific falsifiability criteria for collider experiments. The paper emphasizes its role in recursive decay validation and outlines detection strategies focused on low-mass invariant scans and photon-rich final states.</p>",
+        "access_right": "restricted",
+        "creators": [
+          {
+            "name": "Hall, Matthew",
+            "affiliation": null,
+            "orcid": "0009-0001-7066-2558"
+          }
+        ],
+        "keywords": [
+          "Chronos Theory",
+          "4.63 GeV Resonance",
+          "Curvature Band Index",
+          "Recursive Decay Anchor",
+          "Temporal Quantization",
+          "Particle Physics",
+          "Muon Pair Production",
+          "Invariant Mass Scan",
+          "Invisible Decays",
+          "Low-Energy Collider Test",
+          "Quantum Field Geometry",
+          "Falsifiable Prediction"
+        ],
+        "version": "V1.0",
+        "language": "eng",
+        "resource_type": {
+          "title": "Preprint",
+          "type": "publication",
+          "subtype": "preprint"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16624060"
+              }
+            }
+          ]
+        }
+      },
+      "title": "The 4.63 GeV Chronos Transition Node: Recursive Decay Mapping and Experimental Verification",
+      "links": {
+        "self": "https://zenodo.org/api/records/16624061",
+        "self_html": "https://zenodo.org/records/16624061",
+        "preview_html": "https://zenodo.org/records/16624061?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16624061",
+        "self_doi": "https://doi.org/10.5281/zenodo.16624061",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16624061",
+        "reserve_doi": "https://zenodo.org/api/records/16624061/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16624060",
+        "parent_html": "https://zenodo.org/records/16624060",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16624060",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16624060",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16624061/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16624061/sequence/default",
+        "files": "https://zenodo.org/api/records/16624061/files",
+        "media_files": "https://zenodo.org/api/records/16624061/media-files",
+        "archive": "https://zenodo.org/api/records/16624061/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16624061/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16624061/versions/latest",
+        "latest_html": "https://zenodo.org/records/16624061/latest",
+        "versions": "https://zenodo.org/api/records/16624061/versions",
+        "draft": "https://zenodo.org/api/records/16624061/draft",
+        "access_links": "https://zenodo.org/api/records/16624061/access/links",
+        "access_grants": "https://zenodo.org/api/records/16624061/access/grants",
+        "access_users": "https://zenodo.org/api/records/16624061/access/users",
+        "access_request": "https://zenodo.org/api/records/16624061/access/request",
+        "access": "https://zenodo.org/api/records/16624061/access",
+        "communities": "https://zenodo.org/api/records/16624061/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16624061/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16624061/requests"
+      },
+      "updated": "2025-07-31T01:20:53.950971+00:00",
+      "recid": "16624061",
+      "revision": 6,
+      "files": [],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1264473"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 6,
+        "unique_downloads": 4,
+        "views": 6,
+        "unique_views": 4,
+        "version_downloads": 6,
+        "version_unique_downloads": 4,
+        "version_unique_views": 4,
+        "version_views": 6
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-07-31T00:52:01.349738+00:00",
+      "modified": "2025-07-31T01:21:16.382778+00:00",
+      "id": 16623959,
+      "conceptrecid": "16623958",
+      "doi": "10.5281/zenodo.16623959",
+      "conceptdoi": "10.5281/zenodo.16623958",
+      "doi_url": "https://doi.org/10.5281/zenodo.16623959",
+      "metadata": {
+        "title": "The 8.16 GeV Chronos Resonance: Transition Mechanics and Falsifiable Decay Patterns",
+        "doi": "10.5281/zenodo.16623959",
+        "publication_date": "2025-07-30",
+        "description": "<p>This paper identifies and characterizes a predicted resonance at 8.16 GeV within the Chronos curvature band model, corresponding to index. It serves as a transitional node between other quantized mass states, offering a testable bridge in recursive decay chains. The work details decay pathways, cross-section expectations, and detection strategies, including possible signatures of long-lived or invisible states. Designed for empirical validation, the paper proposes multiple falsifiability criteria tailored for collider environments.</p>",
+        "access_right": "restricted",
+        "creators": [
+          {
+            "name": "Hall, Matthew",
+            "affiliation": null,
+            "orcid": "0009-0001-7066-2558"
+          }
+        ],
+        "keywords": [
+          "Chronos Theory",
+          "8.16 GeV Resonance",
+          "Recursive Mass Quantization",
+          "Curvature Band Index",
+          "Particle Decay Channels",
+          "Long-Lived Particles",
+          "Collider Signatures",
+          "Quantum Time Structure",
+          "Cross-Section Prediction",
+          "Falsifiability",
+          "Invariant Mass Scan",
+          "Temporal Curvature"
+        ],
+        "version": "V1.0",
+        "language": "eng",
+        "resource_type": {
+          "title": "Preprint",
+          "type": "publication",
+          "subtype": "preprint"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16623958"
+              }
+            }
+          ]
+        }
+      },
+      "title": "The 8.16 GeV Chronos Resonance: Transition Mechanics and Falsifiable Decay Patterns",
+      "links": {
+        "self": "https://zenodo.org/api/records/16623959",
+        "self_html": "https://zenodo.org/records/16623959",
+        "preview_html": "https://zenodo.org/records/16623959?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16623959",
+        "self_doi": "https://doi.org/10.5281/zenodo.16623959",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16623959",
+        "reserve_doi": "https://zenodo.org/api/records/16623959/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16623958",
+        "parent_html": "https://zenodo.org/records/16623958",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16623958",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16623958",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16623959/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16623959/sequence/default",
+        "files": "https://zenodo.org/api/records/16623959/files",
+        "media_files": "https://zenodo.org/api/records/16623959/media-files",
+        "archive": "https://zenodo.org/api/records/16623959/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16623959/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16623959/versions/latest",
+        "latest_html": "https://zenodo.org/records/16623959/latest",
+        "versions": "https://zenodo.org/api/records/16623959/versions",
+        "draft": "https://zenodo.org/api/records/16623959/draft",
+        "access_links": "https://zenodo.org/api/records/16623959/access/links",
+        "access_grants": "https://zenodo.org/api/records/16623959/access/grants",
+        "access_users": "https://zenodo.org/api/records/16623959/access/users",
+        "access_request": "https://zenodo.org/api/records/16623959/access/request",
+        "access": "https://zenodo.org/api/records/16623959/access",
+        "communities": "https://zenodo.org/api/records/16623959/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16623959/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16623959/requests"
+      },
+      "updated": "2025-07-31T01:21:16.382778+00:00",
+      "recid": "16623959",
+      "revision": 6,
+      "files": [],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1264473"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 3,
+        "unique_downloads": 2,
+        "views": 3,
+        "unique_views": 2,
+        "version_downloads": 3,
+        "version_unique_downloads": 2,
+        "version_unique_views": 2,
+        "version_views": 3
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-07-30T17:59:33.566687+00:00",
+      "modified": "2025-07-30T17:59:33.791722+00:00",
+      "id": 16618422,
+      "conceptrecid": "16618421",
+      "doi": "10.5281/zenodo.16618422",
+      "conceptdoi": "10.5281/zenodo.16618421",
+      "doi_url": "https://doi.org/10.5281/zenodo.16618422",
+      "metadata": {
+        "title": "Case Report: Recurrent Bacterial Meningitis in a Child with Structural Defect of the Base of the Skull- A Rare Presentation",
+        "doi": "10.5281/zenodo.16618422",
+        "publication_date": "2025-07-30",
+        "description": "<p><span>Recurrent bacterial meningitis (RBM) in children is unusual. It is usually associated with a predisposing factor, such as immunological deficiencies or anatomical defects. About 1.3% of children with bacterial meningitis had experienced at least one previous episode.<span>&nbsp; </span>Anatomical defects are the most common risk factor for RBM. An accurate diagnosis of the underlying pathology is crucial for preventing the further recurrence of bacterial meningitis. </span></p>\n<p><strong><span>Case Report: </span></strong><span>We report a case of RBM in a 5-year-old female with a history of fever, projectile vomiting, neck stiffness, and seizures. There is a history of 3 admissions in the past, with the same history of clear nasal discharge, which usually precedes neck stiffness and seizures. A cranial CT scan showed a basal skull defect. She was co-managed with the ENT and neurosurgeon.</span></p>\n<p><strong><span>Conclusion: </span></strong><span>Recurrent bacterial meningitis, though infrequently encountered, poses a major diagnostic challenge. This case report contributes significant clinical insight into the presentation and management of a rare presentation in a low-resource tertiary healthcare setting. Its importance lies in highlighting diagnostic challenges and treatment approaches in the context of limited diagnostic infrastructure.</span></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Pauline Kasarachi Akowundu",
+            "affiliation": null
+          },
+          {
+            "name": "Patricia Akintan",
+            "affiliation": null
+          },
+          {
+            "name": "Blessing Ebele Kene-Udemezue",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "7",
+          "pages": "5-8",
+          "title": "GAS Journal of Clinical Medicine and Medical Research (GASJCMMR)",
+          "volume": "2"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16618421"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Case Report: Recurrent Bacterial Meningitis in a Child with Structural Defect of the Base of the Skull- A Rare Presentation",
+      "links": {
+        "self": "https://zenodo.org/api/records/16618422",
+        "self_html": "https://zenodo.org/records/16618422",
+        "preview_html": "https://zenodo.org/records/16618422?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16618422",
+        "self_doi": "https://doi.org/10.5281/zenodo.16618422",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16618422",
+        "reserve_doi": "https://zenodo.org/api/records/16618422/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16618421",
+        "parent_html": "https://zenodo.org/records/16618421",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16618421",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16618421",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16618422/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16618422/sequence/default",
+        "files": "https://zenodo.org/api/records/16618422/files",
+        "media_files": "https://zenodo.org/api/records/16618422/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16618422:Case%20Report%20Recurrent%20Bacterial%20Meningitis%20in%20a%20Child%20with%20Structural%20Defect%20of%20the%20Base%20of%20the%20Skull-%20A%20Rare%20Presentation.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16618422:Case%20Report%20Recurrent%20Bacterial%20Meningitis%20in%20a%20Child%20with%20Structural%20Defect%20of%20the%20Base%20of%20the%20Skull-%20A%20Rare%20Presentation.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16618422:Case%20Report%20Recurrent%20Bacterial%20Meningitis%20in%20a%20Child%20with%20Structural%20Defect%20of%20the%20Base%20of%20the%20Skull-%20A%20Rare%20Presentation.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16618422:Case%20Report%20Recurrent%20Bacterial%20Meningitis%20in%20a%20Child%20with%20Structural%20Defect%20of%20the%20Base%20of%20the%20Skull-%20A%20Rare%20Presentation.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16618422:Case%20Report%20Recurrent%20Bacterial%20Meningitis%20in%20a%20Child%20with%20Structural%20Defect%20of%20the%20Base%20of%20the%20Skull-%20A%20Rare%20Presentation.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16618422:Case%20Report%20Recurrent%20Bacterial%20Meningitis%20in%20a%20Child%20with%20Structural%20Defect%20of%20the%20Base%20of%20the%20Skull-%20A%20Rare%20Presentation.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16618422/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16618422/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16618422/versions/latest",
+        "latest_html": "https://zenodo.org/records/16618422/latest",
+        "versions": "https://zenodo.org/api/records/16618422/versions",
+        "draft": "https://zenodo.org/api/records/16618422/draft",
+        "access_links": "https://zenodo.org/api/records/16618422/access/links",
+        "access_grants": "https://zenodo.org/api/records/16618422/access/grants",
+        "access_users": "https://zenodo.org/api/records/16618422/access/users",
+        "access_request": "https://zenodo.org/api/records/16618422/access/request",
+        "access": "https://zenodo.org/api/records/16618422/access",
+        "communities": "https://zenodo.org/api/records/16618422/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16618422/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16618422/requests"
+      },
+      "updated": "2025-07-30T17:59:33.791722+00:00",
+      "recid": "16618422",
+      "revision": 4,
+      "files": [
+        {
+          "id": "8e9f96f3-4e05-4dbd-b9cf-a58798d1c611",
+          "key": "Case Report Recurrent Bacterial Meningitis in a Child with Structural Defect of the Base of the Skull- A Rare Presentation.pdf",
+          "size": 384028,
+          "checksum": "md5:b01885bf4dc892b18107749886eddb43",
+          "links": {
+            "self": "https://zenodo.org/api/records/16618422/files/Case Report Recurrent Bacterial Meningitis in a Child with Structural Defect of the Base of the Skull- A Rare Presentation.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "602509"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 3,
+        "unique_downloads": 3,
+        "views": 4,
+        "unique_views": 3,
+        "version_downloads": 3,
+        "version_unique_downloads": 3,
+        "version_unique_views": 3,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-07-30T16:45:44.954425+00:00",
+      "modified": "2025-07-30T16:45:45.199954+00:00",
+      "id": 16616896,
+      "conceptrecid": "16616894",
+      "doi": "10.5281/zenodo.16616896",
+      "conceptdoi": "10.5281/zenodo.16616894",
+      "doi_url": "https://doi.org/10.5281/zenodo.16616896",
+      "metadata": {
+        "title": "FLOOD SEGMENTATION USING AERIAL IMAGE",
+        "doi": "10.5281/zenodo.16616896",
+        "publication_date": "2025-07-30",
+        "description": "<p><a href=\"https://ijetrm.com/issues/files/Jul-2025-30-1753893820-JULY139.pdf\">&nbsp;Floods are one </a>of the most common and devastating natural disasters, causing widespread damage to lives,<br>property, and the environment. Identifying flooded areas quickly is crucial for effective disaster response and recovery.<br>Traditional methods of flood detection are often slow, labor-intensive, and may not cover large or remote regions effectively. This<br>project aims to provide a smart and efficient solution by using aerial images taken from drones, satellites, or aircraft. These<br>images are analyzed using advanced computer programs, which apply machine learning and deep learning techniques to<br>automatically detect and mark flood-affected regions. These intelligent algorithms can scan and process large amounts of image<br>data much faster than humans and with greater accuracy. The proposed system not only saves time but also offers real-time or<br>near-real-time flood mapping, helping emergency response teams, government authorities, and planners to take quick and<br>informed decisions. By providing accurate flood maps, this approach improves disaster management, reduces the impact of floods,<br>and supports better planning for future emergencies.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Koyya Sai Sushwanth,  Dr. M. Ramjee",
+            "affiliation": null
+          }
+        ],
+        "custom": {
+          "code:codeRepository": "https://ijetrm.com/issue/?volume=current"
+        },
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "07",
+          "title": "International Journal Of Engineering Technology Research & Management (IJETRM)",
+          "volume": "09"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16616894"
+              }
+            }
+          ]
+        }
+      },
+      "title": "FLOOD SEGMENTATION USING AERIAL IMAGE",
+      "links": {
+        "self": "https://zenodo.org/api/records/16616896",
+        "self_html": "https://zenodo.org/records/16616896",
+        "preview_html": "https://zenodo.org/records/16616896?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16616896",
+        "self_doi": "https://doi.org/10.5281/zenodo.16616896",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16616896",
+        "reserve_doi": "https://zenodo.org/api/records/16616896/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16616894",
+        "parent_html": "https://zenodo.org/records/16616894",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16616894",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16616894",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16616896/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16616896/sequence/default",
+        "files": "https://zenodo.org/api/records/16616896/files",
+        "media_files": "https://zenodo.org/api/records/16616896/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16616896:JULY139.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16616896:JULY139.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16616896:JULY139.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16616896:JULY139.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16616896:JULY139.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16616896:JULY139.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16616896/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16616896/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16616896/versions/latest",
+        "latest_html": "https://zenodo.org/records/16616896/latest",
+        "versions": "https://zenodo.org/api/records/16616896/versions",
+        "draft": "https://zenodo.org/api/records/16616896/draft",
+        "access_links": "https://zenodo.org/api/records/16616896/access/links",
+        "access_grants": "https://zenodo.org/api/records/16616896/access/grants",
+        "access_users": "https://zenodo.org/api/records/16616896/access/users",
+        "access_request": "https://zenodo.org/api/records/16616896/access/request",
+        "access": "https://zenodo.org/api/records/16616896/access",
+        "communities": "https://zenodo.org/api/records/16616896/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16616896/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16616896/requests"
+      },
+      "updated": "2025-07-30T16:45:45.199954+00:00",
+      "recid": "16616896",
+      "revision": 4,
+      "files": [
+        {
+          "id": "80cc40a8-3ea1-42bd-958c-f0dac2fb4291",
+          "key": "JULY139.pdf",
+          "size": 448666,
+          "checksum": "md5:9d5981c138fb8f50543921103b39783f",
+          "links": {
+            "self": "https://zenodo.org/api/records/16616896/files/JULY139.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "214539"
         }
       ],
       "status": "published",
@@ -903,517 +1089,59 @@
       "submitted": true
     },
     {
-      "created": "2025-04-29T05:58:30.461940+00:00",
-      "modified": "2025-04-29T05:58:30.606760+00:00",
-      "id": 15300759,
-      "conceptrecid": "15300758",
-      "doi": "10.5281/zenodo.15300759",
-      "conceptdoi": "10.5281/zenodo.15300758",
-      "doi_url": "https://doi.org/10.5281/zenodo.15300759",
+      "created": "2025-07-30T09:53:21.305586+00:00",
+      "modified": "2025-07-30T09:53:21.608914+00:00",
+      "id": 16603233,
+      "conceptrecid": "16603232",
+      "doi": "10.17632/5tvnwhsj2p.2",
+      "doi_url": "https://doi.org/10.17632/5tvnwhsj2p.2",
       "metadata": {
-        "title": "Global Non-Small-Cell Lung Cancer Drug Market 2024 To 2033",
-        "doi": "10.5281/zenodo.15300759",
-        "publication_date": "2024-04-15",
-        "description": "<p>Non-Small-Cell Lung Cancer Drug Market Size, Trends and Insights By Cancer Type (Non-Small Cell Lung Cancer, Metastatic Lung Cancer, Pulmonary Neuroendocrine Tumours, Mediastina Tumours, Mesothelioma, Chest Wall Tumours), By Application (Adenocarcinomas, Squamous Cell Carcinoma, Large Cell Carcinomas, Others), By Molecule Type (Small Molecules, Biologics), By Drug Class (Alkylating Agents, Antimetabolites, EGFR Inhibitors, Mitotic Inhibitors, Multi-kinase Inhibitors, Others), By Treatment Type (Chemotherapy, Radiation Therapy, Targeted Therapy, Immunotherapy, Others), By Diagnosis (CT scan, X-Rays, Sputum Cytology, Bronchoscopy, Laboratory Tests, Thoracoscopy, Others), By End User (Hospitals, Homecare, Specialty Clinics, Others), and By Region - Global Industry Overview, Statistical Data, Competitive Analysis, Share, Outlook, and Forecast 2024&ndash;2033.</p>\n<p><strong>Reports Description</strong></p>\n<p>As per the current market research conducted by the CMI Team, the global <a href=\"https://www.custommarketinsights.com/report/non-small-cell-lung-cancer-drug-market/\" target=\"_blank\" rel=\"noopener\"><strong>Non-Small-Cell Lung Cancer Drug Market</strong></a> is expected to record a CAGR of <strong>8.1%</strong> from 2024 to 2033. In 2024, the market size is projected to reach a valuation of USD <strong>34,175.6 Million</strong>. By 2033, the valuation is anticipated to reach USD <strong>68,888.6 Million</strong><strong>.</strong></p>\n<p>The Non-Small-Cell Lung Cancer (NSCLC) drug market encompasses the development, manufacturing, and commercialization of pharmaceutical products aimed at treating NSCLC, the most common type of lung cancer. These drugs include targeted therapies, immunotherapies, chemotherapy agents, and supportive care medications.</p>\n<p>With advancements in precision medicine and biomarker-driven approaches, the NSCLC drug market is witnessing a shift towards personalized treatment regimens tailored to individual patient profiles. The market is characterized by robust clinical research, regulatory approvals for novel therapeutics, and a focus on improving patient outcomes through innovative treatment modalities and multidisciplinary care approaches.</p>\n<p>For more information, <strong>DOWNLOAD FREE SAMPLE </strong>Now at <a href=\"https://www.custommarketinsights.com/request-for-free-sample/?reportid=45705\" target=\"_blank\" rel=\"noopener\">https://www.custommarketinsights.com/request-for-free-sample/?reportid=45705</a></p>",
+        "title": "A dataset of labelled device Wi-Fi probe requests for MAC address de-randomization - 2024",
+        "doi": "10.17632/5tvnwhsj2p.2",
+        "publication_date": "2025-07-30",
+        "description": "<p>A Wi-Fi client device can perform an active scan to speed up the connection process by transmitting Probe Request messages periodically. These are management frames of the IEEE 802.11 standard. The process of capturing these messages is called sniffing and can be performed using a Wi-Fi interface set in monitor mode and tuned to the same channel (or an adjacent channel) where the transmission occurred. Since these messages are not encrypted, they can be used to implement device counting algorithms based on MAC address analysis. However, to prevent tracking of device owners, major operating system producers have developed MAC address randomization functionalities. Devices that periodically and randomly change their physical address pose a challenge to counting algorithms, which must then perform additional steps to cluster probe requests according to the source device through analysis of appropriate message features. Our dataset is divided into two parts: - Anechoic Chamber Data Collection: Data was collected from 22 devices simultaneously in a controlled environment (anechoic chamber) to ensure the absence of external interference. All devices kept the Wi-Fi interface active and the display switched off. Data was collected only on channel 6 for 30 minutes. This data is stored in the \"Anechoic chamber\" folder and the \"Anechoic chamber - info.xlsx\" file contains device information. - Individual Device Data Collection: Data was collected from 18 individual devices on three channels simultaneously and in six different modes, including settings based on display status, Wi-Fi connection, and power saving. Collecting data from individual devices allows for labelling them and associating them with their emitting source. The data was collected in \"noisy\" environments (a chamber without particular shielding but devoid of other probe request sources within a two-meter radius). Data is filtered to simulate the anechoic chamber environment. Capture files last 30 minutes and cover three non-overlapping channels (1, 6, and 11) simultaneously. This data is stored in the \"Individual devices\" folder and the \"Individual devices - info.xlsx\" file contains device information. We collected a total of 215 non-empty files, removing captures that were empty after filtering. The capture device used is a Raspberry Pi with three Wi-Fi dongle interfaces, each assigned to collect data from a specific channel. The main characteristic of this dataset is the subdivision by device, allowing for a more accurate analysis of individual device behaviour in different modes. Additionally, the labelled data can be used to train Machine Learning algorithms or to verify the correct functioning of algorithms aimed at counting devices through probe request analysis in the presence of random MAC addresses.</p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Sirsat, Nitin",
-            "affiliation": null
-          }
-        ],
-        "keywords": [
-          "Non-Small-Cell Lung Cancer Drug Market",
-          "Non-Small-Cell Lung Cancer Drug Market Size",
-          "Non-Small-Cell Lung Cancer Drug Market Share",
-          "Non-Small-Cell Lung Cancer Drug Market Trends",
-          "Non-Small-Cell Lung Cancer Drug Market Report",
-          "Non-Small-Cell Lung Cancer Drug Market Research"
-        ],
-        "language": "eng",
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15300758"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Global Non-Small-Cell Lung Cancer Drug Market 2024 To 2033",
-      "links": {
-        "self": "https://zenodo.org/api/records/15300759",
-        "self_html": "https://zenodo.org/records/15300759",
-        "preview_html": "https://zenodo.org/records/15300759?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15300759",
-        "self_doi": "https://doi.org/10.5281/zenodo.15300759",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15300759",
-        "parent": "https://zenodo.org/api/records/15300758",
-        "parent_html": "https://zenodo.org/records/15300758",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15300758",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15300758",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15300759/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15300759/sequence/default",
-        "files": "https://zenodo.org/api/records/15300759/files",
-        "media_files": "https://zenodo.org/api/records/15300759/media-files",
-        "archive": "https://zenodo.org/api/records/15300759/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15300759/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15300759/versions/latest",
-        "latest_html": "https://zenodo.org/records/15300759/latest",
-        "versions": "https://zenodo.org/api/records/15300759/versions",
-        "draft": "https://zenodo.org/api/records/15300759/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15300759/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15300759/access/links",
-        "access_grants": "https://zenodo.org/api/records/15300759/access/grants",
-        "access_users": "https://zenodo.org/api/records/15300759/access/users",
-        "access_request": "https://zenodo.org/api/records/15300759/access/request",
-        "access": "https://zenodo.org/api/records/15300759/access",
-        "communities": "https://zenodo.org/api/records/15300759/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15300759/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15300759/requests"
-      },
-      "updated": "2025-04-29T05:58:30.606760+00:00",
-      "recid": "15300759",
-      "revision": 4,
-      "files": [
-        {
-          "id": "1d865822-8ba2-4b95-8dff-8301b9c94094",
-          "key": "Global Non-Small-Cell Lung Cancer Drug Market.csv",
-          "size": 686,
-          "checksum": "md5:c8d6c73cf75fca23a0fbca22708af0a2",
-          "links": {
-            "self": "https://zenodo.org/api/records/15300759/files/Global Non-Small-Cell Lung Cancer Drug Market.csv/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1180855"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 1,
-        "unique_downloads": 1,
-        "views": 1,
-        "unique_views": 1,
-        "version_downloads": 1,
-        "version_unique_downloads": 1,
-        "version_unique_views": 1,
-        "version_views": 1
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-04-29T03:27:02.845243+00:00",
-      "modified": "2025-04-29T03:27:03.052160+00:00",
-      "id": 15294349,
-      "conceptrecid": "15294348",
-      "doi": "10.63096/medtigo3061222",
-      "doi_url": "https://doi.org/10.63096/medtigo3061222",
-      "metadata": {
-        "title": "Role of Marine Natural Products in Combating SARS-CoV-2 and COVID-19",
-        "doi": "10.63096/medtigo3061222",
-        "publication_date": "2025-04-28",
-        "description": "<p><span lang=\"EN-US\">From the inception of coronavirus disease 2019 (COVID-19) pandemic has plague-ridden several millions of human beings across the world in a short time interval and force the world to experience extraordinary economic and life loss. Consequently, it is compulsory to find operational cures against severe acute respiratory syndrome coronavirus-2 (SARS-CoV-2), because it is the biological cause of COVID-19. Synthetic medicines, such as hydroxychloroquine, have acquired large attention. Though, the effectiveness of this drug is still under examination, and moreover, certain severe consequences are a source of distress. This underlines the urgency for treatment alternatives, which can be in cooperation with efficiency and safety. Until now, there are no specifically recognized drugs to fight this virus and the procedure for new drug development is prolonged. Most encouraging candidates, which emerged as prospective frontrunners, were abandoned later while still in the phase of clinical examinations. With no convinced therapeutics in the prospect, natural products are in wide use randomly as anti-viral remedy and immune promoters. For centuries it has been well-known that most marine natural products have effective anti-viral properties with SARS-CoV-2. It has been exposed that natural products show inhibitory activities on Middle East Respiratory Syndrome Coronavirus (MERS-CoV) and SARS-CoV infections. </span></p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Magaji, Amayindi",
-            "affiliation": null
+            "name": "Pintor, Lucia",
+            "affiliation": "University of Cagliari",
+            "orcid": "0000-0001-7415-6612"
           },
           {
-            "name": "Jimoh, Onimisi Yakubu",
-            "affiliation": null
+            "name": "Chirigu, Alessio",
+            "affiliation": "University of Cagliari"
           },
           {
-            "name": "Joel, Yakubu",
-            "affiliation": null
-          },
-          {
-            "name": "Rubiyamisumma, Dorcas Kaduna",
-            "affiliation": null
+            "name": "Atzori, Luigi",
+            "affiliation": "University of Cagliari",
+            "orcid": "0000-0003-1350-3574"
           }
-        ],
-        "contributors": [
-          {
-            "name": "medtigo",
-            "affiliation": null,
-            "type": "HostingInstitution"
-          }
-        ],
-        "keywords": [
-          "Severe acute respiratory syndrome, Middle east respiratory syndrome coronavirus, Coronavirus disease, Clinical examination, Anti-viral properties."
         ],
         "related_identifiers": [
           {
-            "identifier": "3065-4661",
-            "relation": "isPublishedIn",
-            "resource_type": "publication-journal",
-            "scheme": "issn"
+            "identifier": "10.1016/j.comnet.2022.108783",
+            "relation": "isDescribedBy",
+            "resource_type": "publication-article",
+            "scheme": "doi"
           }
         ],
         "dates": [
           {
-            "type": "accepted"
+            "type": "collected",
+            "description": "Wi-Fi probe requests"
           }
         ],
-        "references": [
-          "1.\tRiou J, Althaus CL. Pattern of early human-to-human transmission of Wuhan 2019 novel coronavirus (2019-nCoV), December 2019 to January 2020.\u202fEuro Surveill. 2020;25(4):2000058. doi:10.2807/1560-7917.ES.2020.25.4.2000058  PubMed | Crossref | Google Scholar",
-          "2.\tNagahawatta DP, Liyanage NM, Jayawardena TU, et al. Role of marine natural products in the development of antiviral agents against SARS-CoV-2: potential and prospects. Mar Life Sci Technol. 2024;6(2):280-297. doi:10.1007/s42995-023-00215-9 PubMed | Crossref | Google Scholar",
-          "3.\tSingh R, Chauhan N, Kuddus M. Exploring the therapeutic potential of marine-derived bioactive compounds against COVID-19. Environ Sci Pollut Res Int. 2021;28(38):52798-52809. doi:10.1007/s11356-021-16104-6 PubMed | Crossref | Google Scholar",
-          "4.\tGuarner J. Three Emerging Coronaviruses in Two Decades.\u202fAm J Clin Pathol. 2020;153(4):420-421. doi:10.1093/ajcp/aqaa029  PubMed | Crossref | Google Scholar",
-          "5.\tParker EPK, Shrotri M, Kampmann B. Keeping track of the SARS-CoV-2 vaccine pipeline.\u202fNat Rev Immunol. 2020;20(11):650. doi:10.1038/s41577-020-00455-1  PubMed | Crossref | Google Scholar",
-          "6.\tPlante JA, Liu Y, Liu J, et al. Spike mutation D614G alters SARS-CoV-2 fitness. Nature. 2021;592(7852):116-121. doi:10.1038/s41586-020-2895-3 PubMed | Crossref | Google Scholar",
-          "7.\tTegally H, Wilkinson E, Giovanetti M, et al. Detection of a SARS-CoV-2 variant of concern in South Africa.\u202fNature. 2021;592(7854):438-443. doi:10.1038/s41586-021-03402-9 PubMed | Crossref | Google Scholar",
-          "8.\tHoffmann M, Kleine-Weber H, Schroeder S, et al. SARS-CoV-2 Cell Entry Depends on ACE2 and TMPRSS2 and Is Blocked by a Clinically Proven Protease Inhibitor.\u202fCell. 2020;181(2):271-280.e8. doi:10.1016/j.cell.2020.02.052 PubMed | Crossref | Google Scholar",
-          "9.\tPillaiyar T, Manickam M, Namasivayam V, Hayashi Y, Jung SH. An Overview of Severe Acute Respiratory Syndrome-Coronavirus (SARS-CoV) 3CL Protease Inhibitors: Peptidomimetics and Small Molecule Chemotherapy.\u202fJ Med Chem. 2016;59(14):6595-6628. doi:10.1021/acs.jmedchem.5b01461 PubMed | Crossref | Google Scholar",
-          "10.\tMunster VJ, Koopmans M, van Doremalen N, van Riel D, de Wit E. A Novel Coronavirus Emerging in China - Key Questions for Impact Assessment.\u202fN Engl J Med. 2020;382(8):692-694. doi:10.1056/NEJMp2000929 PubMed | Crossref | Google Scholar",
-          "11.\tMayer AM, Rodr\u00edguez AD, Berlinck RG, Fusetani N. Marine pharmacology in 2007-8: Marine compounds with antibacterial, anticoagulant, antifungal, anti-inflammatory, antimalarial, antiprotozoal, antituberculosis, and antiviral activities; affecting the immune and nervous system, and other miscellaneous mechanisms of action.\u202fComp Biochem Physiol C Toxicol Pharmacol. 2011;153(2):191-222. doi:10.1016/j.cbpc.2010.08.008 PubMed | Crossref | Google Scholar",
-          "12.\tAtanasov AG, Waltenberger B, Pferschy-Wenzig EM, et al. Discovery and resupply of pharmacologically active plant-derived natural products: A review.\u202fBiotechnol Adv. 2015;33(8):1582-1614. doi:10.1016/j.biotechadv.2015.08.001 PubMed | Crossref | Google Scholar",
-          "13.\tHarvey AL, Edrada-Ebel R, Quinn RJ. The re-emergence of natural products for drug discovery in the genomics era.\u202fNat Rev Drug Discov. 2015;14(2):111-129. doi:10.1038/nrd4510 PubMed | Crossref | Google Scholar",
-          "14.\tTintore M, Vidal-Jordana A, Sastre-Garriga J. Treatment of multiple sclerosis success from bench to bedside.\u202fNat Rev Neurol. 2019;15(1):53-58. doi:10.1038/s41582-018-0082-z PubMed | Crossref | Google Scholar",
-          "15.\tWaltenberger B, Mocan A, \u0160mejkal K, Heiss EH, Atanasov AG. Natural Products to Counteract the Epidemic of Cardiovascular and Metabolic Disorders.\u202fMolecules. 2016;21(6):807. doi:10.3390/molecules21060807 PubMed | Crossref | Google Scholar",
-          "16.\tDhand R, Li J. Coughs and Sneezes: Their Role in Transmission of Respiratory Viral Infections, Including SARS-CoV-2.\u202fAm J Respir Crit Care Med. 2020;202(5):651-659. doi:10.1164/rccm.202004-1263PP PubMed | Crossref | Google Scholar",
-          "17.\tGeahchan S, Ehrlich H, Rahman MA. The Anti-Viral Applications of Marine Resources for COVID-19 Treatment: An Overview. Mar Drugs. 2021;19(8):409. doi:10.3390/md19080409 PubMed | Crossref | Google Scholar",
-          "18.\tGuo ZD, Wang ZY, Zhang SF, et al. Aerosol and Surface Distribution of Severe Acute Respiratory Syndrome Coronavirus 2 in Hospital Wards, Wuhan, China, 2020.\u202fEmerg Infect Dis. 2020;26(7):1583-1591. doi:10.3201/eid2607.200885 PubMed | Crossref | Google Scholar",
-          "19.\tTran K, Cimon K, Severn M, Pessoa-Silva CL, Conly J. Aerosol generating procedures and risk of transmission of acute respiratory infections to healthcare workers: a systematic review.\u202fPLoS One. 2012;7(4):e35797. doi:10.1371/journal.pone.0035797 PubMed | Crossref | Google Scholar",
-          "20.\tLai Y, Yan Y, Liao S, et al. 3D-quantitative structure-activity relationship and antiviral effects of curcumin derivatives as potent inhibitors of influenza H1N1 neuraminidase.\u202fArch Pharm Res. 2020;43(5):489-502. doi:10.1007/s12272-020-01230-5 PubMed | Crossref | Google Scholar",
-          "21.\tUzair B, Mahmood Z, Tabassum S. Antiviral activity of natural products extracted from marine organisms. Bioimpacts. 2011;1(4):203-211. doi:10.5681/bi.2011.029 PubMed | Crossref | Google Scholar",
-          "22.\tLi Q, Guan X, Wu P, et al. Early Transmission Dynamics in Wuhan, China, of Novel Coronavirus-Infected Pneumonia.\u202fN Engl J Med. 2020;382(13):1199-1207. doi:10.1056/NEJMoa2001316 PubMed | Crossref | Google Scholar",
-          "23.\tDevi VK, Jain N, Valli KS. Importance of novel drug delivery systems in herbal medicines.\u202fPharmacogn Rev. 2010;4(7):27-31. doi:10.4103/0973-7847.65322 PubMed | Crossref | Google Scholar",
-          "24.\tRampogu S, Gajula RG, Lee G, Kim MO, Lee KW. Unravelling the therapeutic potential of marine drugs as SARS-CoV-2 inhibitors: An insight from essential dynamics and free energy landscape. Comput Biol Med. 2021;135:104525. doi:10.1016/j.compbiomed.2021.104525 PubMed | Crossref | Google Scholar",
-          "25.\tRahman MM, Islam MR, Shohag S, et al. Multifaceted role of natural sources for COVID-19 pandemic as marine drugs. Environ Sci Pollut Res Int. 2022;29(31):46527-46550. doi:10.1007/s11356-022-20328-5 PubMed | Crossref | Google Scholar",
-          "26.\tOkechukwu QN, Adepoju FO, Kanwugu ON, et al. Marine-Derived Bioactive Metabolites as a Potential Therapeutic Intervention in Managing Viral Diseases: Insights from the SARS-CoV-2 In Silico and Pre-Clinical Studies. Pharmaceuticals (Basel). 2024;17(3):328. doi:10.3390/ph17030328 PubMed | Crossref | Google Scholar",
-          "27.\tMishra P, Sohrab S, Mishra SK. A review on the phytochemical and pharmacological properties of\u202fHyptis suaveolens\u202f(L.) Poit.\u202fFutur J Pharm Sci. 2021;7(1):65. doi:10.1186/s43094-021-00219-1 PubMed | Crossref | Google Scholar",
-          "28.\tLayqah LA, Eissa S. An electrochemical immunosensor for the corona virus associated with the Middle East respiratory syndrome using an array of gold nanoparticle-modified carbon electrodes.\u202fMikrochim Acta. 2019;186(4):224. doi:10.1007/s00604-019-3345-5 PubMed | Crossref | Google Scholar",
-          "29.\tPalmieri V, Papi M. Can graphene take part in the fight against COVID-19?.\u202fNano Today. 2020;33:100883. doi:10.1016/j.nantod.2020.100883 PubMed | Crossref | Google Scholar",
-          "30.\tDacrory S. Antimicrobial Activity, DFT Calculations, and Molecular Docking of Dialdehyde Cellulose/Graphene Oxide Film Against Covid-19.\u202fJ Polym Environ. 2021;29(7):2248-2260. doi:10.1007/s10924-020-02039-5 PubMed | Crossref | Google Scholar",
-          "31.\tLobo-Galo N, G\u00e1lvez-Ru\u00edz JC, Balderrama-Carmona AP, Silva-Beltr\u00e1n NP, Ruiz-Bustos E. Recent biotechnological advances as potential intervention strategies against COVID-19.\u202f3 Biotech. 2021;11(2):41. doi:10.1007/s13205-020-02619-1 PubMed | Crossref | Google Scholar",
-          "32.\tHashemi B, Akram FA, Amirazad H, et al. Emerging importance of nanotechnology-based approaches to control the COVID-19 pandemic; focus on nanomedicine iterance in diagnosis and treatment of COVID-19 patients.\u202fJ Drug Deliv Sci Technol. 2022;67:102967. doi:10.1016/j.jddst.2021.102967 PubMed | Crossref | Google Scholar",
-          "33.\tJia Q, Fu J, Liang P, et al. Investigating interactions between chloroquine/hydroxychloroquine and their single enantiomers and angiotensin-converting enzyme 2 by a cell membrane chromatography method.\u202fJ Sep Sci. 2022;45(2):456-467. doi:10.1002/jssc.202100570 PubMed | Crossref | Google Scholar",
-          "34.\tTang WF, Tsai HP, Chang YH, et al. Perilla (Perilla frutescens) leaf extract inhibits SARS-CoV-2 via direct virus inactivation.\u202fBiomed J. 2021;44(3):293-303. doi:10.1016/j.bj.2021.01.005 PubMed | Crossref | Google Scholar",
-          "35.\tYi M, Lin S, Zhang B, Jin H, Ding L. Antiviral potential of natural products from marine microbes. Eur J Med Chem. 2020;207:112790. doi:10.1016/j.ejmech.2020.112790 PubMed | Crossref | Google Scholar",
-          "36.\tMossaad E, Furuyama W, Enomoto M, Kawai S, Mikoshiba K, Kawazu S. Simultaneous administration of 2-aminoethyl diphenylborinate and chloroquine reverses chloroquine resistance in malaria parasites.\u202fAntimicrob Agents Chemother. 2015;59(5):2890-2892. doi:10.1128/AAC.04805-14 PubMed | Crossref | Google Scholar",
-          "37.\tAlobaida A, Abouzied AS, Younes KM, Alzhrani RM, Alsaab HO, Huwaimel B. Analyzing energetics and dynamics of hepatitis C virus polymerase interactions with marine bacterial compounds: a computational study. Mol Divers. 2025;29(2):1245-1260. doi:10.1007/s11030-024-10904-x PubMed | Crossref | Google Scholar",
-          "38.\tRoy A, Das R, Roy D, et al. Encapsulated hydroxychloroquine and chloroquine into cyclic oligosaccharides are the potential therapeutics for COVID-19: insights from first-principles calculations.\u202fJ Mol Struct. 2022;1247:131371. doi:10.1016/j.molstruc.2021.131371 PubMed | Crossref | Google Scholar",
-          "39.\tChen Z, Liu A, Cheng Y, et al. Hydroxychloroquine/chloroquine in patients with COVID-19 in Wuhan, China: a retrospective cohort study.\u202fBMC Infect Dis. 2021;21(1):805. doi:10.1186/s12879-021-06477-x PubMed | Crossref | Google Scholar",
-          "40.\tYao Q, Xing Y, Ma J, Wang C, Zang J, Zhao G. Binding of Chloroquine to Whey Protein Relieves Its Cytotoxicity while Enhancing Its Uptake by Cells.\u202fJ Agric Food Chem. 2021;69(36):10669-10677. doi:10.1021/acs.jafc.1c04140 PubMed | Crossref | Google Scholar",
-          "41.\tZazo H, Colino CI, Lanao JM. Current applications of nanoparticles in infectious diseases. J Control Release. 2016;224:86-102. doi:10.1016/j.jconrel.2016.01.008 PubMed | Crossref | Google Scholar",
-          "42.\tGagliardi M. Biomimetic and bioinspired nanoparticles for targeted drug delivery.\u202fTher Deliv. 2017;8(5):289-299. doi:10.4155/tde-2017-0013 PubMed | Crossref | Google Scholar",
-          "43.\tChen L, Liang J. An overview of functional nanoparticles as novel emerging antiviral therapeutic agents.\u202fMater Sci Eng C Mater Biol Appl. 2020;112:110924. doi:10.1016/j.msec.2020.110924 PubMed | Crossref | Google Scholar",
-          "44.\tGurunathan S, Qasim M, Choi Y, et al. Antiviral Potential of Nanoparticles-Can Nanoparticles Fight Against Coronaviruses?.\u202fNanomaterials (Basel). 2020;10(9):1645. doi:10.3390/nano10091645 PubMed | Crossref | Google Scholar",
-          "45.\tSathasivam R, Radhakrishnan R, Hashem A, Abd Allah EF. Microalgae metabolites: A rich source for food and medicine.\u202fSaudi J Biol Sci. 2019;26(4):709-722. doi:10.1016/j.sjbs.2017.11.003 PubMed | Crossref | Google Scholar",
-          "46.\tLee C. Griffithsin, a Highly Potent Broad-Spectrum Antiviral Lectin from Red Algae: From Discovery to Clinical Application.\u202fMar Drugs. 2019;17(10):567. doi:10.3390/md17100567 PubMed | Crossref | Google Scholar",
-          "47.\tLevendosky K, Mizenina O, Martinelli E, et al. Griffithsin and Carrageenan Combination To Target Herpes Simplex Virus 2 and Human Papillomavirus.\u202fAntimicrob Agents Chemother. 2015;59(12):7290-7298. doi:10.1128/AAC.01816-15 PubMed | Crossref | Google Scholar",
-          "48.\tO'Keefe BR, Giomarelli B, Barnard DL, et al. Broad-spectrum in vitro activity and in vivo efficacy of the antiviral protein griffithsin against emerging viruses of the family Coronaviridae.\u202fJ Virol. 2010;84(5):2511-2521. doi:10.1128/JVI.02322-09 PubMed | Crossref | Google Scholar",
-          "49.\tMorokutti-Kurz M, Fr\u00f6ba M, Graf P, et al. Iota-carrageenan neutralizes SARS-CoV-2 and inhibits viral replication in vitro.\u202fPLoS One. 2021;16(2):e0237480. doi:10.1371/journal.pone.0237480 PubMed | Crossref | Google Scholar",
-          "50.\tMoulaei T, Alexandre KB, Shenoy SR, et al. Griffithsin tandemers: flexible and potent lectin inhibitors of the human immunodeficiency virus.\u202fRetrovirology. 2015;12:6. doi:10.1186/s12977-014-0127-3 PubMed | Crossref | Google Scholar",
-          "51.\tLee C. Griffithsin, a Highly Potent Broad-Spectrum Antiviral Lectin from Red Algae: From Discovery to Clinical Application.\u202fMar Drugs. 2019;17(10):567. doi:10.3390/md17100567 PubMed | Crossref | Google Scholar",
-          "52.\tO'Keefe BR, Vojdani F, Buffa V, et al. Scaleable manufacture of HIV-1 entryinhibitor griffithsin and validation of its safety and efficacy as a topical microbicide component.\u202fProc Natl Acad Sci U S A. 2009;106(15):6099-6104. doi:10.1073/pnas.0901506106 PubMed | Crossref | Google Scholar",
-          "53.\tLusvarghi S, Bewley CA. Griffithsin: An Antiviral Lectin with Outstanding Therapeutic Potential.\u202fViruses. 2016;8(10):296. doi:10.3390/v8100296 PubMed | Crossref | Google Scholar",
-          "54.\tBuck CB, Thompson CD, Roberts JN, M\u00fcller M, Lowy DR, Schiller JT. Carrageenan is a potent inhibitor of papillomavirus infection.\u202fPLoS Pathog. 2006;2(7):e69. doi:10.1371/journal.ppat.0020069 PubMed | Crossref | Google Scholar",
-          "55.\tRodrigues Felix C, Gupta R, Geden S, et al. Selective Killing of Dormant Mycobacterium tuberculosis by Marine Natural Products. Antimicrob Agents Chemother. 2017;61(8):e00743-17. doi:10.1128/AAC.00743-17 PubMed | Crossref | Google Scholar",
-          "56.\tFriedland BA, Hoesley CJ, Plagianos M, et al. First-in-Human Trial of MIV-150 and Zinc Acetate Coformulated in a Carrageenan Gel: Safety, Pharmacokinetics, Acceptability, Adherence, and Pharmacodynamics.\u202fJ Acquir Immune Defic Syndr. 2016;73(5):489-496. doi:10.1097/QAI.0000000000001136 PubMed | Crossref | Google Scholar",
-          "57.\tHebar A, Koller C, Seifert JM, et al. Non-clinical safety evaluation of intranasal iota-carrageenan.\u202fPLoS One. 2015;10(4):e0122911. doi:10.1371/journal.pone.0122911 PubMed | Crossref | Google Scholar",
-          "58.\tU.S. Food and Drug Administration (FDA). CFR - Code of Federal Regulations Title 21. 2024. CFR - Code of Federal Regulations Title 21",
-          "59.\tYasuhara-Bell J, Lu Y. Marine compounds and their antiviral activities. Antiviral Res. 2010;86(3):231-240. doi:10.1016/j.antiviral.2010.03.009 PubMed | Crossref | Google Scholar",
-          "60.\tLi YX, Wijesekara I, Li Y, Kim SK. Phlorotannins as bioactive agents from brown algae. Process Biochem. 2011;46(12):2219\u20132224. doi:10.1016/j.procbio.2011.09.015 Crossref | Google Scholar",
-          "61.\tHeo SJ, Ko SC, Cha SH, et al. Effect of phlorotannins isolated from Ecklonia cava on melanogenesis and their protective effect against photo-oxidative stress induced by UV-B radiation.\u202fToxicol In Vitro. 2009;23(6):1123-1130. doi:10.1016/j.tiv.2009.05.013 PubMed | Crossref | Google Scholar",
-          "62.\tYoon NY, Eom TK, Kim MM, Kim SK. Inhibitory effect of phlorotannins isolated from Ecklonia cava on mushroom tyrosinase activity and melanin formation in mouse B16F10 melanoma cells.\u202fJ Agric Food Chem. 2009;57(10):4124-4129. doi:10.1021/jf900006f PubMed | Crossref | Google Scholar",
-          "63.\tKong CS, Kim JA, Yoon NY, Kim SK. Induction of apoptosis by phloroglucinol derivative from Ecklonia Cava in MCF-7 human breast cancer cells.\u202fFood Chem Toxicol. 2009;47(7):1653-1658. doi:10.1016/j.fct.2009.04.013 PubMed | Crossref | Google Scholar",
-          "64.\tArtan M, Li Y, Karadeniz F, Lee SH, Kim MM, Kim SK. Anti-HIV-1 activity of phloroglucinol derivative, 6,6'-bieckol, from Ecklonia cava.\u202fBioorg Med Chem. 2008;16(17):7921-7926. doi:10.1016/j.bmc.2008.07.078 PubMed | Crossref | Google Scholar",
-          "65.\tZhang R, Kang KA, Piao MJ, et al. Eckol protects V79-4 lung fibroblast cells against gamma-ray radiation-induced apoptosis via the scavenging of reactive oxygen species and inhibiting of the c-Jun NH(2)-terminal kinase pathway.\u202fEur J Pharmacol. 2008;591(1-3):114-123. doi:10.1016/j.ejphar.2008.06.086 PubMed | Crossref | Google Scholar",
-          "66.\tMyung CS, Shin HC, Bao HY, Yeo SJ, Lee BH, Kang JS. Improvement of memory by dieckol and phlorofucofuroeckol in ethanol-treated mice: possible involvement of the inhibition of acetylcholinesterase.\u202fArch Pharm Res. 2005;28(6):691-698. doi:10.1007/BF02969360 PubMed | Crossref | Google Scholar",
-          "67.\tKhan MT, Ali A, Wang Q, et al. Marine natural compounds as potents inhibitors against the main protease of SARS-CoV-2-a molecular dynamic study.\u202fJ Biomol Struct Dyn. 2021;39(10):3627-3637. doi:10.1080/07391102.2020.1769733 PubMed | Crossref | Google Scholar",
-          "68.\tPark JY, Ko JA, Kim DW, et al. Chalcones isolated from Angelica keiskei inhibit cysteine proteases of SARS-CoV.\u202fJ Enzyme Inhib Med Chem. 2016;31(1):23-30. doi:10.3109/14756366.2014.1003215 PubMed | Crossref | Google Scholar",
-          "69.\tHirata T, Tanaka M, Ooike M, Tsunomura T, Sakaguchi M. Antioxidant activities of phycocyanobilin prepared from Spirulina platensis. J Appl Phycol. 2000;12(5):435-439. doi:10.1023/A:1008175217194 Crossref | Google Scholar",
-          "70.\tPendyala B, Patras A. In silico Screening of Food Bioactive Compounds to Predict Potential Inhibitors of COVID-19 Main protease (Mpro) and RNA-dependent RNA polymerase (RdRp). ChemRxiv. 2020. doi:10.26434/chemrxiv.12051927.v2\u202f  Crossref | Google Scholar",
-          "71.\tSun QL, Li Y, Ni LQ, et al. Structural characterization and antiviral activity of two fucoidans from the brown algae Sargassum henslowianum.\u202fCarbohydr Polym. 2020;229:115487. doi:10.1016/j.carbpol.2019.115487 PubMed | Crossref | Google Scholar",
-          "72.\tKwon PS, Oh H, Kwon SJ, et al. Sulfated polysaccharides effectively inhibit SARS-CoV-2 in vitro.\u202fCell Discov. 2020;6(1):50. doi:10.1038/s41421-020-00192-8 PubMed | Crossref | Google Scholar",
-          "73.\tVijayaraj R, Altaff K, Rosita AS, Ramadevi S, Revathy J. Bioactive compounds from marine resources against novel corona virus (2019-nCoV):\u202fin silico\u202fstudy for corona viral drug.\u202fNat Prod Res. 2021;35(23):5525-5529. doi:10.1080/14786419.2020.1791115 PubMed | Crossref | Google Scholar",
-          "74.\tZakaryan H, Arabyan E, Oo A, Zandi K. Flavonoids: promising natural compounds against viral infections.\u202fArch Virol. 2017;162(9):2539-2551. doi:10.1007/s00705-017-3417-y PubMed | Crossref | Google Scholar",
-          "75.\tKhan MT, Ali A, Wang Q, et al. Marine natural compounds as potents inhibitors against the main protease of SARS-CoV-2-a molecular dynamic study. J Biomol Struct Dyn. 2021;39(10):3627-3637. doi:10.1080/07391102.2020.1769733 PubMed | Crossref | Google Scholar",
-          "76.\tLetko M, Marzi A, Munster V. Functional assessment of cell entry and receptor usage for SARS-CoV-2 and other lineage B betacoronaviruses.\u202fNat Microbiol. 2020;5(4):562-569. doi:10.1038/s41564-020-0688-y PubMed | Crossref | Google Scholar"
-        ],
-        "language": "eng",
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
-        },
-        "journal": {
-          "issue": "2",
-          "pages": "e3061222",
-          "title": "medtigo Journal of Pharmacology",
-          "volume": "2"
-        },
-        "alternate_identifiers": [
-          {
-            "identifier": "https://journal.medtigo.com/role-of-marine-natural-products-in-combating-sars-cov-2-and-covid-19/?article_type=journal-of-pharmacology"
-          }
-        ],
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
+        "custom": {
+          "code:codeRepository": "https://github.com/luciapintor/WiFi-Sniffer",
+          "code:programmingLanguage": [
             {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15294348"
+              "id": "python",
+              "title": {
+                "en": "Python"
               }
             }
           ]
-        }
-      },
-      "title": "Role of Marine Natural Products in Combating SARS-CoV-2 and COVID-19",
-      "links": {
-        "self": "https://zenodo.org/api/records/15294349",
-        "self_html": "https://zenodo.org/records/15294349",
-        "preview_html": "https://zenodo.org/records/15294349?preview=1",
-        "doi": "https://doi.org/10.63096/medtigo3061222",
-        "self_doi": "https://doi.org/10.63096/medtigo3061222",
-        "self_doi_html": "https://zenodo.org/doi/10.63096/medtigo3061222",
-        "parent": "https://zenodo.org/api/records/15294348",
-        "parent_html": "https://zenodo.org/records/15294348",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15294349/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15294349/sequence/default",
-        "files": "https://zenodo.org/api/records/15294349/files",
-        "media_files": "https://zenodo.org/api/records/15294349/media-files",
-        "archive": "https://zenodo.org/api/records/15294349/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15294349/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15294349/versions/latest",
-        "latest_html": "https://zenodo.org/records/15294349/latest",
-        "versions": "https://zenodo.org/api/records/15294349/versions",
-        "draft": "https://zenodo.org/api/records/15294349/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15294349/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15294349/access/links",
-        "access_grants": "https://zenodo.org/api/records/15294349/access/grants",
-        "access_users": "https://zenodo.org/api/records/15294349/access/users",
-        "access_request": "https://zenodo.org/api/records/15294349/access/request",
-        "access": "https://zenodo.org/api/records/15294349/access",
-        "communities": "https://zenodo.org/api/records/15294349/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15294349/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15294349/requests"
-      },
-      "updated": "2025-04-29T03:27:03.052160+00:00",
-      "recid": "15294349",
-      "revision": 4,
-      "files": [
-        {
-          "id": "4ce68dd9-3a16-4381-8393-787db0d02b58",
-          "key": "413_Final.docx",
-          "size": 158505,
-          "checksum": "md5:1db9594917ed3a111bc1bff51bcff296",
-          "links": {
-            "self": "https://zenodo.org/api/records/15294349/files/413_Final.docx/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1032827"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 0,
-        "unique_downloads": 0,
-        "views": 1,
-        "unique_views": 1,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 1,
-        "version_views": 1
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-04-28T17:19:17.979313+00:00",
-      "modified": "2025-04-28T17:19:18.238378+00:00",
-      "id": 15298475,
-      "conceptrecid": "15298431",
-      "doi": "10.5281/zenodo.15298475",
-      "conceptdoi": "10.5281/zenodo.15298431",
-      "doi_url": "https://doi.org/10.5281/zenodo.15298475",
-      "metadata": {
-        "title": "Security GUI",
-        "doi": "10.5281/zenodo.15298475",
-        "publication_date": "2025-04-26",
-        "description": "<p>Vulnerability scanning is critical for modern cybersecurity, helping protect systems and networks from evolving threats. This paper presents an integrated vulnerability scanning platform that combines three tools: a system-level scanner, a web application scanner, and a network-level scanner, all within a unified web interface. The platform&rsquo;s modular architecture allows each tool to operate independently while sharing data like vulnerability signatures, scan results, and remediation rec- ommendations. This approach streamlines security assessments, provides a comprehensive view of potential weaknesses, and improves scan efficiency. The paper discusses the system&rsquo;s de- sign, integration, and operational details, focusing on microservices, containerization, and automated database updates. It also evaluates the platform&rsquo;s performance, accuracy, and potential improvements, offering a more effective way for security teams to mitigate cyberattack risks.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Chinmay Desai",
-            "affiliation": null
-          },
-          {
-            "name": "Prashant Hage",
-            "affiliation": null
-          },
-          {
-            "name": "Prajwal Vannewar",
-            "affiliation": null
-          },
-          {
-            "name": "Prof. Swati Shinde",
-            "affiliation": null
-          }
-        ],
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
         },
-        "journal": {
-          "issue": "2",
-          "pages": "1 - 8",
-          "title": "INTERNATIONAL JOURNAL OF INNOVATIVE RESEARCH AND CREATIVE TECHNOLOGY",
-          "volume": "11"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 1,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15298431"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Security GUI",
-      "links": {
-        "self": "https://zenodo.org/api/records/15298475",
-        "self_html": "https://zenodo.org/records/15298475",
-        "preview_html": "https://zenodo.org/records/15298475?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15298475",
-        "self_doi": "https://doi.org/10.5281/zenodo.15298475",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15298475",
-        "parent": "https://zenodo.org/api/records/15298431",
-        "parent_html": "https://zenodo.org/records/15298431",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15298431",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15298431",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15298475/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15298475/sequence/default",
-        "files": "https://zenodo.org/api/records/15298475/files",
-        "media_files": "https://zenodo.org/api/records/15298475/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:15298475:2504074%20IJIRCT%2026%20April%2C%202025.pdf/full/^10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:15298475:2504074%20IJIRCT%2026%20April%2C%202025.pdf/full/^50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:15298475:2504074%20IJIRCT%2026%20April%2C%202025.pdf/full/^100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:15298475:2504074%20IJIRCT%2026%20April%2C%202025.pdf/full/^250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:15298475:2504074%20IJIRCT%2026%20April%2C%202025.pdf/full/^750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:15298475:2504074%20IJIRCT%2026%20April%2C%202025.pdf/full/^1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/15298475/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15298475/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15298475/versions/latest",
-        "latest_html": "https://zenodo.org/records/15298475/latest",
-        "versions": "https://zenodo.org/api/records/15298475/versions",
-        "draft": "https://zenodo.org/api/records/15298475/draft",
-        "reserve_doi": "https://zenodo.org/api/records/15298475/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/15298475/access/links",
-        "access_grants": "https://zenodo.org/api/records/15298475/access/grants",
-        "access_users": "https://zenodo.org/api/records/15298475/access/users",
-        "access_request": "https://zenodo.org/api/records/15298475/access/request",
-        "access": "https://zenodo.org/api/records/15298475/access",
-        "communities": "https://zenodo.org/api/records/15298475/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15298475/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15298475/requests"
-      },
-      "updated": "2025-04-28T17:19:18.238378+00:00",
-      "recid": "15298475",
-      "revision": 4,
-      "files": [
-        {
-          "id": "8387050c-62ec-4c88-8292-9c6ba2c79e00",
-          "key": "2504074 IJIRCT 26 April, 2025.pdf",
-          "size": 453014,
-          "checksum": "md5:d21cd3906d63d7eec9aba43f4c78c82c",
-          "links": {
-            "self": "https://zenodo.org/api/records/15298475/files/2504074 IJIRCT 26 April, 2025.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "393164"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 8,
-        "unique_downloads": 3,
-        "views": 8,
-        "unique_views": 3,
-        "version_downloads": 2,
-        "version_unique_downloads": 1,
-        "version_unique_views": 1,
-        "version_views": 2
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-04-28T15:57:40.146201+00:00",
-      "modified": "2025-04-28T15:57:40.409860+00:00",
-      "id": 14826348,
-      "conceptrecid": "14826347",
-      "doi": "10.5281/zenodo.14826348",
-      "conceptdoi": "10.5281/zenodo.14826347",
-      "doi_url": "https://doi.org/10.5281/zenodo.14826348",
-      "metadata": {
-        "title": "NewsWords Data (Word Counts)",
-        "doi": "10.5281/zenodo.14826348",
-        "publication_date": "2025-03-01",
-        "description": "<h1>NewsWords</h1>\n<h2>Word Counts from the British Library's Digitised Newspaper Collections</h2>\n<h3>Description</h3>\n<p>The NewsWords dataset contains word count data derived from newspapers published in Britain during the \"long\" nineteenth century (1780-1920) and digitised as of 2025. These frequencies are computed from the British Library's collection.&nbsp;</p>\n<p><br>The tar file contains 269,179 JSON files. Each file captures the word counts for one month for one newspaper title. The filenames are structured as follows: \"{newspaper_id}_{year}_{month}.json\", e.g. \"0003281_1896_07.json\".&nbsp;</p>\n<p>Each file consists of a dictionary mapping words to their frequencies, e.g. {\"newspaper\": 19, \"transmission\": 11}.</p>\n<p>Together, the word counts represent a corpus of 120 billion tokens based on a vocabulary of 200k unique words appearing more than five times. Please follow&nbsp;<a href=\"https://github.com/Living-with-machines/newswords/blob/readme/figures/countsbydecade.png\" target=\"_blank\" rel=\"noopener\">this link</a> to view a bar chart that breaks down the word counts by decade.</p>\n<p>The newspaper_id corresponds with NLP ids, which are documented in the British Library newspaper catalogue:</p>\n<p>&gt; Ryan, Yann, and Luke McKernan. 2021. &ldquo;Converting the British Library&rsquo;s Catalogue of British and Irish Newspapers into a Public Domain Dataset: Processes and Applications&rdquo;. *Journal of Open Humanities Data* 7 (0): 1. https://doi.org/10.5334/johd.23.</p>\n<p>Complete metadata for this newspaper collection is available in another open dataset:</p>\n<p>&gt; Westerling, Kalle, Timothy Hobson, Kaspar Beelen, Nilo Pedrazzini, Daniel Wilson, and Katherine McDonough. &ldquo;Lwmdb Data&rdquo;. *Zenodo*, December 11, 2024. https://doi.org/10.5281/zenodo.14389180.</p>\n<h3>Code</h3>\n<p>The&nbsp;<a href=\"https://github.com/Living-with-machines/newswords\">NewsWords Code GitHub </a><a href=\"https://github.com/Living-with-machines/newswords\" target=\"_blank\" rel=\"noopener\">repository&nbsp;</a>provides code for converting \"raw\" word counts to a more manageable sparse matrix format and contextualises these counts with additional newspaper metadata, e.g. information about price and politics. Further Information about how to use the code and query the NewsWords data is available in the GitHub README.&nbsp;</p>\n<p>To recreate these sparse matrices, please follow the instructions in \"Create_sparse_matrices.ipynb\"</p>\n<h3>Limitations</h3>\n<p>These word counts are derived from the digitised press, containing billions of words, spanning multiple decades. However large, these data constitute around ##% of the number of newspaper titles that circulated in Great Britain. In our paper \"Whose News? Critical methods for assessing bias in large historical datasets\" (under review) we have tackled the issue of representativeness, and point out that these exhibit some partisan bias&mdash;in the sense that they overrepresent conservative and liberal newspaper titles&mdash;which varies over the 19th century.&nbsp;</p>\n<p>&gt; \"Whose News? Critical methods for assessing bias in<br>large historical datasets\" (under review)</p>\n<p>For more information about the method and data see also:</p>\n<p>&gt; Beelen, Kaspar, Jon Lawrence, Daniel C Wilson, and David Beavan, 2023. 'Bias and representativeness in digitized newspaper collections: Introducing the environmental scan.' *Digital Scholarship in the Humanities*, 38(1), pp.1-22.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Beelen, Kaspar",
-            "affiliation": "School of Advanced Study",
-            "orcid": "0000-0001-7331-1174"
-          }
-        ],
-        "contributors": [
-          {
-            "name": "Wilson, Daniel",
-            "affiliation": "The Alan Turing Institute",
-            "type": "Researcher",
-            "orcid": "0000-0001-6886-775X"
-          }
-        ],
-        "dates": [
-          {
-            "type": "created"
-          }
-        ],
-        "language": "eng",
         "resource_type": {
           "title": "Dataset",
           "type": "dataset"
@@ -1421,14 +1149,9 @@
         "license": {
           "id": "cc-by-4.0"
         },
-        "grants": [
+        "communities": [
           {
-            "code": "AH/S01179X/1",
-            "internal_id": "0505m1554::AH/S01179X/1",
-            "funder": {
-              "name": "Arts and Humanities Research Council"
-            },
-            "title": "Living with Machines"
+            "id": "net4u"
           }
         ],
         "relations": {
@@ -1438,74 +1161,267 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "14826347"
+                "pid_value": "16603232"
               }
             }
           ]
-        }
+        },
+        "method": "<h2>Steps to reproduce</h2>\n<p>Data was acquired via a Raspberry Pi 3 (Model B+) running a Raspbian Operative System (OS) downloaded from the official repository. The Raspberry Pi was connected to three Wi-Fi dongles and a keyboard via its USB ports and to a monitor via its HDMI interface. Since the built-in Wi-Fi interface of the Raspberry Pi does not support monitor mode, its configuration was left unchanged. To replicate this dataset, it is essential to either select an interference-free environment (anechoic chamber) or properly prepare a noisy environment by removing all sources of Wi-Fi messages nearby, as described in the procedure to replicate our previous dataset: https://data.mendeley.com/datasets/j64btzdsdy/1 We developed and published on github two algorithms specifically designed for the generation of this dataset: a sniffing algorithm ( https://github.com/luciapintor/WiFi-Sniffer ) and a filtering one ( https://github.com/luciapintor/SnifferFiltering ). The sniffing algorithm was used to configure monitor mode on all interfaces, assign each to a specific Wi-Fi channel, and perform data acquisition. After setting up the environment (e.g., removing all Wi-Fi devices except the Raspberry Pi and the device to be analysed), we initiated the capture script and waited for its completion. This script starts sniffing simultaneously on three different interfaces, each set to a different channel, and saves the output in pcap files. Subsequently, we ran the filtering algorithm on the capture files to remove packets emitted by the Raspberry Pi (easily identifiable by its factory MAC address), packets from Access Points (identified by their beacon frames), and performed additional steps to simulate anechoic chamber conditions using power thresholds that exploit the burst structure of probe requests.</p>"
       },
-      "title": "NewsWords Data (Word Counts)",
+      "title": "A dataset of labelled device Wi-Fi probe requests for MAC address de-randomization - 2024",
       "links": {
-        "self": "https://zenodo.org/api/records/14826348",
-        "self_html": "https://zenodo.org/records/14826348",
-        "preview_html": "https://zenodo.org/records/14826348?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.14826348",
-        "self_doi": "https://doi.org/10.5281/zenodo.14826348",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14826348",
-        "parent": "https://zenodo.org/api/records/14826347",
-        "parent_html": "https://zenodo.org/records/14826347",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14826347",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14826347",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14826348/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14826348/sequence/default",
-        "files": "https://zenodo.org/api/records/14826348/files",
-        "media_files": "https://zenodo.org/api/records/14826348/media-files",
-        "archive": "https://zenodo.org/api/records/14826348/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14826348/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14826348/versions/latest",
-        "latest_html": "https://zenodo.org/records/14826348/latest",
-        "versions": "https://zenodo.org/api/records/14826348/versions",
-        "draft": "https://zenodo.org/api/records/14826348/draft",
-        "reserve_doi": "https://zenodo.org/api/records/14826348/draft/pids/doi",
-        "access_links": "https://zenodo.org/api/records/14826348/access/links",
-        "access_grants": "https://zenodo.org/api/records/14826348/access/grants",
-        "access_users": "https://zenodo.org/api/records/14826348/access/users",
-        "access_request": "https://zenodo.org/api/records/14826348/access/request",
-        "access": "https://zenodo.org/api/records/14826348/access",
-        "communities": "https://zenodo.org/api/records/14826348/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14826348/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14826348/requests"
+        "self": "https://zenodo.org/api/records/16603233",
+        "self_html": "https://zenodo.org/records/16603233",
+        "preview_html": "https://zenodo.org/records/16603233?preview=1",
+        "doi": "https://doi.org/10.17632/5tvnwhsj2p.2",
+        "self_doi": "https://doi.org/10.17632/5tvnwhsj2p.2",
+        "self_doi_html": "https://zenodo.org/doi/10.17632/5tvnwhsj2p.2",
+        "reserve_doi": "https://zenodo.org/api/records/16603233/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16603232",
+        "parent_html": "https://zenodo.org/records/16603232",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16603233/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16603233/sequence/default",
+        "files": "https://zenodo.org/api/records/16603233/files",
+        "media_files": "https://zenodo.org/api/records/16603233/media-files",
+        "archive": "https://zenodo.org/api/records/16603233/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16603233/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16603233/versions/latest",
+        "latest_html": "https://zenodo.org/records/16603233/latest",
+        "versions": "https://zenodo.org/api/records/16603233/versions",
+        "draft": "https://zenodo.org/api/records/16603233/draft",
+        "access_links": "https://zenodo.org/api/records/16603233/access/links",
+        "access_grants": "https://zenodo.org/api/records/16603233/access/grants",
+        "access_users": "https://zenodo.org/api/records/16603233/access/users",
+        "access_request": "https://zenodo.org/api/records/16603233/access/request",
+        "access": "https://zenodo.org/api/records/16603233/access",
+        "communities": "https://zenodo.org/api/records/16603233/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16603233/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16603233/requests"
       },
-      "updated": "2025-04-28T15:57:40.409860+00:00",
-      "recid": "14826348",
+      "updated": "2025-07-30T09:53:21.608914+00:00",
+      "recid": "16603233",
       "revision": 4,
       "files": [
         {
-          "id": "b529147b-7d58-4a7f-a199-db0440d8ba17",
-          "key": "ngrams.tar.gz",
-          "size": 75985095053,
-          "checksum": "md5:468eca81cb68d6322598c88f737e9315",
+          "id": "5bd3b932-31ba-4ee5-a9d9-2ac1901a7be7",
+          "key": "Anechoic chamber - info.xlsx",
+          "size": 40867,
+          "checksum": "md5:4cf85d332e94c9f74708f0cf64cd9c22",
           "links": {
-            "self": "https://zenodo.org/api/records/14826348/files/ngrams.tar.gz/content"
+            "self": "https://zenodo.org/api/records/16603233/files/Anechoic chamber - info.xlsx/content"
+          }
+        },
+        {
+          "id": "941de8a3-a0ed-4315-bf9d-d88ba946e6f7",
+          "key": "Individual devices - info.xlsx",
+          "size": 44548,
+          "checksum": "md5:2d9d055dda3ed80c6a5c027bf5335c17",
+          "links": {
+            "self": "https://zenodo.org/api/records/16603233/files/Individual devices - info.xlsx/content"
+          }
+        },
+        {
+          "id": "6c8af8e7-c5ea-40fc-88e1-fc5c49b7f082",
+          "key": "Anechoic chamber.zip",
+          "size": 142439,
+          "checksum": "md5:82c9ee03593f13276853aa65dc6254f3",
+          "links": {
+            "self": "https://zenodo.org/api/records/16603233/files/Anechoic chamber.zip/content"
+          }
+        },
+        {
+          "id": "06dfe6c6-16b3-446d-83ec-b5f02ecccf30",
+          "key": "Individual devices.zip",
+          "size": 643603,
+          "checksum": "md5:19417ad2227e32e691cf7f93b42dc1e7",
+          "links": {
+            "self": "https://zenodo.org/api/records/16603233/files/Individual devices.zip/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "1018440"
+          "id": "1150703"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 0,
-        "unique_downloads": 0,
-        "views": 1,
-        "unique_views": 1,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 1,
-        "version_views": 1
+        "downloads": 24,
+        "unique_downloads": 24,
+        "views": 36,
+        "unique_views": 33,
+        "version_downloads": 24,
+        "version_unique_downloads": 24,
+        "version_unique_views": 33,
+        "version_views": 36
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-07-30T09:44:59.927921+00:00",
+      "modified": "2025-07-30T09:45:00.266838+00:00",
+      "id": 16602802,
+      "conceptrecid": "16602801",
+      "doi": "10.17632/j64btzdsdy.2",
+      "doi_url": "https://doi.org/10.17632/j64btzdsdy.2",
+      "metadata": {
+        "title": "A dataset of labelled device Wi-Fi probe requests for MAC address de-randomization - 2021",
+        "doi": "10.17632/j64btzdsdy.2",
+        "publication_date": "2025-07-30",
+        "description": "<p>A Wi-Fi client device can perform a passive scan to detect wireless networks within its radio range, looking for Beacon Frames, i.e., packets issued by the Access Points (APs) to signal their presence. Alternatively, the client can speed up this process by actively searching for a network connection; to this, it transmits Probe Requests messages periodically, which are management frames of the IEEE standard 802.11. The process by which these messages are captured is called sniffing. Sniffing can be performed via a Wi-Fi interface set in monitor mode and tuned to the same channel (or an adjacent channel) where the transmission occurred. Management messages are not encrypted, so they can be used to implement device counting algorithms based on MAC addresses analysis. However, major operating system producers, in order to avoid tracking the device owners, developed functionalities for MAC address randomisation. Devices that change their physical address periodically and randomly, challenge counting algorithms that must then perform an additional address de-randomization, i.e., cluster the probe requests according to the source device by analysing appropriate message features. To the best of our knowledge, our dataset is the only one available with labelled (indication of the emitting source) Wi-Fi probe requests. To obtain the labels, the data has been collected either in an isolated environment (the anechoic chamber of our department) or in a \"noisy\" environment (a chamber without particular shielding, but with no other sources of probe requests within a radius of two meters). The first type of data is published after removing only packets originating from the Raspberry Pi embedded interface MAC address; the second type of data has been additionally filtered to simulate the anechoic chamber environment. Each capture file has a duration of 20 minutes and considers three non-overlapping channels (channels 1, 6, and 11) simultaneously. The dataset contains Probe Requests from 22 different devices, each observed separately in 6 different modes, including settings based on display status, Wi-Fi connection, and power saving. We collected 315 non-empty files in total. Captures that were empty after filtering were removed. The device used for the capture is a Raspberry Pi with three Wi-Fi dongle interfaces installed, each used to collect data from a channel. The main characteristic of the dataset is its subdivision by device, which enables a more accurate behavior analysis of individual devices in different modes. Moreover, it is possible to use the labelled data to train Machine Learning algorithms or to verify the correct functioning of algorithms that have as their objective the counting of devices through probe request analysis in the presence of random MAC addresses.&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Pintor, Lucia",
+            "affiliation": "University of Cagliari",
+            "orcid": "0000-0001-7415-6612"
+          },
+          {
+            "name": "Atzori, Luigi",
+            "affiliation": "University of Cagliari",
+            "orcid": "0000-0003-1350-3574"
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.1016/j.comnet.2022.108783",
+            "relation": "isDescribedBy",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          }
+        ],
+        "dates": [
+          {
+            "type": "collected",
+            "description": "Wi-Fi probe requests"
+          }
+        ],
+        "custom": {
+          "code:codeRepository": "https://github.com/luciapintor/WiFi-Sniffer",
+          "code:programmingLanguage": [
+            {
+              "id": "python",
+              "title": {
+                "en": "Python"
+              }
+            }
+          ]
+        },
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "net4u"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16602801"
+              }
+            }
+          ]
+        },
+        "method": "<h2>Steps to reproduce</h2>\n<p>Data was acquired via a Raspberry Pi 3 (Model B+) running a Raspbian Operative System (OS) downloaded from the official repository. The accessories connected to the Raspberry via the USB ports are: three Wi-Fi dongles and a keyboard. A 3.5-inch touch display was connected to the Raspberry Pi pins. The selection of this screen is due to its portability, but any other screen and mouse can be used as an alternative. The Raspberry's built-in Wi-Fi interface does not support monitor mode, so its configuration has not been changed, and it can connect to other internet networks to synchronize the calendar and the clock of the OS. To reproduce such a dataset, it is required to select a completely interference-free environment (anechoic chamber) or, alternatively, a noisy environment must be properly prepared by removing all sources of Wi-Fi messages in the vicinity. To verify the significance of interference, we collected data in noisy environments at various distances from Probe Request sources, empirically assessing that at distances of two metres or more, the power detected in the packets of these sources was below -60 dBm, allowing us to remove them through our filtering algorithm with a -40 dBm threshold. We developed and published on GitHub two algorithms specifically designed for the generation of this dataset: a sniffing algorithm (https://github.com/luciapintor/WiFi-Sniffer) and a filtering one (https://github.com/luciapintor/SnifferFiltering). Our sniffing algorithm has been used to configure the monitor mode on all interfaces, to set each one to listen in a specific Wi-Fi channel, and to perform the data acquisition. After setting up the environment (e.g., removing all Wi-Fi devices except the Raspberry and the device to be analyzed), we started the capture script and waited for its completion. This script starts sniffing simultaneously in three different interfaces, each set to a different channel, and saves the output in pcap files. After that we ran the filtering algorithm in the capture files and we removed the packets emitted by the Raspberry (that are easily identifiable because they use its factory MAC address), packets emitted by Access Points (we have detected their MAC addresses because they transmit probe requests, beacon frames and probe responses) and performed an additional steps to simulate anechoic chamber capture conditions via power thresholds that exploit the burst structure of the probe requests.</p>"
+      },
+      "title": "A dataset of labelled device Wi-Fi probe requests for MAC address de-randomization - 2021",
+      "links": {
+        "self": "https://zenodo.org/api/records/16602802",
+        "self_html": "https://zenodo.org/records/16602802",
+        "preview_html": "https://zenodo.org/records/16602802?preview=1",
+        "doi": "https://doi.org/10.17632/j64btzdsdy.2",
+        "self_doi": "https://doi.org/10.17632/j64btzdsdy.2",
+        "self_doi_html": "https://zenodo.org/doi/10.17632/j64btzdsdy.2",
+        "reserve_doi": "https://zenodo.org/api/records/16602802/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16602801",
+        "parent_html": "https://zenodo.org/records/16602801",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16602802/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16602802/sequence/default",
+        "files": "https://zenodo.org/api/records/16602802/files",
+        "media_files": "https://zenodo.org/api/records/16602802/media-files",
+        "archive": "https://zenodo.org/api/records/16602802/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16602802/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16602802/versions/latest",
+        "latest_html": "https://zenodo.org/records/16602802/latest",
+        "versions": "https://zenodo.org/api/records/16602802/versions",
+        "draft": "https://zenodo.org/api/records/16602802/draft",
+        "access_links": "https://zenodo.org/api/records/16602802/access/links",
+        "access_grants": "https://zenodo.org/api/records/16602802/access/grants",
+        "access_users": "https://zenodo.org/api/records/16602802/access/users",
+        "access_request": "https://zenodo.org/api/records/16602802/access/request",
+        "access": "https://zenodo.org/api/records/16602802/access",
+        "communities": "https://zenodo.org/api/records/16602802/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16602802/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16602802/requests"
+      },
+      "updated": "2025-07-30T09:45:00.266838+00:00",
+      "recid": "16602802",
+      "revision": 4,
+      "files": [
+        {
+          "id": "1ffee255-9e8f-4990-be98-a0ab1d2882dc",
+          "key": "files_list.csv",
+          "size": 27733,
+          "checksum": "md5:ca957500766480f4fd05637db6b88598",
+          "links": {
+            "self": "https://zenodo.org/api/records/16602802/files/files_list.csv/content"
+          }
+        },
+        {
+          "id": "d788cbff-d5cc-48bb-b498-8c98a5947277",
+          "key": "Individual devices.zip",
+          "size": 1501854,
+          "checksum": "md5:bf161833328788261674c000a37b39d3",
+          "links": {
+            "self": "https://zenodo.org/api/records/16602802/files/Individual devices.zip/content"
+          }
+        },
+        {
+          "id": "4766b88e-8635-4b8b-86c9-425a1e9db0ee",
+          "key": "modes_list.csv",
+          "size": 90,
+          "checksum": "md5:bfcf2e21bfb8c5bde9aea0e392b11d4a",
+          "links": {
+            "self": "https://zenodo.org/api/records/16602802/files/modes_list.csv/content"
+          }
+        },
+        {
+          "id": "102bf744-c10c-4410-bd72-c641cc2396a3",
+          "key": "devices.csv",
+          "size": 1279,
+          "checksum": "md5:7289af0e7ac95f36d89f92b1938061ed",
+          "links": {
+            "self": "https://zenodo.org/api/records/16602802/files/devices.csv/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1150703"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 23,
+        "unique_downloads": 20,
+        "views": 23,
+        "unique_views": 23,
+        "version_downloads": 23,
+        "version_unique_downloads": 20,
+        "version_unique_views": 23,
+        "version_views": 23
       },
       "state": "done",
       "submitted": true
