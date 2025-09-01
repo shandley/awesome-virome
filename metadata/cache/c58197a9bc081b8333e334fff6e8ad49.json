@@ -1,922 +1,60 @@
 {
-  "cache_date": "2025-08-01T12:57:16.638053",
+  "cache_date": "2025-09-01T12:43:05.423038",
   "data": [
     {
-      "created": "2025-08-01T12:55:30.218728+00:00",
-      "modified": "2025-08-01T12:55:30.406726+00:00",
-      "id": 16684729,
-      "conceptrecid": "16684290",
-      "doi": "10.5281/zenodo.16684729",
-      "conceptdoi": "10.5281/zenodo.16684290",
-      "doi_url": "https://doi.org/10.5281/zenodo.16684729",
+      "created": "2025-09-01T12:35:38.696465+00:00",
+      "modified": "2025-09-01T12:35:38.983840+00:00",
+      "id": 17018859,
+      "conceptrecid": "17018858",
+      "doi": "10.5281/zenodo.17018859",
+      "conceptdoi": "10.5281/zenodo.17018858",
+      "doi_url": "https://doi.org/10.5281/zenodo.17018859",
       "metadata": {
-        "title": "pynxtools-mpes: A pynxtools reader plugin for multidimensional photoemission spectroscopy (MPES) data",
-        "doi": "10.5281/zenodo.16684729",
-        "publication_date": "2025-08-01",
-        "description": "pynxtools-mpes is a reader plugin for pynxtools (https://github.com/FAIRmat-NFDI/pynxtools) written in Python. pynxtools-mpes is a tool for reading, translating, and standardizing multidimensional photoemission spectroscopy (MPES) data technology such that it is compliant with the NeXus application definitions NXmpes and NXmpes_arpes (https://fairmat-nfdi.github.io/nexus_definitions/).\npynxtools-mpes is developed both as a standalone reader and as a tool within NOMAD, an open-source data management platform for materials science ((https://nomad-lab.eu/nomad-lab/).\nThe work is funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) - 460197019 (FAIRmat) (https://gepris.dfg.de/gepris/projekt/460197019?language=en).",
+        "title": "Fatal traffic accidents in the city of Madrid during 2024 (Dataset Publication Tutorial)",
+        "doi": "10.5281/zenodo.17018859",
+        "publication_date": "2025-09-01",
+        "description": "<h2>Dataset Summary</h2>\n<p>This dataset contains fatal traffic accidents in the city of Madrid during 2024. It is derived from the <a href=\"https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=7c2843010d9c3610VgnVCM2000001f4a900aRCRD&amp;vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&amp;vgnextfmt=default\">original dataset</a> published by the City Council of Madrid, selecting only those accidents in which the accident resulted in the death of the person involved.</p>\n<p>The motivation behind this dataset is to facilitate the analysis of black spots (high-risk accident areas) in Madrid and to contribute to reducing road fatalities.</p>\n<p>This resource is also part of a tutorial designed to learn how to publish an open dataset, following best practices for documentation, metadata, and reproducibility. It was created by Ibai Guill&eacute;n-Pacho and supported by the Predoctoral Grant (PIPF-2022/COM-25947) of the Consejer&iacute;a de Educaci&oacute;n, Ciencia y Universidades de la Comunidad de Madrid, Spain.</p>\n<h2>How to Use</h2>\n<p>The tutorial materials explaining the dataset publication workflow are available at the following [repository](https://github.com/iguillenp/dataset-publication-tutorial).&nbsp;</p>\n<p>The dataset is distributed as a CSV file with semicolon (;) as the field separator. It can be processed with any software that supports CSV format, such as spreadsheet applications (Excel, LibreOffice, Google Sheets) or programming environments (Python, R, etc.).</p>\n<pre><code># Python Example:\n\nimport pandas as pd\n\n# Load the dataset (semicolon-delimited CSV)\ndf = pd.read_csv(\"2024_Accidentalidad.csv\", delimiter=\";\")\n\n# Inspect the first records\nprint(df.head())</code></pre>\n<h2>Dataset Details</h2>\n<p>This section provides a detailed description of the dataset, including its structure, the collection process, the transformations applied, and the maintenance policy.&nbsp;</p>\n<h3>Data Structure</h3>\n<p>The dataset structure is specified in the <a href=\"https://datos.madrid.es/FWProjects/egob/Catalogo/Seguridad/Ficheros/Estructura_ConjuntoDatos_Accidentesv2.pdf\">original dataset documentation</a>. However, we include here a translated version of the original documentation to facilitate a better understanding of the dataset content. In addition, we have added the field <em>original_row_index</em>, which preserves the row index from the original dataset, allowing users to trace each filtered record back to its source.</p>\n<p><strong>IMPORTANT:</strong> The file includes one record per person involved in the accident (drivers, passengers, pedestrians, witnesses, etc.).</p>\n<table style=\"border-collapse: collapse; width: 100%; height: 490px;\"><colgroup><col style=\"width: 24.9527%;\"><col style=\"width: 24.9527%;\"><col style=\"width: 24.9527%;\"><col style=\"width: 24.9527%;\"></colgroup>\n<tbody>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">N&ordm;</td>\n<td style=\"height: 19.6px;\">Column Name</td>\n<td style=\"height: 19.6px;\">Description</td>\n<td style=\"height: 19.6px;\">Expected Values</td>\n</tr>\n<tr style=\"height: 39.2px;\">\n<td style=\"height: 39.2px;\">0</td>\n<td style=\"height: 39.2px;\">original_row_index</td>\n<td style=\"height: 39.2px;\">Index of the row in the original dataset, useful to trace records back</td>\n<td style=\"height: 39.2px;\">Number</td>\n</tr>\n<tr style=\"height: 58.8px;\">\n<td style=\"height: 58.8px;\">1</td>\n<td style=\"height: 58.8px;\">num_expediente</td>\n<td style=\"height: 58.8px;\">AAAASNNNNNN, where: <br>&bull; AAAA = accident year <br>&bull; S = accident record</td>\n<td style=\"height: 58.8px;\">Text</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">2</td>\n<td style=\"height: 19.6px;\">fecha</td>\n<td style=\"height: 19.6px;\">Date in format dd/mm/yyyy</td>\n<td style=\"height: 19.6px;\">Date</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">3</td>\n<td style=\"height: 19.6px;\">hora</td>\n<td style=\"height: 19.6px;\">Time expressed in 1-hour ranges</td>\n<td style=\"height: 19.6px;\">Time</td>\n</tr>\n<tr style=\"height: 39.2px;\">\n<td style=\"height: 39.2px;\">4</td>\n<td style=\"height: 39.2px;\">localizacion</td>\n<td style=\"height: 39.2px;\">Street 1 &ndash; Street 2 (intersection) or a single street &nbsp;</td>\n<td style=\"height: 39.2px;\">Text</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">5</td>\n<td style=\"height: 19.6px;\">numero</td>\n<td style=\"height: 19.6px;\">Street number, when applicable &nbsp; &nbsp;</td>\n<td style=\"height: 19.6px;\">Number</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">6</td>\n<td style=\"height: 19.6px;\">cod_distrito</td>\n<td style=\"height: 19.6px;\">District code</td>\n<td style=\"height: 19.6px;\">Number</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">7</td>\n<td style=\"height: 19.6px;\">distrito</td>\n<td style=\"height: 19.6px;\">District name</td>\n<td style=\"height: 19.6px;\">Text</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">8</td>\n<td style=\"height: 19.6px;\">tipo_accidente*</td>\n<td style=\"height: 19.6px;\">Type of accident (see typology below)</td>\n<td style=\"height: 19.6px;\">Text</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">9</td>\n<td style=\"height: 19.6px;\">estado_meteorologico</td>\n<td style=\"height: 19.6px;\">Weather conditions description</td>\n<td style=\"height: 19.6px;\">Text</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">10</td>\n<td style=\"height: 19.6px;\">tipo_vehiculo</td>\n<td style=\"height: 19.6px;\">Type of vehicle involved</td>\n<td style=\"height: 19.6px;\">Text</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">11</td>\n<td style=\"height: 19.6px;\">tipo_persona</td>\n<td style=\"height: 19.6px;\">Type of person involved &nbsp;</td>\n<td style=\"height: 19.6px;\">Text</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">12</td>\n<td style=\"height: 19.6px;\">rango_edad</td>\n<td style=\"height: 19.6px;\">Age range of affected person &nbsp;</td>\n<td style=\"height: 19.6px;\">Text</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">13</td>\n<td style=\"height: 19.6px;\">sexo</td>\n<td style=\"height: 19.6px;\">Gender: male, female, or not assigned</td>\n<td style=\"height: 19.6px;\">Text</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">14</td>\n<td style=\"height: 19.6px;\">cod_lesividad*</td>\n<td style=\"height: 19.6px;\">Severity code (see typology below)</td>\n<td style=\"height: 19.6px;\">Number</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">15</td>\n<td style=\"height: 19.6px;\">lesividad</td>\n<td style=\"height: 19.6px;\">Description of severity &nbsp; &nbsp;</td>\n<td style=\"height: 19.6px;\">Text</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">16</td>\n<td style=\"height: 19.6px;\">coordenada_x_utm</td>\n<td style=\"height: 19.6px;\">X coordinate (UTM projection) &nbsp;</td>\n<td style=\"height: 19.6px;\">Number</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">17</td>\n<td style=\"height: 19.6px;\">coordenada_y_utm</td>\n<td style=\"height: 19.6px;\">Y coordinate (UTM projection)</td>\n<td style=\"height: 19.6px;\">Number</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">18</td>\n<td style=\"height: 19.6px;\">positiva_alcohol</td>\n<td style=\"height: 19.6px;\">Alcohol test result: N (No) or S (Yes)</td>\n<td style=\"height: 19.6px;\">N / S</td>\n</tr>\n<tr style=\"height: 19.6px;\">\n<td style=\"height: 19.6px;\">19</td>\n<td style=\"height: 19.6px;\">positiva_droga</td>\n<td style=\"height: 19.6px;\">Drug test result: NULL or 1</td>\n<td style=\"height: 19.6px;\">NULL / 1 &nbsp;</td>\n</tr>\n</tbody>\n</table>\n<p><strong>TYPES OF ACCIDENTS</strong></p>\n<ul>\n<li>Double collision: Traffic accident involving two moving vehicles (head-on, head-side, or side collision).</li>\n<li>Multiple collision: Traffic accident involving more than two moving vehicles.</li>\n<li>Rear-end collision: Accident occurring when a moving or stopped vehicle (due to traffic conditions) is struck from behind by another vehicle.</li>\n<li>Collision with obstacle or road element: Accident occurring between a moving vehicle with a driver and a stationary object occupying the roadway or its surroundings (e.g., parked vehicle, tree, lamppost).</li>\n<li>Pedestrian run-over: Accident involving a vehicle and a pedestrian occupying the roadway or walking on sidewalks, crossings, or other areas of the public road not intended for vehicle traffic.</li>\n<li>Rollover: Accident involving a vehicle with more than two wheels that, for some reason, loses tire contact with the road and ends up on its side or roof.</li>\n<li>Fall: Includes all falls related to traffic circumstances (motorcycle, moped, bicycle, bus passenger, etc.).</li>\n<li>Other causes: Includes accidents such as animal run-over, cliff fall, running off the road, and others.</li>\n</ul>\n<p><strong>SEVERITY</strong></p>\n<ul>\n<li>01: Emergency care without subsequent hospitalization &ndash; Minor</li>\n<li>02: Hospitalization &le; 24 hours &ndash; Minor</li>\n<li>03: Hospitalization &gt; 24 hours &ndash; Serious</li>\n<li>04: Deceased within 24 hours &ndash; Fatal</li>\n<li>05: Outpatient medical care afterwards &ndash; Minor</li>\n<li>06: Immediate medical care in a health center or mutual insurance &ndash; Minor</li>\n<li>07: Medical care only at the accident site &ndash; Minor</li>\n<li>14: No medical assistance</li>\n<li>77: Unknown</li>\n<li>Blank: No medical assistance</li>\n</ul>\n<h3>Data Collection</h3>\n<p>The dataset is derived from the official <a href=\"https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=7c2843010d9c3610VgnVCM2000001f4a900aRCRD&amp;vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&amp;vgnextfmt=default\">2024 traffic accident records</a> published by the City Council of Madrid.</p>\n<h3>Data Processing</h3>\n<p>From the original dataset, we extracted only the records corresponding to fatal accidents, defined as those in which the variable&nbsp;<em>lesividad</em> has the code&nbsp;<em>04</em>. The transformed dataset is stored in CSV format, preserving the same structure and columns as the original file, but containing only a reduced subset of cases that meet this criterion. The scripts employed for this processing are available in the <a href=\"https://github.com/iguillenp/dataset-publication-tutorial\">repository</a>.</p>\n<h3>Data Maintenance</h3>\n<p>The original dataset is maintained and periodically updated by the City Council of Madrid. In contrast, the transformed dataset presented here is designed for tutorial purposes, maintained by the associated teaching team. No further updates are planned beyond potential revisions for new versions of the tutorial. Users interested in updated traffic accident data should always refer to the <a href=\"https://datos.madrid.es\">City of Madrid Open Data Portal</a>.</p>\n<h2>License</h2>\n<p>The dataset is distributed under the license terms of the <a href=\"https://datos.madrid.es/egob/catalogo/aviso-legal\">City of Madrid Open Data Portal</a>.</p>\n<p>The tutorial materials (including documentation, code, and instructions provided in the GitHub <a href=\"https://github.com/iguillenp/dataset-publication-tutorial\">repository</a>) are distributed under the Creative Commons Attribution-NonCommercial 4.0 International (<a href=\"https://creativecommons.org/licenses/by-nc/4.0/legalcode.en\">CC BY-NC 4.0</a>) license.</p>\n<h2>Citation</h2>\n<p>Original dataset: <em>Ayuntamiento de Madrid. Accidentes de tr&aacute;fico en la ciudad de Madrid (2024). Portal de Datos Abiertos. https://datos.madrid.es/portal/site/egob</em></p>\n<p>Transformed dataset: <em>Guill&eacute;n-Pacho I. (2025). Fatal Traffic Accidents in Madrid 2024. Zenodo. https://doi.org/10.5281/zenodo.17018859</em></p>\n<h2>Funding</h2>\n<p>This work is supported by the Predoctoral Grant (PIPF-2022/COM-25947) of the Consejer&iacute;a de Educaci&oacute;n, Ciencia y Universidades de la Comunidad de Madrid, Spain.</p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Dobener, Florian",
-            "affiliation": null,
-            "orcid": "0000-0003-1987-6224"
-          },
-          {
-            "name": "Rettig, Laurenz",
-            "affiliation": null,
-            "orcid": "0000-0002-0725-6696"
-          },
-          {
-            "name": "Pielsticker, Lukas",
-            "affiliation": null,
-            "orcid": "0000-0001-9361-8333"
-          },
-          {
-            "name": "Pincelli, Tommaso",
-            "affiliation": null,
-            "orcid": "0000-0003-2692-2540"
-          },
-          {
-            "name": "Abeer, Arora",
-            "affiliation": null
-          },
-          {
-            "name": "Mozumder, Rubel",
-            "affiliation": null,
-            "orcid": "0009-0007-5926-6646"
-          },
-          {
-            "name": "Brockhauser, Sandor",
-            "affiliation": null,
-            "orcid": "0000-0002-9700-4803"
+            "name": "Guill\u00e9n Pacho, Ibai",
+            "affiliation": "Ontology Engineering Group",
+            "orcid": "0000-0001-7801-8815"
           }
-        ],
-        "keywords": [
-          "Multidimensional Photoelectron Spectroscopy",
-          "ARPES",
-          "NOMAD",
-          "pynxtools",
-          "NeXus"
         ],
         "related_identifiers": [
           {
-            "identifier": "https://github.com/FAIRmat-NFDI/pynxtools-mpes/tree/v0.2.5",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
+            "identifier": "https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=7c2843010d9c3610VgnVCM2000001f4a900aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default",
+            "relation": "isDerivedFrom",
+            "resource_type": "dataset",
             "scheme": "url"
           }
         ],
-        "version": "v0.2.5",
+        "version": "v1.0",
+        "references": [
+          "https://datos.madrid.es/portal/site/egob/menuitem.c05c1f754a33a9fbe4b2e4b284f1a5a0/?vgnextoid=7c2843010d9c3610VgnVCM2000001f4a900aRCRD&vgnextchannel=374512b9ace9f310VgnVCM100000171f5a0aRCRD&vgnextfmt=default"
+        ],
+        "language": "spa",
         "custom": {
-          "code:codeRepository": "https://github.com/FAIRmat-NFDI/pynxtools-mpes"
-        },
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "apache2.0"
-        },
-        "relations": {
-          "version": [
+          "code:codeRepository": "https://github.com/iguillenp/dataset-publication-tutorial",
+          "code:programmingLanguage": [
             {
-              "index": 1,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "16684290"
+              "id": "python",
+              "title": {
+                "en": "Python"
+              }
+            },
+            {
+              "id": "jupyter_notebook",
+              "title": {
+                "en": "Jupyter Notebook"
               }
             }
           ]
         },
-        "notes": "If you use this software, please cite it using the metadata from this file."
-      },
-      "title": "pynxtools-mpes: A pynxtools reader plugin for multidimensional photoemission spectroscopy (MPES) data",
-      "links": {
-        "self": "https://zenodo.org/api/records/16684729",
-        "self_html": "https://zenodo.org/records/16684729",
-        "preview_html": "https://zenodo.org/records/16684729?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16684729",
-        "self_doi": "https://doi.org/10.5281/zenodo.16684729",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16684729",
-        "reserve_doi": "https://zenodo.org/api/records/16684729/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16684290",
-        "parent_html": "https://zenodo.org/records/16684290",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16684290",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16684290",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16684729/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16684729/sequence/default",
-        "files": "https://zenodo.org/api/records/16684729/files",
-        "media_files": "https://zenodo.org/api/records/16684729/media-files",
-        "archive": "https://zenodo.org/api/records/16684729/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16684729/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16684729/versions/latest",
-        "latest_html": "https://zenodo.org/records/16684729/latest",
-        "versions": "https://zenodo.org/api/records/16684729/versions",
-        "draft": "https://zenodo.org/api/records/16684729/draft",
-        "access_links": "https://zenodo.org/api/records/16684729/access/links",
-        "access_grants": "https://zenodo.org/api/records/16684729/access/grants",
-        "access_users": "https://zenodo.org/api/records/16684729/access/users",
-        "access_request": "https://zenodo.org/api/records/16684729/access/request",
-        "access": "https://zenodo.org/api/records/16684729/access",
-        "communities": "https://zenodo.org/api/records/16684729/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16684729/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16684729/requests"
-      },
-      "updated": "2025-08-01T12:55:30.406726+00:00",
-      "recid": "16684729",
-      "revision": 4,
-      "files": [
-        {
-          "id": "a2220c6a-7cad-4f50-9bd1-03625f0e061f",
-          "key": "FAIRmat-NFDI/pynxtools-mpes-v0.2.5.zip",
-          "size": 9290837,
-          "checksum": "md5:2b38c12210af43884a54cfbbfe29f220",
-          "links": {
-            "self": "https://zenodo.org/api/records/16684729/files/FAIRmat-NFDI/pynxtools-mpes-v0.2.5.zip/content"
-          }
-        }
-      ],
-      "swh": {
-        "swhid": "swh:1:dir:16f806fa6344c6ba6a46c198dd78cf1d85d78050;origin=https://doi.org/10.5281/zenodo.16684290;visit=swh:1:snp:a6bc8b25f49afb1a3a7fa7989007f5f731d51d95;anchor=swh:1:rel:7856a7caed57d6c1a4e871798d4c85cbd3dee8b4;path=FAIRmat-NFDI-pynxtools-mpes-abc0343"
-      },
-      "owners": [
-        {
-          "id": "281185"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 0,
-        "unique_downloads": 0,
-        "views": 0,
-        "unique_views": 0,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-01T12:42:55.521874+00:00",
-      "modified": "2025-08-01T12:42:55.731065+00:00",
-      "id": 16684298,
-      "conceptrecid": "7728326",
-      "doi": "10.5281/zenodo.16684298",
-      "conceptdoi": "10.5281/zenodo.7728326",
-      "doi_url": "https://doi.org/10.5281/zenodo.16684298",
-      "metadata": {
-        "title": "artis",
-        "doi": "10.5281/zenodo.16684298",
-        "publication_date": "2025-08-01",
-        "description": "ARTIS (Sim 2007; Kromer &amp; Sim 2009) is a 3D radiative transfer code for Type Ia supernovae using the Monte Carlo method with indivisible energy packets (Lucy 2002). The latest version incorporates polarisation and virtual packets (Bulla et al. 2015), non-LTE physics appropriate for the nebular phase of Type Ia supernovae (Shingles et al. 2020), and alpha- and beta-decays with time-dependent thermalisation (Shingles et al. 2023).",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "ARTIS Collaboration",
-            "affiliation": null
-          },
-          {
-            "name": "Sim, Stuart",
-            "affiliation": null,
-            "orcid": "0000-0002-9774-1192"
-          },
-          {
-            "name": "Kromer, Markus",
-            "affiliation": null,
-            "orcid": "0000-0003-4380-7536"
-          },
-          {
-            "name": "Shingles, Luke J.",
-            "affiliation": null,
-            "orcid": "0000-0002-5738-1612"
-          },
-          {
-            "name": "Bulla, Mattia",
-            "affiliation": null,
-            "orcid": "0000-0002-8255-5127"
-          },
-          {
-            "name": "Collins, Christine E.",
-            "affiliation": null,
-            "orcid": "0000-0002-0313-7817"
-          },
-          {
-            "name": "Callan, Fionntan",
-            "affiliation": null,
-            "orcid": "0000-0002-7975-8185"
-          },
-          {
-            "name": "Holas, Alexander",
-            "affiliation": null,
-            "orcid": "0000-0001-5184-6928"
-          },
-          {
-            "name": "Pollin, Joshua",
-            "affiliation": null,
-            "orcid": "0009-0005-6989-3198"
-          },
-          {
-            "name": "Leck, Gerrit",
-            "affiliation": null
-          }
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "https://github.com/artis-mcrt/artis/tree/v2025.08.01",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
-          }
-        ],
-        "version": "v2025.08.01",
-        "custom": {
-          "code:codeRepository": "https://github.com/artis-mcrt/artis"
-        },
         "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "bsd-3-clause"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 15,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "7728326"
-              }
-            }
-          ]
-        },
-        "notes": "If you use this software, please cite Sim (2007) and Kromer &amp; Sim (2009). For specific features, please also cite: polarisation and virtual packets (Bulla et al. 2015), non-LTE populations and the non-thermal solver (Shingles et al. 2020), alpha- and beta-decays and time-dependent thermalisation (Shingles et al. 2023)."
-      },
-      "title": "artis",
-      "links": {
-        "self": "https://zenodo.org/api/records/16684298",
-        "self_html": "https://zenodo.org/records/16684298",
-        "preview_html": "https://zenodo.org/records/16684298?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16684298",
-        "self_doi": "https://doi.org/10.5281/zenodo.16684298",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16684298",
-        "reserve_doi": "https://zenodo.org/api/records/16684298/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/7728326",
-        "parent_html": "https://zenodo.org/records/7728326",
-        "parent_doi": "https://doi.org/10.5281/zenodo.7728326",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.7728326",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16684298/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16684298/sequence/default",
-        "files": "https://zenodo.org/api/records/16684298/files",
-        "media_files": "https://zenodo.org/api/records/16684298/media-files",
-        "archive": "https://zenodo.org/api/records/16684298/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16684298/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16684298/versions/latest",
-        "latest_html": "https://zenodo.org/records/16684298/latest",
-        "versions": "https://zenodo.org/api/records/16684298/versions",
-        "draft": "https://zenodo.org/api/records/16684298/draft",
-        "access_links": "https://zenodo.org/api/records/16684298/access/links",
-        "access_grants": "https://zenodo.org/api/records/16684298/access/grants",
-        "access_users": "https://zenodo.org/api/records/16684298/access/users",
-        "access_request": "https://zenodo.org/api/records/16684298/access/request",
-        "access": "https://zenodo.org/api/records/16684298/access",
-        "communities": "https://zenodo.org/api/records/16684298/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16684298/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16684298/requests"
-      },
-      "updated": "2025-08-01T12:42:55.731065+00:00",
-      "recid": "16684298",
-      "revision": 4,
-      "files": [
-        {
-          "id": "28898e9a-9baa-4e3e-ba6c-b17aa98f14ff",
-          "key": "artis-mcrt/artis-v2025.08.01.zip",
-          "size": 2292578,
-          "checksum": "md5:dd8e72804d05510fa89c94a1b39ac1cd",
-          "links": {
-            "self": "https://zenodo.org/api/records/16684298/files/artis-mcrt/artis-v2025.08.01.zip/content"
-          }
-        }
-      ],
-      "swh": {
-        "swhid": "swh:1:dir:594b7fc21b122d35b19967dce0777ce7ec121591;origin=https://doi.org/10.5281/zenodo.7728326;visit=swh:1:snp:5e876ef4d3670f2cbf0289e8285eb0fe2bef5a99;anchor=swh:1:rel:96d6afd358d86fc797041e422dfe73ae6292d038;path=artis-mcrt-artis-efecee1"
-      },
-      "owners": [
-        {
-          "id": "22471"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 95,
-        "unique_downloads": 94,
-        "views": 724,
-        "unique_views": 681,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-01T12:39:17.541181+00:00",
-      "modified": "2025-08-01T12:39:17.695349+00:00",
-      "id": 16684168,
-      "conceptrecid": "13951684",
-      "doi": "10.5281/zenodo.16684168",
-      "conceptdoi": "10.5281/zenodo.13951684",
-      "doi_url": "https://doi.org/10.5281/zenodo.16684168",
-      "metadata": {
-        "title": "pynxtools-xps: A pynxtools reader plugin for X-ray photoelectron spectroscopy (XPS) data",
-        "doi": "10.5281/zenodo.16684168",
-        "publication_date": "2025-08-01",
-        "description": "pynxtools-xps is a reader plugin for pynxtools (https://github.com/FAIRmat-NFDI/pynxtools) written in Python. pynxtools-xps is a tool for reading and translating data from various propietary and open data formats from technology partners and the wider X-ray photoelectron spectroscopy community and standardizing it such that it is compliant with the NeXus application definition NXmpes and NXxps (https://fairmat-nfdi.github.io/nexus_definitions/).\npynxtools-xps is developed both as a standalone reader and as a tool within NOMAD, an open-source data management platform for materials science ((https://nomad-lab.eu/nomad-lab/).\nThe work is funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) - 460197019 (FAIRmat) (https://gepris.dfg.de/gepris/projekt/460197019?language=en).",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Pielsticker, Lukas",
-            "affiliation": null,
-            "orcid": "0000-0001-9361-8333"
-          },
-          {
-            "name": "Mozumder, Rubel",
-            "affiliation": null,
-            "orcid": "0009-0007-5926-6646"
-          },
-          {
-            "name": "Dobener, Florian",
-            "affiliation": null,
-            "orcid": "0000-0003-1987-6224"
-          },
-          {
-            "name": "Hetaba, Walid",
-            "affiliation": null,
-            "orcid": "0000-0003-4728-0786"
-          },
-          {
-            "name": "Rettig, Laurenz",
-            "affiliation": null,
-            "orcid": "0000-0002-0725-6696"
-          },
-          {
-            "name": "Brockhauser, Sandor",
-            "affiliation": null,
-            "orcid": "0000-0002-9700-4803"
-          }
-        ],
-        "keywords": [
-          "X-ray Photoelectron Spectroscopy",
-          "NOMAD",
-          "pynxtools",
-          "NeXus"
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "https://github.com/FAIRmat-NFDI/pynxtools-xps/tree/v0.5.3",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
-          }
-        ],
-        "version": "v0.5.3",
-        "custom": {
-          "code:codeRepository": "https://github.com/FAIRmat-NFDI/pynxtools-xps"
-        },
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "apache2.0"
-        },
-        "communities": [
-          {
-            "id": "fairmat_nfdi"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 12,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "13951684"
-              }
-            }
-          ]
-        },
-        "notes": "If you use this software, please cite it using the metadata from this file."
-      },
-      "title": "pynxtools-xps: A pynxtools reader plugin for X-ray photoelectron spectroscopy (XPS) data",
-      "links": {
-        "self": "https://zenodo.org/api/records/16684168",
-        "self_html": "https://zenodo.org/records/16684168",
-        "preview_html": "https://zenodo.org/records/16684168?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16684168",
-        "self_doi": "https://doi.org/10.5281/zenodo.16684168",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16684168",
-        "reserve_doi": "https://zenodo.org/api/records/16684168/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/13951684",
-        "parent_html": "https://zenodo.org/records/13951684",
-        "parent_doi": "https://doi.org/10.5281/zenodo.13951684",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13951684",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16684168/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16684168/sequence/default",
-        "files": "https://zenodo.org/api/records/16684168/files",
-        "media_files": "https://zenodo.org/api/records/16684168/media-files",
-        "archive": "https://zenodo.org/api/records/16684168/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16684168/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16684168/versions/latest",
-        "latest_html": "https://zenodo.org/records/16684168/latest",
-        "versions": "https://zenodo.org/api/records/16684168/versions",
-        "draft": "https://zenodo.org/api/records/16684168/draft",
-        "access_links": "https://zenodo.org/api/records/16684168/access/links",
-        "access_grants": "https://zenodo.org/api/records/16684168/access/grants",
-        "access_users": "https://zenodo.org/api/records/16684168/access/users",
-        "access_request": "https://zenodo.org/api/records/16684168/access/request",
-        "access": "https://zenodo.org/api/records/16684168/access",
-        "communities": "https://zenodo.org/api/records/16684168/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16684168/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16684168/requests"
-      },
-      "updated": "2025-08-01T12:39:17.695349+00:00",
-      "recid": "16684168",
-      "revision": 4,
-      "files": [
-        {
-          "id": "71622908-aba1-49fb-8e16-adff5e9096d8",
-          "key": "FAIRmat-NFDI/pynxtools-xps-v0.5.3.zip",
-          "size": 39809684,
-          "checksum": "md5:ff39153a4ca25bf0af7d523ff87f972d",
-          "links": {
-            "self": "https://zenodo.org/api/records/16684168/files/FAIRmat-NFDI/pynxtools-xps-v0.5.3.zip/content"
-          }
-        }
-      ],
-      "swh": {
-        "swhid": "swh:1:dir:a373a811f29ce1432e4dff1640b4c82133f1c63d;origin=https://doi.org/10.5281/zenodo.13951684;visit=swh:1:snp:f2a036221b848b423bd011c9c4439510d269a331;anchor=swh:1:rel:d34c837423b05e387c5491b712d5b4141e9dc772;path=FAIRmat-NFDI-pynxtools-xps-53ea2fd"
-      },
-      "owners": [
-        {
-          "id": "281185"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 99,
-        "unique_downloads": 96,
-        "views": 202,
-        "unique_views": 185,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-01T12:32:01.673373+00:00",
-      "modified": "2025-08-01T12:32:01.883944+00:00",
-      "id": 16683908,
-      "conceptrecid": "7871065",
-      "doi": "10.5281/zenodo.16683908",
-      "conceptdoi": "10.5281/zenodo.7871065",
-      "doi_url": "https://doi.org/10.5281/zenodo.16683908",
-      "metadata": {
-        "title": "hdt-rs: A Rust library for the Header Dictionary Triples binary RDF compression format",
-        "doi": "10.5281/zenodo.16683908",
-        "publication_date": "2025-08-01",
-        "description": "<ul>\n<li>SPARQL support by @GregHanson in https://github.com/KonradHoeffner/hdt/pull/66 (experimental &quot;sparql&quot; feature, API may change)</li>\n<li>HDT can now be written and can be converted from N-Triples by @GregHanson in https://github.com/KonradHoeffner/hdt/pull/60 and https://github.com/KonradHoeffner/hdt/pull/71</li>\n<li>improved error handling in https://github.com/KonradHoeffner/hdt/pull/61</li>\n<li>refactor HdtGraph into a trait implementation in https://github.com/KonradHoeffner/hdt/pull/78</li>\n</ul>\n<p>Please give us feedback on the 0.4.0-alpha (especially about SPARQL) because we want to release 0.4.0 soon.\nNote that SPARQL is not the primary focus of the HDT file format.\nWe have neither extensively validated nor benchmarked nor optimized the SPARQL performance yet and even if that happens later it is still unsure how performant it will be.\nThe command line application (CLI) for conversion and more is moved to 0.5.0.</p>\n<p>Other changes include:</p>\n<ul>\n<li>Additional public fields by @GregHanson in https://github.com/KonradHoeffner/hdt/pull/54 (though this may be scaled back as have less need for it now)</li>\n<li>fix: dictionary needs to be able to save when there are no entries in the shared section by @GregHanson in https://github.com/KonradHoeffner/hdt/pull/58</li>\n</ul>\n<p><strong>Full Changelog</strong>: https://github.com/KonradHoeffner/hdt/compare/0.3.0...0.4.0-alpha</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "H\u00f6ffner, Konrad",
-            "affiliation": "Institute for Medical Informatics, Statistics and Epidemiology (IMISE), Leipzig, Germany",
-            "orcid": "0000-0001-7358-3217"
-          },
-          {
-            "name": "Tim, Baccaert",
-            "affiliation": "Independent Researcher Belgium"
-          }
-        ],
-        "keywords": [
-          "RDF",
-          "HDT",
-          "Rust"
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "https://github.com/KonradHoeffner/hdt/tree/0.4.0-alpha",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
-          }
-        ],
-        "version": "0.4.0-alpha",
-        "custom": {
-          "code:codeRepository": "https://github.com/KonradHoeffner/hdt"
-        },
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "mit-license"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 6,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "7871065"
-              }
-            }
-          ]
-        },
-        "notes": "If you use this software, please cite our article in the Journal of Open Source Software."
-      },
-      "title": "hdt-rs: A Rust library for the Header Dictionary Triples binary RDF compression format",
-      "links": {
-        "self": "https://zenodo.org/api/records/16683908",
-        "self_html": "https://zenodo.org/records/16683908",
-        "preview_html": "https://zenodo.org/records/16683908?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16683908",
-        "self_doi": "https://doi.org/10.5281/zenodo.16683908",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16683908",
-        "reserve_doi": "https://zenodo.org/api/records/16683908/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/7871065",
-        "parent_html": "https://zenodo.org/records/7871065",
-        "parent_doi": "https://doi.org/10.5281/zenodo.7871065",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.7871065",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16683908/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16683908/sequence/default",
-        "files": "https://zenodo.org/api/records/16683908/files",
-        "media_files": "https://zenodo.org/api/records/16683908/media-files",
-        "archive": "https://zenodo.org/api/records/16683908/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16683908/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16683908/versions/latest",
-        "latest_html": "https://zenodo.org/records/16683908/latest",
-        "versions": "https://zenodo.org/api/records/16683908/versions",
-        "draft": "https://zenodo.org/api/records/16683908/draft",
-        "access_links": "https://zenodo.org/api/records/16683908/access/links",
-        "access_grants": "https://zenodo.org/api/records/16683908/access/grants",
-        "access_users": "https://zenodo.org/api/records/16683908/access/users",
-        "access_request": "https://zenodo.org/api/records/16683908/access/request",
-        "access": "https://zenodo.org/api/records/16683908/access",
-        "communities": "https://zenodo.org/api/records/16683908/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16683908/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16683908/requests"
-      },
-      "updated": "2025-08-01T12:32:01.883944+00:00",
-      "recid": "16683908",
-      "revision": 4,
-      "files": [
-        {
-          "id": "91ef4358-d10c-4d2c-b07a-331620ff7b1e",
-          "key": "KonradHoeffner/hdt-0.4.0-alpha.zip",
-          "size": 74723,
-          "checksum": "md5:eb01a7e824e6559fcc881cbf4cef6eb1",
-          "links": {
-            "self": "https://zenodo.org/api/records/16683908/files/KonradHoeffner/hdt-0.4.0-alpha.zip/content"
-          }
-        }
-      ],
-      "swh": {
-        "swhid": "swh:1:dir:cb976f617685d0b847cb67cb1e5c47848d189b03;origin=https://doi.org/10.5281/zenodo.7871065;visit=swh:1:snp:62654a9ba3eff111f4a4a005666e6f72dc638bb3;anchor=swh:1:rel:770dd3fc86dac59f7c40d156c9b933628165f5e2;path=KonradHoeffner-hdt-539bce6"
-      },
-      "owners": [
-        {
-          "id": "539020"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 50,
-        "unique_downloads": 50,
-        "views": 185,
-        "unique_views": 175,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-01T12:27:19.182194+00:00",
-      "modified": "2025-08-01T12:27:19.393002+00:00",
-      "id": 16683703,
-      "conceptrecid": "3816620",
-      "doi": "10.5281/zenodo.16683703",
-      "conceptdoi": "10.5281/zenodo.3816620",
-      "doi_url": "https://doi.org/10.5281/zenodo.16683703",
-      "metadata": {
-        "title": "CPAchecker Release 4.1 (image)",
-        "doi": "10.5281/zenodo.16683703",
-        "publication_date": "2025-08-01",
-        "description": "<h2>Changes from CPAchecker 4.0 to CPAchecker 4.1</h2>\n<ul>\n<li>CPAchecker 4.1 is the last release that works on Java 17, future versions of CPAchecker will require Java 21 or newer.</li>\n<li>Improved float handling.<br>The internal handling of floats of the analyzed program was improved in several ways in CPAchecker and is now more precise.</li>\n<li>Better support for systems other than Linux x86_64.<br>Previously CPAchecker could typically not be used for any float-containing program on non-Linux and non-x86_64 platforms due to a missing binary library. Now we eliminated the need for this library and many configurations of CPAchecker now consist of only Java code, which is platform independent. Configurations that rely on external binary libraries (like most SMT solvers) still have limited platform support.</li>\n<li>LLVM frontend of CPAchecker disabled.<br>The LLVM frontend of CPAchecker (used for analyzing programs in LLVM IR or for C programs after compiling with Clang) supported only an old LLVM version and was unmaintained. Now it is disabled completely.</li>\n<li>The official container image of CPAchecker is now based on Ubuntu 22.04 instead of Ubuntu 20.04 and uses Java 21 instead of Java 17.</li>\n</ul>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Beyer, Dirk",
-            "affiliation": "LMU Munich, Germany",
-            "orcid": "0000-0003-4832-7662"
-          },
-          {
-            "name": "Wendler, Philipp",
-            "affiliation": "LMU Munich, Germany",
-            "orcid": "0000-0002-5139-341X"
-          }
-        ],
-        "contributors": [
-          {
-            "name": "Baier, Daniel",
-            "affiliation": "LMU Munich, Germany",
-            "type": "ProjectMember",
-            "orcid": "0000-0001-9116-1974"
-          },
-          {
-            "name": "Bajczi, Levente",
-            "affiliation": "Budapest University of Technology and Economics",
-            "type": "ProjectMember",
-            "orcid": "0000-0002-6551-5860"
-          },
-          {
-            "name": "Chien, Po-Chun",
-            "affiliation": "LMU Munich, Germany",
-            "type": "ProjectMember",
-            "orcid": "0000-0001-5139-5178"
-          },
-          {
-            "name": "Ewerling, Sarah",
-            "affiliation": "LMU Munich, Germany",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Friedberger, Karlheinz",
-            "affiliation": "LMU Munich, Germany",
-            "type": "ProjectMember",
-            "orcid": "0000-0001-7624-654X"
-          },
-          {
-            "name": "Jakobs, Marie-Christine",
-            "affiliation": "LMU Munich, Germany",
-            "type": "ProjectMember",
-            "orcid": "0000-0002-5890-4673"
-          },
-          {
-            "name": "Jankola, Marek",
-            "affiliation": "LMU Munich, Germany",
-            "type": "ProjectMember",
-            "orcid": "0009-0008-7961-190X"
-          },
-          {
-            "name": "Kettl, Matthias",
-            "affiliation": "LMU Munich, Germany",
-            "type": "ProjectMember",
-            "orcid": "0000-0001-7365-5030"
-          },
-          {
-            "name": "Lee, Nian-Ze",
-            "affiliation": "LMU Munich, Germany",
-            "type": "ProjectMember",
-            "orcid": "0000-0002-8096-5595"
-          },
-          {
-            "name": "Lemberger, Thomas",
-            "affiliation": "LMU Munich, Germany",
-            "type": "ProjectMember",
-            "orcid": "0000-0003-0291-815X"
-          },
-          {
-            "name": "Lingsch-Rosenfeld, Marian",
-            "affiliation": "LMU Munich, Germany",
-            "type": "ProjectMember",
-            "orcid": "0000-0002-8172-3184"
-          },
-          {
-            "name": "Raffler, Daniel",
-            "affiliation": "LMU Munich, Germany",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Ruckstuhl, Sara",
-            "affiliation": null,
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Salgado, Diego",
-            "affiliation": "LMU Munich, Germany",
-            "type": "ProjectMember"
-          },
-          {
-            "name": "Wachowitz, Henrik",
-            "affiliation": "LMU Munich, Germany",
-            "type": "ProjectMember",
-            "orcid": "0000-0002-4768-4054"
-          }
-        ],
-        "keywords": [
-          "Software Verification",
-          "Model Checking",
-          "Program Analysis"
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "10.1007/978-3-642-22110-1_16",
-            "relation": "isDocumentedBy",
-            "resource_type": "publication-conferencepaper",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1007/s10817-017-9432-6",
-            "relation": "isDocumentedBy",
-            "resource_type": "publication-article",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "https://cpachecker.sosy-lab.org/",
-            "relation": "isSupplementTo",
-            "resource_type": "publication-softwaredocumentation",
-            "scheme": "url"
-          },
-          {
-            "identifier": "10.48550/arXiv.2409.02094",
-            "relation": "isDocumentedBy",
-            "resource_type": "publication-conferencepaper",
-            "scheme": "doi"
-          }
-        ],
-        "version": "4.1 (image)",
-        "language": "eng",
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "apache2.0"
-        },
-        "communities": [
-          {
-            "id": "sosy-lab-software"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 14,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "3816620"
-              }
-            }
-          ]
-        }
-      },
-      "title": "CPAchecker Release 4.1 (image)",
-      "links": {
-        "self": "https://zenodo.org/api/records/16683703",
-        "self_html": "https://zenodo.org/records/16683703",
-        "preview_html": "https://zenodo.org/records/16683703?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16683703",
-        "self_doi": "https://doi.org/10.5281/zenodo.16683703",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16683703",
-        "reserve_doi": "https://zenodo.org/api/records/16683703/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/3816620",
-        "parent_html": "https://zenodo.org/records/3816620",
-        "parent_doi": "https://doi.org/10.5281/zenodo.3816620",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.3816620",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16683703/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16683703/sequence/default",
-        "files": "https://zenodo.org/api/records/16683703/files",
-        "media_files": "https://zenodo.org/api/records/16683703/media-files",
-        "archive": "https://zenodo.org/api/records/16683703/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16683703/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16683703/versions/latest",
-        "latest_html": "https://zenodo.org/records/16683703/latest",
-        "versions": "https://zenodo.org/api/records/16683703/versions",
-        "draft": "https://zenodo.org/api/records/16683703/draft",
-        "access_links": "https://zenodo.org/api/records/16683703/access/links",
-        "access_grants": "https://zenodo.org/api/records/16683703/access/grants",
-        "access_users": "https://zenodo.org/api/records/16683703/access/users",
-        "access_request": "https://zenodo.org/api/records/16683703/access/request",
-        "access": "https://zenodo.org/api/records/16683703/access",
-        "communities": "https://zenodo.org/api/records/16683703/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16683703/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16683703/requests"
-      },
-      "updated": "2025-08-01T12:27:19.393002+00:00",
-      "recid": "16683703",
-      "revision": 4,
-      "files": [
-        {
-          "id": "96227612-4115-4852-bf60-ee772ce9b6aa",
-          "key": "cpachecker-4.1-image.tar.gz",
-          "size": 304862565,
-          "checksum": "md5:d1f2d5624963513c0e29598a9880ac3e",
-          "links": {
-            "self": "https://zenodo.org/api/records/16683703/files/cpachecker-4.1-image.tar.gz/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "39516"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 20017,
-        "unique_downloads": 2844,
-        "views": 2219,
-        "unique_views": 1938,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-01T12:26:08.013089+00:00",
-      "modified": "2025-08-01T12:26:08.195241+00:00",
-      "id": 16683729,
-      "conceptrecid": "16683728",
-      "doi": "10.5281/zenodo.16683729",
-      "conceptdoi": "10.5281/zenodo.16683728",
-      "doi_url": "https://doi.org/10.5281/zenodo.16683729",
-      "metadata": {
-        "title": "pynxtools-ellips: A pynxtools reader plugin for ellipsometry data",
-        "doi": "10.5281/zenodo.16683729",
-        "publication_date": "2025-08-01",
-        "description": "pynxtools-ellips is a reader plugin for pynxtools (https://github.com/FAIRmat-NFDI/pynxtools) written in Python. pynxtools-ellips is a tool for reading and translating ellipsometry data from propietary and open data formats and standardizing it such that it is compliant with the NeXus application definitions NXoptical_spectroscopy and NXellipsometry (https://fairmat-nfdi.github.io/nexus_definitions/).\npynxtools-ellips is developed both as a standalone reader and as a tool within NOMAD, an open-source data management platform for materials science ((https://nomad-lab.eu/nomad-lab/).\nThe work is funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) - 460197019 (FAIRmat) (https://gepris.dfg.de/gepris/projekt/460197019?language=en).",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Hildebrandt, Ron",
-            "affiliation": null,
-            "orcid": "0000-0001-6932-604X"
-          },
-          {
-            "name": "Pielsticker, Lukas",
-            "affiliation": null,
-            "orcid": "0000-0001-9361-8333"
-          },
-          {
-            "name": "Mozumder, Rubel",
-            "affiliation": null,
-            "orcid": "0009-0007-5926-6646"
-          },
-          {
-            "name": "Dobener, Florian",
-            "affiliation": null,
-            "orcid": "0000-0003-1987-6224"
-          },
-          {
-            "name": "Brockhauser, Sandor",
-            "affiliation": null,
-            "orcid": "0000-0002-9700-4803"
-          }
-        ],
-        "keywords": [
-          "ellipsometry",
-          "optical spectroscopy",
-          "NOMAD",
-          "pynxtools",
-          "NeXus"
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "https://github.com/FAIRmat-NFDI/pynxtools-ellips/tree/v0.1.0",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
-          }
-        ],
-        "version": "v0.1.0",
-        "custom": {
-          "code:codeRepository": "https://github.com/FAIRmat-NFDI/pynxtools-ellips"
-        },
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "apache2.0"
+          "title": "Dataset",
+          "type": "dataset"
         },
         "relations": {
           "version": [
@@ -925,75 +63,72 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "16683728"
+                "pid_value": "17018858"
               }
             }
           ]
-        },
-        "notes": "If you use this software, please cite it using the metadata from this file."
+        }
       },
-      "title": "pynxtools-ellips: A pynxtools reader plugin for ellipsometry data",
+      "title": "Fatal traffic accidents in the city of Madrid during 2024 (Dataset Publication Tutorial)",
       "links": {
-        "self": "https://zenodo.org/api/records/16683729",
-        "self_html": "https://zenodo.org/records/16683729",
-        "preview_html": "https://zenodo.org/records/16683729?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16683729",
-        "self_doi": "https://doi.org/10.5281/zenodo.16683729",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16683729",
-        "reserve_doi": "https://zenodo.org/api/records/16683729/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16683728",
-        "parent_html": "https://zenodo.org/records/16683728",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16683728",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16683728",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16683729/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16683729/sequence/default",
-        "files": "https://zenodo.org/api/records/16683729/files",
-        "media_files": "https://zenodo.org/api/records/16683729/media-files",
-        "archive": "https://zenodo.org/api/records/16683729/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16683729/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16683729/versions/latest",
-        "latest_html": "https://zenodo.org/records/16683729/latest",
-        "versions": "https://zenodo.org/api/records/16683729/versions",
-        "draft": "https://zenodo.org/api/records/16683729/draft",
-        "access_links": "https://zenodo.org/api/records/16683729/access/links",
-        "access_grants": "https://zenodo.org/api/records/16683729/access/grants",
-        "access_users": "https://zenodo.org/api/records/16683729/access/users",
-        "access_request": "https://zenodo.org/api/records/16683729/access/request",
-        "access": "https://zenodo.org/api/records/16683729/access",
-        "communities": "https://zenodo.org/api/records/16683729/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16683729/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16683729/requests"
+        "self": "https://zenodo.org/api/records/17018859",
+        "self_html": "https://zenodo.org/records/17018859",
+        "preview_html": "https://zenodo.org/records/17018859?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17018859",
+        "self_doi": "https://doi.org/10.5281/zenodo.17018859",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17018859",
+        "reserve_doi": "https://zenodo.org/api/records/17018859/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17018858",
+        "parent_html": "https://zenodo.org/records/17018858",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17018858",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17018858",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17018859/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17018859/sequence/default",
+        "files": "https://zenodo.org/api/records/17018859/files",
+        "media_files": "https://zenodo.org/api/records/17018859/media-files",
+        "archive": "https://zenodo.org/api/records/17018859/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17018859/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17018859/versions/latest",
+        "latest_html": "https://zenodo.org/records/17018859/latest",
+        "versions": "https://zenodo.org/api/records/17018859/versions",
+        "draft": "https://zenodo.org/api/records/17018859/draft",
+        "access_links": "https://zenodo.org/api/records/17018859/access/links",
+        "access_grants": "https://zenodo.org/api/records/17018859/access/grants",
+        "access_users": "https://zenodo.org/api/records/17018859/access/users",
+        "access_request": "https://zenodo.org/api/records/17018859/access/request",
+        "access": "https://zenodo.org/api/records/17018859/access",
+        "communities": "https://zenodo.org/api/records/17018859/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17018859/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17018859/requests"
       },
-      "updated": "2025-08-01T12:26:08.195241+00:00",
-      "recid": "16683729",
+      "updated": "2025-09-01T12:35:38.983840+00:00",
+      "recid": "17018859",
       "revision": 4,
       "files": [
         {
-          "id": "df040c4f-0cf3-4597-b206-2ee4d139d453",
-          "key": "FAIRmat-NFDI/pynxtools-ellips-v0.1.0.zip",
-          "size": 697857,
-          "checksum": "md5:06d11bb579f216c96a2247d671d26da0",
+          "id": "9defd715-bcb3-4aaa-bccc-0a29181078ef",
+          "key": "2024_Accidentalidad.csv",
+          "size": 9513218,
+          "checksum": "md5:30a1ee03a1cf61f8afe087e5e3f5a2e8",
           "links": {
-            "self": "https://zenodo.org/api/records/16683729/files/FAIRmat-NFDI/pynxtools-ellips-v0.1.0.zip/content"
+            "self": "https://zenodo.org/api/records/17018859/files/2024_Accidentalidad.csv/content"
           }
         }
       ],
-      "swh": {
-        "swhid": "swh:1:dir:12eda0ae19511a65b518e7ae6159275232e8d10e;origin=https://doi.org/10.5281/zenodo.16683728;visit=swh:1:snp:602d9b328b82af64b05ac9ec476d7ec5160f443e;anchor=swh:1:rel:d38e9aecde20980621c7973759c8e04966e78c1a;path=FAIRmat-NFDI-pynxtools-ellips-5d41387"
-      },
+      "swh": {},
       "owners": [
         {
-          "id": "281185"
+          "id": "252731"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 0,
-        "unique_downloads": 0,
+        "downloads": 8,
+        "unique_downloads": 1,
         "views": 0,
         "unique_views": 0,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
+        "version_downloads": 8,
+        "version_unique_downloads": 1,
         "version_unique_views": 0,
         "version_views": 0
       },
@@ -1001,304 +136,43 @@
       "submitted": true
     },
     {
-      "created": "2025-08-01T12:24:23.504917+00:00",
-      "modified": "2025-08-01T12:24:23.644846+00:00",
-      "id": 16683674,
-      "conceptrecid": "15847670",
-      "doi": "10.5281/zenodo.16683674",
-      "conceptdoi": "10.5281/zenodo.15847670",
-      "doi_url": "https://doi.org/10.5281/zenodo.16683674",
+      "created": "2025-09-01T12:25:53.890035+00:00",
+      "modified": "2025-09-01T12:25:54.195098+00:00",
+      "id": 17019755,
+      "conceptrecid": "17019754",
+      "doi": "10.5281/zenodo.17019755",
+      "conceptdoi": "10.5281/zenodo.17019754",
+      "doi_url": "https://doi.org/10.5281/zenodo.17019755",
       "metadata": {
-        "title": "pynxtools-raman: A pynxtools reader plugin for Raman spectroscopy data",
-        "doi": "10.5281/zenodo.16683674",
-        "publication_date": "2025-08-01",
-        "description": "pynxtools-raman is a reader plugin for pynxtools (https://github.com/FAIRmat-NFDI/pynxtools) written in Python. pynxtools-raman is a tool for reading and translating Raman spectroscopy data from propietary and open data formats and standardizing it such that it is compliant with the NeXus application definitions NXoptical_spectroscopy and NXraman (https://fairmat-nfdi.github.io/nexus_definitions/).\npynxtools-ellips is developed both as a standalone reader and as a tool within NOMAD, an open-source data management platform for materials science ((https://nomad-lab.eu/nomad-lab/).\nThe work is funded by the Deutsche Forschungsgemeinschaft (DFG, German Research Foundation) - 460197019 (FAIRmat) (https://gepris.dfg.de/gepris/projekt/460197019?language=en).",
+        "title": "Continuance Intention of Jenius Digital Bank Users in Surabaya: A UTAUT Approach with Experience as a Moderator",
+        "doi": "10.5281/zenodo.17019755",
+        "publication_date": "2025-09-01",
+        "description": "<p>Early adoption of digital technology doesn't guarantee ongoing use over time. This research intends to analyze the impact of three central components of the Unified Theory of Acceptance and Use of Technology (UTAUT), specifically performance expectancy, effort expectancy, and social influence, on the intention to continue using Jenius digital banking services in Surabaya. It additionally examines the moderating influence of experience. This study employs a quantitative method, utilizing an onlin e survey given to 156 participants chosen via purposive sampling. Data were examined through Partial Least Squares Structural Equation Modeling (PLS-SEM) utilizing SmartPLS 4.0 software. The findings indicate that performance expectancy, effort expectancy, and social influence affect the intention to continue. Additionally, experience influences the connection between performance expectancy and effort expectancy with continuance intention. These results strengthen the significance of the UTAUT model in elucidating the ongoing usage of digital banking services.</p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Hildebrandt, Ron",
-            "affiliation": null,
-            "orcid": "0000-0001-6932-604X"
+            "name": "Sylvia Margareth",
+            "affiliation": "Department of Management, Faculty of Economics and Business, UPN \"Veteran\" Jawa Timur, Indonesia"
           },
           {
-            "name": "Pielsticker, Lukas",
-            "affiliation": null,
-            "orcid": "0000-0001-9361-8333"
-          },
-          {
-            "name": "Mozumder, Rubel",
-            "affiliation": null,
-            "orcid": "0009-0007-5926-6646"
-          },
-          {
-            "name": "Dobener, Florian",
-            "affiliation": null,
-            "orcid": "0000-0003-1987-6224"
-          },
-          {
-            "name": "Brockhauser, Sandor",
-            "affiliation": null,
-            "orcid": "0000-0002-9700-4803"
+            "name": "Tri Kartika Pertiwi",
+            "affiliation": "Department of Management, Faculty of Economics and Business, UPN \"Veteran\" Jawa Timur, Indonesia"
           }
         ],
         "keywords": [
-          "Raman spectroscopy",
-          "optical spectroscopy",
-          "NOMAD",
-          "pynxtools",
-          "NeXus"
+          "Continuance Intention, Digital Banking, Experience, Financial Technology, UTAUT"
         ],
-        "related_identifiers": [
-          {
-            "identifier": "https://github.com/FAIRmat-NFDI/pynxtools-raman/tree/v0.1.0",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
-          }
-        ],
-        "version": "v0.1.0",
-        "custom": {
-          "code:codeRepository": "https://github.com/FAIRmat-NFDI/pynxtools-raman"
-        },
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "apache2.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 1,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15847670"
-              }
-            }
-          ]
-        },
-        "notes": "If you use this software, please cite it using the metadata from this file."
-      },
-      "title": "pynxtools-raman: A pynxtools reader plugin for Raman spectroscopy data",
-      "links": {
-        "self": "https://zenodo.org/api/records/16683674",
-        "self_html": "https://zenodo.org/records/16683674",
-        "preview_html": "https://zenodo.org/records/16683674?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16683674",
-        "self_doi": "https://doi.org/10.5281/zenodo.16683674",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16683674",
-        "reserve_doi": "https://zenodo.org/api/records/16683674/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/15847670",
-        "parent_html": "https://zenodo.org/records/15847670",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15847670",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15847670",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16683674/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16683674/sequence/default",
-        "files": "https://zenodo.org/api/records/16683674/files",
-        "media_files": "https://zenodo.org/api/records/16683674/media-files",
-        "archive": "https://zenodo.org/api/records/16683674/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16683674/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16683674/versions/latest",
-        "latest_html": "https://zenodo.org/records/16683674/latest",
-        "versions": "https://zenodo.org/api/records/16683674/versions",
-        "draft": "https://zenodo.org/api/records/16683674/draft",
-        "access_links": "https://zenodo.org/api/records/16683674/access/links",
-        "access_grants": "https://zenodo.org/api/records/16683674/access/grants",
-        "access_users": "https://zenodo.org/api/records/16683674/access/users",
-        "access_request": "https://zenodo.org/api/records/16683674/access/request",
-        "access": "https://zenodo.org/api/records/16683674/access",
-        "communities": "https://zenodo.org/api/records/16683674/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16683674/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16683674/requests"
-      },
-      "updated": "2025-08-01T12:24:23.644846+00:00",
-      "recid": "16683674",
-      "revision": 4,
-      "files": [
-        {
-          "id": "25cc0d8f-9f43-4119-a5fa-4138352fe281",
-          "key": "FAIRmat-NFDI/pynxtools-raman-v0.1.0.zip",
-          "size": 242625,
-          "checksum": "md5:efad31254e4331db4cfa8d4b4c00614f",
-          "links": {
-            "self": "https://zenodo.org/api/records/16683674/files/FAIRmat-NFDI/pynxtools-raman-v0.1.0.zip/content"
-          }
-        }
-      ],
-      "swh": {
-        "swhid": "swh:1:dir:7e0472f1945889a63f68a71055ff20b45e81d034;origin=https://doi.org/10.5281/zenodo.15847670;visit=swh:1:snp:d6fbf8b6983c14afaf76e3612d9f461338000dc0;anchor=swh:1:rel:783b56ad768ce76c36675db7be00e4db2f806d7b;path=FAIRmat-NFDI-pynxtools-raman-958d9c3"
-      },
-      "owners": [
-        {
-          "id": "281185"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 1,
-        "unique_downloads": 1,
-        "views": 6,
-        "unique_views": 6,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-01T12:11:55.813077+00:00",
-      "modified": "2025-08-01T12:11:55.976872+00:00",
-      "id": 16683251,
-      "conceptrecid": "15101011",
-      "doi": "10.5281/zenodo.16683251",
-      "conceptdoi": "10.5281/zenodo.15101011",
-      "doi_url": "https://doi.org/10.5281/zenodo.16683251",
-      "metadata": {
-        "title": "JupyterBook-Patches",
-        "doi": "10.5281/zenodo.16683251",
-        "publication_date": "2025-08-01",
-        "description": "<h2>What's Changed</h2>\n<ul>\n<li>Center-align multi-line figure captions by @Tom-van-Woudenberg in https://github.com/TeachBooks/JupyterBook-Patches/pull/16</li>\n</ul>\n<p><strong>Full Changelog</strong>: https://github.com/TeachBooks/JupyterBook-Patches/compare/v1.6.2...v1.7.0</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "TeachBooks Development Team",
-            "affiliation": null
-          }
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "https://github.com/TeachBooks/JupyterBook-Patches/tree/v1.7.0",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
-          }
-        ],
-        "version": "v1.7.0",
-        "custom": {
-          "code:codeRepository": "https://github.com/TeachBooks/JupyterBook-Patches"
-        },
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "bsd-3-clause"
-        },
-        "communities": [
-          {
-            "id": "teachbooks"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 5,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15101011"
-              }
-            }
-          ]
-        },
-        "notes": "If you use this software, please cite it as below."
-      },
-      "title": "JupyterBook-Patches",
-      "links": {
-        "self": "https://zenodo.org/api/records/16683251",
-        "self_html": "https://zenodo.org/records/16683251",
-        "preview_html": "https://zenodo.org/records/16683251?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16683251",
-        "self_doi": "https://doi.org/10.5281/zenodo.16683251",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16683251",
-        "reserve_doi": "https://zenodo.org/api/records/16683251/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/15101011",
-        "parent_html": "https://zenodo.org/records/15101011",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15101011",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15101011",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16683251/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16683251/sequence/default",
-        "files": "https://zenodo.org/api/records/16683251/files",
-        "media_files": "https://zenodo.org/api/records/16683251/media-files",
-        "archive": "https://zenodo.org/api/records/16683251/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16683251/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16683251/versions/latest",
-        "latest_html": "https://zenodo.org/records/16683251/latest",
-        "versions": "https://zenodo.org/api/records/16683251/versions",
-        "draft": "https://zenodo.org/api/records/16683251/draft",
-        "access_links": "https://zenodo.org/api/records/16683251/access/links",
-        "access_grants": "https://zenodo.org/api/records/16683251/access/grants",
-        "access_users": "https://zenodo.org/api/records/16683251/access/users",
-        "access_request": "https://zenodo.org/api/records/16683251/access/request",
-        "access": "https://zenodo.org/api/records/16683251/access",
-        "communities": "https://zenodo.org/api/records/16683251/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16683251/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16683251/requests"
-      },
-      "updated": "2025-08-01T12:11:55.976872+00:00",
-      "recid": "16683251",
-      "revision": 4,
-      "files": [
-        {
-          "id": "57c1204e-8e8a-45f2-b67c-82a4839339c7",
-          "key": "TeachBooks/JupyterBook-Patches-v1.7.0.zip",
-          "size": 16780,
-          "checksum": "md5:04c96fe8fa1a1a2c118b8c98e5182eb0",
-          "links": {
-            "self": "https://zenodo.org/api/records/16683251/files/TeachBooks/JupyterBook-Patches-v1.7.0.zip/content"
-          }
-        }
-      ],
-      "swh": {
-        "swhid": "swh:1:dir:54cffda1540b9b79c1cda1519265ae917c76c160;origin=https://doi.org/10.5281/zenodo.15101011;visit=swh:1:snp:90be016b523751c0e09284599c8e7b4de83dd4cf;anchor=swh:1:rel:a3ff5c8254d786417e8ebf0bab793bfd8f51a73d;path=TeachBooks-JupyterBook-Patches-dd7bc35"
-      },
-      "owners": [
-        {
-          "id": "1086537"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 76,
-        "unique_downloads": 73,
-        "views": 167,
-        "unique_views": 159,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-01T12:08:58.888062+00:00",
-      "modified": "2025-08-01T12:08:59.152226+00:00",
-      "id": 16683008,
-      "conceptrecid": "16683007",
-      "doi": "10.5281/zenodo.16683008",
-      "conceptdoi": "10.5281/zenodo.16683007",
-      "doi_url": "https://doi.org/10.5281/zenodo.16683008",
-      "metadata": {
-        "title": "STATIC AND SEISMIC EVALUATION OF AN EXISTING TUNNEL DUE TO A NEW TUNNEL OF DIFFERENT DIAMETERS",
-        "doi": "10.5281/zenodo.16683008",
-        "publication_date": "2025-08-01",
-        "description": "<h1>Abstract</h1>\n<p>The construction of tunnels has gained importance due to their wide variety of uses in the current world of transportation and communication. However, the seismic vulnerability of these underground tunnels is of paramount importance, as they are susceptible to various damages. Hence, in this present article, static and seismic analysis of an existing tunnel is carried out in the absence and presence of a new tunnel of different diameters and placed at different horizontal locations from the existing tunnel. &nbsp;A 2D plain strain model is created using GTS NX Midas. The soil properties resemble Delhi silt and the earthquake used is the Loma Preita earthquake. Response-spectra compatible earthquake data is generated using SeismoMatch software. The response parameters are generated in the form of tunnel lining forces such as axial force, bending moment, shear force and ground displacement contours. In case of static analysis, it is observed that due to a new tunnel, the lining forces in the existing tunnel increase, whereas a new bigger tunnel creates greater lining forces in the existing tunnel than a new smaller tunnel. In contrast to static analysis, during seismic analysis it is observed that the bending moment and shear force show a reverse pattern. Therefore, it can be understood that the size and spacing of the new tunnel plays a very significant role in the static and seismic stability of the existing tunnel.</p>\n<p><strong>Keywords-</strong>&nbsp;twin tunnel, alluvial silts, static and seismic analysis.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "S.T.Amin , S.M.Abbas , A.Usmani",
-            "affiliation": null
-          }
-        ],
+        "language": "ang",
         "resource_type": {
           "title": "Journal article",
           "type": "publication",
           "subtype": "article"
+        },
+        "journal": {
+          "issue": "08",
+          "pages": "5825-5832",
+          "title": "Journal of Economics, Finance And Management Studies",
+          "volume": "08"
         },
         "license": {
           "id": "cc-by-4.0"
@@ -1310,70 +184,70 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "16683007"
+                "pid_value": "17019754"
               }
             }
           ]
         }
       },
-      "title": "STATIC AND SEISMIC EVALUATION OF AN EXISTING TUNNEL DUE TO A NEW TUNNEL OF DIFFERENT DIAMETERS",
+      "title": "Continuance Intention of Jenius Digital Bank Users in Surabaya: A UTAUT Approach with Experience as a Moderator",
       "links": {
-        "self": "https://zenodo.org/api/records/16683008",
-        "self_html": "https://zenodo.org/records/16683008",
-        "preview_html": "https://zenodo.org/records/16683008?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16683008",
-        "self_doi": "https://doi.org/10.5281/zenodo.16683008",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16683008",
-        "reserve_doi": "https://zenodo.org/api/records/16683008/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16683007",
-        "parent_html": "https://zenodo.org/records/16683007",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16683007",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16683007",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16683008/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16683008/sequence/default",
-        "files": "https://zenodo.org/api/records/16683008/files",
-        "media_files": "https://zenodo.org/api/records/16683008/media-files",
+        "self": "https://zenodo.org/api/records/17019755",
+        "self_html": "https://zenodo.org/records/17019755",
+        "preview_html": "https://zenodo.org/records/17019755?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17019755",
+        "self_doi": "https://doi.org/10.5281/zenodo.17019755",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019755",
+        "reserve_doi": "https://zenodo.org/api/records/17019755/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17019754",
+        "parent_html": "https://zenodo.org/records/17019754",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17019754",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019754",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17019755/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17019755/sequence/default",
+        "files": "https://zenodo.org/api/records/17019755/files",
+        "media_files": "https://zenodo.org/api/records/17019755/media-files",
         "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:16683008:IJET-V11I4P8.pdf/full/%5E10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:16683008:IJET-V11I4P8.pdf/full/%5E50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:16683008:IJET-V11I4P8.pdf/full/%5E100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:16683008:IJET-V11I4P8.pdf/full/%5E250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:16683008:IJET-V11I4P8.pdf/full/%5E750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:16683008:IJET-V11I4P8.pdf/full/%5E1200,/0/default.jpg"
+          "10": "https://zenodo.org/api/iiif/record:17019755:75.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17019755:75.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17019755:75.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17019755:75.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17019755:75.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17019755:75.pdf/full/%5E1200,/0/default.jpg"
         },
-        "archive": "https://zenodo.org/api/records/16683008/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16683008/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16683008/versions/latest",
-        "latest_html": "https://zenodo.org/records/16683008/latest",
-        "versions": "https://zenodo.org/api/records/16683008/versions",
-        "draft": "https://zenodo.org/api/records/16683008/draft",
-        "access_links": "https://zenodo.org/api/records/16683008/access/links",
-        "access_grants": "https://zenodo.org/api/records/16683008/access/grants",
-        "access_users": "https://zenodo.org/api/records/16683008/access/users",
-        "access_request": "https://zenodo.org/api/records/16683008/access/request",
-        "access": "https://zenodo.org/api/records/16683008/access",
-        "communities": "https://zenodo.org/api/records/16683008/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16683008/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16683008/requests"
+        "archive": "https://zenodo.org/api/records/17019755/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17019755/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17019755/versions/latest",
+        "latest_html": "https://zenodo.org/records/17019755/latest",
+        "versions": "https://zenodo.org/api/records/17019755/versions",
+        "draft": "https://zenodo.org/api/records/17019755/draft",
+        "access_links": "https://zenodo.org/api/records/17019755/access/links",
+        "access_grants": "https://zenodo.org/api/records/17019755/access/grants",
+        "access_users": "https://zenodo.org/api/records/17019755/access/users",
+        "access_request": "https://zenodo.org/api/records/17019755/access/request",
+        "access": "https://zenodo.org/api/records/17019755/access",
+        "communities": "https://zenodo.org/api/records/17019755/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17019755/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17019755/requests"
       },
-      "updated": "2025-08-01T12:08:59.152226+00:00",
-      "recid": "16683008",
+      "updated": "2025-09-01T12:25:54.195098+00:00",
+      "recid": "17019755",
       "revision": 4,
       "files": [
         {
-          "id": "7089e12d-3265-4424-a37e-a19b69fbf7b7",
-          "key": "IJET-V11I4P8.pdf",
-          "size": 1210128,
-          "checksum": "md5:8bc9b64eafb53756c9a52b3dafd3df58",
+          "id": "fa555927-87cc-440a-acde-4fddb57df824",
+          "key": "75.pdf",
+          "size": 429928,
+          "checksum": "md5:0d67d33ddc27c06375f988b2a6ea2d6e",
           "links": {
-            "self": "https://zenodo.org/api/records/16683008/files/IJET-V11I4P8.pdf/content"
+            "self": "https://zenodo.org/api/records/17019755/files/75.pdf/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "327129"
+          "id": "190052"
         }
       ],
       "status": "published",
@@ -1391,62 +265,243 @@
       "submitted": true
     },
     {
-      "created": "2025-08-01T12:08:03.360637+00:00",
-      "modified": "2025-08-01T12:08:03.641463+00:00",
-      "id": 16683112,
-      "conceptrecid": "3298000",
-      "doi": "10.5281/zenodo.16683112",
-      "conceptdoi": "10.5281/zenodo.3298000",
-      "doi_url": "https://doi.org/10.5281/zenodo.16683112",
+      "created": "2025-09-01T11:56:36.921878+00:00",
+      "modified": "2025-09-01T11:56:38.107099+00:00",
+      "id": 17019477,
+      "conceptrecid": "17019476",
+      "doi": "10.5281/zenodo.17019477",
+      "conceptdoi": "10.5281/zenodo.17019476",
+      "doi_url": "https://doi.org/10.5281/zenodo.17019477",
       "metadata": {
-        "title": "TwoSampleMR R package",
-        "doi": "10.5281/zenodo.16683112",
-        "publication_date": "2025-08-01",
-        "description": "<ul>\n<li>TwoSampleMR now requires <strong>ieugwasr</strong> version 1.1.0 which provides improved error messages.</li>\n<li>Changed error handling - now if the API gives an error code it is propagated as an error with message in <strong>TwoSampleMR</strong>.</li>\n<li>Headers sent to API are updated.</li>\n</ul>",
+        "title": "Workflow Database Analysis",
+        "doi": "10.5281/zenodo.17019477",
+        "publication_date": "2025-09-01",
+        "description": "<h1><strong>Workflows: Database Analysis<br></strong></h1>\n<p>This dataset contains all workflows and scripts to identify structure-property linkages in <a href=\"https://kadi4mat.iam.kit.edu/\" target=\"_blank\" rel=\"noopener\">Kadi4Mat.</a><br>The workflows are implemented in the freely available workflow software <a href=\"https://bwsyncandshare.kit.edu/s/cJSZrE6fDTR6cLQ\" target=\"_blank\" rel=\"noopener\">KadiStudio</a>.</p>\n<p>These are the uploaded workflows:</p>\n<h2><strong>Database Preparation Workflow</strong></h2>\n<p>(see DatabasePreparation.png)</p>\n<p>DatabasePreparation.flow:</p>\n<ul>\n<li>A workflow to extract data from Kadi4Mat and transform them into tfrecords</li>\n</ul>\n<h3><strong>The workflow uses the scripts:</strong></h3>\n<p>DataAcquisition.py:</p>\n<ul>\n<li>Downloads and processes all metadata in a given collection</li>\n</ul>\n<p>DataConversion.py:</p>\n<ul>\n<li>Converts the extracted metadata into tfrecords</li>\n<li>Input and output features can be selected.&nbsp;</li>\n</ul>\n<h2><strong>Database Training Workflow</strong></h2>\n<p>(see DatabaseTrainingWorkflow.png)</p>\n<p>Datenbase_Training.flow:</p>\n<ul>\n<li>A workflow to train a neural network on the data extracted from Kadi4Mat</li>\n</ul>\n<h4><strong>The workflow uses the script:</strong></h4>\n<p>Datenbase_Training.py:</p>\n<ul>\n<li>Implements the training of a fully connected neural network</li>\n<li>Hyperparameters are passed to the script by the workflow</li>\n</ul>\n<h2><strong>Database Material Map Workflow</strong></h2>\n<p>(see Create_Materialmap.png)</p>\n<p>Create_Materialmap.flow:</p>\n<ul>\n<li>A workflow to create a material map from the network trained in Database_Training.flow</li>\n</ul>\n<h4><strong>The workflow uses the script contained in this folder:</strong></h4>\n<p>Create_Materialmap.py:</p>\n<ul>\n<li>Systematically iterates over the input properties of the neural network</li>\n<li>Visualises the predictions in a material map<br>&nbsp;</li>\n</ul>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Hemani, Gibran",
-            "affiliation": null,
-            "orcid": "0000-0003-0920-1055"
-          },
-          {
-            "name": "Haycock, Philip",
-            "affiliation": null,
-            "orcid": "0000-0001-5001-3350"
-          },
-          {
-            "name": "Zheng, Jie",
-            "affiliation": null,
-            "orcid": "0000-0002-6623-6839"
-          },
-          {
-            "name": "Gaunt, Tom",
-            "affiliation": null,
-            "orcid": "0000-0003-0924-3247"
-          },
-          {
-            "name": "Elsworth, Ben",
-            "affiliation": null,
-            "orcid": "0000-0001-7328-4233"
-          },
-          {
-            "name": "Palmer, Tom",
-            "affiliation": null,
-            "orcid": "0000-0003-4655-4511"
+            "name": "Griem, Lars Christoph",
+            "affiliation": "Karlsruhe Institute of Technology",
+            "orcid": "0000-0002-8093-6356"
           }
+        ],
+        "resource_type": {
+          "title": "Workflow",
+          "type": "workflow"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17019476"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Workflow Database Analysis",
+      "links": {
+        "self": "https://zenodo.org/api/records/17019477",
+        "self_html": "https://zenodo.org/records/17019477",
+        "preview_html": "https://zenodo.org/records/17019477?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17019477",
+        "self_doi": "https://doi.org/10.5281/zenodo.17019477",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019477",
+        "reserve_doi": "https://zenodo.org/api/records/17019477/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17019476",
+        "parent_html": "https://zenodo.org/records/17019476",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17019476",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019476",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17019477/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17019477/sequence/default",
+        "files": "https://zenodo.org/api/records/17019477/files",
+        "media_files": "https://zenodo.org/api/records/17019477/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17019477:DatabasePreparation.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17019477:DatabasePreparation.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17019477:DatabasePreparation.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17019477:DatabasePreparation.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17019477:DatabasePreparation.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17019477:DatabasePreparation.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17019477/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17019477/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17019477/versions/latest",
+        "latest_html": "https://zenodo.org/records/17019477/latest",
+        "versions": "https://zenodo.org/api/records/17019477/versions",
+        "draft": "https://zenodo.org/api/records/17019477/draft",
+        "access_links": "https://zenodo.org/api/records/17019477/access/links",
+        "access_grants": "https://zenodo.org/api/records/17019477/access/grants",
+        "access_users": "https://zenodo.org/api/records/17019477/access/users",
+        "access_request": "https://zenodo.org/api/records/17019477/access/request",
+        "access": "https://zenodo.org/api/records/17019477/access",
+        "communities": "https://zenodo.org/api/records/17019477/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17019477/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17019477/requests"
+      },
+      "updated": "2025-09-01T11:56:38.107099+00:00",
+      "recid": "17019477",
+      "revision": 4,
+      "files": [
+        {
+          "id": "b916b4b4-26ad-4626-bd09-89ef6b9c06ce",
+          "key": "DatabasePreparation.png",
+          "size": 117861,
+          "checksum": "md5:5e94094e9cb8206a33995578276b1b57",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019477/files/DatabasePreparation.png/content"
+          }
+        },
+        {
+          "id": "da305746-192c-4997-a53c-d7d034b4490f",
+          "key": "DataConversion.py",
+          "size": 5738,
+          "checksum": "md5:1a56829e770636c60bda90871b162173",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019477/files/DataConversion.py/content"
+          }
+        },
+        {
+          "id": "8d9fa8d7-d77c-41eb-96d4-3ee91e88940d",
+          "key": "DatabasePreparation.flow",
+          "size": 38703,
+          "checksum": "md5:8ae69321446c51371f599fb76115a039",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019477/files/DatabasePreparation.flow/content"
+          }
+        },
+        {
+          "id": "82915417-9c99-45ba-8c27-6b43047afa8d",
+          "key": "Create_Materialmap.png",
+          "size": 105171,
+          "checksum": "md5:7986884f4ad09fa1d10e84d07efaedd4",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019477/files/Create_Materialmap.png/content"
+          }
+        },
+        {
+          "id": "e1f1a322-fcbc-4529-b95e-d208038be625",
+          "key": "Create_Materialmap.flow",
+          "size": 18787,
+          "checksum": "md5:7966f05a40d0edbce7528444d74a9de5",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019477/files/Create_Materialmap.flow/content"
+          }
+        },
+        {
+          "id": "221838e5-3bce-4e3d-812e-348ee08cdd05",
+          "key": "DataAcquisition.py",
+          "size": 1582,
+          "checksum": "md5:3f17badcd839a6ef58b359be83fdc785",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019477/files/DataAcquisition.py/content"
+          }
+        },
+        {
+          "id": "32168938-d7db-4808-8440-871b17d04820",
+          "key": "Datenbase_Training.flow",
+          "size": 35303,
+          "checksum": "md5:4ae435855d38ca1057e9af6695cf04a9",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019477/files/Datenbase_Training.flow/content"
+          }
+        },
+        {
+          "id": "7a1b008f-ad35-4bad-b61b-89b8455b8403",
+          "key": "DatabaseTrainingWorkflow.png",
+          "size": 175828,
+          "checksum": "md5:4cc1eff91001dd297be9029b7de693c8",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019477/files/DatabaseTrainingWorkflow.png/content"
+          }
+        },
+        {
+          "id": "39fb61bc-a005-4822-9ef4-c6500eefd7d2",
+          "key": "Create_Materialmap.py",
+          "size": 5938,
+          "checksum": "md5:a8c3bc530c2c82b0ee2e9c949ded9aff",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019477/files/Create_Materialmap.py/content"
+          }
+        },
+        {
+          "id": "2ae65a08-84e9-4d3e-81d7-4b865c33b8ef",
+          "key": "Datenbase_Training.py",
+          "size": 9780,
+          "checksum": "md5:db2a4c62e8e30a5c2c9a0a49bd570223",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019477/files/Datenbase_Training.py/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "297762"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-01T11:51:19.697254+00:00",
+      "modified": "2025-09-01T11:51:19.842135+00:00",
+      "id": 17019507,
+      "conceptrecid": "16531481",
+      "doi": "10.5281/zenodo.17019507",
+      "conceptdoi": "10.5281/zenodo.16531481",
+      "doi_url": "https://doi.org/10.5281/zenodo.17019507",
+      "metadata": {
+        "title": "RSFC: Research Software Fairness Checks",
+        "doi": "10.5281/zenodo.17019507",
+        "publication_date": "2025-09-01",
+        "description": "<ul>\n<li>More tests added</li>\n<li>Better code structure and data management</li>\n<li>New table console output</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Garijo, Daniel",
+            "affiliation": "Researcher",
+            "orcid": "0000-0003-0454-7145"
+          },
+          {
+            "name": "Montero, Andr\u00e9s",
+            "affiliation": null
+          }
+        ],
+        "keywords": [
+          "quality",
+          "fair",
+          "indicators",
+          "fairness"
         ],
         "related_identifiers": [
           {
-            "identifier": "https://github.com/MRCIEU/TwoSampleMR/tree/v0.6.20",
+            "identifier": "https://github.com/oeg-upm/rsfc/tree/v0.0.2",
             "relation": "isSupplementTo",
             "resource_type": "software",
             "scheme": "url"
           }
         ],
-        "version": "v0.6.20",
+        "version": "v0.0.2",
         "custom": {
-          "code:codeRepository": "https://github.com/MRCIEU/TwoSampleMR"
+          "code:codeRepository": "https://github.com/oeg-upm/rsfc"
         },
         "resource_type": {
           "title": "Software",
@@ -1458,81 +513,1074 @@
         "relations": {
           "version": [
             {
-              "index": 18,
+              "index": 3,
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "3298000"
+                "pid_value": "16531481"
               }
             }
           ]
         },
-        "notes": "Please cite this software using the metadata from 'preferred-citation'."
+        "notes": "If you use this software, please cite it using the metadata from this file."
       },
-      "title": "TwoSampleMR R package",
+      "title": "RSFC: Research Software Fairness Checks",
       "links": {
-        "self": "https://zenodo.org/api/records/16683112",
-        "self_html": "https://zenodo.org/records/16683112",
-        "preview_html": "https://zenodo.org/records/16683112?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16683112",
-        "self_doi": "https://doi.org/10.5281/zenodo.16683112",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16683112",
-        "reserve_doi": "https://zenodo.org/api/records/16683112/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/3298000",
-        "parent_html": "https://zenodo.org/records/3298000",
-        "parent_doi": "https://doi.org/10.5281/zenodo.3298000",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.3298000",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16683112/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16683112/sequence/default",
-        "files": "https://zenodo.org/api/records/16683112/files",
-        "media_files": "https://zenodo.org/api/records/16683112/media-files",
-        "archive": "https://zenodo.org/api/records/16683112/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16683112/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16683112/versions/latest",
-        "latest_html": "https://zenodo.org/records/16683112/latest",
-        "versions": "https://zenodo.org/api/records/16683112/versions",
-        "draft": "https://zenodo.org/api/records/16683112/draft",
-        "access_links": "https://zenodo.org/api/records/16683112/access/links",
-        "access_grants": "https://zenodo.org/api/records/16683112/access/grants",
-        "access_users": "https://zenodo.org/api/records/16683112/access/users",
-        "access_request": "https://zenodo.org/api/records/16683112/access/request",
-        "access": "https://zenodo.org/api/records/16683112/access",
-        "communities": "https://zenodo.org/api/records/16683112/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16683112/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16683112/requests"
+        "self": "https://zenodo.org/api/records/17019507",
+        "self_html": "https://zenodo.org/records/17019507",
+        "preview_html": "https://zenodo.org/records/17019507?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17019507",
+        "self_doi": "https://doi.org/10.5281/zenodo.17019507",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019507",
+        "reserve_doi": "https://zenodo.org/api/records/17019507/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16531481",
+        "parent_html": "https://zenodo.org/records/16531481",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16531481",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16531481",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17019507/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17019507/sequence/default",
+        "files": "https://zenodo.org/api/records/17019507/files",
+        "media_files": "https://zenodo.org/api/records/17019507/media-files",
+        "archive": "https://zenodo.org/api/records/17019507/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17019507/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17019507/versions/latest",
+        "latest_html": "https://zenodo.org/records/17019507/latest",
+        "versions": "https://zenodo.org/api/records/17019507/versions",
+        "draft": "https://zenodo.org/api/records/17019507/draft",
+        "access_links": "https://zenodo.org/api/records/17019507/access/links",
+        "access_grants": "https://zenodo.org/api/records/17019507/access/grants",
+        "access_users": "https://zenodo.org/api/records/17019507/access/users",
+        "access_request": "https://zenodo.org/api/records/17019507/access/request",
+        "access": "https://zenodo.org/api/records/17019507/access",
+        "communities": "https://zenodo.org/api/records/17019507/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17019507/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17019507/requests"
       },
-      "updated": "2025-08-01T12:08:03.641463+00:00",
-      "recid": "16683112",
+      "updated": "2025-09-01T11:51:19.842135+00:00",
+      "recid": "17019507",
       "revision": 4,
       "files": [
         {
-          "id": "3a04c41a-6d27-491c-8c65-d7220d1def60",
-          "key": "MRCIEU/TwoSampleMR-v0.6.20.zip",
-          "size": 6654360,
-          "checksum": "md5:011bd4edd163f7407e541319af62b2da",
+          "id": "817740a1-8a2b-4758-bfac-41671e8076d4",
+          "key": "oeg-upm/rsfc-v0.0.2.zip",
+          "size": 315032,
+          "checksum": "md5:49c7d00e4f776217592c54eb1e53a09c",
           "links": {
-            "self": "https://zenodo.org/api/records/16683112/files/MRCIEU/TwoSampleMR-v0.6.20.zip/content"
+            "self": "https://zenodo.org/api/records/17019507/files/oeg-upm/rsfc-v0.0.2.zip/content"
           }
         }
       ],
       "swh": {
-        "swhid": "swh:1:dir:122d6883f62b20a48f063da552500a257726a085;origin=https://doi.org/10.5281/zenodo.3298000;visit=swh:1:snp:74d21276a9f68219a02e8480d112f531823affe5;anchor=swh:1:rel:64f954e765d51d03a2168d04aa1e2184e3feb3a0;path=MRCIEU-TwoSampleMR-0c9f896"
+        "swhid": "swh:1:dir:4083a67770e4dca24a0e78096f5ae8f0695f02a4;origin=https://doi.org/10.5281/zenodo.16531481;visit=swh:1:snp:b9131dae14093b8bd26750808ef9a04c00df544a;anchor=swh:1:rel:810c91a2fefc5d37f71f28fa5b8f4a94ba78ed92;path=oeg-upm-rsfc-07f2f9e"
       },
       "owners": [
         {
-          "id": "71698"
+          "id": "18504"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 454,
-        "unique_downloads": 378,
-        "views": 3317,
-        "unique_views": 3089,
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 2,
+        "unique_views": 2,
         "version_downloads": 0,
         "version_unique_downloads": 0,
         "version_unique_views": 0,
         "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-01T11:46:17.867002+00:00",
+      "modified": "2025-09-01T11:46:18.261124+00:00",
+      "id": 17019442,
+      "conceptrecid": "17019441",
+      "doi": "10.5281/zenodo.17019442",
+      "conceptdoi": "10.5281/zenodo.17019441",
+      "doi_url": "https://doi.org/10.5281/zenodo.17019442",
+      "metadata": {
+        "title": "Workflow Simulation",
+        "doi": "10.5281/zenodo.17019442",
+        "publication_date": "2025-09-01",
+        "description": "<h1><strong>Workflows: Simulation</strong></h1>\n<p>This dataset contains all workflows and scripts to simulate the mechanical properties of foam structures.&nbsp;<br>The workflows are implemented in the freely available workflow software <a title=\"KadiStudio\" href=\"https://bwsyncandshare.kit.edu/s/cJSZrE6fDTR6cLQ\" target=\"_blank\" rel=\"noopener\">KadiStudio</a>. The simulation is performed using <a title=\"PACE3D\" href=\"https://doi.org/10.1016/j.jocs.2018.02.011\">PACE3D</a>.</p>\n<p>These are the uploaded workflows:&nbsp;</p>\n<h2><strong>Simulation Workflow</strong></h2>\n<p>(see SimulationWorkflow.png)</p>\n<h3><strong>Simulation.flow:</strong></h3>\n<ul>\n<li>A workflow to simulate the mechanical properties of binary foam structures</li>\n<li>Downloads the foam structures from a given Collection on Kadi4Mat</li>\n<li>Requires the simulation framework [PACE3D](https://doi.org/10.1016/j.jocs.2018.02.011)</li>\n</ul>\n<p><strong>The workflow uses the scripts contained in this folder:</strong></p>\n<p>foam_mechanical_load_plastic.infile:</p>\n<ul>\n<li>Configuration file used to parameterise PACE3D</li>\n</ul>\n<p>Evaluate_Simulation.m:</p>\n<ul>\n<li>Extracts the effective mechanical properties from the simulation results</li>\n<li>Outputs compressive modulus and yield strength<br>&nbsp;</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Griem, Lars Christoph",
+            "affiliation": "Karlsruhe Institute of Technology",
+            "orcid": "0000-0002-8093-6356"
+          }
+        ],
+        "resource_type": {
+          "title": "Workflow",
+          "type": "workflow"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17019441"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Workflow Simulation",
+      "links": {
+        "self": "https://zenodo.org/api/records/17019442",
+        "self_html": "https://zenodo.org/records/17019442",
+        "preview_html": "https://zenodo.org/records/17019442?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17019442",
+        "self_doi": "https://doi.org/10.5281/zenodo.17019442",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019442",
+        "reserve_doi": "https://zenodo.org/api/records/17019442/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17019441",
+        "parent_html": "https://zenodo.org/records/17019441",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17019441",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019441",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17019442/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17019442/sequence/default",
+        "files": "https://zenodo.org/api/records/17019442/files",
+        "media_files": "https://zenodo.org/api/records/17019442/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17019442:SimulationWorkflow.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17019442:SimulationWorkflow.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17019442:SimulationWorkflow.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17019442:SimulationWorkflow.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17019442:SimulationWorkflow.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17019442:SimulationWorkflow.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17019442/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17019442/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17019442/versions/latest",
+        "latest_html": "https://zenodo.org/records/17019442/latest",
+        "versions": "https://zenodo.org/api/records/17019442/versions",
+        "draft": "https://zenodo.org/api/records/17019442/draft",
+        "access_links": "https://zenodo.org/api/records/17019442/access/links",
+        "access_grants": "https://zenodo.org/api/records/17019442/access/grants",
+        "access_users": "https://zenodo.org/api/records/17019442/access/users",
+        "access_request": "https://zenodo.org/api/records/17019442/access/request",
+        "access": "https://zenodo.org/api/records/17019442/access",
+        "communities": "https://zenodo.org/api/records/17019442/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17019442/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17019442/requests"
+      },
+      "updated": "2025-09-01T11:46:18.261124+00:00",
+      "recid": "17019442",
+      "revision": 4,
+      "files": [
+        {
+          "id": "72995405-d80d-4814-9140-256e1c80b2b3",
+          "key": "Simulation.flow",
+          "size": 166157,
+          "checksum": "md5:851a80bff0853f19a0f906d7fb871a41",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019442/files/Simulation.flow/content"
+          }
+        },
+        {
+          "id": "768dd06f-950e-4e94-9f88-5b96690fede0",
+          "key": "Evaluate_Simulation.m",
+          "size": 2180,
+          "checksum": "md5:68f34cea88d78b54a1d87168491fd5ef",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019442/files/Evaluate_Simulation.m/content"
+          }
+        },
+        {
+          "id": "5f82cbe3-0312-480a-af7a-b1656abc6ed8",
+          "key": "SimulationWorkflow.png",
+          "size": 126302,
+          "checksum": "md5:f98e9542b7228cff37c5bffd5cc74a31",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019442/files/SimulationWorkflow.png/content"
+          }
+        },
+        {
+          "id": "3cecd0ec-7f0b-442f-b28c-7629a29350be",
+          "key": "foam_mechanical_load_plastic.infile",
+          "size": 24675,
+          "checksum": "md5:9fb5c15fadfd2a0c00a0e2bdc44c80c2",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019442/files/foam_mechanical_load_plastic.infile/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "297762"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-01T11:39:19.299578+00:00",
+      "modified": "2025-09-01T11:58:58.616163+00:00",
+      "id": 17019360,
+      "conceptrecid": "17019359",
+      "doi": "10.5281/zenodo.17019360",
+      "conceptdoi": "10.5281/zenodo.17019359",
+      "doi_url": "https://doi.org/10.5281/zenodo.17019360",
+      "metadata": {
+        "title": "ML-based Generation of digital twins",
+        "doi": "10.5281/zenodo.17019360",
+        "publication_date": "2025-09-01",
+        "description": "<h1><strong>Workflows: Generation</strong></h1>\n<p>This dataset contains all workflows and scripts to train a DD-GAN for generating microstructures and to generate new structures using the DD-GAN.&nbsp;<br>The workflows are implemented in the freely available workflow software <a title=\"KadiStudio\" href=\"https://bwsyncandshare.kit.edu/s/cJSZrE6fDTR6cLQ\" target=\"_blank\" rel=\"noopener\">KadiStudio</a>.</p>\n<p>These are the uploaded workflows:&nbsp;</p>\n<h2><strong>Train DD-GAN Workflow</strong></h2>\n<p>(see Training_DD-GAN.png)</p>\n<h4><strong>DD-GAN_Training_Kadi.flow:</strong></h4>\n<ul>\n<li>workflow to train a DD-GAN for generating three dimensional structures</li>\n<li>Requires a binary image stack of the structure to mimic</li>\n<li>Generation can be tuned to be conditioned by properties or images</li>\n</ul>\n<h4><strong>The workflow uses the scripts:</strong></h4>\n<p>warmup.py:</p>\n<ul>\n<li>Creates a file that contains the information about all used subvolumes</li>\n<li>Requires binary images that are used for training</li>\n</ul>\n<p>Train_DD-GAN_props.py:</p>\n<ul>\n<li>Trains a DD-GAN conditioned on structural properties</li>\n<li>Outputs a structure generator&nbsp;</li>\n<li>Requires binary images of the structure to mimic and the info file generated by warmup.py.</li>\n</ul>\n<p>Train_DD-GAN_images.py:</p>\n<ul>\n<li>Trains a DD-GAN conditioned on images &nbsp;&nbsp;</li>\n<li>Outputs a structure generator</li>\n<li>Requires binary images of the structure to mimic and the info file generated by warmup.py</li>\n</ul>\n<h2><strong>Generation DD-GAN Workflow</strong></h2>\n<p>(see Generation_DD-GAN.png)</p>\n<h4><strong>DD-GAN_Generierung_Kadi.flow:</strong></h4>\n<ul>\n<li>A workflow to generate three-dimensional structures using a DD-GAN</li>\n<li>Requires a trained model</li>\n<li>Generation can be tuned to be conditioned by properties or images</li>\n<li>The workflow implements random and targeted generation</li>\n</ul>\n<h4><strong>The workflow uses the python scripts contained in this folder:</strong></h4>\n<p>warmup.py:</p>\n<ul>\n<li>Creaes a file that contains the information about all used subvolumes</li>\n<li>This file is required for the random generation</li>\n</ul>\n<p>Generate_DD-GAN_props.py:</p>\n<ul>\n<li>Generates structures conditioned on properties</li>\n<li>Outputs image stacks of the generated microstructure</li>\n<li>Requires binary images of the structure used for training and the info file generated by warmup.py.</li>\n</ul>\n<p>Train_DD-GAN_images.py:</p>\n<ul>\n<li>Generates structures conditioned on images &nbsp;&nbsp;</li>\n<li>Outputs image stacks of the generated microstructure</li>\n<li>Requires only the trained model<br>&nbsp;</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Griem, Lars Christoph",
+            "affiliation": "Karlsruhe Institute of Technology",
+            "orcid": "0000-0002-8093-6356"
+          }
+        ],
+        "resource_type": {
+          "title": "Workflow",
+          "type": "workflow"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17019359"
+              }
+            }
+          ]
+        }
+      },
+      "title": "ML-based Generation of digital twins",
+      "links": {
+        "self": "https://zenodo.org/api/records/17019360",
+        "self_html": "https://zenodo.org/records/17019360",
+        "preview_html": "https://zenodo.org/records/17019360?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17019360",
+        "self_doi": "https://doi.org/10.5281/zenodo.17019360",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019360",
+        "reserve_doi": "https://zenodo.org/api/records/17019360/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17019359",
+        "parent_html": "https://zenodo.org/records/17019359",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17019359",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019359",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17019360/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17019360/sequence/default",
+        "files": "https://zenodo.org/api/records/17019360/files",
+        "media_files": "https://zenodo.org/api/records/17019360/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17019360:Training_DD-GAN.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17019360:Training_DD-GAN.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17019360:Training_DD-GAN.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17019360:Training_DD-GAN.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17019360:Training_DD-GAN.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17019360:Training_DD-GAN.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17019360/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17019360/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17019360/versions/latest",
+        "latest_html": "https://zenodo.org/records/17019360/latest",
+        "versions": "https://zenodo.org/api/records/17019360/versions",
+        "draft": "https://zenodo.org/api/records/17019360/draft",
+        "access_links": "https://zenodo.org/api/records/17019360/access/links",
+        "access_grants": "https://zenodo.org/api/records/17019360/access/grants",
+        "access_users": "https://zenodo.org/api/records/17019360/access/users",
+        "access_request": "https://zenodo.org/api/records/17019360/access/request",
+        "access": "https://zenodo.org/api/records/17019360/access",
+        "communities": "https://zenodo.org/api/records/17019360/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17019360/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17019360/requests"
+      },
+      "updated": "2025-09-01T11:58:58.616163+00:00",
+      "recid": "17019360",
+      "revision": 12,
+      "files": [
+        {
+          "id": "96810133-3f91-41ad-9280-18d41d611c75",
+          "key": "Training_DD-GAN.png",
+          "size": 177863,
+          "checksum": "md5:a1eb9f5f758d3b1771447d48d8b2aa35",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019360/files/Training_DD-GAN.png/content"
+          }
+        },
+        {
+          "id": "b9aaac29-03bf-4727-a5e4-2c12f0ba38e2",
+          "key": "DD-GAN_Training_Kadi.flow",
+          "size": 55976,
+          "checksum": "md5:4df4e5d45f42a2c3bd22f7968cc45caf",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019360/files/DD-GAN_Training_Kadi.flow/content"
+          }
+        },
+        {
+          "id": "5e29162e-8a28-44f3-8a12-5866e7fae41a",
+          "key": "Generate_DD-GAN_props.py",
+          "size": 16002,
+          "checksum": "md5:3f8a62cd94a9fec22bbdcb8ec1508fdf",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019360/files/Generate_DD-GAN_props.py/content"
+          }
+        },
+        {
+          "id": "fdef05c5-3f7e-499d-901a-bdaeb3f42f1b",
+          "key": "Generate_DD-GAN_image.py",
+          "size": 7989,
+          "checksum": "md5:7c0624c77ca3d3c0e7b15049a75d550d",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019360/files/Generate_DD-GAN_image.py/content"
+          }
+        },
+        {
+          "id": "c3918cb1-5759-4e02-b7e6-36325e3d36d4",
+          "key": "warmup.py",
+          "size": 4938,
+          "checksum": "md5:0c202176fd53b323fe86ecfbb86cfea4",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019360/files/warmup.py/content"
+          }
+        },
+        {
+          "id": "0411adca-54fe-42e7-b133-dcef14dedda8",
+          "key": "Train_DD-GAN_images.py",
+          "size": 35612,
+          "checksum": "md5:1029c6148f5ede64dd5dc74fd9026f6a",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019360/files/Train_DD-GAN_images.py/content"
+          }
+        },
+        {
+          "id": "6fc8d54e-b3ab-4574-abc7-8de2c8036f63",
+          "key": "DD-GAN_Generierung_Kadi.flow",
+          "size": 66487,
+          "checksum": "md5:7b25d95fa84c39fe1b0675d8ee72e654",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019360/files/DD-GAN_Generierung_Kadi.flow/content"
+          }
+        },
+        {
+          "id": "283b3b5e-19e0-4f2e-96ac-57f738b0818f",
+          "key": "Train_DD-GAN_props.py",
+          "size": 33564,
+          "checksum": "md5:3fd9e4c329f37c574845fab95bd19cec",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019360/files/Train_DD-GAN_props.py/content"
+          }
+        },
+        {
+          "id": "ad179e9b-b8a2-482e-9179-80f4110ecd7f",
+          "key": "Generation_DD-GAN.png",
+          "size": 164543,
+          "checksum": "md5:3e64c3b990e07decb8abf4b40d5e104d",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019360/files/Generation_DD-GAN.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "297762"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 4,
+        "unique_views": 1,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 1,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-01T11:39:10.094506+00:00",
+      "modified": "2025-09-01T11:39:10.258113+00:00",
+      "id": 17019404,
+      "conceptrecid": "17019403",
+      "doi": "10.5281/zenodo.17019404",
+      "conceptdoi": "10.5281/zenodo.17019403",
+      "doi_url": "https://doi.org/10.5281/zenodo.17019404",
+      "metadata": {
+        "title": "ofgulban/meso-MRI_with_3DEPI: [Processing scripts] Whole-brain meso-vein imaging in living humans using fast 7 T MRI",
+        "doi": "10.5281/zenodo.17019404",
+        "publication_date": "2025-09-01",
+        "description": "<p>This the first release to get a Zenodo DOI.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Omer Faruk Gulban",
+            "affiliation": "Researcher and Software Engineer at Brain Innovation"
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/ofgulban/meso-MRI_with_3DEPI/tree/v1.0.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v1.0.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/ofgulban/meso-MRI_with_3DEPI"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "bsd-3-clause"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17019403"
+              }
+            }
+          ]
+        }
+      },
+      "title": "ofgulban/meso-MRI_with_3DEPI: [Processing scripts] Whole-brain meso-vein imaging in living humans using fast 7 T MRI",
+      "links": {
+        "self": "https://zenodo.org/api/records/17019404",
+        "self_html": "https://zenodo.org/records/17019404",
+        "preview_html": "https://zenodo.org/records/17019404?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17019404",
+        "self_doi": "https://doi.org/10.5281/zenodo.17019404",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019404",
+        "reserve_doi": "https://zenodo.org/api/records/17019404/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17019403",
+        "parent_html": "https://zenodo.org/records/17019403",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17019403",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019403",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17019404/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17019404/sequence/default",
+        "files": "https://zenodo.org/api/records/17019404/files",
+        "media_files": "https://zenodo.org/api/records/17019404/media-files",
+        "archive": "https://zenodo.org/api/records/17019404/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17019404/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17019404/versions/latest",
+        "latest_html": "https://zenodo.org/records/17019404/latest",
+        "versions": "https://zenodo.org/api/records/17019404/versions",
+        "draft": "https://zenodo.org/api/records/17019404/draft",
+        "access_links": "https://zenodo.org/api/records/17019404/access/links",
+        "access_grants": "https://zenodo.org/api/records/17019404/access/grants",
+        "access_users": "https://zenodo.org/api/records/17019404/access/users",
+        "access_request": "https://zenodo.org/api/records/17019404/access/request",
+        "access": "https://zenodo.org/api/records/17019404/access",
+        "communities": "https://zenodo.org/api/records/17019404/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17019404/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17019404/requests"
+      },
+      "updated": "2025-09-01T11:39:10.258113+00:00",
+      "recid": "17019404",
+      "revision": 4,
+      "files": [
+        {
+          "id": "b484ce4d-3873-4ce0-afea-f4622c4adf88",
+          "key": "ofgulban/meso-MRI_with_3DEPI-v1.0.0.zip",
+          "size": 14813,
+          "checksum": "md5:771a9138efbcb73194d53e821b9c3b7b",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019404/files/ofgulban/meso-MRI_with_3DEPI-v1.0.0.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:3216b267de500407f123b4900928e70c595e9d88;origin=https://doi.org/10.5281/zenodo.17019403;visit=swh:1:snp:3b780d31f7392fdfb246dbd3a413418fcf5ce4fe;anchor=swh:1:rel:a2904ae660fad450640c0ba9359bf59eb0a2c097;path=ofgulban-meso-MRI_with_3DEPI-ab5bc26"
+      },
+      "owners": [
+        {
+          "id": "24138"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-01T11:28:36.424748+00:00",
+      "modified": "2025-09-01T11:58:12.440154+00:00",
+      "id": 17019210,
+      "conceptrecid": "17019209",
+      "doi": "10.5281/zenodo.17019210",
+      "conceptdoi": "10.5281/zenodo.17019209",
+      "doi_url": "https://doi.org/10.5281/zenodo.17019210",
+      "metadata": {
+        "title": "Reconstruction and Characterisation",
+        "doi": "10.5281/zenodo.17019210",
+        "publication_date": "2025-09-01",
+        "description": "<h1><strong>Workflows: Reconstruction and Characterisation</strong></h1>\n<p>This dataset contains all workflows and script to generate artificial training data and to train a segmentation U-Net.&nbsp;<br>The workflows are implemented in the freely available workflow software <a title=\"KadiStudio\" href=\"https://bwsyncandshare.kit.edu/s/cJSZrE6fDTR6cLQ.\" target=\"_blank\" rel=\"noopener\">KadiStudio</a>.</p>\n<p>These are the uploaded workflows:</p>\n<h2><strong>Trainingdata Workflow</strong></h2>\n<p>(see TrainingDataWorkflow.png)</p>\n<p><strong>ArtificialTrainingData.flow:</strong></p>\n<ul>\n<li>A workflow to generate synthetic training data for training a supervised segmentation network</li>\n<li>Requires a GAN for creating binary images and a CycleGAN generator capable to transforming binary to grayscale.</li>\n</ul>\n<h4><br><strong>The workflow uses the scripts:</strong></h4>\n<p>GAN_Training.py:</p>\n<ul>\n<li>Trains a GAN network capable of generating realistic binary images</li>\n<li>Requires binary images that should be imitated</li>\n</ul>\n<p>CycleGAN_Training.py:</p>\n<ul>\n<li>Trains a CycleGAN capable of transforming binary to grayscale and vice versa</li>\n<li>Outputs two generators: binary-&gt;grayscale &amp; grayscale-&gt;binary</li>\n<li>&nbsp;Requires grayscale and binary images. They do not need to depict the same structure</li>\n</ul>\n<p>EnhancedTrainingData.py:</p>\n<ul>\n<li>&nbsp;Outputs image stacks of grayscale images and their binary segmentation &nbsp;&nbsp;</li>\n<li>Requires a generator for binary images (output of GAN_Training.py) and a generator for transforming binary-&gt;grayscale (output of CycleGAN_Training.py)</li>\n</ul>\n<h2><strong>U-Net Training Workflow</strong></h2>\n<p>(see&nbsp;UNet_Training_Workflow.png)</p>\n<p><strong>U-Net_Model_Training.flow:</strong></p>\n<p>- A workflow to train a supervised U-Net to segment grayscale images<br>- It can either train a new network or finetune an existing one<br>- Requires a stack of grayscale images and their binary segmentations</p>\n<h4>The workflow uses the scripts:</h4>\n<p>U-Net_Training.py:</p>\n<ul>\n<li>Trains a new U-Net for segmenting grayscale images</li>\n<li>Requires grayscale images and their binary segmentation</li>\n<li>Network can be defined by the user</li>\n</ul>\n<p>Finetune_U-Net.py:</p>\n<ul>\n<li>Finetunes an existing network for segmenting grayscale images</li>\n<li>Requires a pretrained model as well as grayscale images and their binary segmentations</li>\n</ul>\n<h2><strong>Segmentation Workflow</strong></h2>\n<p>(see SegmentationWorkflow.png)</p>\n<p><strong>U-Net_Segmentation.flow:</strong></p>\n<ul>\n<li>A workflow to segment grayscale images and to reconstruct a three-dimensional volume from them</li>\n<li>Requires a trained U-Net model and grayscale images</li>\n</ul>\n<h4>The workflow uses the scripts:</h4>\n<p>U-Net_Segmentation.py:</p>\n<ul>\n<li>Loads a model and segments images</li>\n<li>Outputs a binary images stack&nbsp;</li>\n</ul>\n<h2><strong>Structural Analysis Workflow</strong></h2>\n<p>(see StructuralAnalysisWorkflow.png)</p>\n<p><strong>Strukturanalyse.flow:</strong></p>\n<ul>\n<li>A workflow to analyse the structural properties of a binary microstructure</li>\n<li>Can be used on image data as well as volumetric data</li>\n<li>Requires the simulation framework [PACE3D](https://doi.org/10.1016/j.jocs.2018.02.011)</li>\n</ul>\n<h4>The workflow uses the scripts:</h4>\n<p>EraseInletOutletPores.sh:</p>\n<ul>\n<li>Script to filter out the properties of inlet and outlet pores</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Griem, Lars Christoph",
+            "affiliation": "Karlsruhe Institute of Technology",
+            "orcid": "0000-0002-8093-6356"
+          }
+        ],
+        "contributors": [
+          {
+            "name": "Griem, Lars Christoph",
+            "affiliation": "Karlsruhe Institute of Technology",
+            "type": "Producer",
+            "orcid": "0000-0002-8093-6356"
+          }
+        ],
+        "resource_type": {
+          "title": "Workflow",
+          "type": "workflow"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17019209"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Reconstruction and Characterisation",
+      "links": {
+        "self": "https://zenodo.org/api/records/17019210",
+        "self_html": "https://zenodo.org/records/17019210",
+        "preview_html": "https://zenodo.org/records/17019210?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17019210",
+        "self_doi": "https://doi.org/10.5281/zenodo.17019210",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019210",
+        "reserve_doi": "https://zenodo.org/api/records/17019210/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17019209",
+        "parent_html": "https://zenodo.org/records/17019209",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17019209",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019209",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17019210/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17019210/sequence/default",
+        "files": "https://zenodo.org/api/records/17019210/files",
+        "media_files": "https://zenodo.org/api/records/17019210/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17019210:UNet_Training_Workflow.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17019210:UNet_Training_Workflow.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17019210:UNet_Training_Workflow.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17019210:UNet_Training_Workflow.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17019210:UNet_Training_Workflow.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17019210:UNet_Training_Workflow.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17019210/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17019210/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17019210/versions/latest",
+        "latest_html": "https://zenodo.org/records/17019210/latest",
+        "versions": "https://zenodo.org/api/records/17019210/versions",
+        "draft": "https://zenodo.org/api/records/17019210/draft",
+        "access_links": "https://zenodo.org/api/records/17019210/access/links",
+        "access_grants": "https://zenodo.org/api/records/17019210/access/grants",
+        "access_users": "https://zenodo.org/api/records/17019210/access/users",
+        "access_request": "https://zenodo.org/api/records/17019210/access/request",
+        "access": "https://zenodo.org/api/records/17019210/access",
+        "communities": "https://zenodo.org/api/records/17019210/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17019210/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17019210/requests"
+      },
+      "updated": "2025-09-01T11:58:12.440154+00:00",
+      "recid": "17019210",
+      "revision": 10,
+      "files": [
+        {
+          "id": "e27d944b-0c40-41c0-a650-10e646df69f2",
+          "key": "EraseInletOutletPores.sh",
+          "size": 922,
+          "checksum": "md5:5db74c41f6976635ecaf69e982d75809",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019210/files/EraseInletOutletPores.sh/content"
+          }
+        },
+        {
+          "id": "54368829-7a21-455d-b062-095b525b95bd",
+          "key": "ArtificialTrainingData.flow",
+          "size": 54854,
+          "checksum": "md5:22be87b866a87c07b769077746823fee",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019210/files/ArtificialTrainingData.flow/content"
+          }
+        },
+        {
+          "id": "192c0c33-fe3c-4293-b902-a0ff32302b57",
+          "key": "UNet_Training_Workflow.png",
+          "size": 151438,
+          "checksum": "md5:b5b465b66fd4e809d4c78407c0a0b873",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019210/files/UNet_Training_Workflow.png/content"
+          }
+        },
+        {
+          "id": "eed0fcb4-02d3-4f97-bfe2-279c64565a45",
+          "key": "U-Net_Segmentation.py",
+          "size": 8676,
+          "checksum": "md5:eceef42aef1a6d68cec8f20d82614fed",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019210/files/U-Net_Segmentation.py/content"
+          }
+        },
+        {
+          "id": "56164cc5-4030-4c70-b99c-ace1402585ac",
+          "key": "U-Net_Segmentation.flow",
+          "size": 46320,
+          "checksum": "md5:0a52c91c9328b7764a4f547f1573e54e",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019210/files/U-Net_Segmentation.flow/content"
+          }
+        },
+        {
+          "id": "01d257ff-0d44-4458-be91-9fcb58a22f84",
+          "key": "StructuralAnalysisWorkflow.png",
+          "size": 151801,
+          "checksum": "md5:7d09e6166d3dd102ab2a914457775526",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019210/files/StructuralAnalysisWorkflow.png/content"
+          }
+        },
+        {
+          "id": "abc38eec-45d1-4778-a75f-e2b6b75b6158",
+          "key": "Strukturanalyse.flow",
+          "size": 246881,
+          "checksum": "md5:9921e1c486b6ae631d64eee5c0b9253b",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019210/files/Strukturanalyse.flow/content"
+          }
+        },
+        {
+          "id": "a763cacc-2d8b-4239-9e17-06a57227a17b",
+          "key": "U-Net_Model_Training.flow",
+          "size": 56888,
+          "checksum": "md5:b9627736412caa748add5d43c7aaa230",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019210/files/U-Net_Model_Training.flow/content"
+          }
+        },
+        {
+          "id": "8f9dcc63-63da-4078-815b-c1250a1b2c6e",
+          "key": "U-Net_Training.py",
+          "size": 16197,
+          "checksum": "md5:875c6dc3bdcba680ccd4eec30a18e80e",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019210/files/U-Net_Training.py/content"
+          }
+        },
+        {
+          "id": "3699db17-d0c1-440b-b603-418915d9df47",
+          "key": "GAN_Training.py",
+          "size": 16737,
+          "checksum": "md5:c5bd52670dd1fd371b1a70df54778a36",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019210/files/GAN_Training.py/content"
+          }
+        },
+        {
+          "id": "cc95f382-be91-45e5-989a-0a9834ffe0aa",
+          "key": "EnhancedTrainingData.py",
+          "size": 5321,
+          "checksum": "md5:14763b29dc7ee06167ef4bf44bea68c5",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019210/files/EnhancedTrainingData.py/content"
+          }
+        },
+        {
+          "id": "717cb04d-60b5-4fd6-8b40-fc7dbe58edd1",
+          "key": "TrainingDataWorkflow.png",
+          "size": 197745,
+          "checksum": "md5:384bd84a32c34c9ab74c8eccd39f2e7e",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019210/files/TrainingDataWorkflow.png/content"
+          }
+        },
+        {
+          "id": "fe8cb5e1-4810-4fc1-a585-ffb8a517a84b",
+          "key": "Finetune_U-Net.py",
+          "size": 16402,
+          "checksum": "md5:ee80a11b03a3197e609c63282b8af6a4",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019210/files/Finetune_U-Net.py/content"
+          }
+        },
+        {
+          "id": "0b263975-77f7-4b7d-aba8-379c346ea754",
+          "key": "CycleGAN_Training.py",
+          "size": 27816,
+          "checksum": "md5:9fe9ac1d1f1f4c8077df3672e343ab36",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019210/files/CycleGAN_Training.py/content"
+          }
+        },
+        {
+          "id": "147e2a6e-98c4-47a6-ab46-3c1edf514210",
+          "key": "SegmentationWorkflow.png",
+          "size": 137287,
+          "checksum": "md5:78fa0823940a0136c32cd094e697c2d9",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019210/files/SegmentationWorkflow.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "297762"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 3,
+        "unique_views": 1,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 1,
+        "version_views": 3
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-01T11:20:33.199767+00:00",
+      "modified": "2025-09-01T11:20:34.419669+00:00",
+      "id": 17019241,
+      "conceptrecid": "17017660",
+      "doi": "10.5281/zenodo.17019241",
+      "conceptdoi": "10.5281/zenodo.17017660",
+      "doi_url": "https://doi.org/10.5281/zenodo.17019241",
+      "metadata": {
+        "title": "D2.8 - Interoperable Data Spaces Framework",
+        "doi": "10.5281/zenodo.17019241",
+        "publication_date": "2025-03-31",
+        "description": "<p><span lang=\"EN-GB\">This document is the extension of D2.4, which has been the initial version of the Energy Data Space Framework, submitted in M15 of the project. It describes the Interoperable Data Space Framework and serves as a comprehensive guide to the architectural and design aspects of the software, outlining the key decisions, structures, and methodologies employed in its development. It also describes how to configure and launch the Energy Data Space Connector in a test environment.</span></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "La Franca, Marco",
+            "affiliation": null,
+            "orcid": "0000-0002-4283-3305"
+          },
+          {
+            "name": "Bosco, Ferdinando",
+            "affiliation": null,
+            "orcid": "0000-0002-0053-8017"
+          }
+        ],
+        "resource_type": {
+          "title": "Project deliverable",
+          "type": "publication",
+          "subtype": "deliverable"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "grants": [
+          {
+            "code": "101096511",
+            "internal_id": "10.13039/501100000780::101096511",
+            "funder": {
+              "name": "European Commission",
+              "doi": "10.13039/501100000780",
+              "acronym": "EC"
+            },
+            "title": "Interoperable opeN-source Tools to Enable hybRidisation, utiliSation, and moneTisation of stORage flExibility",
+            "acronym": "INTERSTORE",
+            "program": "HORIZON.2.5",
+            "url": "https://cordis.europa.eu/projects/101096511"
+          }
+        ],
+        "communities": [
+          {
+            "id": "interstore"
+          },
+          {
+            "id": "eu"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 1,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17017660"
+              }
+            }
+          ]
+        }
+      },
+      "title": "D2.8 - Interoperable Data Spaces Framework",
+      "links": {
+        "self": "https://zenodo.org/api/records/17019241",
+        "self_html": "https://zenodo.org/records/17019241",
+        "preview_html": "https://zenodo.org/records/17019241?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17019241",
+        "self_doi": "https://doi.org/10.5281/zenodo.17019241",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019241",
+        "reserve_doi": "https://zenodo.org/api/records/17019241/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17017660",
+        "parent_html": "https://zenodo.org/records/17017660",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17017660",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17017660",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17019241/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17019241/sequence/default",
+        "files": "https://zenodo.org/api/records/17019241/files",
+        "media_files": "https://zenodo.org/api/records/17019241/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17019241:D2.8_Interoperable%20Data%20Spaces%20Framework_Final_zenodo.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17019241:D2.8_Interoperable%20Data%20Spaces%20Framework_Final_zenodo.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17019241:D2.8_Interoperable%20Data%20Spaces%20Framework_Final_zenodo.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17019241:D2.8_Interoperable%20Data%20Spaces%20Framework_Final_zenodo.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17019241:D2.8_Interoperable%20Data%20Spaces%20Framework_Final_zenodo.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17019241:D2.8_Interoperable%20Data%20Spaces%20Framework_Final_zenodo.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17019241/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17019241/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17019241/versions/latest",
+        "latest_html": "https://zenodo.org/records/17019241/latest",
+        "versions": "https://zenodo.org/api/records/17019241/versions",
+        "draft": "https://zenodo.org/api/records/17019241/draft",
+        "access_links": "https://zenodo.org/api/records/17019241/access/links",
+        "access_grants": "https://zenodo.org/api/records/17019241/access/grants",
+        "access_users": "https://zenodo.org/api/records/17019241/access/users",
+        "access_request": "https://zenodo.org/api/records/17019241/access/request",
+        "access": "https://zenodo.org/api/records/17019241/access",
+        "communities": "https://zenodo.org/api/records/17019241/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17019241/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17019241/requests"
+      },
+      "updated": "2025-09-01T11:20:34.419669+00:00",
+      "recid": "17019241",
+      "revision": 4,
+      "files": [
+        {
+          "id": "294793cd-d168-4ed4-aa99-a3c7e4a17084",
+          "key": "D2.8_Interoperable Data Spaces Framework_Final_zenodo.pdf",
+          "size": 4653731,
+          "checksum": "md5:7d566a377a070ac94281ec34e47b7e30",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019241/files/D2.8_Interoperable Data Spaces Framework_Final_zenodo.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1292698"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 3,
+        "unique_downloads": 1,
+        "views": 13,
+        "unique_views": 9,
+        "version_downloads": 3,
+        "version_unique_downloads": 1,
+        "version_unique_views": 3,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-01T11:19:20.982846+00:00",
+      "modified": "2025-09-01T11:19:21.511121+00:00",
+      "id": 17019245,
+      "conceptrecid": "17019244",
+      "doi": "10.5281/zenodo.17019245",
+      "conceptdoi": "10.5281/zenodo.17019244",
+      "doi_url": "https://doi.org/10.5281/zenodo.17019245",
+      "metadata": {
+        "title": "Cloud-based prototyping for scalable software development: A study on rapid deployment and testing using amazon web services (AWS)",
+        "doi": "10.5281/zenodo.17019245",
+        "publication_date": "2025-02-28",
+        "description": "<p>This paper examines the role of cloud-based prototyping in scalable software development, focusing on the rapid deployment and testing capabilities provided by Amazon Web Services (AWS). Traditional approaches find it difficult to meet the need for quick, scalable, and affordable prototyping as software development needs more agility. To overcome these obstacles, cloud platforms such as AWS provide adaptable, on-demand infrastructure. This study assesses how AWS products, such as Relational Database Service (RDS), Lambda, and Elastic Compute Cloud (EC2), affect prototype cycles through a number of experiments. The results show that by automating infrastructure management, AWS greatly shortens deployment times, allowing for faster application delivery. Before a full-scale deployment, developers can improve apps thanks to AWS's support for effective load testing and quick iterations. The study shows how AWS improves scalability, reduces operational overhead, and expedites testing procedures, providing useful information for businesses looking to use cloud platforms to speed up software development.&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Nwankwo, Prince N",
+            "affiliation": "Department of Computer Engineering, Federal Polytechnic, Oko, Anambra State, Nigeria."
+          },
+          {
+            "name": "Akpado, K.A",
+            "affiliation": "Department of Electronic and Computer Engineering, Nnamdi Azikiwe University, Awka, Nigeria."
+          },
+          {
+            "name": "Okezie, Christiana C",
+            "affiliation": "Department of Electronic and Computer Engineering, Nnamdi Azikiwe University, Awka, Nigeria."
+          },
+          {
+            "name": "Isizoh, A.N",
+            "affiliation": "Department of Electronic and Computer Engineering, Nnamdi Azikiwe University, Awka, Nigeria."
+          }
+        ],
+        "keywords": [
+          "Cloud Computing",
+          "Prototyping",
+          "Scalable Software",
+          "Amazon Web Services (AWS)",
+          "Rapid Deployment"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "2",
+          "pages": "1953-1965",
+          "title": "World Journal of Advanced Research and Reviews",
+          "volume": "25"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "10.30574/wjarr.2025.25.2.0551"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "wjarr"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17019244"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Cloud-based prototyping for scalable software development: A study on rapid deployment and testing using amazon web services (AWS)",
+      "links": {
+        "self": "https://zenodo.org/api/records/17019245",
+        "self_html": "https://zenodo.org/records/17019245",
+        "preview_html": "https://zenodo.org/records/17019245?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17019245",
+        "self_doi": "https://doi.org/10.5281/zenodo.17019245",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019245",
+        "reserve_doi": "https://zenodo.org/api/records/17019245/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17019244",
+        "parent_html": "https://zenodo.org/records/17019244",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17019244",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17019244",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17019245/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17019245/sequence/default",
+        "files": "https://zenodo.org/api/records/17019245/files",
+        "media_files": "https://zenodo.org/api/records/17019245/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17019245:WJARR-2025-0551.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17019245:WJARR-2025-0551.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17019245:WJARR-2025-0551.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17019245:WJARR-2025-0551.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17019245:WJARR-2025-0551.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17019245:WJARR-2025-0551.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17019245/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17019245/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17019245/versions/latest",
+        "latest_html": "https://zenodo.org/records/17019245/latest",
+        "versions": "https://zenodo.org/api/records/17019245/versions",
+        "draft": "https://zenodo.org/api/records/17019245/draft",
+        "access_links": "https://zenodo.org/api/records/17019245/access/links",
+        "access_grants": "https://zenodo.org/api/records/17019245/access/grants",
+        "access_users": "https://zenodo.org/api/records/17019245/access/users",
+        "access_request": "https://zenodo.org/api/records/17019245/access/request",
+        "access": "https://zenodo.org/api/records/17019245/access",
+        "communities": "https://zenodo.org/api/records/17019245/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17019245/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17019245/requests"
+      },
+      "updated": "2025-09-01T11:19:21.511121+00:00",
+      "recid": "17019245",
+      "revision": 4,
+      "files": [
+        {
+          "id": "45ad8b8f-7c6d-43a6-9426-2b70160ee128",
+          "key": "WJARR-2025-0551.pdf",
+          "size": 676186,
+          "checksum": "md5:bb0213c3e8398e445705e07f78244536",
+          "links": {
+            "self": "https://zenodo.org/api/records/17019245/files/WJARR-2025-0551.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "155121"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
       },
       "state": "done",
       "submitted": true

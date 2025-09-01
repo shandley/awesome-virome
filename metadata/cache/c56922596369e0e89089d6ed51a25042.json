@@ -1,19 +1,19 @@
 {
-  "cache_date": "2025-08-01T09:35:52.126382",
+  "cache_date": "2025-09-01T09:41:19.290749",
   "data": [
     {
-      "created": "2024-11-19T09:14:46.423819+00:00",
-      "modified": "2024-11-19T09:14:46.703803+00:00",
-      "id": 14184158,
+      "created": "2025-08-31T09:08:44.680075+00:00",
+      "modified": "2025-08-31T09:08:45.088055+00:00",
+      "id": 16983194,
       "conceptrecid": "10674273",
-      "doi": "10.5281/zenodo.14184158",
+      "doi": "10.5281/zenodo.16983194",
       "conceptdoi": "10.5281/zenodo.10674273",
-      "doi_url": "https://doi.org/10.5281/zenodo.14184158",
+      "doi_url": "https://doi.org/10.5281/zenodo.16983194",
       "metadata": {
         "title": "An updated catalog of genes and species of the pig gut microbiota",
-        "doi": "10.5281/zenodo.14184158",
-        "publication_date": "2024-11-19",
-        "description": "<p></p><h1>Dataset overview</h1><br>We built an updated catalog of 9.3M genes found in the pig gut microbiota.<br>Co-abundant genes were binned in 1523 Metagenomic Species Pan-genomes (MSPs) for which we provide taxonomic labels and a phylogenetic tree. In addition, we reconstituted 7059 Metagenome-Assembled Genomes (MAGs) covering of 760 Metagenomic Species and we extracted 7331 viral genomes from assemblies.<br>Finally, we used Pairwise Comparative Modelling to predict 6140 antibiotic resistance genes.<br><br>This dataset can be used to analyze shotgun sequencing data of the pig gut microbiota.<br><h1>Methods</h1><br><h2>Sequencing data availability</h2><br>Sequencing data from Xiao et al. (PRJEB11755, n=287) and Kim et al. (PRJEB32496, n=36) was downloaded from the European Nucleotide Archive.<br><h2>Sequencing data quality control</h2><br>Illumina adapters removal and read trimming was performed with fastp . Reads mapped on the host genome (GCF_000003025.6) with bowtie2 were removed with samtools.<br><h2>Metagenomic assembly</h2><br>Metagenomic assembly was performed with metaSPAdes. Contigs of less than 1500 bp were removed.<br><h2>MAGs creation</h2><br>Reads of each sample were aligned to their respective assembly with bowtie2 and results were indexed in sorted bam files with samtools. Then, contigs coverage was computed in each sample with jgi_summarize_bam_contig_depths. MAGs were generated with MetaBAT 2 and MaxBin2. Finally, results of both tools were combined with DAS Tool and MAGs quality was assessed with checkM. MAGs with completeness &lt; 70% or contamination &gt; 5% were discarded.<br><h2>Extraction of viral genomes</h2><br>Candidates viral sequences were identified in assemblies with VirFinder. Then, viral genomes quality was assessed with checkV and those low or undetermined quality were discarded.<br><h2>Non-redundant gene catalog</h2><br>Genes were predicted on all contigs with Prodigal (parameters : -m -p meta ). Genes with missing start codon or shorter than 99 bp were discarded.<br>Then, partial and complete genes were separately clustered with cd-hit-est (parameters -c 0.95 -aS 0.90 -G 0 -d 0 -M 0 -T 0 ). The two non-redundant gene sets were merged by considering at first complete genes from the longest contigs (contact us for futher details).<br><h2>MSPs creation</h2><br>Using the Meteor software suite, reads from each sample were mapped against the non redundant catalog to build a raw gene abundance table (9.3 million genes quantified in 323 samples). This table was submitted to MSPminer that reconstituted 1523 clusters of co-abundant genes named Metagenomic-Species Pangenomes (MSPs).<br>Quality control of each MSP was manually performed by visualizing heatmaps representative of the normalized gene abundance profiles.<br><h2>Taxonomic annotation</h2><br>MAGs and MSPs were annotated with GTDB-Tk based on GTDB Release 05-RS95.<br><h2>Construction of the phylogenetic tree</h2><br>39 universal phylogenetic markers genes were extracted from the 1523 MSPs (or the corresponding MAGs if available) with fetchMGs. Then, the markers were separately aligned with MUSCLE. The 40 alignments were merged and trimmed with trimAl (parameters: -automated1). Finally, the phylogenetic tree was computed with FastTreeMP (parameters: -gamma -pseudo -spr -mlacc 3 -slownni).<br><h2>Prediction of antibiotic resistance genes</h2><br>Antibiotic resistance genes were predicted with the Pairwise Comparative Modelling approach (last version available here).<p></p>",
+        "doi": "10.5281/zenodo.16983194",
+        "publication_date": "2025-08-29",
+        "description": "<p></p><h1>Dataset overview</h1><br>We built an updated catalog of 9.3M genes found in the pig gut microbiota.<br>Co-abundant genes were binned in 1523 Metagenomic Species Pan-genomes (MSPs) for which we provide taxonomic labels and a phylogenetic tree. In addition, we reconstituted 7059 Metagenome-Assembled Genomes (MAGs) covering of 760 Metagenomic Species and we extracted 7331 viral genomes from assemblies.<br>Finally, we used Pairwise Comparative Modelling to predict 6140 antibiotic resistance genes.<br><br>This dataset can be used to analyze shotgun sequencing data of the pig gut microbiota.<br><h1>Methods</h1><br><h2>Sequencing data availability</h2><br>Sequencing data from Xiao et al. (PRJEB11755, n=287) and Kim et al. (PRJEB32496, n=36) was downloaded from the European Nucleotide Archive.<br><h2>Sequencing data quality control</h2><br>Illumina adapters removal and read trimming was performed with fastp . Reads mapped on the host genome (GCF_000003025.6) with bowtie2 were removed with samtools.<br><h2>Metagenomic assembly</h2><br>Metagenomic assembly was performed with metaSPAdes. Contigs of less than 1500 bp were removed.<br><h2>MAGs creation</h2><br>Reads of each sample were aligned to their respective assembly with bowtie2 and results were indexed in sorted bam files with samtools. Then, contigs coverage was computed in each sample with jgi_summarize_bam_contig_depths. MAGs were generated with MetaBAT 2 and MaxBin2. Finally, results of both tools were combined with DAS Tool and MAGs quality was assessed with checkM. MAGs with completeness &lt; 70% or contamination &gt; 5% were discarded.<br><h2>Extraction of viral genomes</h2><br>Candidates viral sequences were identified in assemblies with VirFinder. Then, viral genomes quality was assessed with checkV and those low or undetermined quality were discarded.<br><h2>Non-redundant gene catalog</h2><br>Genes were predicted on all contigs with Prodigal (parameters : -m -p meta ). Genes with missing start codon or shorter than 99 bp were discarded.<br>Then, partial and complete genes were separately clustered with cd-hit-est (parameters -c 0.95 -aS 0.90 -G 0 -d 0 -M 0 -T 0 ). The two non-redundant gene sets were merged by considering at first complete genes from the longest contigs (contact us for futher details).<br><h2>MSPs creation</h2><br>Using the Meteor software suite, reads from each sample were mapped against the non redundant catalog to build a raw gene abundance table (9.3 million genes quantified in 323 samples). This table was submitted to MSPminer that reconstituted 1523 clusters of co-abundant genes named Metagenomic-Species Pangenomes (MSPs).<br>Quality control of each MSP was manually performed by visualizing heatmaps representative of the normalized gene abundance profiles.<br><h2>Taxonomic annotation</h2><br>MAGs and MSPs were annotated with GTDB-Tk based on GTDB Release 05-RS95.<br><h2>Construction of the phylogenetic tree</h2><br>39 universal phylogenetic markers genes were extracted from the 1523 MSPs (or the corresponding MAGs if available) with fetchMGs. Then, the markers were separately aligned with MUSCLE. The 40 alignments were merged and trimmed with trimAl (parameters: -automated1). Finally, the phylogenetic tree was computed with FastTreeMP (parameters: -gamma -pseudo -spr -mlacc 3 -slownni).<br><h2>Prediction of antibiotic resistance genes</h2><br>Antibiotic resistance genes were predicted with the Pairwise Comparative Modelling approach (last version available here).<h1>Mapping rate distribution across public cohorts</h1>We generated mapping rate distribution plots using Meteor2 (default parameters), comparing performance between: PRJEB11755 and PRJEB32496 (cohort used in catalogue assembly) and PRJEB60032 and PRJNA494875 (independent cohort not used in assembly).<p></p>",
         "access_right": "open",
         "creators": [
           {
@@ -39,7 +39,7 @@
         "relations": {
           "version": [
             {
-              "index": 7,
+              "index": 8,
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
@@ -51,56 +51,73 @@
       },
       "title": "An updated catalog of genes and species of the pig gut microbiota",
       "links": {
-        "self": "https://zenodo.org/api/records/14184158",
-        "self_html": "https://zenodo.org/records/14184158",
-        "preview_html": "https://zenodo.org/records/14184158?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.14184158",
-        "self_doi": "https://doi.org/10.5281/zenodo.14184158",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14184158",
-        "reserve_doi": "https://zenodo.org/api/records/14184158/draft/pids/doi",
+        "self": "https://zenodo.org/api/records/16983194",
+        "self_html": "https://zenodo.org/records/16983194",
+        "preview_html": "https://zenodo.org/records/16983194?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16983194",
+        "self_doi": "https://doi.org/10.5281/zenodo.16983194",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16983194",
+        "reserve_doi": "https://zenodo.org/api/records/16983194/draft/pids/doi",
         "parent": "https://zenodo.org/api/records/10674273",
         "parent_html": "https://zenodo.org/records/10674273",
         "parent_doi": "https://doi.org/10.5281/zenodo.10674273",
         "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10674273",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14184158/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14184158/sequence/default",
-        "files": "https://zenodo.org/api/records/14184158/files",
-        "media_files": "https://zenodo.org/api/records/14184158/media-files",
-        "archive": "https://zenodo.org/api/records/14184158/files-archive",
-        "archive_media": "https://zenodo.org/api/records/14184158/media-files-archive",
-        "latest": "https://zenodo.org/api/records/14184158/versions/latest",
-        "latest_html": "https://zenodo.org/records/14184158/latest",
-        "versions": "https://zenodo.org/api/records/14184158/versions",
-        "draft": "https://zenodo.org/api/records/14184158/draft",
-        "access_links": "https://zenodo.org/api/records/14184158/access/links",
-        "access_grants": "https://zenodo.org/api/records/14184158/access/grants",
-        "access_users": "https://zenodo.org/api/records/14184158/access/users",
-        "access_request": "https://zenodo.org/api/records/14184158/access/request",
-        "access": "https://zenodo.org/api/records/14184158/access",
-        "communities": "https://zenodo.org/api/records/14184158/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/14184158/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/14184158/requests"
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16983194/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16983194/sequence/default",
+        "files": "https://zenodo.org/api/records/16983194/files",
+        "media_files": "https://zenodo.org/api/records/16983194/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16983194:catalogue_mapping_rate_ssc_9_3_gut.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16983194:catalogue_mapping_rate_ssc_9_3_gut.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16983194:catalogue_mapping_rate_ssc_9_3_gut.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16983194:catalogue_mapping_rate_ssc_9_3_gut.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16983194:catalogue_mapping_rate_ssc_9_3_gut.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16983194:catalogue_mapping_rate_ssc_9_3_gut.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16983194/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16983194/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16983194/versions/latest",
+        "latest_html": "https://zenodo.org/records/16983194/latest",
+        "versions": "https://zenodo.org/api/records/16983194/versions",
+        "draft": "https://zenodo.org/api/records/16983194/draft",
+        "access_links": "https://zenodo.org/api/records/16983194/access/links",
+        "access_grants": "https://zenodo.org/api/records/16983194/access/grants",
+        "access_users": "https://zenodo.org/api/records/16983194/access/users",
+        "access_request": "https://zenodo.org/api/records/16983194/access/request",
+        "access": "https://zenodo.org/api/records/16983194/access",
+        "communities": "https://zenodo.org/api/records/16983194/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16983194/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16983194/requests"
       },
-      "updated": "2024-11-19T09:14:46.703803+00:00",
-      "recid": "14184158",
+      "updated": "2025-08-31T09:08:45.088055+00:00",
+      "recid": "16983194",
       "revision": 4,
       "files": [
         {
-          "id": "93b5512d-ad66-44d3-b45b-9799b853d520",
-          "key": "ssc_9_3_gut.tar.xz",
-          "size": 11403997320,
-          "checksum": "md5:9b0df528d4c74662393b4c7358f69121",
+          "id": "d56a8b71-54ea-4353-9a39-cfdafe8a5b41",
+          "key": "catalogue_mapping_rate_ssc_9_3_gut.pdf",
+          "size": 5263,
+          "checksum": "md5:77bfe8a212e491d6a648642f58d2497d",
           "links": {
-            "self": "https://zenodo.org/api/records/14184158/files/ssc_9_3_gut.tar.xz/content"
+            "self": "https://zenodo.org/api/records/16983194/files/catalogue_mapping_rate_ssc_9_3_gut.pdf/content"
           }
         },
         {
-          "id": "0e3fb0ea-586a-4946-9953-283be5a007e6",
-          "key": "ssc_9_3_gut_taxo.tar.xz",
-          "size": 806447812,
-          "checksum": "md5:8cbdb0bb7cbbdcd90981ed9d7fc4ad38",
+          "id": "e1b0d650-2bfd-4fd3-a849-02c1f581b113",
+          "key": "ssc_9_3_gut.tar.xz",
+          "size": 11404736608,
+          "checksum": "md5:083c5e07dc08fb21bba5175242642113",
           "links": {
-            "self": "https://zenodo.org/api/records/14184158/files/ssc_9_3_gut_taxo.tar.xz/content"
+            "self": "https://zenodo.org/api/records/16983194/files/ssc_9_3_gut.tar.xz/content"
+          }
+        },
+        {
+          "id": "54536df8-db8f-4c6f-adac-c568bcca695f",
+          "key": "ssc_9_3_gut_taxo.tar.xz",
+          "size": 808908208,
+          "checksum": "md5:b35bb36fc5871660ded123bcab5bf2c9",
+          "links": {
+            "self": "https://zenodo.org/api/records/16983194/files/ssc_9_3_gut_taxo.tar.xz/content"
           }
         }
       ],
@@ -112,14 +129,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 208,
-        "unique_downloads": 208,
-        "views": 323,
-        "unique_views": 316,
-        "version_downloads": 45,
-        "version_unique_downloads": 45,
-        "version_unique_views": 52,
-        "version_views": 54
+        "downloads": 215,
+        "unique_downloads": 214,
+        "views": 331,
+        "unique_views": 323,
+        "version_downloads": 3,
+        "version_unique_downloads": 2,
+        "version_unique_views": 2,
+        "version_views": 3
       },
       "state": "done",
       "submitted": true
@@ -226,8 +243,8 @@
       "stats": {
         "downloads": 8,
         "unique_downloads": 8,
-        "views": 44,
-        "unique_views": 41,
+        "views": 45,
+        "unique_views": 42,
         "version_downloads": 3,
         "version_unique_downloads": 3,
         "version_unique_views": 23,
@@ -342,14 +359,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 89,
-        "unique_downloads": 77,
-        "views": 379,
-        "unique_views": 344,
-        "version_downloads": 89,
-        "version_unique_downloads": 77,
-        "version_unique_views": 344,
-        "version_views": 379
+        "downloads": 90,
+        "unique_downloads": 78,
+        "views": 383,
+        "unique_views": 348,
+        "version_downloads": 90,
+        "version_unique_downloads": 78,
+        "version_unique_views": 348,
+        "version_views": 383
       },
       "state": "done",
       "submitted": true

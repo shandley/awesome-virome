@@ -1,293 +1,88 @@
 {
-  "cache_date": "2025-08-01T10:00:18.369636",
+  "cache_date": "2025-09-01T10:00:08.022372",
   "data": [
     {
-      "created": "2025-08-01T01:44:05.951015+00:00",
-      "modified": "2025-08-01T01:44:06.088663+00:00",
-      "id": 16661469,
-      "conceptrecid": "7697217",
-      "doi": "10.5281/zenodo.16661469",
-      "conceptdoi": "10.5281/zenodo.7697217",
-      "doi_url": "https://doi.org/10.5281/zenodo.16661469",
+      "created": "2025-09-01T07:28:34.538889+00:00",
+      "modified": "2025-09-01T07:28:35.008656+00:00",
+      "id": 17016971,
+      "conceptrecid": "17016970",
+      "doi": "10.5281/zenodo.17016971",
+      "conceptdoi": "10.5281/zenodo.17016970",
+      "doi_url": "https://doi.org/10.5281/zenodo.17016971",
       "metadata": {
-        "title": "pola-rs/polars: Python Polars 1.32.0",
-        "doi": "10.5281/zenodo.16661469",
-        "publication_date": "2025-08-01",
-        "description": "<h2>\ud83c\udfc6 Highlights</h2>\n<ul>\n<li>Make <code>Selector</code> a concrete part of the DSL (#23351)</li>\n<li>Rework Categorical/Enum to use (Frozen)Categories (#23016)</li>\n</ul>\n<h2>\ud83d\ude80 Performance improvements</h2>\n<ul>\n<li>Lower Expr.slice to streaming engine (#23683)</li>\n<li>Elide bound check (#23653)</li>\n<li>Preserve <code>Column</code> repr in <code>ColumnTransform</code> operations (#23648)</li>\n<li>Lower any() and all() to streaming engine (#23640)</li>\n<li>Lower row-separable functions in streaming engine (#23633)</li>\n<li>Lower int_range(len()) to with_row_index (#23576)</li>\n<li>Avoid double field resolution in with_columns (#23530)</li>\n<li>Rolling quantile lower time complexity (#23443)</li>\n<li>Use single-key optimization with Categorical (#23436)</li>\n<li>Improve null-preserving identification for boolean functions (#23317)</li>\n<li>Improve boolean bitwise aggregate performance (#23325)</li>\n<li>Enable Parquet expressions and dedup <code>is_in</code> values in Parquet predicates (#23293)</li>\n<li>Re-write join types during filter pushdown (#23275)</li>\n<li>Generate PQ ZSTD decompression context once (#23200)</li>\n<li>Trigger cache/cse optimizations when multiplexing (#23274)</li>\n<li>Cache FileInfo upon DSL -&gt; IR conversion (#23263)</li>\n<li>Push more filters past joins (#23240)</li>\n<li>Optimize <code>Bitmap::make_mut</code> (#23138)</li>\n</ul>\n<h2>\u2728 Enhancements</h2>\n<ul>\n<li>Add Python-side caching for credentials and provider auto-initialization (#23736)</li>\n<li>Expand on <code>DataTypeExpr</code> (#23249)</li>\n<li>Lower row-separable functions in streaming engine (#23633)</li>\n<li>Add scalar checks to range expressions (#23632)</li>\n<li>Expose <code>POLARS_DOT_SVG_VIEWER</code> to automatically dispatch to SVG viewer (#23592)</li>\n<li>Implement mean function in <code>arr</code> namespace (#23486)</li>\n<li>Implement <code>vec_hash</code> for <code>List</code> and <code>Array</code> (#23578)</li>\n<li>Add unstable <code>pl.row_index()</code> expression (#23556)</li>\n<li>Add Categories on the Python side (#23543)</li>\n<li>Implement partitioned sinks for the in-memory engine (#23522)</li>\n<li>Raise and Warn on UDF's without <code>return_dtype</code> set (#23353)</li>\n<li>IR pruning (#23499)</li>\n<li>Support min/max reducer for null dtype in streaming engine (#23465)</li>\n<li>Implement streaming Categorical/Enum min/max (#23440)</li>\n<li>Allow cast to Categorical inside list.eval (#23432)</li>\n<li>Support <code>pathlib.Path</code> as source for <code>read/scan_delta()</code> (#23411)</li>\n<li>Enable default set of <code>ScanCastOptions</code> for native <code>scan_iceberg()</code> (#23416)</li>\n<li>Pass payload in <code>ExprRegistry</code> (#23412)</li>\n<li>Support reading nanosecond/Int96 timestamps and schema evolved datasets in <code>scan_delta()</code> (#23398)</li>\n<li>Support row group skipping with filters when <code>cast_options</code> is given (#23356)</li>\n<li>Execute bitwise reductions in streaming engine (#23321)</li>\n<li>Use <code>scan_parquet().collect_schema()</code> for <code>read_parquet_schema</code> (#23359)</li>\n<li>Add dtype to str.to_integer() (#22239)</li>\n<li>Add <code>arr.slice</code>, <code>arr.head</code> and <code>arr.tail</code> methods to <code>arr</code> namespace (#23150)</li>\n<li>Add <code>is_close</code> method (#23273)</li>\n<li>Drop superfluous casts from optimized plan (#23269)</li>\n<li>Added <code>drop_nulls</code> option to <code>to_dummies</code> (#23215)</li>\n<li>Support comma as decimal separator for CSV write (#23238)</li>\n<li>Don't format keys if they're empty in dot (#23247)</li>\n<li>Improve arity simplification (#23242)</li>\n<li>Allow expression input for <code>length</code> parameter in <code>pad_start</code>, <code>pad_end</code>, and <code>zfill</code> (#23182)</li>\n</ul>\n<h2>\ud83d\udc1e Bug fixes</h2>\n<ul>\n<li>Load <code>_expiry_time</code> from botocore <code>Credentials</code> in CredentialProviderAWS (#23753)</li>\n<li>Fix credential refresh logic (#23730)</li>\n<li>Fix <code>to_datetime()</code> fallible identification (#23735)</li>\n<li>Correct output datatype for <code>dt.with_time_unit</code> (#23734)</li>\n<li>Fix incorrect native Iceberg scan from tables with renamed/dropped columns/fields (#23713)</li>\n<li>Allow DataType expressions with selectors (#23720)</li>\n<li>Match output type to engine for <code>interpolate</code> on <code>Decimal</code> (#23706)</li>\n<li>Remaining bugs in <code>with_exprs_and_input</code> and pruning (#23710)</li>\n<li>Match output dtype to engine for <code>cum_sum_horizontal</code> (#23686)</li>\n<li>Field names for <code>pl.struct</code> in group-by (#23703)</li>\n<li>Fix output for <code>str.extract_groups</code> with empty string pattern (#23698)</li>\n<li>Match output type to engine for <code>rolling_map</code> (#23702)</li>\n<li>Moved passing <code>DeltaTable._storage_options</code> (#23673)</li>\n<li>Fix incorrect join on single Int128 column for in-memory engine (#23694)</li>\n<li>Match output field name to lhs for <code>BusinessDaycount</code> (#23679)</li>\n<li>Correct the planner output datatype for <code>strptime</code> (#23676)</li>\n<li>Sort and Scan <code>with_exprs_and_input</code> (#23675)</li>\n<li>Revert to old behavior with <code>name.keep</code> (#23670)</li>\n<li>Fix panic loading from arrow <code>Map</code> containing timestamps (#23662)</li>\n<li>Selectors in <code>self</code> part of <code>list.eval</code> (#23668)</li>\n<li>Fix output field dtype for <code>ToInteger</code> (#23664)</li>\n<li>Allow <code>decimal_comma</code> with <code>,</code> separator in <code>read_csv</code> (#23657)</li>\n<li>Fix handling of UTF-8 in <code>write_csv</code> to <code>IO[str]</code> (#23647)</li>\n<li>Selectors in <code>{Lazy,Data}Frame.filter</code> (#23631)</li>\n<li>Stop splitfields iterator at eol in simd branch (#23652)</li>\n<li>Correct output datatype of dt.year and dt.mil (#23646)</li>\n<li>Logic of broadcast_rhs in binary functions to correct list.set_intersection for list[str] columns (#23584)</li>\n<li>Order-preserving equi-join didn't always flush final matches (#23639)</li>\n<li>Fix ColumnNotFound error when joining on <code>col().cast()</code> (#23622)</li>\n<li>Fix agg groups on <code>when/then</code> in <code>group_by</code> context (#23628)</li>\n<li>Output type for sign (#23572)</li>\n<li>Apply <code>agg_fn</code> on <code>null</code> values in <code>pivot</code> (#23586)</li>\n<li>Remove nonsensical duration variance (#23621)</li>\n<li>Don't panic when sinking nested categorical to Parquet (#23610)</li>\n<li>Correctly set value count output field name (#23611)</li>\n<li>Casting unused columns in to_torch (#23606)</li>\n<li>Allow inferring of hours-only timezone offset (#23605)</li>\n<li>Bug in Categorical &lt;-&gt; str compare with nulls (#23609)</li>\n<li>Honor <code>n=0</code> in all cases of <code>str.replace</code> (#23598)</li>\n<li>Remove arbitrary 25 item limit from implicit Python list -&gt; Series infer (#23603)</li>\n<li>Relabel duplicate sequence IDs in distributor (#23593)</li>\n<li>Round-trip Enum and Categorical metadata in plugins (#23588)</li>\n<li>Fix incorrect <code>join_asof</code> with <code>by</code> followed by <code>head/slice</code> (#23585)</li>\n<li>Change return typing of <code>get_index_type()</code> from <code>DataType</code> to <code>PolarsIntegerType</code> (#23558)</li>\n<li>Allow writing nested Int128 data to Parquet (#23580)</li>\n<li>Enum serialization assert (#23574)</li>\n<li>Output type for peak_min / peak_max (#23573)</li>\n<li>Make Scalar Categorical, Enum and Struct values serializable (#23565)</li>\n<li>Preserve row order within partition when sinking parquet (#23462)</li>\n<li>Prevent in-mem partition sink deadlock (#23562)</li>\n<li>Update AWS cloud documentation (#23563)</li>\n<li>Correctly handle null values when comparing structs (#23560)</li>\n<li>Make fold/reduce/cum_reduce/cum_fold serializable (#23524)</li>\n<li>Make <code>Expr.append</code> serializable (#23515)</li>\n<li>Float by float division dtype (#23529)</li>\n<li>Division on empty DataFrame generating null row (#23516)</li>\n<li>Partition sink <code>copy_exprs</code> and <code>with_exprs_and_input</code> (#23511)</li>\n<li>Unreachable with <code>pl.self_dtype</code> (#23507)</li>\n<li>Rolling median incorrect min_samples with nulls (#23481)</li>\n<li>Make <code>Int128</code> roundtrippable via Parquet (#23494)</li>\n<li>Fix panic when common subplans contain IEJoins (#23487)</li>\n<li>Properly handle non-finite floats in rolling_sum/mean (#23482)</li>\n<li>Make <code>read_csv_batched</code> respect <code>skip_rows</code> and <code>skip_lines</code> (#23484)</li>\n<li>Always use <code>cloudpickle</code> for the python objects in cloud plans (#23474)</li>\n<li>Support string literals in index_of() on categoricals (#23458)</li>\n<li>Don't panic for <code>finish_callback</code> with nested datatypes (#23464)</li>\n<li>Pass <code>DeltaTable._storage_options</code> if no storage_options are provided (#23456)</li>\n<li>Support min/max aggregation for DataFrame/LazyFrame Categoricals (#23455)</li>\n<li>Fix var/moment dtypes (#23453)</li>\n<li>Fix agg_groups dtype (#23450)</li>\n<li>Fix incorrect <code>_get_path_scheme</code> (#23444)</li>\n<li>Fix missing overload defaults in <code>read_ods</code> and <code>tree_format</code> (#23442)</li>\n<li>Clear cached_schema when apply changes dtype (#23439)</li>\n<li>Allow structured conversion to/from numpy with Array types, preserving shape (#23438)</li>\n<li>Null handling in full-null group_by_dynamic mean/sum (#23435)</li>\n<li>Enable default set of <code>ScanCastOptions</code> for native <code>scan_iceberg()</code> (#23416)</li>\n<li>Fix index calculation for <code>nearest</code> interpolation (#23418)</li>\n<li>Overload for <code>eager</code> default in <code>Schema.to_frame</code> was <code>False</code> instead of <code>True</code> (#23413)</li>\n<li>Fix <code>read_excel</code> overloads so that passing <code>list[str]</code> to <code>sheet_name</code> does not raise (#23388)</li>\n<li>Removed special handling for bytes like objects in read_ndjson (#23361)</li>\n<li>Parse parquet footer length into unsigned integer (#23357)</li>\n<li>Fix incorrect results with <code>group_by</code> aggregation on empty groups (#23358)</li>\n<li>Fix boolean <code>min()</code> in <code>group_by</code> aggregation (streaming) (#23344)</li>\n<li>Respect data-model in <code>map_elements</code> (#23340)</li>\n<li>Properly join URI paths in <code>PlPath</code> (#23350)</li>\n<li>Ignore null values in <code>bitwise</code> aggregation on bools (#23324)</li>\n<li>Fix panic filtering after left join (#23310)</li>\n<li>Out-of-bounds index in hot hash table (#23311)</li>\n<li>Fix scanning '?' from cloud with <code>glob=False</code> (#23304)</li>\n<li>Fix filters on inserted columns did not remove rows (#23303)</li>\n<li>Don't ignore return_dtype (#23309)</li>\n<li>Raise error instead of return in Series class (#23301)</li>\n<li>Use safe parsing for <code>get_normal_components</code> (#23284)</li>\n<li>Fix output column names/order of streaming coalesced right-join (#23278)</li>\n<li>Restore <code>concat_arr</code> inputs expansion (#23271)</li>\n<li>Expose FieldsMapper (#23232)</li>\n<li>Fix time zone handling in <code>dt.iso_year</code> and <code>dt.is_leap_year</code> (#23125)</li>\n</ul>\n<h2>\ud83d\udcd6 Documentation</h2>\n<ul>\n<li>Fix <code>str.replace_many</code> examples trigger deprecation warning (#23695)</li>\n<li>Point the R Polars version on R-multiverse (#23660)</li>\n<li>Update example for writing to cloud storage (#20265)</li>\n<li>Update GPU docs for RAPIDS CUDA 11 deprecation (#23620)</li>\n<li>Add docs of Expr.list.filter and Series.list.filter (#23589)</li>\n<li>Add page about billing to Polars Cloud user guide (#23564)</li>\n<li>Small user-guide improvement and fixes (#23549)</li>\n<li>Correct note in <code>from_pandas</code> about data being cloned (#23552)</li>\n<li>Fix a few typos in the &quot;Streaming&quot; section (#23536)</li>\n<li>Update streaming page (#23535)</li>\n<li>Update structure of Polars Cloud documentation (#23496)</li>\n<li>Update example code in pandas migration guide (#23403)</li>\n<li>Correct plugins user guide to reflect that teaching <code>Expr.language</code> is in a different section (#23377)</li>\n<li>Add example of using OR in <code>join_where</code> (#23375)</li>\n<li>Update when_then in user guide (#23245)</li>\n</ul>\n<h2>\ud83d\udce6 Build system</h2>\n<ul>\n<li>Update all rand code (#23387)</li>\n</ul>\n<h2>\ud83d\udee0\ufe0f Other improvements</h2>\n<ul>\n<li>Remove unused functions from the rust side (#23757)</li>\n<li>Add hashes json (#23758)</li>\n<li>Add <code>AExpr::is_expr_equal_to</code> (#23740)</li>\n<li>Fix rank test to respect maintain order (#23723)</li>\n<li>IR inputs and exprs iterators (#23722)</li>\n<li>Store more granular schema hashes to reduce merge conflicts (#23709)</li>\n<li>Use UUID for UniqueID (#23704)</li>\n<li>Remove scan id (#23697)</li>\n<li>Propagate Iceberg physical ID schema to IR (#23671)</li>\n<li>Remove unused and confusing match arm (#23691)</li>\n<li>Remove unused <code>ALLOW_GROUP_AWARE</code> flag (#23690)</li>\n<li>Remove unused <code>evaluate_inline</code> (#23687)</li>\n<li>Remove unused field from <code>AggregationContext</code> (#23685)</li>\n<li>Remove <code>node_to_lp</code> (#23678)</li>\n<li>Fix cloud bytes scanning and read_* functions (#23642)</li>\n<li>Group By maintain order on test (#23643)</li>\n<li>Add maintain_order tests for streaming joins (#23577)</li>\n<li>Continue on cloud testing (#23616)</li>\n<li>Add pyo3-polars (#23571)</li>\n<li>Remove _fetch (#23607)</li>\n<li>Replace <code>agg_list</code> in <code>AExpr::to_field</code> with <code>is_scalar_ae</code> (#23582)</li>\n<li>Mark select test case as <code>write_disk</code> (#23566)</li>\n<li>Rolling order checking of test (#23568)</li>\n<li>Multiple in-mem plans with reused cache #23561 (#23567)</li>\n<li>Reduce warning in docs serve (#23534)</li>\n<li>Remove left-behind print statement (#23533)</li>\n<li>Make <code>list.to_struct</code> and <code>arr.to_struct</code> serializable (#23504)</li>\n<li>Small conftest improvement (#23508)</li>\n<li>Improve Categories error message (#23510)</li>\n<li>Add test to ensure the global categories gets cleaned up (#23502)</li>\n<li>Add more testing to group_by sorted test (#23500)</li>\n<li>Pruning follow-up (#23501)</li>\n<li>Make <code>arg_min</code>, <code>arg_max</code>, <code>arg_sort</code> and <code>product</code> into concrete DSL and IR constructs (#23493)</li>\n<li>Simpify arena iterators (#23495)</li>\n<li>Remove unnecessary may_fail_auto_streaming (#23477)</li>\n<li>Remove StringCache from the test suite (#23473)</li>\n<li>Make <code>Selector</code> a concrete part of the DSL (#23351)</li>\n<li>Add streaming engine to code-coverage (#23441)</li>\n<li>Remove hashbrown_nightly_hack (#23445)</li>\n<li>Rework Categorical/Enum to use (Frozen)Categories (#23016)</li>\n<li>Fix typing error from new pandas-stubs release (#23414)</li>\n<li>Ignore Sort if 'by' is empty (#23320)</li>\n<li>Rename from_buffer()/FromBuffer to reinterpret()/Reinterpret (#23362)</li>\n<li>Only conver to <code>ExprIR</code> once in <code>with_columns</code> (#23352)</li>\n<li>Update rust version in nix flake (#23347)</li>\n<li>Update toolchain and fix clippy issues (#23334)</li>\n<li>Improve cloud tests (#23312)</li>\n<li>Casting from binview to primitives code moved from polars-ops to polars-compute (#23234)</li>\n<li>Improve DSL source cache (#23282)</li>\n<li>Add new <code>PlPath</code> that abstracts over PathBuf and URI (#23280)</li>\n<li>Add <code>may_fail_cloud</code> mark for pytest (#23279)</li>\n<li>Organize <code>dsl_to_ir</code> logic into modules (#23277)</li>\n<li>Add flag for auto distributed testing (#23220)</li>\n<li>Remove unused PyDataType (#23265)</li>\n<li>Split FileScan in FileScanDsl and FileScanIR (#23260)</li>\n<li>Update Rust Polars versions (#23239)</li>\n<li>Connect Python <code>assert_dataframe_equal()</code> to Rust back-end (#23207)</li>\n<li>Fix time zone handling in <code>dt.iso_year</code> and <code>dt.is_leap_year</code> (#23125)</li>\n<li>Update Rust Polars versions (#23229)</li>\n</ul>\n<p>Thank you to all our contributors for making this release possible!\n@Declow, @JakubValtar, @Kevin-Patyk, @Liyixin95, @MarcoGorelli, @Matt711, @TheLostLambda, @Washiil, @borchero, @c-peters, @cmdlineluser, @coastalwhite, @deanm0000, @eitsupi, @etiennebacher, @florian-klein, @gfvioli, @habaneraa, @itamarst, @kdn36, @ldhwaddell, @math-hiyoko, @mcrumiller, @mrkn, @nameexhaustion, @orlp, @othijssens, @r-brink, @ritchie46, @stijnherfst and @zyctree</p>",
+        "title": "FIGURE 2 in The identity of Pristolepis malabarica (G\u00fcnther 1864) and Pristolepis procerus Plamoottil 2017, its junior synonym (Anabantiformes: Pristolepididae)",
+        "doi": "10.5281/zenodo.17016971",
+        "publication_date": "2025-08-28",
+        "description": "FIGURE 2. CT scan images of the head of Pristolepis malabarica (57.8 mm SL): (a) ventral view of dorsal dentition; (b) dorsal view of ventral dentition; and (c) frontolateral view of head. Note larger projecting parasymphyseal caniniform teeth in upper and lower jaws. Abbreviations: bh-bb tpl- basihyal-basibranchial tooth patch, cb5- ceratobranchial 5, de- dentary, hb3- hypobranchial 3, pal- palatine, pb2- pharyngobranchial 2, pb3- pharyngobranchial 3pmx- premaxilla, ps- parasphenoid, up4- 4th upper pharyngeal toothplate, vo- vomer.",
         "access_right": "open",
         "creators": [
           {
-            "name": "Ritchie Vink",
-            "affiliation": null
+            "name": "Prakash, Anjana Preetha",
+            "affiliation": "Department of Fisheries Resource Management, Kerala University of Fisheries and Ocean Studies (KUFOS), Kochi, India."
           },
           {
-            "name": "Stijn de Gooijer",
-            "affiliation": null
+            "name": "Raghavan, Rajeev",
+            "affiliation": "Department of Fisheries Resource Management, Kerala University of Fisheries and Ocean Studies (KUFOS), Kochi, India."
           },
           {
-            "name": "Alexander Beedie",
-            "affiliation": null
+            "name": "Britz, Ralf",
+            "affiliation": null,
+            "orcid": "0000-0003-4699-5499"
           },
           {
-            "name": "Gijs Burghoorn",
-            "affiliation": "Polars"
-          },
-          {
-            "name": "nameexhaustion",
-            "affiliation": null
-          },
-          {
-            "name": "Orson Peters",
-            "affiliation": "Polars"
-          },
-          {
-            "name": "Marco Edward Gorelli",
-            "affiliation": "Quansight"
-          },
-          {
-            "name": "reswqa",
-            "affiliation": null
-          },
-          {
-            "name": "Jeroen van Zundert",
-            "affiliation": null
-          },
-          {
-            "name": "Marshall",
-            "affiliation": null
-          },
-          {
-            "name": "Gert Hulselmans",
-            "affiliation": "@aertslab"
-          },
-          {
-            "name": "Cory Grinstead",
-            "affiliation": null
-          },
-          {
-            "name": "Luke Manley",
-            "affiliation": null
-          },
-          {
-            "name": "chielP",
-            "affiliation": null
-          },
-          {
-            "name": "Itamar Turner-Trauring",
-            "affiliation": null
-          },
-          {
-            "name": "Kuba Valtar",
-            "affiliation": "Polars"
-          },
-          {
-            "name": "Koen Denecker",
-            "affiliation": null
-          },
-          {
-            "name": "Lawrence Mitchell",
-            "affiliation": null
-          },
-          {
-            "name": "eitsupi",
-            "affiliation": null
-          },
-          {
-            "name": "Matteo Santamaria",
-            "affiliation": "University of California, Berkeley"
-          },
-          {
-            "name": "Karl Genockey",
-            "affiliation": null
-          },
-          {
-            "name": "Henry Harbeck",
-            "affiliation": null
-          },
-          {
-            "name": "deanm0000",
-            "affiliation": null
-          },
-          {
-            "name": "Dani\u00ebl Heres",
-            "affiliation": "@coralogix"
-          },
-          {
-            "name": "Robin",
-            "affiliation": null
-          },
-          {
-            "name": "Josh Magarick",
-            "affiliation": null
-          },
-          {
-            "name": "Ion Koutsouris",
-            "affiliation": null
-          },
-          {
-            "name": "Oliver Borchert",
-            "affiliation": "@Quantco"
-          },
-          {
-            "name": "Moritz Wilksch",
-            "affiliation": "@QuantCo"
+            "name": "Ali, Anvar",
+            "affiliation": "Department of Fisheries Resource Management, Kerala University of Fisheries and Ocean Studies (KUFOS), Kochi, India."
           }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy"
         ],
         "related_identifiers": [
           {
-            "identifier": "https://github.com/pola-rs/polars/tree/py-1.32.0",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
+            "identifier": "10.11646/zootaxa.5686.3.7",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:FFB9FFBF856EFFD7E95C646FFFDBE211",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/FFB9FFBF856EFFD7E95C646FFFDBE211",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/17016965",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
             "scheme": "url"
           }
         ],
-        "version": "py-1.32.0",
-        "custom": {
-          "code:codeRepository": "https://github.com/pola-rs/polars"
-        },
         "resource_type": {
-          "title": "Software",
-          "type": "software"
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "issue": "3",
+          "pages": "438-446",
+          "title": "Zootaxa",
+          "volume": "5686"
         },
         "license": {
-          "id": "cc-by-4.0"
+          "id": "notspecified"
         },
-        "relations": {
-          "version": [
-            {
-              "index": 182,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "7697217"
-              }
-            }
-          ]
-        }
-      },
-      "title": "pola-rs/polars: Python Polars 1.32.0",
-      "links": {
-        "self": "https://zenodo.org/api/records/16661469",
-        "self_html": "https://zenodo.org/records/16661469",
-        "preview_html": "https://zenodo.org/records/16661469?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16661469",
-        "self_doi": "https://doi.org/10.5281/zenodo.16661469",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16661469",
-        "reserve_doi": "https://zenodo.org/api/records/16661469/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/7697217",
-        "parent_html": "https://zenodo.org/records/7697217",
-        "parent_doi": "https://doi.org/10.5281/zenodo.7697217",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.7697217",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16661469/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16661469/sequence/default",
-        "files": "https://zenodo.org/api/records/16661469/files",
-        "media_files": "https://zenodo.org/api/records/16661469/media-files",
-        "archive": "https://zenodo.org/api/records/16661469/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16661469/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16661469/versions/latest",
-        "latest_html": "https://zenodo.org/records/16661469/latest",
-        "versions": "https://zenodo.org/api/records/16661469/versions",
-        "draft": "https://zenodo.org/api/records/16661469/draft",
-        "access_links": "https://zenodo.org/api/records/16661469/access/links",
-        "access_grants": "https://zenodo.org/api/records/16661469/access/grants",
-        "access_users": "https://zenodo.org/api/records/16661469/access/users",
-        "access_request": "https://zenodo.org/api/records/16661469/access/request",
-        "access": "https://zenodo.org/api/records/16661469/access",
-        "communities": "https://zenodo.org/api/records/16661469/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16661469/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16661469/requests"
-      },
-      "updated": "2025-08-01T01:44:06.088663+00:00",
-      "recid": "16661469",
-      "revision": 4,
-      "files": [
-        {
-          "id": "6edcf0f4-8e56-4355-a78a-b92aca6b81dd",
-          "key": "pola-rs/polars-py-1.32.0.zip",
-          "size": 6030060,
-          "checksum": "md5:cca59acdfaf66cd62b6028323b90e9ce",
-          "links": {
-            "self": "https://zenodo.org/api/records/16661469/files/pola-rs/polars-py-1.32.0.zip/content"
-          }
-        }
-      ],
-      "swh": {
-        "swhid": "swh:1:dir:3f8d088cc158a8060a3b9d66a258da13e9473d3b;origin=https://doi.org/10.5281/zenodo.7697217;visit=swh:1:snp:31a32fd284c910d7176e26e0c35edec427210867;anchor=swh:1:rel:75697aea26f61fa530e7a2d9f0f10a7deebcf9d7;path=pola-rs-polars-c57de4b"
-      },
-      "owners": [
-        {
-          "id": "506001"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 777,
-        "unique_downloads": 770,
-        "views": 7696,
-        "unique_views": 7371,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 2,
-        "version_views": 2
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-07-31T17:01:21.681228+00:00",
-      "modified": "2025-07-31T17:01:22.692283+00:00",
-      "id": 16644563,
-      "conceptrecid": "16644562",
-      "doi": "10.23919/EuCAP63536.2025.10999189",
-      "doi_url": "https://doi.org/10.23919/EuCAP63536.2025.10999189",
-      "metadata": {
-        "title": "Metasurface Dome Antennas with Non-Locality Compensation",
-        "doi": "10.23919/EuCAP63536.2025.10999189",
-        "publication_date": "2025-04-07",
-        "description": "<p>Steerable antennas typically struggle to maintain optimal radiation performance at large scan angles. This field of view (FoV) limitation becomes critical for the implementation of efficient transmitters in reconfigurable intelligent surfaces (RIS) based networks. The inclusion of a static metasurface (MTS) dome in the antenna system has been previously proposed to increase the scan range. However, preceding investigations based the wide-angle matching on a predistortion calculated under the assumption of refraction locality. In this paper, we demonstrate that non-locality compensation provides an outperforming solution for the scan range expansion. Full-wave simulations are reported, demonstrating the enhanced performance of the metadome (MTD) system compared to the standalone antenna, as well as the superiority of the non-local approach over the compensation assuming locality.</p>",
-        "access_right": "open",
-        "creators": [
+        "communities": [
           {
-            "name": "Garc\u00eda-Fern\u00e1ndez, Joaqu\u00edn",
-            "affiliation": "Wave Up (Italy)",
-            "orcid": "0000-0002-7543-2276"
-          },
-          {
-            "name": "caminita, francesco",
-            "affiliation": "Wave Up (Italy)",
-            "orcid": "0000-0002-6525-7697"
-          },
-          {
-            "name": "Della Giovampaola, Cristian",
-            "affiliation": "Wave Up (Italy)",
-            "orcid": "0000-0002-0374-7121"
-          },
-          {
-            "name": "Nannetti, Massimo",
-            "affiliation": "Wave Up (Italy)"
-          },
-          {
-            "name": "Martini, Enrica",
-            "affiliation": "University of Siena",
-            "orcid": "0000-0001-6319-8040"
-          },
-          {
-            "name": "MACI, Stefano",
-            "affiliation": "University of Siena",
-            "orcid": "0000-0003-3145-0074"
+            "id": "biosyslit"
           }
         ],
-        "resource_type": {
-          "title": "Conference paper",
-          "type": "publication",
-          "subtype": "conferencepaper"
-        },
-        "meeting": {
-          "title": "2025 19th European Conference on Antennas and Propagation (EuCAP)"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
         "relations": {
           "version": [
             {
@@ -295,188 +90,71 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "16644562"
+                "pid_value": "17016970"
               }
             }
           ]
-        }
-      },
-      "title": "Metasurface Dome Antennas with Non-Locality Compensation",
-      "links": {
-        "self": "https://zenodo.org/api/records/16644563",
-        "self_html": "https://zenodo.org/records/16644563",
-        "preview_html": "https://zenodo.org/records/16644563?preview=1",
-        "doi": "https://doi.org/10.23919/EuCAP63536.2025.10999189",
-        "self_doi": "https://doi.org/10.23919/EuCAP63536.2025.10999189",
-        "self_doi_html": "https://zenodo.org/doi/10.23919/EuCAP63536.2025.10999189",
-        "reserve_doi": "https://zenodo.org/api/records/16644563/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16644562",
-        "parent_html": "https://zenodo.org/records/16644562",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16644563/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16644563/sequence/default",
-        "files": "https://zenodo.org/api/records/16644563/files",
-        "media_files": "https://zenodo.org/api/records/16644563/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:16644563:Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf/full/%5E10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:16644563:Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf/full/%5E50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:16644563:Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf/full/%5E100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:16644563:Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf/full/%5E250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:16644563:Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf/full/%5E750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:16644563:Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf/full/%5E1200,/0/default.jpg"
         },
-        "archive": "https://zenodo.org/api/records/16644563/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16644563/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16644563/versions/latest",
-        "latest_html": "https://zenodo.org/records/16644563/latest",
-        "versions": "https://zenodo.org/api/records/16644563/versions",
-        "draft": "https://zenodo.org/api/records/16644563/draft",
-        "access_links": "https://zenodo.org/api/records/16644563/access/links",
-        "access_grants": "https://zenodo.org/api/records/16644563/access/grants",
-        "access_users": "https://zenodo.org/api/records/16644563/access/users",
-        "access_request": "https://zenodo.org/api/records/16644563/access/request",
-        "access": "https://zenodo.org/api/records/16644563/access",
-        "communities": "https://zenodo.org/api/records/16644563/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16644563/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16644563/requests"
+        "notes": "Published as part of <i>Prakash, Anjana Preetha, Raghavan, Rajeev, Britz, Ralf &amp; Ali, Anvar, 2025, The identity of Pristolepis malabarica (G\u00fcnther 1864) and Pristolepis procerus Plamoottil 2017, its junior synonym (Anabantiformes: Pristolepididae), pp. 438-446 in Zootaxa 5686 (3)</i> on page 443, DOI: 10.11646/zootaxa.5686.3.7, <a href=\"http://zenodo.org/record/17016965\">http://zenodo.org/record/17016965</a>"
       },
-      "updated": "2025-07-31T17:01:22.692283+00:00",
-      "recid": "16644563",
-      "revision": 4,
+      "title": "FIGURE 2 in The identity of Pristolepis malabarica (G\u00fcnther 1864) and Pristolepis procerus Plamoottil 2017, its junior synonym (Anabantiformes: Pristolepididae)",
+      "links": {
+        "self": "https://zenodo.org/api/records/17016971",
+        "self_html": "https://zenodo.org/records/17016971",
+        "preview_html": "https://zenodo.org/records/17016971?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17016971",
+        "self_doi": "https://doi.org/10.5281/zenodo.17016971",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17016971",
+        "reserve_doi": "https://zenodo.org/api/records/17016971/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17016970",
+        "parent_html": "https://zenodo.org/records/17016970",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17016970",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17016970",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17016971/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17016971/sequence/default",
+        "files": "https://zenodo.org/api/records/17016971/files",
+        "media_files": "https://zenodo.org/api/records/17016971/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17016971:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17016971:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17016971:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17016971:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17016971:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17016971:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17016971/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17016971/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17016971/versions/latest",
+        "latest_html": "https://zenodo.org/records/17016971/latest",
+        "versions": "https://zenodo.org/api/records/17016971/versions",
+        "draft": "https://zenodo.org/api/records/17016971/draft",
+        "access_links": "https://zenodo.org/api/records/17016971/access/links",
+        "access_grants": "https://zenodo.org/api/records/17016971/access/grants",
+        "access_users": "https://zenodo.org/api/records/17016971/access/users",
+        "access_request": "https://zenodo.org/api/records/17016971/access/request",
+        "access": "https://zenodo.org/api/records/17016971/access",
+        "communities": "https://zenodo.org/api/records/17016971/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17016971/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17016971/requests"
+      },
+      "updated": "2025-09-01T07:28:35.008656+00:00",
+      "recid": "17016971",
+      "revision": 5,
       "files": [
         {
-          "id": "ab248038-9f58-4445-bd0c-efd486947ce1",
-          "key": "Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf",
-          "size": 787653,
-          "checksum": "md5:c759780e7488b138fd45054305d7855b",
+          "id": "85bb46f3-e9ea-4c21-b262-10e8a50fc790",
+          "key": "figure.png",
+          "size": 10150222,
+          "checksum": "md5:0b42b244338a14e4f681f3b5df538c6a",
           "links": {
-            "self": "https://zenodo.org/api/records/16644563/files/Metasurface_Dome_Antennas_with_Non-Locality_Compensation.pdf/content"
+            "self": "https://zenodo.org/api/records/17016971/files/figure.png/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "1377417"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 4,
-        "unique_downloads": 3,
-        "views": 4,
-        "unique_views": 3,
-        "version_downloads": 4,
-        "version_unique_downloads": 3,
-        "version_unique_views": 3,
-        "version_views": 4
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-07-31T09:18:19.959115+00:00",
-      "modified": "2025-07-31T09:18:20.159320+00:00",
-      "id": 16631395,
-      "conceptrecid": "16631394",
-      "doi": "10.5281/zenodo.16631395",
-      "conceptdoi": "10.5281/zenodo.16631394",
-      "doi_url": "https://doi.org/10.5281/zenodo.16631395",
-      "metadata": {
-        "title": "lucrezialaccetti8/Genome-association-analyses: Genome association analyses in the wild plant Brassica incana",
-        "doi": "10.5281/zenodo.16631395",
-        "publication_date": "2025-07-31",
-        "description": "<p>This repository stores the R codes used to perform all the genomic analyses related to the publication of Laccetti et al: &quot;Genomic signatures of seed trait adaptation in the wild plant Brassica incana&quot;. The study combines genome-wide association, genome-environment association and a genome-wide scan of spatial genomic differentiation to identify putative signatures of adaptation in seed traits and to climate and pollinators across 14 populations of the wild plant Brassica incana.</p>\n<p>Sequencing data from Pacbio and Illumina used for this study are available at the ENA database (project number PRJEB54646). The bionano raw data and assembled optical maps are available at NCBI database (sample name PRJNA859008). Data on seed trait and ecological variables are provided in Supplementary material (Supplementary Data 1) of the publication.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "lucrezialaccetti8",
-            "affiliation": null
-          }
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "https://github.com/lucrezialaccetti8/Genome-association-analyses/tree/v1.0.0",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
-          }
-        ],
-        "version": "v1.0.0",
-        "custom": {
-          "code:codeRepository": "https://github.com/lucrezialaccetti8/Genome-association-analyses"
-        },
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "mit-license"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "16631394"
-              }
-            }
-          ]
-        }
-      },
-      "title": "lucrezialaccetti8/Genome-association-analyses: Genome association analyses in the wild plant Brassica incana",
-      "links": {
-        "self": "https://zenodo.org/api/records/16631395",
-        "self_html": "https://zenodo.org/records/16631395",
-        "preview_html": "https://zenodo.org/records/16631395?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16631395",
-        "self_doi": "https://doi.org/10.5281/zenodo.16631395",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16631395",
-        "reserve_doi": "https://zenodo.org/api/records/16631395/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16631394",
-        "parent_html": "https://zenodo.org/records/16631394",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16631394",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16631394",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16631395/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16631395/sequence/default",
-        "files": "https://zenodo.org/api/records/16631395/files",
-        "media_files": "https://zenodo.org/api/records/16631395/media-files",
-        "archive": "https://zenodo.org/api/records/16631395/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16631395/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16631395/versions/latest",
-        "latest_html": "https://zenodo.org/records/16631395/latest",
-        "versions": "https://zenodo.org/api/records/16631395/versions",
-        "draft": "https://zenodo.org/api/records/16631395/draft",
-        "access_links": "https://zenodo.org/api/records/16631395/access/links",
-        "access_grants": "https://zenodo.org/api/records/16631395/access/grants",
-        "access_users": "https://zenodo.org/api/records/16631395/access/users",
-        "access_request": "https://zenodo.org/api/records/16631395/access/request",
-        "access": "https://zenodo.org/api/records/16631395/access",
-        "communities": "https://zenodo.org/api/records/16631395/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16631395/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16631395/requests"
-      },
-      "updated": "2025-07-31T09:18:20.159320+00:00",
-      "recid": "16631395",
-      "revision": 4,
-      "files": [
-        {
-          "id": "e6477f3a-e3d0-46d9-81b2-c09a7a5995cd",
-          "key": "lucrezialaccetti8/Genome-association-analyses-v1.0.0.zip",
-          "size": 11441,
-          "checksum": "md5:9472644543a1745639c25c6adbcbe0c3",
-          "links": {
-            "self": "https://zenodo.org/api/records/16631395/files/lucrezialaccetti8/Genome-association-analyses-v1.0.0.zip/content"
-          }
-        }
-      ],
-      "swh": {
-        "swhid": "swh:1:dir:4e4790d1da36f2da4b51c719c56591ac50082def;origin=https://doi.org/10.5281/zenodo.16631394;visit=swh:1:snp:9e414fea3234ce845bdc06afc85695c8fb704b6a;anchor=swh:1:rel:aef44bed5a1db4c457f3f329964b4c52db8759c7;path=lucrezialaccetti8-Genome-association-analyses-a9812bd"
-      },
-      "owners": [
-        {
-          "id": "1322367"
+          "id": "1161"
         }
       ],
       "status": "published",
@@ -494,664 +172,88 @@
       "submitted": true
     },
     {
-      "created": "2025-07-31T01:04:54.900479+00:00",
-      "modified": "2025-07-31T01:04:55.150539+00:00",
-      "id": 16624097,
-      "conceptrecid": "16624096",
-      "doi": "10.5281/zenodo.16624097",
-      "conceptdoi": "10.5281/zenodo.16624096",
-      "doi_url": "https://doi.org/10.5281/zenodo.16624097",
+      "created": "2025-09-01T06:34:42.352802+00:00",
+      "modified": "2025-09-01T06:34:43.235858+00:00",
+      "id": 17015992,
+      "conceptrecid": "17015991",
+      "doi": "10.5281/zenodo.17015992",
+      "conceptdoi": "10.5281/zenodo.17015991",
+      "doi_url": "https://doi.org/10.5281/zenodo.17015992",
       "metadata": {
-        "title": "Predicted Decay Channels and Detection Strategies for the 12.87 GeV Chronos Dark Resonance",
-        "doi": "10.5281/zenodo.16624097",
-        "publication_date": "2025-07-30",
-        "description": "<p>This paper presents a falsifiable prediction of a metastable resonance at 12.87 GeV, linked to curvature band index&nbsp;in Chronos Theory. Positioned between tau and electroweak scales, this resonance is proposed as a potential dark sector bridge, with decay modes favoring muon, tau, and meson channels, and possible missing energy signals. Detection strategies focus on displaced vertices and invariant mass clustering below 13 GeV. The study provides explicit collider test conditions and outlines the implications for dark matter coupling and recursive curvature models.</p>",
-        "access_right": "restricted",
-        "creators": [
-          {
-            "name": "Hall, Matthew",
-            "affiliation": null,
-            "orcid": "0009-0001-7066-2558"
-          }
-        ],
-        "keywords": [
-          "Chronos Theory",
-          "12.87 GeV Resonance",
-          "Dark Sector Bridge",
-          "Curvature Band",
-          "Falsifiable Prediction",
-          "Leptonic Decay",
-          "Metastable Particle",
-          "Collider Physics",
-          "Invariant Mass Scan",
-          "Missing Energy",
-          "Recursive Curvature",
-          "Dark Matter Coupling",
-          "Time-Structured Quantum Dynamics"
-        ],
-        "version": "V1.0",
-        "language": "eng",
-        "resource_type": {
-          "title": "Preprint",
-          "type": "publication",
-          "subtype": "preprint"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "16624096"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Predicted Decay Channels and Detection Strategies for the 12.87 GeV Chronos Dark Resonance",
-      "links": {
-        "self": "https://zenodo.org/api/records/16624097",
-        "self_html": "https://zenodo.org/records/16624097",
-        "preview_html": "https://zenodo.org/records/16624097?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16624097",
-        "self_doi": "https://doi.org/10.5281/zenodo.16624097",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16624097",
-        "reserve_doi": "https://zenodo.org/api/records/16624097/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16624096",
-        "parent_html": "https://zenodo.org/records/16624096",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16624096",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16624096",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16624097/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16624097/sequence/default",
-        "files": "https://zenodo.org/api/records/16624097/files",
-        "media_files": "https://zenodo.org/api/records/16624097/media-files",
-        "archive": "https://zenodo.org/api/records/16624097/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16624097/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16624097/versions/latest",
-        "latest_html": "https://zenodo.org/records/16624097/latest",
-        "versions": "https://zenodo.org/api/records/16624097/versions",
-        "draft": "https://zenodo.org/api/records/16624097/draft",
-        "access_links": "https://zenodo.org/api/records/16624097/access/links",
-        "access_grants": "https://zenodo.org/api/records/16624097/access/grants",
-        "access_users": "https://zenodo.org/api/records/16624097/access/users",
-        "access_request": "https://zenodo.org/api/records/16624097/access/request",
-        "access": "https://zenodo.org/api/records/16624097/access",
-        "communities": "https://zenodo.org/api/records/16624097/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16624097/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16624097/requests"
-      },
-      "updated": "2025-07-31T01:04:55.150539+00:00",
-      "recid": "16624097",
-      "revision": 4,
-      "files": [],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1264473"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 2,
-        "unique_downloads": 2,
-        "views": 2,
-        "unique_views": 2,
-        "version_downloads": 2,
-        "version_unique_downloads": 2,
-        "version_unique_views": 2,
-        "version_views": 2
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-07-31T00:55:05.731059+00:00",
-      "modified": "2025-07-31T01:20:53.950971+00:00",
-      "id": 16624061,
-      "conceptrecid": "16624060",
-      "doi": "10.5281/zenodo.16624061",
-      "conceptdoi": "10.5281/zenodo.16624060",
-      "doi_url": "https://doi.org/10.5281/zenodo.16624061",
-      "metadata": {
-        "title": "The 4.63 GeV Chronos Transition Node: Recursive Decay Mapping and Experimental Verification",
-        "doi": "10.5281/zenodo.16624061",
-        "publication_date": "2025-07-30",
-        "description": "<p>This paper explores the predicted 4.63 GeV resonance in Chronos Theory, associated with curvature band index. Positioned between known leptonic states and higher-mass recursive transitions, this node functions as a decay anchor in the Chronos curvature lattice. The work details decay pathways, suppressed transitions, and cross-section profiles, with specific falsifiability criteria for collider experiments. The paper emphasizes its role in recursive decay validation and outlines detection strategies focused on low-mass invariant scans and photon-rich final states.</p>",
-        "access_right": "restricted",
-        "creators": [
-          {
-            "name": "Hall, Matthew",
-            "affiliation": null,
-            "orcid": "0009-0001-7066-2558"
-          }
-        ],
-        "keywords": [
-          "Chronos Theory",
-          "4.63 GeV Resonance",
-          "Curvature Band Index",
-          "Recursive Decay Anchor",
-          "Temporal Quantization",
-          "Particle Physics",
-          "Muon Pair Production",
-          "Invariant Mass Scan",
-          "Invisible Decays",
-          "Low-Energy Collider Test",
-          "Quantum Field Geometry",
-          "Falsifiable Prediction"
-        ],
-        "version": "V1.0",
-        "language": "eng",
-        "resource_type": {
-          "title": "Preprint",
-          "type": "publication",
-          "subtype": "preprint"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "16624060"
-              }
-            }
-          ]
-        }
-      },
-      "title": "The 4.63 GeV Chronos Transition Node: Recursive Decay Mapping and Experimental Verification",
-      "links": {
-        "self": "https://zenodo.org/api/records/16624061",
-        "self_html": "https://zenodo.org/records/16624061",
-        "preview_html": "https://zenodo.org/records/16624061?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16624061",
-        "self_doi": "https://doi.org/10.5281/zenodo.16624061",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16624061",
-        "reserve_doi": "https://zenodo.org/api/records/16624061/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16624060",
-        "parent_html": "https://zenodo.org/records/16624060",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16624060",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16624060",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16624061/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16624061/sequence/default",
-        "files": "https://zenodo.org/api/records/16624061/files",
-        "media_files": "https://zenodo.org/api/records/16624061/media-files",
-        "archive": "https://zenodo.org/api/records/16624061/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16624061/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16624061/versions/latest",
-        "latest_html": "https://zenodo.org/records/16624061/latest",
-        "versions": "https://zenodo.org/api/records/16624061/versions",
-        "draft": "https://zenodo.org/api/records/16624061/draft",
-        "access_links": "https://zenodo.org/api/records/16624061/access/links",
-        "access_grants": "https://zenodo.org/api/records/16624061/access/grants",
-        "access_users": "https://zenodo.org/api/records/16624061/access/users",
-        "access_request": "https://zenodo.org/api/records/16624061/access/request",
-        "access": "https://zenodo.org/api/records/16624061/access",
-        "communities": "https://zenodo.org/api/records/16624061/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16624061/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16624061/requests"
-      },
-      "updated": "2025-07-31T01:20:53.950971+00:00",
-      "recid": "16624061",
-      "revision": 6,
-      "files": [],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1264473"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 6,
-        "unique_downloads": 4,
-        "views": 6,
-        "unique_views": 4,
-        "version_downloads": 6,
-        "version_unique_downloads": 4,
-        "version_unique_views": 4,
-        "version_views": 6
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-07-31T00:52:01.349738+00:00",
-      "modified": "2025-07-31T01:21:16.382778+00:00",
-      "id": 16623959,
-      "conceptrecid": "16623958",
-      "doi": "10.5281/zenodo.16623959",
-      "conceptdoi": "10.5281/zenodo.16623958",
-      "doi_url": "https://doi.org/10.5281/zenodo.16623959",
-      "metadata": {
-        "title": "The 8.16 GeV Chronos Resonance: Transition Mechanics and Falsifiable Decay Patterns",
-        "doi": "10.5281/zenodo.16623959",
-        "publication_date": "2025-07-30",
-        "description": "<p>This paper identifies and characterizes a predicted resonance at 8.16 GeV within the Chronos curvature band model, corresponding to index. It serves as a transitional node between other quantized mass states, offering a testable bridge in recursive decay chains. The work details decay pathways, cross-section expectations, and detection strategies, including possible signatures of long-lived or invisible states. Designed for empirical validation, the paper proposes multiple falsifiability criteria tailored for collider environments.</p>",
-        "access_right": "restricted",
-        "creators": [
-          {
-            "name": "Hall, Matthew",
-            "affiliation": null,
-            "orcid": "0009-0001-7066-2558"
-          }
-        ],
-        "keywords": [
-          "Chronos Theory",
-          "8.16 GeV Resonance",
-          "Recursive Mass Quantization",
-          "Curvature Band Index",
-          "Particle Decay Channels",
-          "Long-Lived Particles",
-          "Collider Signatures",
-          "Quantum Time Structure",
-          "Cross-Section Prediction",
-          "Falsifiability",
-          "Invariant Mass Scan",
-          "Temporal Curvature"
-        ],
-        "version": "V1.0",
-        "language": "eng",
-        "resource_type": {
-          "title": "Preprint",
-          "type": "publication",
-          "subtype": "preprint"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "16623958"
-              }
-            }
-          ]
-        }
-      },
-      "title": "The 8.16 GeV Chronos Resonance: Transition Mechanics and Falsifiable Decay Patterns",
-      "links": {
-        "self": "https://zenodo.org/api/records/16623959",
-        "self_html": "https://zenodo.org/records/16623959",
-        "preview_html": "https://zenodo.org/records/16623959?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16623959",
-        "self_doi": "https://doi.org/10.5281/zenodo.16623959",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16623959",
-        "reserve_doi": "https://zenodo.org/api/records/16623959/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16623958",
-        "parent_html": "https://zenodo.org/records/16623958",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16623958",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16623958",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16623959/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16623959/sequence/default",
-        "files": "https://zenodo.org/api/records/16623959/files",
-        "media_files": "https://zenodo.org/api/records/16623959/media-files",
-        "archive": "https://zenodo.org/api/records/16623959/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16623959/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16623959/versions/latest",
-        "latest_html": "https://zenodo.org/records/16623959/latest",
-        "versions": "https://zenodo.org/api/records/16623959/versions",
-        "draft": "https://zenodo.org/api/records/16623959/draft",
-        "access_links": "https://zenodo.org/api/records/16623959/access/links",
-        "access_grants": "https://zenodo.org/api/records/16623959/access/grants",
-        "access_users": "https://zenodo.org/api/records/16623959/access/users",
-        "access_request": "https://zenodo.org/api/records/16623959/access/request",
-        "access": "https://zenodo.org/api/records/16623959/access",
-        "communities": "https://zenodo.org/api/records/16623959/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16623959/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16623959/requests"
-      },
-      "updated": "2025-07-31T01:21:16.382778+00:00",
-      "recid": "16623959",
-      "revision": 6,
-      "files": [],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1264473"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 3,
-        "unique_downloads": 2,
-        "views": 3,
-        "unique_views": 2,
-        "version_downloads": 3,
-        "version_unique_downloads": 2,
-        "version_unique_views": 2,
-        "version_views": 3
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-07-30T17:59:33.566687+00:00",
-      "modified": "2025-07-30T17:59:33.791722+00:00",
-      "id": 16618422,
-      "conceptrecid": "16618421",
-      "doi": "10.5281/zenodo.16618422",
-      "conceptdoi": "10.5281/zenodo.16618421",
-      "doi_url": "https://doi.org/10.5281/zenodo.16618422",
-      "metadata": {
-        "title": "Case Report: Recurrent Bacterial Meningitis in a Child with Structural Defect of the Base of the Skull- A Rare Presentation",
-        "doi": "10.5281/zenodo.16618422",
-        "publication_date": "2025-07-30",
-        "description": "<p><span>Recurrent bacterial meningitis (RBM) in children is unusual. It is usually associated with a predisposing factor, such as immunological deficiencies or anatomical defects. About 1.3% of children with bacterial meningitis had experienced at least one previous episode.<span>&nbsp; </span>Anatomical defects are the most common risk factor for RBM. An accurate diagnosis of the underlying pathology is crucial for preventing the further recurrence of bacterial meningitis. </span></p>\n<p><strong><span>Case Report: </span></strong><span>We report a case of RBM in a 5-year-old female with a history of fever, projectile vomiting, neck stiffness, and seizures. There is a history of 3 admissions in the past, with the same history of clear nasal discharge, which usually precedes neck stiffness and seizures. A cranial CT scan showed a basal skull defect. She was co-managed with the ENT and neurosurgeon.</span></p>\n<p><strong><span>Conclusion: </span></strong><span>Recurrent bacterial meningitis, though infrequently encountered, poses a major diagnostic challenge. This case report contributes significant clinical insight into the presentation and management of a rare presentation in a low-resource tertiary healthcare setting. Its importance lies in highlighting diagnostic challenges and treatment approaches in the context of limited diagnostic infrastructure.</span></p>",
+        "title": "FIGURE 13 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+        "doi": "10.5281/zenodo.17015992",
+        "publication_date": "2025-08-20",
+        "description": "FIGURE 13. MicroCT scan of the branchial arches of Dysommina pygmaea, A. NMV A 29681-004. branchial arches in dorsal view, with upper elements of left branchial arch flipped to allow ventral view. B. NMV A 29681-004. lower pharyngeal toothplates. C. NMV A 29681-004. upper pharyngeal toothplates. D. USNM 443847, upper right pharyngeal toothplate. Abbreviations: BB, basibranchial; CB, ceratobranchial; EB, epibranchial; HB, hyobranchial; IP, infrapharyngobranchial; LP; lower pharyngeal toothplate; UP, Upper pharyngeal toothplate.",
         "access_right": "open",
         "creators": [
           {
-            "name": "Pauline Kasarachi Akowundu",
-            "affiliation": null
+            "name": "Tighe, Kenneth A.",
+            "affiliation": "Department of Vertebrate Zoology, National Museum of Natural History, Smithsonian Institution, Museum Support Center, MRC 534, 4210 Silver Hill Road, Suitland, MD 20746, USA"
           },
           {
-            "name": "Patricia Akintan",
-            "affiliation": null
-          },
-          {
-            "name": "Blessing Ebele Kene-Udemezue",
-            "affiliation": null
+            "name": "Pogonoski, John J.",
+            "affiliation": null,
+            "orcid": "0000-0002-4878-3919"
           }
         ],
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
-        },
-        "journal": {
-          "issue": "7",
-          "pages": "5-8",
-          "title": "GAS Journal of Clinical Medicine and Medical Research (GASJCMMR)",
-          "volume": "2"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "16618421"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Case Report: Recurrent Bacterial Meningitis in a Child with Structural Defect of the Base of the Skull- A Rare Presentation",
-      "links": {
-        "self": "https://zenodo.org/api/records/16618422",
-        "self_html": "https://zenodo.org/records/16618422",
-        "preview_html": "https://zenodo.org/records/16618422?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16618422",
-        "self_doi": "https://doi.org/10.5281/zenodo.16618422",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16618422",
-        "reserve_doi": "https://zenodo.org/api/records/16618422/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16618421",
-        "parent_html": "https://zenodo.org/records/16618421",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16618421",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16618421",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16618422/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16618422/sequence/default",
-        "files": "https://zenodo.org/api/records/16618422/files",
-        "media_files": "https://zenodo.org/api/records/16618422/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:16618422:Case%20Report%20Recurrent%20Bacterial%20Meningitis%20in%20a%20Child%20with%20Structural%20Defect%20of%20the%20Base%20of%20the%20Skull-%20A%20Rare%20Presentation.pdf/full/%5E10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:16618422:Case%20Report%20Recurrent%20Bacterial%20Meningitis%20in%20a%20Child%20with%20Structural%20Defect%20of%20the%20Base%20of%20the%20Skull-%20A%20Rare%20Presentation.pdf/full/%5E50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:16618422:Case%20Report%20Recurrent%20Bacterial%20Meningitis%20in%20a%20Child%20with%20Structural%20Defect%20of%20the%20Base%20of%20the%20Skull-%20A%20Rare%20Presentation.pdf/full/%5E100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:16618422:Case%20Report%20Recurrent%20Bacterial%20Meningitis%20in%20a%20Child%20with%20Structural%20Defect%20of%20the%20Base%20of%20the%20Skull-%20A%20Rare%20Presentation.pdf/full/%5E250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:16618422:Case%20Report%20Recurrent%20Bacterial%20Meningitis%20in%20a%20Child%20with%20Structural%20Defect%20of%20the%20Base%20of%20the%20Skull-%20A%20Rare%20Presentation.pdf/full/%5E750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:16618422:Case%20Report%20Recurrent%20Bacterial%20Meningitis%20in%20a%20Child%20with%20Structural%20Defect%20of%20the%20Base%20of%20the%20Skull-%20A%20Rare%20Presentation.pdf/full/%5E1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/16618422/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16618422/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16618422/versions/latest",
-        "latest_html": "https://zenodo.org/records/16618422/latest",
-        "versions": "https://zenodo.org/api/records/16618422/versions",
-        "draft": "https://zenodo.org/api/records/16618422/draft",
-        "access_links": "https://zenodo.org/api/records/16618422/access/links",
-        "access_grants": "https://zenodo.org/api/records/16618422/access/grants",
-        "access_users": "https://zenodo.org/api/records/16618422/access/users",
-        "access_request": "https://zenodo.org/api/records/16618422/access/request",
-        "access": "https://zenodo.org/api/records/16618422/access",
-        "communities": "https://zenodo.org/api/records/16618422/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16618422/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16618422/requests"
-      },
-      "updated": "2025-07-30T17:59:33.791722+00:00",
-      "recid": "16618422",
-      "revision": 4,
-      "files": [
-        {
-          "id": "8e9f96f3-4e05-4dbd-b9cf-a58798d1c611",
-          "key": "Case Report Recurrent Bacterial Meningitis in a Child with Structural Defect of the Base of the Skull- A Rare Presentation.pdf",
-          "size": 384028,
-          "checksum": "md5:b01885bf4dc892b18107749886eddb43",
-          "links": {
-            "self": "https://zenodo.org/api/records/16618422/files/Case Report Recurrent Bacterial Meningitis in a Child with Structural Defect of the Base of the Skull- A Rare Presentation.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "602509"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 3,
-        "unique_downloads": 3,
-        "views": 4,
-        "unique_views": 3,
-        "version_downloads": 3,
-        "version_unique_downloads": 3,
-        "version_unique_views": 3,
-        "version_views": 4
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-07-30T16:45:44.954425+00:00",
-      "modified": "2025-07-30T16:45:45.199954+00:00",
-      "id": 16616896,
-      "conceptrecid": "16616894",
-      "doi": "10.5281/zenodo.16616896",
-      "conceptdoi": "10.5281/zenodo.16616894",
-      "doi_url": "https://doi.org/10.5281/zenodo.16616896",
-      "metadata": {
-        "title": "FLOOD SEGMENTATION USING AERIAL IMAGE",
-        "doi": "10.5281/zenodo.16616896",
-        "publication_date": "2025-07-30",
-        "description": "<p><a href=\"https://ijetrm.com/issues/files/Jul-2025-30-1753893820-JULY139.pdf\">&nbsp;Floods are one </a>of the most common and devastating natural disasters, causing widespread damage to lives,<br>property, and the environment. Identifying flooded areas quickly is crucial for effective disaster response and recovery.<br>Traditional methods of flood detection are often slow, labor-intensive, and may not cover large or remote regions effectively. This<br>project aims to provide a smart and efficient solution by using aerial images taken from drones, satellites, or aircraft. These<br>images are analyzed using advanced computer programs, which apply machine learning and deep learning techniques to<br>automatically detect and mark flood-affected regions. These intelligent algorithms can scan and process large amounts of image<br>data much faster than humans and with greater accuracy. The proposed system not only saves time but also offers real-time or<br>near-real-time flood mapping, helping emergency response teams, government authorities, and planners to take quick and<br>informed decisions. By providing accurate flood maps, this approach improves disaster management, reduces the impact of floods,<br>and supports better planning for future emergencies.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Koyya Sai Sushwanth,  Dr. M. Ramjee",
-            "affiliation": null
-          }
-        ],
-        "custom": {
-          "code:codeRepository": "https://ijetrm.com/issue/?volume=current"
-        },
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
-        },
-        "journal": {
-          "issue": "07",
-          "title": "International Journal Of Engineering Technology Research & Management (IJETRM)",
-          "volume": "09"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "16616894"
-              }
-            }
-          ]
-        }
-      },
-      "title": "FLOOD SEGMENTATION USING AERIAL IMAGE",
-      "links": {
-        "self": "https://zenodo.org/api/records/16616896",
-        "self_html": "https://zenodo.org/records/16616896",
-        "preview_html": "https://zenodo.org/records/16616896?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16616896",
-        "self_doi": "https://doi.org/10.5281/zenodo.16616896",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16616896",
-        "reserve_doi": "https://zenodo.org/api/records/16616896/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16616894",
-        "parent_html": "https://zenodo.org/records/16616894",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16616894",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16616894",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16616896/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16616896/sequence/default",
-        "files": "https://zenodo.org/api/records/16616896/files",
-        "media_files": "https://zenodo.org/api/records/16616896/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:16616896:JULY139.pdf/full/%5E10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:16616896:JULY139.pdf/full/%5E50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:16616896:JULY139.pdf/full/%5E100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:16616896:JULY139.pdf/full/%5E250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:16616896:JULY139.pdf/full/%5E750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:16616896:JULY139.pdf/full/%5E1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/16616896/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16616896/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16616896/versions/latest",
-        "latest_html": "https://zenodo.org/records/16616896/latest",
-        "versions": "https://zenodo.org/api/records/16616896/versions",
-        "draft": "https://zenodo.org/api/records/16616896/draft",
-        "access_links": "https://zenodo.org/api/records/16616896/access/links",
-        "access_grants": "https://zenodo.org/api/records/16616896/access/grants",
-        "access_users": "https://zenodo.org/api/records/16616896/access/users",
-        "access_request": "https://zenodo.org/api/records/16616896/access/request",
-        "access": "https://zenodo.org/api/records/16616896/access",
-        "communities": "https://zenodo.org/api/records/16616896/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16616896/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16616896/requests"
-      },
-      "updated": "2025-07-30T16:45:45.199954+00:00",
-      "recid": "16616896",
-      "revision": 4,
-      "files": [
-        {
-          "id": "80cc40a8-3ea1-42bd-958c-f0dac2fb4291",
-          "key": "JULY139.pdf",
-          "size": 448666,
-          "checksum": "md5:9d5981c138fb8f50543921103b39783f",
-          "links": {
-            "self": "https://zenodo.org/api/records/16616896/files/JULY139.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "214539"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 4,
-        "unique_downloads": 3,
-        "views": 3,
-        "unique_views": 3,
-        "version_downloads": 4,
-        "version_unique_downloads": 3,
-        "version_unique_views": 3,
-        "version_views": 3
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-07-30T09:53:21.305586+00:00",
-      "modified": "2025-07-30T09:53:21.608914+00:00",
-      "id": 16603233,
-      "conceptrecid": "16603232",
-      "doi": "10.17632/5tvnwhsj2p.2",
-      "doi_url": "https://doi.org/10.17632/5tvnwhsj2p.2",
-      "metadata": {
-        "title": "A dataset of labelled device Wi-Fi probe requests for MAC address de-randomization - 2024",
-        "doi": "10.17632/5tvnwhsj2p.2",
-        "publication_date": "2025-07-30",
-        "description": "<p>A Wi-Fi client device can perform an active scan to speed up the connection process by transmitting Probe Request messages periodically. These are management frames of the IEEE 802.11 standard. The process of capturing these messages is called sniffing and can be performed using a Wi-Fi interface set in monitor mode and tuned to the same channel (or an adjacent channel) where the transmission occurred. Since these messages are not encrypted, they can be used to implement device counting algorithms based on MAC address analysis. However, to prevent tracking of device owners, major operating system producers have developed MAC address randomization functionalities. Devices that periodically and randomly change their physical address pose a challenge to counting algorithms, which must then perform additional steps to cluster probe requests according to the source device through analysis of appropriate message features. Our dataset is divided into two parts: - Anechoic Chamber Data Collection: Data was collected from 22 devices simultaneously in a controlled environment (anechoic chamber) to ensure the absence of external interference. All devices kept the Wi-Fi interface active and the display switched off. Data was collected only on channel 6 for 30 minutes. This data is stored in the \"Anechoic chamber\" folder and the \"Anechoic chamber - info.xlsx\" file contains device information. - Individual Device Data Collection: Data was collected from 18 individual devices on three channels simultaneously and in six different modes, including settings based on display status, Wi-Fi connection, and power saving. Collecting data from individual devices allows for labelling them and associating them with their emitting source. The data was collected in \"noisy\" environments (a chamber without particular shielding but devoid of other probe request sources within a two-meter radius). Data is filtered to simulate the anechoic chamber environment. Capture files last 30 minutes and cover three non-overlapping channels (1, 6, and 11) simultaneously. This data is stored in the \"Individual devices\" folder and the \"Individual devices - info.xlsx\" file contains device information. We collected a total of 215 non-empty files, removing captures that were empty after filtering. The capture device used is a Raspberry Pi with three Wi-Fi dongle interfaces, each assigned to collect data from a specific channel. The main characteristic of this dataset is the subdivision by device, allowing for a more accurate analysis of individual device behaviour in different modes. Additionally, the labelled data can be used to train Machine Learning algorithms or to verify the correct functioning of algorithms aimed at counting devices through probe request analysis in the presence of random MAC addresses.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Pintor, Lucia",
-            "affiliation": "University of Cagliari",
-            "orcid": "0000-0001-7415-6612"
-          },
-          {
-            "name": "Chirigu, Alessio",
-            "affiliation": "University of Cagliari"
-          },
-          {
-            "name": "Atzori, Luigi",
-            "affiliation": "University of Cagliari",
-            "orcid": "0000-0003-1350-3574"
-          }
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Anguilliformes",
+          "Synaphobranchidae",
+          "Dysommina"
         ],
         "related_identifiers": [
           {
-            "identifier": "10.1016/j.comnet.2022.108783",
-            "relation": "isDescribedBy",
+            "identifier": "10.11646/zootaxa.5683.2.6",
+            "relation": "isPartOf",
             "resource_type": "publication-article",
             "scheme": "doi"
-          }
-        ],
-        "dates": [
+          },
           {
-            "type": "collected",
-            "description": "Wi-Fi probe requests"
+            "identifier": "urn:lsid:plazi.org:pub:DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/17015956",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/2159DD3384650D27FF6D17EA21C9FD6E",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
           }
         ],
-        "custom": {
-          "code:codeRepository": "https://github.com/luciapintor/WiFi-Sniffer",
-          "code:programmingLanguage": [
-            {
-              "id": "python",
-              "title": {
-                "en": "Python"
-              }
-            }
-          ]
-        },
         "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "issue": "2",
+          "pages": "265-281",
+          "title": "Zootaxa",
+          "volume": "5683"
         },
         "license": {
-          "id": "cc-by-4.0"
+          "id": "notspecified"
         },
         "communities": [
           {
-            "id": "net4u"
+            "id": "biosyslit"
           }
         ],
         "relations": {
@@ -1161,164 +263,170 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "16603232"
+                "pid_value": "17015991"
               }
             }
           ]
         },
-        "method": "<h2>Steps to reproduce</h2>\n<p>Data was acquired via a Raspberry Pi 3 (Model B+) running a Raspbian Operative System (OS) downloaded from the official repository. The Raspberry Pi was connected to three Wi-Fi dongles and a keyboard via its USB ports and to a monitor via its HDMI interface. Since the built-in Wi-Fi interface of the Raspberry Pi does not support monitor mode, its configuration was left unchanged. To replicate this dataset, it is essential to either select an interference-free environment (anechoic chamber) or properly prepare a noisy environment by removing all sources of Wi-Fi messages nearby, as described in the procedure to replicate our previous dataset: https://data.mendeley.com/datasets/j64btzdsdy/1 We developed and published on github two algorithms specifically designed for the generation of this dataset: a sniffing algorithm ( https://github.com/luciapintor/WiFi-Sniffer ) and a filtering one ( https://github.com/luciapintor/SnifferFiltering ). The sniffing algorithm was used to configure monitor mode on all interfaces, assign each to a specific Wi-Fi channel, and perform data acquisition. After setting up the environment (e.g., removing all Wi-Fi devices except the Raspberry Pi and the device to be analysed), we initiated the capture script and waited for its completion. This script starts sniffing simultaneously on three different interfaces, each set to a different channel, and saves the output in pcap files. Subsequently, we ran the filtering algorithm on the capture files to remove packets emitted by the Raspberry Pi (easily identifiable by its factory MAC address), packets from Access Points (identified by their beacon frames), and performed additional steps to simulate anechoic chamber conditions using power thresholds that exploit the burst structure of probe requests.</p>"
+        "notes": "Published as part of <i>Tighe, Kenneth A. &amp; Pogonoski, John J., 2025, A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean, pp. 265-281 in Zootaxa 5683 (2)</i> on page 278, DOI: 10.11646/zootaxa.5683.2.6, <a href=\"http://zenodo.org/record/17015956\">http://zenodo.org/record/17015956</a>"
       },
-      "title": "A dataset of labelled device Wi-Fi probe requests for MAC address de-randomization - 2024",
+      "title": "FIGURE 13 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
       "links": {
-        "self": "https://zenodo.org/api/records/16603233",
-        "self_html": "https://zenodo.org/records/16603233",
-        "preview_html": "https://zenodo.org/records/16603233?preview=1",
-        "doi": "https://doi.org/10.17632/5tvnwhsj2p.2",
-        "self_doi": "https://doi.org/10.17632/5tvnwhsj2p.2",
-        "self_doi_html": "https://zenodo.org/doi/10.17632/5tvnwhsj2p.2",
-        "reserve_doi": "https://zenodo.org/api/records/16603233/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16603232",
-        "parent_html": "https://zenodo.org/records/16603232",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16603233/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16603233/sequence/default",
-        "files": "https://zenodo.org/api/records/16603233/files",
-        "media_files": "https://zenodo.org/api/records/16603233/media-files",
-        "archive": "https://zenodo.org/api/records/16603233/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16603233/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16603233/versions/latest",
-        "latest_html": "https://zenodo.org/records/16603233/latest",
-        "versions": "https://zenodo.org/api/records/16603233/versions",
-        "draft": "https://zenodo.org/api/records/16603233/draft",
-        "access_links": "https://zenodo.org/api/records/16603233/access/links",
-        "access_grants": "https://zenodo.org/api/records/16603233/access/grants",
-        "access_users": "https://zenodo.org/api/records/16603233/access/users",
-        "access_request": "https://zenodo.org/api/records/16603233/access/request",
-        "access": "https://zenodo.org/api/records/16603233/access",
-        "communities": "https://zenodo.org/api/records/16603233/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16603233/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16603233/requests"
+        "self": "https://zenodo.org/api/records/17015992",
+        "self_html": "https://zenodo.org/records/17015992",
+        "preview_html": "https://zenodo.org/records/17015992?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17015992",
+        "self_doi": "https://doi.org/10.5281/zenodo.17015992",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015992",
+        "reserve_doi": "https://zenodo.org/api/records/17015992/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17015991",
+        "parent_html": "https://zenodo.org/records/17015991",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17015991",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015991",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17015992/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17015992/sequence/default",
+        "files": "https://zenodo.org/api/records/17015992/files",
+        "media_files": "https://zenodo.org/api/records/17015992/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17015992:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17015992:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17015992:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17015992:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17015992:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17015992:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17015992/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17015992/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17015992/versions/latest",
+        "latest_html": "https://zenodo.org/records/17015992/latest",
+        "versions": "https://zenodo.org/api/records/17015992/versions",
+        "draft": "https://zenodo.org/api/records/17015992/draft",
+        "access_links": "https://zenodo.org/api/records/17015992/access/links",
+        "access_grants": "https://zenodo.org/api/records/17015992/access/grants",
+        "access_users": "https://zenodo.org/api/records/17015992/access/users",
+        "access_request": "https://zenodo.org/api/records/17015992/access/request",
+        "access": "https://zenodo.org/api/records/17015992/access",
+        "communities": "https://zenodo.org/api/records/17015992/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17015992/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17015992/requests"
       },
-      "updated": "2025-07-30T09:53:21.608914+00:00",
-      "recid": "16603233",
-      "revision": 4,
+      "updated": "2025-09-01T06:34:43.235858+00:00",
+      "recid": "17015992",
+      "revision": 5,
       "files": [
         {
-          "id": "5bd3b932-31ba-4ee5-a9d9-2ac1901a7be7",
-          "key": "Anechoic chamber - info.xlsx",
-          "size": 40867,
-          "checksum": "md5:4cf85d332e94c9f74708f0cf64cd9c22",
+          "id": "fa6d3272-7705-4fd4-a4af-726c1d3fa4ac",
+          "key": "figure.png",
+          "size": 892594,
+          "checksum": "md5:b7862d23f7fe0710fe8b7542fe60766c",
           "links": {
-            "self": "https://zenodo.org/api/records/16603233/files/Anechoic chamber - info.xlsx/content"
-          }
-        },
-        {
-          "id": "941de8a3-a0ed-4315-bf9d-d88ba946e6f7",
-          "key": "Individual devices - info.xlsx",
-          "size": 44548,
-          "checksum": "md5:2d9d055dda3ed80c6a5c027bf5335c17",
-          "links": {
-            "self": "https://zenodo.org/api/records/16603233/files/Individual devices - info.xlsx/content"
-          }
-        },
-        {
-          "id": "6c8af8e7-c5ea-40fc-88e1-fc5c49b7f082",
-          "key": "Anechoic chamber.zip",
-          "size": 142439,
-          "checksum": "md5:82c9ee03593f13276853aa65dc6254f3",
-          "links": {
-            "self": "https://zenodo.org/api/records/16603233/files/Anechoic chamber.zip/content"
-          }
-        },
-        {
-          "id": "06dfe6c6-16b3-446d-83ec-b5f02ecccf30",
-          "key": "Individual devices.zip",
-          "size": 643603,
-          "checksum": "md5:19417ad2227e32e691cf7f93b42dc1e7",
-          "links": {
-            "self": "https://zenodo.org/api/records/16603233/files/Individual devices.zip/content"
+            "self": "https://zenodo.org/api/records/17015992/files/figure.png/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "1150703"
+          "id": "1161"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 24,
-        "unique_downloads": 24,
-        "views": 36,
-        "unique_views": 33,
-        "version_downloads": 24,
-        "version_unique_downloads": 24,
-        "version_unique_views": 33,
-        "version_views": 36
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
       },
       "state": "done",
       "submitted": true
     },
     {
-      "created": "2025-07-30T09:44:59.927921+00:00",
-      "modified": "2025-07-30T09:45:00.266838+00:00",
-      "id": 16602802,
-      "conceptrecid": "16602801",
-      "doi": "10.17632/j64btzdsdy.2",
-      "doi_url": "https://doi.org/10.17632/j64btzdsdy.2",
+      "created": "2025-09-01T06:34:39.237763+00:00",
+      "modified": "2025-09-01T06:34:39.684880+00:00",
+      "id": 17015990,
+      "conceptrecid": "17015989",
+      "doi": "10.5281/zenodo.17015990",
+      "conceptdoi": "10.5281/zenodo.17015989",
+      "doi_url": "https://doi.org/10.5281/zenodo.17015990",
       "metadata": {
-        "title": "A dataset of labelled device Wi-Fi probe requests for MAC address de-randomization - 2021",
-        "doi": "10.17632/j64btzdsdy.2",
-        "publication_date": "2025-07-30",
-        "description": "<p>A Wi-Fi client device can perform a passive scan to detect wireless networks within its radio range, looking for Beacon Frames, i.e., packets issued by the Access Points (APs) to signal their presence. Alternatively, the client can speed up this process by actively searching for a network connection; to this, it transmits Probe Requests messages periodically, which are management frames of the IEEE standard 802.11. The process by which these messages are captured is called sniffing. Sniffing can be performed via a Wi-Fi interface set in monitor mode and tuned to the same channel (or an adjacent channel) where the transmission occurred. Management messages are not encrypted, so they can be used to implement device counting algorithms based on MAC addresses analysis. However, major operating system producers, in order to avoid tracking the device owners, developed functionalities for MAC address randomisation. Devices that change their physical address periodically and randomly, challenge counting algorithms that must then perform an additional address de-randomization, i.e., cluster the probe requests according to the source device by analysing appropriate message features. To the best of our knowledge, our dataset is the only one available with labelled (indication of the emitting source) Wi-Fi probe requests. To obtain the labels, the data has been collected either in an isolated environment (the anechoic chamber of our department) or in a \"noisy\" environment (a chamber without particular shielding, but with no other sources of probe requests within a radius of two meters). The first type of data is published after removing only packets originating from the Raspberry Pi embedded interface MAC address; the second type of data has been additionally filtered to simulate the anechoic chamber environment. Each capture file has a duration of 20 minutes and considers three non-overlapping channels (channels 1, 6, and 11) simultaneously. The dataset contains Probe Requests from 22 different devices, each observed separately in 6 different modes, including settings based on display status, Wi-Fi connection, and power saving. We collected 315 non-empty files in total. Captures that were empty after filtering were removed. The device used for the capture is a Raspberry Pi with three Wi-Fi dongle interfaces installed, each used to collect data from a channel. The main characteristic of the dataset is its subdivision by device, which enables a more accurate behavior analysis of individual devices in different modes. Moreover, it is possible to use the labelled data to train Machine Learning algorithms or to verify the correct functioning of algorithms that have as their objective the counting of devices through probe request analysis in the presence of random MAC addresses.&nbsp;</p>",
+        "title": "FIGURE 12 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+        "doi": "10.5281/zenodo.17015990",
+        "publication_date": "2025-08-20",
+        "description": "FIGURE 12. MicroCT scan of the left pectoral fin of holotype of Dysommina pygmaea, NMV A 29681-004. Lateral view. Abbreviations: AC, actinosts; CL, cleithrum; CO, coracoid; PR, pectoral rays.",
         "access_right": "open",
         "creators": [
           {
-            "name": "Pintor, Lucia",
-            "affiliation": "University of Cagliari",
-            "orcid": "0000-0001-7415-6612"
+            "name": "Tighe, Kenneth A.",
+            "affiliation": "Department of Vertebrate Zoology, National Museum of Natural History, Smithsonian Institution, Museum Support Center, MRC 534, 4210 Silver Hill Road, Suitland, MD 20746, USA"
           },
           {
-            "name": "Atzori, Luigi",
-            "affiliation": "University of Cagliari",
-            "orcid": "0000-0003-1350-3574"
+            "name": "Pogonoski, John J.",
+            "affiliation": null,
+            "orcid": "0000-0002-4878-3919"
           }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Anguilliformes",
+          "Synaphobranchidae",
+          "Dysommina"
         ],
         "related_identifiers": [
           {
-            "identifier": "10.1016/j.comnet.2022.108783",
-            "relation": "isDescribedBy",
+            "identifier": "10.11646/zootaxa.5683.2.6",
+            "relation": "isPartOf",
             "resource_type": "publication-article",
             "scheme": "doi"
-          }
-        ],
-        "dates": [
+          },
           {
-            "type": "collected",
-            "description": "Wi-Fi probe requests"
+            "identifier": "urn:lsid:plazi.org:pub:DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/17015956",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/2159DD3384650D27FF6D17EA21C9FD6E",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
           }
         ],
-        "custom": {
-          "code:codeRepository": "https://github.com/luciapintor/WiFi-Sniffer",
-          "code:programmingLanguage": [
-            {
-              "id": "python",
-              "title": {
-                "en": "Python"
-              }
-            }
-          ]
-        },
         "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "issue": "2",
+          "pages": "265-281",
+          "title": "Zootaxa",
+          "volume": "5683"
         },
         "license": {
-          "id": "cc-by-4.0"
+          "id": "notspecified"
         },
         "communities": [
           {
-            "id": "net4u"
+            "id": "biosyslit"
           }
         ],
         "relations": {
@@ -1328,100 +436,1294 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "16602801"
+                "pid_value": "17015989"
               }
             }
           ]
         },
-        "method": "<h2>Steps to reproduce</h2>\n<p>Data was acquired via a Raspberry Pi 3 (Model B+) running a Raspbian Operative System (OS) downloaded from the official repository. The accessories connected to the Raspberry via the USB ports are: three Wi-Fi dongles and a keyboard. A 3.5-inch touch display was connected to the Raspberry Pi pins. The selection of this screen is due to its portability, but any other screen and mouse can be used as an alternative. The Raspberry's built-in Wi-Fi interface does not support monitor mode, so its configuration has not been changed, and it can connect to other internet networks to synchronize the calendar and the clock of the OS. To reproduce such a dataset, it is required to select a completely interference-free environment (anechoic chamber) or, alternatively, a noisy environment must be properly prepared by removing all sources of Wi-Fi messages in the vicinity. To verify the significance of interference, we collected data in noisy environments at various distances from Probe Request sources, empirically assessing that at distances of two metres or more, the power detected in the packets of these sources was below -60 dBm, allowing us to remove them through our filtering algorithm with a -40 dBm threshold. We developed and published on GitHub two algorithms specifically designed for the generation of this dataset: a sniffing algorithm (https://github.com/luciapintor/WiFi-Sniffer) and a filtering one (https://github.com/luciapintor/SnifferFiltering). Our sniffing algorithm has been used to configure the monitor mode on all interfaces, to set each one to listen in a specific Wi-Fi channel, and to perform the data acquisition. After setting up the environment (e.g., removing all Wi-Fi devices except the Raspberry and the device to be analyzed), we started the capture script and waited for its completion. This script starts sniffing simultaneously in three different interfaces, each set to a different channel, and saves the output in pcap files. After that we ran the filtering algorithm in the capture files and we removed the packets emitted by the Raspberry (that are easily identifiable because they use its factory MAC address), packets emitted by Access Points (we have detected their MAC addresses because they transmit probe requests, beacon frames and probe responses) and performed an additional steps to simulate anechoic chamber capture conditions via power thresholds that exploit the burst structure of the probe requests.</p>"
+        "notes": "Published as part of <i>Tighe, Kenneth A. &amp; Pogonoski, John J., 2025, A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean, pp. 265-281 in Zootaxa 5683 (2)</i> on page 277, DOI: 10.11646/zootaxa.5683.2.6, <a href=\"http://zenodo.org/record/17015956\">http://zenodo.org/record/17015956</a>"
       },
-      "title": "A dataset of labelled device Wi-Fi probe requests for MAC address de-randomization - 2021",
+      "title": "FIGURE 12 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
       "links": {
-        "self": "https://zenodo.org/api/records/16602802",
-        "self_html": "https://zenodo.org/records/16602802",
-        "preview_html": "https://zenodo.org/records/16602802?preview=1",
-        "doi": "https://doi.org/10.17632/j64btzdsdy.2",
-        "self_doi": "https://doi.org/10.17632/j64btzdsdy.2",
-        "self_doi_html": "https://zenodo.org/doi/10.17632/j64btzdsdy.2",
-        "reserve_doi": "https://zenodo.org/api/records/16602802/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16602801",
-        "parent_html": "https://zenodo.org/records/16602801",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16602802/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16602802/sequence/default",
-        "files": "https://zenodo.org/api/records/16602802/files",
-        "media_files": "https://zenodo.org/api/records/16602802/media-files",
-        "archive": "https://zenodo.org/api/records/16602802/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16602802/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16602802/versions/latest",
-        "latest_html": "https://zenodo.org/records/16602802/latest",
-        "versions": "https://zenodo.org/api/records/16602802/versions",
-        "draft": "https://zenodo.org/api/records/16602802/draft",
-        "access_links": "https://zenodo.org/api/records/16602802/access/links",
-        "access_grants": "https://zenodo.org/api/records/16602802/access/grants",
-        "access_users": "https://zenodo.org/api/records/16602802/access/users",
-        "access_request": "https://zenodo.org/api/records/16602802/access/request",
-        "access": "https://zenodo.org/api/records/16602802/access",
-        "communities": "https://zenodo.org/api/records/16602802/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16602802/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16602802/requests"
+        "self": "https://zenodo.org/api/records/17015990",
+        "self_html": "https://zenodo.org/records/17015990",
+        "preview_html": "https://zenodo.org/records/17015990?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17015990",
+        "self_doi": "https://doi.org/10.5281/zenodo.17015990",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015990",
+        "reserve_doi": "https://zenodo.org/api/records/17015990/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17015989",
+        "parent_html": "https://zenodo.org/records/17015989",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17015989",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015989",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17015990/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17015990/sequence/default",
+        "files": "https://zenodo.org/api/records/17015990/files",
+        "media_files": "https://zenodo.org/api/records/17015990/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17015990:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17015990:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17015990:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17015990:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17015990:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17015990:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17015990/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17015990/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17015990/versions/latest",
+        "latest_html": "https://zenodo.org/records/17015990/latest",
+        "versions": "https://zenodo.org/api/records/17015990/versions",
+        "draft": "https://zenodo.org/api/records/17015990/draft",
+        "access_links": "https://zenodo.org/api/records/17015990/access/links",
+        "access_grants": "https://zenodo.org/api/records/17015990/access/grants",
+        "access_users": "https://zenodo.org/api/records/17015990/access/users",
+        "access_request": "https://zenodo.org/api/records/17015990/access/request",
+        "access": "https://zenodo.org/api/records/17015990/access",
+        "communities": "https://zenodo.org/api/records/17015990/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17015990/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17015990/requests"
       },
-      "updated": "2025-07-30T09:45:00.266838+00:00",
-      "recid": "16602802",
-      "revision": 4,
+      "updated": "2025-09-01T06:34:39.684880+00:00",
+      "recid": "17015990",
+      "revision": 5,
       "files": [
         {
-          "id": "1ffee255-9e8f-4990-be98-a0ab1d2882dc",
-          "key": "files_list.csv",
-          "size": 27733,
-          "checksum": "md5:ca957500766480f4fd05637db6b88598",
+          "id": "9c819c9e-13e3-4002-96e4-6c8b379f7679",
+          "key": "figure.png",
+          "size": 398268,
+          "checksum": "md5:c48d42fab3fe5848aad7f7c13dff6dd5",
           "links": {
-            "self": "https://zenodo.org/api/records/16602802/files/files_list.csv/content"
-          }
-        },
-        {
-          "id": "d788cbff-d5cc-48bb-b498-8c98a5947277",
-          "key": "Individual devices.zip",
-          "size": 1501854,
-          "checksum": "md5:bf161833328788261674c000a37b39d3",
-          "links": {
-            "self": "https://zenodo.org/api/records/16602802/files/Individual devices.zip/content"
-          }
-        },
-        {
-          "id": "4766b88e-8635-4b8b-86c9-425a1e9db0ee",
-          "key": "modes_list.csv",
-          "size": 90,
-          "checksum": "md5:bfcf2e21bfb8c5bde9aea0e392b11d4a",
-          "links": {
-            "self": "https://zenodo.org/api/records/16602802/files/modes_list.csv/content"
-          }
-        },
-        {
-          "id": "102bf744-c10c-4410-bd72-c641cc2396a3",
-          "key": "devices.csv",
-          "size": 1279,
-          "checksum": "md5:7289af0e7ac95f36d89f92b1938061ed",
-          "links": {
-            "self": "https://zenodo.org/api/records/16602802/files/devices.csv/content"
+            "self": "https://zenodo.org/api/records/17015990/files/figure.png/content"
           }
         }
       ],
       "swh": {},
       "owners": [
         {
-          "id": "1150703"
+          "id": "1161"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 23,
-        "unique_downloads": 20,
-        "views": 23,
-        "unique_views": 23,
-        "version_downloads": 23,
-        "version_unique_downloads": 20,
-        "version_unique_views": 23,
-        "version_views": 23
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-01T06:34:36.879628+00:00",
+      "modified": "2025-09-01T06:34:37.377301+00:00",
+      "id": 17015988,
+      "conceptrecid": "17015987",
+      "doi": "10.5281/zenodo.17015988",
+      "conceptdoi": "10.5281/zenodo.17015987",
+      "doi_url": "https://doi.org/10.5281/zenodo.17015988",
+      "metadata": {
+        "title": "FIGURE 11 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+        "doi": "10.5281/zenodo.17015988",
+        "publication_date": "2025-08-20",
+        "description": "FIGURE 11. MicroCT scan of the hyoid arches of holotype of Dysommina pygmaea, NMV A 29681-004. A. Dorsal view. B. Ventral view. C. Lateral view. D. Dorso-lateral view. Abbreviations: ACH, anterior ceratohyal; BH, basihyal; BR, branchiostegal rays; CL, cleithrum; HH, hypohyal; PCH, posterior ceratohyal.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Tighe, Kenneth A.",
+            "affiliation": "Department of Vertebrate Zoology, National Museum of Natural History, Smithsonian Institution, Museum Support Center, MRC 534, 4210 Silver Hill Road, Suitland, MD 20746, USA"
+          },
+          {
+            "name": "Pogonoski, John J.",
+            "affiliation": null,
+            "orcid": "0000-0002-4878-3919"
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Anguilliformes",
+          "Synaphobranchidae",
+          "Dysommina"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.11646/zootaxa.5683.2.6",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/17015956",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/2159DD3384650D27FF6D17EA21C9FD6E",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "issue": "2",
+          "pages": "265-281",
+          "title": "Zootaxa",
+          "volume": "5683"
+        },
+        "license": {
+          "id": "notspecified"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17015987"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>Tighe, Kenneth A. &amp; Pogonoski, John J., 2025, A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean, pp. 265-281 in Zootaxa 5683 (2)</i> on page 276, DOI: 10.11646/zootaxa.5683.2.6, <a href=\"http://zenodo.org/record/17015956\">http://zenodo.org/record/17015956</a>"
+      },
+      "title": "FIGURE 11 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+      "links": {
+        "self": "https://zenodo.org/api/records/17015988",
+        "self_html": "https://zenodo.org/records/17015988",
+        "preview_html": "https://zenodo.org/records/17015988?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17015988",
+        "self_doi": "https://doi.org/10.5281/zenodo.17015988",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015988",
+        "reserve_doi": "https://zenodo.org/api/records/17015988/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17015987",
+        "parent_html": "https://zenodo.org/records/17015987",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17015987",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015987",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17015988/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17015988/sequence/default",
+        "files": "https://zenodo.org/api/records/17015988/files",
+        "media_files": "https://zenodo.org/api/records/17015988/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17015988:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17015988:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17015988:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17015988:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17015988:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17015988:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17015988/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17015988/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17015988/versions/latest",
+        "latest_html": "https://zenodo.org/records/17015988/latest",
+        "versions": "https://zenodo.org/api/records/17015988/versions",
+        "draft": "https://zenodo.org/api/records/17015988/draft",
+        "access_links": "https://zenodo.org/api/records/17015988/access/links",
+        "access_grants": "https://zenodo.org/api/records/17015988/access/grants",
+        "access_users": "https://zenodo.org/api/records/17015988/access/users",
+        "access_request": "https://zenodo.org/api/records/17015988/access/request",
+        "access": "https://zenodo.org/api/records/17015988/access",
+        "communities": "https://zenodo.org/api/records/17015988/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17015988/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17015988/requests"
+      },
+      "updated": "2025-09-01T06:34:37.377301+00:00",
+      "recid": "17015988",
+      "revision": 5,
+      "files": [
+        {
+          "id": "a5b249d9-d3f8-4c0a-88c8-0a9b00d90bc2",
+          "key": "figure.png",
+          "size": 909509,
+          "checksum": "md5:37000749a9c6e1960d18e14873d3b1d7",
+          "links": {
+            "self": "https://zenodo.org/api/records/17015988/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-01T06:34:34.199879+00:00",
+      "modified": "2025-09-01T06:34:34.653253+00:00",
+      "id": 17015985,
+      "conceptrecid": "17015984",
+      "doi": "10.5281/zenodo.17015985",
+      "conceptdoi": "10.5281/zenodo.17015984",
+      "doi_url": "https://doi.org/10.5281/zenodo.17015985",
+      "metadata": {
+        "title": "FIGURE 10 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+        "doi": "10.5281/zenodo.17015985",
+        "publication_date": "2025-08-20",
+        "description": "FIGURE 10. MicroCT scan of the left suspensorium, opercular series and lower jaw of holotype of Dysommina pygmaea, NMV A 29681-004. Lateral view. Abbreviations: AR, articular; CM, coronomeckelian ossification; DE, dentary; HY, hyomandibular; IO, interopercle; OP, opercle; PG, pterygoid; PO, preopercle; Q, quadrate; SO, subopercle.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Tighe, Kenneth A.",
+            "affiliation": "Department of Vertebrate Zoology, National Museum of Natural History, Smithsonian Institution, Museum Support Center, MRC 534, 4210 Silver Hill Road, Suitland, MD 20746, USA"
+          },
+          {
+            "name": "Pogonoski, John J.",
+            "affiliation": null,
+            "orcid": "0000-0002-4878-3919"
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Anguilliformes",
+          "Synaphobranchidae",
+          "Dysommina"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.11646/zootaxa.5683.2.6",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/17015956",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/2159DD3384650D27FF6D17EA21C9FD6E",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "issue": "2",
+          "pages": "265-281",
+          "title": "Zootaxa",
+          "volume": "5683"
+        },
+        "license": {
+          "id": "notspecified"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17015984"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>Tighe, Kenneth A. &amp; Pogonoski, John J., 2025, A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean, pp. 265-281 in Zootaxa 5683 (2)</i> on page 275, DOI: 10.11646/zootaxa.5683.2.6, <a href=\"http://zenodo.org/record/17015956\">http://zenodo.org/record/17015956</a>"
+      },
+      "title": "FIGURE 10 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+      "links": {
+        "self": "https://zenodo.org/api/records/17015985",
+        "self_html": "https://zenodo.org/records/17015985",
+        "preview_html": "https://zenodo.org/records/17015985?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17015985",
+        "self_doi": "https://doi.org/10.5281/zenodo.17015985",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015985",
+        "reserve_doi": "https://zenodo.org/api/records/17015985/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17015984",
+        "parent_html": "https://zenodo.org/records/17015984",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17015984",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015984",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17015985/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17015985/sequence/default",
+        "files": "https://zenodo.org/api/records/17015985/files",
+        "media_files": "https://zenodo.org/api/records/17015985/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17015985:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17015985:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17015985:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17015985:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17015985:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17015985:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17015985/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17015985/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17015985/versions/latest",
+        "latest_html": "https://zenodo.org/records/17015985/latest",
+        "versions": "https://zenodo.org/api/records/17015985/versions",
+        "draft": "https://zenodo.org/api/records/17015985/draft",
+        "access_links": "https://zenodo.org/api/records/17015985/access/links",
+        "access_grants": "https://zenodo.org/api/records/17015985/access/grants",
+        "access_users": "https://zenodo.org/api/records/17015985/access/users",
+        "access_request": "https://zenodo.org/api/records/17015985/access/request",
+        "access": "https://zenodo.org/api/records/17015985/access",
+        "communities": "https://zenodo.org/api/records/17015985/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17015985/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17015985/requests"
+      },
+      "updated": "2025-09-01T06:34:34.653253+00:00",
+      "recid": "17015985",
+      "revision": 5,
+      "files": [
+        {
+          "id": "c04f951a-5c24-440c-ab34-4508cd867a07",
+          "key": "figure.png",
+          "size": 856067,
+          "checksum": "md5:e7947ea84cb23369b6ef20c4df64e2a8",
+          "links": {
+            "self": "https://zenodo.org/api/records/17015985/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-01T06:34:31.184405+00:00",
+      "modified": "2025-09-01T06:34:31.775204+00:00",
+      "id": 17015983,
+      "conceptrecid": "17015982",
+      "doi": "10.5281/zenodo.17015983",
+      "conceptdoi": "10.5281/zenodo.17015982",
+      "doi_url": "https://doi.org/10.5281/zenodo.17015983",
+      "metadata": {
+        "title": "FIGURE 9 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+        "doi": "10.5281/zenodo.17015983",
+        "publication_date": "2025-08-20",
+        "description": "FIGURE 9. MicroCT scan of the neurocranium of holotype of Dysommina pygmaea, NMV A 29681-004. A. Dorsal view. B. Lateral view. C. Ventral view. Abbreviations: BO, basioccipital; EP, epiotic; EV. Ethmovomerine complex; EX, exoccipital; FR, frontal; PA, parietal; PR, prootic; PS, parasphenoid; PTS, pterosphenoid PT, pterotic; SO, supraoccipital; SP, sphenotic.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Tighe, Kenneth A.",
+            "affiliation": "Department of Vertebrate Zoology, National Museum of Natural History, Smithsonian Institution, Museum Support Center, MRC 534, 4210 Silver Hill Road, Suitland, MD 20746, USA"
+          },
+          {
+            "name": "Pogonoski, John J.",
+            "affiliation": null,
+            "orcid": "0000-0002-4878-3919"
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Anguilliformes",
+          "Synaphobranchidae",
+          "Dysommina"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.11646/zootaxa.5683.2.6",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/17015956",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/2159DD3384650D27FF6D17EA21C9FD6E",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "issue": "2",
+          "pages": "265-281",
+          "title": "Zootaxa",
+          "volume": "5683"
+        },
+        "license": {
+          "id": "notspecified"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17015982"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>Tighe, Kenneth A. &amp; Pogonoski, John J., 2025, A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean, pp. 265-281 in Zootaxa 5683 (2)</i> on page 274, DOI: 10.11646/zootaxa.5683.2.6, <a href=\"http://zenodo.org/record/17015956\">http://zenodo.org/record/17015956</a>"
+      },
+      "title": "FIGURE 9 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+      "links": {
+        "self": "https://zenodo.org/api/records/17015983",
+        "self_html": "https://zenodo.org/records/17015983",
+        "preview_html": "https://zenodo.org/records/17015983?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17015983",
+        "self_doi": "https://doi.org/10.5281/zenodo.17015983",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015983",
+        "reserve_doi": "https://zenodo.org/api/records/17015983/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17015982",
+        "parent_html": "https://zenodo.org/records/17015982",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17015982",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015982",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17015983/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17015983/sequence/default",
+        "files": "https://zenodo.org/api/records/17015983/files",
+        "media_files": "https://zenodo.org/api/records/17015983/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17015983:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17015983:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17015983:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17015983:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17015983:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17015983:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17015983/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17015983/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17015983/versions/latest",
+        "latest_html": "https://zenodo.org/records/17015983/latest",
+        "versions": "https://zenodo.org/api/records/17015983/versions",
+        "draft": "https://zenodo.org/api/records/17015983/draft",
+        "access_links": "https://zenodo.org/api/records/17015983/access/links",
+        "access_grants": "https://zenodo.org/api/records/17015983/access/grants",
+        "access_users": "https://zenodo.org/api/records/17015983/access/users",
+        "access_request": "https://zenodo.org/api/records/17015983/access/request",
+        "access": "https://zenodo.org/api/records/17015983/access",
+        "communities": "https://zenodo.org/api/records/17015983/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17015983/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17015983/requests"
+      },
+      "updated": "2025-09-01T06:34:31.775204+00:00",
+      "recid": "17015983",
+      "revision": 5,
+      "files": [
+        {
+          "id": "23484c1b-b9dc-4b82-aecc-fb6f0f7dc7f9",
+          "key": "figure.png",
+          "size": 1509765,
+          "checksum": "md5:44a09ca3b7346cf819408035b0fcc202",
+          "links": {
+            "self": "https://zenodo.org/api/records/17015983/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-01T06:34:28.043747+00:00",
+      "modified": "2025-09-01T06:34:28.576978+00:00",
+      "id": 17015981,
+      "conceptrecid": "17015980",
+      "doi": "10.5281/zenodo.17015981",
+      "conceptdoi": "10.5281/zenodo.17015980",
+      "doi_url": "https://doi.org/10.5281/zenodo.17015981",
+      "metadata": {
+        "title": "FIGURE 8 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+        "doi": "10.5281/zenodo.17015981",
+        "publication_date": "2025-08-20",
+        "description": "FIGURE 8. MicroCT scan of the anterior portion of holotype of Dysommina pygmaea, NMV A 29681-004 showing the left cephalic and lateral-line ossicles (white blotch-like areas) with associated pores.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Tighe, Kenneth A.",
+            "affiliation": "Department of Vertebrate Zoology, National Museum of Natural History, Smithsonian Institution, Museum Support Center, MRC 534, 4210 Silver Hill Road, Suitland, MD 20746, USA"
+          },
+          {
+            "name": "Pogonoski, John J.",
+            "affiliation": null,
+            "orcid": "0000-0002-4878-3919"
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Anguilliformes",
+          "Synaphobranchidae",
+          "Dysommina"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.11646/zootaxa.5683.2.6",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/17015956",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/2159DD3384650D27FF6D17EA21C9FD6E",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "issue": "2",
+          "pages": "265-281",
+          "title": "Zootaxa",
+          "volume": "5683"
+        },
+        "license": {
+          "id": "notspecified"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17015980"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>Tighe, Kenneth A. &amp; Pogonoski, John J., 2025, A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean, pp. 265-281 in Zootaxa 5683 (2)</i> on page 273, DOI: 10.11646/zootaxa.5683.2.6, <a href=\"http://zenodo.org/record/17015956\">http://zenodo.org/record/17015956</a>"
+      },
+      "title": "FIGURE 8 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+      "links": {
+        "self": "https://zenodo.org/api/records/17015981",
+        "self_html": "https://zenodo.org/records/17015981",
+        "preview_html": "https://zenodo.org/records/17015981?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17015981",
+        "self_doi": "https://doi.org/10.5281/zenodo.17015981",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015981",
+        "reserve_doi": "https://zenodo.org/api/records/17015981/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17015980",
+        "parent_html": "https://zenodo.org/records/17015980",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17015980",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015980",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17015981/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17015981/sequence/default",
+        "files": "https://zenodo.org/api/records/17015981/files",
+        "media_files": "https://zenodo.org/api/records/17015981/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17015981:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17015981:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17015981:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17015981:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17015981:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17015981:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17015981/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17015981/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17015981/versions/latest",
+        "latest_html": "https://zenodo.org/records/17015981/latest",
+        "versions": "https://zenodo.org/api/records/17015981/versions",
+        "draft": "https://zenodo.org/api/records/17015981/draft",
+        "access_links": "https://zenodo.org/api/records/17015981/access/links",
+        "access_grants": "https://zenodo.org/api/records/17015981/access/grants",
+        "access_users": "https://zenodo.org/api/records/17015981/access/users",
+        "access_request": "https://zenodo.org/api/records/17015981/access/request",
+        "access": "https://zenodo.org/api/records/17015981/access",
+        "communities": "https://zenodo.org/api/records/17015981/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17015981/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17015981/requests"
+      },
+      "updated": "2025-09-01T06:34:28.576978+00:00",
+      "recid": "17015981",
+      "revision": 6,
+      "files": [
+        {
+          "id": "e872d513-2058-4373-afd1-7eff31eba1d6",
+          "key": "figure.png",
+          "size": 724790,
+          "checksum": "md5:1950440c57dbb1eb68ad67c82d329692",
+          "links": {
+            "self": "https://zenodo.org/api/records/17015981/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-01T06:34:25.535883+00:00",
+      "modified": "2025-09-01T06:34:25.922750+00:00",
+      "id": 17015977,
+      "conceptrecid": "17015976",
+      "doi": "10.5281/zenodo.17015977",
+      "conceptdoi": "10.5281/zenodo.17015976",
+      "doi_url": "https://doi.org/10.5281/zenodo.17015977",
+      "metadata": {
+        "title": "FIGURE 7 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+        "doi": "10.5281/zenodo.17015977",
+        "publication_date": "2025-08-20",
+        "description": "FIGURE 7. MicroCT scan of the anterior portion of holotype of Dysommina pygmaea, NMV A 29681-004. A. Dorsal view. B. Lateral view. C. Ventral view.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Tighe, Kenneth A.",
+            "affiliation": "Department of Vertebrate Zoology, National Museum of Natural History, Smithsonian Institution, Museum Support Center, MRC 534, 4210 Silver Hill Road, Suitland, MD 20746, USA"
+          },
+          {
+            "name": "Pogonoski, John J.",
+            "affiliation": null,
+            "orcid": "0000-0002-4878-3919"
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Anguilliformes",
+          "Synaphobranchidae",
+          "Dysommina"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.11646/zootaxa.5683.2.6",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/17015956",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/2159DD3384650D27FF6D17EA21C9FD6E",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "issue": "2",
+          "pages": "265-281",
+          "title": "Zootaxa",
+          "volume": "5683"
+        },
+        "license": {
+          "id": "notspecified"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17015976"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>Tighe, Kenneth A. &amp; Pogonoski, John J., 2025, A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean, pp. 265-281 in Zootaxa 5683 (2)</i> on page 272, DOI: 10.11646/zootaxa.5683.2.6, <a href=\"http://zenodo.org/record/17015956\">http://zenodo.org/record/17015956</a>"
+      },
+      "title": "FIGURE 7 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+      "links": {
+        "self": "https://zenodo.org/api/records/17015977",
+        "self_html": "https://zenodo.org/records/17015977",
+        "preview_html": "https://zenodo.org/records/17015977?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17015977",
+        "self_doi": "https://doi.org/10.5281/zenodo.17015977",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015977",
+        "reserve_doi": "https://zenodo.org/api/records/17015977/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17015976",
+        "parent_html": "https://zenodo.org/records/17015976",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17015976",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015976",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17015977/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17015977/sequence/default",
+        "files": "https://zenodo.org/api/records/17015977/files",
+        "media_files": "https://zenodo.org/api/records/17015977/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17015977:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17015977:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17015977:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17015977:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17015977:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17015977:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17015977/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17015977/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17015977/versions/latest",
+        "latest_html": "https://zenodo.org/records/17015977/latest",
+        "versions": "https://zenodo.org/api/records/17015977/versions",
+        "draft": "https://zenodo.org/api/records/17015977/draft",
+        "access_links": "https://zenodo.org/api/records/17015977/access/links",
+        "access_grants": "https://zenodo.org/api/records/17015977/access/grants",
+        "access_users": "https://zenodo.org/api/records/17015977/access/users",
+        "access_request": "https://zenodo.org/api/records/17015977/access/request",
+        "access": "https://zenodo.org/api/records/17015977/access",
+        "communities": "https://zenodo.org/api/records/17015977/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17015977/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17015977/requests"
+      },
+      "updated": "2025-09-01T06:34:25.922750+00:00",
+      "recid": "17015977",
+      "revision": 5,
+      "files": [
+        {
+          "id": "e94141f3-ad53-48ef-be3d-cb5805d5644e",
+          "key": "figure.png",
+          "size": 5659162,
+          "checksum": "md5:913a14788d1fc4b8e4ed16afd434f614",
+          "links": {
+            "self": "https://zenodo.org/api/records/17015977/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-01T06:34:20.877508+00:00",
+      "modified": "2025-09-01T06:34:21.311576+00:00",
+      "id": 17015974,
+      "conceptrecid": "17015973",
+      "doi": "10.5281/zenodo.17015974",
+      "conceptdoi": "10.5281/zenodo.17015973",
+      "doi_url": "https://doi.org/10.5281/zenodo.17015974",
+      "metadata": {
+        "title": "FIGURE 6 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+        "doi": "10.5281/zenodo.17015974",
+        "publication_date": "2025-08-20",
+        "description": "FIGURE 6. MicroCT scan of the maxilla of holotype of Dysommina pygmaea, NMV A 29681-004. A. Dorsal view of left maxilla. B. Lateral view of left maxilla. C. Medial view of left maxilla. D. Ventral view of both maxillae.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Tighe, Kenneth A.",
+            "affiliation": "Department of Vertebrate Zoology, National Museum of Natural History, Smithsonian Institution, Museum Support Center, MRC 534, 4210 Silver Hill Road, Suitland, MD 20746, USA"
+          },
+          {
+            "name": "Pogonoski, John J.",
+            "affiliation": null,
+            "orcid": "0000-0002-4878-3919"
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Anguilliformes",
+          "Synaphobranchidae",
+          "Dysommina"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.11646/zootaxa.5683.2.6",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/17015956",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/2159DD3384650D27FF6D17EA21C9FD6E",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "issue": "2",
+          "pages": "265-281",
+          "title": "Zootaxa",
+          "volume": "5683"
+        },
+        "license": {
+          "id": "notspecified"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17015973"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>Tighe, Kenneth A. &amp; Pogonoski, John J., 2025, A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean, pp. 265-281 in Zootaxa 5683 (2)</i> on page 271, DOI: 10.11646/zootaxa.5683.2.6, <a href=\"http://zenodo.org/record/17015956\">http://zenodo.org/record/17015956</a>"
+      },
+      "title": "FIGURE 6 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+      "links": {
+        "self": "https://zenodo.org/api/records/17015974",
+        "self_html": "https://zenodo.org/records/17015974",
+        "preview_html": "https://zenodo.org/records/17015974?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17015974",
+        "self_doi": "https://doi.org/10.5281/zenodo.17015974",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015974",
+        "reserve_doi": "https://zenodo.org/api/records/17015974/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17015973",
+        "parent_html": "https://zenodo.org/records/17015973",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17015973",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015973",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17015974/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17015974/sequence/default",
+        "files": "https://zenodo.org/api/records/17015974/files",
+        "media_files": "https://zenodo.org/api/records/17015974/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17015974:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17015974:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17015974:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17015974:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17015974:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17015974:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17015974/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17015974/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17015974/versions/latest",
+        "latest_html": "https://zenodo.org/records/17015974/latest",
+        "versions": "https://zenodo.org/api/records/17015974/versions",
+        "draft": "https://zenodo.org/api/records/17015974/draft",
+        "access_links": "https://zenodo.org/api/records/17015974/access/links",
+        "access_grants": "https://zenodo.org/api/records/17015974/access/grants",
+        "access_users": "https://zenodo.org/api/records/17015974/access/users",
+        "access_request": "https://zenodo.org/api/records/17015974/access/request",
+        "access": "https://zenodo.org/api/records/17015974/access",
+        "communities": "https://zenodo.org/api/records/17015974/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17015974/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17015974/requests"
+      },
+      "updated": "2025-09-01T06:34:21.311576+00:00",
+      "recid": "17015974",
+      "revision": 5,
+      "files": [
+        {
+          "id": "063e6337-8e66-4cd6-afda-35b1565d71e7",
+          "key": "figure.png",
+          "size": 2527177,
+          "checksum": "md5:b47336c863c9475321edb0af6dcd3727",
+          "links": {
+            "self": "https://zenodo.org/api/records/17015974/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-01T06:34:17.497881+00:00",
+      "modified": "2025-09-01T06:34:17.887199+00:00",
+      "id": 17015970,
+      "conceptrecid": "17015969",
+      "doi": "10.5281/zenodo.17015970",
+      "conceptdoi": "10.5281/zenodo.17015969",
+      "doi_url": "https://doi.org/10.5281/zenodo.17015970",
+      "metadata": {
+        "title": "FIGURE 5 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+        "doi": "10.5281/zenodo.17015970",
+        "publication_date": "2025-08-20",
+        "description": "FIGURE 5. MicroCT scan of the mandible of holotype of Dysommina pygmaea, NMV A 29681-004. A. Ventral view of left mandible. B. Medial view of left mandible. C. Lateral view of left mandible. D. Dorsal view of entire mandibles. Abbreviations: AR, articular; CM, coronomeckelian ossification; DE, dentary.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Tighe, Kenneth A.",
+            "affiliation": "Department of Vertebrate Zoology, National Museum of Natural History, Smithsonian Institution, Museum Support Center, MRC 534, 4210 Silver Hill Road, Suitland, MD 20746, USA"
+          },
+          {
+            "name": "Pogonoski, John J.",
+            "affiliation": null,
+            "orcid": "0000-0002-4878-3919"
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Anguilliformes",
+          "Synaphobranchidae",
+          "Dysommina"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.11646/zootaxa.5683.2.6",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "lsid"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/DD60A54B84640D28FFFA16152358FFEB",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "https://zenodo.org/record/17015956",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/2159DD3384650D27FF6D17EA21C9FD6E",
+            "relation": "isCitedBy",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "journal": {
+          "issue": "2",
+          "pages": "265-281",
+          "title": "Zootaxa",
+          "volume": "5683"
+        },
+        "license": {
+          "id": "notspecified"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17015969"
+              }
+            }
+          ]
+        },
+        "notes": "Published as part of <i>Tighe, Kenneth A. &amp; Pogonoski, John J., 2025, A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean, pp. 265-281 in Zootaxa 5683 (2)</i> on page 270, DOI: 10.11646/zootaxa.5683.2.6, <a href=\"http://zenodo.org/record/17015956\">http://zenodo.org/record/17015956</a>"
+      },
+      "title": "FIGURE 5 in A new species of the genus Dysommina (Teleostei: Anguilliformes: Synaphobranchidae: Ilyophinae) from the eastern Indian Ocean",
+      "links": {
+        "self": "https://zenodo.org/api/records/17015970",
+        "self_html": "https://zenodo.org/records/17015970",
+        "preview_html": "https://zenodo.org/records/17015970?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17015970",
+        "self_doi": "https://doi.org/10.5281/zenodo.17015970",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015970",
+        "reserve_doi": "https://zenodo.org/api/records/17015970/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17015969",
+        "parent_html": "https://zenodo.org/records/17015969",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17015969",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17015969",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17015970/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17015970/sequence/default",
+        "files": "https://zenodo.org/api/records/17015970/files",
+        "media_files": "https://zenodo.org/api/records/17015970/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17015970:figure.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17015970:figure.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17015970:figure.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17015970:figure.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17015970:figure.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17015970:figure.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17015970/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17015970/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17015970/versions/latest",
+        "latest_html": "https://zenodo.org/records/17015970/latest",
+        "versions": "https://zenodo.org/api/records/17015970/versions",
+        "draft": "https://zenodo.org/api/records/17015970/draft",
+        "access_links": "https://zenodo.org/api/records/17015970/access/links",
+        "access_grants": "https://zenodo.org/api/records/17015970/access/grants",
+        "access_users": "https://zenodo.org/api/records/17015970/access/users",
+        "access_request": "https://zenodo.org/api/records/17015970/access/request",
+        "access": "https://zenodo.org/api/records/17015970/access",
+        "communities": "https://zenodo.org/api/records/17015970/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17015970/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17015970/requests"
+      },
+      "updated": "2025-09-01T06:34:17.887199+00:00",
+      "recid": "17015970",
+      "revision": 5,
+      "files": [
+        {
+          "id": "3cdb0ad7-def8-4a97-a697-e3ec4eca5220",
+          "key": "figure.png",
+          "size": 4049000,
+          "checksum": "md5:7903d1f0b51193fb76d4f23520411350",
+          "links": {
+            "self": "https://zenodo.org/api/records/17015970/files/figure.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
       },
       "state": "done",
       "submitted": true

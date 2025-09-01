@@ -1,6 +1,431 @@
 {
-  "cache_date": "2025-08-01T11:56:49.273526",
+  "cache_date": "2025-09-01T11:44:51.118040",
   "data": [
+    {
+      "created": "2025-08-06T06:42:25.583113+00:00",
+      "modified": "2025-08-06T06:42:25.737658+00:00",
+      "id": 16750703,
+      "conceptrecid": "10784034",
+      "doi": "10.5281/zenodo.16750703",
+      "conceptdoi": "10.5281/zenodo.10784034",
+      "doi_url": "https://doi.org/10.5281/zenodo.16750703",
+      "metadata": {
+        "title": "gbouras13/phold: v1.0.0",
+        "doi": "10.5281/zenodo.16750703",
+        "publication_date": "2025-08-06",
+        "description": "<p>Major Phold release to go with the preprint. For more details, see the preprint and updated <a href=\"https://phold.readthedocs.io/en/latest/\">documentation</a>.</p>\n<p>**You will need to re-install the updated Phold search database with <code>phold install</code> to be compatible with v1.0.0</p>\n<p>Major Changes</p>\n<ul>\n<li>Phold search database has been modified, filtered and curated to contain 1,363,704 proteins structures with functional labels (see https://zenodo.org/records/16741548). In particular, since the previous release of Phold, the enVhogs were re-clustered and re-labelled by the authors of that work. This release contains the updated enVhog structures.</li>\n<li>We additionally make available a larger database containing 3,166,602 structures (i.e. the Phold search database plus an extra 1.8M efam and enVhog proteins without PHROG assignment or functional label) to download using <code>phold install --extended_db</code>. Using this database provides marginally fewer functional annotations and takes longer than using the default Phold search database, so is not recommended for functional annotation, but finds more hits (i.e. including to unknown function proteins) overall, so may be of interest for viral identification tasks.</li>\n<li>PHROG functional labels have been updated in for 2,798 PHROGs using manual curation informed by structural similarity searches. See the preprint for more details. The updated annotations are available in the phold database under <code>phold_annots.tsv</code></li>\n<li>Phold search database is no longer pre-clustered, as it was shown not to significantly differ sensitivity and runtime from unclustered for the updated database.</li>\n<li>Phold supports Foldseek-GPU acceleration for NVIDIA GPUs using <code>--foldseek_gpu</code>. Note that it is still ideal to run Phold with multiple CPU-threads (e.g. <code>-t 8</code> or however many threads you have available), as GPU acceleration only accelerates and improves the prefilter of Foldseek.</li>\n<li>Phold supports custom user-specified Foldseek databases with <code>--custom_db</code>.</li>\n<li>Phold adds high, medium and low confidence annotation heuristics to guide the user (especially users from wet-lab backgrounds or without much understand of protein structural alignment metrics) as to what annotations they should trust with a very high degree of confidence, and which they should prioritise for manual curation. See the <a href=\"https://phold.readthedocs.io/en/latest/output/#main-outputs\">documentation</a> for more.</li>\n<li>Phold will now mask all residues below 25 by default with <code>--mask_threshold</code>  ProstT5 Confidence, as this was shown to increase annotation performance compared to no masking.</li>\n<li>If you only want to annotated hypothetical proteins from Pharokka to save runtime and resource usage, you can use <code>--hyps</code></li>\n<li>You can run Phold with fine-tuned ProstT5 models using <code>--finetune</code> (phage finetuned ProstT5 encoder and phage fine-tuned CNN) or <code>--vanilla</code> (phage finetuned ProstT5 encoder and vanilla PDB-based CNN). Annotation performance with these do not dramatically differ with the default ProstT5 (see the preprint), but may be of interest to some users of Phold.</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "George Bouras",
+            "affiliation": null
+          },
+          {
+            "name": "Vijini Mallawaarachchi",
+            "affiliation": "Flinders University"
+          },
+          {
+            "name": "Susie Grigson",
+            "affiliation": "Flinders University"
+          },
+          {
+            "name": "Eric Deveaud",
+            "affiliation": "Institut Pasteur"
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/gbouras13/phold/tree/v1.0.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v1.0.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/gbouras13/phold"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "mit-license"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 5,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10784034"
+              }
+            }
+          ]
+        }
+      },
+      "title": "gbouras13/phold: v1.0.0",
+      "links": {
+        "self": "https://zenodo.org/api/records/16750703",
+        "self_html": "https://zenodo.org/records/16750703",
+        "preview_html": "https://zenodo.org/records/16750703?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16750703",
+        "self_doi": "https://doi.org/10.5281/zenodo.16750703",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16750703",
+        "reserve_doi": "https://zenodo.org/api/records/16750703/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/10784034",
+        "parent_html": "https://zenodo.org/records/10784034",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10784034",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10784034",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16750703/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16750703/sequence/default",
+        "files": "https://zenodo.org/api/records/16750703/files",
+        "media_files": "https://zenodo.org/api/records/16750703/media-files",
+        "archive": "https://zenodo.org/api/records/16750703/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16750703/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16750703/versions/latest",
+        "latest_html": "https://zenodo.org/records/16750703/latest",
+        "versions": "https://zenodo.org/api/records/16750703/versions",
+        "draft": "https://zenodo.org/api/records/16750703/draft",
+        "access_links": "https://zenodo.org/api/records/16750703/access/links",
+        "access_grants": "https://zenodo.org/api/records/16750703/access/grants",
+        "access_users": "https://zenodo.org/api/records/16750703/access/users",
+        "access_request": "https://zenodo.org/api/records/16750703/access/request",
+        "access": "https://zenodo.org/api/records/16750703/access",
+        "communities": "https://zenodo.org/api/records/16750703/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16750703/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16750703/requests"
+      },
+      "updated": "2025-08-06T06:42:25.737658+00:00",
+      "recid": "16750703",
+      "revision": 4,
+      "files": [
+        {
+          "id": "efca2b8f-14ae-4113-9b73-e80031e481ad",
+          "key": "gbouras13/phold-v1.0.0.zip",
+          "size": 28020804,
+          "checksum": "md5:edac0b82b74b6e5ac34f32cc313fcef4",
+          "links": {
+            "self": "https://zenodo.org/api/records/16750703/files/gbouras13/phold-v1.0.0.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:9c5f0b8e3f567ae0882f215b1d22d0510dbc84a1;origin=https://doi.org/10.5281/zenodo.10784034;visit=swh:1:snp:f8d3a63a75cdfcc37985a9d570fcb4f11e3f30cf;anchor=swh:1:rel:7a8728f4a28a2de09692f081eb73ad14e9020141;path=gbouras13-phold-62db1e5"
+      },
+      "owners": [
+        {
+          "id": "406273"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 16,
+        "unique_downloads": 16,
+        "views": 116,
+        "unique_views": 112,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 8,
+        "version_views": 8
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-05T16:08:12.546898+00:00",
+      "modified": "2025-08-05T16:08:53.532436+00:00",
+      "id": 16741650,
+      "conceptrecid": "16741649",
+      "doi": "10.5281/zenodo.16741650",
+      "conceptdoi": "10.5281/zenodo.16741649",
+      "doi_url": "https://doi.org/10.5281/zenodo.16741650",
+      "metadata": {
+        "title": "Phold Database 3.16M Remaining Protein Structure Predictions",
+        "doi": "10.5281/zenodo.16741650",
+        "publication_date": "2025-08-05",
+        "description": "<p>Repository containing 1,802,498 protein structures consituting all proteins in Phold DB 3.16M that are not in Phold Search DB 1.36M. All Phold Search DB 1.36M structures can be found at https://doi.org/10.5281/zenodo.16739199. These are all efam and enVhog proteins that were not able to be assigned PHROGs and have no annotated functional label.</p>\n<p>Specifically, the large `final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz` tarball consists of:</p>\n<p>* 158,898 extremely conservative efam proteins &lt;3000AA&nbsp; without an assigned PHROG group are in `efam`. These have been chunked into batches of 5000 `.pdb` files for file-system sanity</p>\n<p>* 1,638,667 enVhog proteins &lt;3000AA without an assigned PHROG group are in `envhog`. These have also been chunked into batches of 5000 files.</p>\n<p>There is an additional smaller tarball `envhogs_renamed_3000_plus.tar.gz`&nbsp;containing</p>\n<p>* 4933 `.pdb` files of enVhog proteins 3000+ AA have been fragmented as described in the Phold manuscript (i.e. proteins were chunked into equal fragments under 3000AA so a 5000AA protein has two 2500AA chunks, a 8100AA protein has three 2700AA chunks). These fragments are indicated as `_1` `_2` etc. These are in a separate top level tarball (`envhogs_renamed_3000_plus.tar.gz`)</p>\n<p>All structures are named as they appear in the Phold DB 3.16M</p>\n<p># Recombining the large tarball</p>\n<p>Due to the large size of uploading the tarball `final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz1`, I had significant difficulties in uploading it to Zenodo. Accordingly, I split it into ten smaller chunks as follows (using Linux split command):</p>\n<p>`split --bytes=5G --suffix-length=3 --numeric-suffixes final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_`</p>\n<p>To recombine into the original larger tarball, download all the chunks in this record and combine</p>\n<p>`cat final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_??? &gt; final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz`</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Bouras, George",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16741649"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Phold Database 3.16M Remaining Protein Structure Predictions",
+      "links": {
+        "self": "https://zenodo.org/api/records/16741650",
+        "self_html": "https://zenodo.org/records/16741650",
+        "preview_html": "https://zenodo.org/records/16741650?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16741650",
+        "self_doi": "https://doi.org/10.5281/zenodo.16741650",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16741650",
+        "reserve_doi": "https://zenodo.org/api/records/16741650/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16741649",
+        "parent_html": "https://zenodo.org/records/16741649",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16741649",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16741649",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16741650/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16741650/sequence/default",
+        "files": "https://zenodo.org/api/records/16741650/files",
+        "media_files": "https://zenodo.org/api/records/16741650/media-files",
+        "archive": "https://zenodo.org/api/records/16741650/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16741650/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16741650/versions/latest",
+        "latest_html": "https://zenodo.org/records/16741650/latest",
+        "versions": "https://zenodo.org/api/records/16741650/versions",
+        "draft": "https://zenodo.org/api/records/16741650/draft",
+        "access_links": "https://zenodo.org/api/records/16741650/access/links",
+        "access_grants": "https://zenodo.org/api/records/16741650/access/grants",
+        "access_users": "https://zenodo.org/api/records/16741650/access/users",
+        "access_request": "https://zenodo.org/api/records/16741650/access/request",
+        "access": "https://zenodo.org/api/records/16741650/access",
+        "communities": "https://zenodo.org/api/records/16741650/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16741650/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16741650/requests"
+      },
+      "updated": "2025-08-05T16:08:53.532436+00:00",
+      "recid": "16741650",
+      "revision": 6,
+      "files": [
+        {
+          "id": "3a6dc23f-d97c-4f43-baf1-d5472dfc84ac",
+          "key": "final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_005",
+          "size": 5368709120,
+          "checksum": "md5:4c4f7c8868d29edf87d756ca542e0911",
+          "links": {
+            "self": "https://zenodo.org/api/records/16741650/files/final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_005/content"
+          }
+        },
+        {
+          "id": "4ef59566-5581-4b53-bcc9-d5cff8264a95",
+          "key": "final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_006",
+          "size": 5368709120,
+          "checksum": "md5:a72e89becf778bd580c74ab29c6995a8",
+          "links": {
+            "self": "https://zenodo.org/api/records/16741650/files/final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_006/content"
+          }
+        },
+        {
+          "id": "cf3a9055-9861-4ac1-a11c-da64feacbade",
+          "key": "final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_001",
+          "size": 5368709120,
+          "checksum": "md5:7d365acb96a4852ac355d02ffd5af048",
+          "links": {
+            "self": "https://zenodo.org/api/records/16741650/files/final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_001/content"
+          }
+        },
+        {
+          "id": "ee573f74-dac8-44d2-9fff-c11ebe5e9834",
+          "key": "final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_003",
+          "size": 5368709120,
+          "checksum": "md5:2ab74df6cebfd3bf618edfa0a8178de4",
+          "links": {
+            "self": "https://zenodo.org/api/records/16741650/files/final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_003/content"
+          }
+        },
+        {
+          "id": "7f81e67c-dd65-4931-b10c-8cec8f916dc3",
+          "key": "final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_002",
+          "size": 5368709120,
+          "checksum": "md5:e62be64772eeb7a3122638654e3cf607",
+          "links": {
+            "self": "https://zenodo.org/api/records/16741650/files/final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_002/content"
+          }
+        },
+        {
+          "id": "4fddcd49-9218-4934-b820-54524bcc271a",
+          "key": "envhogs_renamed_3000_plus.tar.gz",
+          "size": 1233179256,
+          "checksum": "md5:eb5a267e357439fa68dcf206c97995a0",
+          "links": {
+            "self": "https://zenodo.org/api/records/16741650/files/envhogs_renamed_3000_plus.tar.gz/content"
+          }
+        },
+        {
+          "id": "d815c9af-858d-41c3-9f2e-868caa2fb016",
+          "key": "final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_000",
+          "size": 5368709120,
+          "checksum": "md5:4360f419823d253250972a7a0c1e1965",
+          "links": {
+            "self": "https://zenodo.org/api/records/16741650/files/final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_000/content"
+          }
+        },
+        {
+          "id": "5017a7aa-d22d-4299-a3a9-deac2409031c",
+          "key": "final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_004",
+          "size": 5368709120,
+          "checksum": "md5:1012984afb35bef051124cfd604f5200",
+          "links": {
+            "self": "https://zenodo.org/api/records/16741650/files/final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_004/content"
+          }
+        },
+        {
+          "id": "77d3f5d0-f35c-49d9-acad-dc4de21493f1",
+          "key": "final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_007",
+          "size": 5368709120,
+          "checksum": "md5:2818ac93b89915c474e94b9c1813efc2",
+          "links": {
+            "self": "https://zenodo.org/api/records/16741650/files/final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_007/content"
+          }
+        },
+        {
+          "id": "42520793-eacf-4226-9ce8-7cf7a33cc15a",
+          "key": "final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_008",
+          "size": 4234924980,
+          "checksum": "md5:6ab84bcde3a48501a726b58083874f87",
+          "links": {
+            "self": "https://zenodo.org/api/records/16741650/files/final_combined_phold_db_3M16_efam_envhog_no_phrog.tar.xz_part_008/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "406273"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 18,
+        "unique_views": 16,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 16,
+        "version_views": 18
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-05T02:48:01.435102+00:00",
+      "modified": "2025-08-05T02:48:01.745455+00:00",
+      "id": 16739199,
+      "conceptrecid": "16739198",
+      "doi": "10.5281/zenodo.16739199",
+      "conceptdoi": "10.5281/zenodo.16739198",
+      "doi_url": "https://doi.org/10.5281/zenodo.16739199",
+      "metadata": {
+        "title": "Phold Search Database 1.36M Protein Structure Predictions",
+        "doi": "10.5281/zenodo.16739199",
+        "publication_date": "2025-08-05",
+        "description": "<p>Tarball containing 1,366,602 protein structures consituting the Phold Search Database 1.36M. All protein structures are `.pdb` format (as per the output for ColabFold/AlphaFold2 or ESMFold).</p>\n<p>The overall tarball contains one `.tar.gz` tarball per PHROG (from 1-38880), containing all constituent proteins for each PHROG. This will include all original PHROG, enVhog and efam proteins that have been assigned to the PHROG. This was done primarily for organisation and to ensure untarring the top level tarball won't destroy easily-stress filesystems.</p>\n<p>The overall tarball also contains a separate tarball with PHROG singletons, and one for each of Phold's special databases (anti-CRISPRdb, CARD, DefenseFinder, DGR Reverse Transcriptases, Netflax Toxin-Antitoxins and VFDB) as separate tarballs.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Bouras, George",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16739198"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Phold Search Database 1.36M Protein Structure Predictions",
+      "links": {
+        "self": "https://zenodo.org/api/records/16739199",
+        "self_html": "https://zenodo.org/records/16739199",
+        "preview_html": "https://zenodo.org/records/16739199?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16739199",
+        "self_doi": "https://doi.org/10.5281/zenodo.16739199",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16739199",
+        "reserve_doi": "https://zenodo.org/api/records/16739199/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16739198",
+        "parent_html": "https://zenodo.org/records/16739198",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16739198",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16739198",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16739199/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16739199/sequence/default",
+        "files": "https://zenodo.org/api/records/16739199/files",
+        "media_files": "https://zenodo.org/api/records/16739199/media-files",
+        "archive": "https://zenodo.org/api/records/16739199/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16739199/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16739199/versions/latest",
+        "latest_html": "https://zenodo.org/records/16739199/latest",
+        "versions": "https://zenodo.org/api/records/16739199/versions",
+        "draft": "https://zenodo.org/api/records/16739199/draft",
+        "access_links": "https://zenodo.org/api/records/16739199/access/links",
+        "access_grants": "https://zenodo.org/api/records/16739199/access/grants",
+        "access_users": "https://zenodo.org/api/records/16739199/access/users",
+        "access_request": "https://zenodo.org/api/records/16739199/access/request",
+        "access": "https://zenodo.org/api/records/16739199/access",
+        "communities": "https://zenodo.org/api/records/16739199/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16739199/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16739199/requests"
+      },
+      "updated": "2025-08-05T02:48:01.745455+00:00",
+      "recid": "16739199",
+      "revision": 4,
+      "files": [
+        {
+          "id": "cde2ff56-7ba9-446f-94f3-9e9cb88c415d",
+          "key": "final_combined_phold_searchdb_tarballs_per_phrog_specialised.tar",
+          "size": 42695895040,
+          "checksum": "md5:8868fff4172c7282d935ad807d4d1750",
+          "links": {
+            "self": "https://zenodo.org/api/records/16739199/files/final_combined_phold_searchdb_tarballs_per_phrog_specialised.tar/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "406273"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 23,
+        "unique_views": 18,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 18,
+        "version_views": 23
+      },
+      "state": "done",
+      "submitted": true
+    },
     {
       "created": "2024-11-08T03:29:19.121803+00:00",
       "modified": "2024-11-08T03:29:19.368751+00:00",
@@ -394,14 +819,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 86,
-        "unique_downloads": 84,
-        "views": 92,
-        "unique_views": 88,
-        "version_downloads": 86,
-        "version_unique_downloads": 84,
-        "version_unique_views": 87,
-        "version_views": 91
+        "downloads": 94,
+        "unique_downloads": 92,
+        "views": 93,
+        "unique_views": 89,
+        "version_downloads": 94,
+        "version_unique_downloads": 92,
+        "version_unique_views": 88,
+        "version_views": 92
       },
       "state": "done",
       "submitted": true
