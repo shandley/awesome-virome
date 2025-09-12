@@ -209,7 +209,7 @@ Ranked by GitHub stars:
 
 1. [AlphaFold-Multimer](https://github.com/deepmind/alphafold) - ⭐ 13320 stars
 2. [CovidMD](https://github.com/lammps/lammps) - ⭐ 2365 stars
-3. [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) - ⭐ 1114 stars
+3. [DIAMOND](https://github.com/bbuchfink/diamond) - ⭐ 1114 stars
 4. [coronaSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
 5. [coronaSPAdes/metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
 6. [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
@@ -222,7 +222,7 @@ Ranked by GitHub stars:
 Here are the most starred packages in key categories:
 
 ### Virus and Phage Identification
-1. [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) - ⭐ 1114 stars
+1. [DIAMOND](https://github.com/bbuchfink/diamond) - ⭐ 1114 stars
 2. [geNomad](https://github.com/apcamargo/genomad) [v1.6.0, 2023] - ⭐ 219 stars
 3. [VIBRANT](https://github.com/AnantharamanLab/VIBRANT) - ⭐ 159 stars
 
@@ -642,7 +642,7 @@ For newcomers to virome analysis, here are some recommended starting points:
 
 ### Dark Matter Viral Analysis
 
-- [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) [Updated: 03/2025] - Accelerated BLAST for dark matter analysis. [C++]
+- [DIAMOND](https://github.com/bbuchfink/diamond) [Updated: 03/2025] - Accelerated BLAST-like search for dark matter analysis. [C++]
 - [DarkVirome](https://web.archive.org/web/20210922051028/https://github.com/VerinaG/dark-virome) [unavailable] - Analysis of unclassified viral sequences. [Python]
 - [Recentrifuge](https://github.com/khyox/recentrifuge) [Updated: 02/2025] - Classification tool for novel sequences. [Python]
 - [VirSorter-DarkMatter](https://github.com/simroux/VirSorter) [Updated: 01/2025] - Extension focused on novel viral sequences. [Perl]
