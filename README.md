@@ -7,75 +7,136 @@
 [![Site Health](https://github.com/shandley/awesome-virome/actions/workflows/site-health-check.yml/badge.svg)](https://github.com/shandley/awesome-virome/actions/workflows/site-health-check.yml)
 [![Cache Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/shandley/awesome-virome/main/.github/badges/cache-status.json)](https://github.com/shandley/awesome-virome/actions/workflows/cache-maintenance.yml)
 
-A curated list of software, tools, and databases useful for virome analysis, including phages, viruses, and their interactions with hosts. This repository aims to help researchers navigate the diverse landscape of tools available for studying viral communities in various environments.
-
 <br clear="left"/>
 
-## Interactive Dashboard
+## What is Awesome-Virome?
 
-Explore our [Interactive Dashboard](https://shandley.github.io/awesome-virome/dashboard.html) to visualize tool relationships, citation trends, and adoption patterns in the virome analysis ecosystem.
+A comprehensive, curated database of **300+ software tools** for virome analysis - the study of viral communities in various environments. This repository helps researchers navigate the complex landscape of tools for analyzing phages, viruses, and their interactions with hosts.
 
-![Dashboard Preview](dashboard.png)
+**🎯 Perfect for:**
+- Researchers new to virome analysis seeking guidance
+- Experienced scientists looking for specific tools
+- Developers building viral analysis workflows
+- Students learning computational virology
 
-The dashboard offers powerful visualizations to understand the virome analysis tool landscape:
+**🚀 Key Features:**
+- Curated collection of 300+ tools across 8 major categories
+- Interactive dashboard with visualization and analytics
+- Tool comparison matrix with filtering and export
+- Automated metadata collection from GitHub/GitLab/Bitbucket
+- RESTful API for programmatic access
+- Weekly updates and quality assurance
 
-- **Tool Categorization Treemap**: Quickly see how tools are distributed across functional categories
-- **Interactive Network**: Discover relationships between tools, categories, and subcategories
-- **Citation Analytics**: Track academic impact and citation growth over time
-- **Publication Impact Network**: Explore how tools connect to significant research publications
-- **Tool Timeline**: Visualize the evolution of the virome analysis tool ecosystem
-- **Programming Languages**: Analyze technology trends across the tool collection
+## Quick Start Guide
 
-[Launch Dashboard](https://shandley.github.io/awesome-virome/dashboard.html) | [View Citation Analytics](https://shandley.github.io/awesome-virome/citations.html) | [Explore Publication Impact](https://shandley.github.io/awesome-virome/publication_impact.html) | [Compare Tools](https://shandley.github.io/awesome-virome/comparison.html)
+**New to virome analysis?** Here are the essential tools to get you started:
 
-## Tool Comparison Matrix
+| Analysis Step | Recommended Tools | Purpose |
+|---------------|-------------------|---------|
+| **1. Viral identification** | VirSorter2, VIBRANT, geNomad | Find viral sequences in metagenomic data |
+| **2. Quality control** | CheckV | Assess viral genome completeness and quality |
+| **3. Host prediction** | iPHoP, CHERRY | Predict which hosts viruses infect |
+| **4. Genome annotation** | Pharokka, DRAMv | Annotate viral genes and functions |
+| **5. Taxonomy assignment** | vConTACT2, PhaGCN | Classify viruses taxonomically |
 
-Need to quickly compare different tools? Our [interactive comparison matrix](https://shandley.github.io/awesome-virome/comparison.html) allows you to:
+**Basic Virome Analysis Workflow:**
+1. Quality control of metagenomic reads
+2. Assembly of contigs (e.g., SPAdes, MEGAHIT)
+3. Identification of viral contigs → [Virus and Phage Identification](#virus-and-phage-identification)
+4. Quality assessment → [Genome Analysis](#genome-analysis)
+5. Taxonomic classification → [Taxonomy](#taxonomy)
+6. Host prediction → [Host Prediction](#host-prediction)
+7. Functional annotation → [Functional Analysis](#functional-analysis)
 
-- Compare tools side-by-side with key metrics and features
-- Filter by category, language, maintenance status, and more
-- Sort by stars, citations, or update frequency
-- Export results to CSV or JSON for your analysis
+**🎯 Quick Access:**
+- [**Browse All Tools by Category**](#virus-and-phage-identification) ↓
+- [**Interactive Dashboard**](https://shandley.github.io/awesome-virome/dashboard.html) - Visualize tool relationships
+- [**Tool Comparison Matrix**](https://shandley.github.io/awesome-virome/comparison.html) - Compare tools side-by-side
+- [**Selection Guide**](https://shandley.github.io/awesome-virome/selection-guide.html) - Get personalized recommendations
 
-The matrix is designed to help researchers quickly evaluate and select the most appropriate tools for their workflows.
+## Top Tools by Category
 
-[Open Comparison Matrix](https://shandley.github.io/awesome-virome/comparison.html)
+Here are the most popular and well-maintained tools in each major category:
 
-## Tool Selection Guide
+### 🦠 Virus and Phage Identification
+| Tool | Stars | Description |
+|------|-------|-------------|
+| [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) | ⭐ 1114 | Fast sequence similarity search |
+| [geNomad](https://github.com/apcamargo/genomad) | ⭐ 219 | ML-based virus identification including proviruses |
+| [VIBRANT](https://github.com/AnantharamanLab/VIBRANT) | ⭐ 159 | Virus identification by boundary detection + annotation |
 
-Not sure which tool to use? Our [interactive selection guide](https://shandley.github.io/awesome-virome/selection-guide.html) helps you navigate through the vast ecosystem of viral analysis tools:
+### 🎯 Host Prediction
+| Tool | Stars | Description |
+|------|-------|-------------|
+| [CHERRY](https://github.com/KennthShang/CHERRY) | ⭐ 24 | Deep learning for phage host prediction |
+| [VirHostMatcher-Net](https://github.com/WeiliWw/VirHostMatcher-Net) | ⭐ 21 | Network-based virus-host prediction |
+| [DeepHost](https://github.com/deepomicslab/DeepHost) | ⭐ 17 | CNN for phage host prediction |
 
-- Answer simple questions about your research needs
-- Follow a decision tree to narrow down tool options
-- Receive personalized tool recommendations
-- Learn about key features and requirements for each tool
+### 🧬 Genome Analysis
+| Tool | Stars | Description |
+|------|-------|-------------|
+| [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) | ⭐ 797 | Assembler for viruses from metagenomic data |
+| [Prodigal/MetaProdigal](https://github.com/hyattpd/Prodigal) | ⭐ 471 | Gene prediction for prokaryotic genomes |
+| [Pharokka](https://github.com/gbouras13/pharokka) | ⭐ 158 | Rapid phage annotation tool |
 
-The guide is perfect for researchers new to virome analysis or those exploring unfamiliar analysis types.
+### 📊 Taxonomy
+| Tool | Stars | Description |
+|------|-------|-------------|
+| [vConTACT2.0](https://bitbucket.org/MAVERICLab/vcontact2/src/master/) | ⭐ 27 | Genome-sharing networks for virus taxonomy |
+| [PhaGCN](https://github.com/KennthShang/PhaGCN) | ⭐ 25 | Graph convolutional network for phage taxonomy |
+| [VIPtree](https://github.com/yosuken/ViPTreeGen) | ⭐ 19 | Viral proteomic tree generation |
 
-[Open Selection Guide](https://shandley.github.io/awesome-virome/selection-guide.html)
+**📈 Most Starred Overall:**
+1. [AlphaFold-Multimer](https://github.com/deepmind/alphafold) (⭐ 13320) - Protein structure prediction
+2. [CovidMD](https://github.com/lammps/lammps) (⭐ 2365) - Molecular dynamics for COVID-19
+3. [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) (⭐ 1114) - Fast sequence alignment
 
 ## Contents
 
+### 🚀 Getting Started
+- [What is Awesome-Virome?](#what-is-awesome-virome)
+- [Quick Start Guide](#quick-start-guide)
+- [Top Tools by Category](#top-tools-by-category)
+
+### 🔧 Core Analysis Tools
+- [Virus and Phage Identification](#virus-and-phage-identification)
+  - [Metagenome Analysis](#metagenome-analysis)
+  - [Integrated Viruses](#integrated-viruses)
+  - [RNA Virus Identification](#rna-virus-identification)
+- [Host Prediction](#host-prediction)
+- [Genome Analysis](#genome-analysis)
+  - [Genome Annotation](#genome-annotation)
+  - [Genome Assembly](#genome-assembly)
+  - [Genome Completeness](#genome-completeness)
+  - [Genome Comparison](#genome-comparison)
+  - [Gene Finding](#gene-finding)
+- [Taxonomy](#taxonomy)
+
+### 📊 Data Resources
+- [Databases](#databases)
+- [Sequence Databases](#sequence-databases)
+
+### 🧪 Specialized Analysis
+- [Functional Analysis](#functional-analysis)
+  - [Evolutionary Analysis](#evolutionary-analysis)
+  - [Lifestyle Classification](#lifestyle-classification)
+  - [Phage-specific Analysis](#phage-specific-analysis)
+  - [Viral Orthologous Groups](#viral-orthologous-groups)
+- [Sequence Analysis](#sequence-analysis)
+- [CRISPR Analysis](#crispr-analysis)
+- [Other Tools](#other-tools)
+
+### 🌐 Interactive Features
 - [Interactive Dashboard](#interactive-dashboard)
 - [Tool Comparison Matrix](#tool-comparison-matrix)
 - [Tool Selection Guide](#tool-selection-guide)
-- [Acknowledgments](#acknowledgments)
+- [API Support](#api-support)
+
+### 📚 Project Information
+- [Introduction to Virome Analysis](#introduction-to-virome-analysis)
 - [Contributing](#contributing)
 - [Repository Maintenance](#repository-maintenance)
-- [Enhanced Metadata](#enhanced-metadata)
-- [Introduction to Virome Analysis](#introduction-to-virome-analysis)
-- [Popular Packages](#popular-packages)
-- [Top Packages by Category](#top-packages-by-category)
-- [Getting Started](#getting-started)
-- [Typical Workflows](#typical-workflows)
-- [Core Analysis Tools](#virus-and-phage-identification)
-- [Data Resources](#databases)
-- [Functional Analysis](#functional-analysis)
-- [Sequence Analysis](#sequence-analysis)
-- [Visualization Tools](#visualization-and-infrastructure)
-- [Specialized Analysis Tools](#other-tools)
-- [API Support](#api-support)
-- [Unique Features](#unique-features)
+- [Acknowledgments](#acknowledgments)
 - [License](#license)
 
 ## Acknowledgments
@@ -138,129 +199,6 @@ Virome analysis involves studying the collection of viruses (including bacteriop
 5. Studying virus-host interactions and functional potential
 
 > **Note on Tool Availability**: This list contains tools developed over many years. Some tools may no longer be actively maintained or might have moved to new locations. We mark tools that are no longer available as [unavailable] and provide archive links when possible. If you find a broken link or know of a tool's new location, please submit a PR or issue.
-
-## Detailed Contents
-
-- [Interactive Dashboard](#interactive-dashboard)
-- [Acknowledgments](#acknowledgments)
-- [Contributing](#contributing)
-- [Repository Maintenance](#repository-maintenance)
-- [Enhanced Metadata](#enhanced-metadata)
-- [Introduction to Virome Analysis](#introduction-to-virome-analysis)
-- [Popular Packages](#popular-packages)
-- [Top Packages by Category](#top-packages-by-category)
-- [Getting Started](#getting-started)
-- [Typical Workflows](#typical-workflows)
-- [Core Analysis Tools](#virus-and-phage-identification)
-  - [Virus and Phage Identification](#virus-and-phage-identification)
-    - [Metagenome Analysis](#metagenome-analysis)
-    - [Integrated Viruses](#integrated-viruses)
-    - [RNA Virus Identification](#rna-virus-identification)
-  - [Host Prediction](#host-prediction)
-  - [Genome Analysis](#genome-analysis)
-    - [Genome Annotation](#genome-annotation)
-    - [Genome Assembly](#genome-assembly)
-    - [Genome Completeness](#genome-completeness)
-    - [Genome Comparison](#genome-comparison)
-    - [Gene Finding](#gene-finding)
-    - [Genome analysis workflows](#genome-analysis-workflows)
-  - [Taxonomy](#taxonomy)
-  - [Quality Control](#quality-control)
-- [Data Resources](#databases)
-  - [Reference Databases](#databases)
-  - [Sequence Collections](#sequence-databases)
-- [Functional Analysis](#functional-analysis)
-  - [Evolutionary Analysis](#evolutionary-analysis)
-  - [Lifestyle Classification](#lifestyle-classification)
-  - [Phage-specific Analysis](#phage-specific-analysis)
-  - [Viral Orthologous Groups](#viral-orthologous-groups)
-  - [CRISPR Analysis](#crispr-analysis)
-- [Sequence Analysis](#sequence-analysis)
-  - [Multiple Sequence Alignment](#multiple-sequence-alignment)
-  - [Sequence Translation](#sequence-translation)
-  - [Viral Strain Reconstruction](#viral-strain-reconstruction)
-  - [Viral Quasispecies Analysis](#viral-quasispecies-analysis)
-- [Visualization](#visualization-and-infrastructure)
-  - [Cyberinfrastructure](#cyberinfrastructure)
-  - [Plaque Analysis](#plaque-analysis)
-- [Specialized Analysis Tools](#other-tools)
-  - [Machine Learning Models](#machine-learning-models)
-  - [Structural Analysis](#structural-analysis-tools)
-  - [Antimicrobial Resistance Analysis](#antimicrobial-resistance-analysis)
-  - [Viral Metatranscriptomics](#viral-metatranscriptomics)
-  - [Cloud-based Analysis](#cloud-based-viral-analysis)
-  - [Simulation](#simulation)
-  - [Amplicon Analysis](#amplicon-analysis)
-  - [Interaction Analysis](#interaction-analysis)
-  - [Viral Single-Cell Analysis](#viral-single-cell-analysis)
-  - [Viral Glycoprotein Analysis](#viral-glycoprotein-analysis)
-  - [Ancient Viral Sequence Analysis](#ancient-viral-sequence-analysis)
-  - [Viral Immune Epitope Prediction](#viral-immune-epitope-prediction)
-  - [Viral Molecular Dynamics](#viral-molecular-dynamics)
-  - [Dark Matter Viral Analysis](#dark-matter-viral-analysis)
-  - [Transduction](#transduction)
-- [API Support](#api-support)
-- [Unique Features](#unique-features)
-- [License](#license)
-
-## Popular Packages
-
-Ranked by GitHub stars:
-
-1. [AlphaFold-Multimer](https://github.com/deepmind/alphafold) - ⭐ 13320 stars
-2. [CovidMD](https://github.com/lammps/lammps) - ⭐ 2365 stars
-3. [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) - ⭐ 1114 stars
-4. [coronaSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
-5. [coronaSPAdes/metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
-6. [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
-7. [metaviralSPAdes-RNA](https://github.com/ablab/spades) - ⭐ 797 stars
-8. [MetaProdigal](https://github.com/hyattpd/Prodigal) - ⭐ 471 stars
-
-
-## Top Packages by Category
-
-Here are the most starred packages in key categories:
-
-### Virus and Phage Identification
-1. [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) - ⭐ 1114 stars
-2. [geNomad](https://github.com/apcamargo/genomad) [v1.6.0, 2023] - ⭐ 219 stars
-3. [VIBRANT](https://github.com/AnantharamanLab/VIBRANT) - ⭐ 159 stars
-
-### Host Prediction
-1. [CHERRY](https://github.com/KennthShang/CHERRY) [v1.0, 2022] - ⭐ 24 stars
-2. [VirHostMatcher-Net](https://github.com/WeiliWw/VirHostMatcher-Net) - ⭐ 21 stars
-3. [DeepHost](https://github.com/deepomicslab/DeepHost) - ⭐ 17 stars
-
-### Genome Analysis
-1. [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
-2. [Prodigal/MetaProdigal](https://github.com/hyattpd/Prodigal) - ⭐ 471 stars
-3. [Pharokka](https://github.com/gbouras13/pharokka) [v1.5.0, 2023] - ⭐ 158 stars
-
-### Taxonomy
-1. [vConTACT2.0](https://bitbucket.org/MAVERICLab/vcontact2/src/master/) [v0.9.19, 2023] - ⭐ 27 stars
-2. [PhaGCN](https://github.com/KennthShang/PhaGCN) [v1.0, 2022] - ⭐ 25 stars
-3. [VIPtree](https://github.com/yosuken/ViPTreeGen) - ⭐ 19 stars
-
-## Getting Started
-
-For newcomers to virome analysis, here are some recommended starting points:
-
-1. **Viral identification**: VirSorter2, VIBRANT, or geNomad
-2. **Host prediction**: iPHoP or CHERRY
-3. **Genome annotation**: Pharokka or DRAMv
-4. **Taxonomy assignment**: vConTACT2 or PhaGCN
-5. **Quality control**: CheckV
-
-## Typical Workflows
-
-### Basic Virome Analysis Workflow:
-1. Quality control of metagenomic reads
-2. Assembly of contigs (e.g., SPAdes, MEGAHIT)
-3. Identification of viral contigs (e.g., VirSorter2, VIBRANT)
-4. Quality assessment (e.g., CheckV)
-5. Taxonomic classification (e.g., vConTACT2)
-6. Host prediction (e.g., iPHoP)
-7. Functional annotation (e.g., Pharokka, DRAMv)
 
 ---
 
