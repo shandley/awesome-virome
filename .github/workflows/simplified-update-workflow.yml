@@ -62,7 +62,13 @@ jobs:
         run: python update_check.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
+      # Phase 1 Citation System: Enhanced GitHub metrics collection
+      - name: Enhance GitHub metrics (Citation System V2 Phase 1)
+        run: python scripts/github_metrics_workflow.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       # Readme sync: Runs for readme_sync or if README has changed
       - name: Verify README content
         id: verify_readme
