@@ -139,66 +139,26 @@ Here are the most popular and well-maintained tools in each major category:
 - [Acknowledgments](#acknowledgments)
 - [License](#license)
 
-## Acknowledgments
+---
 
-This list was originally started by [Rob Edwards](https://github.com/linsalrob) and his team at [Flinders University](https://edwards.flinders.edu.au) and would not have been possible without their original hard work and dedication.
+## Typical Workflows
 
-## Contributing
+### Basic Virome Analysis Workflow:
+1. Quality control of metagenomic reads
+2. Assembly of contigs (e.g., SPAdes, MEGAHIT)
+3. Identification of viral contigs → [Virus and Phage Identification](#virus-and-phage-identification)
+4. Quality assessment → [Genome Analysis](#genome-analysis)
+5. Taxonomic classification → [Taxonomy](#taxonomy)
+6. Host prediction → [Host Prediction](#host-prediction)
+7. Functional annotation → [Functional Analysis](#functional-analysis)
 
-Please feel free to [contribute](CONTRIBUTING.md)!
+### Advanced Analysis Options:
+- **Strain reconstruction**: [Viral Strain Reconstruction](#viral-strain-reconstruction)
+- **Host-virus interactions**: [Interaction Analysis](#interaction-analysis)
+- **Evolutionary analysis**: [Evolutionary Analysis](#evolutionary-analysis)
+- **Specialized environments**: [Other Tools](#other-tools)
 
-This repository welcomes contributions from the community. Here's how you can help:
-
-1. **Add New Tools**: Submit entries for tools not yet included in the list
-2. **Update Information**: Help keep tool descriptions and links up to date
-3. **Report Issues**: Let us know about broken links or outdated information
-4. **Improve Documentation**: Suggest enhancements to the documentation
-5. **Fix Bugs**: Help resolve issues with the website or dashboard
-
-We provide standardized issue templates to make contributing easier:
-- **Tool Addition**: Template for suggesting new tools
-- **Tool Update**: Template for updating existing tool information
-- **Bug Report**: Template for reporting issues with the repository
-- **Feature Request**: Template for suggesting new features
-
-For more details, see our [contribution guidelines](CONTRIBUTING.md).
-
-## Repository Maintenance
-
-This repository uses a streamlined GitHub Actions workflow system to maintain data and deployments:
-
-1. **Automated Updates**: Weekly basic updates and monthly comprehensive metadata updates
-2. **Data Management**: All data is stored in `data.json` and displayed through GitHub Pages
-3. **Contribution Flow**: External contributors can propose changes via Pull Requests
-4. **API Access**: Programmatic access to the database via a [REST API](API.md)
-5. **Automated Changelog**: Monthly release notes documenting tool additions, updates, and removals
-
-For technical details, see the [workflow documentation](.github/workflows/README.md) and [view our release notes](https://github.com/shandley/awesome-virome/releases).
-
-## Enhanced Metadata
-
-This repository features an enhanced metadata collection system that enriches tool information with details from GitHub, GitLab, and Bitbucket repositories:
-
-- **Repository Statistics**: Star counts, forks, open issues, and watchers
-- **License Information**: License type and details for each tool
-- **Programming Languages**: Primary and secondary languages used
-- **Repository Topics/Tags**: Topic classifications from repository metadata
-- **Release Information**: Latest release version and date
-- **Creation & Update Dates**: When repositories were created and last updated
-
-This metadata is updated monthly and integrated into our visualization and search capabilities, making it easier to discover tools based on popularity, language preferences, or specific features.
-
-## Introduction to Virome Analysis
-
-Virome analysis involves studying the collection of viruses (including bacteriophages) in a specific environment such as the human gut, soil, or oceans. These analyses typically include:
-
-1. Identifying viral sequences in metagenomic data
-2. Classifying viruses and predicting their hosts
-3. Assembling and annotating viral genomes
-4. Analyzing viral diversity and evolution
-5. Studying virus-host interactions and functional potential
-
-> **Note on Tool Availability**: This list contains tools developed over many years. Some tools may no longer be actively maintained or might have moved to new locations. We mark tools that are no longer available as [unavailable] and provide archive links when possible. If you find a broken link or know of a tool's new location, please submit a PR or issue.
+> **💡 Tip**: New to virome analysis? Start with the [Quick Start Guide](#quick-start-guide) above for essential tool recommendations.
 
 ---
 
@@ -584,6 +544,112 @@ Virome analysis involves studying the collection of viruses (including bacteriop
 - [DarkVirome](https://web.archive.org/web/20210922051028/https://github.com/VerinaG/dark-virome) [unavailable] - Analysis of unclassified viral sequences. [Python]
 - [Recentrifuge](https://github.com/khyox/recentrifuge) [Updated: 02/2025] - Classification tool for novel sequences. [Python]
 - [VirSorter-DarkMatter](https://github.com/simroux/VirSorter) [Updated: 01/2025] - Extension focused on novel viral sequences. [Perl]
+
+---
+
+## Interactive Dashboard
+
+Explore our [Interactive Dashboard](https://shandley.github.io/awesome-virome/dashboard.html) to visualize tool relationships, citation trends, and adoption patterns in the virome analysis ecosystem.
+
+![Dashboard Preview](dashboard.png)
+
+The dashboard offers powerful visualizations to understand the virome analysis tool landscape:
+
+- **Tool Categorization Treemap**: Quickly see how tools are distributed across functional categories
+- **Interactive Network**: Discover relationships between tools, categories, and subcategories
+- **Citation Analytics**: Track academic impact and citation growth over time
+- **Publication Impact Network**: Explore how tools connect to significant research publications
+- **Tool Timeline**: Visualize the evolution of the virome analysis tool ecosystem
+- **Programming Languages**: Analyze technology trends across the tool collection
+
+[Launch Dashboard](https://shandley.github.io/awesome-virome/dashboard.html) | [View Citation Analytics](https://shandley.github.io/awesome-virome/citations.html) | [Explore Publication Impact](https://shandley.github.io/awesome-virome/publication_impact.html) | [Compare Tools](https://shandley.github.io/awesome-virome/comparison.html)
+
+## Tool Comparison Matrix
+
+Need to quickly compare different tools? Our [interactive comparison matrix](https://shandley.github.io/awesome-virome/comparison.html) allows you to:
+
+- Compare tools side-by-side with key metrics and features
+- Filter by category, language, maintenance status, and more
+- Sort by stars, citations, or update frequency
+- Export results to CSV or JSON for your analysis
+
+The matrix is designed to help researchers quickly evaluate and select the most appropriate tools for their workflows.
+
+[Open Comparison Matrix](https://shandley.github.io/awesome-virome/comparison.html)
+
+## Tool Selection Guide
+
+Not sure which tool to use? Our [interactive selection guide](https://shandley.github.io/awesome-virome/selection-guide.html) helps you navigate through the vast ecosystem of viral analysis tools:
+
+- Answer simple questions about your research needs
+- Follow a decision tree to narrow down tool options
+- Receive personalized tool recommendations
+- Learn about key features and requirements for each tool
+
+The guide is perfect for researchers new to virome analysis or those exploring unfamiliar analysis types.
+
+[Open Selection Guide](https://shandley.github.io/awesome-virome/selection-guide.html)
+
+## Introduction to Virome Analysis
+
+Virome analysis involves studying the collection of viruses (including bacteriophages) in a specific environment such as the human gut, soil, or oceans. These analyses typically include:
+
+1. Identifying viral sequences in metagenomic data
+2. Classifying viruses and predicting their hosts
+3. Assembling and annotating viral genomes
+4. Analyzing viral diversity and evolution
+5. Studying virus-host interactions and functional potential
+
+> **Note on Tool Availability**: This list contains tools developed over many years. Some tools may no longer be actively maintained or might have moved to new locations. We mark tools that are no longer available as [unavailable] and provide archive links when possible. If you find a broken link or know of a tool's new location, please submit a PR or issue.
+
+## Contributing
+
+Please feel free to [contribute](CONTRIBUTING.md)!
+
+This repository welcomes contributions from the community. Here's how you can help:
+
+1. **Add New Tools**: Submit entries for tools not yet included in the list
+2. **Update Information**: Help keep tool descriptions and links up to date
+3. **Report Issues**: Let us know about broken links or outdated information
+4. **Improve Documentation**: Suggest enhancements to the documentation
+5. **Fix Bugs**: Help resolve issues with the website or dashboard
+
+We provide standardized issue templates to make contributing easier:
+- **Tool Addition**: Template for suggesting new tools
+- **Tool Update**: Template for updating existing tool information
+- **Bug Report**: Template for reporting issues with the repository
+- **Feature Request**: Template for suggesting new features
+
+For more details, see our [contribution guidelines](CONTRIBUTING.md).
+
+## Repository Maintenance
+
+This repository uses a streamlined GitHub Actions workflow system to maintain data and deployments:
+
+1. **Automated Updates**: Weekly basic updates and monthly comprehensive metadata updates
+2. **Data Management**: All data is stored in `data.json` and displayed through GitHub Pages
+3. **Contribution Flow**: External contributors can propose changes via Pull Requests
+4. **API Access**: Programmatic access to the database via a [REST API](API.md)
+5. **Automated Changelog**: Monthly release notes documenting tool additions, updates, and removals
+
+For technical details, see the [workflow documentation](.github/workflows/README.md) and [view our release notes](https://github.com/shandley/awesome-virome/releases).
+
+## Enhanced Metadata
+
+This repository features an enhanced metadata collection system that enriches tool information with details from GitHub, GitLab, and Bitbucket repositories:
+
+- **Repository Statistics**: Star counts, forks, open issues, and watchers
+- **License Information**: License type and details for each tool
+- **Programming Languages**: Primary and secondary languages used
+- **Repository Topics/Tags**: Topic classifications from repository metadata
+- **Release Information**: Latest release version and date
+- **Creation & Update Dates**: When repositories were created and last updated
+
+This metadata is updated monthly and integrated into our visualization and search capabilities, making it easier to discover tools based on popularity, language preferences, or specific features.
+
+## Acknowledgments
+
+This list was originally started by [Rob Edwards](https://github.com/linsalrob) and his team at [Flinders University](https://edwards.flinders.edu.au) and would not have been possible without their original hard work and dedication.
 
 ## API Support
 
