@@ -1,6 +1,1290 @@
 {
-  "cache_date": "2025-09-01T08:43:25.043659",
+  "cache_date": "2025-10-01T08:44:11.358087",
   "data": [
+    {
+      "created": "2025-09-30T17:52:53.708138+00:00",
+      "modified": "2025-09-30T17:52:55.056521+00:00",
+      "id": 17237284,
+      "conceptrecid": "17237283",
+      "doi": "10.5281/zenodo.17237284",
+      "conceptdoi": "10.5281/zenodo.17237283",
+      "doi_url": "https://doi.org/10.5281/zenodo.17237284",
+      "metadata": {
+        "title": "Searching Sage: AI-Powered Image Retrieval on a Nationwide Edge Computing Cyberinfrastructure",
+        "doi": "10.5281/zenodo.17237284",
+        "publication_date": "2025-09-30",
+        "description": "<p>The Sage project operates a national-scale distributed cyberinfrastructure of AIenabled edge computing platforms connected to a wide range of sensors. AI algorithms running on Sage can analyze images, audio, LIDAR, and meteorological data to understand ecosystems, urban activity, and detect wildfires. With over 33 million images collected, there is a critical need for tools that enable fast, meaningful exploration of massive visual datasets. Traditional metadata-based methods (e.g., tags or timestamps) fall short for domain-specific retrieval at this scale. We present a modular, end-to-end image search system designed for distributed sensor networks. The workflow integrates automated captioning (Gemma-3), semantic embeddings (DFN5B-CLIP), keyword indexing (BM25), and reranking (ms-marco-MiniLM-L6-v2), all backed by a scalable Weaviate vector database. Images and their generated captions are embedded into a unified semantic space, enabling hybrid search that combines both semantic similarity and keyword relevance when users submit natural language queries. This architecture supports both real-time monitoring and historical analysis, scaling efficiently with large datasets and user demand. Although demonstrated on Sage, the system is model-agnostic and infrastructure-flexible, making it applicable to other distributed sensor networks. It empowers researchers in fields such as ecology and atmospheric science to search image collections by content-not just metadata-enhancing access to sensor data for scientific analysis and decision-making.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Lozano, Francisco",
+            "affiliation": "Northwestern-Argonne Institute of Science and Engineering",
+            "orcid": "0009-0003-8823-4046"
+          }
+        ],
+        "contributors": [
+          {
+            "name": "Conrad, Neal",
+            "affiliation": "Argonne National Laboratory",
+            "type": "ProjectMember"
+          },
+          {
+            "name": "Shahkarami, Sean",
+            "affiliation": "Northwestern-Argonne Institute of Science and Engineering",
+            "type": "ProjectMember"
+          },
+          {
+            "name": "Lebiedzinski, Peter",
+            "affiliation": "Northwestern-Argonne Institute of Science and Engineering",
+            "type": "ProjectMember"
+          },
+          {
+            "name": "Beckman, Pete",
+            "affiliation": "Northwestern University",
+            "type": "Supervisor"
+          }
+        ],
+        "references": [
+          "Gemma Team, Kamath, A., Ferret, J., et al.(2025). Gemma 3 technical report. arXiv. https://arxiv.org/abs/2503.19786",
+          "Fang, A., Madappally Jose, A., Jain, A., et al. (2023). Data Filtering Networks. arXiv. https://arxiv.org/abs/2309.17425",
+          "Hugging Face. (n.d.). ms-marco-MiniLM-L6-v2. Hugging Face. https://huggingface.co/cross-encoder/ms-marco-MiniLM-L6-v2",
+          "Sage Continuum Project. (n.d.). Sage Continuum: An Open Instrumentation and Edge Computing Platform.  https://sagecontinuum.org/docs/about/overview",
+          "Weaviate. (2023, January 11). Hybrid search fusion algorithms. https://weaviate.io/blog/hybrid-search-fusion-algorithms",
+          "Vendrow, E., Pantazis, O., Shepard, A., Brostow, G., Jones, K. E., Mac Aodha, O., Beery, S., & Van Horn, G. (2024). INQUIRE: A Natural  World Text-to-Image Retrieval Benchmark. arXiv. https://arxiv.org/abs/2411.02537"
+        ],
+        "language": "eng",
+        "custom": {
+          "code:codeRepository": "https://github.com/waggle-sensor/sage-vectordb-example/tree/csc528/HybridSearch_example",
+          "code:programmingLanguage": [
+            {
+              "id": "python",
+              "title": {
+                "en": "Python"
+              }
+            }
+          ],
+          "code:developmentStatus": {
+            "id": "concept",
+            "title": {
+              "en": "Concept"
+            }
+          }
+        },
+        "resource_type": {
+          "title": "Poster",
+          "type": "poster"
+        },
+        "meeting": {
+          "title": "US Research Software Engineering Conference 2025",
+          "acronym": "USRSE'25",
+          "dates": "October 6-8, 2025",
+          "place": "Philadelphia, PA",
+          "url": "https://us-rse.org/usrse25"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "grants": [
+          {
+            "code": "2331263",
+            "internal_id": "10.13039/100000001::2331263",
+            "funder": {
+              "name": "U.S. National Science Foundation",
+              "doi": "10.13039/100000001",
+              "acronym": "NSF"
+            },
+            "title": "A National-Scale Testbed Supporting Artificial Intelligence Research Spanning the Computing Continuum",
+            "program": "CISE/OAD"
+          },
+          {
+            "code": "1935984",
+            "internal_id": "10.13039/100000001::1935984",
+            "funder": {
+              "name": "U.S. National Science Foundation",
+              "doi": "10.13039/100000001",
+              "acronym": "NSF"
+            },
+            "title": "Mid-Scale RI-1: SAGE: A Software-Defined Sensor Network",
+            "program": "CISE/OAD"
+          },
+          {
+            "code": "2436842",
+            "internal_id": "10.13039/100000001::2436842",
+            "funder": {
+              "name": "U.S. National Science Foundation",
+              "doi": "10.13039/100000001",
+              "acronym": "NSF"
+            },
+            "title": "Sage Grande: An Open Artificial Intelligence Testbed for Edge Computing and Intelligent Sensing"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17237283"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Searching Sage: AI-Powered Image Retrieval on a Nationwide Edge Computing Cyberinfrastructure",
+      "links": {
+        "self": "https://zenodo.org/api/records/17237284",
+        "self_html": "https://zenodo.org/records/17237284",
+        "preview_html": "https://zenodo.org/records/17237284?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17237284",
+        "self_doi": "https://doi.org/10.5281/zenodo.17237284",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17237284",
+        "reserve_doi": "https://zenodo.org/api/records/17237284/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17237283",
+        "parent_html": "https://zenodo.org/records/17237283",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17237283",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17237283",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17237284/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17237284/sequence/default",
+        "files": "https://zenodo.org/api/records/17237284/files",
+        "media_files": "https://zenodo.org/api/records/17237284/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17237284:FL_poster.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17237284:FL_poster.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17237284:FL_poster.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17237284:FL_poster.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17237284:FL_poster.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17237284:FL_poster.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17237284/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17237284/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17237284/versions/latest",
+        "latest_html": "https://zenodo.org/records/17237284/latest",
+        "versions": "https://zenodo.org/api/records/17237284/versions",
+        "draft": "https://zenodo.org/api/records/17237284/draft",
+        "access_links": "https://zenodo.org/api/records/17237284/access/links",
+        "access_grants": "https://zenodo.org/api/records/17237284/access/grants",
+        "access_users": "https://zenodo.org/api/records/17237284/access/users",
+        "access_request": "https://zenodo.org/api/records/17237284/access/request",
+        "access": "https://zenodo.org/api/records/17237284/access",
+        "communities": "https://zenodo.org/api/records/17237284/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17237284/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17237284/requests"
+      },
+      "updated": "2025-09-30T17:52:55.056521+00:00",
+      "recid": "17237284",
+      "revision": 4,
+      "files": [
+        {
+          "id": "26a9c023-2932-4145-94c1-56b72cbd43cb",
+          "key": "FL_poster.pdf",
+          "size": 645133,
+          "checksum": "md5:9c31bfc2e43426500d0cc8c62b9e8617",
+          "links": {
+            "self": "https://zenodo.org/api/records/17237284/files/FL_poster.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1422750"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 21,
+        "unique_downloads": 6,
+        "views": 16,
+        "unique_views": 7,
+        "version_downloads": 21,
+        "version_unique_downloads": 6,
+        "version_unique_views": 7,
+        "version_views": 16
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-30T16:11:32.536045+00:00",
+      "modified": "2025-09-30T16:11:32.947427+00:00",
+      "id": 17235985,
+      "conceptrecid": "17235984",
+      "doi": "10.5281/zenodo.17235985",
+      "conceptdoi": "10.5281/zenodo.17235984",
+      "doi_url": "https://doi.org/10.5281/zenodo.17235985",
+      "metadata": {
+        "title": "Trusted CI - The NSF Cybersecurity Center of Excellence: Award Year 1 (2025) Report",
+        "doi": "10.5281/zenodo.17235985",
+        "publication_date": "2025-09-30",
+        "description": "<p>Trusted CI was renewed as the NSF Cybersecurity Center of Excellence on October 1st, 2024. This report covers Trusted CI's first year (October 1, 2024 through September 30, 2025) operating under a new interagency agreement, covering Trusted CI's accomplishments during that time under its mission to \"enable trustworthy NSF science by partnering with cyberinfrastructure (CI) operators to build and maintain effective cybersecurity programs, publishing resources that are valuable to the broader NSF community, and supporting the processes, tools, and knowledge to secure NSF research progress.\"</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Basney, Jim",
+            "affiliation": "University of Illinois Urbana-Champaign",
+            "orcid": "0000-0002-0139-0640"
+          },
+          {
+            "name": "Russell, Scott",
+            "affiliation": null,
+            "orcid": "0000-0002-5821-797X"
+          },
+          {
+            "name": "Shute, Kelli",
+            "affiliation": null,
+            "orcid": "0000-0002-2988-4319"
+          },
+          {
+            "name": "Peisert, Sean",
+            "affiliation": "University of California Davis School of Medicine",
+            "orcid": "0000-0003-3566-9719"
+          },
+          {
+            "name": "Miller, Barton",
+            "affiliation": "University of Wisconsin-Madison",
+            "orcid": "0000-0002-9435-8315"
+          },
+          {
+            "name": "Marsteller, James",
+            "affiliation": null,
+            "orcid": "0009-0001-7570-3638"
+          },
+          {
+            "name": "Ellis, Carolyn",
+            "affiliation": "Arizona State University",
+            "orcid": "0000-0002-4129-6296"
+          }
+        ],
+        "dates": [
+          {
+            "type": "submitted"
+          }
+        ],
+        "resource_type": {
+          "title": "Report",
+          "type": "publication",
+          "subtype": "report"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "grants": [
+          {
+            "code": "#A2407-049-089-064206.0",
+            "internal_id": "10.13039/100000001::#A2407-049-089-064206.0",
+            "funder": {
+              "name": "U.S. National Science Foundation",
+              "doi": "10.13039/100000001",
+              "acronym": "NSF"
+            },
+            "title": "Trusted CI, the NSF Cybersecurity Center of Excellence"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17235984"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Trusted CI - The NSF Cybersecurity Center of Excellence: Award Year 1 (2025) Report",
+      "links": {
+        "self": "https://zenodo.org/api/records/17235985",
+        "self_html": "https://zenodo.org/records/17235985",
+        "preview_html": "https://zenodo.org/records/17235985?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17235985",
+        "self_doi": "https://doi.org/10.5281/zenodo.17235985",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17235985",
+        "reserve_doi": "https://zenodo.org/api/records/17235985/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17235984",
+        "parent_html": "https://zenodo.org/records/17235984",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17235984",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17235984",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17235985/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17235985/sequence/default",
+        "files": "https://zenodo.org/api/records/17235985/files",
+        "media_files": "https://zenodo.org/api/records/17235985/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17235985:Trusted%20CI%20Y1%20Annual%20Report%20(%23A2407-049-089-064206.0).pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17235985:Trusted%20CI%20Y1%20Annual%20Report%20(%23A2407-049-089-064206.0).pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17235985:Trusted%20CI%20Y1%20Annual%20Report%20(%23A2407-049-089-064206.0).pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17235985:Trusted%20CI%20Y1%20Annual%20Report%20(%23A2407-049-089-064206.0).pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17235985:Trusted%20CI%20Y1%20Annual%20Report%20(%23A2407-049-089-064206.0).pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17235985:Trusted%20CI%20Y1%20Annual%20Report%20(%23A2407-049-089-064206.0).pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17235985/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17235985/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17235985/versions/latest",
+        "latest_html": "https://zenodo.org/records/17235985/latest",
+        "versions": "https://zenodo.org/api/records/17235985/versions",
+        "draft": "https://zenodo.org/api/records/17235985/draft",
+        "access_links": "https://zenodo.org/api/records/17235985/access/links",
+        "access_grants": "https://zenodo.org/api/records/17235985/access/grants",
+        "access_users": "https://zenodo.org/api/records/17235985/access/users",
+        "access_request": "https://zenodo.org/api/records/17235985/access/request",
+        "access": "https://zenodo.org/api/records/17235985/access",
+        "communities": "https://zenodo.org/api/records/17235985/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17235985/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17235985/requests"
+      },
+      "updated": "2025-09-30T16:11:32.947427+00:00",
+      "recid": "17235985",
+      "revision": 4,
+      "files": [
+        {
+          "id": "7ee0d653-0e80-4146-87f9-54b44ddfd458",
+          "key": "Trusted CI Y1 Annual Report (#A2407-049-089-064206.0).pdf",
+          "size": 1017302,
+          "checksum": "md5:b0cc227b3ea6d0a66e6b44d74851d754",
+          "links": {
+            "self": "https://zenodo.org/api/records/17235985/files/Trusted CI Y1 Annual Report (#A2407-049-089-064206.0).pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "589573"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 7,
+        "unique_downloads": 4,
+        "views": 4,
+        "unique_views": 3,
+        "version_downloads": 7,
+        "version_unique_downloads": 4,
+        "version_unique_views": 3,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-06T18:04:26.356238+00:00",
+      "modified": "2025-09-08T18:24:53.837896+00:00",
+      "id": 17069414,
+      "conceptrecid": "17069413",
+      "doi": "10.5281/zenodo.17069414",
+      "conceptdoi": "10.5281/zenodo.17069413",
+      "doi_url": "https://doi.org/10.5281/zenodo.17069414",
+      "metadata": {
+        "title": "indiajacksonphd/FitsFlow: Initial Release",
+        "doi": "10.5281/zenodo.17069414",
+        "publication_date": "2025-09-06",
+        "description": "<h1>FitsFlow v0.1.0</h1>\n<p>FitsFlow is a browser-based application that takes a solar FITS image and returns machine-learning ready outputs.</p>\n<h3>Abstract</h3>\n<p>FitsFlow is a browser-based platform developed by the author to streamline the exploration and annotation of Solar Dynamics Observatory (SDO) FITS images through a fully integrated, cloud-native environment. The system connects heliophysics data services from Joint Science Operations Center (JSOC), Helioviewer, and the Heliophysics Event Knowledgebase (HEK), enabling users to parse FITS headers, align event times, and automatically retrieve associated imagery and metadata. The backend, deployed on Amazon Web Services (AWS) Lambda and Elastic Cloud Compute (EC2), handles on-demand processing and delivers all outputs through a lightweight web interface. FitsFlow produces structured, machine learning&ndash;ready outputs, including support for the Advanced Scientific Data Format (ASDF). Each session allows up to 170 MB of fits data and the results can be downloaded in bulk as a ZIP file containing: header metadata in JSON, pixel data in CSV and NumPy formats, colorized PNG images from Helioviewer, grayscale PNGs from JSOC, and HEK metadata in JSON format. These outputs are designed to support reproducible and interpretable ML workflows for classifying, segmenting, and forecasting solar events, laying the foundation for cyberinfrastructure that connects solar surface activity to radiation impacts in low Earth orbit (LEO). FitsFlow represents the first in a planned suite of &ldquo;KISS&rdquo; tools (Keep It Simple, Scientist) aimed at lowering the barrier to entry for machine learning in heliophysics. With browser-native visualization, downloadable structured examples, zero-install access, and no login required, FitsFlow broadens accessibility for researchers, educators, and citizen scientists working with solar data.</p>\n<h3>Simple Language</h3>\n<p>In simple terms:</p>\n<ol>\n<li>You upload a FITS file in your browser.</li>\n<li>FitsFlow automatically connects to NASA/NOAA data services (HEK, JSOC, Helioviewer).</li>\n<li>The system processes everything in the cloud.</li>\n<li>You get back a single <strong>manifest</strong> file and outputs (images, metadata, ASDF).</li>\n</ol>\n<p>FitsFlow connects all the dots so researchers, educators, and the public can use solar data without special software.</p>\n<h3>System Overview</h3>\n<ul>\n<li><strong>AWS services</strong>: Lambda, API Gateway, S3, CloudFront, Route 53, CloudWatch, EventBridge, EC2</li>\n<li><strong>External APIs</strong>: HEK, JSOC, Helioviewer</li>\n<li><strong>Outputs</strong>: images, metadata, ASDF, manifest files</li>\n</ul>\n<p>Click <a title=\"AWS Data Flow\" href=\"https://indiajacksonphd.s3.us-east-1.amazonaws.com/flowchart_final_1.mp4\" target=\"_blank\" rel=\"noopener\">here</a> to view the AWS flow of information!</p>\n<p>Click <a title=\"FitsFlow Demo\" href=\"https://youtu.be/6J0IHxmNrg8?si=E2_0lrwMLrccvFSm\" target=\"_blank\" rel=\"noopener\">here</a> to view a demo!</p>\n<h3>Repository Structure</h3>\n<ul>\n<li><strong>client/</strong> &ndash; frontend code (HTML, CSS, JS, assets)</li>\n<li><strong>server/</strong> &ndash; backend AWS Lambda functions, IAM policies, layers, API definitions</li>\n<li><strong>README.md</strong> &ndash; documentation (system architecture, data flow, security, future work)</li>\n</ul>\n<h3>Research Outputs</h3>\n<ul>\n<li><strong>Dragon Con 2025</strong> &mdash; <a href=\"https://app.core-apps.com/dragoncon25/speakers/aadbab04df55073681678e0c579dbd8d\">Space &amp; Science Tracks</a></li>\n<li><strong>Science and Cyberinfrastructure for Discovery 2025</strong> &mdash; <em><a href=\"https://arctic.gsu.edu/training/scd/#lightning-talks\">Session 4: Lightning Talks</a></em></li>\n<li><strong>Data, Analysis, and Software in Heliophysics 2025</strong> &mdash; (session details pending)</li>\n<li><strong>AGU Fall Meeting 2025</strong> &mdash; Session SH032: <em><a href=\"https://agu.confex.com/agu/agu25/webprogrampreliminary/Session251735.html\">The Long Way: Heliosphere Modeling with Operations in Mind</a></em></li>\n</ul>\n<h3>Version Info</h3>\n<ul>\n<li><strong>Release type</strong>: First public release</li>\n<li><strong>Tag</strong>: <code>v0.1.0</code></li>\n<li><strong>License</strong>: Apache-2.0</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "India Jackson, PhD",
+            "affiliation": "Georgia State University"
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/indiajacksonphd/FitsFlow/tree/v.0.1.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v.0.1.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/indiajacksonphd/FitsFlow",
+          "code:programmingLanguage": [
+            {
+              "id": "html",
+              "title": {
+                "en": "HTML"
+              }
+            },
+            {
+              "id": "css",
+              "title": {
+                "en": "CSS"
+              }
+            },
+            {
+              "id": "javascript",
+              "title": {
+                "en": "JavaScript"
+              }
+            },
+            {
+              "id": "python",
+              "title": {
+                "en": "Python"
+              }
+            }
+          ]
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "meeting": {
+          "title": "Science and Cyberinfrastructure for Discovery 2025",
+          "dates": "9-10 September 2025",
+          "place": "Georgia State University",
+          "url": "https://arctic.gsu.edu/training/scd/#lightning-talks",
+          "session": "4",
+          "session_part": "27"
+        },
+        "license": {
+          "id": "apache2.0"
+        },
+        "grants": [
+          {
+            "code": "2444918",
+            "internal_id": "10.13039/100000001::2444918",
+            "funder": {
+              "name": "U.S. National Science Foundation",
+              "doi": "10.13039/100000001",
+              "acronym": "NSF"
+            },
+            "title": "Postdoctoral Fellowship: AGS-PRF: Advancing Heliophysics with Automated Machine Learning and Open-Source Integration",
+            "url": "https://www.nsf.gov/awardsearch/showAward?AWD_ID=2444918&HistoricalAwards=false"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17069413"
+              }
+            }
+          ]
+        }
+      },
+      "title": "indiajacksonphd/FitsFlow: Initial Release",
+      "links": {
+        "self": "https://zenodo.org/api/records/17069414",
+        "self_html": "https://zenodo.org/records/17069414",
+        "preview_html": "https://zenodo.org/records/17069414?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17069414",
+        "self_doi": "https://doi.org/10.5281/zenodo.17069414",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17069414",
+        "reserve_doi": "https://zenodo.org/api/records/17069414/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17069413",
+        "parent_html": "https://zenodo.org/records/17069413",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17069413",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17069413",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17069414/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17069414/sequence/default",
+        "files": "https://zenodo.org/api/records/17069414/files",
+        "media_files": "https://zenodo.org/api/records/17069414/media-files",
+        "archive": "https://zenodo.org/api/records/17069414/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17069414/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17069414/versions/latest",
+        "latest_html": "https://zenodo.org/records/17069414/latest",
+        "versions": "https://zenodo.org/api/records/17069414/versions",
+        "draft": "https://zenodo.org/api/records/17069414/draft",
+        "access_links": "https://zenodo.org/api/records/17069414/access/links",
+        "access_grants": "https://zenodo.org/api/records/17069414/access/grants",
+        "access_users": "https://zenodo.org/api/records/17069414/access/users",
+        "access_request": "https://zenodo.org/api/records/17069414/access/request",
+        "access": "https://zenodo.org/api/records/17069414/access",
+        "communities": "https://zenodo.org/api/records/17069414/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17069414/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17069414/requests"
+      },
+      "updated": "2025-09-08T18:24:53.837896+00:00",
+      "recid": "17069414",
+      "revision": 10,
+      "files": [
+        {
+          "id": "330fb26f-7e1b-4907-98db-f88c95734a95",
+          "key": "indiajacksonphd/FitsFlow-v.0.1.0.zip",
+          "size": 21404955,
+          "checksum": "md5:5c88fc4591ecba9961c25f2c25f6633a",
+          "links": {
+            "self": "https://zenodo.org/api/records/17069414/files/indiajacksonphd/FitsFlow-v.0.1.0.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:43d0aaae5dec6ec854c420a71288e52e5c209093;origin=https://doi.org/10.5281/zenodo.17069413;visit=swh:1:snp:0c93cf5464c63cfabcb00d4f1597f50304973ee5;anchor=swh:1:rel:4c56ff6912fdd65d6dab6ab56318b0e7b8026618;path=indiajacksonphd-FitsFlow-96f0238"
+      },
+      "owners": [
+        {
+          "id": "1374230"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 18,
+        "unique_views": 12,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 12,
+        "version_views": 18
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-06T07:42:04.118151+00:00",
+      "modified": "2025-09-06T07:42:04.352557+00:00",
+      "id": 17067255,
+      "conceptrecid": "17067254",
+      "doi": "10.3897/rio.11.e169264.figure5",
+      "doi_url": "https://doi.org/10.3897/rio.11.e169264.figure5",
+      "metadata": {
+        "title": "Figure 5 from: Karim T, Krimmel E, Little H, Walker LJ (2025) Community-driven enhancement of information ecosystems for the discovery and use of palaeontological specimen data: Cyberinfrastructure alignment workshop. Research Ideas and Outcomes 11: e169264. https://doi.org/10.3897/rio.11.e169264",
+        "doi": "10.3897/rio.11.e169264.figure5",
+        "publication_date": "2025-09-04",
+        "description": "Figure 5 Outline of Palaeo Roadmap vision illustrating the planned approach and structure of the document at the end of the workshop.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Karim, Talia",
+            "affiliation": "University of Colorado Boulder, Boulder, United States of America"
+          },
+          {
+            "name": "Krimmel, Erica",
+            "affiliation": "independent, Sacramento, United States of America"
+          },
+          {
+            "name": "Little, Holly",
+            "affiliation": "Smithsonian National Museum of Natural History, Washington, DC, United States of America"
+          },
+          {
+            "name": "Walker, Lindsay",
+            "affiliation": "University of Kansas, Lawrence, United States of America"
+          }
+        ],
+        "keywords": [
+          "paleontology",
+          "palaeontology",
+          "fossil",
+          "geology",
+          "biodiversity",
+          "collection",
+          "natural history collection",
+          "specimen",
+          "cyberinfrastructure"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.3897/rio.11.e169264",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "https://zenodo.org/record/17067065",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17067254"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Figure 5 from: Karim T, Krimmel E, Little H, Walker LJ (2025) Community-driven enhancement of information ecosystems for the discovery and use of palaeontological specimen data: Cyberinfrastructure alignment workshop. Research Ideas and Outcomes 11: e169264. https://doi.org/10.3897/rio.11.e169264",
+      "links": {
+        "self": "https://zenodo.org/api/records/17067255",
+        "self_html": "https://zenodo.org/records/17067255",
+        "preview_html": "https://zenodo.org/records/17067255?preview=1",
+        "doi": "https://doi.org/10.3897/rio.11.e169264.figure5",
+        "self_doi": "https://doi.org/10.3897/rio.11.e169264.figure5",
+        "self_doi_html": "https://zenodo.org/doi/10.3897/rio.11.e169264.figure5",
+        "reserve_doi": "https://zenodo.org/api/records/17067255/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17067254",
+        "parent_html": "https://zenodo.org/records/17067254",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17067255/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17067255/sequence/default",
+        "files": "https://zenodo.org/api/records/17067255/files",
+        "media_files": "https://zenodo.org/api/records/17067255/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17067255:oo_1388026.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17067255:oo_1388026.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17067255:oo_1388026.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17067255:oo_1388026.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17067255:oo_1388026.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17067255:oo_1388026.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17067255/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17067255/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17067255/versions/latest",
+        "latest_html": "https://zenodo.org/records/17067255/latest",
+        "versions": "https://zenodo.org/api/records/17067255/versions",
+        "draft": "https://zenodo.org/api/records/17067255/draft",
+        "access_links": "https://zenodo.org/api/records/17067255/access/links",
+        "access_grants": "https://zenodo.org/api/records/17067255/access/grants",
+        "access_users": "https://zenodo.org/api/records/17067255/access/users",
+        "access_request": "https://zenodo.org/api/records/17067255/access/request",
+        "access": "https://zenodo.org/api/records/17067255/access",
+        "communities": "https://zenodo.org/api/records/17067255/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17067255/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17067255/requests"
+      },
+      "updated": "2025-09-06T07:42:04.352557+00:00",
+      "recid": "17067255",
+      "revision": 4,
+      "files": [
+        {
+          "id": "3715099d-2cb4-48f5-b86e-641920b56cf7",
+          "key": "oo_1388026.png",
+          "size": 73783,
+          "checksum": "md5:9106d7eda8bf7c9cd286fc5cb6cc4d0e",
+          "links": {
+            "self": "https://zenodo.org/api/records/17067255/files/oo_1388026.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "22270"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-06T07:42:02.018308+00:00",
+      "modified": "2025-09-06T07:42:02.285798+00:00",
+      "id": 17067253,
+      "conceptrecid": "17067252",
+      "doi": "10.3897/rio.11.e169264.figure4",
+      "doi_url": "https://doi.org/10.3897/rio.11.e169264.figure4",
+      "metadata": {
+        "title": "Figure 4 from: Karim T, Krimmel E, Little H, Walker LJ (2025) Community-driven enhancement of information ecosystems for the discovery and use of palaeontological specimen data: Cyberinfrastructure alignment workshop. Research Ideas and Outcomes 11: e169264. https://doi.org/10.3897/rio.11.e169264",
+        "doi": "10.3897/rio.11.e169264.figure4",
+        "publication_date": "2025-09-04",
+        "description": "Figure 4 Venn diagram showing the overlapping user needs for three researcher user personas.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Karim, Talia",
+            "affiliation": "University of Colorado Boulder, Boulder, United States of America"
+          },
+          {
+            "name": "Krimmel, Erica",
+            "affiliation": "independent, Sacramento, United States of America"
+          },
+          {
+            "name": "Little, Holly",
+            "affiliation": "Smithsonian National Museum of Natural History, Washington, DC, United States of America"
+          },
+          {
+            "name": "Walker, Lindsay",
+            "affiliation": "University of Kansas, Lawrence, United States of America"
+          }
+        ],
+        "keywords": [
+          "paleontology",
+          "palaeontology",
+          "fossil",
+          "geology",
+          "biodiversity",
+          "collection",
+          "natural history collection",
+          "specimen",
+          "cyberinfrastructure"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.3897/rio.11.e169264",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "https://zenodo.org/record/17067065",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17067252"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Figure 4 from: Karim T, Krimmel E, Little H, Walker LJ (2025) Community-driven enhancement of information ecosystems for the discovery and use of palaeontological specimen data: Cyberinfrastructure alignment workshop. Research Ideas and Outcomes 11: e169264. https://doi.org/10.3897/rio.11.e169264",
+      "links": {
+        "self": "https://zenodo.org/api/records/17067253",
+        "self_html": "https://zenodo.org/records/17067253",
+        "preview_html": "https://zenodo.org/records/17067253?preview=1",
+        "doi": "https://doi.org/10.3897/rio.11.e169264.figure4",
+        "self_doi": "https://doi.org/10.3897/rio.11.e169264.figure4",
+        "self_doi_html": "https://zenodo.org/doi/10.3897/rio.11.e169264.figure4",
+        "reserve_doi": "https://zenodo.org/api/records/17067253/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17067252",
+        "parent_html": "https://zenodo.org/records/17067252",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17067253/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17067253/sequence/default",
+        "files": "https://zenodo.org/api/records/17067253/files",
+        "media_files": "https://zenodo.org/api/records/17067253/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17067253:oo_1388025.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17067253:oo_1388025.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17067253:oo_1388025.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17067253:oo_1388025.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17067253:oo_1388025.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17067253:oo_1388025.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17067253/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17067253/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17067253/versions/latest",
+        "latest_html": "https://zenodo.org/records/17067253/latest",
+        "versions": "https://zenodo.org/api/records/17067253/versions",
+        "draft": "https://zenodo.org/api/records/17067253/draft",
+        "access_links": "https://zenodo.org/api/records/17067253/access/links",
+        "access_grants": "https://zenodo.org/api/records/17067253/access/grants",
+        "access_users": "https://zenodo.org/api/records/17067253/access/users",
+        "access_request": "https://zenodo.org/api/records/17067253/access/request",
+        "access": "https://zenodo.org/api/records/17067253/access",
+        "communities": "https://zenodo.org/api/records/17067253/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17067253/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17067253/requests"
+      },
+      "updated": "2025-09-06T07:42:02.285798+00:00",
+      "recid": "17067253",
+      "revision": 4,
+      "files": [
+        {
+          "id": "70cf4aae-bdcf-4efb-80a8-985388ad6382",
+          "key": "oo_1388025.png",
+          "size": 123231,
+          "checksum": "md5:dd2fd0fbf0e6fa367c9283136fe58c7c",
+          "links": {
+            "self": "https://zenodo.org/api/records/17067253/files/oo_1388025.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "22270"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-06T07:42:00.344644+00:00",
+      "modified": "2025-09-06T07:42:00.566262+00:00",
+      "id": 17067251,
+      "conceptrecid": "17067250",
+      "doi": "10.3897/rio.11.e169264.figure3",
+      "doi_url": "https://doi.org/10.3897/rio.11.e169264.figure3",
+      "metadata": {
+        "title": "Figure 3 from: Karim T, Krimmel E, Little H, Walker LJ (2025) Community-driven enhancement of information ecosystems for the discovery and use of palaeontological specimen data: Cyberinfrastructure alignment workshop. Research Ideas and Outcomes 11: e169264. https://doi.org/10.3897/rio.11.e169264",
+        "doi": "10.3897/rio.11.e169264.figure3",
+        "publication_date": "2025-09-04",
+        "description": "Figure 3 High-level overview of five user personas introduced during this workshop. Images of cats used as hypothetical representatives of real world users. Photos courtesy of Holly Little (Mason G.), Talia Karim (Connie L., Penny S.), Lindsay Walker (Moe W.) and Erica Krimmel (Brian K.).",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Karim, Talia",
+            "affiliation": "University of Colorado Boulder, Boulder, United States of America"
+          },
+          {
+            "name": "Krimmel, Erica",
+            "affiliation": "independent, Sacramento, United States of America"
+          },
+          {
+            "name": "Little, Holly",
+            "affiliation": "Smithsonian National Museum of Natural History, Washington, DC, United States of America"
+          },
+          {
+            "name": "Walker, Lindsay",
+            "affiliation": "University of Kansas, Lawrence, United States of America"
+          }
+        ],
+        "keywords": [
+          "paleontology",
+          "palaeontology",
+          "fossil",
+          "geology",
+          "biodiversity",
+          "collection",
+          "natural history collection",
+          "specimen",
+          "cyberinfrastructure"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.3897/rio.11.e169264",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "https://zenodo.org/record/17067065",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17067250"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Figure 3 from: Karim T, Krimmel E, Little H, Walker LJ (2025) Community-driven enhancement of information ecosystems for the discovery and use of palaeontological specimen data: Cyberinfrastructure alignment workshop. Research Ideas and Outcomes 11: e169264. https://doi.org/10.3897/rio.11.e169264",
+      "links": {
+        "self": "https://zenodo.org/api/records/17067251",
+        "self_html": "https://zenodo.org/records/17067251",
+        "preview_html": "https://zenodo.org/records/17067251?preview=1",
+        "doi": "https://doi.org/10.3897/rio.11.e169264.figure3",
+        "self_doi": "https://doi.org/10.3897/rio.11.e169264.figure3",
+        "self_doi_html": "https://zenodo.org/doi/10.3897/rio.11.e169264.figure3",
+        "reserve_doi": "https://zenodo.org/api/records/17067251/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17067250",
+        "parent_html": "https://zenodo.org/records/17067250",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17067251/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17067251/sequence/default",
+        "files": "https://zenodo.org/api/records/17067251/files",
+        "media_files": "https://zenodo.org/api/records/17067251/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17067251:oo_1388023.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17067251:oo_1388023.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17067251:oo_1388023.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17067251:oo_1388023.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17067251:oo_1388023.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17067251:oo_1388023.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17067251/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17067251/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17067251/versions/latest",
+        "latest_html": "https://zenodo.org/records/17067251/latest",
+        "versions": "https://zenodo.org/api/records/17067251/versions",
+        "draft": "https://zenodo.org/api/records/17067251/draft",
+        "access_links": "https://zenodo.org/api/records/17067251/access/links",
+        "access_grants": "https://zenodo.org/api/records/17067251/access/grants",
+        "access_users": "https://zenodo.org/api/records/17067251/access/users",
+        "access_request": "https://zenodo.org/api/records/17067251/access/request",
+        "access": "https://zenodo.org/api/records/17067251/access",
+        "communities": "https://zenodo.org/api/records/17067251/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17067251/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17067251/requests"
+      },
+      "updated": "2025-09-06T07:42:00.566262+00:00",
+      "recid": "17067251",
+      "revision": 4,
+      "files": [
+        {
+          "id": "00508c90-90d5-45f0-8a8b-522a233488c3",
+          "key": "oo_1388023.png",
+          "size": 364634,
+          "checksum": "md5:eab98a717613b1f56a4e22a4ac0eafc1",
+          "links": {
+            "self": "https://zenodo.org/api/records/17067251/files/oo_1388023.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "22270"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-06T07:41:57.033315+00:00",
+      "modified": "2025-09-06T07:41:57.265510+00:00",
+      "id": 17067247,
+      "conceptrecid": "17067246",
+      "doi": "10.3897/rio.11.e169264.figure2a",
+      "doi_url": "https://doi.org/10.3897/rio.11.e169264.figure2a",
+      "metadata": {
+        "title": "Figure 2a from: Karim T, Krimmel E, Little H, Walker LJ (2025) Community-driven enhancement of information ecosystems for the discovery and use of palaeontological specimen data: Cyberinfrastructure alignment workshop. Research Ideas and Outcomes 11: e169264. https://doi.org/10.3897/rio.11.e169264",
+        "doi": "10.3897/rio.11.e169264.figure2a",
+        "publication_date": "2025-09-04",
+        "description": "Figure 2a Participants were asked to consider a specimen image and out sketch data mobilisation pathways, especially considering primary specimen data: taxonomy, identifiers, locality, collector(s), stratigraphy and publications: - Image of a fossil specimen (UCM 444419). CC BY 4.0 University of Colorado Museum of Natural History Paleontology Section;",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Karim, Talia",
+            "affiliation": "University of Colorado Boulder, Boulder, United States of America"
+          },
+          {
+            "name": "Krimmel, Erica",
+            "affiliation": "independent, Sacramento, United States of America"
+          },
+          {
+            "name": "Little, Holly",
+            "affiliation": "Smithsonian National Museum of Natural History, Washington, DC, United States of America"
+          },
+          {
+            "name": "Walker, Lindsay",
+            "affiliation": "University of Kansas, Lawrence, United States of America"
+          }
+        ],
+        "keywords": [
+          "paleontology",
+          "palaeontology",
+          "fossil",
+          "geology",
+          "biodiversity",
+          "collection",
+          "natural history collection",
+          "specimen",
+          "cyberinfrastructure"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.3897/rio.11.e169264",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "https://zenodo.org/record/17067065",
+            "relation": "isPartOf",
+            "resource_type": "publication-article",
+            "scheme": "url"
+          }
+        ],
+        "resource_type": {
+          "title": "Figure",
+          "type": "image",
+          "subtype": "figure"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17067246"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Figure 2a from: Karim T, Krimmel E, Little H, Walker LJ (2025) Community-driven enhancement of information ecosystems for the discovery and use of palaeontological specimen data: Cyberinfrastructure alignment workshop. Research Ideas and Outcomes 11: e169264. https://doi.org/10.3897/rio.11.e169264",
+      "links": {
+        "self": "https://zenodo.org/api/records/17067247",
+        "self_html": "https://zenodo.org/records/17067247",
+        "preview_html": "https://zenodo.org/records/17067247?preview=1",
+        "doi": "https://doi.org/10.3897/rio.11.e169264.figure2a",
+        "self_doi": "https://doi.org/10.3897/rio.11.e169264.figure2a",
+        "self_doi_html": "https://zenodo.org/doi/10.3897/rio.11.e169264.figure2a",
+        "reserve_doi": "https://zenodo.org/api/records/17067247/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17067246",
+        "parent_html": "https://zenodo.org/records/17067246",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17067247/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17067247/sequence/default",
+        "files": "https://zenodo.org/api/records/17067247/files",
+        "media_files": "https://zenodo.org/api/records/17067247/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17067247:oo_1397819.png/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17067247:oo_1397819.png/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17067247:oo_1397819.png/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17067247:oo_1397819.png/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17067247:oo_1397819.png/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17067247:oo_1397819.png/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17067247/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17067247/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17067247/versions/latest",
+        "latest_html": "https://zenodo.org/records/17067247/latest",
+        "versions": "https://zenodo.org/api/records/17067247/versions",
+        "draft": "https://zenodo.org/api/records/17067247/draft",
+        "access_links": "https://zenodo.org/api/records/17067247/access/links",
+        "access_grants": "https://zenodo.org/api/records/17067247/access/grants",
+        "access_users": "https://zenodo.org/api/records/17067247/access/users",
+        "access_request": "https://zenodo.org/api/records/17067247/access/request",
+        "access": "https://zenodo.org/api/records/17067247/access",
+        "communities": "https://zenodo.org/api/records/17067247/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17067247/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/17067247/requests"
+      },
+      "updated": "2025-09-06T07:41:57.265510+00:00",
+      "recid": "17067247",
+      "revision": 4,
+      "files": [
+        {
+          "id": "722c5239-42df-46c0-a828-115fc7349ef2",
+          "key": "oo_1397819.png",
+          "size": 1173757,
+          "checksum": "md5:0e9110a26cb75f4b99f1ca067828c8a9",
+          "links": {
+            "self": "https://zenodo.org/api/records/17067247/files/oo_1397819.png/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "22270"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-02T20:53:05.746593+00:00",
+      "modified": "2025-09-29T19:07:44.501573+00:00",
+      "id": 16989318,
+      "conceptrecid": "16989317",
+      "doi": "10.5281/zenodo.16989318",
+      "conceptdoi": "10.5281/zenodo.16989317",
+      "doi_url": "https://doi.org/10.5281/zenodo.16989318",
+      "metadata": {
+        "title": "RCD Nexus Annual Report for Project Year 4",
+        "doi": "10.5281/zenodo.16989318",
+        "publication_date": "2025-08-28",
+        "description": "<p>The RCD Nexus was funded by NSF&rsquo;s Office of Advanced Cyberinfrastructure as an NSF Cyberinfrastructure Center of Excellence (CI CoE) demo pilot. It is a Research Computing and Data (RCD) Resource and Career Center that creates tools, practices, and professional development resources to support individuals and institutions. RCD Nexus both leverages and augments the infrastructure of the Campus Research Computing Consortium (CaRCC) in order to reach, support, and engage with Research Computing and Data and other related professionals. This is the final annual report for the RCD Nexus grant project.&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Brunson, Dana",
+            "affiliation": "Internet2",
+            "orcid": "0000-0002-9778-4213"
+          },
+          {
+            "name": "Schmitz, Patrick",
+            "affiliation": "Semper Cogito Consulting",
+            "orcid": "0000-0003-0659-6880"
+          },
+          {
+            "name": "Siefert McCanse, Daphne",
+            "affiliation": null,
+            "orcid": "0000-0002-7322-2726"
+          },
+          {
+            "name": "Cheatham, Thomas",
+            "affiliation": "University of Utah",
+            "orcid": "0000-0003-0298-3904"
+          },
+          {
+            "name": "Yockel, Scott",
+            "affiliation": "Harvard University",
+            "orcid": "0000-0003-1701-0136"
+          }
+        ],
+        "resource_type": {
+          "title": "Report",
+          "type": "publication",
+          "subtype": "report"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "grants": [
+          {
+            "code": "2100003",
+            "internal_id": "10.13039/100000001::2100003",
+            "funder": {
+              "name": "U.S. National Science Foundation",
+              "doi": "10.13039/100000001",
+              "acronym": "NSF"
+            },
+            "title": "CI CoE: Demo Pilot: Advancing Research Computing and Data: Strategic Tools, Practices, and Professional Development",
+            "url": "https://www.nsf.gov/awardsearch/showAward?AWD_ID=2100003"
+          }
+        ],
+        "communities": [
+          {
+            "id": "carcc"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16989317"
+              }
+            }
+          ]
+        }
+      },
+      "title": "RCD Nexus Annual Report for Project Year 4",
+      "links": {
+        "self": "https://zenodo.org/api/records/16989318",
+        "self_html": "https://zenodo.org/records/16989318",
+        "preview_html": "https://zenodo.org/records/16989318?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16989318",
+        "self_doi": "https://doi.org/10.5281/zenodo.16989318",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16989318",
+        "reserve_doi": "https://zenodo.org/api/records/16989318/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16989317",
+        "parent_html": "https://zenodo.org/records/16989317",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16989317",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16989317",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16989318/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16989318/sequence/default",
+        "files": "https://zenodo.org/api/records/16989318/files",
+        "media_files": "https://zenodo.org/api/records/16989318/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16989318:RCD%20Nexus%20Annual%20Report%20for%20Project%20Year%204.%20April%202025.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16989318:RCD%20Nexus%20Annual%20Report%20for%20Project%20Year%204.%20April%202025.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16989318:RCD%20Nexus%20Annual%20Report%20for%20Project%20Year%204.%20April%202025.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16989318:RCD%20Nexus%20Annual%20Report%20for%20Project%20Year%204.%20April%202025.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16989318:RCD%20Nexus%20Annual%20Report%20for%20Project%20Year%204.%20April%202025.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16989318:RCD%20Nexus%20Annual%20Report%20for%20Project%20Year%204.%20April%202025.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16989318/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16989318/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16989318/versions/latest",
+        "latest_html": "https://zenodo.org/records/16989318/latest",
+        "versions": "https://zenodo.org/api/records/16989318/versions",
+        "draft": "https://zenodo.org/api/records/16989318/draft",
+        "access_links": "https://zenodo.org/api/records/16989318/access/links",
+        "access_grants": "https://zenodo.org/api/records/16989318/access/grants",
+        "access_users": "https://zenodo.org/api/records/16989318/access/users",
+        "access_request": "https://zenodo.org/api/records/16989318/access/request",
+        "access": "https://zenodo.org/api/records/16989318/access",
+        "communities": "https://zenodo.org/api/records/16989318/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16989318/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16989318/requests"
+      },
+      "updated": "2025-09-29T19:07:44.501573+00:00",
+      "recid": "16989318",
+      "revision": 6,
+      "files": [
+        {
+          "id": "1a3bb268-33dd-478d-ac98-5268dd80771e",
+          "key": "RCD Nexus Annual Report for Project Year 4. April 2025.pdf",
+          "size": 787828,
+          "checksum": "md5:75912c6b08357b8194718dd47167eb92",
+          "links": {
+            "self": "https://zenodo.org/api/records/16989318/files/RCD Nexus Annual Report for Project Year 4. April 2025.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "176785"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 49,
+        "unique_downloads": 37,
+        "views": 39,
+        "unique_views": 31,
+        "version_downloads": 49,
+        "version_unique_downloads": 37,
+        "version_unique_views": 31,
+        "version_views": 39
+      },
+      "state": "done",
+      "submitted": true
+    },
     {
       "created": "2025-08-30T22:31:02.692954+00:00",
       "modified": "2025-08-30T22:31:32.302082+00:00",
@@ -123,12 +1407,12 @@
       "stats": {
         "downloads": 0,
         "unique_downloads": 0,
-        "views": 2,
-        "unique_views": 1,
+        "views": 3,
+        "unique_views": 2,
         "version_downloads": 0,
         "version_unique_downloads": 0,
-        "version_unique_views": 1,
-        "version_views": 2
+        "version_unique_views": 2,
+        "version_views": 3
       },
       "state": "done",
       "submitted": true
@@ -265,2202 +1549,14 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 38,
-        "unique_downloads": 22,
-        "views": 31,
-        "unique_views": 29,
-        "version_downloads": 38,
-        "version_unique_downloads": 22,
-        "version_unique_views": 29,
-        "version_views": 31
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-26T15:55:21.520839+00:00",
-      "modified": "2025-08-26T15:55:21.826589+00:00",
-      "id": 16729614,
-      "conceptrecid": "16729613",
-      "doi": "10.5281/zenodo.16729614",
-      "conceptdoi": "10.5281/zenodo.16729613",
-      "doi_url": "https://doi.org/10.5281/zenodo.16729614",
-      "metadata": {
-        "title": "Birds of a Feather: CCIFTD: Certified Cyberinfrastructure Facilitator Training & Development",
-        "doi": "10.5281/zenodo.16729614",
-        "publication_date": "2025-08-26",
-        "description": "<p><strong><u><span>Overview</span></u></strong><span>: The CCIFTD program is a first-of-its-kind, non-matriculated certification of professional development for CI Facilitators. CCIFTD&rsquo;s role is to show proficiency in core skills for facilitating computing/data-intensive research, across all STEM disciplines. The emphasis is on crucial professional/interpersonal skills, and complementary CI technical topics. CCIFTD focuses on establishing both (a) the set of skills and (b) a means for determining mastery.</span></p>\n<p><strong><u><span>Motivation</span></u></strong><span>: The CI workforce suffers from a critical deficit of CI Facilitators, who are the CI professionals who work directly with researchers to advance computing/data-intensive aspects of their research, a vital role at many research-intensive institutions. Currently, there is a clear sense of the nature and value of the CI Facilitator role, but no well-defined set of skills agreed upon by the CI Facilitator community at large.</span></p>\n<p><strong><u><span>Methodology</span></u></strong><span>: 1. <u>Determine the skills</u> that are most valuable for CI Facilitation, by surveying<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span>&nbsp;</span>(i) experienced CI Facilitators, (ii) CI organization leaders such as supercomputing center directors, and (iii) STEM researchers who use CI. 2. <u>Develop badges</u> for each such skill, specifically a training mechanism, an examination instrument, and its scoring rubric, via pilot testing at workshops and online. 3. <u>Construct certification pathways</u>, subsets of badges that collectively merit certification. 4. <u>Test badging methods</u>. 5. <u>Evaluate</u> the CCIFTD program, both formatively during this pilot project and summatively at the end, to improve CCIFTD as it progresses and to determine how successful it has been.</span></p>\n<p><strong><u><span>Discussion Topics</span></u></strong><span> (time might not permit covering all of these topics)</span></p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>CCIFTD training at the 2025 Virtual Residency Introductory/Intermedia workshop (held June 25-28) and the 2025 Virtual Residency Advanced workshop (Aug 6-7)</span></p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>Status of badge training modules, badge examinations, badge examination scoring rubrics</span></p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>Update on evaluation, especially the status of surveys to discover recommended topics (experienced CI Facilitators, CI organization leaders, researchers experienced in using CI)</span></p>\n<p><span><span>&middot;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span></span><span>Experiences to date in developing examinations and scoring rubrics, and lessons learned</span></p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Neeman, Henry",
-            "affiliation": null,
-            "orcid": "0000-0002-4528-5391"
-          },
-          {
-            "name": "Brunson, Dana",
-            "affiliation": "Internet2",
-            "orcid": "0000-0002-9778-4213"
-          },
-          {
-            "name": "Colbry, Dirk",
-            "affiliation": "Michigan State University",
-            "orcid": "0000-0003-0666-9883"
-          }
-        ],
-        "resource_type": {
-          "title": "Presentation",
-          "type": "presentation"
-        },
-        "meeting": {
-          "title": "Practice and Experience in Advanced Computing 2025",
-          "acronym": "PEARC25",
-          "dates": "07/20/2025-07/24/2025",
-          "place": "Columbus, Ohio",
-          "url": "https://web.cvent.com/event/6588dd1b-14b0-4459-b98d-7df1f0f003c3/websitePage:645d57e4-75eb-4769-b2c0-f201a0bfc6ce?session=96e964cd-5879-476f-ad36-39e78db570d6",
-          "session": "BOF-12: CCIFTD: Certified Cyberinfrastructure Facilitator Training & Development",
-          "session_part": "2:00pm"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "grants": [
-          {
-            "code": "2118193",
-            "internal_id": "10.13039/100000001::2118193",
-            "funder": {
-              "name": "U.S. National Science Foundation",
-              "doi": "10.13039/100000001",
-              "acronym": "NSF"
-            },
-            "title": "CyberTraining: Pilot: A Professional Development and Certification Program for Cyberinfrastructure Facilitators",
-            "program": "CISE/OAD"
-          }
-        ],
-        "communities": [
-          {
-            "id": "pearc25"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "16729613"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Birds of a Feather: CCIFTD: Certified Cyberinfrastructure Facilitator Training & Development",
-      "links": {
-        "self": "https://zenodo.org/api/records/16729614",
-        "self_html": "https://zenodo.org/records/16729614",
-        "preview_html": "https://zenodo.org/records/16729614?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16729614",
-        "self_doi": "https://doi.org/10.5281/zenodo.16729614",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16729614",
-        "reserve_doi": "https://zenodo.org/api/records/16729614/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16729613",
-        "parent_html": "https://zenodo.org/records/16729613",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16729613",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16729613",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16729614/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16729614/sequence/default",
-        "files": "https://zenodo.org/api/records/16729614/files",
-        "media_files": "https://zenodo.org/api/records/16729614/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:16729614:pearc2025_bof_cciftd_neeman_20250723.pdf/full/%5E10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:16729614:pearc2025_bof_cciftd_neeman_20250723.pdf/full/%5E50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:16729614:pearc2025_bof_cciftd_neeman_20250723.pdf/full/%5E100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:16729614:pearc2025_bof_cciftd_neeman_20250723.pdf/full/%5E250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:16729614:pearc2025_bof_cciftd_neeman_20250723.pdf/full/%5E750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:16729614:pearc2025_bof_cciftd_neeman_20250723.pdf/full/%5E1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/16729614/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16729614/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16729614/versions/latest",
-        "latest_html": "https://zenodo.org/records/16729614/latest",
-        "versions": "https://zenodo.org/api/records/16729614/versions",
-        "draft": "https://zenodo.org/api/records/16729614/draft",
-        "access_links": "https://zenodo.org/api/records/16729614/access/links",
-        "access_grants": "https://zenodo.org/api/records/16729614/access/grants",
-        "access_users": "https://zenodo.org/api/records/16729614/access/users",
-        "access_request": "https://zenodo.org/api/records/16729614/access/request",
-        "access": "https://zenodo.org/api/records/16729614/access",
-        "communities": "https://zenodo.org/api/records/16729614/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16729614/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16729614/requests"
-      },
-      "updated": "2025-08-26T15:55:21.826589+00:00",
-      "recid": "16729614",
-      "revision": 4,
-      "files": [
-        {
-          "id": "fa88b210-780c-4277-945c-e3f81b8f9832",
-          "key": "pearc2025_bof_cciftd_neeman_20250723.pdf",
-          "size": 987843,
-          "checksum": "md5:66b361840c5c439f41b271d1bc87a10d",
-          "links": {
-            "self": "https://zenodo.org/api/records/16729614/files/pearc2025_bof_cciftd_neeman_20250723.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1378672"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 29,
-        "unique_downloads": 23,
-        "views": 394,
-        "unique_views": 391,
-        "version_downloads": 29,
-        "version_unique_downloads": 23,
-        "version_unique_views": 391,
-        "version_views": 394
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-13T07:30:19.880569+00:00",
-      "modified": "2025-08-13T07:30:20.677127+00:00",
-      "id": 16834305,
-      "conceptrecid": "16834304",
-      "doi": "10.3897/phytokeys.261.154986",
-      "doi_url": "https://doi.org/10.3897/phytokeys.261.154986",
-      "metadata": {
-        "title": "An updated checklist of vascular plants of Myanmar",
-        "doi": "10.3897/phytokeys.261.154986",
-        "publication_date": "2025-08-11",
-        "description": "<p>Myanmar is one of the Southeast Asian countries where biodiversity richness is very high as well as under various anthropogenic threats. Its broad latitudinal range, heterogeneous topography, and tropical monsoonal climate make the country exceptionally rich in plant biodiversity. However, botanical exploration in Myanmar still lags, hindering a full understanding of the floristic diversity of the country and leading to a large gap in taxonomic knowledge of its flora. The latest checklist of Myanmar plants (including 11,800 species) was published over 20 years ago and clearly needs significant and comprehensive revisions to be in line with modern taxonomic classification systems. In this regard, the present study investigated the species richness of Myanmar flora based on herbarium specimens, taxonomic literature, and online databases. Therefore, it resulted in an updated checklist consisting of 14,020 species in 2,701 genera and 292 families of vascular plants known from Myanmar. Among them, there are 13,314 native species and 706 introduced species in Myanmar. In Myanmar, there are 864 endemic species which need proper conservation actions. In comparison, the number of species in the updated checklist has increased by 2,220 species more than those of the previous checklist, mainly due to the discovery of new species and new records for the country. The updated checklist has been taxonomically verified with voucher specimen-based comparisons, which will be useful for subsequent analyses of biodiversity research and conservation action.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Aung, Ye Lwin",
-            "affiliation": "University of Chinese Academy of Sciences, Beijing, China|Forest Research Institute, Nay Pyi Taw, Myanmar|Chinese Academy of Sciences, Beijing, China"
-          },
-          {
-            "name": "Aung, Mung Htoi",
-            "affiliation": "AgroParisTech, Nancy, France"
-          },
-          {
-            "name": "Tan, Yunhong",
-            "affiliation": "Yunnan International Joint Laboratory of Southeast Asia Biodiversity Conservation, Yunnan, China|Chinese Academy of Sciences, Nay Pyi Taw, China|Chinese Academy of Sciences, Yunnan, China"
-          },
-          {
-            "name": "Jin, Xiaohua",
-            "affiliation": "China National Botanical Garden, Beijing, China|Chinese Academy of Sciences, Nay Pyi Taw, China|Chinese Academy of Sciences, Beijing, China"
-          }
-        ],
-        "keywords": [
-          "Biodiversity conservation",
-          "botanical collections",
-          "herbarium specimens",
-          "Myanmar flora",
-          "Southeast Asia"
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "10.3897/phytokeys.261.154986.figure7",
-            "relation": "hasPart",
-            "resource_type": "image-figure",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.261.154986.figure5",
-            "relation": "hasPart",
-            "resource_type": "image-figure",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.261.154986.figure1",
-            "relation": "hasPart",
-            "resource_type": "image-figure",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.261.154986.figure2",
-            "relation": "hasPart",
-            "resource_type": "image-figure",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.261.154986.figure6",
-            "relation": "hasPart",
-            "resource_type": "image-figure",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.261.154986.figure4",
-            "relation": "hasPart",
-            "resource_type": "image-figure",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.261.154986.figure3",
-            "relation": "hasPart",
-            "resource_type": "image-figure",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.261.154986.figure8",
-            "relation": "hasPart",
-            "resource_type": "image-figure",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.261.154986.suppl1",
-            "relation": "hasPart",
-            "resource_type": "other",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.261.154986.suppl5",
-            "relation": "hasPart",
-            "resource_type": "other",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.261.154986.suppl4",
-            "relation": "hasPart",
-            "resource_type": "other",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.261.154986.suppl3",
-            "relation": "hasPart",
-            "resource_type": "other",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.261.154986.suppl2",
-            "relation": "hasPart",
-            "resource_type": "other",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.34885/wnwn-6s63",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.198.79514",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.94.21348",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.11646/phytotaxa.484.2.9",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.15468/nkwfnd",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.82.13172",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.103.25913",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.138.36144",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1016/j.pld.2023.01.008",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.5962/p.315977",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/nph.18919",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.240.101716",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/boj.12385",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/nph.18533",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/boj.12234",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.11646/phytotaxa.472.2.6",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.11646/phytotaxa.510.2.1",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3759/tropics.SINT03",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.11646/phytotaxa.19.1.3",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1007/s12225-012-9382-4",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.94.22065",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.11646/phytotaxa.449.3.1",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.7287/peerj.preprints.2615v2",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3417/2023833",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1038/s41597-020-00702-z",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.201.84911",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.15468/dl.h5s9tp",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/njb.02920",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/njb.03731",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1017/S0960428619000052",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.11110/kjpt.2024.54.2.139",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.11110/kjpt.2018.48.3.218",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1016/j.dib.2020.105503",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1016/j.gecco.2020.e00995",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.62.8101",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1640/0002-8444-107.4.219",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1002/aps3.11388",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.5962/bhl.title.52413",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.20531/tfb.2023.51.2.13",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/jse.12757",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/2041-210X.12861",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.26492/gbs71(2).2019-02",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1007/978-3-642-20992-5_1",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3759/tropics.SINT02",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1016/j.biocon.2020.108834",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1038/35002501",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.11646/phytotaxa.513.2.7",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3767/blumea.2022.67.02.05",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.11646/phytotaxa.548.2.11",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/njb.04238",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1093/botlinnean/box088",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.11110/kjpt.2019.49.1.8",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1641/0006-3568(2001)051",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/nph.20024",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3100/hpib.v25iss1.2020.n15",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3100/025.015.0215",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.243.123303",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1080/03736687.2020.1793079",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/jse.12229",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.2305/IUCN.UK.2015-2.RLTS.T193512A2240580.en",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1007/s12225-008-9049-3",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3767/blumea.2018.63.03.01",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1016/j.tree.2023.08.004",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.83.12869",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.11646/phytotaxa.387.3.4",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3417/2022725",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3759/tropics.SINT01",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/njb.03496",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1007/978-3-319-24277-4_9",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.21105/joss.01686",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1007/s12225-022-10033-4",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/jse.12758",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/phytokeys.94.21557",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1016/j.pld.2020.06.005",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1016/j.pld.2022.05.003",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          }
-        ],
-        "references": [
-          "Antonelli A, Fry C, Smith RJ, Eden J, Govaerts RHA, Kersey P, Nic Lughadha E (2023) State of the World's Plants and Fungi 2023. Royal Botanic Gardens, Kew. https://doi.org/10.34885/wnwn-6s63",
-          "Aubriot X, Knapp S (2022) A revision of the \"spiny solanums\" of Tropical Asia (Solanum, the Leptostemonum Clade, Solanaceae). PhytoKeys 198: 1\u2013270. https://doi.org/10.3897/phytokeys.198.79514",
-          "Aung YL, Jin X-H (2018) Gastrodia kachinensis (Orchidaceae), a new species from Myanmar. PhytoKeys 94: 23\u201329. https://doi.org/10.3897/phytokeys.94.21348",
-          "Aung MH, Jin X-H (2021) Phalaenopsis putaoensis (Orchidaceae: Epidendroideae, Vandeae), a new species from Kachin State, Myanmar. Phytotaxa 484: 244\u2013246. https://doi.org/10.11646/phytotaxa.484.2.9",
-          "Aung TS, Xu Z-P (2023) Update Checklist of Higher Plants in Myanmar. Version 1.1. Chinese Academy of Sciences (CAS). Checklist dataset. https://doi.org/10.15468/nkwfnd [accessed via GBIF.org on 24-12-2024]",
-          "Aung YL, Jin X-H, Schuiteman A (2017) Coelogyne putaoensis (Orchidaceae), a new species from Myanmar. PhytoKeys 82: 27\u201334. https://doi.org/10.3897/phytokeys.82.13172",
-          "Aung YL, Mu AT, Jin X-H (2018) Odontochilus putaoensis (Cranichideae, Orchidaceae), a new species from Myanmar. PhytoKeys: 19\u201326. https://doi.org/10.3897/phytokeys.103.25913",
-          "Aung YL, Mu AT, Aung MH, Liu Q, Jin X-H (2020) An annotated checklist of Myanmar orchid flora. PhytoKeys 138: 49\u2013112. https://doi.org/10.3897/phytokeys.138.36144",
-          "Aung YL, Mu AT, Aung MH, Jin X-H (2021) Field Guide to Orchids of Myanmar. Contributions from Southeast Asia Biodiversity Research Institute, CAS. Hubei Science and Technology Press, Wuhan, China, 248 pp.",
-          "Aung TS, Hughes AC, Khine PK, Liu B, Shen X-L, Ma K-P (2023) Patterns of floristic inventory and plant collections in Myanmar. Plant Diversity 45: 302\u2013308. https://doi.org/10.1016/j.pld.2023.01.008",
-          "Barrett T, Dowle M, Srinivasan A, Gorecki J, Chirico M, Hocking T, Schwendinger B, Krylov I (2025) data.table: Extension of 'data.frame'. R package version 1.17.0.",
-          "Bartram EB (1943) Burma mosses. Farlowia 1: 171\u2013189. https://doi.org/10.5962/p.315977",
-          "Bartram EB (1954) Burma mosses II. Revue Bryologique et Lich\u00e9nologique, Nouvelle S\u00e9rie 23: 241\u2013255.",
-          "Brown MJM, Walker BE, Black N, Govaerts RHA, Ondo I, Turner R, Nic Lughadha E (2023) rWCVP: A companion R package for the World Checklist of Vascular Plants. The New Phytologist 240: 1355\u20131365. https://doi.org/10.1111/nph.18919",
-          "Bruneau A, de Queiroz LP, Ringelberg JJ, Borges LM, Bortoluzzi RLdC, Brown GK, Cardoso DBOS, Clark RP, Concei\u00e7\u00e3o AdS, Cota MMT, Demeulenaere E, de Stefano RD, Ebinger JE, Ferm J, Fonseca-Cort\u00e9s A, Gagnon E, Grether R, Guerra E, Haston E, Herendeen PS, Hern\u00e1ndez HM, Hopkins HCF, Huamantupa-Chuquimaco I, Hughes CE, Ickert-Bond SM, Iganci J, Koenen EJM, Lewis GP, de Lima HC, de Lima AG, Luckow M, Marazzi B, Maslin BR, Morales M, Morim MP, Murphy DJ, O'Donnell SA, Oliveira FG, Oliveira ACdS, Rando JG, Ribeiro PG, Ribeiro CL, Santos FdS, Seigler DS, da Silva GS, Simon MF, Soares MVB, Terra V (2024) Advances in Legume Systematics 14. Classification of Caesalpinioideae. Part 2: Higher-level classification. PhytoKeys 240: 1\u2013552. https://doi.org/10.3897/phytokeys.240.101716",
-          "Byng JW, Chase MW, Christenhusz MJM, Fay MF, Judd WS, Mabberley DJ, Sennikov AN, Soltis DE, Soltis PS, Stevens PF, Briggs B, Brockington S, Chautems A, Clark JC, Conran J, Haston E, M\u00f6ller M, Moore M, Olmstead R, Perret M, Skog L, Smith J, Tank D, Vorontsova M, Weber A, Angiosperm Phylogeny G (2016) An update of the Angiosperm Phylogeny Group classification for the orders and families of flowering plants: APG IV. Botanical Journal of the Linnean Society 181: 1\u201320. https://doi.org/10.1111/boj.12385",
-          "Cai L, Kreft H, Taylor A, Denelle P, Schrader J, Essl F, van Kleunen M, Pergl J, Py\u0161ek P, Stein A, Winter M, Barcelona JF, Fuentes N, Inderjit, Karger DN, Kartesz J, Kuprijanov A, Nishino M, Nickrent D, Nowak A, Patzelt A, Pelser PB, Singh P, Wieringa JJ, Weigelt P (2023) Global models and predictions of plant diversity based on advanced machine learning techniques. The New Phytologist 237: 1432\u20131445. https://doi.org/10.1111/nph.18533",
-          "Chase MW, Cameron KM, Freudenstein JV, Pridgeon AM, Salazar G, van den Berg C, Schuiteman A (2015) An updated classification of Orchidaceae. Botanical Journal of the Linnean Society 177: 151\u2013174. https://doi.org/10.1111/boj.12234",
-          "Chase MW, Christenhusz MJM, Schuiteman A (2020) Expansion of Calanthe to include the species of Cephalantheropsis, Gastrorchis and Phaius (Collabieae; Orchidaceae). Phytotaxa 472: 159\u2013168. https://doi.org/10.11646/phytotaxa.472.2.6",
-          "Chase MW, Gravendeel B, Sulistyo BP, Wati RK, Schuiteman A (2021) Expansion of the orchid genus Coelogyne (Arethuseae; Epidendroideae) to include Bracisepalum, Bulleyia, Chelonistele, Dendrochilum, Dickasonia, Entomophobia, Geesinkorchis, Gynoglottis, Ischnogyne, Nabaluia, Neogyna, Otochilus, Panisea and Pholidota. Phytotaxa 510(2): 94\u2013134. https://doi.org/10.11646/phytotaxa.510.2.1",
-          "Chew WC, Okuda T, Mon SM, Mandal MSH, Shigematsu C, Shin T, Thant AM (2023) A spatial and temporal analysis of commercialized NTFP production in four administrative regions in Myanmar. Tropics 31: 95\u2013109. https://doi.org/10.3759/tropics.SINT03",
-          "Christenhusz MJM, Reveal JL, Farjon A, Gardner MF, Mill RR, Chase MW (2011) A new classification and linear sequence of extant gymnosperms. Phytotaxa 19: 55\u201370. https://doi.org/10.11646/phytotaxa.19.1.3",
-          "de Kok R (2012) A revision of the genus Gmelina (Lamiaceae). Kew Bulletin 67: 293\u2013329. https://doi.org/10.1007/s12225-012-9382-4",
-          "Dickason FG (1946) The Ferns of Burma. The Ohio Journal of Science 46: 109\u2013141.",
-          "Ding H-B, Bin Y, Zhou S-S, Li R, Maw MB, Kyaw WM, Tan Y-H (2018) Hedychium putaoense (Zingiberaceae), a new species from Putao, Kachin State, Northern Myanmar. PhytoKeys 94: 51\u201357. https://doi.org/10.3897/phytokeys.94.22065",
-          "Dong S-Y (2020) Synopsis of Cyatheaceae from Myanmar. Phytotaxa 449: 207\u2013216. https://doi.org/10.11646/phytotaxa.449.3.1",
-          "Enquist BJ, Condit R, Peet RK, Schildhauer M, Thiers BM (2016) Cyberinfrastructure for an integrated botanical information network to investigate the ecological impacts of global climate change on plant biodiversity. PeerJ Preprints 4: e2615v2612. https://doi.org/10.7287/peerj.preprints.2615v2",
-          "FAO (2020) Global Forest Resources Assessment 2020: Main report. FAO, Rome, Italy, 184 pp.",
-          "FD (2019) Re-establishing Natural Habitats Programme. In: Forest Department MONREC (Ed.) Nay Pyi Taw. https://www.forestdepartment.gov.mm/",
-          "FD (2020) Forestry in Myanmar 2020. In: Forest Department MONREC (Ed.) Nay Pyi Taw. https://www.forestdepartment.gov.mm/",
-          "Floden A, Nwe TY, Armstrong KE (2023) A new Polygonatum, P. bifolium species (Asparagaceae: Nolinoideae: Polygonateae) from Myanmar and a checklist of the species known to occur there. Novon 31: 169\u2013177. https://doi.org/10.3417/2023833",
-          "FOMDB (2025) Flora of Myanmar Database. https://www.kahaku.go.jp/research/db/botany/myanmarflora/ [accessed: 12-01-2025]",
-          "Freiberg M, Winter M, Gentile A, Zizka A, Muellner-Riehl AN, Weigelt A, Wirth C (2020) LCVP, The Leipzig catalogue of vascular plants, a new taxonomic reference list for all known vascular plants. Scientific Data 7: 416. https://doi.org/10.1038/s41597-020-00702-z",
-          "Fujiwara T, Khine PK, Hori K, Shin T, Murakami N, Schneider H (2022) Lepisorus medioximus (Polypodiales, Polypodiaceae), a new species from Shan State of Myanmar. PhytoKeys 201: 23\u201334. https://doi.org/10.3897/phytokeys.201.84911",
-          "GBIF.org (2025) GBIF Occurrence Download. https://doi.org/10.15468/dl.h5s9tp [accessed: 11-02-2025]",
-          "Harvard University Herbaria and Libraries (2024) The Index of Botanical Specimens. https://kiki.huh.harvard.edu/databases/specimen_index.html [accessed: 20-10-2024]",
-          "Hein KZ, Naive MAK (2021) Taxonomic studies of Araceae in Myanmar III: Typhonium aungmyintwinii, a new species from Mogok Township, Mandalay Region. Taiwania 66: 455\u2013458.",
-          "Hein KZ, Naive MAK, Chen J (2021) Artabotrys chitkokoi (Annonaceae), a new species discovered in Sagaing Region, Myanmar. Nordic Journal of Botany 39(1). https://doi.org/10.1111/njb.02920",
-          "Hein KZ, Naive MAK, Serebryanyi MM (2022) Taxonomic studies of Araceae in Myanmar V: A new Alocasia species from Myanmar and Thailand. Nordic Journal of Botany: 2022(10): e03731. https://doi.org/10.1111/njb.03731",
-          "Hooker JD (1894) Flora of British India. L. Reeve & Co., London.",
-          "Hughes M, Aung MM, Armstrong K (2019) An updated checklist and a new species of Begonia (B. Rheophytica) from Myanmar. Edinburgh Journal of Botany 76: 285\u2013295. https://doi.org/10.1017/S0960428619000052",
-          "Hundley HG (1987) List of Trees, Shrubs, Herbs and Principal Climbers, etc. Recorded from Burma with Vernacular Names. 4th revised edn. Forest Department, Swe Daw Oo Press, Rangoon.",
-          "Hundley HG, Ko CK (1961) List of Trees, Shrubs, Herbs and Principal Climbers, etc. Recorded from Burma with Vernacular Names. 3rd edn. Supdt., Govt. Printing and Staty., Rangoon.",
-          "Inoue Y, Aung MM (2023) Reimersia inconspicua (Griff.) P.C.Chen (Pottiaceae, Bryophyta) New to Myanmar, and Its Phylogenetic Position. Bulletin of the National Museum of Nature and Science. Series B, Botany 49: 17\u201323.",
-          "IPNI (2024) International Plant Names Index. The Royal Botanic Gardens, Kew, Harvard University Herbaria & Libraries and Australian National Herbarium. http://www.ipni.org [accessed: 15-10-2024]",
-          "IUCN (2025) The IUCN Red List of Threatened Species. Version 2024-2. https://www.iucnredlist.org [accessed: 15-01-2025]",
-          "JACQ (2025) JACQ: Virtual Herbaria. https://jacq.org/ [accessed: 12-01-2025]",
-          "Jin X-H, Mint Z (2018) Petrosaviaceae, a new familial record of angiosperm from Myanmar. Redai Yaredai Zhiwu Xuebao 26(6): 677\u2013678.",
-          "Jin X-H, Zhu X-Y, Mint Z (2018) Triuridaceae, a new familial record of Angiosperm from Myanmar. Redai Yaredai Zhiwu Xuebao 26(1): 79\u201381.",
-          "Jung E-K, Kang D-H, Ong HG, Kyaw NO, Kim Y-D (2024) New records of flowering plants for the flora of Myanmar collected from Southern Shan State II. Korean Journal of Plant Taxonomy 54: 139\u2013143. https://doi.org/10.11110/kjpt.2024.54.2.139",
-          "Kang D-H, Kyaw NO, Jung E-K, Shin J-S, Kim Y-D, Ong HG (2018) New records of flowering plants for the flora of Myanmar collected from southern Shan State. Korean Journal of Plant Taxonomy 48: 218\u2013229. https://doi.org/10.11110/kjpt.2018.48.3.218",
-          "Kazumi F, Hiroshi I, Ling Shein M, Law S (2017) Taxonomic studies in the Asteraceae of Myanmar III: A new species, Ainsliaea hederifolia, from Myanmar. Shokubutsu Kenkyu Zasshi 92: 87\u201393.",
-          "Khine PK, Schneider H (2020a) Data on pteridophyte species diversity and status of the International Union for Conservation of Nature in each political unit of Myanmar. Data in Brief 30: 105503. https://doi.org/10.1016/j.dib.2020.105503",
-          "Khine PK, Schneider H (2020b) First assessment of pteridophytes' composition and conservation status in Myanmar. Global Ecology and Conservation 22: e00995. https://doi.org/10.1016/j.gecco.2020.e00995",
-          "Khine PK, Lindsay S, Fraser-Jenkins C, Kluge J, Kyaw M, Hovenkamp P (2016) Selliguea kachinensis (Polypodiaceae), a new fern species of uncertain affinity from Northern Myanmar. PhytoKeys 62: 73\u201381. https://doi.org/10.3897/phytokeys.62.8101",
-          "Khine PK, Fraser-Jenkins C, Lindsay S, Middleton D, Miehe G, Thomas P, Kluge J (2017) A Contribution Toward the Knowledge of Ferns and Lycophytes from Northern and Northwestern Myanmar. American Fern Journal 107: 219\u2013256. https://doi.org/10.1640/0002-8444-107.4.219",
-          "Kindt R (2020) WorldFlora: An R package for exact and fuzzy matching of plant names against the World Flora Online taxonomic backbone data. Applications in Plant Sciences 8: e11388. https://doi.org/10.1002/aps3.11388",
-          "Kress WJ, DeFilipps RA, Farr E, Kyi YY (2003) A checklist of the trees, shrubs, herbs, and climbers of Myanmar (revised from the original works by JH Lace, R. Rodger, HG Hundley and U Chit Ko Ko on the \"List of trees, shrubs, herbs and principal climbers etc. recorded from Burma\"). Contributions from the United States National Herbarium, 590 pp.",
-          "Kurz S (1877) Forest Flora of British Burma. Supdt., Government Printer, Calcutta. https://doi.org/10.5962/bhl.title.52413",
-          "Kurzweil H, Lwin S (2014) A guide to orchids of Myanmar. Natural History Publications (Borneo), Kota Kinabalu, 196 pp.",
-          "Kurzweil H, Ormerod P, Kumar S (2023) The genus Habenaria (Orchidaceae) in Myanmar. Thai Forest Bulletin (Botany) 51: 98\u2013156. https://doi.org/10.20531/tfb.2023.51.2.13",
-          "Lace JH (1912) List of Trees, Shrubs, Herbs and Principal Climbers, etc. Recorded from Burma. Forest Department, CCF, Rangoon.",
-          "Larridon I, Zuntini AR, L\u00e9veill\u00e9\u2010Bourret \u00c9, Barrett RL, Starr JR, Muasya AM, Villaverde T, Bauters K, Brewer GE, Bruhl JJ, Costa SM, Elliott TL, Epitawalage N, Escudero M, Fairlie I, Goetghebeur P, Hipp AL, Jim\u00e9nez\u2010Mej\u00edas P, Sabino Kikuchi IAB, Luce\u00f1o M, M\u00e1rquez\u2010Corro JI, Mart\u00edn\u2010Bravo S, Maurin O, Pokorny L, Roalson EH, Semmouri I, Simpson DA, Spalink D, Thomas WW, Wilson KL, Xanthos M, Forest F, Baker WJ (2021) A new classification of Cyperaceae (Poales) supported by phylogenomic data. Journal of Systematics and Evolution 59: 852\u2013895. https://doi.org/10.1111/jse.12757",
-          "Maitner BS, Boyle B, Casler N, Condit R, Donoghue J II, Dur\u00e1n SM, Guaderrama D, Hinchliff CE, J\u00f8rgensen PM, Kraft NJB, McGill B, Merow C, Morueta-Holme N, Peet RK, Sandel B, Schildhauer M, Smith SA, Svenning J-C, Thiers B, Violle C, Wiser S, Enquist BJ (2018) The bien r package: A tool to access the Botanical Information and Ecology Network (BIEN) database. Methods in Ecology and Evolution 9: 373\u2013379. https://doi.org/10.1111/2041-210X.12861",
-          "Maw MB, Hein KZ, Naing MK, Yu W-B, Tan Y-H (2023) Taxonomic studies on Begonia (Begoniaceae) in Myanmar III: Begonia kayinensis (sect. Monophyllon), a remarkable new species from Kayin State, Southern Myanmar. Taiwania 68: 407\u2013411.",
-          "MBKDatabase (2025) Myanmar Vascular Plants Database. https://makinodatabase.jp/plantsdatabase/ [accessed: 27-01-2025]",
-          "Middleton DJ, Armstrong K, Baba Y, Balslev H, Chayamarit K, Chung RCK, Conn BJ, Fernando ES, Fujikawa K, Kiew R, Luu HT, Aung MM, Newman MF, Tagane S, Tanaka N, Thomas DC, Tran TB, Utteridge TMA, van Welzen PC, Widyatmoko D, Yahara T, Wong KM (2019) Progress on Southeast Asia's Flora projects. Gardens' Bulletin (Singapore) 71: 267\u2013319. https://doi.org/10.26492/gbs71(2).2019-02",
-          "Mittermeier RA, Turner WR, Larsen FW, Brooks TM, Gascon C (2011) Global Biodiversity Conservation: The Critical Role of Hotspots. In: Zachos FE, Habel JC (Eds) Biodiversity Hotspots: Distribution and Protection of Conservation Priority Areas. Springer, Berlin/Heidelberg, 3\u201322. https://doi.org/10.1007/978-3-642-20992-5_1",
-          "Mon SM, Okuda T, Yamada T, Thant AM, Shin T, Chew WC, Mandal MSH, Shigematsu C (2023) Can commercialization of non-timber forest product (NTFP) reduce deforestation in Myanmar? Tropics 31: 81\u201393. https://doi.org/10.3759/tropics.SINT02",
-          "Muller F, Koponen T (2022) Rhizomnium mieheanum sp. nov. (Mniaceae) and five other species of Mniaceae new to Myanmar. Hattoria 13: 1\u201312.",
-          "Murata J, Ohi-Toma T, Tanaka N (2010) New or Noteworthy Plant Collections from Myanmar (4): Typhonium cordifolium and two new species, T. neogracile and T. praecox (Araceae). Shokubutsu Kenkyu Zasshi 85: 1\u20137.",
-          "Murray NJ, Keith DA, Duncan A, Tizard R, Ferrer-Paris JR, Worthington TA, Armstrong K, Hlaing N, Htut WT, Oo AH, Ya KZ, Grantham H (2020) Myanmar's terrestrial ecosystems: Status, threats and conservation opportunities. Biological Conservation 252: 108834. https://doi.org/10.1016/j.biocon.2020.108834",
-          "Myers N, Mittermeier RA, Mittermeier CG, da Fonseca GAB, Kent J (2000) Biodiversity hotspots for conservation priorities. Nature 403: 853\u2013858. https://doi.org/10.1038/35002501",
-          "Naive MAK, Hein KZ (2021) Taxonomic studies of Araceae in Myanmar II: Typhonium edule, a remarkable new aroid species from Monywa District, Sagaing Region. Phytotaxa 513: 159\u2013165. https://doi.org/10.11646/phytotaxa.513.2.7",
-          "Naive MAK, Hein KZ, Hetterscheid W (2022a) Taxonomic studies of Araceae in Myanmar IV: A new species, a new record and a new synonym for the genus Amorphophallus. Blumea 67: 123\u2013128. https://doi.org/10.3767/blumea.2022.67.02.05",
-          "Naive MAK, Hein KZ, Kumar P, Ormerod P (2022b) Eulophia myanmarica (Orchidaceae), a new species from Myanmar and notes on Geodorum densiflorum. Phytotaxa 548: 288\u2013294. https://doi.org/10.11646/phytotaxa.548.2.11",
-          "Naive MAK, Hein KZ, Serebryanyi M, Hetterscheid W (2024) Taxonomic studies of Araceae in Myanmar VI: Amorphophallus mirabilis - a new species and a new record for the genus Amorphophallus. Nordic Journal of Botany 2024(2): e04238. https://doi.org/10.1111/njb.04238",
-          "Natural History Museum (2024) Dataset: Collection specimens. Natural History Museum Data Portal. https://data.nhm.ac.uk/ [accessed: 23-10-2024]",
-          "New York Botanical Garden (2024) The C. V. Starr Virtual Herbarium. http://sweetgum.nybg.org/science/vh/ [accessed: 18-10-2024]",
-          "Ng YP, Schuiteman A, Pedersen H\u00c6, Petersen G, Watthana S, Seberg O, Pridgeon AM, Cribb PJ, Chase MW (2018) Phylogenetics and systematics of Eria and related genera (Orchidaceae: Podochileae). Botanical Journal of the Linnean Society 186: 179\u2013201. https://doi.org/10.1093/botlinnean/box088",
-          "Nwe TY, Moon M-O, Lee S-H, Sun B-Y (2019) Newly recorded ferns from the flora of Myanmar in Natma Taung National Park. Korean Journal of Plant Taxonomy 49: 8\u201312. https://doi.org/10.11110/kjpt.2019.49.1.8",
-          "Olson DM, Dinerstein E, Wikramanayake ED, Burgess ND, Powell GVN, Underwood EC, D'amico JA, Itoua I, Strand HE, Morrison JC, Loucks CJ, Allnutt TF, Ricketts TH, Kura Y, Lamoreux JF, Wettengel WW, Hedao P, Kassem KR (2001) Terrestrial Ecoregions of the World: A New Map of Life on Earth: A new global map of terrestrial ecoregions provides an innovative tool for conserving biodiversity. Bioscience 51: 933\u2013938. https://doi.org/10.1641/0006-3568(2001)051[0933:TEOTWA]2.0.CO;2",
-          "Ondo I, Dhanjal\u2010Adams KL, Pironon S, Silvestro D, Colli\u2010Silva M, Deklerck V, Grace OM, Monro AK, Nicolson N, Walker B, Antonelli A (2024) Plant diversity darkspots for global collection priorities. The New Phytologist 244: 719\u2013733. https://doi.org/10.1111/nph.20024",
-          "Ooms J (2024) writexl: Export Data Frames to Excel 'xlsx' Format. R package version 1.5.1.",
-          "Ormerod P, Kurzweil H (2020) Pinalia taunggyiensis (Orchidaceae), a New Species from Myanmar. Harvard Papers in Botany 25: 1\u20132. https://doi.org/10.3100/hpib.v25iss1.2020.n15",
-          "Ormerod P, Wood EW (2010) A New Species of Pinalia (Orchidaceae: Eriinae) from Myanmar. Harvard Papers in Botany 15: 349\u2013351. https://doi.org/10.3100/025.015.0215",
-          "Ormerod P, Kurzweil H, Watthana S (2021) Annotated List of Orchidaceae for Myanmar. Phytotaxa 481: 1\u2013262.",
-          "Paing CS, Suksathan P, Ruchisansakun S (2024) Impatiens karenensis (Balsaminaceae), a new tiny flowered species from Myanmar. PhytoKeys: 113\u2013119. https://doi.org/10.3897/phytokeys.243.123303",
-          "Potemkin AD, M\u00fcller F (2020) The genus Scapania (Scapaniaceae, Marchantiophyta) in Myanmar. Journal of Bryology 42: 386\u2013389. https://doi.org/10.1080/03736687.2020.1793079",
-          "POWO (2024) Plants of the World Online. Facilitated by the Royal Botanic Gardens, Kew. https://powo.science.kew.org/ [accessed: 27-09-2024]",
-          "PPGI (2016) A community-derived classification for extant lycophytes and ferns. Journal of Systematics and Evolution 54: 563\u2013603. https://doi.org/10.1111/jse.12229",
-          "Pridgeon AM, Cribb PJ, Chase MW, Rasmussen F (2014) Genera Orchidacearum, Volume 6, Epidendroideae (Part Three). Oxford University Press, Oxford, 544 pp.",
-          "QGIS.org (2025) QGIS Geographic Information System. https://qgis.org/",
-          "Rankou H, Averyanov L (2015) Paphiopedilum parishii. The IUCN Red List of Threatened Species 2015: e.T193512A2240580. http://dx.doi.org/10.2305/IUCN.UK.2015-2.RLTS.T193512A2240580.en",
-          "R Core Team (2024) R: A Language and Environment for Statistical Computing. R Foundation for Statistical Computing, Vienna, Austria. https://www.R-project.org/",
-          "Roberts DL, Gardiner LM, Motes M (2008) Vanda longitepala (Orchidaceae): A new species from Burma. Kew Bulletin 63: 495\u2013497. https://doi.org/10.1007/s12225-008-9049-3",
-          "Rodger A (1922) List of Trees, Shrubs, Herbs and Principal Climbers, etc. Recorded from Burma with Vernacular Names. (ed. 2). Forest Department, Rangoon.",
-          "Royal Botanic Garden Edinburgh (2024) The Herbarium Catalogue. https://data.rbge.org.uk/search/herbarium/ [accessed: 20-10-2024]",
-          "Royal Botanic Gardens Kew (2025) The Kew Data Portal. Published on the Internet http://www.data.kew.org [accessed: 20-01-2025]",
-          "Ruchisansakun S, Suksathan P, van der Niet T, Smets EF, Saw L, Janssens SB (2018) Balsaminaceae of Myanmar. Blumea 63(3): 199\u2013267. https://doi.org/10.3767/blumea.2018.63.03.01",
-          "Sandall EL, Maureaud AA, Guralnick R, McGeoch MA, Sica YV, Rogan MS, Booher DB, Edwards R, Franz N, Ingenloff K, Lucas M, Marsh CJ, McGowan J, Pinkert S, Ranipeta A, Uetz P, Wieczorek J, Jetz W (2023) A globally integrated structure of taxonomy to support biodiversity science and conservation. Trends in Ecology & Evolution 38: 1143\u20131153. https://doi.org/10.1016/j.tree.2023.08.004",
-          "Smithsonian National Museum of Natural History (2024) The Botany Collections. https://collections.nmnh.si.edu/search/botany/?ti=3 [accessed: 22-10-2024]",
-          "Svalbard Global Seed Vault (2018) Threatened Myanmar orchids conserved in the Seed Vault. www.seedvault.no/2018/06/13/threatened-myanmar-orchids-conserved-in-the-seed-vault/ [accessed: 12-01-2025]",
-          "Tan Y, Li D, Chen Y, Li B (2017) Premna bhamoensis (Lamiaceae, Premnoideae), a new species from Kachin State, northeastern Myanmar. PhytoKeys 83: 93\u2013101. https://doi.org/10.3897/phytokeys.83.12869",
-          "Tanaka N, Aung MM (2019) Taxonomic Studies on Zingiberaceae of Myanmar I: A new species of Curcuma (Subgenus Ecomatae) from Myanmar. Phytotaxa 387(3). https://doi.org/10.11646/phytotaxa.387.3.4",
-          "Tanaka N, Peng C-I (2016) Begonia togashii (Begoniaceae: Sect. Platycentrum), a New Species from Central Myanmar. Acta Phytotaxonomica et Geobotanica 67(3): 191\u2013197.",
-          "Tanaka N, Aung MM, Vermeulen JJ (2022a) Impatiens katjae, a New Species of Impatiens (Balsaminaceae) from Central Myanmar. Novon 30: 56\u201360. https://doi.org/10.3417/2022725",
-          "Tanaka N, Ohi-Toma T, Suksathan P, Aung MM, Poulsen AD, Mohamad S, Armstrong EK (2022b) Myanmaranthus roseiflorus, a New Genus and Species of Marantaceae from Myanmar. Shokubutsu Kenkyu Zasshi 97(4): 187\u2013196.",
-          "The BioPortal of Naturalis Biodiversity Center (2024) National Herbarium of the Netherlands https://bioportal.naturalis.nl/ [accessed: 16-10-2024]",
-          "The Vascular Plants Mus\u00e9um National d'Histoire Naturelle (2024) The Vascular Plants Mus\u00e9um National d'Histoire Naturelle. https://science.mnhn.fr/institution/mnhn/collection/p/item/search/form?lang=en_US [accessed: 23-09-2024]",
-          "Thiers BM (updated continuously) Index Herbariorum. https://sweetgum.nybg.org/science/ih/ [accessed: 12-09-2024]",
-          "TNRS (2025) Taxonomic Name Resolution Service V5.3.1. https://tnrs.biendata.org/ [accessed: 12-01-2025]",
-          "Toda M, Hashiguchi H, Hiratsuka M (2023) Socioeconomic aspects of utilizing non-timber forest products in Myanmar: A review. Tropics 31: 69\u201379. https://doi.org/10.3759/tropics.SINT01",
-          "Tong Y-H, Fritsch PW, Tan Y-H, Aung MM, Yang B, Armstrong KE (2022) Novelties in Myanmar Agapetes (Ericaceae) with an updated checklist of species from the country. Nordic Journal of Botany 2022: e03496. https://doi.org/10.1111/njb.03496",
-          "UNDP and SCBD (2021) Aichi Biodiversity Target 11 Country Dossier: MYANMAR. 48 pp.",
-          "WFO (2024) World Flora Online. http://www.worldfloraonline.org [accessed: 23-09-2024]",
-          "Wickham H (2016) ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag, New York. https://doi.org/10.1007/978-3-319-24277-4_9",
-          "Wickham H, Averick M, Bryan J, Chang W, McGowan L, Fran\u00e7ois R, Grolemund G, Hayes A, Henry L, Hester J, Kuhn M, Pedersen T, Miller E, Bache S, M\u00fcller K, Ooms J, Robinson D, Seidel D, Spinu V, Takahashi K, Vaughan D, Wilke C, Woo K, Yutani H (2019) Welcome to the tidyverse. Journal of Open Source Software 4(43): 1686. https://doi.org/10.21105/joss.01686",
-          "Wickham H, Fran\u00e7ois R, Henry L, M\u00fcller K, Vaughan D (2023) dplyr: A Grammar of Data Manipulation. R package version 1.1.4.",
-          "Wood JR, Aung MM, Wells T, Armstrong KE (2022) Strobilanthes Blume (Acanthaceae) in Myanmar, a new species and an updated checklist. Kew Bulletin 77: 521\u2013539. https://doi.org/10.1007/s12225-022-10033-4",
-          "Xie D, Liu B, Zhao L-N, Pandey TR, Liu H-Y, Shan Z-J, Qin H-N (2021) Diversity of higher plants in China. Journal of Systematics and Evolution 59: 1111\u20131123. https://doi.org/10.1111/jse.12758",
-          "Yang B, Ding HB, Zhou SS, Zhu X, Li R, Maw MB, Tan YH (2018) Aristolochia sinoburmanica (Aristolochiaceae), a new species from north Myanmar. PhytoKeys 94: 13\u201322. https://doi.org/10.3897/phytokeys.94.21557",
-          "Yang B, Deng M, Zhang M-X, Moe AZ, Ding H-B, Maw MB, Win PP, Corlett RT, Tan Y-H (2020) Contributions to the flora of Myanmar from 2000 to 2019. Plant Diversity 42: 292\u2013301. https://doi.org/10.1016/j.pld.2020.06.005",
-          "Yang Y, Ferguson DK, Liu B, Mao K-S, Gao L-M, Zhang S-Z, Wan T, Rushforth K, Zhang Z-X (2022) Recent advances on phylogenomics of gymnosperms and a new classification. Plant Diversity 44: 340\u2013350. https://doi.org/10.1016/j.pld.2022.05.003",
-          "Yukawa T, Takamiya T, Aung MM, Htwe KM, Tanaka N (2022) Dendrobium popaense (Orchidaceae)\u2014A New Species from Myanmar. Bulletin of the National Museum of Nature and Science. Series B, Botany 48: 71\u201377."
-        ],
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
-        },
-        "journal": {
-          "issue": "",
-          "pages": "135-164",
-          "title": "PhytoKeys",
-          "volume": "261"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "communities": [
-          {
-            "id": "biosyslit"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "16834304"
-              }
-            }
-          ]
-        }
-      },
-      "title": "An updated checklist of vascular plants of Myanmar",
-      "links": {
-        "self": "https://zenodo.org/api/records/16834305",
-        "self_html": "https://zenodo.org/records/16834305",
-        "preview_html": "https://zenodo.org/records/16834305?preview=1",
-        "doi": "https://doi.org/10.3897/phytokeys.261.154986",
-        "self_doi": "https://doi.org/10.3897/phytokeys.261.154986",
-        "self_doi_html": "https://zenodo.org/doi/10.3897/phytokeys.261.154986",
-        "reserve_doi": "https://zenodo.org/api/records/16834305/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16834304",
-        "parent_html": "https://zenodo.org/records/16834304",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16834305/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16834305/sequence/default",
-        "files": "https://zenodo.org/api/records/16834305/files",
-        "media_files": "https://zenodo.org/api/records/16834305/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:16834305:PK_article_154986.pdf/full/%5E10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:16834305:PK_article_154986.pdf/full/%5E50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:16834305:PK_article_154986.pdf/full/%5E100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:16834305:PK_article_154986.pdf/full/%5E250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:16834305:PK_article_154986.pdf/full/%5E750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:16834305:PK_article_154986.pdf/full/%5E1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/16834305/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16834305/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16834305/versions/latest",
-        "latest_html": "https://zenodo.org/records/16834305/latest",
-        "versions": "https://zenodo.org/api/records/16834305/versions",
-        "draft": "https://zenodo.org/api/records/16834305/draft",
-        "access_links": "https://zenodo.org/api/records/16834305/access/links",
-        "access_grants": "https://zenodo.org/api/records/16834305/access/grants",
-        "access_users": "https://zenodo.org/api/records/16834305/access/users",
-        "access_request": "https://zenodo.org/api/records/16834305/access/request",
-        "access": "https://zenodo.org/api/records/16834305/access",
-        "communities": "https://zenodo.org/api/records/16834305/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16834305/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16834305/requests"
-      },
-      "updated": "2025-08-13T07:30:20.677127+00:00",
-      "recid": "16834305",
-      "revision": 5,
-      "files": [
-        {
-          "id": "14fd9944-e823-42ab-97d9-1a71cc383842",
-          "key": "PK_article_154986.pdf",
-          "size": 5692292,
-          "checksum": "md5:8acd92bd87245e090a6303dd50646ff2",
-          "links": {
-            "self": "https://zenodo.org/api/records/16834305/files/PK_article_154986.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1161"
-        }
-      ],
-      "status": "published",
-      "stats": {
         "downloads": 40,
-        "unique_downloads": 34,
-        "views": 30,
+        "unique_downloads": 24,
+        "views": 32,
         "unique_views": 30,
         "version_downloads": 40,
-        "version_unique_downloads": 34,
+        "version_unique_downloads": 24,
         "version_unique_views": 30,
-        "version_views": 30
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-05T01:12:49.005605+00:00",
-      "modified": "2025-08-05T01:12:49.186906+00:00",
-      "id": 16741322,
-      "conceptrecid": "4739529",
-      "doi": "10.5281/zenodo.16741322",
-      "conceptdoi": "10.5281/zenodo.4739529",
-      "doi_url": "https://doi.org/10.5281/zenodo.16741322",
-      "metadata": {
-        "title": "Clowder: Open Source Data Management for Long Tail Data",
-        "doi": "10.5281/zenodo.16741322",
-        "publication_date": "2025-08-05",
-        "description": "A customizable and scalable data management system you can install in the cloud or on your own hardware.",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Luigi Marini",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign",
-            "orcid": "0000-0002-8511-0211"
-          },
-          {
-            "name": "Rob Kooper",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign",
-            "orcid": "0000-0002-5781-7287"
-          },
-          {
-            "name": "Indira Gutierrez",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign",
-            "orcid": "0000-0001-5684-3419"
-          },
-          {
-            "name": "Constantinos Sophocleous",
-            "affiliation": null
-          },
-          {
-            "name": "Max Burnette",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Todd Nicholson",
-            "affiliation": "Coordinated Science Laboratory, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Michal Ondrejcek",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Bing Zhang",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Inna Zharnitsky",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Sandeep Puthanveetil Satheesan",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign",
-            "orcid": "0000-0001-9075-3740"
-          },
-          {
-            "name": "Smruti Padhy",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Yan Zhao",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Rui Liu",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Ashwini Vaidya",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Jim Myers",
-            "affiliation": null,
-            "orcid": "0000-0001-8462-650X"
-          },
-          {
-            "name": "Mario Felarca",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Brock Angelo",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Gene Roeder",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Jong Lee",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Will Hennessy",
-            "affiliation": "University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Theerasit Issaranon",
-            "affiliation": "University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Yibo Guo",
-            "affiliation": "University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Xiaocheng Yuan",
-            "affiliation": "University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Varun Kethineedi",
-            "affiliation": "University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Avinash Kumar",
-            "affiliation": "University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Nishant Nayudu",
-            "affiliation": "University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Ward Poelmans",
-            "affiliation": "Center for Molecular Modeling, Ghent University"
-          },
-          {
-            "name": "Winston Jansz",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Gregory Jansen",
-            "affiliation": "College of Information Studies, University of Maryland"
-          },
-          {
-            "name": "Chris Navarro",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Michelle Pitcel",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Nicholas Tenczar",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Chen Wang",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Mike Lambert",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Kenton McHenry",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign",
-            "orcid": "0000-0003-0367-2550"
-          },
-          {
-            "name": "Aaraj Habib",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Ben Galewsky",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Chrysovalantis Constantinou",
-            "affiliation": null
-          },
-          {
-            "name": "Kaveh Karimi-Asli",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Maria-Spyridoula Tzima",
-            "affiliation": null
-          },
-          {
-            "name": "Michael Johnson",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Mike Bobak",
-            "affiliation": "National Center for Supercomputing Applications, University of Illinois at Urbana-Champaign"
-          },
-          {
-            "name": "Tim Yardley",
-            "affiliation": null
-          }
-        ],
-        "keywords": [
-          "data-management",
-          "cyberinfrastructure",
-          "clowder",
-          "open-data",
-          "open-science"
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "https://github.com/clowder-framework/clowder/tree/v1.23.0",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
-          }
-        ],
-        "version": "v1.23.0",
-        "custom": {
-          "code:codeRepository": "https://github.com/clowder-framework/clowder"
-        },
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "uoi-ncsa"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 15,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "4739529"
-              }
-            }
-          ]
-        },
-        "notes": "This research has been partially funded by grants: NSF #BCS-0941268, #EAR- 331906, #ACI-1261582, #ACI-1443013, #OCI-0940824, #OCI-0525308, #OAC-1835834; NIH #1P01AI089556-01A1. Illinois - Indiana Sea Grant #DW92329201, European Commission #RI-261600, XSEDE #OCI-1053575, ARPA- E #DE-AR0000594."
-      },
-      "title": "Clowder: Open Source Data Management for Long Tail Data",
-      "links": {
-        "self": "https://zenodo.org/api/records/16741322",
-        "self_html": "https://zenodo.org/records/16741322",
-        "preview_html": "https://zenodo.org/records/16741322?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16741322",
-        "self_doi": "https://doi.org/10.5281/zenodo.16741322",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16741322",
-        "reserve_doi": "https://zenodo.org/api/records/16741322/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/4739529",
-        "parent_html": "https://zenodo.org/records/4739529",
-        "parent_doi": "https://doi.org/10.5281/zenodo.4739529",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.4739529",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16741322/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16741322/sequence/default",
-        "files": "https://zenodo.org/api/records/16741322/files",
-        "media_files": "https://zenodo.org/api/records/16741322/media-files",
-        "archive": "https://zenodo.org/api/records/16741322/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16741322/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16741322/versions/latest",
-        "latest_html": "https://zenodo.org/records/16741322/latest",
-        "versions": "https://zenodo.org/api/records/16741322/versions",
-        "draft": "https://zenodo.org/api/records/16741322/draft",
-        "access_links": "https://zenodo.org/api/records/16741322/access/links",
-        "access_grants": "https://zenodo.org/api/records/16741322/access/grants",
-        "access_users": "https://zenodo.org/api/records/16741322/access/users",
-        "access_request": "https://zenodo.org/api/records/16741322/access/request",
-        "access": "https://zenodo.org/api/records/16741322/access",
-        "communities": "https://zenodo.org/api/records/16741322/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16741322/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16741322/requests"
-      },
-      "updated": "2025-08-05T01:12:49.186906+00:00",
-      "recid": "16741322",
-      "revision": 4,
-      "files": [
-        {
-          "id": "f0a625a1-1c69-4396-8a72-f5bdf8435563",
-          "key": "clowder-framework/clowder-v1.23.0.zip",
-          "size": 36206209,
-          "checksum": "md5:a6eafd13900697ad457689b96e263048",
-          "links": {
-            "self": "https://zenodo.org/api/records/16741322/files/clowder-framework/clowder-v1.23.0.zip/content"
-          }
-        }
-      ],
-      "swh": {
-        "swhid": "swh:1:dir:b42124201500232095b25c64042fca8dda4d55bf;origin=https://doi.org/10.5281/zenodo.4739529;visit=swh:1:snp:233aa38efc48ee9f0ce5b9ccb5ba9f2c1c0047da;anchor=swh:1:rel:e84d2c05ecaa677ecb2a7ce72803b2e489467712;path=clowder-framework-clowder-870b70f"
-      },
-      "owners": [
-        {
-          "id": "4827"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 96,
-        "unique_downloads": 91,
-        "views": 698,
-        "unique_views": 674,
-        "version_downloads": 1,
-        "version_unique_downloads": 1,
-        "version_unique_views": 6,
-        "version_views": 6
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-07-30T20:47:39.377640+00:00",
-      "modified": "2025-07-31T17:24:16.131151+00:00",
-      "id": 16619873,
-      "conceptrecid": "16619872",
-      "doi": "10.5281/zenodo.16619873",
-      "conceptdoi": "10.5281/zenodo.16619872",
-      "doi_url": "https://doi.org/10.5281/zenodo.16619873",
-      "metadata": {
-        "title": "Human Reference Atlas Literature Knowledge Graph",
-        "doi": "10.5281/zenodo.16619873",
-        "publication_date": "2025-07-30",
-        "description": "<p dir=\"ltr\">The HRA Literature Knowledge Graph (HRAlit KG, v0.7.1) represents 8.78 million scholarly articles from the PubMed database that are associated with human anatomical structures and cell types that are incorporated into the Human Reference Atlas (HRA) project and its data products. We use Schema.org vocabulary for entities (e.g., schema:ScholarlyArticle, schema:Person, &amp; schema:Periodical) and predicate relationships (e.g., schema:author, schema:about, schema:partOf) to model publications. The HRAlit KG can be mined to identify leading experts, major papers, or alignment with existing ontologies in support of systematic HRA construction and usage. In addition to scholarly articles data, the HRA Literature knowledge graph incorporates:</p>\n<ul>\n<li>\n<p dir=\"ltr\">Human Reference Atlas (HRA KG, v2.3), collections group multiple HRA Digital Objects (DOs) for use in specific applications, and includes all public dataset graphs in the HRA Knowledge Graph (Bueckle et al. 2025). It includes HRA DO types with a DOI. As of HRA v2.3, those are 2d-ftu, asct-b, ctann, omap, ref-organ, and vascular-geometry DO types. Other DO types may be added in the future as they receive DOIs (<a href=\"https://purl.humanatlas.io/graph/hra-lit\">https://purl.humanatlas.io/graph/hra-lit</a>).</p>\n</li>\n<li>\n<p dir=\"ltr\">Human Reference Atlas API Collection, a part of the HRA KG, the hra-api centers on asct-b and associated 3D models (ref-organ, landmark) used in various HRA applications for visualizing and organizing reference data. (<a href=\"https://purl.humanatlas.io/collection/hra-api\">https://purl.humanatlas.io/collection/hra-api</a>)</p>\n</li>\n<li>\n<p dir=\"ltr\">Common Coordinate Framework Ontology (CCF) provides standard terminologies and data structures for describing specimens, biological structures, and spatial positions of tissue blocks and organs linked to existing ontologies. (<a href=\"https://purl.humanatlas.io/graph/ccf\">https://purl.humanatlas.io/graph/ccf</a>).</p>\n</li>\n<li>\n<p dir=\"ltr\">Simple Standard for Sharing Ontology Mappings (SSSOM) between Medical Subject Headings and UBERON and Cell Ontologies that provide exact conceptual matches (skos:exactMatch) between MeSH descriptors and anatomical structures and cell types found in the HRA KG (<a href=\"https://purl.humanatlas.io/graph/mesh-uberon-cl-human-mapping\">https://purl.humanatlas.io/graph/mesh-uberon-cl-human-mapping</a>)</p>\n</li>\n<li>\n<p dir=\"ltr\">Simple Standard for Sharing Ontology Mappings (SSSOM) between Pubmed Articles and Subject Headings and UBERON and Cell Ontologies that provide related conceptual matches (skos:relatedMatch) between PubMed articles and anatomical structures and cell types found in the HRA KG (<a href=\"https://purl.humanatlas.io/graph/pubmed-uberon-cl-mapping\">https://purl.humanatlas.io/graph/pubmed-uberon-cl-mapping</a>).</p>\n</li>\n<li>\n<p dir=\"ltr\">Medical Subject Headings (MeSH) RDF linked data representation of the MeSH biomedical vocabulary, produced by the National Library of Medicine<br>(<a href=\"http://id.nlm.nih.gov/mesh/\">http://id.nlm.nih.gov/mesh/</a>).</p>\n</li>\n<li>\n<p dir=\"ltr\">Uber-anatomy Ontology (v20250528), an integrated cross-species anatomy ontology representing a variety of entities classified according to traditional anatomical criteria such as structure, function and developmental lineage. (Mungall et al. 2012). The ontology includes comprehensive relationships to taxon-specific anatomical ontologies, allowing integration of functional, phenotype and expression data (<a href=\"https://purl.humanatlas.io/vocab/uberon\">https://purl.humanatlas.io/vocab/uberon</a>).</p>\n</li>\n</ul>\n<p dir=\"ltr\">Limitations:</p>\n<ul>\n<li>\n<p dir=\"ltr\">Person and organization names are reproduced as reported by National Library of Medicine and have not been pre-processed to disambiguate identities prior to inclusion into the HRAlit KG. Application of disambiguation methods are strongly recommended prior to analysis of authorship trends and relationships.&nbsp;</p>\n</li>\n<li>\n<p dir=\"ltr\">SSSOM mappings between pubmed articles and UBERON and Cell Ontology concepts were generated using embedding models and have not been validated by subject matter experts. Use these triple statements in analysis with caution.</p>\n</li>\n</ul>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Herr II, Bruce W.",
-            "affiliation": "Indiana University Bloomington",
-            "orcid": "0000-0002-6703-7647"
-          },
-          {
-            "name": "Ginda, Michael",
-            "affiliation": "Indiana University Bloomington",
-            "orcid": "0000-0002-7500-8096"
-          },
-          {
-            "name": "B\u00f6rner, Katy",
-            "affiliation": "Indiana University Bloomington",
-            "orcid": "0000-0002-3321-6137"
-          },
-          {
-            "name": "Cyberinfrastructure for Network Science Center",
-            "affiliation": "Indiana University Bloomington"
-          }
-        ],
-        "keywords": [
-          "scientometrics"
-        ],
-        "dates": [
-          {
-            "type": "collected",
-            "description": "Publication data collected through this date."
-          },
-          {
-            "type": "available"
-          }
-        ],
-        "version": "v0.7.1",
-        "references": [
-          "Bueckle, Andreas, Bruce W. Herr II, Josef Hardi, Ellen M. Quardokus, Mark A. Musen, and Katy B\u00f6rner. 2025. \"Construction, Deployment, and Usage of the Human Reference Atlas Knowledge Graph for Linked Open Data.\" bioRxiv. https://doi.org/10.1101/2024.12.22.630006.",
-          "Mungall, C. J., C. Torniai, G. V. Gkoutos, S. E. Lewis, and M. A. Haendel. 2012. \"Uberon, an Integrative Multi-Species Anatomy Ontology.\" Genome Biol 13 (1): R5. https://doi.org/10.1186/gb-2012-13-1-r5",
-          "Matentzoglu, N., Balhoff, J. P., Bello, S. M., Bizon, C., Brush, M., Callahan, T. J., Chute, C. G., Duncan, W. D., Evelo, C. T., Gabriel, D., Graybeal, J., Gray, A., Gyori, B. M., Haendel, M., Harmse, H., Harris, N. L., Harrow, I., Hegde, H. B., Hoyt, A. L., ... Mungall, C. J. (2022). A Simple Standard for Sharing Ontological Mappings (SSSOM). Database, 2022, Article baac035. https://doi.org/10.1093/database/baac035"
-        ],
-        "language": "eng",
-        "custom": {
-          "code:codeRepository": "https://github.com/x-atlas-consortia/hra-lit",
-          "code:programmingLanguage": [
-            {
-              "id": "sparql",
-              "title": {
-                "en": "SPARQL"
-              }
-            },
-            {
-              "id": "javascript",
-              "title": {
-                "en": "JavaScript"
-              }
-            },
-            {
-              "id": "shell",
-              "title": {
-                "en": "Shell"
-              }
-            },
-            {
-              "id": "turtle",
-              "title": {
-                "en": "Turtle"
-              }
-            }
-          ],
-          "code:developmentStatus": {
-            "id": "active",
-            "title": {
-              "en": "Active"
-            }
-          }
-        },
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "grants": [
-          {
-            "code": "OT2OD026671",
-            "internal_id": "10.13039/100000002::OT2OD026671",
-            "funder": {
-              "name": "National Institutes of Health",
-              "doi": "10.13039/100000002",
-              "acronym": "NIH"
-            },
-            "title": "The Human Body Atlas: High-Resolution, Functional Mapping of Voxel, Vector, and Meta Datasets",
-            "url": "https://reporter.nih.gov/search/zf1oRHxl-EGBQ-enc4C6DA/project-details/10397321"
-          },
-          {
-            "code": "OT2OD033756",
-            "internal_id": "10.13039/100000002::OT2OD033756",
-            "funder": {
-              "name": "National Institutes of Health",
-              "doi": "10.13039/100000002",
-              "acronym": "NIH"
-            },
-            "title": "3D Multiscale Biomolecular Human Reference Atlas Construction, Visualization and Usage",
-            "url": "https://reporter.nih.gov/search/UX5lH-lBXEysk4JXlLXUrw/project-details/11128390"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "16619872"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Human Reference Atlas Literature Knowledge Graph",
-      "links": {
-        "self": "https://zenodo.org/api/records/16619873",
-        "self_html": "https://zenodo.org/records/16619873",
-        "preview_html": "https://zenodo.org/records/16619873?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16619873",
-        "self_doi": "https://doi.org/10.5281/zenodo.16619873",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16619873",
-        "reserve_doi": "https://zenodo.org/api/records/16619873/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16619872",
-        "parent_html": "https://zenodo.org/records/16619872",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16619872",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16619872",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16619873/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16619873/sequence/default",
-        "files": "https://zenodo.org/api/records/16619873/files",
-        "media_files": "https://zenodo.org/api/records/16619873/media-files",
-        "archive": "https://zenodo.org/api/records/16619873/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16619873/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16619873/versions/latest",
-        "latest_html": "https://zenodo.org/records/16619873/latest",
-        "versions": "https://zenodo.org/api/records/16619873/versions",
-        "draft": "https://zenodo.org/api/records/16619873/draft",
-        "access_links": "https://zenodo.org/api/records/16619873/access/links",
-        "access_grants": "https://zenodo.org/api/records/16619873/access/grants",
-        "access_users": "https://zenodo.org/api/records/16619873/access/users",
-        "access_request": "https://zenodo.org/api/records/16619873/access/request",
-        "access": "https://zenodo.org/api/records/16619873/access",
-        "communities": "https://zenodo.org/api/records/16619873/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16619873/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16619873/requests"
-      },
-      "updated": "2025-07-31T17:24:16.131151+00:00",
-      "recid": "16619873",
-      "revision": 10,
-      "files": [
-        {
-          "id": "8192ffc4-02c2-40cf-98bb-163fec3838fa",
-          "key": "hra-lit.ttl.gz",
-          "size": 5523954630,
-          "checksum": "md5:b3c2442025135a9df85a1d72bfecb5e2",
-          "links": {
-            "self": "https://zenodo.org/api/records/16619873/files/hra-lit.ttl.gz/content"
-          }
-        },
-        {
-          "id": "995266ce-e3f0-42cf-82fc-8a21c2317092",
-          "key": "pubmed-uberon-cl-mapping.ttl.gz",
-          "size": 396199036,
-          "checksum": "md5:2f3bfd0ab685e03a082d081313933f1f",
-          "links": {
-            "self": "https://zenodo.org/api/records/16619873/files/pubmed-uberon-cl-mapping.ttl.gz/content"
-          }
-        },
-        {
-          "id": "3521ee88-190f-4920-b3c0-deea96323fda",
-          "key": "mesh-uberon-cl-human-mapping.sssom.ttl",
-          "size": 752036,
-          "checksum": "md5:09374efb9e7be90a238d23d795441874",
-          "links": {
-            "self": "https://zenodo.org/api/records/16619873/files/mesh-uberon-cl-human-mapping.sssom.ttl/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1295126"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 7,
-        "unique_downloads": 7,
-        "views": 25,
-        "unique_views": 14,
-        "version_downloads": 7,
-        "version_unique_downloads": 7,
-        "version_unique_views": 14,
-        "version_views": 25
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-07-23T19:03:18.556617+00:00",
-      "modified": "2025-07-23T19:03:18.704573+00:00",
-      "id": 16377684,
-      "conceptrecid": "2635502",
-      "doi": "10.5281/zenodo.16377684",
-      "conceptdoi": "10.5281/zenodo.2635502",
-      "doi_url": "https://doi.org/10.5281/zenodo.16377684",
-      "metadata": {
-        "title": "DataWolf Workflow System",
-        "doi": "10.5281/zenodo.16377684",
-        "publication_date": "2025-07-23",
-        "description": "Data Wolf simplifies the integration of data and modeling tools to support research and enable cross disciplinary integration to produce targeted outputs that address particular engineering and educational needs.",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Rob Kooper",
-            "affiliation": "National Center for Supercomputing Applications",
-            "orcid": "0000-0002-5781-7287"
-          },
-          {
-            "name": "Chris Navarro",
-            "affiliation": "National Center for Supercomputing Applications",
-            "orcid": "0000-0003-2275-1895"
-          },
-          {
-            "name": "Luigi Marini",
-            "affiliation": "National Center for Supercomputing Applications",
-            "orcid": "0000-0002-8511-0211"
-          },
-          {
-            "name": "Jong Lee",
-            "affiliation": "National Center for Supercomputing Applications"
-          },
-          {
-            "name": "Kenton McHenry",
-            "affiliation": "National Center for Supercomputing Applications",
-            "orcid": "0000-0003-0367-2550"
-          },
-          {
-            "name": "Liana Diesendruck",
-            "affiliation": "National Center for Supercomputing Applications"
-          },
-          {
-            "name": "Yan Zhao",
-            "affiliation": "National Center for Supercomputing Applications"
-          }
-        ],
-        "keywords": [
-          "java",
-          "datawolf",
-          "workflow",
-          "cyberinfrastructure",
-          "open-science"
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "https://github.com/ncsa/datawolf/tree/v4.8.0",
-            "relation": "isSupplementTo",
-            "resource_type": "software",
-            "scheme": "url"
-          }
-        ],
-        "version": "v4.8.0",
-        "custom": {
-          "code:codeRepository": "https://github.com/ncsa/datawolf"
-        },
-        "resource_type": {
-          "title": "Software",
-          "type": "software"
-        },
-        "license": {
-          "id": "uoi-ncsa"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 7,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "2635502"
-              }
-            }
-          ]
-        },
-        "notes": "This research has been partially funded by grants including, but not limited to: NSF #1261582 - BrownDog, KISTI supercomputing, NREC CoverCrop."
-      },
-      "title": "DataWolf Workflow System",
-      "links": {
-        "self": "https://zenodo.org/api/records/16377684",
-        "self_html": "https://zenodo.org/records/16377684",
-        "preview_html": "https://zenodo.org/records/16377684?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16377684",
-        "self_doi": "https://doi.org/10.5281/zenodo.16377684",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16377684",
-        "reserve_doi": "https://zenodo.org/api/records/16377684/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/2635502",
-        "parent_html": "https://zenodo.org/records/2635502",
-        "parent_doi": "https://doi.org/10.5281/zenodo.2635502",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.2635502",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16377684/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16377684/sequence/default",
-        "files": "https://zenodo.org/api/records/16377684/files",
-        "media_files": "https://zenodo.org/api/records/16377684/media-files",
-        "archive": "https://zenodo.org/api/records/16377684/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16377684/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16377684/versions/latest",
-        "latest_html": "https://zenodo.org/records/16377684/latest",
-        "versions": "https://zenodo.org/api/records/16377684/versions",
-        "draft": "https://zenodo.org/api/records/16377684/draft",
-        "access_links": "https://zenodo.org/api/records/16377684/access/links",
-        "access_grants": "https://zenodo.org/api/records/16377684/access/grants",
-        "access_users": "https://zenodo.org/api/records/16377684/access/users",
-        "access_request": "https://zenodo.org/api/records/16377684/access/request",
-        "access": "https://zenodo.org/api/records/16377684/access",
-        "communities": "https://zenodo.org/api/records/16377684/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16377684/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16377684/requests"
-      },
-      "updated": "2025-07-23T19:03:18.704573+00:00",
-      "recid": "16377684",
-      "revision": 4,
-      "files": [
-        {
-          "id": "70870e90-a6f5-4076-b07c-a7eba0540082",
-          "key": "ncsa/datawolf-v4.8.0.zip",
-          "size": 11867104,
-          "checksum": "md5:4add46200e47571828ba1703eb328f10",
-          "links": {
-            "self": "https://zenodo.org/api/records/16377684/files/ncsa/datawolf-v4.8.0.zip/content"
-          }
-        }
-      ],
-      "swh": {
-        "swhid": "swh:1:dir:cccaefe696d0e05dd84ef5844d29e31e43d25251;origin=https://doi.org/10.5281/zenodo.2635502;visit=swh:1:snp:d30e4ba0553a77cbf18b856b7a8137a004d5d4ba;anchor=swh:1:rel:476ddd07828f9b2955fbdde161b0285e77b58891;path=ncsa-datawolf-be9043c"
-      },
-      "owners": [
-        {
-          "id": "4827"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 56,
-        "unique_downloads": 50,
-        "views": 320,
-        "unique_views": 308,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 2,
-        "version_views": 2
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-07-22T19:57:15.823392+00:00",
-      "modified": "2025-07-22T20:04:29.868143+00:00",
-      "id": 16332866,
-      "conceptrecid": "16332865",
-      "doi": "10.5281/zenodo.16332866",
-      "conceptdoi": "10.5281/zenodo.16332865",
-      "doi_url": "https://doi.org/10.5281/zenodo.16332866",
-      "metadata": {
-        "title": "Impact of Cyberinfrastructure Fellowship Program for Undergraduates",
-        "doi": "10.5281/zenodo.16332866",
-        "publication_date": "2025-07-23",
-        "description": "<p>The CI Compass Fellowship Program (CICF) was developed to increase undergraduate student participation in cyberinfrastructure (CI) and Major and Midscale Facilities (MFs) research, development, and operations. CICF is strategically structured to provide students with an understanding and experience in CI and MF-related fields and to illuminate to students the possibility of CI and MF-related career pathways, thus potentially contributing to the CI and MF workforce. This poster describes the program&rsquo;s structure, the impact of the program&rsquo;s first four years, the evaluation structure and findings, and future plans.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Murillo, Angela",
-            "affiliation": "Indiana University Indianapolis",
-            "orcid": "0000-0002-7213-7335"
-          },
-          {
-            "name": "Brower, Don",
-            "affiliation": "University of Notre Dame",
-            "orcid": "0000-0001-7347-546X"
-          },
-          {
-            "name": "Virdone, Nicole",
-            "affiliation": "Information Sciences Institute",
-            "orcid": "0000-0001-8287-7073"
-          },
-          {
-            "name": "Sasidharan, Sajith",
-            "affiliation": "University of North Carolina at Chapel Hill",
-            "orcid": "0000-0001-6537-6410"
-          },
-          {
-            "name": "Hossain, Sarowar",
-            "affiliation": "Indiana University Indianapolis",
-            "orcid": "0009-0001-5614-0964"
-          },
-          {
-            "name": "Bharti, Jaya",
-            "affiliation": "Indiana University Indianapolis",
-            "orcid": "0009-0004-8592-2369"
-          },
-          {
-            "name": "Deelman, Ewa",
-            "affiliation": "University of Southern California",
-            "orcid": "0000-0001-5106-503X"
-          }
-        ],
-        "keywords": [
-          "Applied Computing",
-          "Education",
-          "Information Systems",
-          "Data Management Systems",
-          "Student Fellowships",
-          "Workforce Development",
-          "Cyberinfrastructure",
-          "NSF Major Facilities"
-        ],
-        "version": "1.0",
-        "language": "eng",
-        "resource_type": {
-          "title": "Poster",
-          "type": "poster"
-        },
-        "meeting": {
-          "title": "Practice and Experience in Advanced Research Computing 2025",
-          "acronym": "PEARC '25",
-          "dates": "20-24, July, 2025",
-          "place": "Columbus, OH",
-          "url": "https://pearc.acm.org/pearc25/"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "grants": [
-          {
-            "code": "2127548",
-            "internal_id": "10.13039/100000001::2127548",
-            "funder": {
-              "name": "U.S. National Science Foundation",
-              "doi": "10.13039/100000001",
-              "acronym": "NSF"
-            },
-            "title": "CI CoE: CI Compass: An NSF Cyberinfrastructure (CI) Center of Excellence for Navigating the Major Facilities Data Lifecycle",
-            "program": "CISE/OAD"
-          }
-        ],
-        "communities": [
-          {
-            "id": "cicompass"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "16332865"
-              }
-            }
-          ]
-        },
-        "notes": "<p>This project is supported by the U.S. National Science Foundation Office of Advanced Cyberinfrastructure in the Directorate for Computer Information Science under Grant #2127548.</p>"
-      },
-      "title": "Impact of Cyberinfrastructure Fellowship Program for Undergraduates",
-      "links": {
-        "self": "https://zenodo.org/api/records/16332866",
-        "self_html": "https://zenodo.org/records/16332866",
-        "preview_html": "https://zenodo.org/records/16332866?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16332866",
-        "self_doi": "https://doi.org/10.5281/zenodo.16332866",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16332866",
-        "reserve_doi": "https://zenodo.org/api/records/16332866/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16332865",
-        "parent_html": "https://zenodo.org/records/16332865",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16332865",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16332865",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16332866/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16332866/sequence/default",
-        "files": "https://zenodo.org/api/records/16332866/files",
-        "media_files": "https://zenodo.org/api/records/16332866/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:16332866:PEARC25_CICF.pdf/full/%5E10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:16332866:PEARC25_CICF.pdf/full/%5E50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:16332866:PEARC25_CICF.pdf/full/%5E100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:16332866:PEARC25_CICF.pdf/full/%5E250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:16332866:PEARC25_CICF.pdf/full/%5E750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:16332866:PEARC25_CICF.pdf/full/%5E1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/16332866/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16332866/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16332866/versions/latest",
-        "latest_html": "https://zenodo.org/records/16332866/latest",
-        "versions": "https://zenodo.org/api/records/16332866/versions",
-        "draft": "https://zenodo.org/api/records/16332866/draft",
-        "access_links": "https://zenodo.org/api/records/16332866/access/links",
-        "access_grants": "https://zenodo.org/api/records/16332866/access/grants",
-        "access_users": "https://zenodo.org/api/records/16332866/access/users",
-        "access_request": "https://zenodo.org/api/records/16332866/access/request",
-        "access": "https://zenodo.org/api/records/16332866/access",
-        "communities": "https://zenodo.org/api/records/16332866/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16332866/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16332866/requests"
-      },
-      "updated": "2025-07-22T20:04:29.868143+00:00",
-      "recid": "16332866",
-      "revision": 6,
-      "files": [
-        {
-          "id": "2908433b-c458-404d-8fc7-f6df5e9d601e",
-          "key": "PEARC25_CICF.pdf",
-          "size": 4719830,
-          "checksum": "md5:8951b83562346ad545aa608ef4325d27",
-          "links": {
-            "self": "https://zenodo.org/api/records/16332866/files/PEARC25_CICF.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "385797"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 29,
-        "unique_downloads": 22,
-        "views": 18,
-        "unique_views": 16,
-        "version_downloads": 29,
-        "version_unique_downloads": 22,
-        "version_unique_views": 16,
-        "version_views": 18
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-07-15T20:41:12.588959+00:00",
-      "modified": "2025-07-15T20:41:12.931788+00:00",
-      "id": 15937696,
-      "conceptrecid": "15937695",
-      "doi": "10.5281/zenodo.15937696",
-      "conceptdoi": "10.5281/zenodo.15937695",
-      "doi_url": "https://doi.org/10.5281/zenodo.15937696",
-      "metadata": {
-        "title": "High-throughput computational framework for lattice dynamics and thermal transport including high-order anharmonicity: an application to cubic and tetragonal inorganic compounds",
-        "doi": "10.5281/zenodo.15937696",
-        "publication_date": "2025-07-15",
-        "description": "<p>Phonon spectra under harmonic approximation and after SCPH corrections; HA&nbsp;vs. SCPH MAPD, MPD+, and MPD&minus; of phonon frequencies; thermal conductivities at different levels of&nbsp;theory for 773 materials.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Li, Zhi",
-            "affiliation": "Northwestern University",
-            "orcid": "0000-0003-0451-567X"
-          }
-        ],
-        "contributors": [
-          {
-            "name": "Lee, Huiju",
-            "affiliation": "Portland State University",
-            "type": "DataCollector"
-          },
-          {
-            "name": "Wolverton, Chris",
-            "affiliation": "Northwestern University",
-            "type": "ProjectLeader",
-            "orcid": "0000-0003-2248-474X"
-          },
-          {
-            "name": "Xia, Yi",
-            "affiliation": "Portland State University",
-            "type": "ProjectLeader"
-          }
-        ],
-        "language": "eng",
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "grants": [
-          {
-            "code": "DMR-2317008",
-            "internal_id": "10.13039/100000001::DMR-2317008",
-            "funder": {
-              "name": "U.S. National Science Foundation",
-              "doi": "10.13039/100000001",
-              "acronym": "NSF"
-            }
-          },
-          {
-            "code": "DE-SC0024256",
-            "internal_id": "01bj3aw27::DE-SC0024256",
-            "funder": {
-              "name": "United States Department of Energy"
-            }
-          },
-          {
-            "code": "2311203",
-            "internal_id": "10.13039/100000001::2311203",
-            "funder": {
-              "name": "U.S. National Science Foundation",
-              "doi": "10.13039/100000001",
-              "acronym": "NSF"
-            }
-          },
-          {
-            "code": "ERCAP00315571",
-            "internal_id": "05v3mvq14::ERCAP00315571",
-            "funder": {
-              "name": "National Energy Research Scientific Computing Center"
-            }
-          },
-          {
-            "code": "mat220006p",
-            "internal_id": "01v6d0b34::mat220006p",
-            "funder": {
-              "name": "Advanced Cyberinfrastructure Coordination Ecosystem: Services & Support"
-            }
-          },
-          {
-            "code": "mat220008p",
-            "internal_id": "01v6d0b34::mat220008p",
-            "funder": {
-              "name": "Advanced Cyberinfrastructure Coordination Ecosystem: Services & Support"
-            }
-          },
-          {
-            "code": "dmr160027p",
-            "internal_id": "01v6d0b34::dmr160027p",
-            "funder": {
-              "name": "Advanced Cyberinfrastructure Coordination Ecosystem: Services & Support"
-            }
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "15937695"
-              }
-            }
-          ]
-        }
-      },
-      "title": "High-throughput computational framework for lattice dynamics and thermal transport including high-order anharmonicity: an application to cubic and tetragonal inorganic compounds",
-      "links": {
-        "self": "https://zenodo.org/api/records/15937696",
-        "self_html": "https://zenodo.org/records/15937696",
-        "preview_html": "https://zenodo.org/records/15937696?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.15937696",
-        "self_doi": "https://doi.org/10.5281/zenodo.15937696",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15937696",
-        "reserve_doi": "https://zenodo.org/api/records/15937696/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/15937695",
-        "parent_html": "https://zenodo.org/records/15937695",
-        "parent_doi": "https://doi.org/10.5281/zenodo.15937695",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15937695",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15937696/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15937696/sequence/default",
-        "files": "https://zenodo.org/api/records/15937696/files",
-        "media_files": "https://zenodo.org/api/records/15937696/media-files",
-        "archive": "https://zenodo.org/api/records/15937696/files-archive",
-        "archive_media": "https://zenodo.org/api/records/15937696/media-files-archive",
-        "latest": "https://zenodo.org/api/records/15937696/versions/latest",
-        "latest_html": "https://zenodo.org/records/15937696/latest",
-        "versions": "https://zenodo.org/api/records/15937696/versions",
-        "draft": "https://zenodo.org/api/records/15937696/draft",
-        "access_links": "https://zenodo.org/api/records/15937696/access/links",
-        "access_grants": "https://zenodo.org/api/records/15937696/access/grants",
-        "access_users": "https://zenodo.org/api/records/15937696/access/users",
-        "access_request": "https://zenodo.org/api/records/15937696/access/request",
-        "access": "https://zenodo.org/api/records/15937696/access",
-        "communities": "https://zenodo.org/api/records/15937696/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/15937696/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/15937696/requests"
-      },
-      "updated": "2025-07-15T20:41:12.931788+00:00",
-      "recid": "15937696",
-      "revision": 4,
-      "files": [
-        {
-          "id": "1438dee7-f57f-49cf-b476-98fcbc229e6b",
-          "key": "dataset.tgz",
-          "size": 191275454,
-          "checksum": "md5:ba9b8558535a271309b0d81c719579da",
-          "links": {
-            "self": "https://zenodo.org/api/records/15937696/files/dataset.tgz/content"
-          }
-        },
-        {
-          "id": "0a21b7d4-7587-424f-9906-b7900ac410e8",
-          "key": "results.csv",
-          "size": 63698,
-          "checksum": "md5:ccf2b5f3500d6db9abf7fcab8ed64b71",
-          "links": {
-            "self": "https://zenodo.org/api/records/15937696/files/results.csv/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1364992"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 27,
-        "unique_downloads": 25,
-        "views": 17,
-        "unique_views": 16,
-        "version_downloads": 27,
-        "version_unique_downloads": 25,
-        "version_unique_views": 16,
-        "version_views": 17
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-06-10T19:58:29.256694+00:00",
-      "modified": "2025-06-10T19:58:29.596740+00:00",
-      "id": 11087445,
-      "conceptrecid": "11087444",
-      "doi": "10.5281/zenodo.11087445",
-      "conceptdoi": "10.5281/zenodo.11087444",
-      "doi_url": "https://doi.org/10.5281/zenodo.11087445",
-      "metadata": {
-        "title": "Tech Notes: Evaluation of Scalable Solutions for Time Series Database Streaming",
-        "doi": "10.5281/zenodo.11087445",
-        "publication_date": "2025-06-10",
-        "description": "<p>This Tech Note presents an evaluation of scalable solutions for streaming time-series data, critical for real-time analysis in large-scale national research facilities like the NSF Laser Interferometer Gravitational-Wave Observatory (LIGO). The study assesses various time-series databases (ClickHouse, InfluxDB, TimescaleDB) and communication protocols (Kafka, Arrow Flight), focusing on query performance, data ingestion, and scalability. ClickHouse and Kafka emerged as preferred solutions, providing high performance and flexibility for environments with large-scale data requirements. The evaluation is based on use cases from facilities like LIGO, aiming to improve real-time data processing capabilities in NSF Major Facilities.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Pascucci, Valerio",
-            "affiliation": "University of Utah",
-            "orcid": "0000-0002-8877-2042"
-          },
-          {
-            "name": "Scorzelli, Giorgio",
-            "affiliation": "University of Utah",
-            "orcid": "0000-0002-6263-2738"
-          },
-          {
-            "name": "Petruzza, Steve",
-            "affiliation": "University of Utah",
-            "orcid": "0000-0002-2649-1595"
-          },
-          {
-            "name": "Scott, Erik",
-            "affiliation": "University of North Carolina at Chapel Hill",
-            "orcid": "0000-0002-5240-3050"
-          },
-          {
-            "name": "Nabrzyski, Jarek",
-            "affiliation": "University of Notre Dame",
-            "orcid": "0000-0002-3985-3620"
-          },
-          {
-            "name": "Mandal, Anirban",
-            "affiliation": "University of North Carolina at Chapel Hill",
-            "orcid": "0000-0001-5145-8618"
-          },
-          {
-            "name": "Rollins, Jameson",
-            "affiliation": "California Institute of Technology",
-            "orcid": "0000-0002-9388-2799"
-          },
-          {
-            "name": "Godwin, Patrick",
-            "affiliation": "LIGO Scientific Collaboration",
-            "orcid": "0000-0002-7489-4751"
-          },
-          {
-            "name": "Hanks, Jonathan",
-            "affiliation": "California Institute of Technology",
-            "orcid": "0009-0002-2499-3193"
-          },
-          {
-            "name": "Beroiz, Martin",
-            "affiliation": "California Institute of Technology",
-            "orcid": "0000-0001-6486-9897"
-          }
-        ],
-        "keywords": [
-          "NSF Major Facilities",
-          "Time Series Databases",
-          "Data Streaming",
-          "Data Processing",
-          "Scalability"
-        ],
-        "version": "1.0",
-        "language": "eng",
-        "resource_type": {
-          "title": "Technical note",
-          "type": "publication",
-          "subtype": "technicalnote"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "grants": [
-          {
-            "code": "2127548",
-            "internal_id": "10.13039/100000001::2127548",
-            "funder": {
-              "name": "U.S. National Science Foundation",
-              "doi": "10.13039/100000001",
-              "acronym": "NSF"
-            },
-            "title": "CI CoE: CI Compass: An NSF Cyberinfrastructure (CI) Center of Excellence for Navigating the Major Facilities Data Lifecycle",
-            "program": "CISE/OAD"
-          }
-        ],
-        "communities": [
-          {
-            "id": "cicompass"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "11087444"
-              }
-            }
-          ]
-        },
-        "notes": "<p>This project is supported by the U.S. National Science Foundation Office of Advanced Cyberinfrastructure in the Directorate for Computer Information Science under Grant #2127548.</p>"
-      },
-      "title": "Tech Notes: Evaluation of Scalable Solutions for Time Series Database Streaming",
-      "links": {
-        "self": "https://zenodo.org/api/records/11087445",
-        "self_html": "https://zenodo.org/records/11087445",
-        "preview_html": "https://zenodo.org/records/11087445?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.11087445",
-        "self_doi": "https://doi.org/10.5281/zenodo.11087445",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.11087445",
-        "reserve_doi": "https://zenodo.org/api/records/11087445/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/11087444",
-        "parent_html": "https://zenodo.org/records/11087444",
-        "parent_doi": "https://doi.org/10.5281/zenodo.11087444",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.11087444",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:11087445/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:11087445/sequence/default",
-        "files": "https://zenodo.org/api/records/11087445/files",
-        "media_files": "https://zenodo.org/api/records/11087445/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:11087445:Tech%20Notes_LIGO%20Data%20Streaming%20-%20Final.pdf/full/%5E10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:11087445:Tech%20Notes_LIGO%20Data%20Streaming%20-%20Final.pdf/full/%5E50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:11087445:Tech%20Notes_LIGO%20Data%20Streaming%20-%20Final.pdf/full/%5E100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:11087445:Tech%20Notes_LIGO%20Data%20Streaming%20-%20Final.pdf/full/%5E250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:11087445:Tech%20Notes_LIGO%20Data%20Streaming%20-%20Final.pdf/full/%5E750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:11087445:Tech%20Notes_LIGO%20Data%20Streaming%20-%20Final.pdf/full/%5E1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/11087445/files-archive",
-        "archive_media": "https://zenodo.org/api/records/11087445/media-files-archive",
-        "latest": "https://zenodo.org/api/records/11087445/versions/latest",
-        "latest_html": "https://zenodo.org/records/11087445/latest",
-        "versions": "https://zenodo.org/api/records/11087445/versions",
-        "draft": "https://zenodo.org/api/records/11087445/draft",
-        "access_links": "https://zenodo.org/api/records/11087445/access/links",
-        "access_grants": "https://zenodo.org/api/records/11087445/access/grants",
-        "access_users": "https://zenodo.org/api/records/11087445/access/users",
-        "access_request": "https://zenodo.org/api/records/11087445/access/request",
-        "access": "https://zenodo.org/api/records/11087445/access",
-        "communities": "https://zenodo.org/api/records/11087445/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/11087445/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/11087445/requests"
-      },
-      "updated": "2025-06-10T19:58:29.596740+00:00",
-      "recid": "11087445",
-      "revision": 4,
-      "files": [
-        {
-          "id": "0c8fd6e2-e250-42e0-b61e-04cec7328986",
-          "key": "Tech Notes_LIGO Data Streaming - Final.pdf",
-          "size": 1017516,
-          "checksum": "md5:393911786d1568b2793e0f0563da37d0",
-          "links": {
-            "self": "https://zenodo.org/api/records/11087445/files/Tech Notes_LIGO Data Streaming - Final.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "385797"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 50,
-        "unique_downloads": 36,
-        "views": 42,
-        "unique_views": 38,
-        "version_downloads": 50,
-        "version_unique_downloads": 36,
-        "version_unique_views": 38,
-        "version_views": 42
+        "version_views": 32
       },
       "state": "done",
       "submitted": true
