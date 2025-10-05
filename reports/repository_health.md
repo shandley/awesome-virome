@@ -8,17 +8,17 @@ This report provides insights into the health and activity of the awesome-virome
 
 | Metric | Value |
 | ------ | ----- |
-| Total Commits | 804 |
+| Total Commits | 807 |
 | Total Contributors | 10 |
-| Repository Age | 221 days |
+| Repository Age | 222 days |
 
 ## Data Freshness
 
 | Dataset | Last Updated | Status |
 | ------- | ------------ | ------ |
-| data.json | 3 days ago | $([ 3 -lt 0 ] && echo "Missing" || ([ 3 -lt 7 ] && echo "✅ Fresh" || ([ 3 -lt 30 ] && echo "⚠️ Needs Update" || echo "❌ Outdated"))) |
+| data.json | 0 days ago | $([ 0 -lt 0 ] && echo "Missing" || ([ 0 -lt 7 ] && echo "✅ Fresh" || ([ 0 -lt 30 ] && echo "⚠️ Needs Update" || echo "❌ Outdated"))) |
 | Metadata Files | 0 days ago | $([ 0 -lt 0 ] && echo "Missing" || ([ 0 -lt 7 ] && echo "✅ Fresh" || ([ 0 -lt 30 ] && echo "⚠️ Needs Update" || echo "❌ Outdated"))) |
-| API Files | 3 days ago | $([ 3 -lt 0 ] && echo "Missing" || ([ 3 -lt 7 ] && echo "✅ Fresh" || ([ 3 -lt 30 ] && echo "⚠️ Needs Update" || echo "❌ Outdated"))) |
+| API Files | 0 days ago | $([ 0 -lt 0 ] && echo "Missing" || ([ 0 -lt 7 ] && echo "✅ Fresh" || ([ 0 -lt 30 ] && echo "⚠️ Needs Update" || echo "❌ Outdated"))) |
 
 ## Activity Charts
 
@@ -48,9 +48,9 @@ This report provides insights into the health and activity of the awesome-virome
 
 Based on the metrics in this report, here are some recommendations for maintaining repository health:
 
-$([ 3 -gt 30 ] && echo "- **High Priority**: Update data.json which is now 3 days old" || echo "")
+$([ 0 -gt 30 ] && echo "- **High Priority**: Update data.json which is now 0 days old" || echo "")
 $([ 0 -gt 30 ] && echo "- **High Priority**: Update metadata files which are now 0 days old" || echo "")
-$([ 3 -gt 30 ] && echo "- **High Priority**: Update API files which are now 3 days old" || echo "")
+$([ 0 -gt 30 ] && echo "- **High Priority**: Update API files which are now 0 days old" || echo "")
 
 - Maintain regular updates to keep repository data fresh
 - Encourage contributions from new maintainers to diversify repository maintenance
