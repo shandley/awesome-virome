@@ -1,5 +1,5 @@
 {
-  "cache_date": "2025-09-01T09:48:35.460644",
+  "cache_date": "2025-11-01T09:26:52.250434",
   "data": [
     {
       "created": "2024-09-13T15:07:27.583158+00:00",
@@ -85,6 +85,7 @@
         "access": "https://zenodo.org/api/records/13760011/access",
         "communities": "https://zenodo.org/api/records/13760011/communities",
         "communities-suggestions": "https://zenodo.org/api/records/13760011/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/13760011/request-deletion",
         "requests": "https://zenodo.org/api/records/13760011/requests"
       },
       "updated": "2024-09-13T15:07:28.125906+00:00",
@@ -101,7 +102,7 @@
           }
         }
       ],
-      "swh": {},
+      "swh": null,
       "owners": [
         {
           "id": "36751"
@@ -109,14 +110,161 @@
       ],
       "status": "published",
       "stats": {
-        "downloads": 247,
-        "unique_downloads": 192,
-        "views": 237,
-        "unique_views": 218,
-        "version_downloads": 247,
-        "version_unique_downloads": 192,
-        "version_unique_views": 218,
-        "version_views": 237
+        "downloads": 263,
+        "unique_downloads": 206,
+        "views": 257,
+        "unique_views": 238,
+        "version_downloads": 263,
+        "version_unique_downloads": 206,
+        "version_unique_views": 238,
+        "version_views": 257
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-25T08:51:31.634194+00:00",
+      "modified": "2025-10-25T08:51:31.965620+00:00",
+      "id": 17440598,
+      "conceptrecid": "17440597",
+      "doi": "10.5281/zenodo.17440598",
+      "conceptdoi": "10.5281/zenodo.17440597",
+      "doi_url": "https://doi.org/10.5281/zenodo.17440598",
+      "metadata": {
+        "title": "Multimodal Interaction Behavior Framework (MIBF) and Visitor Intent Recognition Network (VIRNet)",
+        "doi": "10.5281/zenodo.17440598",
+        "publication_date": "2025-10-25",
+        "description": "<h1>Multimodal Interaction Behavior Framework (MIBF) and Visitor Intent Recognition Network (VIRNet)</h1>\n<blockquote>\n<p>A comprehensive implementation framework inspired by the paper&nbsp;<em>User Behavior Modeling and Experience Optimization of Smart Museums Based on Multimodal Interaction.</em></p>\n</blockquote>\n\n\n<h2>\ud83c\udfaf Vision</h2>\n<p>Smart museums are rapidly transforming from static exhibition spaces into dynamic, interactive cultural ecosystems.<br>To understand and enhance visitor experience, this project introduces a <strong>Multimodal Interaction Behavior Framework (MIBF)</strong> and a <strong>Visitor Intent Recognition Network (VIRNet)</strong> that jointly model, predict, and optimize user behavior through visual, auditory, spatial, and tactile modalities.</p>\n<p>The goal is to build an intelligent system capable of recognizing visitor intentions and providing adaptive, personalized exhibition experiences that enhance immersion, engagement, and learning.</p>\n\n\n<h2>\ud83e\udde9 Core Concepts</h2>\n<h3>1. Multimodal Interaction Behavior Framework (MIBF)</h3>\n<p>The <strong>MIBF</strong> defines how heterogeneous data streams from museum interactions can be semantically represented and processed.</p>\n<ul>\n<li><strong>Modalities</strong>: vision (camera/video), audio (speech, ambient sound), position (indoor localization), and touch (UI interaction).</li>\n<li><strong>Behavior Semantic Units (BSU)</strong>: atomic elements of visitor behavior that unify events from different modalities into semantic structures.</li>\n<li><strong>Data Representation</strong>: BSUs serve as interpretable intermediate representations that capture both temporal and contextual meaning.</li>\n</ul>\n<h3>2. Visitor Intent Recognition Network (VIRNet)</h3>\n<p>A deep learning model that performs <strong>hierarchical intent recognition</strong>:</p>\n<ul>\n<li><strong>Temporal Encoding Layer</strong>: Bi-directional GRU with attention to model sequential dependencies.</li>\n<li><strong>Multimodal Fusion</strong>: Joint encoding of modalities with learned gating weights.</li>\n<li><strong>Hierarchical Attention</strong>: Extracts both individual (per-visitor) and collective (group-level) behavioral patterns.</li>\n<li><strong>Output</strong>: Visitor intent categories such as exploration, learning, social engagement, or disengagement.</li>\n</ul>\n\n\n<h2>\ud83e\udde0 Data Architecture</h2>\n<h3>Multimodal Data System</h3>\n<p>The dataset integrates:</p>\n<ul>\n<li><strong>Visual stream</strong> &ndash; extracted from surveillance or embedded cameras</li>\n<li><strong>Audio stream</strong> &ndash; voice commands, discussions, environmental cues</li>\n<li><strong>Spatial data</strong> &ndash; visitor trajectory and location heatmaps</li>\n<li><strong>Touch interactions</strong> &ndash; screen navigation, object manipulation events</li>\n</ul>\n<p>Each data record is synchronized, normalized, and segmented into <strong>Behavior Semantic Units (BSUs)</strong> using timestamp alignment and context labels.</p>\n\n\n<h2>\ud83d\udd2c Methodology Overview</h2>\n<ol>\n<li>\n<p><strong>Data Acquisition and Synchronization</strong><br>Collection of real-world multimodal visitor data from museum installations.</p>\n</li>\n<li>\n<p><strong>Behavior Semantic Modeling</strong><br>Definition of BSUs and hierarchical behavior categories for semantic interpretation.</p>\n</li>\n<li>\n<p><strong>Model Construction (VIRNet)</strong><br>Multimodal input fusion &rarr; temporal attention encoding &rarr; intent classification.</p>\n</li>\n<li>\n<p><strong>Training and Evaluation</strong></p>\n<ul>\n<li>Cross-entropy loss for classification.</li>\n<li>Metrics: accuracy, macro-F1, satisfaction rating correlation.</li>\n<li>Baselines: single-modality models and early-fusion neural networks.</li>\n</ul>\n</li>\n<li>\n<p><strong>Scenario-Based Evaluation</strong><br>Empirical validation through controlled experiments in museum environments to measure:</p>\n<ul>\n<li><strong>Immersion</strong></li>\n<li><strong>Learning effectiveness</strong></li>\n<li><strong>User satisfaction</strong></li>\n</ul>\n</li>\n</ol>\n\n\n<h2>\ud83d\udcca Experimental Highlights</h2>\n<ul>\n<li><strong>Data Scale</strong>: 10,000+ multimodal interaction segments from actual exhibition sessions.</li>\n<li><strong>Results</strong>:\n<ul>\n<li>VIRNet achieved up to <strong>17% higher accuracy</strong> and <strong>12% higher F1-score</strong> than traditional unimodal methods.</li>\n<li>Multimodal feedback enhanced <strong>visitor engagement</strong> and <strong>perceived immersion</strong> during interactive exhibits.</li>\n</ul>\n</li>\n<li><strong>Qualitative Insight</strong>: MIBF enabled interpretable behavior tracking that informed exhibit design refinements.</li>\n</ul>\n\n\n<h2>\ud83d\ude80 Applications</h2>\n<ul>\n<li>\n<p><strong>Adaptive Exhibit Personalization</strong><br>Automatically adjust displayed content based on inferred visitor intent.</p>\n</li>\n<li>\n<p><strong>Immersive Learning Analytics</strong><br>Measure attention and comprehension through multimodal feedback.</p>\n</li>\n<li>\n<p><strong>Museum Operations Intelligence</strong><br>Predict visitor flow and recommend optimal spatial arrangements.</p>\n</li>\n<li>\n<p><strong>Cross-Museum Collaboration</strong><br>Shared multimodal behavioral schema (BSU) for standardized data exchange.</p>\n</li>\n</ul>\n\n\n<h2>\ud83e\uddea Evaluation Metrics</h2>\n<table>\n<thead>\n<tr>\n<th>Metric</th>\n<th>Description</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Accuracy</td>\n<td>Correct classification rate of visitor intent</td>\n</tr>\n<tr>\n<td>Macro F1</td>\n<td>Balance of precision/recall across intent classes</td>\n</tr>\n<tr>\n<td>Immersion Score</td>\n<td>Subjective rating from post-experience surveys</td>\n</tr>\n<tr>\n<td>Learning Gain</td>\n<td>Difference in pre/post knowledge assessments</td>\n</tr>\n<tr>\n<td>Satisfaction Index</td>\n<td>Mean Likert-scale user rating of recommendations</td>\n</tr>\n</tbody>\n</table>\n\n\n<h2>\ud83d\udd27 Technical Architecture</h2>\n<p><strong>Data Layer &rarr; Semantic Modeling &rarr; VIRNet Inference &rarr; Experience Optimization</strong></p>\n<ol>\n<li><strong>Data Layer</strong>: Collects and synchronizes multimodal data.</li>\n<li><strong>Semantic Layer</strong>: Transforms raw data into BSUs.</li>\n<li><strong>Model Layer</strong>: Encodes temporal and multimodal patterns.</li>\n<li><strong>Application Layer</strong>: Drives personalization and feedback visualization.</li>\n</ol>\n\n\n<h2>\ud83d\udca1 Innovation Highlights</h2>\n<ol>\n<li><strong>Theoretical Innovation</strong> &mdash; Introduces the concept of <strong>Behavior Semantic Units (BSUs)</strong> for unified semantic modeling of visitor behavior.</li>\n<li><strong>Methodological Innovation</strong> &mdash; Proposes <strong>VIRNet</strong>, a hierarchical attention-based model integrating visual, audio, spatial, and tactile modalities.</li>\n<li><strong>Technical Innovation</strong> &mdash; Employs temporal attention mechanisms to improve the modeling of complex sequential behavior.</li>\n<li><strong>Practical Contribution</strong> &mdash; Provides data-driven pathways for <strong>experience optimization</strong> and <strong>personalized cultural engagement</strong> in smart museums.</li>\n</ol>\n\n\n<h2>\ud83d\udcd8 Future Work</h2>\n<ul>\n<li>Expanding MIBF to incorporate physiological modalities (e.g., gaze tracking, heart rate).</li>\n<li>Building a <strong>cross-domain knowledge layer</strong> that connects behavioral semantics with exhibit metadata (linking to ICMM/CKG).</li>\n<li>Deploying <strong>real-time adaptive recommendation systems</strong> within museum applications.</li>\n</ul>\n\n\n<h2>\ud83e\udde9 License &amp; Citation</h2>\n<p>Open for academic and non-commercial use under <strong>MIT License</strong>.</p>\n<p>If you use or extend this framework, please cite:</p>\n<blockquote>\n<p><em>User Behavior Modeling and Experience Optimization of Smart Museums Based on Multimodal Interaction (2024)</em> &mdash; Legend Co. Research Division.</p>\n</blockquote>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Wang, Mingxuan",
+            "affiliation": null
+          },
+          {
+            "name": "Heinz D., Fill",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17440597"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Multimodal Interaction Behavior Framework (MIBF) and Visitor Intent Recognition Network (VIRNet)",
+      "links": {
+        "self": "https://zenodo.org/api/records/17440598",
+        "self_html": "https://zenodo.org/records/17440598",
+        "preview_html": "https://zenodo.org/records/17440598?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17440598",
+        "self_doi": "https://doi.org/10.5281/zenodo.17440598",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17440598",
+        "reserve_doi": "https://zenodo.org/api/records/17440598/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17440597",
+        "parent_html": "https://zenodo.org/records/17440597",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17440597",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17440597",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17440598/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17440598/sequence/default",
+        "files": "https://zenodo.org/api/records/17440598/files",
+        "media_files": "https://zenodo.org/api/records/17440598/media-files",
+        "archive": "https://zenodo.org/api/records/17440598/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17440598/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17440598/versions/latest",
+        "latest_html": "https://zenodo.org/records/17440598/latest",
+        "versions": "https://zenodo.org/api/records/17440598/versions",
+        "draft": "https://zenodo.org/api/records/17440598/draft",
+        "access_links": "https://zenodo.org/api/records/17440598/access/links",
+        "access_grants": "https://zenodo.org/api/records/17440598/access/grants",
+        "access_users": "https://zenodo.org/api/records/17440598/access/users",
+        "access_request": "https://zenodo.org/api/records/17440598/access/request",
+        "access": "https://zenodo.org/api/records/17440598/access",
+        "communities": "https://zenodo.org/api/records/17440598/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17440598/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17440598/request-deletion",
+        "requests": "https://zenodo.org/api/records/17440598/requests"
+      },
+      "updated": "2025-10-25T08:51:31.965620+00:00",
+      "recid": "17440598",
+      "revision": 3,
+      "files": [
+        {
+          "id": "1bc2e18e-d384-450c-ba84-5a92356c5a69",
+          "key": "utils.py",
+          "size": 2573,
+          "checksum": "md5:770355a2d9946e295b7923e437d77cb8",
+          "links": {
+            "self": "https://zenodo.org/api/records/17440598/files/utils.py/content"
+          }
+        },
+        {
+          "id": "1de6690a-9446-49cf-9d7c-290e310efec3",
+          "key": "inference.py",
+          "size": 2743,
+          "checksum": "md5:e219eb88ed03ff11a2eb0460be7dffbf",
+          "links": {
+            "self": "https://zenodo.org/api/records/17440598/files/inference.py/content"
+          }
+        },
+        {
+          "id": "616cbac9-f112-4c88-92e2-1008d963f186",
+          "key": "train.py",
+          "size": 6418,
+          "checksum": "md5:560b84f1b7d9065e9f3b049b02a2d688",
+          "links": {
+            "self": "https://zenodo.org/api/records/17440598/files/train.py/content"
+          }
+        },
+        {
+          "id": "574853b0-18a5-4a67-a768-8858de047e2f",
+          "key": "model.py",
+          "size": 6189,
+          "checksum": "md5:7e4a004085ce9f605c4a1782bf951a7c",
+          "links": {
+            "self": "https://zenodo.org/api/records/17440598/files/model.py/content"
+          }
+        },
+        {
+          "id": "10ce0c5b-3fb5-41f7-b442-5baa775e0a04",
+          "key": "dataset.py",
+          "size": 4402,
+          "checksum": "md5:153077cf0ac2df6b009de66ee9621cac",
+          "links": {
+            "self": "https://zenodo.org/api/records/17440598/files/dataset.py/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1443034"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 2,
+        "unique_views": 2,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 2,
+        "version_views": 2
       },
       "state": "done",
       "submitted": true
