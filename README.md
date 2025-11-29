@@ -27,6 +27,20 @@ A comprehensive, curated database of **300+ software tools** for virome analysis
 - RESTful API for programmatic access
 - Weekly updates and quality assurance
 
+---
+
+### 🌐 **[Visit Our Website →](https://shandley.github.io/awesome-virome/)**
+
+Explore the full **Awesome-Virome** experience with our interactive web platform featuring:
+- 📊 **Interactive Dashboard** - Visualize tool relationships, timelines, and trends
+- 📖 **Comprehensive Documentation** - Learn virome analysis workflows step-by-step
+- ⚖️ **Tool Comparison** - Compare tools side-by-side with advanced filtering
+- 🧭 **Selection Guide** - Get personalized tool recommendations
+
+**[Launch Website](https://shandley.github.io/awesome-virome/)** | **[View Documentation](https://shandley.github.io/awesome-virome/1.0.0/)** | **[Try Dashboard](https://shandley.github.io/awesome-virome/dashboard.html)**
+
+---
+
 ## 🌟 Explore Interactively
 
 Don't just read about tools - **explore them visually!** Our interactive web applications make discovering and comparing viral analysis tools fast and intuitive.
