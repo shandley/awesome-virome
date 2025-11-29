@@ -27,6 +27,53 @@ A comprehensive, curated database of **300+ software tools** for virome analysis
 - RESTful API for programmatic access
 - Weekly updates and quality assurance
 
+## 🌟 Explore Interactively
+
+Don't just read about tools - **explore them visually!** Our interactive web applications make discovering and comparing viral analysis tools fast and intuitive.
+
+### [📊 Interactive Dashboard](https://shandley.github.io/awesome-virome/dashboard.html)
+Visualize the entire virome analysis ecosystem at a glance:
+- **Tool Categorization Treemap** - See how 300+ tools are distributed across categories
+- **Interactive Network Graph** - Explore relationships between tools and categories
+- **Timeline Visualization** - Track the evolution of viral analysis tools over time
+- **Technology Trends** - Analyze programming language usage across the collection
+
+[**Launch Dashboard →**](https://shandley.github.io/awesome-virome/dashboard.html)
+
+### [⚖️ Tool Comparison Matrix](https://shandley.github.io/awesome-virome/comparison.html)
+Compare tools side-by-side to find the perfect fit:
+- **Multi-tool comparison** with key metrics and features
+- **Advanced filtering** by category, language, maintenance status
+- **Smart sorting** by stars, update frequency, or custom criteria
+- **Export capabilities** to CSV or JSON for further analysis
+
+[**Compare Tools →**](https://shandley.github.io/awesome-virome/comparison.html)
+
+### [🧭 Tool Selection Guide](https://shandley.github.io/awesome-virome/selection-guide.html)
+Get personalized recommendations through our interactive decision tree:
+- Answer simple questions about your research needs
+- Follow guided pathways to narrow down options
+- Receive tool recommendations tailored to your workflow
+- Learn key features and requirements for each suggestion
+
+[**Get Recommendations →**](https://shandley.github.io/awesome-virome/selection-guide.html)
+
+---
+
+## Introduction to Virome Analysis
+
+Virome analysis involves studying the collection of viruses (including bacteriophages) in a specific environment such as the human gut, soil, or oceans. These analyses typically include:
+
+1. Identifying viral sequences in metagenomic data
+2. Classifying viruses and predicting their hosts
+3. Assembling and annotating viral genomes
+4. Analyzing viral diversity and evolution
+5. Studying virus-host interactions and functional potential
+
+> **Note on Tool Availability**: This list contains tools developed over many years. Some tools may no longer be actively maintained or might have moved to new locations. We mark tools that are no longer available as [unavailable] and provide archive links when possible. If you find a broken link or know of a tool's new location, please submit a PR or issue.
+
+---
+
 ## Quick Start Guide
 
 **New to virome analysis?** Here are the essential tools to get you started:
@@ -49,10 +96,8 @@ A comprehensive, curated database of **300+ software tools** for virome analysis
 7. Functional annotation → [Functional Analysis](#functional-analysis)
 
 **🎯 Quick Access:**
+- [**Explore Interactive Tools**](#-explore-interactively) ↑
 - [**Browse All Tools by Category**](#virus-and-phage-identification) ↓
-- [**Interactive Dashboard**](https://shandley.github.io/awesome-virome/dashboard.html) - Visualize tool relationships
-- [**Tool Comparison Matrix**](https://shandley.github.io/awesome-virome/comparison.html) - Compare tools side-by-side
-- [**Selection Guide**](https://shandley.github.io/awesome-virome/selection-guide.html) - Get personalized recommendations
 
 ## Top Tools by Category
 
@@ -95,6 +140,8 @@ Here are the most popular and well-maintained tools in each major category:
 
 ### 🚀 Getting Started
 - [What is Awesome-Virome?](#what-is-awesome-virome)
+- [Explore Interactively](#-explore-interactively)
+- [Introduction to Virome Analysis](#introduction-to-virome-analysis)
 - [Quick Start Guide](#quick-start-guide)
 - [Top Tools by Category](#top-tools-by-category)
 
@@ -126,39 +173,14 @@ Here are the most popular and well-maintained tools in each major category:
 - [CRISPR Analysis](#crispr-analysis)
 - [Other Tools](#other-tools)
 
-### 🌐 Interactive Features
-- [Interactive Dashboard](#interactive-dashboard)
-- [Tool Comparison Matrix](#tool-comparison-matrix)
-- [Tool Selection Guide](#tool-selection-guide)
+### 🌐 Resources
 - [API Support](#api-support)
 
 ### 📚 Project Information
-- [Introduction to Virome Analysis](#introduction-to-virome-analysis)
 - [Contributing](#contributing)
 - [Repository Maintenance](#repository-maintenance)
 - [Acknowledgments](#acknowledgments)
 - [License](#license)
-
----
-
-## Typical Workflows
-
-### Basic Virome Analysis Workflow:
-1. Quality control of metagenomic reads
-2. Assembly of contigs (e.g., SPAdes, MEGAHIT)
-3. Identification of viral contigs → [Virus and Phage Identification](#virus-and-phage-identification)
-4. Quality assessment → [Genome Analysis](#genome-analysis)
-5. Taxonomic classification → [Taxonomy](#taxonomy)
-6. Host prediction → [Host Prediction](#host-prediction)
-7. Functional annotation → [Functional Analysis](#functional-analysis)
-
-### Advanced Analysis Options:
-- **Strain reconstruction**: [Viral Strain Reconstruction](#viral-strain-reconstruction)
-- **Host-virus interactions**: [Interaction Analysis](#interaction-analysis)
-- **Evolutionary analysis**: [Evolutionary Analysis](#evolutionary-analysis)
-- **Specialized environments**: [Other Tools](#other-tools)
-
-> **💡 Tip**: New to virome analysis? Start with the [Quick Start Guide](#quick-start-guide) above for essential tool recommendations.
 
 ---
 
@@ -546,59 +568,6 @@ Here are the most popular and well-maintained tools in each major category:
 - [VirSorter-DarkMatter](https://github.com/simroux/VirSorter) [Updated: 01/2025] - Extension focused on novel viral sequences. [Perl]
 
 ---
-
-## Interactive Dashboard
-
-Explore our [Interactive Dashboard](https://shandley.github.io/awesome-virome/dashboard.html) to visualize tool relationships and adoption patterns in the virome analysis ecosystem.
-
-![Dashboard Preview](dashboard.png)
-
-The dashboard offers powerful visualizations to understand the virome analysis tool landscape:
-
-- **Tool Categorization Treemap**: Quickly see how tools are distributed across functional categories
-- **Interactive Network**: Discover relationships between tools, categories, and subcategories
-- **Tool Timeline**: Visualize the evolution of the virome analysis tool ecosystem
-- **Programming Languages**: Analyze technology trends across the tool collection
-
-[Launch Dashboard](https://shandley.github.io/awesome-virome/dashboard.html) | [Compare Tools](https://shandley.github.io/awesome-virome/comparison.html)
-
-## Tool Comparison Matrix
-
-Need to quickly compare different tools? Our [interactive comparison matrix](https://shandley.github.io/awesome-virome/comparison.html) allows you to:
-
-- Compare tools side-by-side with key metrics and features
-- Filter by category, language, maintenance status, and more
-- Sort by stars, citations, or update frequency
-- Export results to CSV or JSON for your analysis
-
-The matrix is designed to help researchers quickly evaluate and select the most appropriate tools for their workflows.
-
-[Open Comparison Matrix](https://shandley.github.io/awesome-virome/comparison.html)
-
-## Tool Selection Guide
-
-Not sure which tool to use? Our [interactive selection guide](https://shandley.github.io/awesome-virome/selection-guide.html) helps you navigate through the vast ecosystem of viral analysis tools:
-
-- Answer simple questions about your research needs
-- Follow a decision tree to narrow down tool options
-- Receive personalized tool recommendations
-- Learn about key features and requirements for each tool
-
-The guide is perfect for researchers new to virome analysis or those exploring unfamiliar analysis types.
-
-[Open Selection Guide](https://shandley.github.io/awesome-virome/selection-guide.html)
-
-## Introduction to Virome Analysis
-
-Virome analysis involves studying the collection of viruses (including bacteriophages) in a specific environment such as the human gut, soil, or oceans. These analyses typically include:
-
-1. Identifying viral sequences in metagenomic data
-2. Classifying viruses and predicting their hosts
-3. Assembling and annotating viral genomes
-4. Analyzing viral diversity and evolution
-5. Studying virus-host interactions and functional potential
-
-> **Note on Tool Availability**: This list contains tools developed over many years. Some tools may no longer be actively maintained or might have moved to new locations. We mark tools that are no longer available as [unavailable] and provide archive links when possible. If you find a broken link or know of a tool's new location, please submit a PR or issue.
 
 ## Contributing
 
