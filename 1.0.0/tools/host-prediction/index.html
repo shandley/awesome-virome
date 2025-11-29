@@ -1465,7 +1465,26 @@
 
 
 <h1 id="host-prediction-tools">Host Prediction Tools</h1>
+<blockquote>
+<p><strong>Last Updated:</strong> November 29, 2025</p>
+</blockquote>
 <p>Host prediction tools help determine the bacterial hosts of viral sequences, particularly phages. This is crucial for understanding phage-host interactions, designing phage therapy, and interpreting the role of phages in microbial communities.</p>
+<div class="admonition warning">
+<p class="admonition-title">Reality Check: Host Prediction Accuracy</p>
+<p><strong>Host prediction is one of the most challenging problems in virome analysis.</strong> Current computational tools have significant limitations:</p>
+<ul>
+<li><strong>Real-world accuracy</strong>: Typically <strong>30-60%</strong> at genus level for novel viruses (not the 75-80% often cited from benchmarks on known viruses)</li>
+<li><strong>Many predictions fail</strong>: 20-40% of viral sequences may get no confident prediction</li>
+<li><strong>Predictions are hypotheses</strong>: Always treat them as computational predictions requiring validation, not ground truth</li>
+<li><strong>Method-dependent</strong>: Different tools can give conflicting predictions for the same sequence</li>
+</ul>
+<p><strong>Best practices:</strong>
+- Use multiple prediction methods and look for consensus
+- Higher confidence when multiple lines of evidence agree (sequence homology + CRISPR spacers + co-occurrence data)
+- CRISPR spacer matches are the "gold standard" but only available for ~1-5% of viruses
+- Consider biological context (sample environment, known host distributions)
+- Validate computationally important predictions experimentally when possible</p>
+</div>
 <h2 id="key-host-prediction-tools">Key Host Prediction Tools</h2>
 <h3 id="iphop">iPHoP</h3>
 <p><a href="https://bitbucket.org/srouxjgi/iphop/src/main/">iPHoP</a> (Integrated Prediction of Host and Phage) is a state-of-the-art tool for predicting phage-host interactions at various taxonomic levels.</p>
@@ -1590,22 +1609,32 @@ CHERRY uses a combination of convolutional neural networks and LSTM to learn seq
 </tbody>
 </table>
 <h2 id="performance-benchmarks">Performance Benchmarks</h2>
-<p>Based on published benchmarks and community experience:</p>
+<div class="admonition info">
+<p class="admonition-title">Understanding Benchmark Numbers</p>
+<p>The performance metrics below are from <strong>controlled benchmark studies</strong> on test datasets with known virus-host pairs. <strong>Real-world performance on novel environmental viruses is typically 20-40% lower.</strong></p>
+<p>Benchmark studies often:
+- Use viruses with known hosts (easier than novel viruses)
+- Test on sequences similar to training data
+- Exclude difficult cases
+- Report best-case accuracy</p>
+<p><strong>For your research:</strong> Expect genus-level accuracy of <strong>30-60%</strong> on novel viruses, <strong>not</strong> 75-80%.</p>
+</div>
+<p>Based on published benchmarks (test datasets with known hosts):</p>
 <ul>
-<li><strong>Genus level prediction</strong>:</li>
-<li>VirHostMatcher-Net: ~75-80% accuracy</li>
-<li>iPHoP: ~70-75% accuracy</li>
+<li><strong>Genus level prediction</strong> (benchmark datasets):</li>
+<li>VirHostMatcher-Net: ~75-80% (novel viruses: ~40-50%)</li>
+<li>iPHoP: ~70-75% (novel viruses: ~45-55%)</li>
 <li>
-<p>CHERRY: ~65-70% accuracy</p>
+<p>CHERRY: ~65-70% (novel viruses: ~35-45%)</p>
 </li>
 <li>
-<p><strong>Species level prediction</strong>:</p>
+<p><strong>Species level prediction</strong> (benchmark datasets):</p>
 </li>
-<li>iPHoP: ~60-65% accuracy</li>
-<li>CHERRY: ~55-60% accuracy</li>
-<li>WIsH: ~50-55% accuracy</li>
+<li>iPHoP: ~60-65% (novel viruses: ~30-40%)</li>
+<li>CHERRY: ~55-60% (novel viruses: ~25-35%)</li>
+<li>WIsH: ~50-55% (novel viruses: ~25-30%)</li>
 </ul>
-<p><em>Note: Actual performance varies based on input data quality, completeness, and taxonomic coverage of reference databases.</em></p>
+<p><em>Performance depends on: viral genome completeness, taxonomic coverage of reference databases, host diversity in training data, and sequence similarity to known virus-host pairs.</em></p>
 <h2 id="recommended-workflow">Recommended Workflow</h2>
 <p>For optimal host prediction results, we recommend a multi-tool approach:</p>
 <ol>

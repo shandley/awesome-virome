@@ -1521,7 +1521,22 @@
 
 
 <h1 id="virus-and-phage-identification-tools">Virus and Phage Identification Tools</h1>
+<blockquote>
+<p><strong>Last Updated:</strong> November 29, 2025</p>
+</blockquote>
 <p>This section details tools for identifying viral sequences in metagenomic data, including tools for general metagenome analysis, integrated viruses (prophages), and RNA virus identification.</p>
+<div class="admonition warning">
+<p class="admonition-title">Important: False Positives and Best Practices</p>
+<p><strong>Viral identification tools can produce false positives!</strong> Cellular genes, mobile genetic elements, and other sequences may be incorrectly classified as viral. To minimize false positives:</p>
+<ul>
+<li><strong>Use multiple tools</strong>: Run at least 2-3 different tools (e.g., VirSorter2 + VIBRANT + geNomad) and take consensus predictions</li>
+<li><strong>Check confidence scores</strong>: Use appropriate score thresholds (see tool-specific guidance below)</li>
+<li><strong>Validate with CheckV</strong>: Always run CheckV to assess genome quality and remove contamination</li>
+<li><strong>Set minimum contig length</strong>: For metagenomes, use ≥5kb; for isolates, ≥1kb minimum</li>
+<li><strong>Review results critically</strong>: Unexpected taxonomic assignments or unusual gene content may indicate false positives</li>
+</ul>
+<p><strong>Remember:</strong> High sensitivity often comes with lower specificity. Adjust thresholds based on your research goals.</p>
+</div>
 <h2 id="metagenome-analysis">Metagenome Analysis</h2>
 <p>Tools for identifying viral sequences in mixed metagenomic data:</p>
 <h3 id="virsorter2">VirSorter2</h3>
@@ -1537,8 +1552,17 @@
 <li>Improved sensitivity compared to the original VirSorter</li>
 </ul>
 <p><strong>Usage Example</strong>:
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>virsorter<span class="w"> </span>run<span class="w"> </span>-w<span class="w"> </span>output_dir<span class="w"> </span>-i<span class="w"> </span>input_contigs.fa<span class="w"> </span>--min-length<span class="w"> </span><span class="m">1000</span><span class="w"> </span>--include-groups<span class="w"> </span>dsDNAphage,ssDNA,RNA<span class="w"> </span>-j<span class="w"> </span><span class="m">4</span><span class="w"> </span>all
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>virsorter<span class="w"> </span>run<span class="w"> </span>-w<span class="w"> </span>output_dir<span class="w"> </span>-i<span class="w"> </span>input_contigs.fa<span class="w"> </span>--min-length<span class="w"> </span><span class="m">5000</span><span class="w"> </span>--min-score<span class="w"> </span><span class="m">0</span>.5<span class="w"> </span>--include-groups<span class="w"> </span>dsDNAphage,ssDNA<span class="w"> </span>-j<span class="w"> </span><span class="m">4</span><span class="w"> </span>all
 </span></code></pre></div></p>
+<p><strong>Recommended Parameters:</strong>
+- <code>--min-length 5000</code>: Use ≥5kb for metagenomes to reduce false positives
+- <code>--min-score 0.5</code>: Default threshold (0.5-0.9 for high confidence)
+- <code>--include-groups</code>: Specify expected viral types to reduce search space
+- Consider <code>--keep-original-seq</code> to retain boundary information</p>
+<p><strong>Score Interpretation:</strong>
+- <strong>≥0.9</strong>: High confidence viral sequences
+- <strong>0.5-0.9</strong>: Medium confidence (validate with other tools)
+- <strong>&lt;0.5</strong>: Low confidence (likely false positives)</p>
 <h3 id="vibrant">VIBRANT</h3>
 <p><a href="https://github.com/AnantharamanLab/VIBRANT">VIBRANT</a> (Virus Identification By iteRative ANnoTation) identifies viral contigs from metagenomic data.</p>
 <ul>
