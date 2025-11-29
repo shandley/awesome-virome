@@ -62,13 +62,13 @@ Here are the most popular and well-maintained tools in each major category:
 | Tool | Stars | Description |
 |------|-------|-------------|
 | [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) | ⭐ 1114 | Fast sequence similarity search |
-| [geNomad](https://github.com/apcamargo/genomad) | ⭐ 219 | ML-based virus identification including proviruses |
+| [geNomad](https://github.com/apcamargo/genomad) [v1.6.0, 2023] | ⭐ 219 | ML-based virus identification including proviruses |
 | [VIBRANT](https://github.com/AnantharamanLab/VIBRANT) | ⭐ 159 | Virus identification by boundary detection + annotation |
 
 ### 🎯 Host Prediction
 | Tool | Stars | Description |
 |------|-------|-------------|
-| [CHERRY](https://github.com/KennthShang/CHERRY) | ⭐ 24 | Deep learning for phage host prediction |
+| [CHERRY](https://github.com/KennthShang/CHERRY) [v1.0, 2022] | ⭐ 24 | Deep learning for phage host prediction |
 | [VirHostMatcher-Net](https://github.com/WeiliWw/VirHostMatcher-Net) | ⭐ 21 | Network-based virus-host prediction |
 | [DeepHost](https://github.com/deepomicslab/DeepHost) | ⭐ 17 | CNN for phage host prediction |
 
@@ -77,13 +77,13 @@ Here are the most popular and well-maintained tools in each major category:
 |------|-------|-------------|
 | [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) | ⭐ 797 | Assembler for viruses from metagenomic data |
 | [Prodigal/MetaProdigal](https://github.com/hyattpd/Prodigal) | ⭐ 471 | Gene prediction for prokaryotic genomes |
-| [Pharokka](https://github.com/gbouras13/pharokka) | ⭐ 158 | Rapid phage annotation tool |
+| [Pharokka](https://github.com/gbouras13/pharokka) [v1.5.0, 2023] | ⭐ 158 | Rapid phage annotation tool |
 
 ### 📊 Taxonomy
 | Tool | Stars | Description |
 |------|-------|-------------|
-| [vConTACT2.0](https://bitbucket.org/MAVERICLab/vcontact2/src/master/) | ⭐ 27 | Genome-sharing networks for virus taxonomy |
-| [PhaGCN](https://github.com/KennthShang/PhaGCN) | ⭐ 25 | Graph convolutional network for phage taxonomy |
+| [vConTACT2.0](https://bitbucket.org/MAVERICLab/vcontact2/src/master/) [v0.9.19, 2023] | ⭐ 27 | Genome-sharing networks for virus taxonomy |
+| [PhaGCN](https://github.com/KennthShang/PhaGCN) [v1.0, 2022] | ⭐ 25 | Graph convolutional network for phage taxonomy |
 | [VIPtree](https://github.com/yosuken/ViPTreeGen) | ⭐ 19 | Viral proteomic tree generation |
 
 **📈 Most Starred Overall:**
@@ -227,7 +227,7 @@ Here are the most popular and well-maintained tools in each major category:
 ### Integrated Viruses
 
 - [DRAD](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0001193) - Dinucleotide Relative Abundance difference method (no longer available).
-- [geNomad](https://github.com/apcamargo/genomad) [v1.6.0, 2023] [Updated: 03/2025] - Tool for identifying viral sequences, including proviruses. [conda] [Python] [v1.6.0, 2023]
+- [geNomad](https://github.com/apcamargo/genomad) [v1.6.0, 2023] [v1.6.0, 2023] [Updated: 03/2025] - Tool for identifying viral sequences, including proviruses. [conda] [Python] [v1.6.0, 2023]
 - [hafeZ](https://github.com/Chrisjrt/hafeZ) [Updated: 08/2024] - Readmapping approach for integrated phage identification. [Python]
 - [LysoPhD](https://ieeexplore.ieee.org/document/8983280) - Phage identification tool (code not available).
 - [phage_finder](http://phage-finder.sourceforge.net/) - Pipeline for prophage identification. [Perl] [legacy]
@@ -251,7 +251,7 @@ Here are the most popular and well-maintained tools in each major category:
 ## Host Prediction
 
 - [BacteriophageHostPrediction](https://github.com/dimiboeckaerts/BacteriophageHostPrediction) [Updated: 01/2025] - Computational methods for phage-host prediction. [Python]
-- [CHERRY](https://github.com/KennthShang/CHERRY) [v1.0, 2022] [Updated: 03/2025] - Deep learning for phage host prediction. [Python] [v1.0, 2022]
+- [CHERRY](https://github.com/KennthShang/CHERRY) [v1.0, 2022] [v1.0, 2022] [Updated: 03/2025] - Deep learning for phage host prediction. [Python] [v1.0, 2022]
 - [CrisprOpenDB](https://github.com/edzuf/CrisprOpenDB) [Updated: 07/2024] - CRISPR spacer database for phage-host prediction. [Python]
 - [DeePaC](https://gitlab.com/dacs-hpi/deepac) - CNN, ResNet for detection of novel human pathogens. [conda, pip] [Python]
 - [DeePaC-Live](https://gitlab.com/dacs-hpi/deepac-live) - DeePaC plugin for real-time analysis during sequencing. [conda, pip] [Python]
@@ -288,7 +288,7 @@ Here are the most popular and well-maintained tools in each major category:
 - [DRAMv](https://github.com/WrightonLabCSU/DRAM) [v1.4.6, 2023] - Distilling and refining annotation of metabolism for phages. [conda, pip] [Python] [v1.4.6, 2023]
 - [MetaCerberus](https://github.com/raw-lab/MetaCerberus) [Updated: 03/2025] - HMM-based annotation with Ray MPP. [conda, pip] [Python]
 - [PhANNs](https://github.com/Adrian-Cantu/PhANNs) [Updated: 12/2024] - Phage annotation neural networks. (Python version available via contact) [Python]
-- [Pharokka](https://github.com/gbouras13/pharokka) [v1.5.0, 2023] [Updated: 03/2025] - Rapid phage annotation tool. [conda] [Python] [v1.5.0, 2023]
+- [Pharokka](https://github.com/gbouras13/pharokka) [v1.5.0, 2023] [v1.5.0, 2023] [Updated: 03/2025] - Rapid phage annotation tool. [conda] [Python] [v1.5.0, 2023]
 
 ### Genome Assembly
 
@@ -319,7 +319,7 @@ Here are the most popular and well-maintained tools in each major category:
 - [GLIMMER](https://ccb.jhu.edu/software/glimmer/) - Gene finder originally designed for bacteria but frequently used for phage genomes. [source] [C++]
 - [VIGOR](https://github.com/JCVI-VIRIFX/VIGOR4) [unavailable] - Viral genome annotation tool designed specifically for viral genomes, primarily eukaryotic viruses. [source] [Java/Perl]
 - [PhageTerm](https://sourceforge.net/projects/phageterm/) - Tool for identifying phage termini and packaging mechanisms, helpful for ORF identification. [source] [Python]
-- [Pharokka](https://github.com/gbouras13/pharokka) [v1.5.0, 2023] [Updated: 03/2025] - Dedicated phage annotation tool that includes ORF prediction. [conda] [Python]
+- [Pharokka](https://github.com/gbouras13/pharokka) [v1.5.0, 2023] [v1.5.0, 2023] [Updated: 03/2025] - Dedicated phage annotation tool that includes ORF prediction. [conda] [Python]
 - [VGAS](https://github.com/tianqitang1/VGAS) [unavailable] - Comprehensive pipeline for viral genome annotation including gene finding. [source] [Python]
 
 ### Genome analysis workflows
@@ -331,9 +331,9 @@ Here are the most popular and well-maintained tools in each major category:
 - [BERTax](https://github.com/f-kretschmer/bertax) [Updated: 02/2025] - BERT-based viral taxonomy tool. [Python]
 - [Classiphages 2.0](https://www.biorxiv.org/content/10.1101/558171v1) - Artificial neural network for phage classification (code not available).
 - [GraViTy](https://github.com/PAiewsakun/GRAViTy) [Updated: 12/2024] - HMMs and genome organization models for virus taxonomy. [R]
-- [PhaGCN](https://github.com/KennthShang/PhaGCN) [v1.0, 2022] [Updated: 02/2025] - Graph convolutional network for phage taxonomy. [Python] [v1.0, 2022]
+- [PhaGCN](https://github.com/KennthShang/PhaGCN) [v1.0, 2022] [v1.0, 2022] [Updated: 02/2025] - Graph convolutional network for phage taxonomy. [Python] [v1.0, 2022]
 - [vConTACT](https://bitbucket.org/MAVERICLab/vcontact/src/master/) [Updated: 10/2016] - Whole-genome gene-sharing networks for virus taxonomy. [Python] [legacy]
-- [vConTACT2.0](https://bitbucket.org/MAVERICLab/vcontact2/src/master/) [v0.9.19, 2023] [Updated: 11/2022] - Updated version of vConTACT with improved performance. [Python] [v0.9.19, 2023]
+- [vConTACT2.0](https://bitbucket.org/MAVERICLab/vcontact2/src/master/) [v0.9.19, 2023] [v0.9.19, 2023] [Updated: 11/2022] - Updated version of vConTACT with improved performance. [Python] [v0.9.19, 2023]
 - [VICTOR](https://github.com/vdclab/vdclab-wiki/blob/master/VICTOR.md) - Genome-based phylogeny and classification of phages. [web service]
 - [VIPtree](https://github.com/yosuken/ViPTreeGen) [Updated: 02/2025] - Viral proteomic tree generation tool. [Perl]
 - [VIRIDIC](https://www.mdpi.com/1999-4915/12/11/1268) - Virus intergenomic distance calculator. [R]

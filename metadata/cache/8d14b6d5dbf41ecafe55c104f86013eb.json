@@ -1,12 +1,12 @@
 {
-  "cache_date": "2025-08-24T08:25:15.474657",
+  "cache_date": "2025-11-01T08:18:58.634080",
   "data": [
     {
-      "url": "https://api.github.com/repos/biobakery/MetaPhlAn/releases/223114066",
-      "assets_url": "https://api.github.com/repos/biobakery/MetaPhlAn/releases/223114066/assets",
-      "upload_url": "https://uploads.github.com/repos/biobakery/MetaPhlAn/releases/223114066/assets{?name,label}",
-      "html_url": "https://github.com/biobakery/MetaPhlAn/releases/tag/4.2.2",
-      "id": 223114066,
+      "url": "https://api.github.com/repos/biobakery/MetaPhlAn/releases/255940743",
+      "assets_url": "https://api.github.com/repos/biobakery/MetaPhlAn/releases/255940743/assets",
+      "upload_url": "https://uploads.github.com/repos/biobakery/MetaPhlAn/releases/255940743/assets{?name,label}",
+      "html_url": "https://github.com/biobakery/MetaPhlAn/releases/tag/4.2.4",
+      "id": 255940743,
       "author": {
         "login": "Cengoni",
         "id": 43252093,
@@ -28,20 +28,20 @@
         "user_view_type": "public",
         "site_admin": false
       },
-      "node_id": "RE_kwDODmnxFc4NTHNS",
-      "tag_name": "4.2.2",
+      "node_id": "RE_kwDODmnxFc4PQViH",
+      "tag_name": "4.2.4",
       "target_commitish": "master",
-      "name": "4.2.2",
+      "name": "4.2.4",
       "draft": false,
       "immutable": false,
       "prerelease": false,
-      "created_at": "2025-06-04T13:03:35Z",
-      "updated_at": "2025-06-04T15:19:43Z",
-      "published_at": "2025-06-04T15:19:43Z",
+      "created_at": "2025-10-21T08:53:58Z",
+      "updated_at": "2025-10-21T09:02:11Z",
+      "published_at": "2025-10-21T09:02:11Z",
       "assets": [],
-      "tarball_url": "https://api.github.com/repos/biobakery/MetaPhlAn/tarball/4.2.2",
-      "zipball_url": "https://api.github.com/repos/biobakery/MetaPhlAn/zipball/4.2.2",
-      "body": "# Version 4.2.2 (Jun 4th, 2025)\r\n**Announcement**: We are pleased to share that MetaPhlAn 4.2 is now available, which includes a new major database release, some code refactoring, and support for taxonomic profiling of long-read metagenomes produced by PacBio or nanopore platforms. This was made possible by integrating the Minimap2 aligner, which enables efficient mapping of long-read sequences. Improvements to the database include both the incremental inclusion of additional reference genomes (both isolates and MAGs) and the usage of an improved clustering method for more accurate binning of genomes into SGBs.\r\n\r\nFor details on MetaPhlan 4, check [announcing MetaPhlAn 4](https://forum.biobakery.org/t/announcing-metaphlan-4/3994) or visit the MetaPhlAn 4 [GitHub repository](https://github.com/biobakery/MetaPhlAn).\r\n\r\nFor a complete inventory of the changes in MetaPhlAn 4.2, please see below:\r\n\r\n### Database updates\r\nA  new ChocoPhlAn database (\u201cvJan25\u201d) for MetaPhlAn and related tools has been released with MetaPhlAn 4.2. This new database includes:\r\n* Addition of ~63k isolate genomes from NCBI, leading to a total of ~219k isolate genomes\r\n* Addition of ~416k new MAGs, leading to a total of ~1,3M MAGs\r\n* Expansion of the markers database with 58,331 SGBs  (21,509 more than vJun23)\r\n* Improved clustering of SGBs using skANI\r\n* Addition of taxonomy assignment for Viral Sequence Clusters (VSCs) database performed with GeNomad\r\n* Update SGB2GTDBtk file to r220 - allowing direct comparison between MetaPhlAn and GTDB results\r\n\r\n### New features\r\n* [MetaPhlAn]  Support for long-read sequencing datasets: \r\n Added \u201cLong reads arguments\u201d group of options:\r\n  * --long_reads to profile a long-read dataset\r\n  * --split_reads to profile long reads by splitting them and treating them as short reads\r\n  * --split_readlen to specify the length of the splits when --split_reads is selected (default is 150)\r\n  * --max_gcsd to set the threshold on gap-compressed sequence divergence to use when filtering the Minimap2 mapping results (default is 0.10)\r\n  * --minimap2_exe to set a path to the Minimap2 executable\r\n  * --minimap2_ps to change the mapping options for Minimap2 (defaults are '-x asm20 -B 3 -O 3,12')\r\n  * --nbases required to specify the total number of bases in the sample when the input is a SAM file\r\n* [MetaPhlAn] Added information about database used to run MetaPhlAn in SAM header as @ CO index:<database_index>\r\n* [MetaPhlAn] Added implementation of RPKM to virus for short reads\r\n* [MetaPhlAn] Added compatibility of --profile_vsc with --input_type sam\r\n* [MetaPhlAn] Added --verbose option for debugging issues with database download\r\n* [StrainPhlAn] Added in sample2markers.py an automatic detection of the mapper used for the alignment (Bowtie2 or Minimap2) to set the correct default values\r\n* [StrainPhlAn] Added --max_gcsd option in sample2markers.py to set the threshold on gap-compressed sequence divergence to use when filtering markers from the Minimap2 mapping results (default is 0.10)\r\n* [StrainPhlAn] Added --polymorphism_perc option in strainphlan.py to regulate the maximum percentage of polymorphic sites in a marker to be considered (default is None)\r\n\r\n### Changed features\r\n* [MetaPhlAn] --unclassified_estimation is now a default parameter, making the relative abundance of detected taxa to be rescaled taking into account the estimated portion of unclassified reads. Use --skip_unclassified_estimation to not include an estimate of unclassified reads in the relative abundance profile\r\n* [MetaPhlAn] Changed parameter for specifying the folder containing the MetaPhlAn database from --bowtie2db to --db_dir\r\n* [MetaPhlAn]  Changed parameter for specifying the path to the MetaPhlAn database folder from --bowtie2out to --mapout\r\n* [MetaPhlAn]  Changed value of --input_type from bowtie2out to mapout to specify the input is an intermediate mapping file from a previous run with --mapout (old --bowtie2out)\r\n* [MetaPhlAn] Changed parameter for specifying output format from --biom to --biom_format_output. Now the parameter is a flag that allows the user to obtain the profiling in biom format only, instead of writing a separate output file. Also, --mdelim is now --biom_mdelim.\r\n* [MetaPhlAn] Changed some default parameters for long reads:\r\n--min_mapq_val has default 5 for short reads and 50 for long reads\r\n--vsc_breadth has default 0.75 for short reads and 0.5 for long reads\r\n--subsampling takes as input the number of bases to be considered from the input metagenomes (instead of number of reads) if --long_reads is selected\r\n* [MetaPhlAn] The MetaPhlAn species Newick trees for computing UniFrac distances in calculate_diversity.R are no longer stored in GitHub, but are downloaded with the database (or can be found here: http://cmprod1.cibio.unitn.it/biobakery4/metaphlan_databases/ )\r\n* [StrainPhlAn] Changed some default parameters for long reads in sample2markers.py, depending on the mapper detected (Bowtie2 or Minimap2):\r\n--min_reads_aligning has default 8 for short reads and 1 for long reads\r\n--min_mapping_quality has default 10 for short reads and 50 for long reads\r\n* Fixed bugs in 4.2.0 and 4.2.1\r\n\r\n### Dropped features\r\n* [MetaPhlAn]  Removed backward compatibility with --mpa3 which includes removal of --add_viruses\r\n* [MetaPhlAn] Removed MetaPhlAn2 style output format --legacy-output\r\n<br/> "
+      "tarball_url": "https://api.github.com/repos/biobakery/MetaPhlAn/tarball/4.2.4",
+      "zipball_url": "https://api.github.com/repos/biobakery/MetaPhlAn/zipball/4.2.4",
+      "body": "# Version 4.2.4 (Oct 21st, 2025)\r\n## Fixes\r\n* [MetaPhlAn] Fix conditional rounding to work after multiplying by mapped fraction [95849b3](https://github.com/biobakery/MetaPhlAn/commit/95849b35ed6cff3a7d4a5aef49ab2a0a570f92e0)\r\n* [MetaPhlAn] Fix metaphlan2krona.py to work with v4 (PR #239) \r\n"
     }
   ]
 }

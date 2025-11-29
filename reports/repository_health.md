@@ -8,9 +8,9 @@ This report provides insights into the health and activity of the awesome-virome
 
 | Metric | Value |
 | ------ | ----- |
-| Total Commits | 747 |
-| Total Contributors | 9 |
-| Repository Age | 201 days |
+| Total Commits | 923 |
+| Total Contributors | 10 |
+| Repository Age | 271 days |
 
 ## Data Freshness
 

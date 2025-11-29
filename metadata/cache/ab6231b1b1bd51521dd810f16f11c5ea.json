@@ -1,201 +1,467 @@
 {
-  "cache_date": "2025-09-01T11:11:36.288837",
+  "cache_date": "2025-11-01T11:18:06.470074",
   "data": [
     {
-      "created": "2025-08-31T09:18:23.806244+00:00",
-      "modified": "2025-08-31T09:18:24.754671+00:00",
-      "id": 16983006,
-      "conceptrecid": "10685509",
-      "doi": "10.5281/zenodo.16983006",
-      "conceptdoi": "10.5281/zenodo.10685509",
-      "doi_url": "https://doi.org/10.5281/zenodo.16983006",
+      "created": "2025-10-31T15:29:03.301467+00:00",
+      "modified": "2025-10-31T15:29:03.547831+00:00",
+      "id": 17495270,
+      "conceptrecid": "15198529",
+      "doi": "10.5281/zenodo.17495270",
+      "conceptdoi": "10.5281/zenodo.15198529",
+      "doi_url": "https://doi.org/10.5281/zenodo.17495270",
       "metadata": {
-        "title": "A catalog of genes and species of the human oral microbiota",
-        "doi": "10.5281/zenodo.16983006",
-        "publication_date": "2025-08-29",
-        "description": "<p></p><h1>Data sources</h1><br>The oral gene catalog was built using three primary sources:<br><br>Bacterial Genomes from the Human Oral Microbiome Database (HOMD).<br>Fungal Genomes from the NCBI RefSeq database.<br>Metagenomic Sequencing Data from multiple oral microbiome studies.<br>The creation of the oral gene catalog was a multi-step process, combining and refining genes from each source.<br><br><h1>Bacterial Genes</h1><br>A total of 1,505 bacterial genomes were downloaded from HOMD (version 20170215, accessed in December 2017). Genes shorter than 60 nucleotides or containing ambiguous bases were filtered out. Redundancy was removed using CD-HIT-EST (v4.6; parameters: -aS 0.9 -c 0.95 -T 0 -M 0 -t 0 -d 0 -G 0). This process yielded 1,459,394 unique HOMD genes for the catalog.<br><br><h1>Fungal Genes</h1><br>1,017 fungal genomes were downloaded from NCBI RefSeq (May 2017). For the 492 genomes lacking existing annotations, gene calling was performed using Genemark-ES in fungi mode. After initial redundancy removal with CD-HIT-EST (v4.6; parameters: -aS 0.9 -c 0.95 -T 0 -M 0 -t 0 -d 0 -G 0), genes were selected for inclusion only if their corresponding genome was present in at least 20% of the samples in one of the metagenomic cohorts, determined by mapping reads with Bowtie2 (v2.2.3). This led to the selection of 2,440,644 fungal genes.<br><br><h1>Metagenomic Sequencing Data</h1><br>The gene catalog was supplemented with data from 689 oral metagenomes, including newly sequenced samples, from the following studies:<br><br>Human Microbiome Project (HMP): 382 samples (bioproject PRJNA255439).<br>Chinese Cohort: 212 samples (bioproject PRJEB6997).<br>TwinsUK Cohort: 48 newly sequenced samples (bioproject: PRJEB38483).<br>Raw reads were subjected to quality control and trimmed using AlienTrimmer 0.4.0 (parameters: -k 10 -l 45 -m 5 -p 40 -q 20). Human sequences were removed by mapping against the human reference genome (GRCh38.p11) using Bowtie2 2.2.3. Metagenomic assembly was performed using SPAdes 3.9.0 (parameters: \"-k 21,33,55 --only-assembler \u2013meta\" for Illumina paired-end data, or \"--iontorrent -t 24 -m 300 -k 21,33,55 --only-assembler\" for Ion Torrent single-end data). Contigs shorter than 500 bp or with coverage less than 2x were discarded. Gene calling was conducted with Prodigal (parameters: -m -p meta). Genes shorter than 60 bp were filtered out, and redundancy was removed with CD-HIT-EST (v4.6; parameters: -aS 0.9 -c 0.95 -T 0 -M 0 -t 0 -d 0 -G 0).<br><br><h1>Final Gene Catalog</h1><br>The final gene catalog was assembled by sequentially adding non-redundant genes from each data source. Genes from HOMD and fungal genomes were combined first using cd-hit-est-2d. Then, non-redundant genes from the HMP, Chinese, and TwinsUK cohorts were sequentially added using cd-hit-est-2d (same parameters as cd-hit-est). A final redundancy removal step was performed. This process resulted in a catalogue of 8.4 million non-redundant genes<br><br><h1>MSPs Recovery</h1><br>The 689 metagenomic samples were aligned against the final gene catalog using the Meteor software suite to produce a gene abundance table. Then, co-abundant genes were binned into 853 Metagenomic Species Pan-genomes (MSPs) using MSPminer.<br><br><h1>MSPs Taxonomic Annotation</h1><br>Taxonomic annotation for the MSPs was performed by aligning all core and accessory genes against representative genomes from the GTDB database (release r214) using blastn (task: megablast, word_size: 16).<br><br>A species-level assignment was given if over 50% of the genes matched a representative genome with a mean nucleotide identity of at least 95% and a mean gene length coverage of at least 90%.<br>The remaining MSPs were assigned to a higher taxonomic level (genus to superkingdom) if more than 50% of their genes shared the same annotation.<h1>Mapping rate distribution across public cohorts</h1>We generated mapping rate distribution plots using Meteor2 (default parameters), comparing performance between: PRJEB6997, PRJNA255439, PRJNA48479 (cohort used in catalogue assembly) and PRJEB24090, PRJEB28422, PRJEB45799 (independent cohort not used in assembly).<p></p>",
+        "title": "abdenlab/jointly-hic: Release v1.0.4",
+        "doi": "10.5281/zenodo.17495270",
+        "publication_date": "2025-10-31",
+        "description": "<h2>What's Changed</h2>\n<ul>\n<li>add contributor by @hoangtranumass in https://github.com/abdenlab/jointly-hic/pull/18</li>\n<li>Feature: Support NCBI or UCSC genome names by @thomas-reimonn in https://github.com/abdenlab/jointly-hic/pull/19</li>\n</ul>\n<h2>New Contributors</h2>\n<ul>\n<li>@hoangtranumass made their first contribution in https://github.com/abdenlab/jointly-hic/pull/18</li>\n</ul>\n<p><strong>Full Changelog</strong>: https://github.com/abdenlab/jointly-hic/compare/v1.0.3...v1.0.4</p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Le Chatelier, Emmanuelle",
-            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+            "name": "Thomas",
+            "affiliation": null
           },
           {
-            "name": "Almeida, Mathieu",
-            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+            "name": "hoangtranumass",
+            "affiliation": null
           },
           {
-            "name": "Plaza Onate, Florian",
-            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
-          },
-          {
-            "name": "Pons, Nicolas",
-            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
-          },
-          {
-            "name": "Gauthier, Franck",
-            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
-          },
-          {
-            "name": "Ghozlane, Amine",
-            "affiliation": "Universit\u00e9 Paris-Cit\u00e9, Institut Pasteur"
-          },
-          {
-            "name": "Ehrlich, Stanislav Dusko",
-            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
-          },
-          {
-            "name": "Witherden, Elizabeth",
-            "affiliation": "King's College London"
-          },
-          {
-            "name": "Gomez-Cabrero, David",
-            "affiliation": "King's College London, NavarraBiomed"
-          }
-        ],
-        "resource_type": {
-          "title": "Dataset",
-          "type": "dataset"
-        },
-        "license": {
-          "id": "cc-zero"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 8,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "10685509"
-              }
-            }
-          ]
-        }
-      },
-      "title": "A catalog of genes and species of the human oral microbiota",
-      "links": {
-        "self": "https://zenodo.org/api/records/16983006",
-        "self_html": "https://zenodo.org/records/16983006",
-        "preview_html": "https://zenodo.org/records/16983006?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16983006",
-        "self_doi": "https://doi.org/10.5281/zenodo.16983006",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16983006",
-        "reserve_doi": "https://zenodo.org/api/records/16983006/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/10685509",
-        "parent_html": "https://zenodo.org/records/10685509",
-        "parent_doi": "https://doi.org/10.5281/zenodo.10685509",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10685509",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16983006/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16983006/sequence/default",
-        "files": "https://zenodo.org/api/records/16983006/files",
-        "media_files": "https://zenodo.org/api/records/16983006/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:16983006:catalogue_mapping_rate_hs_8_4_oral.pdf/full/%5E10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:16983006:catalogue_mapping_rate_hs_8_4_oral.pdf/full/%5E50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:16983006:catalogue_mapping_rate_hs_8_4_oral.pdf/full/%5E100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:16983006:catalogue_mapping_rate_hs_8_4_oral.pdf/full/%5E250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:16983006:catalogue_mapping_rate_hs_8_4_oral.pdf/full/%5E750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:16983006:catalogue_mapping_rate_hs_8_4_oral.pdf/full/%5E1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/16983006/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16983006/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16983006/versions/latest",
-        "latest_html": "https://zenodo.org/records/16983006/latest",
-        "versions": "https://zenodo.org/api/records/16983006/versions",
-        "draft": "https://zenodo.org/api/records/16983006/draft",
-        "access_links": "https://zenodo.org/api/records/16983006/access/links",
-        "access_grants": "https://zenodo.org/api/records/16983006/access/grants",
-        "access_users": "https://zenodo.org/api/records/16983006/access/users",
-        "access_request": "https://zenodo.org/api/records/16983006/access/request",
-        "access": "https://zenodo.org/api/records/16983006/access",
-        "communities": "https://zenodo.org/api/records/16983006/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16983006/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16983006/requests"
-      },
-      "updated": "2025-08-31T09:18:24.754671+00:00",
-      "recid": "16983006",
-      "revision": 4,
-      "files": [
-        {
-          "id": "95c618b6-90d1-4f1e-884b-2faf29c4c4cb",
-          "key": "hs_8_4_oral.tar.xz",
-          "size": 13858952108,
-          "checksum": "md5:8b4ac6627fbe382a05a9c9a24adea158",
-          "links": {
-            "self": "https://zenodo.org/api/records/16983006/files/hs_8_4_oral.tar.xz/content"
-          }
-        },
-        {
-          "id": "4cdc87e5-c36b-4beb-86b8-2208fa3dd9d1",
-          "key": "catalogue_mapping_rate_hs_8_4_oral.pdf",
-          "size": 16199,
-          "checksum": "md5:eb4194f49df53b4d39c3aeb576f0666b",
-          "links": {
-            "self": "https://zenodo.org/api/records/16983006/files/catalogue_mapping_rate_hs_8_4_oral.pdf/content"
-          }
-        },
-        {
-          "id": "85b1a005-d852-44be-aff4-67e8353edcee",
-          "key": "hs_8_4_oral_taxo.tar.xz",
-          "size": 666899172,
-          "checksum": "md5:1028078a8cc15262bad7fac6a66329ae",
-          "links": {
-            "self": "https://zenodo.org/api/records/16983006/files/hs_8_4_oral_taxo.tar.xz/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "258127"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 204,
-        "unique_downloads": 188,
-        "views": 290,
-        "unique_views": 278,
-        "version_downloads": 3,
-        "version_unique_downloads": 1,
-        "version_unique_views": 1,
-        "version_views": 2
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-31T00:51:54.332295+00:00",
-      "modified": "2025-08-31T00:51:54.482990+00:00",
-      "id": 17010150,
-      "conceptrecid": "13922023",
-      "doi": "10.5281/zenodo.17010150",
-      "conceptdoi": "10.5281/zenodo.13922023",
-      "doi_url": "https://doi.org/10.5281/zenodo.17010150",
-      "metadata": {
-        "title": "PejLab/Pantry: v1.2.0",
-        "doi": "10.5281/zenodo.17010150",
-        "publication_date": "2025-08-31",
-        "description": "<p>Expands compatibility with GTFs from sources beyond Ensembl. Phenotyping should now also work with Gencode and RefSeq GTF files.</p>\n<p>The calculation of exonic to intronic read ratio has also changed, both to work with non-Ensembl GTF files and as a theoretical improvement:</p>\n<ul>\n<li>Instead of reporting exons found in at least a certain percentage of isoforms, report regions that are covered by exons in at least a certain percentage of isoforms. That allows, e.g., a region to be included if some isoforms have exons that extend beyond the region. Before, exon boundaries had to match exactly across isoforms after filtering by Ensembl-specific annotation sources.</li>\n<li>Intronic regions are defined as regions within the gene (as defined by exons) that contain no exons in any isoform.</li>\n</ul>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Daniel Munro",
+            "name": "Guoyun Chen",
             "affiliation": null
           }
         ],
         "related_identifiers": [
           {
-            "identifier": "https://github.com/PejLab/Pantry/tree/v1.2.0",
+            "identifier": "https://github.com/abdenlab/jointly-hic/tree/v1.0.4",
             "relation": "isSupplementTo",
             "resource_type": "software",
             "scheme": "url"
           }
         ],
-        "version": "v1.2.0",
+        "version": "v1.0.4",
         "custom": {
-          "code:codeRepository": "https://github.com/PejLab/Pantry"
+          "code:codeRepository": "https://github.com/abdenlab/jointly-hic"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "gpl-3.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 4,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15198529"
+              }
+            }
+          ]
+        }
+      },
+      "title": "abdenlab/jointly-hic: Release v1.0.4",
+      "links": {
+        "self": "https://zenodo.org/api/records/17495270",
+        "self_html": "https://zenodo.org/records/17495270",
+        "preview_html": "https://zenodo.org/records/17495270?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17495270",
+        "self_doi": "https://doi.org/10.5281/zenodo.17495270",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17495270",
+        "reserve_doi": "https://zenodo.org/api/records/17495270/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/15198529",
+        "parent_html": "https://zenodo.org/records/15198529",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15198529",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15198529",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17495270/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17495270/sequence/default",
+        "files": "https://zenodo.org/api/records/17495270/files",
+        "media_files": "https://zenodo.org/api/records/17495270/media-files",
+        "archive": "https://zenodo.org/api/records/17495270/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17495270/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17495270/versions/latest",
+        "latest_html": "https://zenodo.org/records/17495270/latest",
+        "versions": "https://zenodo.org/api/records/17495270/versions",
+        "draft": "https://zenodo.org/api/records/17495270/draft",
+        "access_links": "https://zenodo.org/api/records/17495270/access/links",
+        "access_grants": "https://zenodo.org/api/records/17495270/access/grants",
+        "access_users": "https://zenodo.org/api/records/17495270/access/users",
+        "access_request": "https://zenodo.org/api/records/17495270/access/request",
+        "access": "https://zenodo.org/api/records/17495270/access",
+        "communities": "https://zenodo.org/api/records/17495270/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17495270/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17495270/request-deletion",
+        "requests": "https://zenodo.org/api/records/17495270/requests"
+      },
+      "updated": "2025-10-31T15:29:03.547831+00:00",
+      "recid": "17495270",
+      "revision": 4,
+      "files": [
+        {
+          "id": "aa33d94e-a822-4e4b-bc03-e94912943e86",
+          "key": "abdenlab/jointly-hic-v1.0.4.zip",
+          "size": 12294481,
+          "checksum": "md5:c6eae7be9ae76305c217c700233c2f86",
+          "links": {
+            "self": "https://zenodo.org/api/records/17495270/files/abdenlab/jointly-hic-v1.0.4.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:f33e0d4427483e6fc310a648b4e41fb924ab7a3a;origin=https://doi.org/10.5281/zenodo.15198529;visit=swh:1:snp:1617cc64215872f3248f6d52424933aef49420b6;anchor=swh:1:rel:77deafd1bdff858fbacf86e64530d59b49552bc4;path=abdenlab-jointly-hic-30003c3"
+      },
+      "owners": [
+        {
+          "id": "1299917"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 49,
+        "unique_downloads": 49,
+        "views": 121,
+        "unique_views": 117,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-31T05:27:35.690247+00:00",
+      "modified": "2025-10-31T05:27:35.950093+00:00",
+      "id": 17489749,
+      "conceptrecid": "15259038",
+      "doi": "10.5281/zenodo.17489749",
+      "conceptdoi": "10.5281/zenodo.15259038",
+      "doi_url": "https://doi.org/10.5281/zenodo.17489749",
+      "metadata": {
+        "title": "ViTrace Detects Viral Signatures in Tumor Transcriptomes Using a Hybrid Language Model",
+        "doi": "10.5281/zenodo.17489749",
+        "publication_date": "2025-10-31",
+        "description": "<p>The first simulated dataset, Sim1, was constructed by viRNAtrap. The training and testing data are randomly sampled from the simulated reads from hg19 reference genome and 13 virus species from 7 genera across 4 phyla. ViTrace and other 5 baseline models, viRNAtrap, DeepVirFinder, ViraMiner, DeepViFi, and Seq2Seq are all trained and tested on Sim1.</p>\n<p>The second simulated dataset, Sim2, was constructed as an independent testing set to evaluate ViTrace's performance to identify viruses whose taxonomy had never been seen during the training.</p>\n<p>The third simulated dataset, Sim3, was created to evaluate ViTrace&rsquo;s ability to differentiate viruses from other microorganisms. Positive samples were generated from 12,567 viral genomes, covering 8,102 species across 1,012 genera, obtained from the NCBI RefSeq database. The negative samples were derived from balanced sequences representing bacteria, fungi, and archaea.</p>\n<p>This mouse dataset originates from VVRD and NCBI GRC/m38, covering 7 microbial genera across 4 bacterial phyla. &nbsp;It comprises 8.0 million samples for training, 800,000 for validation, and 2.91 million for testing, and is designed for training and testing purposes.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Zhou, Feng",
+            "affiliation": "Xiamen University",
+            "orcid": "0000-0002-1813-6411"
+          }
+        ],
+        "keywords": [
+          "Virus identification",
+          "Transcriptome",
+          "Tumor RNA-Seq data",
+          "Language model"
+        ],
+        "version": "3.0",
+        "language": "eng",
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 2,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "15259038"
+              }
+            }
+          ]
+        }
+      },
+      "title": "ViTrace Detects Viral Signatures in Tumor Transcriptomes Using a Hybrid Language Model",
+      "links": {
+        "self": "https://zenodo.org/api/records/17489749",
+        "self_html": "https://zenodo.org/records/17489749",
+        "preview_html": "https://zenodo.org/records/17489749?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17489749",
+        "self_doi": "https://doi.org/10.5281/zenodo.17489749",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17489749",
+        "reserve_doi": "https://zenodo.org/api/records/17489749/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/15259038",
+        "parent_html": "https://zenodo.org/records/15259038",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15259038",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15259038",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17489749/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17489749/sequence/default",
+        "files": "https://zenodo.org/api/records/17489749/files",
+        "media_files": "https://zenodo.org/api/records/17489749/media-files",
+        "archive": "https://zenodo.org/api/records/17489749/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17489749/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17489749/versions/latest",
+        "latest_html": "https://zenodo.org/records/17489749/latest",
+        "versions": "https://zenodo.org/api/records/17489749/versions",
+        "draft": "https://zenodo.org/api/records/17489749/draft",
+        "access_links": "https://zenodo.org/api/records/17489749/access/links",
+        "access_grants": "https://zenodo.org/api/records/17489749/access/grants",
+        "access_users": "https://zenodo.org/api/records/17489749/access/users",
+        "access_request": "https://zenodo.org/api/records/17489749/access/request",
+        "access": "https://zenodo.org/api/records/17489749/access",
+        "communities": "https://zenodo.org/api/records/17489749/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17489749/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17489749/request-deletion",
+        "requests": "https://zenodo.org/api/records/17489749/requests"
+      },
+      "updated": "2025-10-31T05:27:35.950093+00:00",
+      "recid": "17489749",
+      "revision": 4,
+      "files": [
+        {
+          "id": "6326fb36-bc98-4716-9fbe-610b0be1cec3",
+          "key": "Sim2.zip",
+          "size": 52150548,
+          "checksum": "md5:8df6c00f4b985e05c6dea8434eed17da",
+          "links": {
+            "self": "https://zenodo.org/api/records/17489749/files/Sim2.zip/content"
+          }
+        },
+        {
+          "id": "526e8a1c-091e-4e20-95ae-4f0c8e434421",
+          "key": "mouse_data.zip",
+          "size": 232909279,
+          "checksum": "md5:8ab4a2f360387b584a2fa5222bbcfdd0",
+          "links": {
+            "self": "https://zenodo.org/api/records/17489749/files/mouse_data.zip/content"
+          }
+        },
+        {
+          "id": "ca0cb05a-f7c6-4b78-a076-24a66a15ff49",
+          "key": "Sim1.zip",
+          "size": 220134301,
+          "checksum": "md5:05af882a9cdf5d3f1ba717683f5aa2e8",
+          "links": {
+            "self": "https://zenodo.org/api/records/17489749/files/Sim1.zip/content"
+          }
+        },
+        {
+          "id": "eadaeb3c-0e1d-4d91-b447-c99f44ea213b",
+          "key": "Sim3.zip",
+          "size": 92557767,
+          "checksum": "md5:9d8c0c6fad71363886f845a29462e1b1",
+          "links": {
+            "self": "https://zenodo.org/api/records/17489749/files/Sim3.zip/content"
+          }
+        },
+        {
+          "id": "740fb36b-2741-4dd0-bcf6-42d14d5bd74a",
+          "key": "ViTrace-master.zip",
+          "size": 135117628,
+          "checksum": "md5:177eecb077a3252883d0b3d7df6aacb0",
+          "links": {
+            "self": "https://zenodo.org/api/records/17489749/files/ViTrace-master.zip/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "521550"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 92,
+        "unique_downloads": 92,
+        "views": 65,
+        "unique_views": 55,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 4,
+        "version_views": 5
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-30T15:07:11.244503+00:00",
+      "modified": "2025-10-30T15:07:11.677375+00:00",
+      "id": 17485862,
+      "conceptrecid": "17485861",
+      "doi": "10.36380/jwpr.2025.32",
+      "doi_url": "https://doi.org/10.36380/jwpr.2025.32",
+      "metadata": {
+        "title": "Isolation and Identification of Eimeria spp. From Domestic Pigeons (Columba livia domestica) in Basrah, Iraq",
+        "doi": "10.36380/jwpr.2025.32",
+        "publication_date": "2025-10-30",
+        "description": "<p><strong>ABSTRACT:&nbsp;</strong>Coccidiosis is a widespread disease among pigeons worldwide, resulting in significant economic losses due to mortality, morbidity, and reduced feed efficiency. The present study aimed to isolate a field strain of&nbsp;<em>Eimeria</em>&nbsp;spp. in domestic pigeons (<em>Columba livia domestica</em>) in Basra, Iraq. To ensure precise species identification, light microscopy techniques were combined with the advanced molecular method of polymerase chain reaction (PCR). Sixty fresh fecal samples were collected from pigeon lofts, ensuring minimal environmental disturbance and contamination. The flotation method was employed to analyze fecal samples. The present results indicated that 36 out of 60 samples contained coccidian oocysts, which represented an overall prevalence of 60%. The PCR technique was employed to amplify the&nbsp;<em>18S rRNA</em>&nbsp;genes, which were subsequently utilized for sample detection. Six representative sequences were selected, registered, and deposited in the NCBI database (PV459631.1, PV459632.1, PV459633.1, PV459634.1, PV459635.1, and PV459636.1).&nbsp;The present findings were validated through molecular analysis, and six representative gene sequences were submitted to the National Centre for Biotechnology Information (NCBI) database.&nbsp;The current study revealed a high prevalence of coccidiosis, affecting 60% of domestic pigeons in Basra, highlighting its impact on their health. Moreover, this is the first report of&nbsp;<em>Eimeria</em>&nbsp;<em>chalcoptereae</em> in pigeons from Basra, Iraq.&nbsp;</p>\n<p>&nbsp;</p>\n<p><a href=\"https://jwpr.science-line.com/attachments/article/86/JWPR15(3)332-337,2025.pdf\">https://jwpr.science-line.com/attachments/article/86/JWPR15(3)332-337,2025.pdf</a></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Saood, Alaa Ismail",
+            "affiliation": null
+          }
+        ],
+        "keywords": [
+          "Eimeria chalcoptereae, Molecular technique, Phylogeny, Pigeon"
+        ],
+        "dates": [
+          {
+            "type": "issued"
+          }
+        ],
+        "references": [
+          "Aboelhadid SM, Arafa WM, Abdelaty AS, Moawad UK, El Ashram S, and Gadelhaq SM (2021). Remarks on Eimeria labbeana infection in domestic pigeons, Columbia livia do mestica. Journal of Parasitic Diseases, 45(4): 1145-1151. DOI: https://www.doi.org/10.1007/s12639-021-01411-z",
+          "Al-Agouri S, Alrwab NH, Amgawer HG, Sadaga G, and Alshelmani MI (2021). Prevalence of coccidia in domestic pigeons (Columba livia domestica Gmelin, 1789) in Benghazi city, Libya. Aceh Journal of Animal Science, 6(2): 52-56. DOI: https://www.doi.org/10.13170/ajas.6.2.20374",
+          "Albasyouni S, Abdel-Gaber R, Al Quraishy S, Al-Shaebi EM, and Mohammed OB (2024). Morphology, morphometry, and phylogeny of the protozoan parasite, Eimeria labbeanalike (Apicomplexa, Eimeriidae), infecting Columba livia domestica. Frontiers in Veterinary Science, 11: 1392238. DOI: https://www.doi.org/10.3389/fvets.2024.1392238"
+        ],
+        "language": "eng",
+        "custom": {
+          "code:codeRepository": "https://jwpr.science-line.com/attachments/article/86/JWPR15(3)332-337,2025.pdf"
+        },
+        "resource_type": {
+          "title": "Publication",
+          "type": "publication"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17485861"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Isolation and Identification of Eimeria spp. From Domestic Pigeons (Columba livia domestica) in Basrah, Iraq",
+      "links": {
+        "self": "https://zenodo.org/api/records/17485862",
+        "self_html": "https://zenodo.org/records/17485862",
+        "preview_html": "https://zenodo.org/records/17485862?preview=1",
+        "doi": "https://doi.org/10.36380/jwpr.2025.32",
+        "self_doi": "https://doi.org/10.36380/jwpr.2025.32",
+        "self_doi_html": "https://zenodo.org/doi/10.36380/jwpr.2025.32",
+        "reserve_doi": "https://zenodo.org/api/records/17485862/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17485861",
+        "parent_html": "https://zenodo.org/records/17485861",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17485862/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17485862/sequence/default",
+        "files": "https://zenodo.org/api/records/17485862/files",
+        "media_files": "https://zenodo.org/api/records/17485862/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17485862:JWPR15(3)332-337,2025.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17485862:JWPR15(3)332-337,2025.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17485862:JWPR15(3)332-337,2025.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17485862:JWPR15(3)332-337,2025.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17485862:JWPR15(3)332-337,2025.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17485862:JWPR15(3)332-337,2025.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17485862/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17485862/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17485862/versions/latest",
+        "latest_html": "https://zenodo.org/records/17485862/latest",
+        "versions": "https://zenodo.org/api/records/17485862/versions",
+        "draft": "https://zenodo.org/api/records/17485862/draft",
+        "access_links": "https://zenodo.org/api/records/17485862/access/links",
+        "access_grants": "https://zenodo.org/api/records/17485862/access/grants",
+        "access_users": "https://zenodo.org/api/records/17485862/access/users",
+        "access_request": "https://zenodo.org/api/records/17485862/access/request",
+        "access": "https://zenodo.org/api/records/17485862/access",
+        "communities": "https://zenodo.org/api/records/17485862/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17485862/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17485862/request-deletion",
+        "requests": "https://zenodo.org/api/records/17485862/requests"
+      },
+      "updated": "2025-10-30T15:07:11.677375+00:00",
+      "recid": "17485862",
+      "revision": 4,
+      "files": [
+        {
+          "id": "e0083380-5fb2-46f2-8d93-d675498f3b36",
+          "key": "JWPR15(3)332-337,2025.pdf",
+          "size": 979923,
+          "checksum": "md5:6960f01e3f69addacba1d72211a8de5c",
+          "links": {
+            "self": "https://zenodo.org/api/records/17485862/files/JWPR15(3)332-337,2025.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "610361"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 6,
+        "unique_downloads": 5,
+        "views": 4,
+        "unique_views": 4,
+        "version_downloads": 6,
+        "version_unique_downloads": 5,
+        "version_unique_views": 4,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-30T09:41:02.298182+00:00",
+      "modified": "2025-10-30T09:41:02.481237+00:00",
+      "id": 17482529,
+      "conceptrecid": "15095206",
+      "doi": "10.5281/zenodo.17482529",
+      "conceptdoi": "10.5281/zenodo.15095206",
+      "doi_url": "https://doi.org/10.5281/zenodo.17482529",
+      "metadata": {
+        "title": "metagenlab/zDB: v1.3.11",
+        "doi": "10.5281/zenodo.17482529",
+        "publication_date": "2025-10-30",
+        "description": "<h2>What's Changed</h2>\n<ul>\n<li>Re-add JS libraries accidentally removed and fix various small JS errors. by @njohner in https://github.com/metagenlab/zDB/pull/196</li>\n<li>Use larger step for GC content and skew in circos map. by @njohner in https://github.com/metagenlab/zDB/pull/197</li>\n<li>Improve labels and popovers and fix broken links in circos map by @njohner in https://github.com/metagenlab/zDB/pull/198</li>\n<li>Add possibility to download an SVG of the circos map. by @njohner in https://github.com/metagenlab/zDB/pull/199</li>\n<li>Allow errors in islandpath execution. by @njohner in https://github.com/metagenlab/zDB/pull/200</li>\n<li>Update workflow diagrams in documentation to include GI prediction. by @njohner in https://github.com/metagenlab/zDB/pull/201</li>\n<li>Filter out unmapped_name from labels in circos plot. by @njohner in https://github.com/metagenlab/zDB/pull/202</li>\n<li>Fix refseq best hit phylogeny and make it accessible through command line. by @njohner in https://github.com/metagenlab/zDB/pull/203</li>\n<li>Set resources adapted to each process in the nf-core style. by @njohner in https://github.com/metagenlab/zDB/pull/205</li>\n<li>Update annotation pipeline tests to new databases. by @njohner in https://github.com/metagenlab/zDB/pull/206</li>\n<li>Add test for building diamond conda environment. by @njohner in https://github.com/metagenlab/zDB/pull/207</li>\n<li>Prepare release 1.3.11 by @njohner in https://github.com/metagenlab/zDB/pull/208</li>\n<li>Make sure that all reference DB files get published and not a symlink. by @njohner in https://github.com/metagenlab/zDB/pull/209</li>\n</ul>\n<p><strong>Full Changelog</strong>: https://github.com/metagenlab/zDB/compare/v1.3.10...v1.3.11</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Trestan Pillonel",
+            "affiliation": "@metagenlab"
+          },
+          {
+            "name": "Niklaus Johner",
+            "affiliation": null
+          },
+          {
+            "name": "bkm",
+            "affiliation": null
+          },
+          {
+            "name": "Alessia Carrara",
+            "affiliation": null
+          },
+          {
+            "name": "Claire Bertelli",
+            "affiliation": "@metagenlab"
+          },
+          {
+            "name": "TKlamydionaut",
+            "affiliation": null
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/metagenlab/zDB/tree/v1.3.11",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v1.3.11",
+        "custom": {
+          "code:codeRepository": "https://github.com/metagenlab/zDB"
         },
         "resource_type": {
           "title": "Software",
@@ -211,72 +477,73 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "13922023"
+                "pid_value": "15095206"
               }
             }
           ]
         }
       },
-      "title": "PejLab/Pantry: v1.2.0",
+      "title": "metagenlab/zDB: v1.3.11",
       "links": {
-        "self": "https://zenodo.org/api/records/17010150",
-        "self_html": "https://zenodo.org/records/17010150",
-        "preview_html": "https://zenodo.org/records/17010150?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.17010150",
-        "self_doi": "https://doi.org/10.5281/zenodo.17010150",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17010150",
-        "reserve_doi": "https://zenodo.org/api/records/17010150/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/13922023",
-        "parent_html": "https://zenodo.org/records/13922023",
-        "parent_doi": "https://doi.org/10.5281/zenodo.13922023",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13922023",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17010150/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17010150/sequence/default",
-        "files": "https://zenodo.org/api/records/17010150/files",
-        "media_files": "https://zenodo.org/api/records/17010150/media-files",
-        "archive": "https://zenodo.org/api/records/17010150/files-archive",
-        "archive_media": "https://zenodo.org/api/records/17010150/media-files-archive",
-        "latest": "https://zenodo.org/api/records/17010150/versions/latest",
-        "latest_html": "https://zenodo.org/records/17010150/latest",
-        "versions": "https://zenodo.org/api/records/17010150/versions",
-        "draft": "https://zenodo.org/api/records/17010150/draft",
-        "access_links": "https://zenodo.org/api/records/17010150/access/links",
-        "access_grants": "https://zenodo.org/api/records/17010150/access/grants",
-        "access_users": "https://zenodo.org/api/records/17010150/access/users",
-        "access_request": "https://zenodo.org/api/records/17010150/access/request",
-        "access": "https://zenodo.org/api/records/17010150/access",
-        "communities": "https://zenodo.org/api/records/17010150/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/17010150/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/17010150/requests"
+        "self": "https://zenodo.org/api/records/17482529",
+        "self_html": "https://zenodo.org/records/17482529",
+        "preview_html": "https://zenodo.org/records/17482529?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17482529",
+        "self_doi": "https://doi.org/10.5281/zenodo.17482529",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17482529",
+        "reserve_doi": "https://zenodo.org/api/records/17482529/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/15095206",
+        "parent_html": "https://zenodo.org/records/15095206",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15095206",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15095206",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17482529/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17482529/sequence/default",
+        "files": "https://zenodo.org/api/records/17482529/files",
+        "media_files": "https://zenodo.org/api/records/17482529/media-files",
+        "archive": "https://zenodo.org/api/records/17482529/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17482529/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17482529/versions/latest",
+        "latest_html": "https://zenodo.org/records/17482529/latest",
+        "versions": "https://zenodo.org/api/records/17482529/versions",
+        "draft": "https://zenodo.org/api/records/17482529/draft",
+        "access_links": "https://zenodo.org/api/records/17482529/access/links",
+        "access_grants": "https://zenodo.org/api/records/17482529/access/grants",
+        "access_users": "https://zenodo.org/api/records/17482529/access/users",
+        "access_request": "https://zenodo.org/api/records/17482529/access/request",
+        "access": "https://zenodo.org/api/records/17482529/access",
+        "communities": "https://zenodo.org/api/records/17482529/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17482529/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17482529/request-deletion",
+        "requests": "https://zenodo.org/api/records/17482529/requests"
       },
-      "updated": "2025-08-31T00:51:54.482990+00:00",
-      "recid": "17010150",
+      "updated": "2025-10-30T09:41:02.481237+00:00",
+      "recid": "17482529",
       "revision": 4,
       "files": [
         {
-          "id": "a087d004-83fa-437d-a244-8365be49452b",
-          "key": "PejLab/Pantry-v1.2.0.zip",
-          "size": 9922698,
-          "checksum": "md5:c3aab1b85710a9ac2dff2a861b9adf55",
+          "id": "8610fd66-254c-4fa7-9b75-d57511e9664b",
+          "key": "metagenlab/zDB-v1.3.11.zip",
+          "size": 16706745,
+          "checksum": "md5:b3d57c588f2cf138114715b6c62ec135",
           "links": {
-            "self": "https://zenodo.org/api/records/17010150/files/PejLab/Pantry-v1.2.0.zip/content"
+            "self": "https://zenodo.org/api/records/17482529/files/metagenlab/zDB-v1.3.11.zip/content"
           }
         }
       ],
       "swh": {
-        "swhid": "swh:1:dir:ef95fe6ebb8413aa4e5c8527b31ebebe51d58ee1;origin=https://doi.org/10.5281/zenodo.13922023;visit=swh:1:snp:58d47f71963e28830fe80f363d8e1a04414840ce;anchor=swh:1:rel:2564b641b0c3971f4c1d5a1630e5ece524553d6f;path=PejLab-Pantry-3953f80"
+        "swhid": "swh:1:dir:d6350bff742b316d637ac6421db14d2eac55d673;origin=https://doi.org/10.5281/zenodo.15095206;visit=swh:1:snp:47b1883c6a05b272d0a24699d462333cbb9fb436;anchor=swh:1:rel:45c3966b01714daaaa1be6db72cd321350c563ef;path=metagenlab-zDB-f1f506f"
       },
       "owners": [
         {
-          "id": "1201896"
+          "id": "583380"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 27,
-        "unique_downloads": 27,
-        "views": 71,
-        "unique_views": 69,
+        "downloads": 22,
+        "unique_downloads": 22,
+        "views": 24,
+        "unique_views": 24,
         "version_downloads": 0,
         "version_unique_downloads": 0,
         "version_unique_views": 0,
@@ -286,687 +553,24 @@
       "submitted": true
     },
     {
-      "created": "2025-08-30T21:18:19.203453+00:00",
-      "modified": "2025-08-30T21:18:19.568935+00:00",
-      "id": 17009801,
-      "conceptrecid": "17009800",
-      "doi": "10.5281/zenodo.17009801",
-      "conceptdoi": "10.5281/zenodo.17009800",
-      "doi_url": "https://doi.org/10.5281/zenodo.17009801",
+      "created": "2025-10-30T07:58:33.224850+00:00",
+      "modified": "2025-10-30T07:58:33.548554+00:00",
+      "id": 17474691,
+      "conceptrecid": "17474690",
+      "doi": "10.5281/zenodo.17474691",
+      "conceptdoi": "10.5281/zenodo.17474690",
+      "doi_url": "https://doi.org/10.5281/zenodo.17474691",
       "metadata": {
-        "title": "A Global Reference Dataset for Balanced Gene Expression Analysis in Acute Lymphoblastic Leukemia Subtypes",
-        "doi": "10.5281/zenodo.17009801",
-        "publication_date": "2025-08-30",
-        "description": "<p>We present a global reference processed, merged, and balanced to ensure<br>balanced gene expression dataset for fair representation of each subtype. This<br>Acute Lymphoblastic Leukemia (ALL) resource is suitable for machine learning<br>subtypes. This dataset integrates 8 publicly applications, biomarker discovery, and<br>available GEO microarray datasets, resulting translational leukemia research , providing<br>in 258 samples across 9 ALL subtypes and a reproducible and comprehensive reference<br>normal controls, with expression values for for the scientific community.<br>54,675 genes. Data were carefully</p>",
+        "title": "Xenia umbellata transcriptomic data",
+        "doi": "10.5281/zenodo.17474691",
+        "publication_date": "2025-10-29",
+        "description": "<p>Data of Xenia umbellata transcriptome related to publication:</p>\n<p><span lang=\"EN-US\">Diffuse pacemaker mechanism with distinctive organization drives pulsation in the octocoral&nbsp;<em>Xenia umbellata</em></span></p>\n<p><a name=\"_Hlk187139138\"></a><span lang=\"EN-US\">Elinor Nadir<sup>1</sup>, Yehuda Benayahu<sup>1</sup></span><sup><span dir=\"RTL\" lang=\"HE\">*</span></sup><span lang=\"EN-US\">, Maya Ofek-Lalzar<sup>2</sup>, Tslil Gabrieli<sup>3</sup>, Tamar Lotan<sup>3</sup></span><sup><span dir=\"RTL\" lang=\"HE\">*</span></sup></p>\n<p><sup><span lang=\"EN-US\">1</span></sup><span lang=\"EN-US\">School of Zoology, George S. Wise Faculty of Life Sciences, Tel Aviv University, Tel Aviv 69978, Israel.</span></p>\n<p><sup><span lang=\"EN-US\">2</span></sup><span lang=\"EN-US\">Bioinformatic Unit, University of Haifa, Haifa 3103301, Israel.</span></p>\n<p><sup><span lang=\"EN-US\">3</span></sup><span lang=\"EN-US\">Department of Marine Biology, the Leon H. Charney School of Marine Sciences, University of Haifa, Haifa 3103301, Israel.</span></p>\n<p>&nbsp;</p>\n<p><span lang=\"EN-US\">See details in the paper for generating the transcriptomic data. <span lang=\"EN-US\">The raw sequence data are deposited in the NCBI SRA database under Bioproject accession PRJNA1075645. <span lang=\"EN-US\">The Transcriptome Shotgun Assembly project has been deposited at DDBJ/EMBL/GenBank under the accession GKXR00000000. </span></span></span></p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Rahi, Alireza",
-            "affiliation": "Independent Researcher",
-            "orcid": "0009-0001-3466-170X"
-          }
-        ],
-        "keywords": [
-          "Acute Lymphoblastic Leukemia (ALL)  Gene Expression  ALL Subtypes  Microarray  Transcriptomics  Data Integration  Balanced Dataset  Biomarker Discovery  Machine Learning  Global Reference Dataset  \u0627",
-          "Bioinformatics  Genomics  Transcriptomics  Oncology  Hematology  Computational Biology  Machine Learning in Medicine  Data Integration"
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "10.5281/zenodo.17008431",
-            "relation": "isDescribedBy",
-            "resource_type": "dataset",
-            "scheme": "doi"
-          }
-        ],
-        "references": [
-          "\"[1] S. P. Hunger and C. G. Mullighan, 'Acute Lymphoblastic Leukemia in Children,' N. Engl. J. Med., vol. 373, no. 16, pp. 1541\u20131552, Oct. 2015; [2] C. G. Mullighan et al., 'Genome-wide analysis of genetic alterations in acute lymphoblastic leukaemia,' Nature, vol. 446, pp. 758\u2013764, 2007; [3] The Gene Expression Omnibus (GEO) Database, National Center for Biotechnology Information (NCBI), [Online]. Available: https://www.ncbi.nlm.nih.gov/geo/; [4] R. Gentleman et al., Bioconductor: open software development for computational biology and bioinformatics, Genome Biol., vol. 5, no. 10, 2004; [5] S. M. Kornblau et al., 'Integrated genomic and transcriptomic analysis in acute lymphoblastic leukemia,' Leukemia, vol. 27, pp. 2083\u20132092, 2013; [6] T. M. Cover et al., 'Machine learning approaches for leukemia subtype classification using gene expression,' Bioinformatics, vol. 34, no. 12, pp. 2048\u20132056, 2018; [7] C. G. Mullighan, 'Molecular genetics of B-precursor acute lymphoblastic leukemia,' J. Clin. Invest., vol. 119, no. 10, pp. 3646\u20133654, 2009\""
-        ],
-        "language": "eng",
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "17009800"
-              }
-            }
-          ]
-        }
-      },
-      "title": "A Global Reference Dataset for Balanced Gene Expression Analysis in Acute Lymphoblastic Leukemia Subtypes",
-      "links": {
-        "self": "https://zenodo.org/api/records/17009801",
-        "self_html": "https://zenodo.org/records/17009801",
-        "preview_html": "https://zenodo.org/records/17009801?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.17009801",
-        "self_doi": "https://doi.org/10.5281/zenodo.17009801",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17009801",
-        "reserve_doi": "https://zenodo.org/api/records/17009801/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/17009800",
-        "parent_html": "https://zenodo.org/records/17009800",
-        "parent_doi": "https://doi.org/10.5281/zenodo.17009800",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17009800",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17009801/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17009801/sequence/default",
-        "files": "https://zenodo.org/api/records/17009801/files",
-        "media_files": "https://zenodo.org/api/records/17009801/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:17009801:A%20Global%20Reference%20Dataset%20for%20Balanced%20Gene%20Expression%20Analysis%20in%20Acute%20Lymphoblastic%20Leukemia%20Subtypes.pdf/full/%5E10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:17009801:A%20Global%20Reference%20Dataset%20for%20Balanced%20Gene%20Expression%20Analysis%20in%20Acute%20Lymphoblastic%20Leukemia%20Subtypes.pdf/full/%5E50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:17009801:A%20Global%20Reference%20Dataset%20for%20Balanced%20Gene%20Expression%20Analysis%20in%20Acute%20Lymphoblastic%20Leukemia%20Subtypes.pdf/full/%5E100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:17009801:A%20Global%20Reference%20Dataset%20for%20Balanced%20Gene%20Expression%20Analysis%20in%20Acute%20Lymphoblastic%20Leukemia%20Subtypes.pdf/full/%5E250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:17009801:A%20Global%20Reference%20Dataset%20for%20Balanced%20Gene%20Expression%20Analysis%20in%20Acute%20Lymphoblastic%20Leukemia%20Subtypes.pdf/full/%5E750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:17009801:A%20Global%20Reference%20Dataset%20for%20Balanced%20Gene%20Expression%20Analysis%20in%20Acute%20Lymphoblastic%20Leukemia%20Subtypes.pdf/full/%5E1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/17009801/files-archive",
-        "archive_media": "https://zenodo.org/api/records/17009801/media-files-archive",
-        "latest": "https://zenodo.org/api/records/17009801/versions/latest",
-        "latest_html": "https://zenodo.org/records/17009801/latest",
-        "versions": "https://zenodo.org/api/records/17009801/versions",
-        "draft": "https://zenodo.org/api/records/17009801/draft",
-        "access_links": "https://zenodo.org/api/records/17009801/access/links",
-        "access_grants": "https://zenodo.org/api/records/17009801/access/grants",
-        "access_users": "https://zenodo.org/api/records/17009801/access/users",
-        "access_request": "https://zenodo.org/api/records/17009801/access/request",
-        "access": "https://zenodo.org/api/records/17009801/access",
-        "communities": "https://zenodo.org/api/records/17009801/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/17009801/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/17009801/requests"
-      },
-      "updated": "2025-08-30T21:18:19.568935+00:00",
-      "recid": "17009801",
-      "revision": 4,
-      "files": [
-        {
-          "id": "f456ca11-f01e-4fef-ad92-02c28588e300",
-          "key": "A Global Reference Dataset for Balanced Gene Expression Analysis in Acute Lymphoblastic Leukemia Subtypes.pdf",
-          "size": 366751,
-          "checksum": "md5:c7f32b840f2f7efe508afb87625c17e7",
-          "links": {
-            "self": "https://zenodo.org/api/records/17009801/files/A Global Reference Dataset for Balanced Gene Expression Analysis in Acute Lymphoblastic Leukemia Subtypes.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1389063"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 24,
-        "unique_downloads": 17,
-        "views": 19,
-        "unique_views": 13,
-        "version_downloads": 24,
-        "version_unique_downloads": 17,
-        "version_unique_views": 13,
-        "version_views": 19
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-30T12:53:10.613476+00:00",
-      "modified": "2025-08-30T12:53:10.893007+00:00",
-      "id": 17008407,
-      "conceptrecid": "16999218",
-      "doi": "10.5281/zenodo.17008407",
-      "conceptdoi": "10.5281/zenodo.16999218",
-      "doi_url": "https://doi.org/10.5281/zenodo.17008407",
-      "metadata": {
-        "title": "Integrated Gene Expression Resource for Multi-Subtype Acute Myeloid Leukemia: A Global Reference Dataset",
-        "doi": "10.5281/zenodo.17008407",
-        "publication_date": "2025-08-30",
-        "description": "<p>Acute Myeloid Leukemia (AML) is a highly heterogeneous hematologic malignancy with multiple clinically relevant subtypes. Despite the availability of numerous gene expression datasets, there is no comprehensive, balanced, and multi-cohort resource integrating all major AML subtypes. Here, we present an <strong><span>integrated gene expression resource for seven key AML subtypes</span></strong>, curated from eight publicly available GEO datasets (GSE13159, GSE6891, GSE14468, GSE15434, GSE10358, GSE61804, GSE71014, GSE12417). The dataset comprises <strong><span>338 samples</span></strong> with standardized metadata, consistent labeling, and batch-corrected expression matrices. Advanced preprocessing, label harmonization, and balanced sampling ensure equal representation across subtypes. This resource is ready for <strong><span>machine learning, biomarker discovery, and cross-study validation</span></strong>, providing a <strong><span>global reference dataset</span></strong> for AML research.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Rahi, Alireza",
-            "affiliation": "Independent Researcher",
-            "orcid": "0009-0001-3466-170X"
-          }
-        ],
-        "references": [
-          "[1] D. C. de Kouchkovsky and R. Abdul-Hay, \"Acute myeloid leukemia: A comprehensive review and 2016 update,\" Blood Cancer J., vol. 6, no. 7, pp. e441, 2016. [2] T. T. Ley, R. S. Miller, and E. R. Ding, \"Genomic and epigenomic landscapes of adult de novo acute myeloid leukemia,\" N. Engl. J. Med., vol. 368, pp. 2059\u20132074, 2013. [3] The Cancer Genome Atlas Research Network, \"Genomic and epigenomic landscapes of adult de novo acute myeloid leukemia,\" N. Engl. J. Med., vol. 368, pp. 2059\u20132074, 2013. [4] A. W. Bullinger et al., \"An eight-gene expression signature predicts prognosis in acute myeloid leukemia,\" J. Clin. Oncol., vol. 24, no. 30, pp. 4790\u20134798, 2006. [5] R. Valk et al., \"Expression profiling identifies distinct subclasses of acute myeloid leukemia with clinical relevance,\" Proc. Natl. Acad. Sci. U.S.A., vol. 100, no. 16, pp. 930\u2013939, 2003. [6] GEO Accession Viewer, NCBI, \"GSE13159: Microarray dataset,\" [Online]. Available: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE13159 [7] GEO Accession Viewer, NCBI, \"GSE6891: Microarray dataset,\" [Online]. Available: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE6891 [8] GEO Accession Viewer, NCBI, \"GSE14468: Microarray dataset,\" [Online]. Available: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE14468 [9] GEO Accession Viewer, NCBI, \"GSE15434: Microarray dataset,\" [Online]. Available: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE15434 [10] GEO Accession Viewer, NCBI, \"GSE10358: Microarray dataset,\" [Online]. Available: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE10358 [11] GEO Accession Viewer, NCBI, \"GSE61804: Microarray dataset,\" [Online]. Available: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE61804 [12] GEO Accession Viewer, NCBI, \"GSE71014: Microarray dataset,\" [Online]. Available: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE71014 [13] GEO Accession Viewer, NCBI, \"GSE12417: Microarray dataset,\" [Online]. Avai"
-        ],
-        "language": "eng",
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 1,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "16999218"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Integrated Gene Expression Resource for Multi-Subtype Acute Myeloid Leukemia: A Global Reference Dataset",
-      "links": {
-        "self": "https://zenodo.org/api/records/17008407",
-        "self_html": "https://zenodo.org/records/17008407",
-        "preview_html": "https://zenodo.org/records/17008407?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.17008407",
-        "self_doi": "https://doi.org/10.5281/zenodo.17008407",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17008407",
-        "reserve_doi": "https://zenodo.org/api/records/17008407/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16999218",
-        "parent_html": "https://zenodo.org/records/16999218",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16999218",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16999218",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17008407/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17008407/sequence/default",
-        "files": "https://zenodo.org/api/records/17008407/files",
-        "media_files": "https://zenodo.org/api/records/17008407/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:17008407:Integrated%20Gene%20Expression%20Resource%20for%20Multi-Subtype%20Acute%20Myeloid%20Leukemia%20A%20Global%20Reference%20Dataset.pdf/full/%5E10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:17008407:Integrated%20Gene%20Expression%20Resource%20for%20Multi-Subtype%20Acute%20Myeloid%20Leukemia%20A%20Global%20Reference%20Dataset.pdf/full/%5E50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:17008407:Integrated%20Gene%20Expression%20Resource%20for%20Multi-Subtype%20Acute%20Myeloid%20Leukemia%20A%20Global%20Reference%20Dataset.pdf/full/%5E100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:17008407:Integrated%20Gene%20Expression%20Resource%20for%20Multi-Subtype%20Acute%20Myeloid%20Leukemia%20A%20Global%20Reference%20Dataset.pdf/full/%5E250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:17008407:Integrated%20Gene%20Expression%20Resource%20for%20Multi-Subtype%20Acute%20Myeloid%20Leukemia%20A%20Global%20Reference%20Dataset.pdf/full/%5E750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:17008407:Integrated%20Gene%20Expression%20Resource%20for%20Multi-Subtype%20Acute%20Myeloid%20Leukemia%20A%20Global%20Reference%20Dataset.pdf/full/%5E1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/17008407/files-archive",
-        "archive_media": "https://zenodo.org/api/records/17008407/media-files-archive",
-        "latest": "https://zenodo.org/api/records/17008407/versions/latest",
-        "latest_html": "https://zenodo.org/records/17008407/latest",
-        "versions": "https://zenodo.org/api/records/17008407/versions",
-        "draft": "https://zenodo.org/api/records/17008407/draft",
-        "access_links": "https://zenodo.org/api/records/17008407/access/links",
-        "access_grants": "https://zenodo.org/api/records/17008407/access/grants",
-        "access_users": "https://zenodo.org/api/records/17008407/access/users",
-        "access_request": "https://zenodo.org/api/records/17008407/access/request",
-        "access": "https://zenodo.org/api/records/17008407/access",
-        "communities": "https://zenodo.org/api/records/17008407/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/17008407/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/17008407/requests"
-      },
-      "updated": "2025-08-30T12:53:10.893007+00:00",
-      "recid": "17008407",
-      "revision": 4,
-      "files": [
-        {
-          "id": "ae40ddfb-eb83-47d6-94b8-f2f09235014e",
-          "key": "Integrated Gene Expression Resource for Multi-Subtype Acute Myeloid Leukemia A Global Reference Dataset.pdf",
-          "size": 307343,
-          "checksum": "md5:2afe49cbc9eddda779b003cbc33d6e97",
-          "links": {
-            "self": "https://zenodo.org/api/records/17008407/files/Integrated Gene Expression Resource for Multi-Subtype Acute Myeloid Leukemia A Global Reference Dataset.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1389063"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 16,
-        "unique_downloads": 13,
-        "views": 16,
-        "unique_views": 13,
-        "version_downloads": 12,
-        "version_unique_downloads": 10,
-        "version_unique_views": 9,
-        "version_views": 11
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-30T08:37:58.823520+00:00",
-      "modified": "2025-08-30T08:49:32.964167+00:00",
-      "id": 17006592,
-      "conceptrecid": "17006591",
-      "doi": "10.5281/zenodo.17006592",
-      "conceptdoi": "10.5281/zenodo.17006591",
-      "doi_url": "https://doi.org/10.5281/zenodo.17006592",
-      "metadata": {
-        "title": "Colletes roborovskyi Friese 1913",
-        "doi": "10.5281/zenodo.17006592",
-        "publication_date": "2025-05-22",
-        "description": "<p><b><i>Colletes roborovskyi</i> Friese, 1913</b></p><p>(Figure 4 (E&ndash;H))</p><p><i>Colletes roborovskyi</i> Friese, 1913: 59</p><p><i>Material examined</i></p><p>1 &male;, <b>INDIA, Ladakh</b>, Leh, Phey, 34.1324&deg;N, 77.4813&deg;E, 27 July 2022, sweep net on <i>Epilobium latifolium</i>, S. Angmo &ndash; coll.</p><p><i>Molecular characterisation</i></p><p>The species identification ability of DNA sequences was evaluated using the BLAST method. Public sequence data was unavailable for <i>C. roborovskyi</i> in BOLD, but it matched with the reference sequence in NCBI with a percentage identity of 98.25%. The DNA amplicon sequence has been deposited in GenBank under the accession number:</p><p>Sample COL01 C.roborovskyi: Accession no. &ndash; OR898855</p><p><i>Floral association. Epilobium latifolium</i> (Onagraceae) (new record).</p><p><i>Distribution.</i> India (new record): Ladakh (3200m above msl).</p><p>Worldwide: Azerbaijan, China (Inner Mongolia, Xinjiang), Georgia, Iran, Kazakhstan, Kyrgyzstan, Mongolia, Pakistan, Russia, Tajikistan, Turkey, Turkmenistan (Kuhlmann and Proshchalykin 2011; Niu <i>et al</i>. 2014).</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Sardar, Sayan",
-            "affiliation": "Hymenoptera Section, Zoological Survey of India, Kolkata, India; & Department of Zoology, University of Calcutta, Kolkata, India;"
-          },
-          {
-            "name": "Angmo, Spalzin",
-            "affiliation": "Department of Zoology, Panjab University, Chandigarh, India; & Plant Science Division, Defence Institute of High Altitude Research, Leh, India"
-          },
-          {
-            "name": "Stobdan, Tsering",
-            "affiliation": "Plant Science Division, Defence Institute of High Altitude Research, Leh, India"
-          },
-          {
-            "name": "Chauhan, Archana",
-            "affiliation": "Department of Zoology, Panjab University, Chandigarh, India;"
-          },
-          {
-            "name": "Rameshkumar, A.",
-            "affiliation": "Hymenoptera Section, Zoological Survey of India, Kolkata, India;"
-          }
-        ],
-        "keywords": [
-          "Biodiversity",
-          "Taxonomy",
-          "Animalia",
-          "Arthropoda",
-          "Insecta",
-          "Hymenoptera",
-          "Colletidae",
-          "Colletes",
-          "Colletes roborovskyi"
-        ],
-        "related_identifiers": [
-          {
-            "identifier": "10.1080/00222933.2025.2497393",
-            "relation": "isPartOf",
-            "resource_type": "publication-article",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "http://zenodo.org/record/17006410",
-            "relation": "isPartOf",
-            "resource_type": "publication-article",
-            "scheme": "url"
-          },
-          {
-            "identifier": "http://publication.plazi.org/id/FFDA8C42FFDEFFEC1059F76BF465FFDA",
-            "relation": "isPartOf",
-            "resource_type": "publication-article",
-            "scheme": "url"
-          },
-          {
-            "identifier": "https://biodiversitypmc.sibils.org/collections/plazi/03E3F43AFFD9FFE5119BF139F650FD12",
-            "relation": "isSourceOf",
-            "scheme": "url"
-          },
-          {
-            "identifier": "10.5281/zenodo.17006420",
-            "relation": "cites",
-            "resource_type": "image-figure",
-            "scheme": "doi"
-          }
-        ],
-        "locations": [
-          {
-            "place": "Phey",
-            "description": "1 \u2642, INDIA, Ladakh, Leh, Phey, 34.1324\u00b0N, 77.4813\u00b0E, 27 July 2022, sweep net on Epilobium latifolium, S",
-            "lon": 77.4813,
-            "lat": 34.1324
-          }
-        ],
-        "references": [
-          "Friese H. 1913. Vorlaufige Diagnosen von neuen Bienenarten, die von den Expeditionen Roborovsky-Koslov (1893 - 95) und von Koslov (1899 - 1901) aus Centralasian mitgebracht wurden und im Zoologischen Museum der Kaiserl. Akademie der Wissenschaften in St. Petersburg aufbewahrt werden. Ann Mus Zool Acad Imp Sci St Peters. 18: 59-61.",
-          "Kuhlmann M, Proshchalykin MY. 2011. Bees of the genus Colletes Latreille 1802 of the Asian part of Russia, with keys to species (Hymenoptera: Apoidea: Colletidae). Zootaxa. 3068 (1): 1-48. doi: 10. 11646 / zootaxa. 3068.1.1.",
-          "Niu Z-Q, Zhu C-D, Kuhlmann M. 2014. The Bees of the genus Colletes (Hymenoptera: Apoidea: Colletidae) from China. Zootaxa. 3856 (4): 451-483. doi: 10.11646/zootaxa.3856.4.1."
-        ],
-        "custom": {
-          "dwc:eventDate": [
-            "2022-07-27"
-          ],
-          "dwc:family": [
-            "Colletidae"
-          ],
-          "dwc:genus": [
-            "Colletes"
-          ],
-          "dwc:kingdom": [
-            "Animalia"
-          ],
-          "dwc:order": [
-            "Hymenoptera"
-          ],
-          "dwc:phylum": [
-            "Arthropoda"
-          ],
-          "dwc:scientificNameAuthorship": [
-            "Friese"
-          ],
-          "dwc:specificEpithet": [
-            "roborovskyi"
-          ],
-          "dwc:taxonRank": [
-            "species"
-          ],
-          "dwc:verbatimEventDate": [
-            "2022-07-27"
-          ],
-          "openbiodiv:TaxonomicConceptLabel": [
-            "Colletes roborovskyi Friese, 1913 sec. Sardar, Angmo, Stobdan, Chauhan & Rameshkumar, 2025"
-          ]
-        },
-        "resource_type": {
-          "title": "Taxonomic treatment",
-          "type": "publication",
-          "subtype": "taxonomictreatment"
-        },
-        "journal": {
-          "issue": "21 - 24",
-          "pages": "1732-1734",
-          "title": "Bees of the genus Colletes Latreille (Hymenoptera: Apoidea: Colletidae) from Ladakh, India, with description of a new species, pp. 1725-1741 in Journal of Natural History",
-          "volume": "59"
-        },
-        "alternate_identifiers": [
-          {
-            "identifier": "http://treatment.plazi.org/id/03E3F43AFFD9FFE5119BF139F650FD12"
-          }
-        ],
-        "license": {
-          "id": "cc-zero"
-        },
-        "communities": [
-          {
-            "id": "biosyslit"
-          }
-        ],
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "17006591"
-              }
-            }
-          ]
-        },
-        "notes": "Published as part of <i>Sardar, Sayan, Angmo, Spalzin, Stobdan, Tsering, Chauhan, Archana &amp; Rameshkumar, A., 2025, Bees of the genus Colletes Latreille (Hymenoptera: Apoidea: Colletidae) from Ladakh, India, with description of a new species, pp. 1725-1741 in Journal of Natural History 59 (21 - 24)</i> on pages 1732-1734, DOI: 10.1080/00222933.2025.2497393, <a href=\"http://zenodo.org/record/17006410\">http://zenodo.org/record/17006410</a>"
-      },
-      "title": "Colletes roborovskyi Friese 1913",
-      "links": {
-        "self": "https://zenodo.org/api/records/17006592",
-        "self_html": "https://zenodo.org/records/17006592",
-        "preview_html": "https://zenodo.org/records/17006592?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.17006592",
-        "self_doi": "https://doi.org/10.5281/zenodo.17006592",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17006592",
-        "reserve_doi": "https://zenodo.org/api/records/17006592/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/17006591",
-        "parent_html": "https://zenodo.org/records/17006591",
-        "parent_doi": "https://doi.org/10.5281/zenodo.17006591",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17006591",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17006592/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17006592/sequence/default",
-        "files": "https://zenodo.org/api/records/17006592/files",
-        "media_files": "https://zenodo.org/api/records/17006592/media-files",
-        "archive": "https://zenodo.org/api/records/17006592/files-archive",
-        "archive_media": "https://zenodo.org/api/records/17006592/media-files-archive",
-        "latest": "https://zenodo.org/api/records/17006592/versions/latest",
-        "latest_html": "https://zenodo.org/records/17006592/latest",
-        "versions": "https://zenodo.org/api/records/17006592/versions",
-        "draft": "https://zenodo.org/api/records/17006592/draft",
-        "access_links": "https://zenodo.org/api/records/17006592/access/links",
-        "access_grants": "https://zenodo.org/api/records/17006592/access/grants",
-        "access_users": "https://zenodo.org/api/records/17006592/access/users",
-        "access_request": "https://zenodo.org/api/records/17006592/access/request",
-        "access": "https://zenodo.org/api/records/17006592/access",
-        "communities": "https://zenodo.org/api/records/17006592/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/17006592/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/17006592/requests"
-      },
-      "updated": "2025-08-30T08:49:32.964167+00:00",
-      "recid": "17006592",
-      "revision": 7,
-      "files": [
-        {
-          "id": "5f99853d-fdf5-43d7-a39a-c2920a7a4a05",
-          "key": "treatment.html",
-          "size": 1471,
-          "checksum": "md5:740f267bcae18739441d2a53e0a72723",
-          "links": {
-            "self": "https://zenodo.org/api/records/17006592/files/treatment.html/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1161"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 0,
-        "unique_downloads": 0,
-        "views": 0,
-        "unique_views": 0,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-29T21:20:11.151077+00:00",
-      "modified": "2025-08-29T22:15:44.284971+00:00",
-      "id": 16986131,
-      "conceptrecid": "16986130",
-      "doi": "10.5281/zenodo.16986131",
-      "conceptdoi": "10.5281/zenodo.16986130",
-      "doi_url": "https://doi.org/10.5281/zenodo.16986131",
-      "metadata": {
-        "title": "CARACTERIZA\u00c7\u00c3O GEN\u00d4MICA DE Serratia marcescens LB1: POTENCIAIS GENES ASSOCIADOS AO BIOCONTROLE E PROMO\u00c7\u00c3O DO CRESCIMENTO VEGETAL",
-        "doi": "10.5281/zenodo.16986131",
-        "publication_date": "2025-08-28",
-        "description": "<p dir=\"ltr\">O uso intensivo de defensivos agr&iacute;colas, com potenciais impactos ambientais e &agrave; sa&uacute;de, tem ampliado a demanda por alternativas sustent&aacute;veis, baseadas em bioinsumos. Nesse contexto, destaca-se a necessidade de prospec&ccedil;&atilde;o e a caracteriza&ccedil;&atilde;o de Bact&eacute;rias Promotoras de Crescimento de Plantas (BPCPs) capazes de estimular o desenvolvimento vegetal e inibir fitopat&oacute;genos. Entre elas, o g&ecirc;nero Serratia, reconhecido pela produ&ccedil;&atilde;o de compostos bioativos, destaca-se pelo potencial para aplica&ccedil;&otilde;es biotecnol&oacute;gicas. Este estudo avalia uma cepa de <em>S. marcescens</em> quanto ao potencial gen&ocirc;mico relacionado &agrave; sua capacidade de promover crescimento vegetal e inibir fungos fitopatog&ecirc;nicos.</p>\n<p dir=\"ltr\"><strong>Apresentado no XXXVII Congresso de Inicia&ccedil;&atilde;o Cient&iacute;fica da Unesp &ndash; CIC 2025</strong></p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Araujo Tomazeli, J\u00falia",
-            "affiliation": "Universidade Estadual Paulista (Unesp)",
-            "orcid": "0009-0003-9495-7996"
-          },
-          {
-            "name": "Ramos Sales, Cinara",
+            "name": "Lotan, Tamar",
             "affiliation": null,
-            "orcid": "0000-0001-9924-3755"
-          },
-          {
-            "name": "Rodrigues da Silva, Saura",
-            "affiliation": null
-          },
-          {
-            "name": "Fernandes Oliveira de Miranda, Vitor",
-            "affiliation": null
-          },
-          {
-            "name": "Guariz Pinheiro, Daniel",
-            "affiliation": "S\u00e3o Paulo State University",
-            "orcid": "0000-0001-7062-5936"
-          }
-        ],
-        "references": [
-          "AJITHKUMAR, Bindu et al. Spore-forming Serratia marcescens subsp. sakuensis subsp. nov., isolated from a domestic wastewater treatment tank. International Journal of Systematic and Evolutionary Microbiology, v. 53, n. 1, p. 253-258, 2003.",
-          "AUCH, Alexander F. et al. Genome BLAST distance phylogenies inferred from whole plastid and whole mitochondrion genome sequences. BMC Bioinformatics, v. 7, n. 1, p. 350, 2006.",
-          "BOWERS, Robert M. et al. Minimum information about a single amplified genome (MISAG) and a metagenome-assembled genome (MIMAG) of bacteria and archaea. Nature Biotechnology, v. 35, n. 8, p. 725-731, 2017.",
-          "CARVER, Tim et al. DNAPlotter: circular and linear interactive genome visualization. Bioinformatics, v. 25, n. 1, p. 119-120, 2009.",
-          "CHEN, Yu et al. Accurate long-read de novo assembly evaluation with Inspector. Genome Biology, v. 22, n. 1, p. 312, 2021.",
-          "DIBELLI, S. G. Evidencia\u00e7\u00e3o de m\u00faltiplos tra\u00e7os de promo\u00e7\u00e3o de crescimento vegetal em isolados de comunidades bacterianas associadas a cana-de-a\u00e7\u00facar. 2023.",
-          "FELDGARDEN, Michael et al. Validating the AMRFinder tool and resistance gene database by using antimicrobial resistance genotype-phenotype correlations in a collection of isolates. Antimicrobial Agents and Chemotherapy, v. 63, n. 11, p. e00483-19, 2019.",
-          "FRIEDRICH, Ines et al. Down in the pond: Isolation and characterization of a new Serratia marcescens strain (LVF3) from the surface water near frog's lettuce (Groenlandia densa). PLoS One, v. 16, n. 11, p. e0259673, 2021.",
-          "HAFT, Daniel H. et al. RefSeq: an update on prokaryotic genome annotation and curation. Nucleic Acids Research, v. 46, n. D1, p. D851-D860, 2018.",
-          "HUNT, Martin et al. Circlator: automated circularization of genome assemblies using long sequencing reads. Genome Biology, v. 16, n. 1, p. 294, 2015.",
-          "KOLMOGOROV, Mikhail; YUAN, Jeffrey; LIN, Yu; PEVZNER, Pavel. Assembly of long error-prone reads using repeat graphs. Nature Biotechnology, 2019. doi:10.1038/s41587-019-0072-8.",
-          "LI, H.; HOMER, N. A survey of sequence alignment algorithms for next-generation sequencing. Briefings in Bioinformatics, 2010.",
-          "LI, Wenjun et al. RefSeq: expanding the Prokaryotic Genome Annotation Pipeline reach with protein family model curation. Nucleic Acids Research, v. 49, n. D1, p. D1020-D1028, 2021.",
-          "MEIER-KOLTHOFF, Jan P.; G\u00d6KER, Markus. TYGS is an automated high-throughput platform for state-of-the-art genome-based taxonomy. Nature Communications, v. 10, n. 1, p. 2182, 2019.",
-          "OXFORD NANOPORE TECHNOLOGIES. Dorado. 13 ago. 2025. Dispon\u00edvel em: https://github.com/nanoporetech/dorado .",
-          "PATZ, S. et al. PLaBAse: A comprehensive web resource for analyzing the plant growth-promoting potential of plant-associated bacteria. 15 dez. 2021. Dispon\u00edvel em: http://biorxiv.org/lookup/doi/10.1101/2021.12.13.472471 . Acesso em: 4 jun. 2024.",
-          "PELLEGRINETTI, T. A. et al. PGPg_finder: A comprehensive and user-friendly pipeline for identifying plant growth-promoting genes in genomic and metagenomic data. Rhizosphere, v. 30, p. 100905, jun. 2024.",
-          "SCHMIEDER, Robert; EDWARDS, Robert. Quality control and preprocessing of metagenomic datasets. Bioinformatics, v. 27, n. 6, p. 863-864, 2011.",
-          "SOENENS, A.; IMPERIAL, J. Biocontrol capabilities of the genus Serratia. Phytochemistry Reviews, v. 19, n. 3, p. 577\u2013587, jun. 2020.",
-          "TATUSOVA, Tatiana et al. NCBI prokaryotic genome annotation pipeline. Nucleic Acids Research, v. 44, n. 14, p. 6614-6624, 2016.",
-          "TEHERAN-SIERRA, L. G. et al. Bacterial communities associated with sugarcane under different agricultural management exhibit a diversity of plant growth-promoting traits and evidence of synergistic effect. Microbiological Research, v. 247, p. 126729, 2021."
-        ],
-        "resource_type": {
-          "title": "Poster",
-          "type": "poster"
-        },
-        "meeting": {
-          "title": "XXXVII Congresso de Inicia\u00e7\u00e3o Cient\u00edfica da Unesp \u2013 CIC 2025",
-          "place": "Faculdade de Ci\u00eancias Agr\u00e1rias e Veterin\u00e1rias"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "16986130"
-              }
-            }
-          ]
-        }
-      },
-      "title": "CARACTERIZA\u00c7\u00c3O GEN\u00d4MICA DE Serratia marcescens LB1: POTENCIAIS GENES ASSOCIADOS AO BIOCONTROLE E PROMO\u00c7\u00c3O DO CRESCIMENTO VEGETAL",
-      "links": {
-        "self": "https://zenodo.org/api/records/16986131",
-        "self_html": "https://zenodo.org/records/16986131",
-        "preview_html": "https://zenodo.org/records/16986131?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16986131",
-        "self_doi": "https://doi.org/10.5281/zenodo.16986131",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16986131",
-        "reserve_doi": "https://zenodo.org/api/records/16986131/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16986130",
-        "parent_html": "https://zenodo.org/records/16986130",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16986130",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16986130",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16986131/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16986131/sequence/default",
-        "files": "https://zenodo.org/api/records/16986131/files",
-        "media_files": "https://zenodo.org/api/records/16986131/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:16986131:RESUMO%20CIC_J%C3%9ALIA%20TOMAZELI.pdf/full/%5E10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:16986131:RESUMO%20CIC_J%C3%9ALIA%20TOMAZELI.pdf/full/%5E50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:16986131:RESUMO%20CIC_J%C3%9ALIA%20TOMAZELI.pdf/full/%5E100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:16986131:RESUMO%20CIC_J%C3%9ALIA%20TOMAZELI.pdf/full/%5E250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:16986131:RESUMO%20CIC_J%C3%9ALIA%20TOMAZELI.pdf/full/%5E750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:16986131:RESUMO%20CIC_J%C3%9ALIA%20TOMAZELI.pdf/full/%5E1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/16986131/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16986131/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16986131/versions/latest",
-        "latest_html": "https://zenodo.org/records/16986131/latest",
-        "versions": "https://zenodo.org/api/records/16986131/versions",
-        "draft": "https://zenodo.org/api/records/16986131/draft",
-        "access_links": "https://zenodo.org/api/records/16986131/access/links",
-        "access_grants": "https://zenodo.org/api/records/16986131/access/grants",
-        "access_users": "https://zenodo.org/api/records/16986131/access/users",
-        "access_request": "https://zenodo.org/api/records/16986131/access/request",
-        "access": "https://zenodo.org/api/records/16986131/access",
-        "communities": "https://zenodo.org/api/records/16986131/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16986131/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16986131/requests"
-      },
-      "updated": "2025-08-29T22:15:44.284971+00:00",
-      "recid": "16986131",
-      "revision": 10,
-      "files": [
-        {
-          "id": "fc1717ba-9e1e-4313-802f-16e77e01fe45",
-          "key": "RESUMO CIC_J\u00daLIA TOMAZELI.pdf",
-          "size": 577856,
-          "checksum": "md5:282f2b931a5791536266817383475ca2",
-          "links": {
-            "self": "https://zenodo.org/api/records/16986131/files/RESUMO CIC_J\u00daLIA TOMAZELI.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "1396649"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 27,
-        "unique_downloads": 18,
-        "views": 36,
-        "unique_views": 20,
-        "version_downloads": 27,
-        "version_unique_downloads": 18,
-        "version_unique_views": 20,
-        "version_views": 36
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-29T18:29:16.415930+00:00",
-      "modified": "2025-08-29T18:29:16.588666+00:00",
-      "id": 16996394,
-      "conceptrecid": "14963228",
-      "doi": "10.5281/zenodo.16996394",
-      "conceptdoi": "10.5281/zenodo.14963228",
-      "doi_url": "https://doi.org/10.5281/zenodo.16996394",
-      "metadata": {
-        "title": "Data and code from: The interaction between abiotic and biotic soil factors modulates heterosis expression in maize",
-        "doi": "10.5281/zenodo.16996394",
-        "publication_date": "2025-08-29",
-        "description": "<p>Data and code from the submitted manuscript \"The interaction between abiotic and biotic soil factors modulates heterosis expression in maize\". Descriptions of each file can be found in the README.txt file. The raw sequence data associated with this work is available in the NCBI Sequence Read Archive under BioProject&nbsp;PRJNA1235732. </p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Kayla M. Clouse",
-            "affiliation": "Pennsylvania State University",
-            "orcid": "0000-0003-0047-8920"
-          },
-          {
-            "name": "Martel L. Ellis",
-            "affiliation": null
-          },
-          {
-            "name": "Natalie E. Ford",
-            "affiliation": null
-          },
-          {
-            "name": "Rachel Hostetler",
-            "affiliation": null
-          },
-          {
-            "name": "Balint-Kurti, Peter",
-            "affiliation": "USDA-ARS Plant Science Research Unit",
-            "orcid": "0000-0002-3916-194X"
-          },
-          {
-            "name": "Kleiner, Manuel",
-            "affiliation": "North Carolina State University",
-            "orcid": "0000-0001-6904-0287"
-          },
-          {
-            "name": "Wagner, Maggie",
-            "affiliation": "University of Kansas",
-            "orcid": "0000-0002-6924-7226"
+            "orcid": "0000-0002-1679-4904"
           }
         ],
         "resource_type": {
@@ -979,720 +583,413 @@
         "relations": {
           "version": [
             {
-              "index": 2,
+              "index": 0,
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "14963228"
+                "pid_value": "17474690"
               }
             }
           ]
-        },
-        "notes": "<p>This work was supported by the United States National Science Foundation (award #IOS-2033621 to M.R.W., P.B.K., and M.K.) and the United States Department of Agriculture (#2022-67013-36672 to K.M.C.). The University of Kansas Medical Center Genomics Core is supported by the Kansas Intellectual and Developmental Disabilities Research Center (NIH U54 HD090216), the NIH S10 High End Instrumentation Grant (NIH S10 OD036343) and the Frontiers CTSA Grant (UL1TR002366).</p>"
+        }
       },
-      "title": "Data and code from: The interaction between abiotic and biotic soil factors modulates heterosis expression in maize",
+      "title": "Xenia umbellata transcriptomic data",
       "links": {
-        "self": "https://zenodo.org/api/records/16996394",
-        "self_html": "https://zenodo.org/records/16996394",
-        "preview_html": "https://zenodo.org/records/16996394?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16996394",
-        "self_doi": "https://doi.org/10.5281/zenodo.16996394",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16996394",
-        "reserve_doi": "https://zenodo.org/api/records/16996394/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/14963228",
-        "parent_html": "https://zenodo.org/records/14963228",
-        "parent_doi": "https://doi.org/10.5281/zenodo.14963228",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14963228",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16996394/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16996394/sequence/default",
-        "files": "https://zenodo.org/api/records/16996394/files",
-        "media_files": "https://zenodo.org/api/records/16996394/media-files",
-        "archive": "https://zenodo.org/api/records/16996394/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16996394/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16996394/versions/latest",
-        "latest_html": "https://zenodo.org/records/16996394/latest",
-        "versions": "https://zenodo.org/api/records/16996394/versions",
-        "draft": "https://zenodo.org/api/records/16996394/draft",
-        "access_links": "https://zenodo.org/api/records/16996394/access/links",
-        "access_grants": "https://zenodo.org/api/records/16996394/access/grants",
-        "access_users": "https://zenodo.org/api/records/16996394/access/users",
-        "access_request": "https://zenodo.org/api/records/16996394/access/request",
-        "access": "https://zenodo.org/api/records/16996394/access",
-        "communities": "https://zenodo.org/api/records/16996394/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16996394/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16996394/requests"
+        "self": "https://zenodo.org/api/records/17474691",
+        "self_html": "https://zenodo.org/records/17474691",
+        "preview_html": "https://zenodo.org/records/17474691?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17474691",
+        "self_doi": "https://doi.org/10.5281/zenodo.17474691",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17474691",
+        "reserve_doi": "https://zenodo.org/api/records/17474691/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17474690",
+        "parent_html": "https://zenodo.org/records/17474690",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17474690",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17474690",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17474691/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17474691/sequence/default",
+        "files": "https://zenodo.org/api/records/17474691/files",
+        "media_files": "https://zenodo.org/api/records/17474691/media-files",
+        "archive": "https://zenodo.org/api/records/17474691/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17474691/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17474691/versions/latest",
+        "latest_html": "https://zenodo.org/records/17474691/latest",
+        "versions": "https://zenodo.org/api/records/17474691/versions",
+        "draft": "https://zenodo.org/api/records/17474691/draft",
+        "access_links": "https://zenodo.org/api/records/17474691/access/links",
+        "access_grants": "https://zenodo.org/api/records/17474691/access/grants",
+        "access_users": "https://zenodo.org/api/records/17474691/access/users",
+        "access_request": "https://zenodo.org/api/records/17474691/access/request",
+        "access": "https://zenodo.org/api/records/17474691/access",
+        "communities": "https://zenodo.org/api/records/17474691/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17474691/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17474691/request-deletion",
+        "requests": "https://zenodo.org/api/records/17474691/requests"
       },
-      "updated": "2025-08-29T18:29:16.588666+00:00",
-      "recid": "16996394",
+      "updated": "2025-10-30T07:58:33.548554+00:00",
+      "recid": "17474691",
       "revision": 4,
       "files": [
         {
-          "id": "14c87df0-98cd-4202-acae-b02cdf5dc4e0",
-          "key": "soilNutr2025_Zenodo_v3.zip",
-          "size": 22995361,
-          "checksum": "md5:8533c8909a8d4ca55f37557d72fe972c",
+          "id": "3ac9c132-0605-46f7-87fe-783badb71a27",
+          "key": "Xenia umbellata transcriptome.fasta",
+          "size": 234985236,
+          "checksum": "md5:9b4303d9f11d6916598076499dd58bd7",
           "links": {
-            "self": "https://zenodo.org/api/records/16996394/files/soilNutr2025_Zenodo_v3.zip/content"
+            "self": "https://zenodo.org/api/records/17474691/files/Xenia umbellata transcriptome.fasta/content"
           }
         }
       ],
-      "swh": {},
+      "swh": null,
       "owners": [
         {
-          "id": "1276061"
+          "id": "1404614"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 14,
-        "unique_downloads": 14,
-        "views": 26,
-        "unique_views": 24,
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 5,
+        "unique_views": 4,
         "version_downloads": 0,
         "version_unique_downloads": 0,
-        "version_unique_views": 1,
+        "version_unique_views": 4,
+        "version_views": 5
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-29T16:46:31.146577+00:00",
+      "modified": "2025-10-29T16:46:31.395274+00:00",
+      "id": 17346156,
+      "conceptrecid": "17346155",
+      "doi": "10.5281/zenodo.17346156",
+      "conceptdoi": "10.5281/zenodo.17346155",
+      "doi_url": "https://doi.org/10.5281/zenodo.17346156",
+      "metadata": {
+        "title": "GeTPrev pre-built Default Database v1.0: Complete Genomes of Seven Enterobacteriaceae Genus",
+        "doi": "10.5281/zenodo.17346156",
+        "publication_date": "2025-10-30",
+        "description": "<p>This dataset contains the pre-built default genome database used by the GeTPrev (Gene Taxonomic Prevalence) pipeline. It includes complete genomes from seven Enterobacteriaceae genus curated from NCBI RefSeq, serving as the default reference panel for gene prevalence estimation. The dataset was constructed on September 26, 2025, and users are welcome to construct or update the database locally as needed. Instructions for database generation and updates are provided in the<a href=\"https://github.com/Weifanwu66/GeTPrev/blob/main/README.md\"> GeTPrev GitHub repository README. </a>Metadata files containing genome accession and taxonomic information are available in the GeTPrev GitHub repository&nbsp;under the <code>metadata/</code> directory.</p>\n<p>The dataset was generated by the following command line:</p>\n<p>bash build_EB_complete_genomes_db.sh</p>\n<p>This command was executed on a high-performance computing (HPC) environment without a job scheduler. Users operating under a job scheduling system (e.g., SLURM) are welcome to specify the appropriate scheduler parameters when constructing or updating the database. Detailed instructions are available in the <a href=\"https://github.com/Weifanwu66/GeTPrev/blob/main/README.md\">GeTPrev GitHub repository README.</a></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Wu, Weifan",
+            "affiliation": null,
+            "orcid": "0009-0008-8804-4388"
+          },
+          {
+            "name": "Dickey, Aaron",
+            "affiliation": "USDA-ARS Roman L Hruska US Meat Animal Research Center",
+            "orcid": "0000-0003-1250-1390"
+          },
+          {
+            "name": "Vipham, Jessie",
+            "affiliation": null,
+            "orcid": "0000-0002-2918-1058"
+          },
+          {
+            "name": "Arthur, Terrance",
+            "affiliation": "Agricultural Research Service",
+            "orcid": "0000-0001-9035-0474"
+          },
+          {
+            "name": "Schmidt, John",
+            "affiliation": "USDA-ARS Roman L Hruska US Meat Animal Research Center",
+            "orcid": "0000-0003-0494-2436"
+          }
+        ],
+        "language": "eng",
+        "custom": {
+          "code:codeRepository": "https://github.com/Weifanwu66/GeTPrev"
+        },
+        "resource_type": {
+          "title": "Publication",
+          "type": "publication"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17346155"
+              }
+            }
+          ]
+        }
+      },
+      "title": "GeTPrev pre-built Default Database v1.0: Complete Genomes of Seven Enterobacteriaceae Genus",
+      "links": {
+        "self": "https://zenodo.org/api/records/17346156",
+        "self_html": "https://zenodo.org/records/17346156",
+        "preview_html": "https://zenodo.org/records/17346156?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17346156",
+        "self_doi": "https://doi.org/10.5281/zenodo.17346156",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17346156",
+        "reserve_doi": "https://zenodo.org/api/records/17346156/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17346155",
+        "parent_html": "https://zenodo.org/records/17346155",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17346155",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17346155",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17346156/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17346156/sequence/default",
+        "files": "https://zenodo.org/api/records/17346156/files",
+        "media_files": "https://zenodo.org/api/records/17346156/media-files",
+        "archive": "https://zenodo.org/api/records/17346156/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17346156/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17346156/versions/latest",
+        "latest_html": "https://zenodo.org/records/17346156/latest",
+        "versions": "https://zenodo.org/api/records/17346156/versions",
+        "draft": "https://zenodo.org/api/records/17346156/draft",
+        "access_links": "https://zenodo.org/api/records/17346156/access/links",
+        "access_grants": "https://zenodo.org/api/records/17346156/access/grants",
+        "access_users": "https://zenodo.org/api/records/17346156/access/users",
+        "access_request": "https://zenodo.org/api/records/17346156/access/request",
+        "access": "https://zenodo.org/api/records/17346156/access",
+        "communities": "https://zenodo.org/api/records/17346156/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17346156/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17346156/request-deletion",
+        "requests": "https://zenodo.org/api/records/17346156/requests"
+      },
+      "updated": "2025-10-29T16:46:31.395274+00:00",
+      "recid": "17346156",
+      "revision": 4,
+      "files": [
+        {
+          "id": "2329bf93-3bae-485d-8d43-05bc8b7dcb79",
+          "key": "blastdb_all.tar.gz",
+          "size": 48319424610,
+          "checksum": "md5:f883d75afe85afe5905c3da20e3b17e1",
+          "links": {
+            "self": "https://zenodo.org/api/records/17346156/files/blastdb_all.tar.gz/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1432844"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 8,
+        "unique_downloads": 7,
+        "views": 7,
+        "unique_views": 6,
+        "version_downloads": 8,
+        "version_unique_downloads": 7,
+        "version_unique_views": 6,
+        "version_views": 7
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-29T15:07:00.335984+00:00",
+      "modified": "2025-10-29T15:07:00.712541+00:00",
+      "id": 17475794,
+      "conceptrecid": "17475793",
+      "doi": "10.5281/zenodo.17475794",
+      "conceptdoi": "10.5281/zenodo.17475793",
+      "doi_url": "https://doi.org/10.5281/zenodo.17475794",
+      "metadata": {
+        "title": "Whole-genome sequence of Acinetobacter pseudolwoffii ANC 7493",
+        "doi": "10.5281/zenodo.17475794",
+        "publication_date": "2025-10-29",
+        "description": "<p><strong>#Acinetobacter_pseudolwoffii_ANC_7493.fsa</strong></p>\n<p>provides the whole-genome sequence of <em>Acinetobacter pseudolwoffii</em> ANC 7493 isolated from cattle feces. The assembly consists of a single circular chromosome (2,764,499 bp) and one circular plasmid (167,549 bp; designated pANC7493.1). The plasmid carries <em>bla</em>OXA-58, <em>strA</em> and strB antibiotic resistance genes.</p>\n<p>&nbsp;</p>\n<p><strong><span>A_pseudolwoffii_ANC_7493.gbk</span></strong></p>\n<p><span>provides the corresponding genome annotation in GenBank formate, as provided by the RAST software (Aziz et al., 2008. The RAST Server: rapid annotations using subsystems technology. BMC Genom. 9 (1), 1&ndash;15.)</span></p>\n<p>&nbsp;</p>\n<p><strong>#MIGS.ba.host-associated.6.0_Acinetobacter_pseudolwoffii_ANC7493_2025-10-06.xlsx</strong></p>\n<p>provides the corresponding strain metadata as required by NCBI GenBank.</p>\n<p>&nbsp;</p>\n<p><strong>#Template_GenomeBatch_Acinetobacter_pseudolwoffii_ANC_7493_2025-10-06.xlsx</strong></p>\n<p>provides the corresonding sequence metadata as required by NCBI GenBank.</p>\n<p>&nbsp;</p>\n<p><strong>Note that all data have been submitted to GenBank, but the accession numbers are not available yet. This sumbission serves to make the genome sequence available for manuscript reviewers.&nbsp;</strong></p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>\n<p>&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Kyselkova, Martina",
+            "affiliation": "Czech Academy of Sciences, Institute of Microbiology",
+            "orcid": "0000-0001-8528-5321"
+          },
+          {
+            "name": "Thiago Dobbler, Priscila",
+            "affiliation": "Czech Academy of Sciences, Institute of Microbiology",
+            "orcid": "0000-0002-7681-5463"
+          },
+          {
+            "name": "Nemec, Alexandr",
+            "affiliation": "National Institute of Public Health",
+            "orcid": "0000-0003-0608-9598"
+          },
+          {
+            "name": "Ravi, Anitha",
+            "affiliation": "Czech Academy of Sciences, Institute of Microbiology",
+            "orcid": "0009-0006-6065-2889"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "grants": [
+          {
+            "code": "22-05373S",
+            "internal_id": "01pv73b02::22-05373S",
+            "funder": {
+              "name": "Czech Science Foundation"
+            }
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17475793"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Whole-genome sequence of Acinetobacter pseudolwoffii ANC 7493",
+      "links": {
+        "self": "https://zenodo.org/api/records/17475794",
+        "self_html": "https://zenodo.org/records/17475794",
+        "preview_html": "https://zenodo.org/records/17475794?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17475794",
+        "self_doi": "https://doi.org/10.5281/zenodo.17475794",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17475794",
+        "reserve_doi": "https://zenodo.org/api/records/17475794/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17475793",
+        "parent_html": "https://zenodo.org/records/17475793",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17475793",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17475793",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17475794/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17475794/sequence/default",
+        "files": "https://zenodo.org/api/records/17475794/files",
+        "media_files": "https://zenodo.org/api/records/17475794/media-files",
+        "archive": "https://zenodo.org/api/records/17475794/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17475794/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17475794/versions/latest",
+        "latest_html": "https://zenodo.org/records/17475794/latest",
+        "versions": "https://zenodo.org/api/records/17475794/versions",
+        "draft": "https://zenodo.org/api/records/17475794/draft",
+        "access_links": "https://zenodo.org/api/records/17475794/access/links",
+        "access_grants": "https://zenodo.org/api/records/17475794/access/grants",
+        "access_users": "https://zenodo.org/api/records/17475794/access/users",
+        "access_request": "https://zenodo.org/api/records/17475794/access/request",
+        "access": "https://zenodo.org/api/records/17475794/access",
+        "communities": "https://zenodo.org/api/records/17475794/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17475794/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17475794/request-deletion",
+        "requests": "https://zenodo.org/api/records/17475794/requests"
+      },
+      "updated": "2025-10-29T15:07:00.712541+00:00",
+      "recid": "17475794",
+      "revision": 4,
+      "files": [
+        {
+          "id": "38ca83d0-b77f-4137-a250-824553c25580",
+          "key": "Acinetobacter_pseudolwoffii_ANC_7493.fsa",
+          "size": 2981205,
+          "checksum": "md5:ea6a029dc46e75b6692faa8b8fa64097",
+          "links": {
+            "self": "https://zenodo.org/api/records/17475794/files/Acinetobacter_pseudolwoffii_ANC_7493.fsa/content"
+          }
+        },
+        {
+          "id": "bf2d5d1c-bbcb-42d8-8404-9cc2f83338ce",
+          "key": "MIGS.ba.host-associated.6.0_Acinetobacter_pseudolwoffii_ANC7493_2025-10-06.xlsx",
+          "size": 23333,
+          "checksum": "md5:4913880ca0e44d2c91f927fb2e792aa6",
+          "links": {
+            "self": "https://zenodo.org/api/records/17475794/files/MIGS.ba.host-associated.6.0_Acinetobacter_pseudolwoffii_ANC7493_2025-10-06.xlsx/content"
+          }
+        },
+        {
+          "id": "b1bbc1f3-48d8-44b2-b6c9-ff913bb33f12",
+          "key": "Template_GenomeBatch_Acinetobacter_pseudolwoffii_ANC_7493_2025-10-06.xlsx",
+          "size": 22207,
+          "checksum": "md5:b9df137c5fc36531fa768ba7794db2ee",
+          "links": {
+            "self": "https://zenodo.org/api/records/17475794/files/Template_GenomeBatch_Acinetobacter_pseudolwoffii_ANC_7493_2025-10-06.xlsx/content"
+          }
+        },
+        {
+          "id": "508c3a62-029f-41f3-8c9a-2bf782bc159c",
+          "key": "A_pseudolwoffii_ANC_7493.gbk",
+          "size": 5653340,
+          "checksum": "md5:32e944ae3886cc8044f5beafa3852423",
+          "links": {
+            "self": "https://zenodo.org/api/records/17475794/files/A_pseudolwoffii_ANC_7493.gbk/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1055421"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 3,
+        "unique_views": 3,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 3,
         "version_views": 3
       },
       "state": "done",
       "submitted": true
     },
     {
-      "created": "2025-08-29T15:05:45.404027+00:00",
-      "modified": "2025-08-29T15:09:37.964735+00:00",
-      "id": 16995118,
-      "conceptrecid": "16995117",
-      "doi": "10.5281/zenodo.16995118",
-      "conceptdoi": "10.5281/zenodo.16995117",
-      "doi_url": "https://doi.org/10.5281/zenodo.16995118",
+      "created": "2025-10-29T10:10:04.474691+00:00",
+      "modified": "2025-10-29T10:10:04.616794+00:00",
+      "id": 17473327,
+      "conceptrecid": "17473326",
+      "doi": "10.5281/zenodo.17473327",
+      "conceptdoi": "10.5281/zenodo.17473326",
+      "doi_url": "https://doi.org/10.5281/zenodo.17473327",
       "metadata": {
-        "title": "Bioinformatics in Plant Biotechnology",
-        "doi": "10.5281/zenodo.16995118",
-        "publication_date": "2025-07-30",
-        "description": "<p><span lang=\"EN-IN\">The rise of bioinformatics has fundamentally transformed plant biotechnology, enabling researchers to navigate and interpret the vast and complex datasets produced by high-throughput sequencing and omics technologies. This chapter explores the evolution, tools, and transformative applications of bioinformatics in plant science, emphasizing its role in genomic annotation, trait improvement, stress resistance, and precision agriculture. Key databases such as NCBI, EMBL-EBI and Phytozome provide the foundation for sequence data access and genome comparison, while tools like BLAST, InterProScan, and WGCNA allow in-depth functional and network analyses. The integration of transcriptomic, proteomic, and metabolomic platforms offers deeper insight into gene regulation, protein interaction, and metabolic pathways. Practical applications discussed include genome editing using CRISPR-Cas systems, molecular breeding, and systems-level modeling of complex traits. Despite the immense potential, challenges such as data standardization, computational limitations, and accessibility remain, particularly in under-resourced research environments. However, the convergence of artificial intelligence, cloud computing, and open-access platforms signals a future where bioinformatics becomes increasingly integral to sustainable crop development and digital agriculture. This chapter provides a comprehensive overview of how computational biology is shaping the next generation of crop improvement strategies, fostering resilience, efficiency, and innovation in plant biotechnology</span></p>",
+        "title": "danielzmbp/NLP4Pheno: v0.1.0 - Accepted Manuscript Release",
+        "doi": "10.5281/zenodo.17473327",
+        "publication_date": "2025-10-29",
+        "description": "<h1>NLP4Pheno v0.1.0 - Accepted Manuscript Release</h1>\n<p>This release corresponds to the accepted manuscript: <strong>&quot;Integrating natural language processing and genome analysis enables accurate bacterial phenotype prediction&quot;</strong></p>\n<p>Preprint: https://doi.org/10.1101/2024.12.07.627346</p>\n<h2>Overview</h2>\n<p>NLP4Pheno is a comprehensive bacterial phenotype prediction pipeline that integrates:</p>\n<ul>\n<li>Named Entity Recognition (NER) using BERT-based models</li>\n<li>Relation Extraction (RE) for bacterial strain relationships</li>\n<li>XGBoost-based phenotype prediction from protein domain analysis</li>\n<li>Fully reproducible Snakemake workflows</li>\n</ul>\n<h2>Key Features</h2>\n<h3>Natural Language Processing</h3>\n<ul>\n<li><strong>9 Entity Types</strong>: STRAIN, SPECIES, ISOLATE, COMPOUND, MEDIUM, ORGANISM, PHENOTYPE, EFFECT, DISEASE</li>\n<li><strong>16 Relationship Types</strong>: Primarily STRAIN-centered relationships (e.g., STRAIN-PHENOTYPE:PRESENTS, STRAIN-COMPOUND:RESISTS)</li>\n<li><strong>BERT Models</strong>: Configurable base/large models with fine-tuning capabilities</li>\n<li><strong>PMC Corpus Pipeline</strong>: Automated PubMed Central corpus creation and processing</li>\n</ul>\n<h3>Genomic Analysis</h3>\n<ul>\n<li><strong>Automated Genome Download</strong>: Using NCBI datasets API</li>\n<li><strong>InterProScan Integration</strong>: Protein domain annotation</li>\n<li><strong>XGBoost Prediction</strong>: ML-based phenotype prediction from genomic features</li>\n<li><strong>Evolution Analysis</strong>: Selective pressure analysis on important domains</li>\n</ul>\n<h3>Pipeline Architecture</h3>\n<p>7 main Snakemake workflows executed in sequence:</p>\n<ol>\n<li><code>ner.smk</code> - NER model training</li>\n<li><code>rel.smk</code> - Relation extraction training</li>\n<li><code>ner_pred.smk</code> - NER prediction on corpus</li>\n<li><code>rel_pred.smk</code> - Relation extraction on corpus</li>\n<li><code>ip.smk</code> - Genome download and InterProScan annotation</li>\n<li><code>xgboost.smk</code> - Phenotype prediction</li>\n<li><code>evolution.smk</code> - Evolution analysis</li>\n</ol>\n<h2>Requirements</h2>\n<ul>\n<li>Python \u22653.8</li>\n<li>Snakemake \u22656.0</li>\n<li>CUDA-capable GPU (recommended for training)</li>\n<li>~50GB free disk space</li>\n<li>InterProScan \u22655.0</li>\n</ul>\n<h2>Installation</h2>\n<pre><code># Create environments\nmamba env create -f envs/nlp4pheno.yml\nmamba env create -f envs/pmc.yml\n\n# Activate main environment\nconda activate nlp4pheno\n</code></pre>\n<h2>Quick Start</h2>\n<p>See the <a href=\"README.md\">README.md</a> for detailed instructions on:</p>\n<ul>\n<li>Environment setup</li>\n<li>Data preparation</li>\n<li>Model training</li>\n<li>Prediction pipeline</li>\n<li>Genome analysis</li>\n</ul>\n<h2>Documentation</h2>\n<ul>\n<li><strong>README.md</strong>: Complete usage guide and pipeline documentation</li>\n<li><strong>config.yaml</strong>: Configuration parameters</li>\n<li><strong>notebooks/</strong>: Analysis notebooks including XGBoost results and evolution analysis</li>\n</ul>\n<h2>Citation</h2>\n<p>If you use this pipeline, please cite:</p>\n<pre><code>@article{nlp4pheno2024,\n  title={Integrating natural language processing and genome analysis enables accurate bacterial phenotype prediction},\n  journal={bioRxiv},\n  year={2024},\n  doi={10.1101/2024.12.07.627346},\n  url={https://doi.org/10.1101/2024.12.07.627346}\n}\n</code></pre>\n<h2>License</h2>\n<p>MIT License - See <a href=\"LICENSE\">LICENSE</a> file for details</p>\n<h2>Changes in v0.1.0</h2>\n<ul>\n<li>Updated README with corrected entity types (9 entities including EFFECT)</li>\n<li>Updated annotation file references</li>\n<li>Ensured consistency between documentation and configuration</li>\n<li>Complete pipeline implementation for manuscript reproduction</li>\n</ul>\n\n\n<p><strong>Full Changelog</strong>: Initial release v0.1.0</p>",
         "access_right": "open",
         "creators": [
           {
-            "name": "Vishnu Prasad G. T.",
-            "affiliation": "Dept of Biotechnology, College of Horticulture, Junagadh Agricultural University, Junagadh-362001, Gujarat, India"
-          },
-          {
-            "name": "Maliram Sharma",
-            "affiliation": "Dept of Genetics and Plant Breeding, College of Horticulture, University of Horticulture Sciences, Bagalkot 587104, Karnataka, India"
-          },
-          {
-            "name": "Abhishek",
-            "affiliation": "Dept of Genetics and Plant Breeding, College of Horticulture, University of Horticulture Sciences, Bagalkot 587104, Karnataka, India."
-          },
-          {
-            "name": "Ankit Verma",
-            "affiliation": "Dept of Biochemistry, College of Horticulture, Junagadh Agricultural University, Junagadh-362001, Gujarat, India."
+            "name": "danielzmbp",
+            "affiliation": null
           }
-        ],
-        "keywords": [
-          "CRISPR-Cas systems, computational biology, NCBI, EMBL-EBI, Phytozome."
-        ],
-        "references": [
-          "1.\tTan, Y. C., Kumar, A. U., Wong, Y. P., & Ling, A. P. K. (2022). Bioinformatics approaches and applications in plant biotechnology. Journal of Genetic Engineering and Biotechnology, 20(1), 106. 2.\tRhee, S. Y., Dickerson, J., & Xu, D. (2006). Bioinformatics and its applications in plant biology. Annu. Rev. Plant Biol., 57(1), 335-360. 3.\tChandra, N. (2009). Computational systems approach for drug target discovery. Expert opinion on drug discovery, 4(12), 1221-1236. 4.\tThriveni, V., Teotia, J., Hazra, S., Bharti, T., Kumar, M., Lallawmkimi, M. C., & Panwar, D. (2024). A Review on Integrating Bioinformatics Tools in Modern Plant Breeding. Arch. Curr. Res. Int., 24(9), 293-308. 5.\tTripathi, K. K. (2000). Bioinformatics: The foundation of present and future biotechnology. Current Science, 79(5), 570-575. 6.\tNizamani, M. M., Zhang, Q., Muhae-Ud-Din, G., & Wang, Y. (2023). High-throughput sequencing in plant disease management: a comprehensive review of benefits, challenges, and future perspectives. Phytopathology Research, 5(1), 1-17. 7.\tSatrio, R. D., Fendiyanto, M. H., & Miftahudin, M. (2024). Tools and techniques used at global scale through genomics, transcriptomics, proteomics, and metabolomics to investigate plant stress responses at the molecular level. In Molecular Dynamics of Plant Stress and its Management (pp. 555-607). Singapore: Springer Nature Singapore. 8.\tHiggs, P. G., & Attwood, T. K. (2013). Bioinformatics and molecular evolution. John Wiley & Sons. 9.\tBiswas, A., Kumari, A., Gaikwad, D. S., & Pandey, D. K. (2023). Revolutionizing biological science: The synergy of genomics in health, bioinformatics, agriculture, and artificial intelligence. OMICS: A Journal of Integrative Biology, 27(12), 550-569. 10.\tSingh, B. D., Singh, A. K., Singh, B. D., & Singh, A. K. (2015). Bioinformatics tools and databases for genomics research. Marker-Assisted Plant Breeding: Principles and Practices, 401-429. 11.\tGoodstein, D. M., Shu, S., Howson, R., Neupane, R., Hayes, R. D., Fazo, J., ... & Rokhsar, D. S. (2012). Phytozome: a comparative platform for green plant genomics. Nucleic acids research, 40(D1), D1178-D1186. 12.\tMulder, N., & Apweiler, R. (2007). InterPro and InterProScan: tools for protein sequence classification and comparison. Comparative genomics, 59-70. 13.\tChen, L., Zhang, Y. H., Wang, S., Zhang, Y., Huang, T., & Cai, Y. D. (2017). Prediction and analysis of essential genes using the enrichments of gene ontology and KEGG pathways. PloS one, 12(9), e0184129. 14.\tRaplee, I. D., Evsikov, A. V., & Mar\u00edn de Evsikova, C. (2019). Aligning the aligners: Comparison of rna sequencing data alignment and gene expression quantification tools for clinical breast cancer research. Journal of personalized medicine, 9(2), 18. 15.\tDong, Z., & Chen, Y. (2013). Transcriptomics: advances and approaches. Science China Life Sciences, 56, 960-967. 16.\tRajoria, S., Nissa, M. U., Suvarna, K., Khatri, H., & Srivastava, S. (2023). Multiomics data analysis workflow to assess severity in longitudinal plasma samples of COVID-19 patients. Data in Brief, 46, 108765. 17.\tPang, Z., Xu, L., Viau, C., Lu, Y., Salavati, R., Basu, N., & Xia, J. (2024). MetaboAnalystR 4.0: a unified LC-MS workflow for global metabolomics. Nature communications, 15(1), 3675. 18.\tDoncheva, N. T., Morris, J. H., Gorodkin, J., & Jensen, L. J. (2018). Cytoscape StringApp: network analysis and visualization of proteomics data. Journal of proteome research, 18(2), 623-632. 19.\tUlitsky, I. (2016). Evolution to the rescue: using comparative genomics to understand long non-coding RNAs. Nature Reviews Genetics, 17(10), 601-614. 20.\tMishra, A., Singh, P. K., Bhandawat, A., Sharma, V., Sharma, V., Singh, P., ... & Sharma, H. (2022). Analysis of SSR and SNP Markers. In Bioinformatics (pp. 131-144). Academic Press. 21.\tLiu, G., Zhang, Y., & Zhang, T. (2020). Computational approaches for effective CRISPR guide RNA design and evaluation. Computational and structural biotechnology journal, 18, 35-44. 22.\tSatrio, R. D., Fendiyanto, M. H., & Miftahudin, M. (2024). Tools and techniques used at global scale through genomics, transcriptomics, proteomics, and metabolomics to investigate plant stress responses at the molecular level. In Molecular Dynamics of Plant Stress and its Management (pp. 555-607). Singapore: Springer Nature Singapore. 23.\tCrossa, J., Montesinos-Lopez, O. A., Costa-Neto, G., Vitale, P., Martini, J. W., Runcie, D., ... & Ortiz, R. (2024). Machine learning algorithms translate big data into predictive breeding accuracy. Trends in Plant Science."
-        ],
-        "language": "eng",
-        "resource_type": {
-          "title": "Book chapter",
-          "type": "publication",
-          "subtype": "section"
-        },
-        "imprint": {
-          "place": "Pune, India",
-          "isbn": "978-93-49938-34-2"
-        },
-        "license": {
-          "id": "cc-by-4.0"
-        },
-        "relations": {
-          "version": [
-            {
-              "index": 0,
-              "is_last": true,
-              "parent": {
-                "pid_type": "recid",
-                "pid_value": "16995117"
-              }
-            }
-          ]
-        }
-      },
-      "title": "Bioinformatics in Plant Biotechnology",
-      "links": {
-        "self": "https://zenodo.org/api/records/16995118",
-        "self_html": "https://zenodo.org/records/16995118",
-        "preview_html": "https://zenodo.org/records/16995118?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16995118",
-        "self_doi": "https://doi.org/10.5281/zenodo.16995118",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16995118",
-        "reserve_doi": "https://zenodo.org/api/records/16995118/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16995117",
-        "parent_html": "https://zenodo.org/records/16995117",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16995117",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16995117",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16995118/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16995118/sequence/default",
-        "files": "https://zenodo.org/api/records/16995118/files",
-        "media_files": "https://zenodo.org/api/records/16995118/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:16995118:2.%20Vishnu%20prasad%20G.pdf/full/%5E10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:16995118:2.%20Vishnu%20prasad%20G.pdf/full/%5E50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:16995118:2.%20Vishnu%20prasad%20G.pdf/full/%5E100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:16995118:2.%20Vishnu%20prasad%20G.pdf/full/%5E250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:16995118:2.%20Vishnu%20prasad%20G.pdf/full/%5E750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:16995118:2.%20Vishnu%20prasad%20G.pdf/full/%5E1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/16995118/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16995118/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16995118/versions/latest",
-        "latest_html": "https://zenodo.org/records/16995118/latest",
-        "versions": "https://zenodo.org/api/records/16995118/versions",
-        "draft": "https://zenodo.org/api/records/16995118/draft",
-        "access_links": "https://zenodo.org/api/records/16995118/access/links",
-        "access_grants": "https://zenodo.org/api/records/16995118/access/grants",
-        "access_users": "https://zenodo.org/api/records/16995118/access/users",
-        "access_request": "https://zenodo.org/api/records/16995118/access/request",
-        "access": "https://zenodo.org/api/records/16995118/access",
-        "communities": "https://zenodo.org/api/records/16995118/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16995118/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16995118/requests"
-      },
-      "updated": "2025-08-29T15:09:37.964735+00:00",
-      "recid": "16995118",
-      "revision": 6,
-      "files": [
-        {
-          "id": "4872d7c4-971b-4fb7-999a-42455269f5ba",
-          "key": "2. Vishnu prasad G.pdf",
-          "size": 367301,
-          "checksum": "md5:235ce49d3ea300c4243fa6793980663d",
-          "links": {
-            "self": "https://zenodo.org/api/records/16995118/files/2. Vishnu prasad G.pdf/content"
-          }
-        }
-      ],
-      "swh": {},
-      "owners": [
-        {
-          "id": "409924"
-        }
-      ],
-      "status": "published",
-      "stats": {
-        "downloads": 25,
-        "unique_downloads": 20,
-        "views": 4,
-        "unique_views": 3,
-        "version_downloads": 25,
-        "version_unique_downloads": 20,
-        "version_unique_views": 3,
-        "version_views": 4
-      },
-      "state": "done",
-      "submitted": true
-    },
-    {
-      "created": "2025-08-29T07:30:09.648627+00:00",
-      "modified": "2025-08-29T07:30:10.283178+00:00",
-      "id": 16992040,
-      "conceptrecid": "16992039",
-      "doi": "10.3897/BDJ.13.e164756",
-      "doi_url": "https://doi.org/10.3897/BDJ.13.e164756",
-      "metadata": {
-        "title": "Anopheline mosquitoes of north-western Russia (Diptera, Culicidae): updated distribution and morphological characters",
-        "doi": "10.3897/BDJ.13.e164756",
-        "publication_date": "2025-08-27",
-        "description": "<p>Mosquitoes of the genus <i>Anopheles</i> were collected in the Republic of Karelia, St. Petersburg, Leningrad Region, Novgorod Region and Pskov Region (Russia) in order to clarify their distribution and genetic and morphological diversity. ITS2 sequence analysis of <i>An. maculipennis</i> s. l. (58 specimens) showed that they belonged to <i>An. beklemishevi</i>, <i>An. messeae</i>, <i>An. daciae</i> and <i>An. maculipennis</i> s. str. Taking into account our earlier data on <i>An. claviger</i>, this means that there are five <i>Anopheles</i> spp. in north-western Russia whose records are confirmed by molecular methods. We revealed <i>An. daciae</i> in Leningrad and Pskov Regions for the first time and confirmed its distribution in Karelia. <i>Anopheles beklemishevi</i> was found near the Arctic Circle in north-western Karelia. The study of morphology of the female heads of <i>An. daciae</i>, <i>An. messeae</i> and <i>An. beklemishevi</i> showed they may potentially be used for differentiation of these species.</p>",
-        "access_right": "open",
-        "creators": [
-          {
-            "name": "Aibulatov, Sergey",
-            "affiliation": "Institute of Biology of the Karelian Research Centre of the Russian Academy of Sciences, Petrozavodsk, Russia|Zoological Institute, Russian Academy of Sciences, St. Petersburg, Russia"
-          },
-          {
-            "name": "Lebedeva, Daria",
-            "affiliation": "Institute of Biology of the Karelian Research Centre of the Russian Academy of Sciences, Petrozavodsk, Russia"
-          },
-          {
-            "name": "Khalin, Alexei",
-            "affiliation": "Zoological Institute, Russian Academy of Sciences, St. Petersburg, Russia|Institute of Biology of the Karelian Research Centre of the Russian Academy of Sciences, Petrozavodsk, Russia"
-          },
-          {
-            "name": "Lyutikova, Natalia",
-            "affiliation": "Institute of Biology of the Karelian Research Centre of the Russian Academy of Sciences, Petrozavodsk, Russia"
-          },
-          {
-            "name": "Fedorov, Daniil",
-            "affiliation": "Zoological Institute, Russian Academy of Sciences, St. Petersburg, Russia"
-          },
-          {
-            "name": "Bespyatova, Liubov",
-            "affiliation": "Institute of Biology of the Karelian Research Centre of the Russian Academy of Sciences, Petrozavodsk, Russia"
-          },
-          {
-            "name": "Polevoi, Alexei",
-            "affiliation": "Forest Research Institute of the Karelian Research Centre of the Russian Academy of Sciences, Petrozavodsk, Russia"
-          },
-          {
-            "name": "Lunina, Gelena",
-            "affiliation": "Saint-Petersburg Pasteur Institute, St. Petersburg, Russia"
-          },
-          {
-            "name": "Bugmyrin, Sergey",
-            "affiliation": "Institute of Biology of the Karelian Research Centre of the Russian Academy of Sciences, Petrozavodsk, Russia"
-          }
-        ],
-        "keywords": [
-          "Anopheles maculipennis",
-          "morphometry",
-          "ITS2",
-          "palpomere",
-          "flagellomere"
         ],
         "related_identifiers": [
           {
-            "identifier": "10.3897/BDJ.13.e164756.figure6",
-            "relation": "hasPart",
-            "resource_type": "image-figure",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/BDJ.13.e164756.figure1",
-            "relation": "hasPart",
-            "resource_type": "image-figure",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/BDJ.13.e164756.figure3",
-            "relation": "hasPart",
-            "resource_type": "image-figure",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/BDJ.13.e164756.figure5",
-            "relation": "hasPart",
-            "resource_type": "image-figure",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/BDJ.13.e164756.figure4",
-            "relation": "hasPart",
-            "resource_type": "image-figure",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/BDJ.13.e164756.figure2",
-            "relation": "hasPart",
-            "resource_type": "image-figure",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/BDJ.13.e164756.suppl3",
-            "relation": "hasPart",
-            "resource_type": "other",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/BDJ.13.e164756.suppl1",
-            "relation": "hasPart",
-            "resource_type": "other",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3897/BDJ.13.e164756.suppl2",
-            "relation": "hasPart",
-            "resource_type": "other",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1186/s13071-018-2657-3",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3390/insects12090835",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1016/j.heliyon.2019.e02262",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1007/978-3-030-11623-1",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1016/j.meegid.2021.105034",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/mec.17127",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1016/j.ttbdis.2014.11.001",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.52707/1081-1710-46.1.65",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1038/s41598-021-85442-9",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1038/s41598-024-81767-3",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/mve.12272",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/mve.12475",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.16970/entoted.989659",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.5772/54695",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1079/ber2004321",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3390/d14080636",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1093/jmedent/23.1.68",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1007/s00436-005-1393-8",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1007/s00436-024-08268-0",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1134/s0013873821030040",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1134/s0013873821090013",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.31610/trudyzin/2024.328.1.139",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.11646/zootaxa.5094.2.3",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.18637/jss.v028.i05",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1093/molbev/msae263",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1017/S0022149X25100515",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/mve.12436",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1046/j.1365-3113.2003.00198.x",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1046/j.1365-2583.1999.00140.x",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1134/s1022795424700194",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3390/genes11020165",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1079/ber2004330",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/jvec.12215",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1186/1756-3305-7-389",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1134/s1022795412060105",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.4269/ajtmh.1991.45.271",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.52004/2054930x-20241010",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1017/s0031182000015511",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1051/parasite/1960354631",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1016/j.bse.2011.08.010",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1111/mve.12519",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1134/s0013873820090079",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1134/s0013873825010026",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1051/parasite/1982576649",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1134/s2079059712060159",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1007/978-0-387-21706-2",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1007/978-0-387-98141-3",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.1353/book.79680",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
-          },
-          {
-            "identifier": "10.3389/fmed.2023.1152070",
-            "relation": "cites",
-            "resource_type": "publication",
-            "scheme": "doi"
+            "identifier": "https://github.com/danielzmbp/NLP4Pheno/tree/v0.1.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
           }
         ],
-        "references": [
-          "Artemov G, Gordeev M, Kokhanenko A, Moskaev A, Velichevskaya A, Stegniy V, Sharakhov I, Sharakhova M (2018) A standard photomap of ovarian nurse cell chromosomes and inversion polymorphism in Anopheles beklemishevi. Parasites and Vectors 11: 211.  https://doi.org/10.1186/s13071-018-2657-3",
-          "Artemov G, Fedorova V, Karagodin D, Brusentsov I, Baricheva E, Sharakhov I, Gordeev M, Sharakhova M (2021) New cytogenetic photomap and molecular diagnostics for the cryptic species of the malaria mosquitoes Anopheles messeae and Anopheles daciae from Eurasia. Insects 12 (9): 835.  https://doi.org/10.3390/insects12090835",
-          "Asadi Saatlou Z, Sedaghat MM, Taghilou B, Gholizadeh S (2019) Identification of novel Glutathione S-Transferases epsilon 2 mutation in Anopheles maculipennis s.s. (Diptera: Culicidae). Heliyon 5 (8): e02262.  https://doi.org/10.1016/j.heliyon.2019.e02262",
-          "Bates M (1939) Variation in the antepalmate hairs of larvae of the Anopheles maculipennis complex. Rivista di Malariologia 18: 299\u2011312.",
-          "Becker N, Petri\u0107 D, Zgomba M, Boase C, Madon M, Dahl C, Kaiser A (2020) Mosquitoes: Identification, ecology and control. Springer Nature, Cham. https://doi.org/10.1007/978-3-030-11623-1",
-          "Bellin N, Calzolari M, Callegari E, Bonilauri P, Grisendi A, Dottori M, Rossi V (2021) Geometric morphometrics and machine learning as tools for the identification of sibling mosquito species of the Maculipennis complex (Anopheles). Infection, genetics and evolution 95: 105034.  https://doi.org/10.1016/j.meegid.2021.105034",
-          "Brusentsov II, Gordeev MI, Yurchenko AA, Karagodin DA, Moskaev AV, Hodge JM, Burlak VA, Artemov GN, Sibataev AK, Becker N, Sharakhov IV, Baricheva EM, Sharakhova MV (2023) Patterns of genetic differentiation imply distinct phylogeographic history of the mosquito species Anopheles messeae and Anopheles daciae in Eurasia. Molecular Ecology 32 (20): 5609\u20115625.  https://doi.org/10.1111/mec.17127",
-          "Bugmyrin S, Belova O, Ieshko E, Bespyatova L, Karganova G (2015) Morphological differentiation of Ixodes persulcatus and I. ricinus hybrid larvae in experiment and under natural condition. Ticks and Tick-borne Diseases 6 (2): 129\u2011133.  https://doi.org/10.1016/j.ttbdis.2014.11.001",
-          "Bu\u0161i\u0107 N, Ku\u010dini\u0107 M, Merdi\u0107 E, Bruvo-Ma\u0111ari\u0107 B (2021) Diversity of mosquito fauna (Diptera, Culicidae) in higher-altitude regions of Croatia. Journal of Vector Ecology 46 (1): 65\u201175.  https://doi.org/10.52707/1081-1710-46.1.65",
-          "Calzolari M, Desiato R, Albieri A, Bellavia V, Bertola M, Bonilauri P, Callegari E, Canziani S, Lelli D, Mosca A, Mulatti P, Peletto S, Ravagnan S, Roberto P, Torri D, Pombi M, Di Luca M, Montarsi F (2021) Mosquitoes of the Maculipennis complex in Northern Italy. Scientific Reports 11 (1): 6421.  https://doi.org/10.1038/s41598-021-85442-9",
-          "Calzolari M, Bellin N, Dottori M, Torri D, Di Luca M, Rossi V, Magoga G, Montagna M (2024) Integrated taxonomy to advance species delimitation of the Anopheles maculipennis complex. Scientific Reports 14 (1): 30914.  https://doi.org/10.1038/s41598-024-81767-3",
-          "Culverwell CL (2018) A report on the mosquitoes of mainland \u00c5land, southwestern Finland and revised list of Finnish mosquitoes. Medical and Veterinary Entomology 32 (2): 145\u2011154.  https://doi.org/10.1111/mve.12272",
-          "Culverwell CL, Uusitalo RJ, Korhonen EM, Vapalahti OP, Huhtamo E, Harbach RE (2021) The mosquitoes of Finland: updated distributions and bionomics. Medical and Veterinary Entomology 35 (1): 1\u201129.  https://doi.org/10.1111/mve.12475",
-          "Darsie R, Samanidou-Voysdjoglou A (1997) Keys for the identification of the mosquitoes of Grees. Journal of the American Mosquito Control Association 13: 247\u201125.",
-          "Demipci B (2021) Size and shape variations in wing morphology of Anopheles maculipennis s.s. Meigen, 1818 (Diptera: Culicidae) from northeastern Turkey. Turkish Journal of Entomology 45 (4): 499\u2011510.  https://doi.org/10.16970/entoted.989659",
-          "Denisova Z (1940) Variability of hypopygium Anopheles maculipennis messae Fall. in the population of Marbumstroi (Mari ASSR). Voprosy Fiziologii i Ekologii Malyarjinogo Komara. 1. 113\u2013119 pp. [In Russian].",
-          "DNA Baser (2013) Automatic DNA Sequence Assembler. Ver. 3. URL: http://www.dnabaser.com/",
-          "Fox J, Weisberg S (2019) An R companion to applied regression. Third edition. Thousand Oaks CA, Sage. URL: https://www.john-fox.ca/Companion/",
-          "Gutsevich A (1972) Determination of mosquitoes females by microscopic preparations of the head. I. Taxonomic characters and characteristic of the genera. Parazitologiya 6: 320\u2011325. [In Russian].",
-          "Gutsevich A (1973a) Determination of mosquitoes females by microscopic preparations of the head. II. A key to genera and subgenera. Parazitologiya 7: 106\u2011110. [In Russian].",
-          "Gutsevich A (1973b) Determination of mosquitoes females by microscopic preparations of the head. III. A key to species (excluding Aedes). Parazitologiya 7: 443\u2011449. [In Russian].",
-          "Hammer \u00d8, Harper D, Ryan P (2001) Past: paleontological statistics software package for education and data analysis. Palaeontologia Electronica 4: 1\u20119.  URL: http://palaeo-electronica.org/2001_1/past/issue1_01.htm",
-          "Harbach R (2013) The phylogeny and classification of Anopheles. Anopheles mosquitoes - New insights into malaria vectors https://doi.org/10.5772/54695",
-          "Harbach R (Ed.) (2025) Mosquito Taxonomic Inventory.  https://mosquito-taxonomic-inventory.myspecies.info/. Accessed on: 2025-6-27.",
-          "Harbach RE (2004) The classification of genus Anopheles (Diptera: Culicidae): a working hypothesis of phylogenetic relationships. Bulletin of entomological research 94 (6): 537\u201153.  https://doi.org/10.1079/ber2004321",
-          "Ib\u00e1\u00f1ez-Justicia A, Smitz N, Blom R, Vanderheyden A, Jacobs F, Meganck K, Gombeer S, Backeljau T, Koenraadt CM, Griep JS, De Meyer M, Stroo A (2022) Anopheles maculipennis complex in the Netherlands: First record of Anopheles daciae (Diptera: Culicidae). Diversity 14 (8): 636.  https://doi.org/10.3390/d14080636",
-          "Isachenko A, Dashkevich Z, Karnaukhova E (1965) Physiographic Regionalization of the Northwestern Region of the USSR. Leningrad University, 248 pp. [In Russian].",
-          "Jaenson TT, Lokki J, Saura A (1986) Anopheles (Diptera: Culicidae) and malaria in Northern Europe, with special reference to Sweden. Journal of Medical Entomology 23 (1): 68\u201175.  https://doi.org/10.1093/jmedent/23.1.68",
-          "Kampen H (2005) The ITS2 ribosomal DNA of Anopheles beklemishevi and further remarks on the phylogenetic relationships within the Anopheles maculipennis group of species (Diptera: Culicidae). Parasitology Research 97 (2): 118\u2011128.  https://doi.org/10.1007/s00436-005-1393-8",
-          "Khalin A, Lebedeva D, Kocherova N, Aibulatov S, Bespyatova L, Bugmyrin S (2024) First record of Anopheles claviger (Meigen, 1804) (Diptera, Culicidae) in Karelia, Northwestern Russia. Parasitology Research 123 (6): 251.  https://doi.org/10.1007/s00436-024-08268-0",
-          "Khalin AV, Aibulatov SV, Filonenko IV (2021a) Mosquito distribution in Northwestern Russia: species of the genera Anopheles Meigen, Coquillettidia Dyar, Culex L., and Culiseta Felt (Diptera, Culicidae). Entomological Review 101 (3): 308\u2011330.  https://doi.org/10.1134/s0013873821030040",
-          "Khalin AV, Aibulatov SV, Przhiboro AA (2021b) Sampling techniques for bloodsucking dipterans (Diptera: Culicidae, Simuliidae, Ceratopogonidae, Tabanidae). Entomological Review 101 (9): 1219\u20111243.  https://doi.org/10.1134/s0013873821090013",
-          "Khalin AV, Aibulatov SV (2024) Preparation techniques for the mosquitoes and the blackflies (Diptera: Culicidae: Simuliidae). Proceedings of the Zoological Institute RAS 328 (1): 139\u2011164.  https://doi.org/10.31610/trudyzin/2024.328.1.139",
-          "Kirik H, Tummeleht L, Kurina O (2022) Rediscovering the mosquito fauna (Diptera: Culicidae) of Estonia: an annotated checklist with distribution maps and DNA evidence. Zootaxa 5094 (2): 261\u2011287.  https://doi.org/10.11646/zootaxa.5094.2.3",
-          "Korosov AV, Gorbach VV (2017) Komp'yuternaya obrabotka biologicheskikh dannykh. [Computer processing of biological data]. PetrSU, Petrozavodsk, 97 pp. [In Russian]. [ISBN 978-5-8021-3111-4]",
-          "Kuhn M (2008) Building predictive models in R using the caret package. Journal of Statistical Software 28 (5).  https://doi.org/10.18637/jss.v028.i05",
-          "Kumar S, Stecher G, Suleski M, Sanderford M, Sharma S, Tamura K (2024) MEGA12: Molecular Evolutionary Genetic Analysis version 12 for adaptive and green computing. Molecular Biology and Evolution 41 (12): 1\u20119.  https://doi.org/10.1093/molbev/msae263",
-          "Lebedeva D, Bugmyrin S, Zaitsev. D, Ieshko E (2025) Metacercariae of Diplostomum spp. from eyes of the Bullhead Cottus koshewnikowi Gratzianov, 1907 from the northern European watershed. Journal of Helminthology 99: e81.  https://doi.org/10.1017/S0022149X25100515",
-          "Lilja T, Ekl\u00f6f D, Jaenson TGT, Lindstr\u00f6m A, Terenius O (2020) Single nucleotide polymorphism analysis of the ITS2 region of two sympatric malaria mosquito species in Sweden: Anopheles daciae and Anopheles messeae. Medical and Veterinary Entomology 34 (3): 364\u2011368.  https://doi.org/10.1111/mve.12436",
-          "Linton Y, Smith L, Koliopoulos G, Samanidou\u2010Voyadjoglou A, Zounos A, Harbach R (2003) Morphological and molecular characterization of Anopheles (Anopheles) maculipennis Meigen, type species of the genus and nominotypical member of the Maculipennis Complex. Systematic Entomology 28 (1): 39\u201156.  https://doi.org/10.1046/j.1365-3113.2003.00198.x",
-          "Linton Y, Lee A, Curtis C (2005) Discovery of a third member of the Maculipennis group in SW England. European Mosquito Bulletin 19: 5\u20118.",
-          "Marinucci M, Romi R, Mancini P, Luca MD, Severini C (1999) Phylogenetic relationships of seven palearctic members of the maculipennis complex inferred from ITS2 sequence analysis. Insect Molecular Biology 8 (4): 469\u2011480.  https://doi.org/10.1046/j.1365-2583.1999.00140.x",
-          "Martini E (1933) The hypopygia of certain Anopheles (Diptera Culicidae). Proceedings of the Entomological Society of Washington 35: 61\u201167.",
-          "Moskaev AV, Bega AG, Panov VI, Perevozkin VP, Gordeev MI (2024) Chromosomal polymorphism of malaria mosquitoes of Karelia and expansion of Northern boundaries of species ranges. Russian Journal of Genetics 60 (6): 754\u2011762.  https://doi.org/10.1134/s1022795424700194",
-          "Naumenko A, Karagodin D, Yurchenko A, Moskaev A, Martin O, Baricheva E, Sharakhov I, Gordeev M, Sharakhova M (2020) Chromosome and genome divergence between the cryptic Eurasian malaria vector-species Anopheles messeae and Anopheles daciae. Genes 11 (2): 165.  https://doi.org/10.3390/genes11020165",
-          "NCBI BLASTn (1990)  www.ncbi.nih.gov/BLAST. Accessed on: 2025-6-28.",
-          "Nicolescu G, Linton Y-M, Vladimirescu A, Howard TM, Harbach RE (2007) Mosquitoes of the Anopheles maculipennis group (Diptera: Culicidae) in Romania, with the discovery and formal recognition of a new species based on molecular and morphological evidence. Bulletin of Entomological Research 94 (6): 525\u2011535.  https://doi.org/10.1079/ber2004330",
-          "Novikov Y (2016) On the ecology and range of Anopheles beklemishevi (Diptera: Culicidae) with reference to the taxonomy of An. lewisi. Journal of Vector Ecology 41 (2): 204\u2011214.  https://doi.org/10.1111/jvec.12215",
-          "Novikov YM, Vaulin OV (2014) Expansion of Anopheles maculipennis s.s. (Diptera: Culicidae) to northeastern Europe and northwestern Asia: Causes and Consequences. Parasites & Vectors 7 (1).  https://doi.org/10.1186/1756-3305-7-389",
-          "Perevozkin VP, Gordeev MI, Moskaev AV, Ahmetova NM, Bondarchuk SS (2012) Inversion polymorphism and ecological specialization of malaria mosquitoes (Diptera, Culicidae) in Karelia. Russian Journal of Genetics 48 (7): 679\u2011683.  https://doi.org/10.1134/s1022795412060105",
-          "Porter C, Collins F (1991) Species-diagnostic differences in a ribosomal DNA internal transcribed spacer from the sibling species Anopheles freeborni and Anopheles hermsi (Diptera: Culicidae). The American Journal of Tropical Medicine and Hygiene 45 (2): 271\u2011279.  https://doi.org/10.4269/ajtmh.1991.45.271",
-          "Rambaut A (2012) FigTree v. 1.4. Molecular evolution, phylogenetics and epidemiology. URL: https://github.com/rambaut/figtree/releases",
-          "R Core Team (2024) R: A language and environment for statistical computing. R Foundation for Statistical Computing. 4.4.2.",
-          "Schaffner F, Kwa\u015bnik M, Myczko \u0141, Ro\u017cek W, Eritja R, Lippert S, Weigand A, Werner D, Kampen H, Rudolf I, \u0160ikutov\u00e1 S, \u010cabanov\u00e1 V, Wint GR, Leszczy\u0144ska J (2024) A survey targeting exotic Aedes mosquito species in Central Europe, summer 2023, reveals the extensive occurrence of Aedes japonicus in Poland. Journal of the European Mosquito Control Association1\u201115.  https://doi.org/10.52004/2054930x-20241010",
-          "Shabanova Y, Sibataev A (2007) Variability in the claspet morphology of the hypopygium of male malaria mosquitoes of the Anopheles maculipennis complex. Vestnik Tomskogo Gosudarstvennogo Universiteta 300: 252\u2011257. [In Russian].",
-          "Shorthouse (2010) SimpleMappr, an online tool to produce publication-quality point maps.  https://www.simplemappr.net. Accessed on: 2025-4-01.",
-          "Shute PG (1935) The value of the external spine of the harpago in identifying varieties of Anopheles maculipennis. Parasitology 27 (4): 561\u2011563.  https://doi.org/10.1017/s0031182000015511",
-          "Sibataev A, Shabanova Y (2007) Malaria mosquitoes of the Republic of Kyrgyzstan. Vestnik Tomskogo Gosudarstvennogo Universiteta 296: 227\u2011231. [In Russian].",
-          "Sicart M, Ruffie J (1960) Etude sur les nymphes des culicines du sous-bassin Aquitain. Annales de Parasitologie Humaine et Compar\u00e9e 35: 631\u2011647. [In French]. https://doi.org/10.1051/parasite/1960354631",
-          "Simsek FM, Ulger C, Akiner MM, Tuncay SS, Kiremit F, Bardakci F (2011) Molecular identification and distribution of Anopheles maculipennis complex in the Mediterranean region of Turkey. Biochemical Systematics and Ecology 39: 258\u2011265.  https://doi.org/10.1016/j.bse.2011.08.010",
-          "Smitz N, De Wolf K, Gheysen A, Deblauwe I, Vanslembrouck A, Meganck K, De Witte J, Schneider A, Verl\u00e9 I, Dekoninck W, Gombeer S, Vanderheyden A, De Meyer M, Backeljau T, M\u00fcller R, Van Bortel W (2021) DNA identification of species of the Anopheles maculipennis complex and first record of An. daciae in Belgium. Medical and Veterinary Entomology 35 (3): 442\u2011450.  https://doi.org/10.1111/mve.12519",
-          "Stegniy V (1991) Population genetics and evolution of malaria mosquitoes. Tomsk State University Publisher, 137 pp. [In Russian].",
-          "Suslo DS (2020) The Mosquito Fauna (Diptera, Culicidae) of Belarus. Entomological Review 100 (9): 1272\u20111285.  https://doi.org/10.1134/s0013873820090079",
-          "Suslo DS, Khalin AV (2025) Mosquitoes (Diptera, Culicidae) of the Republic of Belarus. Entomological Review 105 (1): 6\u201144.  https://doi.org/10.1134/s0013873825010026",
-          "Suzzoni-Blatger J, Sevin A (1982) \u00c9tude de la ch\u00e9totaxie larvaire du complexe maculipennis (Diptera-Culicidae) dans la r\u00e9gion toulousaine. Annales de Parasitologie Humaine et Compar\u00e9e 57 (6): 640\u2011654. [In French]. https://doi.org/10.1051/parasite/1982576649",
-          "Vaulin OV, Novikov YM (2012) Polymorphism and interspecific variability of cytochrome oxidase subunit I (COI) gene nucleotide sequence in sibling species of A and B Anopheles messeae and An. beklemishevi (Diptera: Culicidae). Russian Journal of Genetics: Applied Research 2 (6): 421\u2011429.  https://doi.org/10.1134/s2079059712060159",
-          "Venables W, Ripley B (2002) Modern Applied Statistics with S. Foufth Edition. Springer, New York, XII, 498 pp. [ISBN 978-0-387-95457-8] https://doi.org/10.1007/978-0-387-21706-2",
-          "Wickham H (2016) ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag, New York. https://doi.org/10.1007/978-0-387-98141-3",
-          "Wilkerson R, Linton Y, Strickman D (2021) Mosquitoes of the World. Baltimore: Johns Hopkins University Press https://doi.org/10.1353/book.79680",
-          "Wilkman L, Ahlm C, Evander M, Lwande OW (2023) Mosquito-borne viruses causing human disease in Fennoscandia \u2014 Past, current, and future perspectives. Frontiers in Medicine 10 https://doi.org/10.3389/fmed.2023.1152070"
-        ],
-        "resource_type": {
-          "title": "Journal article",
-          "type": "publication",
-          "subtype": "article"
+        "version": "v0.1.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/danielzmbp/NLP4Pheno"
         },
-        "journal": {
-          "issue": "",
-          "pages": "e164756",
-          "title": "Biodiversity Data Journal",
-          "volume": "13"
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
         },
         "license": {
-          "id": "cc-by-4.0"
+          "id": "mit-license"
         },
-        "communities": [
-          {
-            "id": "biosyslit"
-          }
-        ],
         "relations": {
           "version": [
             {
@@ -1700,153 +997,105 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "16992039"
+                "pid_value": "17473326"
               }
             }
           ]
         }
       },
-      "title": "Anopheline mosquitoes of north-western Russia (Diptera, Culicidae): updated distribution and morphological characters",
+      "title": "danielzmbp/NLP4Pheno: v0.1.0 - Accepted Manuscript Release",
       "links": {
-        "self": "https://zenodo.org/api/records/16992040",
-        "self_html": "https://zenodo.org/records/16992040",
-        "preview_html": "https://zenodo.org/records/16992040?preview=1",
-        "doi": "https://doi.org/10.3897/BDJ.13.e164756",
-        "self_doi": "https://doi.org/10.3897/BDJ.13.e164756",
-        "self_doi_html": "https://zenodo.org/doi/10.3897/BDJ.13.e164756",
-        "reserve_doi": "https://zenodo.org/api/records/16992040/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16992039",
-        "parent_html": "https://zenodo.org/records/16992039",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16992040/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16992040/sequence/default",
-        "files": "https://zenodo.org/api/records/16992040/files",
-        "media_files": "https://zenodo.org/api/records/16992040/media-files",
-        "thumbnails": {
-          "10": "https://zenodo.org/api/iiif/record:16992040:BDJ_article_164756.pdf/full/%5E10,/0/default.jpg",
-          "50": "https://zenodo.org/api/iiif/record:16992040:BDJ_article_164756.pdf/full/%5E50,/0/default.jpg",
-          "100": "https://zenodo.org/api/iiif/record:16992040:BDJ_article_164756.pdf/full/%5E100,/0/default.jpg",
-          "250": "https://zenodo.org/api/iiif/record:16992040:BDJ_article_164756.pdf/full/%5E250,/0/default.jpg",
-          "750": "https://zenodo.org/api/iiif/record:16992040:BDJ_article_164756.pdf/full/%5E750,/0/default.jpg",
-          "1200": "https://zenodo.org/api/iiif/record:16992040:BDJ_article_164756.pdf/full/%5E1200,/0/default.jpg"
-        },
-        "archive": "https://zenodo.org/api/records/16992040/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16992040/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16992040/versions/latest",
-        "latest_html": "https://zenodo.org/records/16992040/latest",
-        "versions": "https://zenodo.org/api/records/16992040/versions",
-        "draft": "https://zenodo.org/api/records/16992040/draft",
-        "access_links": "https://zenodo.org/api/records/16992040/access/links",
-        "access_grants": "https://zenodo.org/api/records/16992040/access/grants",
-        "access_users": "https://zenodo.org/api/records/16992040/access/users",
-        "access_request": "https://zenodo.org/api/records/16992040/access/request",
-        "access": "https://zenodo.org/api/records/16992040/access",
-        "communities": "https://zenodo.org/api/records/16992040/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16992040/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16992040/requests"
+        "self": "https://zenodo.org/api/records/17473327",
+        "self_html": "https://zenodo.org/records/17473327",
+        "preview_html": "https://zenodo.org/records/17473327?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17473327",
+        "self_doi": "https://doi.org/10.5281/zenodo.17473327",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17473327",
+        "reserve_doi": "https://zenodo.org/api/records/17473327/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17473326",
+        "parent_html": "https://zenodo.org/records/17473326",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17473326",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17473326",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17473327/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17473327/sequence/default",
+        "files": "https://zenodo.org/api/records/17473327/files",
+        "media_files": "https://zenodo.org/api/records/17473327/media-files",
+        "archive": "https://zenodo.org/api/records/17473327/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17473327/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17473327/versions/latest",
+        "latest_html": "https://zenodo.org/records/17473327/latest",
+        "versions": "https://zenodo.org/api/records/17473327/versions",
+        "draft": "https://zenodo.org/api/records/17473327/draft",
+        "access_links": "https://zenodo.org/api/records/17473327/access/links",
+        "access_grants": "https://zenodo.org/api/records/17473327/access/grants",
+        "access_users": "https://zenodo.org/api/records/17473327/access/users",
+        "access_request": "https://zenodo.org/api/records/17473327/access/request",
+        "access": "https://zenodo.org/api/records/17473327/access",
+        "communities": "https://zenodo.org/api/records/17473327/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17473327/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17473327/request-deletion",
+        "requests": "https://zenodo.org/api/records/17473327/requests"
       },
-      "updated": "2025-08-29T07:30:10.283178+00:00",
-      "recid": "16992040",
-      "revision": 5,
+      "updated": "2025-10-29T10:10:04.616794+00:00",
+      "recid": "17473327",
+      "revision": 4,
       "files": [
         {
-          "id": "30aa8c5a-798d-4e29-9598-e2468cf16751",
-          "key": "BDJ_article_164756.pdf",
-          "size": 1093835,
-          "checksum": "md5:5a4cfd44026da7f649c9087f5e6fcde5",
+          "id": "3a6edeef-fded-4d0a-9b91-b0855387d7dc",
+          "key": "danielzmbp/NLP4Pheno-v0.1.0.zip",
+          "size": 11640548,
+          "checksum": "md5:2eb3949490870741c6a3e00b35bafa32",
           "links": {
-            "self": "https://zenodo.org/api/records/16992040/files/BDJ_article_164756.pdf/content"
+            "self": "https://zenodo.org/api/records/17473327/files/danielzmbp/NLP4Pheno-v0.1.0.zip/content"
           }
         }
       ],
-      "swh": {},
+      "swh": {
+        "swhid": "swh:1:dir:dcaae33029054f781fee6a86c9c5ef771c7b7140;origin=https://doi.org/10.5281/zenodo.17473326;visit=swh:1:snp:2e62cc302d31315cc7996373821ba2d7021fcf1d;anchor=swh:1:rel:94f4c7e323ab6e465e1866b84f05a2576099b804;path=danielzmbp-NLP4Pheno-0864d5f"
+      },
       "owners": [
         {
-          "id": "1161"
+          "id": "81161"
         }
       ],
       "status": "published",
       "stats": {
         "downloads": 0,
         "unique_downloads": 0,
-        "views": 0,
-        "unique_views": 0,
+        "views": 5,
+        "unique_views": 2,
         "version_downloads": 0,
         "version_unique_downloads": 0,
-        "version_unique_views": 0,
-        "version_views": 0
+        "version_unique_views": 2,
+        "version_views": 5
       },
       "state": "done",
       "submitted": true
     },
     {
-      "created": "2025-08-29T01:31:48.368282+00:00",
-      "modified": "2025-08-29T01:31:48.575310+00:00",
-      "id": 16956127,
-      "conceptrecid": "16956046",
-      "doi": "10.5281/zenodo.16956127",
-      "conceptdoi": "10.5281/zenodo.16956046",
-      "doi_url": "https://doi.org/10.5281/zenodo.16956127",
+      "created": "2025-10-29T04:08:34.895763+00:00",
+      "modified": "2025-10-29T04:08:35.095843+00:00",
+      "id": 17470351,
+      "conceptrecid": "15486280",
+      "doi": "10.5281/zenodo.17470351",
+      "conceptdoi": "10.5281/zenodo.15486280",
+      "doi_url": "https://doi.org/10.5281/zenodo.17470351",
       "metadata": {
-        "title": "The 347 curated chemolithoautotrophs genome list.",
-        "doi": "10.5281/zenodo.16956127",
-        "publication_date": "2025-08-29",
-        "description": "<p>The curated list contains 359 chemolithoautotrophic genomes, of which 347 were used for benchmarking AutoFixMark against the other two tools, as described in the AutoFixMark paper. The protein sequence FASTA files of these 347 genomes, obtained from NCBI RefSeq and INSDC, are also provided.</p>",
+        "title": "The NCBI and GASR isoforms and putative gene-CREs linkages during sex reversal for M. albus",
+        "doi": "10.5281/zenodo.17470351",
+        "publication_date": "2025",
         "access_right": "open",
         "creators": [
           {
-            "name": "Kawashima, Shuichi",
+            "name": "li, yangyang",
             "affiliation": null
-          },
-          {
-            "name": "Okabeppu, Yoko",
-            "affiliation": null
-          },
-          {
-            "name": "Miyazawa, Seiha",
-            "affiliation": null
-          },
-          {
-            "name": "Ichikawa, Natsuko",
-            "affiliation": null
-          },
-          {
-            "name": "Nagazumi, Hikaru",
-            "affiliation": null
-          },
-          {
-            "name": "Nishihara, Yutaka",
-            "affiliation": null
-          },
-          {
-            "name": "Nakazato, Takeru",
-            "affiliation": null
-          },
-          {
-            "name": "Goto, Susumu",
-            "affiliation": null
-          },
-          {
-            "name": "Ishii, Masaharu",
-            "affiliation": null
-          },
-          {
-            "name": "Kurokawa, Ken",
-            "affiliation": null
-          },
-          {
-            "name": "Mori, Hiroshi",
-            "affiliation": "National Institute of Genetics",
-            "orcid": "0000-0003-0806-7704"
           }
         ],
         "dates": [
           {
-            "type": "submitted",
-            "description": "File uploaded"
+            "type": "other"
           }
         ],
-        "version": "1.0",
-        "language": "eng",
         "resource_type": {
           "title": "Dataset",
           "type": "dataset"
@@ -1861,83 +1110,260 @@
               "is_last": true,
               "parent": {
                 "pid_type": "recid",
-                "pid_value": "16956046"
+                "pid_value": "15486280"
               }
             }
           ]
         }
       },
-      "title": "The 347 curated chemolithoautotrophs genome list.",
+      "title": "The NCBI and GASR isoforms and putative gene-CREs linkages during sex reversal for M. albus",
       "links": {
-        "self": "https://zenodo.org/api/records/16956127",
-        "self_html": "https://zenodo.org/records/16956127",
-        "preview_html": "https://zenodo.org/records/16956127?preview=1",
-        "doi": "https://doi.org/10.5281/zenodo.16956127",
-        "self_doi": "https://doi.org/10.5281/zenodo.16956127",
-        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16956127",
-        "reserve_doi": "https://zenodo.org/api/records/16956127/draft/pids/doi",
-        "parent": "https://zenodo.org/api/records/16956046",
-        "parent_html": "https://zenodo.org/records/16956046",
-        "parent_doi": "https://doi.org/10.5281/zenodo.16956046",
-        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16956046",
-        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16956127/manifest",
-        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16956127/sequence/default",
-        "files": "https://zenodo.org/api/records/16956127/files",
-        "media_files": "https://zenodo.org/api/records/16956127/media-files",
-        "archive": "https://zenodo.org/api/records/16956127/files-archive",
-        "archive_media": "https://zenodo.org/api/records/16956127/media-files-archive",
-        "latest": "https://zenodo.org/api/records/16956127/versions/latest",
-        "latest_html": "https://zenodo.org/records/16956127/latest",
-        "versions": "https://zenodo.org/api/records/16956127/versions",
-        "draft": "https://zenodo.org/api/records/16956127/draft",
-        "access_links": "https://zenodo.org/api/records/16956127/access/links",
-        "access_grants": "https://zenodo.org/api/records/16956127/access/grants",
-        "access_users": "https://zenodo.org/api/records/16956127/access/users",
-        "access_request": "https://zenodo.org/api/records/16956127/access/request",
-        "access": "https://zenodo.org/api/records/16956127/access",
-        "communities": "https://zenodo.org/api/records/16956127/communities",
-        "communities-suggestions": "https://zenodo.org/api/records/16956127/communities-suggestions",
-        "requests": "https://zenodo.org/api/records/16956127/requests"
+        "self": "https://zenodo.org/api/records/17470351",
+        "self_html": "https://zenodo.org/records/17470351",
+        "preview_html": "https://zenodo.org/records/17470351?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17470351",
+        "self_doi": "https://doi.org/10.5281/zenodo.17470351",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17470351",
+        "reserve_doi": "https://zenodo.org/api/records/17470351/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/15486280",
+        "parent_html": "https://zenodo.org/records/15486280",
+        "parent_doi": "https://doi.org/10.5281/zenodo.15486280",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15486280",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17470351/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17470351/sequence/default",
+        "files": "https://zenodo.org/api/records/17470351/files",
+        "media_files": "https://zenodo.org/api/records/17470351/media-files",
+        "archive": "https://zenodo.org/api/records/17470351/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17470351/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17470351/versions/latest",
+        "latest_html": "https://zenodo.org/records/17470351/latest",
+        "versions": "https://zenodo.org/api/records/17470351/versions",
+        "draft": "https://zenodo.org/api/records/17470351/draft",
+        "access_links": "https://zenodo.org/api/records/17470351/access/links",
+        "access_grants": "https://zenodo.org/api/records/17470351/access/grants",
+        "access_users": "https://zenodo.org/api/records/17470351/access/users",
+        "access_request": "https://zenodo.org/api/records/17470351/access/request",
+        "access": "https://zenodo.org/api/records/17470351/access",
+        "communities": "https://zenodo.org/api/records/17470351/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17470351/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17470351/request-deletion",
+        "requests": "https://zenodo.org/api/records/17470351/requests"
       },
-      "updated": "2025-08-29T01:31:48.575310+00:00",
-      "recid": "16956127",
+      "updated": "2025-10-29T04:08:35.095843+00:00",
+      "recid": "17470351",
       "revision": 4,
       "files": [
         {
-          "id": "1469fffc-80bd-45d7-8921-fb7fa92bf2ca",
-          "key": "347CuratedChemolithoautotrophsGenomeList.xlsx",
-          "size": 34001,
-          "checksum": "md5:4da84628b68be627a7109b5737f4fff1",
+          "id": "df805116-f269-4c78-9416-97aeabdefd88",
+          "key": "ncbi.gtf",
+          "size": 141931624,
+          "checksum": "md5:94cb7ced10e51bc80d868354581c2eee",
           "links": {
-            "self": "https://zenodo.org/api/records/16956127/files/347CuratedChemolithoautotrophsGenomeList.xlsx/content"
+            "self": "https://zenodo.org/api/records/17470351/files/ncbi.gtf/content"
           }
         },
         {
-          "id": "4f8a2958-94e9-4c34-941d-a8245a697b7c",
-          "key": "347CuratedChemolithoautotrophsGenomesProteinFASTA.tar.gz",
-          "size": 222706754,
-          "checksum": "md5:b1852ccc78c9e51a9665e169f8e312f5",
+          "id": "2bfe06a5-8a4b-40ca-831f-86a17c786e49",
+          "key": "gasr.gtf",
+          "size": 271524553,
+          "checksum": "md5:25bc1b70b5cff970a8558b507b9681b2",
           "links": {
-            "self": "https://zenodo.org/api/records/16956127/files/347CuratedChemolithoautotrophsGenomesProteinFASTA.tar.gz/content"
+            "self": "https://zenodo.org/api/records/17470351/files/gasr.gtf/content"
+          }
+        },
+        {
+          "id": "b538617f-7869-4a8e-802d-2775ad01330b",
+          "key": "TableS1.xlsx",
+          "size": 83396,
+          "checksum": "md5:e25efd85a97358a7d8b65b74a54a1d01",
+          "links": {
+            "self": "https://zenodo.org/api/records/17470351/files/TableS1.xlsx/content"
           }
         }
       ],
-      "swh": {},
+      "swh": null,
       "owners": [
         {
-          "id": "1395197"
+          "id": "1325568"
         }
       ],
       "status": "published",
       "stats": {
-        "downloads": 1,
-        "unique_downloads": 1,
-        "views": 23,
-        "unique_views": 17,
-        "version_downloads": 0,
-        "version_unique_downloads": 0,
-        "version_unique_views": 9,
-        "version_views": 11
+        "downloads": 2,
+        "unique_downloads": 2,
+        "views": 33,
+        "unique_views": 21,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 6,
+        "version_views": 10
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-28T20:08:56.134909+00:00",
+      "modified": "2025-10-28T20:08:56.363569+00:00",
+      "id": 17468704,
+      "conceptrecid": "7586916",
+      "doi": "10.5281/zenodo.17468704",
+      "conceptdoi": "10.5281/zenodo.7586916",
+      "doi_url": "https://doi.org/10.5281/zenodo.17468704",
+      "metadata": {
+        "title": "Metagenome-assembled genomes from Stordalen Mire, Sweden (MAGs v2)",
+        "doi": "10.5281/zenodo.17468704",
+        "publication_date": "2025-10-28",
+        "description": "<p><strong>This release (MAGs v2) is a major new version of this metagenome-assembled genome (MAG) set.</strong> All previous releases on this page (which only differ in the metadata) are designated \"MAGs v1.\" The current release (MAGs v2) uses<strong>&nbsp;</strong>CheckM2 v1.0.2 filtering (&ge;70% completeness, &le;10% contamination) to expand this dataset to include <strong>36,419 MAGs</strong>, with the following subcategories:</p>\n<ul>\n<li>Cronin_v1:&nbsp; Manually-curated subset of the \"Field\" category from MAGs v1.</li>\n<li>Cronin_v2:&nbsp; MAGs from raw bin filtering on the same assemblies used to generate Cronin_v1.</li>\n<li>Woodcroft_v2:&nbsp; MAGs from raw bin filtering on the same assemblies used to generate the MAGs reported in <a href=\"https://doi.org/10.1038/s41586-018-0338-1\">Woodcroft &amp; Singleton et al. (2018)</a>.</li>\n<li>SIPS:&nbsp; Updated genomes from samples originating from a stable isotope probing (SIP) incubation experiment by Moira Hough et al. (\"SIP\" in MAGs v1), re-analyzed due to read truncation and sample linkage issues in MAGs v1.</li>\n<li>JGI:&nbsp; Expanded set of genomes from the Joint Genome Institute's metagenome annotation pipeline.</li>\n</ul>\n<p><strong>New in version 2.0.1:</strong> Added a new file containing species abundances in EMERGE field samples.</p>\n<p>&nbsp;</p>\n<p>FILES:</p>\n<ul>\n<li><strong>Emerge_MAGs_v2.tar.gz</strong> - Archive containing the MAG files (.fna).</li>\n<li><strong>metadata_MAGs_v2_EMERGE.tsv</strong>&nbsp;- Table containing source sample names and accessions, GTDB taxonomy information, CheckM2 quality reports, NCBI GenomeBatch- and MIMAG(6.0)-formatted sample attributes and other metadata for the MAGs.&nbsp;</li>\n<li><strong>Mapping_trimmed_mean.tsv</strong> - Species abundances in EMERGE field samples, collected from the main autochamber sites in July of 2011-2019. The files named in the column headers represent concatenations of all available metagenome reads from each sample, named with standard EMERGE SampleIDs.</li>\n</ul>\n<p>&nbsp;</p>\n<p>FUNDING:</p>\n<p>This research is a contribution of the EMERGE Biology Integration Institute (<a href=\"https://emerge-bii.github.io\">https://emerge-bii.github.io/</a>), funded by the National Science Foundation, Biology Integration Institutes Program, Award # 2022070.</p>\n<p>This study was also funded by the Genomic Science Program of the United States Department of Energy Office of Biological and Environmental Research, grant #s DE-SC0004632. DE-SC0010580. and DE-SC0016440.</p>\n<p>We thank the Swedish Polar Research Secretariat and SITES for the support of the work done at the Abisko Scientific Research Station. SITES is supported by the Swedish Research Council's grant 4.3-2021-00164.</p>\n<p>Data collected at the Joint Genome Institute was generated under the following awards:</p>\n<ul>\n<li>The majority of sequencing at JGI was supported by BER Support Science Proposal 503530 (DOI: <a href=\"https://doi.org/10.46936/10.25585/60001148\">10.46936/10.25585/60001148</a>), conducted by the U.S. Department of Energy Joint Genome Institute (<a href=\"https://ror.org/04xm1d337\">https://ror.org/04xm1d337</a>), a DOE Office of Science User Facility supported by the Office of Science of the U.S. Department of Energy under Contract No. DE-AC02-05CH11231.</li>\n<li>Sequencing of SIP samples was performed under the Facilities Integrating Collaborations for User Science (FICUS) initiative (proposal 503547; award DOI:&nbsp;<a href=\"https://doi.org/10.46936/fics.proj.2017.49950/60006215\">10.46936/fics.proj.2017.49950/60006215</a>) and used resources at the DOE Joint Genome Institute (<a href=\"https://ror.org/04xm1d337\">https://ror.org/04xm1d337</a>) and the Environmental Molecular Sciences Laboratory (<a href=\"https://ror.org/04rc0xn13\">https://ror.org/04rc0xn13</a>), which are DOE Office of Science User Facilities. Both facilities are sponsored by the Office of Biological and Environmental Research and operated under Contract Nos. DE-AC02-05CH11231 (JGI) and DE-AC05-76RL01830 (EMSL).</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Aroney, Samuel",
+            "affiliation": "Queensland University of Technology",
+            "orcid": "0000-0001-9806-5846"
+          },
+          {
+            "name": "Cronin, Dylan",
+            "affiliation": "The Ohio State University"
+          },
+          {
+            "name": "Bagby, Sarah",
+            "affiliation": "Case Western Reserve University",
+            "orcid": "0000-0002-1795-3161"
+          },
+          {
+            "name": "Hodgkins, Suzanne",
+            "affiliation": "The Ohio State University",
+            "orcid": "0000-0002-0489-9207"
+          },
+          {
+            "name": "NSF EMERGE Biology Integration Institute",
+            "affiliation": null
+          }
+        ],
+        "keywords": [
+          "EMERGE Biology Integration Institute",
+          "Stordalen Mire"
+        ],
+        "version": "MAGs_v2.0.1",
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "grants": [
+          {
+            "code": "2022070",
+            "internal_id": "10.13039/100000001::2022070",
+            "funder": {
+              "name": "U.S. National Science Foundation",
+              "doi": "10.13039/100000001",
+              "acronym": "NSF"
+            },
+            "title": "BII-Implementation: The EMERGE Institute: Identifying EMergent Ecosystem Responses through Genes-to-Ecosystems Integration",
+            "program": "BIO/OAD"
+          }
+        ],
+        "communities": [
+          {
+            "id": "emerge-bii"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 5,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "7586916"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Metagenome-assembled genomes from Stordalen Mire, Sweden (MAGs v2)",
+      "links": {
+        "self": "https://zenodo.org/api/records/17468704",
+        "self_html": "https://zenodo.org/records/17468704",
+        "preview_html": "https://zenodo.org/records/17468704?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17468704",
+        "self_doi": "https://doi.org/10.5281/zenodo.17468704",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17468704",
+        "reserve_doi": "https://zenodo.org/api/records/17468704/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/7586916",
+        "parent_html": "https://zenodo.org/records/7586916",
+        "parent_doi": "https://doi.org/10.5281/zenodo.7586916",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.7586916",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17468704/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17468704/sequence/default",
+        "files": "https://zenodo.org/api/records/17468704/files",
+        "media_files": "https://zenodo.org/api/records/17468704/media-files",
+        "archive": "https://zenodo.org/api/records/17468704/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17468704/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17468704/versions/latest",
+        "latest_html": "https://zenodo.org/records/17468704/latest",
+        "versions": "https://zenodo.org/api/records/17468704/versions",
+        "draft": "https://zenodo.org/api/records/17468704/draft",
+        "access_links": "https://zenodo.org/api/records/17468704/access/links",
+        "access_grants": "https://zenodo.org/api/records/17468704/access/grants",
+        "access_users": "https://zenodo.org/api/records/17468704/access/users",
+        "access_request": "https://zenodo.org/api/records/17468704/access/request",
+        "access": "https://zenodo.org/api/records/17468704/access",
+        "communities": "https://zenodo.org/api/records/17468704/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17468704/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17468704/request-deletion",
+        "requests": "https://zenodo.org/api/records/17468704/requests"
+      },
+      "updated": "2025-10-28T20:08:56.363569+00:00",
+      "recid": "17468704",
+      "revision": 4,
+      "files": [
+        {
+          "id": "a7f28513-85fe-4b11-b5d3-c647a53b9e02",
+          "key": "metadata_MAGs_v2_EMERGE.tsv",
+          "size": 61080286,
+          "checksum": "md5:40d9603af528c8b78f264ea9f2c2c1ca",
+          "links": {
+            "self": "https://zenodo.org/api/records/17468704/files/metadata_MAGs_v2_EMERGE.tsv/content"
+          }
+        },
+        {
+          "id": "76366cd7-aa55-4c88-89b4-b7b4c84613f9",
+          "key": "Mapping_trimmed_mean.tsv",
+          "size": 3042152,
+          "checksum": "md5:d67e8c56f0d15fbfaee3275f15ff0294",
+          "links": {
+            "self": "https://zenodo.org/api/records/17468704/files/Mapping_trimmed_mean.tsv/content"
+          }
+        },
+        {
+          "id": "1055f3a3-d355-4e5f-bf83-834c6f7eec5f",
+          "key": "Emerge_MAGs_v2.tar.gz",
+          "size": 41784272395,
+          "checksum": "md5:caf267d46e1923909ddc1b8c01313599",
+          "links": {
+            "self": "https://zenodo.org/api/records/17468704/files/Emerge_MAGs_v2.tar.gz/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "305170"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 593,
+        "unique_downloads": 550,
+        "views": 1679,
+        "unique_views": 1496,
+        "version_downloads": 12,
+        "version_unique_downloads": 12,
+        "version_unique_views": 55,
+        "version_views": 61
       },
       "state": "done",
       "submitted": true
