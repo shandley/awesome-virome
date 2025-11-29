@@ -63,8 +63,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # Phase 1 Citation System: Enhanced GitHub metrics collection
-      - name: Enhance GitHub metrics (Citation System V2 Phase 1)
+      - name: Enhance GitHub metrics
         run: python scripts/github_metrics_workflow.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -80,39 +79,18 @@ jobs:
             echo "readme_changed=false" >> $GITHUB_OUTPUT
           fi
       
-      # Comprehensive update: Enhanced metadata, bioinformatics, academic impact
+      # Comprehensive update: Enhanced metadata and bioinformatics
       - name: Run comprehensive update
         if: github.event.inputs.update_type == 'comprehensive' || github.event.schedule == '0 8 1 * *'
         run: |
-          # Create cache directories if they don't exist
-          mkdir -p metadata/cache/crossref
-          mkdir -p metadata/cache/_citations
-          
           # Run each component in sequence
           echo "Collecting enhanced metadata..."
           python scripts/enhance_metadata.py
-          
+
           echo "Collecting bioinformatics metadata..."
           python scripts/bioinformatics_metadata.py
-          
-          # Academic impact is usually the slowest part, so we optimize it
-          echo "Collecting academic impact data..."
-          # Clear the academic impact cache and metadata files to force fresh data
-          echo "Clearing existing academic impact cache to force fresh citation data collection..."
-          rm -f metadata/academic_impact/academic_impact.json
-          rm -f metadata/cache/crossref/*.json
-          rm -f metadata/cache/_citations/*.json
-          find metadata/academic_impact/ -name "*.json" -not -name "summary.json" -delete
-          
-          echo "Running academic impact collection with fresh data..."
-          python scripts/academic_impact.py --force-refresh
-          
-          echo "Generating citation reports..."
-          python scripts/citation_report.py
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-          SEMANTIC_SCHOLAR_KEY: ${{ secrets.SEMANTIC_SCHOLAR_KEY }}
-          CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
       
       # Always update data.json with appropriate flags
       - name: Update data.json
@@ -120,7 +98,7 @@ jobs:
           # Determine which flags to include based on the update type
           if [[ "${{ github.event.inputs.update_type }}" == "comprehensive" || "${{ github.event.schedule }}" == "0 8 1 * *" ]]; then
             echo "Running comprehensive data.json update..."
-            python update_data_json.py --include-metadata --include-bioinformatics --include-academic-impact --include-pubmed
+            python update_data_json.py --include-metadata --include-bioinformatics
           elif [[ "${{ github.event.inputs.update_type }}" == "readme_sync" || "${{ steps.verify_readme.outputs.readme_changed }}" == "true" ]]; then
             echo "Running README-based data.json update..."
             python update_data_json.py
@@ -150,7 +128,7 @@ jobs:
           
           # Determine commit message based on update type
           if [[ "${{ github.event.inputs.update_type }}" == "comprehensive" || "${{ github.event.schedule }}" == "0 8 1 * *" ]]; then
-            COMMIT_MSG="Comprehensive data update (Enhanced, Bioinformatics, Academic Impact)"
+            COMMIT_MSG="Comprehensive data update (Enhanced, Bioinformatics)"
           elif [[ "${{ github.event.inputs.update_type }}" == "readme_sync" || "${{ steps.verify_readme.outputs.readme_changed }}" == "true" ]]; then
             COMMIT_MSG="Update data.json from README changes"
           else
