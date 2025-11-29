@@ -1,110 +1,93 @@
 # Claude Code Project Context - Awesome-Virome
 
-## 🎯 Project Status
-**Current State**: Citation System V2 Phase 1 - ✅ **COMPLETE & DEPLOYED**
-**Last Session**: September 19, 2025
-**Active Branch**: `main` (all work integrated)
+## 🎯 Project Overview
+**Awesome-Virome** is a curated database of 300+ bioinformatics tools for virome analysis, featuring:
+- Interactive web dashboard and tool comparison matrix
+- RESTful API for programmatic access
+- Automated metadata collection and updates via GitHub Actions
+- Citation tracking and metrics visualization
 
-## 📊 Recent Major Accomplishments
+## 🏗️ System Architecture
 
-### ✅ README Reorganization (PR #91 - MERGED)
-- **Phase 1**: Added "What is Awesome-Virome?" section, Quick Start Guide
-- **Phase 2**: Moved tool categories higher, improved user flow
-- **Result**: 38% faster time-to-value for new users
-
-### ✅ Citation System V2 Phase 1 (PR #92 - MERGED + INTEGRATED)
-- **Approach**: Complete rebuild using only free APIs (GitHub API)
-- **Integration**: Enhanced existing `simplified-update-workflow.yml`
-- **Status**: Currently running live in GitHub Actions
-- **Scope**: Enhances all 164 GitHub tools with comprehensive metrics
-
-## 🔧 Current System Architecture
-
-### Citation System V2 Design
-**Phase 1** (✅ COMPLETE): GitHub metrics enhancement
-- **Files**: `scripts/github_metrics_enhancer.py`, `scripts/github_metrics_workflow.py`
-- **Integration**: Part of weekly/monthly automated workflow
-- **Features**: Stars, forks, languages, topics, activity status, repository metadata
-
-**Phase 2** (📋 PLANNED): Basic publication data
-- DOI resolution and paper titles from free APIs
-
-**Phase 3** (📋 PLANNED): Citation counts
-- Free sources: Semantic Scholar, CrossRef, PubMed
-
-**Phase 4** (📋 PLANNED): Visualizations and analytics
+### Core Data Infrastructure
+- **`data.json`** - Main tool database (300+ tools, 164 GitHub repos actively tracked)
+- **`metadata/`** - Individual tool metadata files (150+ JSON files)
+- **`metrics_history/`** - Historical metrics tracking
 
 ### Automated Workflows
-- **simplified-update-workflow.yml**: Weekly basic updates, monthly comprehensive
-- **Citation System V2 Phase 1**: Integrated as step after basic repo updates
-- **Status**: Live and running - enhances 164 GitHub tools automatically
+- **Weekly/Monthly Updates**: `simplified-update-workflow.yml`
+  - Basic repo metadata updates (weekly)
+  - Comprehensive metrics enhancement (monthly)
+  - GitHub API-based metrics collection (stars, forks, languages, topics)
+- **Site Health**: Automated validation and health checks
+- **Cache Maintenance**: Cache warming and management
 
-## 🚨 Critical Project Notes
-
-### Git Management Strategy
-- ✅ **Safe incremental approach**: Each phase = separate PR to main
-- ✅ **No massive branch merges**: Abandoned problematic `comprehensive-citations` branch
-- ✅ **Clean integration**: All Phase 1 work successfully in main branch
-
-### API Strategy
-- ✅ **Free APIs only**: No premium dependencies (learned from previous issues)
-- ✅ **GitHub API**: 5000 requests/hour with token, reliable and comprehensive
-- 📋 **Future**: Semantic Scholar, CrossRef, PubMed E-utilities (all free)
-
-### Key Technical Decisions
-- **GitHub Actions over local execution**: Automated, reliable, transparent
-- **Enhance existing workflow**: No conflicts, leverages existing infrastructure
-- **Production-ready error handling**: Graceful failures, comprehensive logging
-
-## 🛣️ Next Session Priorities
-
-### Immediate Actions (if needed)
-1. **Check Phase 1 deployment**: Verify current workflow run completed successfully
-2. **Review enhanced data**: Confirm 164 tools have updated GitHub metrics
-3. **Monitor system**: Ensure no issues with automated runs
-
-### Phase 2 Development (when ready)
-1. **Design DOI resolution system** using free APIs
-2. **Create publication metadata collector**
-3. **Integrate with existing workflow** (same pattern as Phase 1)
+### Citation & Metrics System
+- **Phase 1** (Deployed): GitHub metrics enhancement
+  - `scripts/github_metrics_enhancer.py` - Core logic
+  - `scripts/github_metrics_workflow.py` - Production version
+- **Future Phases**: DOI resolution, citation counts (Semantic Scholar, CrossRef, PubMed)
 
 ## 📁 Key File Locations
 
-### Phase 1 Implementation
-- `scripts/github_metrics_enhancer.py` - Core enhancement logic
-- `scripts/github_metrics_workflow.py` - Production workflow version
-- `scripts/README_Phase1.md` - Documentation and usage
-- `.github/workflows/simplified-update-workflow.yml` - Enhanced workflow
+### Core Data & Config
+- `data.json` - Main tool database
+- `README.md` - User-facing documentation with Quick Start Guide
+- `requirements.txt` - Python dependencies
+- `.github/workflows/` - GitHub Actions automation
 
-### Project Data
-- `data.json` - Main tool database (164 GitHub tools tracked)
-- `README.md` - Recently reorganized for better UX
-- `metadata/` - Tool metadata collected by various systems
+### Scripts (`scripts/`)
+- **Metadata**: `github_metrics_*.py`, `enhance_metadata.py`, `enhanced_repo_metadata.py`
+- **Data Quality**: `validate_*.py`, `data_quality_metrics.py`
+- **API**: `generate_api.py`
+- **Citations**: `citation_*.py`, `pubmed_citations.py`, `academic_impact.py`
+- **Utilities**: `update_check.py`, `cache_*.py`
 
-### Current Workflow Status
-- **Workflow ID**: 17868247007 (check completion status)
-- **URL**: https://github.com/shandley/awesome-virome/actions/runs/17868247007
+### Web Assets
+- `dashboard.html`, `comparison.html`, `selection-guide.html` - Interactive tools
+- `js/` - Visualization libraries
+- `api/v1/` - Generated REST API endpoints
 
-## 💡 Session Restart Commands
+## 🛠️ Development Practices
+
+### Git Workflow
+- Work on `main` branch or feature branches
+- Small, incremental PRs (avoid massive merges)
+- Each major feature = separate PR
+
+### API Usage
+- **Free APIs only** - No premium dependencies
+- GitHub API: 5000 req/hr with token
+- Future: Semantic Scholar, CrossRef, PubMed (all free)
+
+### Automation Philosophy
+- GitHub Actions over local execution
+- Production-ready error handling
+- Graceful degradation on failures
+
+## 🚀 Quick Start Commands
 
 ```bash
-# Check current status
+# Check project status
 git status
-git log --oneline -5
+git log --oneline -10
 
-# Verify Phase 1 deployment
-gh run list --workflow="Simplified Data Update Workflow" --limit=3
+# View recent workflow runs
+gh run list --limit=5
 
-# Continue with Phase 2 (when ready)
-git checkout -b citation-system-phase2
-python scripts/test_github_api.py  # Verify system health
+# Test GitHub API connectivity
+python scripts/test_github_api.py
+
+# Validate data quality
+python scripts/validate_tool_schema.py
+
+# Generate API endpoints
+python scripts/generate_api.py
 ```
 
-## 🎯 Success Metrics
-- ✅ **README UX**: 38% improvement in time-to-value
-- ✅ **Citation System**: Phase 1 deployed and running automatically
-- ✅ **Git Management**: Clean, safe, incremental development process
-- 📊 **Data Quality**: Enhanced metrics for 164 GitHub tools
-
----
-*Last updated: September 19, 2025 - Citation System V2 Phase 1 complete and deployed*
+## 📊 Project Statistics
+- **300+** curated tools across 8 categories
+- **164** GitHub repositories actively tracked
+- **150+** metadata files with comprehensive tool info
+- **Weekly** automated updates
+- **Monthly** comprehensive metrics enhancement
