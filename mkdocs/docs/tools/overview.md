@@ -1,5 +1,7 @@
 # Virome Analysis Tools
 
+> **Last Updated:** November 29, 2025
+
 Awesome-Virome contains a comprehensive collection of tools for various aspects of virome analysis. This page provides an overview of the tool categories and helps you navigate to the specific tools you need.
 
 ## Tool Categories

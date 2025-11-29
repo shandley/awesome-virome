@@ -1,6 +1,23 @@
 # Host Prediction Tools
 
+> **Last Updated:** November 29, 2025
+
 Host prediction tools help determine the bacterial hosts of viral sequences, particularly phages. This is crucial for understanding phage-host interactions, designing phage therapy, and interpreting the role of phages in microbial communities.
+
+!!! warning "Reality Check: Host Prediction Accuracy"
+    **Host prediction is one of the most challenging problems in virome analysis.** Current computational tools have significant limitations:
+
+    - **Real-world accuracy**: Typically **30-60%** at genus level for novel viruses (not the 75-80% often cited from benchmarks on known viruses)
+    - **Many predictions fail**: 20-40% of viral sequences may get no confident prediction
+    - **Predictions are hypotheses**: Always treat them as computational predictions requiring validation, not ground truth
+    - **Method-dependent**: Different tools can give conflicting predictions for the same sequence
+
+    **Best practices:**
+    - Use multiple prediction methods and look for consensus
+    - Higher confidence when multiple lines of evidence agree (sequence homology + CRISPR spacers + co-occurrence data)
+    - CRISPR spacer matches are the "gold standard" but only available for ~1-5% of viruses
+    - Consider biological context (sample environment, known host distributions)
+    - Validate computationally important predictions experimentally when possible
 
 ## Key Host Prediction Tools
 
@@ -91,19 +108,30 @@ CHERRY uses a combination of convolutional neural networks and LSTM to learn seq
 
 ## Performance Benchmarks
 
-Based on published benchmarks and community experience:
+!!! info "Understanding Benchmark Numbers"
+    The performance metrics below are from **controlled benchmark studies** on test datasets with known virus-host pairs. **Real-world performance on novel environmental viruses is typically 20-40% lower.**
 
-- **Genus level prediction**:
-  - VirHostMatcher-Net: ~75-80% accuracy
-  - iPHoP: ~70-75% accuracy
-  - CHERRY: ~65-70% accuracy
+    Benchmark studies often:
+    - Use viruses with known hosts (easier than novel viruses)
+    - Test on sequences similar to training data
+    - Exclude difficult cases
+    - Report best-case accuracy
 
-- **Species level prediction**:
-  - iPHoP: ~60-65% accuracy
-  - CHERRY: ~55-60% accuracy
-  - WIsH: ~50-55% accuracy
+    **For your research:** Expect genus-level accuracy of **30-60%** on novel viruses, **not** 75-80%.
 
-*Note: Actual performance varies based on input data quality, completeness, and taxonomic coverage of reference databases.*
+Based on published benchmarks (test datasets with known hosts):
+
+- **Genus level prediction** (benchmark datasets):
+  - VirHostMatcher-Net: ~75-80% (novel viruses: ~40-50%)
+  - iPHoP: ~70-75% (novel viruses: ~45-55%)
+  - CHERRY: ~65-70% (novel viruses: ~35-45%)
+
+- **Species level prediction** (benchmark datasets):
+  - iPHoP: ~60-65% (novel viruses: ~30-40%)
+  - CHERRY: ~55-60% (novel viruses: ~25-35%)
+  - WIsH: ~50-55% (novel viruses: ~25-30%)
+
+*Performance depends on: viral genome completeness, taxonomic coverage of reference databases, host diversity in training data, and sequence similarity to known virus-host pairs.*
 
 ## Recommended Workflow
 

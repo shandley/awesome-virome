@@ -1,5 +1,7 @@
 # Welcome to Awesome-Virome
 
+> **Last Updated:** November 29, 2025
+
 A curated list of software, tools, and databases useful for virome analysis, including phages, viruses, and their interactions with hosts.
 
 ![Awesome-Virome](assets/awesome-virome-hex-gradient.png){ align=center width=250px }
@@ -12,8 +14,8 @@ Awesome-Virome is a comprehensive collection of resources for studying viral com
 
 Awesome-Virome offers several unique features that enhance its value as a resource for the viral bioinformatics community:
 
-- **Interactive Visualizations**: Dynamic network graph showing tool relationships and connections
-- **Citation Analytics**: Growth trends and impact metrics for virome analysis tools
+- **Interactive Visualizations**: Dynamic network graph and dashboard showing tool relationships and ecosystem trends
+- **Interactive Dashboard**: Explore 300+ tools with filterable visualizations and comparison features
 - **Enhanced Metadata**: Automated metadata enrichment from GitHub, GitLab, and Bitbucket
 - **Community-Driven**: Standardized issue templates and workflows for contributions
 
@@ -24,18 +26,25 @@ Awesome-Virome offers several unique features that enhance its value as a resour
 - [API Reference](api/overview.md) - Use the programmatic API
 - [Contributing](contributing/guidelines.md) - Help improve the repository
 
-## Popular Tools
+## Popular Virome Tools
 
-Ranked by GitHub stars:
+Top virome analysis tools ranked by GitHub stars:
 
-1. [AlphaFold-Multimer](https://github.com/deepmind/alphafold) - ⭐ 13320+ stars
-2. [CovidMD](https://github.com/lammps/lammps) - ⭐ 2365+ stars
-3. [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) - ⭐ 1114+ stars
-4. [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797+ stars
-5. [Prodigal/MetaProdigal](https://github.com/hyattpd/Prodigal) - ⭐ 471+ stars
+1. [metaviralSPAdes](https://github.com/ablab/spades) - ⭐ 803 stars - Viral genome assembler optimized for metagenomic data
+2. [DRAMv](https://github.com/WrightonLabCSU/DRAM) - ⭐ 270 stars - Viral genome annotation and metabolism analysis
+3. [geNomad](https://github.com/apcamargo/genomad) - ⭐ 226 stars - Identification of viruses and plasmids in sequencing data
+4. [Viral-NGS](https://github.com/broadinstitute/viral-ngs) - ⭐ 192 stars - Viral genomics analysis pipelines
+5. [VIBRANT](https://github.com/AnantharamanLab/VIBRANT) - ⭐ 160 stars - Virus identification and annotation
+6. [Pharokka](https://github.com/gbouras13/pharokka) - ⭐ 160 stars - Fast phage annotation program
 
-## Visualizing the Data
+[View all tools](tools/overview.md){ .md-button .md-button--primary }
 
-We're working on an interactive dashboard to visualize the relationships between tools and their impacts on the field. This feature will be available in a future update.
+## Interactive Dashboard
 
-![Current Data Visualization](assets/dashboard.png)
+Explore the complete virome analysis ecosystem with our **interactive dashboard**, now available:
+
+- **Network Visualization**: See relationships between 300+ tools
+- **Tool Comparison**: Filter and compare tools side-by-side
+- **Selection Guide**: Get personalized tool recommendations
+
+[Launch Dashboard](../dashboard.html){ .md-button .md-button--primary } [View Documentation](intro/workflows.md){ .md-button }

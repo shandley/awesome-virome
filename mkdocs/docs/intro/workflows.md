@@ -1,6 +1,11 @@
 # Typical Virome Analysis Workflows
 
+> **Last Updated:** November 29, 2025
+
 This page outlines common workflows for virome analysis, showcasing how different tools from the Awesome-Virome collection can be combined to achieve specific research goals.
+
+!!! tip "Important Note on Workflows"
+    These workflows represent common approaches but should be adapted to your specific research questions and sample types. Always validate results and consider running multiple tools for critical analyses.
 
 <!-- Mermaid diagrams are initialized by the mermaid.js script included in mkdocs.yml -->
 

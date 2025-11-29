@@ -1,6 +1,19 @@
 # Virus and Phage Identification Tools
 
+> **Last Updated:** November 29, 2025
+
 This section details tools for identifying viral sequences in metagenomic data, including tools for general metagenome analysis, integrated viruses (prophages), and RNA virus identification.
+
+!!! warning "Important: False Positives and Best Practices"
+    **Viral identification tools can produce false positives!** Cellular genes, mobile genetic elements, and other sequences may be incorrectly classified as viral. To minimize false positives:
+
+    - **Use multiple tools**: Run at least 2-3 different tools (e.g., VirSorter2 + VIBRANT + geNomad) and take consensus predictions
+    - **Check confidence scores**: Use appropriate score thresholds (see tool-specific guidance below)
+    - **Validate with CheckV**: Always run CheckV to assess genome quality and remove contamination
+    - **Set minimum contig length**: For metagenomes, use ≥5kb; for isolates, ≥1kb minimum
+    - **Review results critically**: Unexpected taxonomic assignments or unusual gene content may indicate false positives
+
+    **Remember:** High sensitivity often comes with lower specificity. Adjust thresholds based on your research goals.
 
 ## Metagenome Analysis
 
@@ -21,8 +34,19 @@ Tools for identifying viral sequences in mixed metagenomic data:
 
 **Usage Example**:
 ```bash
-virsorter run -w output_dir -i input_contigs.fa --min-length 1000 --include-groups dsDNAphage,ssDNA,RNA -j 4 all
+virsorter run -w output_dir -i input_contigs.fa --min-length 5000 --min-score 0.5 --include-groups dsDNAphage,ssDNA -j 4 all
 ```
+
+**Recommended Parameters:**
+- `--min-length 5000`: Use ≥5kb for metagenomes to reduce false positives
+- `--min-score 0.5`: Default threshold (0.5-0.9 for high confidence)
+- `--include-groups`: Specify expected viral types to reduce search space
+- Consider `--keep-original-seq` to retain boundary information
+
+**Score Interpretation:**
+- **≥0.9**: High confidence viral sequences
+- **0.5-0.9**: Medium confidence (validate with other tools)
+- **<0.5**: Low confidence (likely false positives)
 
 ### VIBRANT
 

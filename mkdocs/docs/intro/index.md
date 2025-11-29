@@ -1,5 +1,7 @@
 # Introduction to Awesome-Virome
 
+> **Last Updated:** November 29, 2025
+
 Welcome to the official documentation for Awesome-Virome, a curated list of software, tools, and databases useful for virome analysis, including phages, viruses, and their interactions with hosts.
 
 ## What is Virome Analysis?
@@ -29,7 +31,7 @@ Awesome-Virome offers several unique features that enhance its value as a resour
 
 ### Interactive Visualizations
 - Dynamic network graph showing tool relationships and connections
-- Citation analytics with growth trends and impact metrics
+- Interactive dashboard with filterable tool comparisons
 - Tool categorization treemap for understanding the ecosystem
 - Timeline visualization showing field development over time
 
@@ -51,15 +53,16 @@ Awesome-Virome offers several unique features that enhance its value as a resour
 - RESTful API for programmatic access
 - Markdown files for simple text-based access
 
-## Popular Packages
+## Popular Virome Analysis Tools
 
-Ranked by GitHub stars:
+Top tools ranked by GitHub stars and community adoption:
 
-1. [AlphaFold-Multimer](https://github.com/deepmind/alphafold) - ⭐ 13320 stars
-2. [CovidMD](https://github.com/lammps/lammps) - ⭐ 2365 stars
-3. [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) - ⭐ 1114 stars
-4. [coronaSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
-5. [coronaSPAdes/metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) - ⭐ 797 stars
+1. [metaviralSPAdes](https://github.com/ablab/spades) - ⭐ 803 stars - Viral genome assembler for metagenomic data
+2. [DRAMv](https://github.com/WrightonLabCSU/DRAM) - ⭐ 270 stars - Distilled and Refined Annotation of Metabolism for viruses
+3. [geNomad](https://github.com/apcamargo/genomad) - ⭐ 226 stars - Identify viruses and plasmids in sequencing data
+4. [Viral-NGS](https://github.com/broadinstitute/viral-ngs) - ⭐ 192 stars - Viral genomics analysis pipelines
+5. [VIBRANT](https://github.com/AnantharamanLab/VIBRANT) - ⭐ 160 stars - Virus Identification By iteRative ANnoTation
+6. [Pharokka](https://github.com/gbouras13/pharokka) - ⭐ 160 stars - Fast phage annotation tool
 
 ## Next Steps
 

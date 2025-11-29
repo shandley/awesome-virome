@@ -1,5 +1,7 @@
 # Tool Selection Guide
 
+> **Last Updated:** November 29, 2025
+
 This guide helps you choose the right tools for your virome analysis workflow based on your specific research questions and sample types.
 
 ## Key Decision Factors
