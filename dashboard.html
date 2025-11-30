@@ -558,6 +558,7 @@
                             <div class="card-body">
                                 <h5>Avg Stars</h5>
                                 <div class="display-6 fw-bold" id="avgStars">0</div>
+                                <div class="text-muted small mt-2" id="starsDataQuality"></div>
                             </div>
                         </div>
                     </div>
@@ -756,6 +757,7 @@
                                             <canvas id="maintenanceChart"></canvas>
                                         </div>
                                     </div>
+                                    <div class="text-muted small mt-2" id="maintenanceDataQuality"></div>
                                 </div>
                             </div>
                         </div>
@@ -773,6 +775,7 @@
                                             <canvas id="timelineChart"></canvas>
                                         </div>
                                     </div>
+                                    <div class="text-muted small mt-2" id="timelineDataQuality"></div>
                                 </div>
                             </div>
                         </div>
@@ -936,6 +939,13 @@
                 const totalStars = tools.reduce((sum, tool) => sum + (tool.stars || 0), 0);
                 const avgStars = tools.length > 0 ? totalStars / tools.length : 0;
                 document.getElementById('avgStars').textContent = avgStars.toFixed(1);
+
+                // Stars data quality indicator
+                const toolsWithStars = tools.filter(tool => tool.stars && tool.stars > 0).length;
+                const starsQualityEl = document.getElementById('starsDataQuality');
+                if (starsQualityEl) {
+                    starsQualityEl.innerHTML = `${toolsWithStars} of ${tools.length} tools`;
+                }
                 
                 // Last updated date
                 const lastUpdated = new Date().toLocaleDateString();
@@ -1127,12 +1137,15 @@
             
             function getUpdateClass(dateString) {
                 if (!dateString) return 'update-old';
-                
+
                 const date = new Date(dateString);
                 const now = new Date();
-                const monthsDiff = (now.getFullYear() - date.getFullYear()) * 12 + 
-                                  now.getMonth() - date.getMonth();
-                
+
+                // Calculate actual elapsed time in days, then convert to months
+                // Using 30.44 days per month (365.25 / 12) for accurate month calculation
+                const daysDiff = Math.floor((now - date) / (1000 * 60 * 60 * 24));
+                const monthsDiff = Math.floor(daysDiff / 30.44);
+
                 if (monthsDiff < 6) return 'update-recent';
                 if (monthsDiff < 12) return 'update-medium';
                 return 'update-old';
@@ -1784,6 +1797,13 @@
                             canvasContainer.style.display = 'block';
                         }
                     }
+
+                    // Add data quality indicator
+                    const missingDates = tools.filter(tool => !tool.lastUpdated).length;
+                    const dataQualityEl = document.getElementById('maintenanceDataQuality');
+                    if (dataQualityEl && missingDates > 0) {
+                        dataQualityEl.innerHTML = `<i class="bi bi-info-circle"></i> ${missingDates} tool${missingDates !== 1 ? 's' : ''} missing update date${missingDates !== 1 ? 's' : ''} (shown as Low Activity)`;
+                    }
                 } catch (error) {
                     console.error('Error creating maintenance chart:', error);
                     const canvasContainer = document.getElementById('maintenanceChart').closest('.canvas-container');
@@ -1891,6 +1911,18 @@
                             canvasContainer.style.display = 'block';
                         }
                     }
+
+                    // Add data quality indicator
+                    const toolsWithDates = tools.filter(tool => tool.createdAt).length;
+                    const missingDates = tools.length - toolsWithDates;
+                    const dataQualityEl = document.getElementById('timelineDataQuality');
+                    if (dataQualityEl) {
+                        const percentage = ((toolsWithDates / tools.length) * 100).toFixed(1);
+                        dataQualityEl.innerHTML = `<i class="bi bi-info-circle"></i> Showing ${toolsWithDates} of ${tools.length} tools (${percentage}%) with known creation dates`;
+                        if (missingDates > 0) {
+                            dataQualityEl.innerHTML += ` · ${missingDates} excluded`;
+                        }
+                    }
                 } catch (error) {
                     console.error('Error creating timeline chart:', error);
                     const canvasContainer = document.getElementById('timelineChart').closest('.canvas-container');
@@ -1899,7 +1931,7 @@
                     }
                 }
             }
-            
+
             // URL Parameter Management
             function applyURLParameters() {
                 const urlParams = new URLSearchParams(window.location.search);
