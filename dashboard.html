@@ -408,11 +408,21 @@
             <!-- Sidebar with filters -->
             <div class="col-lg-3">
                 <div class="card sticky-top" style="top: 5rem; z-index: 990;">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <span>Filters</span>
-                        <button id="resetFilters" class="btn btn-sm btn-outline-light">
-                            <i class="bi bi-arrow-repeat"></i> Reset
-                        </button>
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span>Filters</span>
+                            <button id="resetFilters" class="btn btn-sm btn-outline-light">
+                                <i class="bi bi-arrow-repeat"></i> Reset
+                            </button>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button id="exportCSV" class="btn btn-sm btn-outline-success flex-fill">
+                                <i class="bi bi-file-earmark-spreadsheet"></i> Export CSV
+                            </button>
+                            <button id="exportJSON" class="btn btn-sm btn-outline-info flex-fill">
+                                <i class="bi bi-filetype-json"></i> Export JSON
+                            </button>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="mb-3">
@@ -880,7 +890,10 @@
                 
                 // Set up filter functionality
                 setupFilters(tools);
-                
+
+                // Apply URL parameters if present
+                applyURLParameters();
+
                 // Set up modal functionality
                 setupToolModal(tools);
             }
@@ -1811,17 +1824,56 @@
                 }
             }
             
+            // URL Parameter Management
+            function applyURLParameters() {
+                const urlParams = new URLSearchParams(window.location.search);
+
+                const category = urlParams.get('category');
+                const subcategory = urlParams.get('subcategory');
+                const language = urlParams.get('language');
+                const maintenance = urlParams.get('maintenance');
+                const search = urlParams.get('search');
+
+                if (category) document.getElementById('categoryFilter').value = category;
+                if (subcategory) document.getElementById('subcategoryFilter').value = subcategory;
+                if (language) document.getElementById('languageFilter').value = language;
+                if (maintenance) document.getElementById('maintenanceFilter').value = maintenance;
+                if (search) document.getElementById('searchFilter').value = search;
+
+                // Trigger filter application if any parameters were set
+                if (category || subcategory || language || maintenance || search) {
+                    // Trigger change event to apply filters
+                    document.getElementById('categoryFilter').dispatchEvent(new Event('change'));
+                }
+            }
+
+            function updateURLParameters(category, subcategory, language, maintenance, search) {
+                const params = new URLSearchParams();
+
+                if (category) params.set('category', category);
+                if (subcategory) params.set('subcategory', subcategory);
+                if (language) params.set('language', language);
+                if (maintenance) params.set('maintenance', maintenance);
+                if (search) params.set('search', search);
+
+                // Update URL without page reload
+                const newURL = params.toString() ?
+                    `${window.location.pathname}?${params.toString()}` :
+                    window.location.pathname;
+                window.history.replaceState({}, '', newURL);
+            }
+
             function setupFilters(originalTools) {
                 // Clone tools array to preserve the original data
                 const tools = [...originalTools];
-                
+
                 const categoryFilter = document.getElementById('categoryFilter');
                 const subcategoryFilter = document.getElementById('subcategoryFilter');
                 const languageFilter = document.getElementById('languageFilter');
                 const maintenanceFilter = document.getElementById('maintenanceFilter');
                 const searchFilter = document.getElementById('searchFilter');
                 const resetFilters = document.getElementById('resetFilters');
-                
+
                 // Apply filters function
                 function applyFilters() {
                     const category = categoryFilter.value;
@@ -1835,9 +1887,20 @@
                         // Category filter
                         if (category && tool.category !== category) return false;
                         
-                        // Subcategory filter (TODO: Implement subcategory relationship)
-                        // For now, we'll use a simple text match
-                        if (subcategory && (!tool.description || !tool.description.toLowerCase().includes(subcategory.toLowerCase()))) return false;
+                        // Subcategory filter - use proper node relationships
+                        if (subcategory) {
+                            // Find the subcategory node ID
+                            const subcategoryNode = globalData.subcategories.find(sc => sc.name === subcategory);
+                            if (subcategoryNode) {
+                                // Find links where this tool is connected to this subcategory
+                                const toolHasSubcategory = globalData.links.some(link =>
+                                    link.source === tool.id && link.target === subcategoryNode.id
+                                );
+                                if (!toolHasSubcategory) return false;
+                            } else {
+                                return false;
+                            }
+                        }
                         
                         // Language filter
                         if (language && (!tool.languages || !tool.languages[language])) return false;
@@ -1860,9 +1923,12 @@
                         return true;
                     });
                     
+                    // Update URL parameters for deep linking
+                    updateURLParameters(category, subcategory, language, maintenance, search);
+
                     // Render filtered tools
                     renderTools(filteredTools);
-                    
+
                     // Update DataTable
                     try {
                         const dataTable = $('#toolsDataTable').DataTable();
@@ -1906,7 +1972,142 @@
                     languageFilter.value = '';
                     maintenanceFilter.value = '';
                     searchFilter.value = '';
+                    // Clear URL parameters
+                    window.history.replaceState({}, '', window.location.pathname);
                     applyFilters();
+                });
+
+                // Export functions
+                const exportCSV = document.getElementById('exportCSV');
+                const exportJSON = document.getElementById('exportJSON');
+
+                exportCSV.addEventListener('click', function() {
+                    // Get currently filtered tools
+                    const category = categoryFilter.value;
+                    const subcategory = subcategoryFilter.value;
+                    const language = languageFilter.value;
+                    const maintenance = maintenanceFilter.value;
+                    const search = searchFilter.value.toLowerCase();
+
+                    const filteredTools = [...tools].filter(tool => {
+                        if (category && tool.category !== category) return false;
+                        if (subcategory) {
+                            const subcategoryNode = globalData.subcategories.find(sc => sc.name === subcategory);
+                            if (subcategoryNode) {
+                                const toolHasSubcategory = globalData.links.some(link =>
+                                    link.source === tool.id && link.target === subcategoryNode.id
+                                );
+                                if (!toolHasSubcategory) return false;
+                            } else {
+                                return false;
+                            }
+                        }
+                        if (language && (!tool.languages || !tool.languages[language])) return false;
+                        if (maintenance) {
+                            const updateClass = getUpdateClass(tool.lastUpdated);
+                            if (maintenance === 'recent' && updateClass !== 'update-recent') return false;
+                            if (maintenance === 'medium' && updateClass !== 'update-medium') return false;
+                            if (maintenance === 'old' && updateClass !== 'update-old') return false;
+                        }
+                        if (search) {
+                            const nameMatch = tool.name.toLowerCase().includes(search);
+                            const descMatch = tool.description && tool.description.toLowerCase().includes(search);
+                            if (!nameMatch && !descMatch) return false;
+                        }
+                        return true;
+                    });
+
+                    // Convert to CSV
+                    const csvHeaders = ['Name', 'Category', 'Description', 'URL', 'Stars', 'Main Language', 'Last Updated', 'Created At'];
+                    const csvRows = filteredTools.map(tool => {
+                        const mainLang = getMainLanguage(tool.languages);
+                        return [
+                            `"${(tool.name || '').replace(/"/g, '""')}"`,
+                            `"${(tool.category || 'N/A').replace(/"/g, '""')}"`,
+                            `"${(tool.description || '').replace(/"/g, '""')}"`,
+                            `"${(tool.url || '').replace(/"/g, '""')}"`,
+                            tool.stars || 0,
+                            `"${mainLang}"`,
+                            formatDate(tool.lastUpdated),
+                            formatDate(tool.createdAt)
+                        ].join(',');
+                    });
+
+                    const csvContent = [csvHeaders.join(','), ...csvRows].join('\n');
+
+                    // Download CSV
+                    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                    const link = document.createElement('a');
+                    const url = URL.createObjectURL(blob);
+                    link.setAttribute('href', url);
+                    link.setAttribute('download', `awesome-virome-tools-${new Date().toISOString().split('T')[0]}.csv`);
+                    link.style.visibility = 'hidden';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                });
+
+                exportJSON.addEventListener('click', function() {
+                    // Get currently filtered tools
+                    const category = categoryFilter.value;
+                    const subcategory = subcategoryFilter.value;
+                    const language = languageFilter.value;
+                    const maintenance = maintenanceFilter.value;
+                    const search = searchFilter.value.toLowerCase();
+
+                    const filteredTools = [...tools].filter(tool => {
+                        if (category && tool.category !== category) return false;
+                        if (subcategory) {
+                            const subcategoryNode = globalData.subcategories.find(sc => sc.name === subcategory);
+                            if (subcategoryNode) {
+                                const toolHasSubcategory = globalData.links.some(link =>
+                                    link.source === tool.id && link.target === subcategoryNode.id
+                                );
+                                if (!toolHasSubcategory) return false;
+                            } else {
+                                return false;
+                            }
+                        }
+                        if (language && (!tool.languages || !tool.languages[language])) return false;
+                        if (maintenance) {
+                            const updateClass = getUpdateClass(tool.lastUpdated);
+                            if (maintenance === 'recent' && updateClass !== 'update-recent') return false;
+                            if (maintenance === 'medium' && updateClass !== 'update-medium') return false;
+                            if (maintenance === 'old' && updateClass !== 'update-old') return false;
+                        }
+                        if (search) {
+                            const nameMatch = tool.name.toLowerCase().includes(search);
+                            const descMatch = tool.description && tool.description.toLowerCase().includes(search);
+                            if (!nameMatch && !descMatch) return false;
+                        }
+                        return true;
+                    });
+
+                    // Create export object
+                    const exportData = {
+                        exportDate: new Date().toISOString(),
+                        filters: {
+                            category: category || 'all',
+                            subcategory: subcategory || 'all',
+                            language: language || 'all',
+                            maintenance: maintenance || 'all',
+                            search: search || ''
+                        },
+                        toolCount: filteredTools.length,
+                        tools: filteredTools
+                    };
+
+                    // Download JSON
+                    const jsonContent = JSON.stringify(exportData, null, 2);
+                    const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
+                    const link = document.createElement('a');
+                    const url = URL.createObjectURL(blob);
+                    link.setAttribute('href', url);
+                    link.setAttribute('download', `awesome-virome-tools-${new Date().toISOString().split('T')[0]}.json`);
+                    link.style.visibility = 'hidden';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
                 });
             }
             
