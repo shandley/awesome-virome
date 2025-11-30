@@ -47,12 +47,12 @@ jobs:
           cd mkdocs
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          # Delete existing mike deployments to avoid conflicts
-          mike delete --config-file mkdocs.yml --branch gh-pages --deploy-prefix 'docs' 1.0.0 || true
-          mike delete --config-file mkdocs.yml --branch gh-pages --deploy-prefix 'docs' latest || true
-          # Deploy new version
-          mike deploy --config-file mkdocs.yml --branch gh-pages --deploy-prefix 'docs' --update-aliases 1.0.0 latest
-          mike set-default --config-file mkdocs.yml --branch gh-pages --deploy-prefix 'docs' 1.0.0
+          # Delete all existing mike deployments to start fresh
+          mike delete --config-file mkdocs.yml --branch gh-pages --deploy-prefix 'docs' --all || true
+          # Deploy version 1.0.0 with alias 'latest'
+          mike deploy --config-file mkdocs.yml --branch gh-pages --deploy-prefix 'docs' --push --update-aliases 1.0.0 latest
+          # Set 1.0.0 as the default version (creates redirect at /docs/)
+          mike set-default --config-file mkdocs.yml --branch gh-pages --deploy-prefix 'docs' --push 1.0.0
       
       - name: Checkout gh-pages branch with MkDocs content
         uses: actions/checkout@v4
