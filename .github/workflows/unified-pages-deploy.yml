@@ -16,15 +16,10 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -49,10 +44,10 @@ jobs:
           git config --global user.email "actions@github.com"
           # Delete all existing mike deployments to start fresh
           mike delete --config-file mkdocs.yml --branch gh-pages --deploy-prefix 'docs' --all || true
-          # Deploy version 1.0.0 with alias 'latest'
-          mike deploy --config-file mkdocs.yml --branch gh-pages --deploy-prefix 'docs' --push --update-aliases 1.0.0 latest
+          # Deploy version 1.0.0 with alias 'latest' (without --push, we'll push later with all assets)
+          mike deploy --config-file mkdocs.yml --branch gh-pages --deploy-prefix 'docs' --update-aliases 1.0.0 latest
           # Set 1.0.0 as the default version (creates redirect at /docs/)
-          mike set-default --config-file mkdocs.yml --branch gh-pages --deploy-prefix 'docs' --push 1.0.0
+          mike set-default --config-file mkdocs.yml --branch gh-pages --deploy-prefix 'docs' 1.0.0
       
       - name: Checkout gh-pages branch with MkDocs content
         uses: actions/checkout@v4
@@ -78,15 +73,16 @@ jobs:
           
           # Now set up our landing page as the main index.html
           cp landing-page.html gh-pages/index.html
-      
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-      
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'gh-pages'
-      
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+
+      - name: Commit and push all changes to gh-pages
+        run: |
+          cd gh-pages
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add -A
+          git diff-index --quiet HEAD || git commit -m "Deploy documentation and dashboard
+
+          - MkDocs versioned docs at /docs/
+          - Dashboard and tools at root
+          - Auto-deployed by GitHub Actions"
+          git push origin gh-pages
