@@ -433,6 +433,51 @@
             </div>
         </div>
 
+        <!-- Summary Statistics -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="bi bi-bar-chart me-2"></i> Filtered Results Summary
+                    </div>
+                    <div class="card-body">
+                        <div class="row text-center">
+                            <div class="col-md-3 mb-3 mb-md-0">
+                                <div class="h3 mb-1" id="summaryTotalTools">-</div>
+                                <small class="text-muted">Total Tools</small>
+                            </div>
+                            <div class="col-md-3 mb-3 mb-md-0">
+                                <div class="h3 mb-1" id="summaryAvgStars">-</div>
+                                <small class="text-muted">Avg Stars</small>
+                            </div>
+                            <div class="col-md-3 mb-3 mb-md-0">
+                                <div class="h3 mb-1" id="summaryAvgCitations">-</div>
+                                <small class="text-muted">Avg Citations</small>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="h3 mb-1" id="summaryTopLanguage">-</div>
+                                <small class="text-muted">Top Language</small>
+                            </div>
+                        </div>
+                        <div class="row text-center mt-3 pt-3 border-top">
+                            <div class="col-md-4">
+                                <span class="status-active me-2" id="summaryActive">-</span>
+                                <small class="text-muted">Active</small>
+                            </div>
+                            <div class="col-md-4">
+                                <span class="status-maintained me-2" id="summaryMaintained">-</span>
+                                <small class="text-muted">Maintained</small>
+                            </div>
+                            <div class="col-md-4">
+                                <span class="status-inactive me-2" id="summaryInactive">-</span>
+                                <small class="text-muted">Inactive</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Comparison Table -->
         <div class="row">
             <div class="col-12">
@@ -448,7 +493,12 @@
                             </button>
                         </div>
                     </div>
-                    <div class="card-body p-0">
+                    <div class="card-body p-0 pb-3">
+                        <!-- Data Quality Indicator -->
+                        <div class="alert alert-info mb-0 mx-3 mt-3" role="alert" id="dataQualityIndicator">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <small id="dataQualityText">Loading data quality information...</small>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-striped table-hover" id="comparisonTable">
                                 <thead>
@@ -973,10 +1023,143 @@
                     }
                 );
 
+                // Update summary statistics on table draw
+                comparisonTable.on('draw', function() {
+                    updateSummaryStatistics();
+                    updateDataQualityIndicator();
+                });
+
+                // Initial summary statistics update
+                updateSummaryStatistics();
+                updateDataQualityIndicator();
+
                 // Setup tool detail click handlers
                 setupToolDetailLinks();
             }
-            
+
+            function updateSummaryStatistics() {
+                // Get visible rows from DataTable
+                const visibleRows = comparisonTable.rows({ search: 'applied' }).data();
+
+                if (visibleRows.length === 0) {
+                    document.getElementById('summaryTotalTools').textContent = '0';
+                    document.getElementById('summaryAvgStars').textContent = '-';
+                    document.getElementById('summaryAvgCitations').textContent = '-';
+                    document.getElementById('summaryTopLanguage').textContent = '-';
+                    document.getElementById('summaryActive').textContent = '0';
+                    document.getElementById('summaryMaintained').textContent = '0';
+                    document.getElementById('summaryInactive').textContent = '0';
+                    return;
+                }
+
+                let totalStars = 0;
+                let totalCitations = 0;
+                const languageCounts = {};
+                let activeCount = 0;
+                let maintainedCount = 0;
+                let inactiveCount = 0;
+
+                // Process each visible row
+                for (let i = 0; i < visibleRows.length; i++) {
+                    const row = visibleRows[i];
+
+                    // Extract stars (column 2)
+                    const starsText = row[2] || '';
+                    const stars = parseInt(starsText.replace(/[^\d]/g, '')) || 0;
+                    totalStars += stars;
+
+                    // Extract citations (column 3)
+                    const citationsText = row[3] || '';
+                    const citations = parseInt(citationsText.replace(/[^\d]/g, '')) || 0;
+                    totalCitations += citations;
+
+                    // Extract language (column 6) from badge
+                    const languageHTML = row[6] || '';
+                    const languageMatch = languageHTML.match(/>([^<]+)</);
+                    const language = languageMatch ? languageMatch[1].trim() : 'Unknown';
+                    languageCounts[language] = (languageCounts[language] || 0) + 1;
+
+                    // Extract maintenance status (column 5)
+                    const statusHTML = row[5] || '';
+                    if (statusHTML.includes('✅ Active')) {
+                        activeCount++;
+                    } else if (statusHTML.includes('⚠️ Maintained')) {
+                        maintainedCount++;
+                    } else if (statusHTML.includes('❌ Inactive')) {
+                        inactiveCount++;
+                    }
+                }
+
+                // Calculate averages
+                const avgStars = Math.round(totalStars / visibleRows.length);
+                const avgCitations = Math.round(totalCitations / visibleRows.length);
+
+                // Find most common language
+                let topLanguage = '-';
+                let maxCount = 0;
+                for (const [lang, count] of Object.entries(languageCounts)) {
+                    if (count > maxCount) {
+                        maxCount = count;
+                        topLanguage = lang;
+                    }
+                }
+
+                // Update summary display
+                document.getElementById('summaryTotalTools').textContent = visibleRows.length.toLocaleString();
+                document.getElementById('summaryAvgStars').textContent = avgStars.toLocaleString();
+                document.getElementById('summaryAvgCitations').textContent = avgCitations.toLocaleString();
+                document.getElementById('summaryTopLanguage').textContent = topLanguage;
+                document.getElementById('summaryActive').textContent = activeCount.toLocaleString();
+                document.getElementById('summaryMaintained').textContent = maintainedCount.toLocaleString();
+                document.getElementById('summaryInactive').textContent = inactiveCount.toLocaleString();
+            }
+
+            function updateDataQualityIndicator() {
+                // Get all rows (not just visible ones) to show overall data quality
+                const allRows = comparisonTable.rows().data();
+
+                if (allRows.length === 0) {
+                    document.getElementById('dataQualityText').innerHTML = 'No data available';
+                    return;
+                }
+
+                let toolsWithStars = 0;
+                let toolsWithCitations = 0;
+                let toolsWithPackageManager = 0;
+
+                // Process each row
+                for (let i = 0; i < allRows.length; i++) {
+                    const row = allRows[i];
+
+                    // Check for stars (column 2)
+                    const starsText = row[2] || '';
+                    const stars = parseInt(starsText.replace(/[^\d]/g, '')) || 0;
+                    if (stars > 0) toolsWithStars++;
+
+                    // Check for citations (column 3)
+                    const citationsText = row[3] || '';
+                    const citations = parseInt(citationsText.replace(/[^\d]/g, '')) || 0;
+                    if (citations > 0) toolsWithCitations++;
+
+                    // Check for package manager (column 7)
+                    const packageManager = row[7] || '';
+                    if (packageManager && packageManager !== 'source' && packageManager.trim() !== '') {
+                        toolsWithPackageManager++;
+                    }
+                }
+
+                const starsPercent = ((toolsWithStars / allRows.length) * 100).toFixed(1);
+                const citationsPercent = ((toolsWithCitations / allRows.length) * 100).toFixed(1);
+                const packagePercent = ((toolsWithPackageManager / allRows.length) * 100).toFixed(1);
+
+                document.getElementById('dataQualityText').innerHTML = `
+                    <strong>Data Quality:</strong>
+                    <span class="ms-2">${toolsWithStars} of ${allRows.length} tools (${starsPercent}%) have GitHub stars</span> |
+                    <span class="ms-2">${toolsWithCitations} of ${allRows.length} tools (${citationsPercent}%) have citation data</span> |
+                    <span class="ms-2">${toolsWithPackageManager} of ${allRows.length} tools (${packagePercent}%) have package managers</span>
+                `;
+            }
+
             function setupToolDetailLinks() {
                 // Add click event to tool name links
                 document.querySelectorAll('.tool-detail-link').forEach(link => {
@@ -1095,42 +1278,9 @@
                 const citationsFilter = document.getElementById('citationsFilter');
                 const applyFiltersBtn = document.getElementById('applyFilters');
                 const resetFiltersBtn = document.getElementById('resetFilters');
-                
-                // Apply filters button click
-                applyFiltersBtn.addEventListener('click', function() {
-                    applyAllFilters();
-                });
-                
-                // Reset filters button click
-                resetFiltersBtn.addEventListener('click', function() {
-                    // Reset all filter inputs
-                    categoryFilter.value = '';
-                    languageFilter.value = '';
-                    maintenanceFilter.value = '';
-                    packageFilter.value = '';
-                    searchFilter.value = '';
-                    starsFilter.value = '0';
-                    citationsFilter.value = '0';
 
-                    // Reset global filter values
-                    globalMinStars = 0;
-                    globalMinCitations = 0;
-
-                    // Clear any existing DataTable search and render all tools
-                    comparisonTable.search('').columns().search('').draw();
-                });
-                
-                // Search filter input with debounce
-                let debounceTimeout;
-                searchFilter.addEventListener('input', function() {
-                    clearTimeout(debounceTimeout);
-                    debounceTimeout = setTimeout(() => {
-                        comparisonTable.search(this.value).draw();
-                    }, 300);
-                });
-                
                 // Function to apply all filters at once
-                function applyAllFilters() {
+                function applyAllFilters(updateURL = true) {
                     // Clear any existing filters first
                     comparisonTable.search('').columns().search('');
 
@@ -1170,6 +1320,96 @@
 
                     // Trigger single draw with all filters applied
                     comparisonTable.draw();
+
+                    // Update URL parameters
+                    if (updateURL) {
+                        updateURLParameters();
+                    }
+                }
+
+                // Auto-apply filters on change
+                categoryFilter.addEventListener('change', () => applyAllFilters());
+                languageFilter.addEventListener('change', () => applyAllFilters());
+                maintenanceFilter.addEventListener('change', () => applyAllFilters());
+                packageFilter.addEventListener('change', () => applyAllFilters());
+                starsFilter.addEventListener('change', () => applyAllFilters());
+                citationsFilter.addEventListener('change', () => applyAllFilters());
+
+                // Apply filters button click (kept for explicit user action)
+                applyFiltersBtn.addEventListener('click', function() {
+                    applyAllFilters();
+                });
+
+                // Reset filters button click
+                resetFiltersBtn.addEventListener('click', function() {
+                    // Reset all filter inputs
+                    categoryFilter.value = '';
+                    languageFilter.value = '';
+                    maintenanceFilter.value = '';
+                    packageFilter.value = '';
+                    searchFilter.value = '';
+                    starsFilter.value = '0';
+                    citationsFilter.value = '0';
+
+                    // Reset global filter values
+                    globalMinStars = 0;
+                    globalMinCitations = 0;
+
+                    // Clear any existing DataTable search and render all tools
+                    comparisonTable.search('').columns().search('').draw();
+
+                    // Clear URL parameters
+                    updateURLParameters();
+                });
+
+                // Search filter input with debounce
+                let debounceTimeout;
+                searchFilter.addEventListener('input', function() {
+                    clearTimeout(debounceTimeout);
+                    debounceTimeout = setTimeout(() => {
+                        comparisonTable.search(this.value).draw();
+                        updateURLParameters();
+                    }, 300);
+                });
+
+                // Apply URL parameters if present
+                applyURLParameters();
+
+                // Function to update URL parameters based on current filters
+                function updateURLParameters() {
+                    const params = new URLSearchParams();
+
+                    if (categoryFilter.value) params.set('category', categoryFilter.value);
+                    if (languageFilter.value) params.set('language', languageFilter.value);
+                    if (maintenanceFilter.value) params.set('maintenance', maintenanceFilter.value);
+                    if (packageFilter.value) params.set('package', packageFilter.value);
+                    if (searchFilter.value) params.set('search', searchFilter.value);
+                    if (starsFilter.value && starsFilter.value !== '0') params.set('stars', starsFilter.value);
+                    if (citationsFilter.value && citationsFilter.value !== '0') params.set('citations', citationsFilter.value);
+
+                    const newURL = params.toString() ?
+                        `${window.location.pathname}?${params.toString()}` :
+                        window.location.pathname;
+
+                    window.history.replaceState({}, '', newURL);
+                }
+
+                // Function to apply URL parameters on page load
+                function applyURLParameters() {
+                    const params = new URLSearchParams(window.location.search);
+
+                    if (params.has('category')) categoryFilter.value = params.get('category');
+                    if (params.has('language')) languageFilter.value = params.get('language');
+                    if (params.has('maintenance')) maintenanceFilter.value = params.get('maintenance');
+                    if (params.has('package')) packageFilter.value = params.get('package');
+                    if (params.has('search')) searchFilter.value = params.get('search');
+                    if (params.has('stars')) starsFilter.value = params.get('stars');
+                    if (params.has('citations')) citationsFilter.value = params.get('citations');
+
+                    // Apply filters if any URL parameters were set
+                    if (params.toString()) {
+                        applyAllFilters(false); // Don't update URL again
+                    }
                 }
             }
             
