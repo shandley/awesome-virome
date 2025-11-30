@@ -129,6 +129,7 @@ Here are the most popular and well-maintained tools in each major category:
 | [CHERRY](https://github.com/KennthShang/CHERRY) [v1.0, 2022] | ⭐ 24 | Deep learning for phage host prediction |
 | [VirHostMatcher-Net](https://github.com/WeiliWw/VirHostMatcher-Net) | ⭐ 21 | Network-based virus-host prediction |
 | [DeepHost](https://github.com/deepomicslab/DeepHost) | ⭐ 17 | CNN for phage host prediction |
+| [PhARIS](https://github.com/JKrusche1/PhARIS) [Updated: 03/2025] | - | Phage Aureus RBP Identification System for receptor-binding protein identification |
 
 ### 🧬 Genome Analysis
 | Tool | Stars | Description |
@@ -142,6 +143,10 @@ Here are the most popular and well-maintained tools in each major category:
 | [vConTACT2.0](https://bitbucket.org/MAVERICLab/vcontact2/src/master/) [v0.9.19, 2023] | ⭐ 27 | Genome-sharing networks for virus taxonomy |
 | [PhaGCN](https://github.com/KennthShang/PhaGCN) [v1.0, 2022] | ⭐ 25 | Graph convolutional network for phage taxonomy |
 | [VIPtree](https://github.com/yosuken/ViPTreeGen) | ⭐ 19 | Viral proteomic tree generation |
+| [taxMyPhage](https://github.com/amillard/tax_myPHAGE) [Updated: 03/2025] | - | Automated taxonomy assignment for dsDNA bacteriophage genomes using MASH and BLASTn |
+| [VITAP](https://github.com/DrKaiyangZheng/VITAP) [Updated: 03/2025] | - | Viral Taxonomic Assignment Pipeline using alignment-based methods with graph algorithms |
+| [ViTax](https://github.com/Ying-Lab/ViTax) [Updated: 02/2025] | - | Viral taxonomy classification using HyenaDNA foundation model |
+| [vConTACT3](https://vcontact3.readthedocs.io) [Updated: 11/2025] | - | Machine learning-based hierarchical viral taxonomy for prokaryotic and eukaryotic viruses |
 
 **📈 Most Starred Overall:**
 2. [CovidMD](https://github.com/lammps/lammps) (⭐ 2365) - Molecular dynamics for COVID-19
@@ -198,8 +203,8 @@ Here are the most popular and well-maintained tools in each major category:
 
 ### Metagenome Analysis
 
-- [Cenote-Taker 3](https://github.com/mtisza1/Cenote-Taker3) [v0.1.0, 2023] - Hallmark gene discovery, gene annotation, flanking host gene removal. [Linux/MacOS] [conda] [v0.1.0, 2023]
 - [Cenote-Taker 2](https://github.com/mtisza1/Cenote-Taker2) [v2.1.5, 2022] - Scans contigs for virus hallmark genes, removes flanking host DNA from prophages, makes annotated genome maps. [conda, pip] [v2.1.5, 2022]
+- [Cenote-Taker 3](https://github.com/mtisza1/Cenote-Taker3) [v0.1.0, 2023] - Hallmark gene discovery, gene annotation, flanking host gene removal. [Linux/MacOS] [conda] [v0.1.0, 2023]
 - [CoCoNet](https://github.com/Puumanamana/CoCoNet) [Updated: 03/2025] - Neural networks for viral contig identification. [pip] [Python]
 - [crassus](https://github.com/dcarrillox/CrassUS) [Updated: 04/2023] - Snakemake workflow for phage discovery. [conda] [Python]
 - [DBSCAN-SWA](https://github.com/HIT-ImmunologyLab/DBSCAN-SWA/) [Updated: 12/2024] - DBSCAN clustering for phage identification. [Python]
@@ -220,6 +225,7 @@ Here are the most popular and well-maintained tools in each major category:
 - [metaPhage](https://mattiapandolfovr.github.io/MetaPhage/) - Pipeline for phage and virus identification. [conda] [Nextflow]
 - [MetaPhinder](https://github.com/vanessajurtz/MetaPhinder) [Updated: 07/2024] - Integrates BLAST hits to multiple phage genomes to identify phage sequences. [Python]
 - [MetaPhlAn 4.1.0](https://github.com/biobakery/MetaPhlAn/releases/tag/4.1.0) [Updated: 03/2025] - Read mapping-based virus identification. [conda, pip] [Python]
+- [nf-core/viralmetagenome](https://github.com/nf-core/viralmetagenome) [v1.0.0, 2025] - Nextflow pipeline for viral genome reconstruction with iSNV detection from metagenomic samples. [Nextflow]
 - [PhaBox](https://phage.ee.cityu.edu.hk/) - Integrates several phage tools: PhaMer, PhaTYP, PhaGCN, and CHERRY. [conda] [Python]
 - [Phage tools](https://github.com/sxh1136/Phage_tools) [Updated: 01/2024] - Collection of tools for predicting and identifying phage in metagenomes. [Python]
 - [PHAMB](https://github.com/RasmussenLab/phamb) [Updated: 02/2025] - Random forest based phage identification. [conda] [Python]
@@ -242,6 +248,7 @@ Here are the most popular and well-maintained tools in each major category:
 - [virAnnot](https://github.com/marieBvr/virAnnot) [Updated: 03/2024] - Pipeline for OTU assignment in viral sequences. [source] [Python]
 - [VirFinder](https://github.com/jessieren/VirFinder) [Updated: 03/2025] - Neural network and machine learning for virus identification. [R]
 - [Virhunter](https://github.com/cbib/virhunter) [Updated: 01/2025] - Deep learning approach for virus identification. [Python]
+- [VirMake](https://github.com/Rounge-lab/VirMake) [Updated: 02/2025] - Snakemake pipeline for viral taxonomic and functional analysis from shotgun metagenomic sequencing. [Snakemake] [Python]
 - [VirMine](https://github.com/thatzopoulos/virMine) [Updated: 04/2023] - Pipeline for virus identification. [Perl]
 - [virMiner](https://github.com/TingtZHENG/VirMiner) [Updated: 10/2024] - Random forest approach for virus identification. [R]
 - [VirNet](https://github.com/alyosama/virnet) [Updated: 09/2024] - Neural network for phage identification. [Python]
@@ -268,6 +275,7 @@ Here are the most popular and well-maintained tools in each major category:
 - [PHASTER](https://phaster.ca/) - Rapid identification and annotation of prophage sequences (web service only). [web service]
 - [Phigaro](https://github.com/bobeobibo/phigaro) [Updated: 12/2024] - Prophage prediction tool. (Note: downloads uncompressed file from Russian server). [Python]
 - [PhiSpy](https://github.com/linsalrob/PhiSpy) [v4.2.23, 2023] - Prophage identification combining similarity and composition-based approaches. [conda, pip] [Python] [v4.2.23, 2023]
+- [PIDE](https://github.com/chyghy/PIDE) [Updated: 02/2025] - Prophage island detection using ESM-2 protein language model and gene density clustering. [Python]
 - [Prophet](https://github.com/jaumlrc/ProphET) [Updated: 12/2023] - Prophage prediction tool. (Note: requires unsupported legacy software). [Perl] [legacy]
 - [Prophinder](http://aclame.ulb.ac.be/Tools/Prophinder/) - Web-based prophage detection tool. [web service]
 - [VAPiD](https://github.com/rcs333/VAPiD) [Updated: 09/2024] - Virus genome annotation and identification tool. [pip] [Python]
@@ -321,9 +329,11 @@ Here are the most popular and well-maintained tools in each major category:
 - [MetaCerberus](https://github.com/raw-lab/MetaCerberus) [Updated: 03/2025] - HMM-based annotation with Ray MPP. [conda, pip] [Python]
 - [PhANNs](https://github.com/Adrian-Cantu/PhANNs) [Updated: 12/2024] - Phage annotation neural networks. (Python version available via contact) [Python]
 - [Pharokka](https://github.com/gbouras13/pharokka) [v1.5.0, 2023] [v1.5.0, 2023] [Updated: 03/2025] - Rapid phage annotation tool. [conda] [Python] [v1.5.0, 2023]
+- [Phold](https://github.com/gbouras13/phold) [v1.1.0, 2025] - Phage annotation using protein structure information with ProstT5 and Foldseek. [conda, pip] [Python]
 
 ### Genome Assembly
 
+- [BonoboFlow](https://github.com/nchis09/BonoboFlow) [v1.0, 2025] - Nextflow pipeline for viral genome assembly and haplotype reconstruction from ONT long reads. [Nextflow] [Python]
 - [coronaSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) [Updated: 03/2025] - HMM-synteny guided assembly for all viruses. [C++]
 - [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) [Updated: 03/2025] - Assembler for viruses from metagenomic data. [C++]
 - [VEGA](https://github.com/pauloluniyi/VGEA) [Updated: 03/2025] - Snakemake workflow for viral genome assembly. [conda] [Snakemake]
