@@ -905,8 +905,8 @@
                 globalData.nodes = nodes;
                 globalData.links = links;
                 
-                // Extract tools, categories, subcategories
-                const tools = nodes.filter(node => node.type === 'tool');
+                // Extract tools, categories, subcategories - filter out Quick Start Guide items
+                const tools = nodes.filter(node => node.type === 'tool' && node.category !== 'Quick Start Guide');
                 const categories = nodes.filter(node => node.type === 'category');
                 const subcategories = nodes.filter(node => node.type === 'subcategory');
                 

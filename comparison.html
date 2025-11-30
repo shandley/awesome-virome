@@ -735,8 +735,10 @@
                             });
                     })
                     .then(({ toolData, impactData }) => {
-                        // Process and merge data
-                        const tools = toolData.nodes.filter(node => node.type === 'tool');
+                        // Process and merge data - filter out Quick Start Guide items
+                        const tools = toolData.nodes.filter(node =>
+                            node.type === 'tool' && node.category !== 'Quick Start Guide'
+                        );
                         console.log(`Found ${tools.length} tools in data.json`);
 
                         // Create impact data lookup map for faster access
