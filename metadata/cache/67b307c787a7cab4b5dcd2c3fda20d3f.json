@@ -1,0 +1,48 @@
+{
+  "cache_date": "2025-11-30T08:26:25.051530",
+  "data": [
+    {
+      "url": "https://api.github.com/repos/nf-core/viralmetagenome/releases/259236627",
+      "assets_url": "https://api.github.com/repos/nf-core/viralmetagenome/releases/259236627/assets",
+      "upload_url": "https://uploads.github.com/repos/nf-core/viralmetagenome/releases/259236627/assets{?name,label}",
+      "html_url": "https://github.com/nf-core/viralmetagenome/releases/tag/1.0.0",
+      "id": 259236627,
+      "author": {
+        "login": "Joon-Klaps",
+        "id": 61584065,
+        "node_id": "MDQ6VXNlcjYxNTg0MDY1",
+        "avatar_url": "https://avatars.githubusercontent.com/u/61584065?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/Joon-Klaps",
+        "html_url": "https://github.com/Joon-Klaps",
+        "followers_url": "https://api.github.com/users/Joon-Klaps/followers",
+        "following_url": "https://api.github.com/users/Joon-Klaps/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Joon-Klaps/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/Joon-Klaps/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Joon-Klaps/subscriptions",
+        "organizations_url": "https://api.github.com/users/Joon-Klaps/orgs",
+        "repos_url": "https://api.github.com/users/Joon-Klaps/repos",
+        "events_url": "https://api.github.com/users/Joon-Klaps/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/Joon-Klaps/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "node_id": "RE_kwDOIw-IrM4Pc6MT",
+      "tag_name": "1.0.0",
+      "target_commitish": "master",
+      "name": "v1.0.0 - Willowish Hawk",
+      "draft": false,
+      "immutable": false,
+      "prerelease": false,
+      "created_at": "2025-11-04T14:10:48Z",
+      "updated_at": "2025-11-04T14:17:27Z",
+      "published_at": "2025-11-04T14:15:30Z",
+      "assets": [],
+      "tarball_url": "https://api.github.com/repos/nf-core/viralmetagenome/tarball/1.0.0",
+      "zipball_url": "https://api.github.com/repos/nf-core/viralmetagenome/zipball/1.0.0",
+      "body": "## v1.0.0 - 2025-11-04\r\n\r\nInitial release of nf-core/viralmetagenome, created with the [nf-core](https://nf-co.re/) template.\r\n\r\n### `Added`\r\n\r\n- Add argument to control the maximum mpileup depth in `custom_mpileup.py` script ([#176](https://github.com/nf-core/viralmetagenome/pull/176)) (by @Joon-Klaps)\r\n- Removing redundant `samtools_sort` after `BAM_DEDUPLICATE` ([#177](https://github.com/nf-core/viralmetagenome/pull/177)) (by @Joon-Klaps)\r\n- Removing `seqkit replace` and move logic to `blast_filter.py` ([#178](https://github.com/nf-core/viralmetagenome/pull/178)) (by @Joon-Klaps)\r\n- Giving Kaiju more memory ([#179](https://github.com/nf-core/viralmetagenome/pull/179)) (by @Joon-Klaps)\r\n- Add option for sample merging based on group column in samplesheet ([#180](https://github.com/nf-core/viralmetagenome/pull/180)) (by @Joon-Klaps)\r\n- Creating testdatasets using nf-core repo ([#183](https://github.com/nf-core/viralmetagenome/pull/183)) (by @Joon-Klaps)\r\n- Add option to annotate snps with Snpeff for mapping constraint route ([#186](https://github.com/Joon-Klaps/viralgenie/pull/186)) (by @Joon-Klaps)\r\n- Add `nf-tests` for `test` profile ([#189](https://github.com/nf-core/viralmetagenome/pull/189)) (by @Joon-Klaps)\r\n- Update docs ([#200](https://github.com/nf-core/viralmetagenome/pull/200)) (by @Joon-Klaps)\r\n- Template update for nf-core/tools v3.3.2 ([#202](https://github.com/nf-core/viralmetagenome/pull/202)) (by @Joon-Klaps)\r\n- Add option for local desktop configuration profile ([#227](https://github.com/nf-core/viralmetagenome/pull/227)) (by @Joon-Klaps)\r\n- Added option to blacklist certain NCBI accessions (`--blacklist`) from reference pool (`--reference_pool`) ([#228](https://github.com/nf-core/viralmetagenome/pull/228)) (by @Joon-Klaps)\r\n- Add support for both string and integer inputs in samplesheets through `validation.lentientMode = true` ([#230](https://github.com/nf-core/viralmetagenome/pull/230)) (by @Joon-Klaps)\r\n\r\n### `Fixed`\r\n\r\n- Fix local module `ivar_variants_to_vcf` to handle empty tsv files ([#197](https://github.com/Joon-Klaps/viralmetagenome/pull/197/)) (by @Joon-Klaps)\r\n- Migrate lib dir functions to utils_nfcore_viralmetagenome_pipeline ([#194](https://github.com/nf-core/viralmetagenome/pull/194)) (by @Joon-Klaps)\r\n- Fix inconsistent dependency versions across modules ([#208](https://github.com/nf-core/viralmetagenome/pull/208)) (by @Joon-Klaps)\r\n- Fix conda issue unrecognized arguments: --mkdir ([#210](https://github.com/nf-core/viralmetagenome/pull/210)) (by @Joon-Klaps)\r\n- Fix writing no sequence for select_reference.py to the first reference of the multifasta ([#214](https://github.com/nf-core/viralmetagenome/pull/214)) (by @Joon-Klaps)\r\n- Fix main language detection to ignore generated files ([#224](https://github.com/nf-core/viralmetagenome/pull/224)) (by @Joon-Klaps)\r\n\r\n### `Deprecated`\r\n\r\n- Refactor `params.skip_annotation` to `params.skip_consensus_annotation`([#181](https://github.com/nf-core/viralmetagenome/pull/181)) (by @Joon-Klaps)\r\n- Deprecate `params.skip_nocov_to_reference` ([#212](https://github.com/nf-core/viralmetagenome/pull/212)) (by @Joon-Klaps)\r\n- Deprecate `BWAMEM` as mapping tool ([#212](https://github.com/nf-core/viralmetagenome/pull/212)) (by @Joon-Klaps)",
+      "mentions_count": 1
+    }
+  ]
+}
