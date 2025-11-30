@@ -275,26 +275,55 @@
             border-radius: 0.25rem;
         }
 
+        /* Export buttons styling */
+        .card-header .btn-outline-light {
+            color: white !important;
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .card-header .btn-outline-light:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        /* Data quality indicator styling */
+        #dataQualityIndicator {
+            border-left: 4px solid var(--info-color);
+        }
+
+        #dataQualityIndicator small {
+            line-height: 1.6;
+        }
+
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .dashboard-container {
                 padding: 1rem;
             }
-            
+
             .card-header {
                 padding: 0.8rem 1rem;
             }
-            
+
             .card-body {
                 padding: 1rem;
             }
-            
+
             .section-title {
                 font-size: 1.5rem;
             }
 
             .filter-toolbar .col-md-3 {
                 margin-bottom: 1rem;
+            }
+
+            #dataQualityText {
+                font-size: 0.75rem;
+            }
+
+            #dataQualityText span {
+                display: block;
+                margin: 0.25rem 0 !important;
             }
         }
 
@@ -1154,9 +1183,9 @@
 
                 document.getElementById('dataQualityText').innerHTML = `
                     <strong>Data Quality:</strong>
-                    <span class="ms-2">${toolsWithStars} of ${allRows.length} tools (${starsPercent}%) have GitHub stars</span> |
-                    <span class="ms-2">${toolsWithCitations} of ${allRows.length} tools (${citationsPercent}%) have citation data</span> |
-                    <span class="ms-2">${toolsWithPackageManager} of ${allRows.length} tools (${packagePercent}%) have package managers</span>
+                    <span class="ms-3"><i class="bi bi-star-fill me-1" style="color: gold;"></i>${toolsWithStars}/${allRows.length} (${starsPercent}%) have stars</span>
+                    <span class="ms-3"><i class="bi bi-book me-1"></i>${toolsWithCitations}/${allRows.length} (${citationsPercent}%) have citations</span>
+                    <span class="ms-3"><i class="bi bi-box-seam me-1"></i>${toolsWithPackageManager}/${allRows.length} (${packagePercent}%) have package managers</span>
                 `;
             }
 
