@@ -575,28 +575,28 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Comparison tool initializing...');
-            
+
             // Theme handling
             const themeToggle = document.getElementById('theme-toggle');
             const themeIcon = themeToggle.querySelector('i');
-            
+
             // Check for saved theme
             const savedTheme = localStorage.getItem('theme');
             if (savedTheme) {
                 document.body.setAttribute('data-theme', savedTheme);
                 updateThemeIcon(savedTheme);
             }
-            
+
             // Toggle theme
             themeToggle.addEventListener('click', function() {
                 const currentTheme = document.body.getAttribute('data-theme') || 'light';
                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                
+
                 document.body.setAttribute('data-theme', newTheme);
                 localStorage.setItem('theme', newTheme);
                 updateThemeIcon(newTheme);
             });
-            
+
             function updateThemeIcon(theme) {
                 if (theme === 'dark') {
                     themeIcon.className = 'bi bi-sun-fill';
@@ -604,9 +604,13 @@
                     themeIcon.className = 'bi bi-moon-fill';
                 }
             }
-            
+
             // Initialize DataTable
             let comparisonTable;
+
+            // Global filter state for stars and citations
+            let globalMinStars = 0;
+            let globalMinCitations = 0;
             
             // Load data from the repository's data.json and impact_data.json files
             loadData();
@@ -614,50 +618,58 @@
             // Load and display data
             function loadData() {
                 console.log('Loading tool comparison data...');
-                
+
                 try {
                     const baseUrl = window.location.href.split('/').slice(0, -1).join('/') + '/';
                     const dataUrl = new URL('data.json', baseUrl).href;
                     const impactDataUrl = new URL('impact_data.json', baseUrl).href;
-                    
+
                     console.log('Fetching tool data from:', dataUrl);
-                    console.log('Fetching impact data from:', impactDataUrl);
-                    
-                    // Use Promise.all to fetch both data files in parallel
-                    Promise.all([
-                        fetch(`${dataUrl}?t=${Date.now()}`),
-                        fetch(`${impactDataUrl}?t=${Date.now()}`)
-                    ])
-                    .then(responses => {
-                        // Check if both responses are OK
-                        if (!responses[0].ok) {
-                            throw new Error(`Failed to load data.json (Status: ${responses[0].status})`);
+
+                    // Fetch data.json first (required)
+                    fetch(`${dataUrl}?t=${Date.now()}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Failed to load data.json (Status: ${response.status})`);
                         }
-                        if (!responses[1].ok) {
-                            throw new Error(`Failed to load impact_data.json (Status: ${responses[1].status})`);
-                        }
-                        
-                        // Parse both responses as JSON
-                        return Promise.all([
-                            responses[0].json(),
-                            responses[1].json()
-                        ]);
+                        return response.json();
                     })
-                    .then(([toolData, impactData]) => {
-                        console.log('Tool data and impact data loaded successfully');
-                        
+                    .then(toolData => {
+                        console.log('Tool data loaded successfully');
+
+                        // Try to fetch impact_data.json (optional)
+                        console.log('Attempting to fetch impact data from:', impactDataUrl);
+                        return fetch(`${impactDataUrl}?t=${Date.now()}`)
+                            .then(response => {
+                                if (!response.ok) {
+                                    console.warn(`Impact data not available (Status: ${response.status}), continuing without citation data`);
+                                    return null;
+                                }
+                                return response.json();
+                            })
+                            .catch(error => {
+                                console.warn('Impact data fetch failed, continuing without citation data:', error.message);
+                                return null;
+                            })
+                            .then(impactData => {
+                                return { toolData, impactData };
+                            });
+                    })
+                    .then(({ toolData, impactData }) => {
                         // Process and merge data
                         const tools = toolData.nodes.filter(node => node.type === 'tool');
-                        const impactTools = impactData.tools;
-                        
                         console.log(`Found ${tools.length} tools in data.json`);
-                        console.log(`Found ${impactTools.length} tools in impact_data.json`);
-                        
+
                         // Create impact data lookup map for faster access
                         const impactMap = {};
-                        impactTools.forEach(tool => {
-                            impactMap[tool.name] = tool;
-                        });
+                        if (impactData && impactData.tools) {
+                            console.log(`Found ${impactData.tools.length} tools in impact_data.json`);
+                            impactData.tools.forEach(tool => {
+                                impactMap[tool.name] = tool;
+                            });
+                        } else {
+                            console.log('No impact data available - all citation counts will be 0');
+                        }
                         
                         // Merge data from both sources
                         const mergedTools = tools.map(tool => {
@@ -708,9 +720,10 @@
                             if (tool.lastUpdated) {
                                 const updateDate = new Date(tool.lastUpdated);
                                 const now = new Date();
-                                const monthsDiff = (now.getFullYear() - updateDate.getFullYear()) * 12 + 
-                                    now.getMonth() - updateDate.getMonth();
-                                
+                                // Use actual elapsed time instead of calendar month arithmetic
+                                const daysDiff = Math.floor((now - updateDate) / (1000 * 60 * 60 * 24));
+                                const monthsDiff = Math.floor(daysDiff / 30.44); // 30.44 = 365.25 / 12
+
                                 if (monthsDiff < 6) {
                                     maintenanceStatus = 'active';
                                 } else if (monthsDiff < 12) {
@@ -938,7 +951,28 @@
                         }
                     ]
                 });
-                
+
+                // Add custom filter for stars and citations
+                $.fn.dataTable.ext.search.push(
+                    function(settings, data, dataIndex) {
+                        // Only apply to our comparison table
+                        if (settings.nTable.id !== 'comparisonTable') {
+                            return true;
+                        }
+
+                        // Extract stars value (column 2)
+                        const starsText = data[2] || '';
+                        const stars = parseInt(starsText.replace(/[^\d]/g, '')) || 0;
+
+                        // Extract citations value (column 3)
+                        const citationsText = data[3] || '';
+                        const citations = parseInt(citationsText.replace(/[^\d]/g, '')) || 0;
+
+                        // Check if row meets minimum requirements
+                        return stars >= globalMinStars && citations >= globalMinCitations;
+                    }
+                );
+
                 // Setup tool detail click handlers
                 setupToolDetailLinks();
             }
@@ -1077,7 +1111,11 @@
                     searchFilter.value = '';
                     starsFilter.value = '0';
                     citationsFilter.value = '0';
-                    
+
+                    // Reset global filter values
+                    globalMinStars = 0;
+                    globalMinCitations = 0;
+
                     // Clear any existing DataTable search and render all tools
                     comparisonTable.search('').columns().search('').draw();
                 });
@@ -1094,63 +1132,44 @@
                 // Function to apply all filters at once
                 function applyAllFilters() {
                     // Clear any existing filters first
-                    comparisonTable.search('').columns().search('').draw();
-                    
+                    comparisonTable.search('').columns().search('');
+
                     // Apply category filter
                     if (categoryFilter.value) {
-                        comparisonTable.column(1).search(categoryFilter.value).draw();
+                        comparisonTable.column(1).search(categoryFilter.value);
                     }
-                    
+
                     // Apply language filter
                     if (languageFilter.value) {
-                        comparisonTable.column(6).search(languageFilter.value).draw();
+                        comparisonTable.column(6).search(languageFilter.value);
                     }
-                    
+
                     // Apply maintenance status filter
                     if (maintenanceFilter.value) {
                         let statusText = '';
                         if (maintenanceFilter.value === 'active') statusText = '✅ Active';
                         else if (maintenanceFilter.value === 'maintained') statusText = '⚠️ Maintained';
                         else if (maintenanceFilter.value === 'inactive') statusText = '❌ Inactive';
-                        
-                        comparisonTable.column(5).search(statusText).draw();
+
+                        comparisonTable.column(5).search(statusText);
                     }
-                    
+
                     // Apply package manager filter
                     if (packageFilter.value) {
-                        comparisonTable.column(7).search(packageFilter.value).draw();
+                        comparisonTable.column(7).search(packageFilter.value);
                     }
-                    
+
                     // Apply search filter
                     if (searchFilter.value) {
-                        comparisonTable.search(searchFilter.value).draw();
+                        comparisonTable.search(searchFilter.value);
                     }
-                    
-                    // Apply stars filter - this requires custom filtering
-                    const minStars = parseInt(starsFilter.value);
-                    if (minStars > 0) {
-                        $.fn.dataTable.ext.search.push(
-                            function(settings, data, dataIndex) {
-                                const stars = parseInt(data[2].replace(/[^\d]/g, '')) || 0;
-                                return stars >= minStars;
-                            }
-                        );
-                        comparisonTable.draw();
-                        $.fn.dataTable.ext.search.pop(); // Remove this filter after drawing
-                    }
-                    
-                    // Apply citations filter - this requires custom filtering
-                    const minCitations = parseInt(citationsFilter.value);
-                    if (minCitations > 0) {
-                        $.fn.dataTable.ext.search.push(
-                            function(settings, data, dataIndex) {
-                                const citations = parseInt(data[3].replace(/[^\d]/g, '')) || 0;
-                                return citations >= minCitations;
-                            }
-                        );
-                        comparisonTable.draw();
-                        $.fn.dataTable.ext.search.pop(); // Remove this filter after drawing
-                    }
+
+                    // Set global filter values for stars and citations
+                    globalMinStars = parseInt(starsFilter.value) || 0;
+                    globalMinCitations = parseInt(citationsFilter.value) || 0;
+
+                    // Trigger single draw with all filters applied
+                    comparisonTable.draw();
                 }
             }
             
