@@ -373,6 +373,54 @@
             border-color: white;
             color: white !important;
         }
+
+        /* Collapsible section header */
+        .collapsible-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            color: white;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            margin-bottom: 1rem;
+            box-shadow: var(--card-shadow);
+        }
+
+        .collapsible-section-header:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .collapsible-section-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .collapsible-section-header .toggle-icon {
+            transition: transform var(--transition-speed);
+            font-size: 1.5rem;
+        }
+
+        .collapsible-section-header[aria-expanded="true"] .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .collapsible-section-header .badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            margin-left: 1rem;
+        }
+
+        [data-theme="dark"] .collapsible-section-header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary-color));
+        }
     </style>
 </head>
 <body>
@@ -540,8 +588,15 @@
 
                 <!-- Tools Section -->
                 <section id="tools-section" class="mb-5">
-                    <h2 class="section-title">Tools</h2>
-                    <div class="mb-4">
+                    <div class="collapsible-section-header" data-bs-toggle="collapse" data-bs-target="#toolsCollapse" aria-expanded="false" aria-controls="toolsCollapse">
+                        <div class="d-flex align-items-center">
+                            <h2>Tools</h2>
+                            <span class="badge" id="filteredToolCount">0 tools</span>
+                        </div>
+                        <i class="bi bi-chevron-down toggle-icon"></i>
+                    </div>
+                    <div class="collapse" id="toolsCollapse">
+                        <div class="mb-4">
                         <ul class="nav nav-tabs" id="viewTabs" role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="grid-tab" data-bs-toggle="tab" data-bs-target="#grid-view" type="button" role="tab" aria-controls="grid-view" aria-selected="true">
@@ -583,6 +638,7 @@
                                     </table>
                                 </div>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </section>
@@ -864,6 +920,12 @@
                 // Update stats
                 document.getElementById('toolCount').textContent = tools.length;
                 document.getElementById('categoryCount').textContent = categories.length;
+
+                // Update filtered tool count badge (initial value)
+                const countBadge = document.getElementById('filteredToolCount');
+                if (countBadge) {
+                    countBadge.textContent = `${tools.length} tool${tools.length !== 1 ? 's' : ''}`;
+                }
                 
                 // Language count
                 const allLanguages = tools.flatMap(tool => Object.keys(tool.languages || {}));
@@ -1939,6 +2001,12 @@
                     
                     // Update URL parameters for deep linking
                     updateURLParameters(category, subcategory, language, maintenance, search);
+
+                    // Update filtered tool count badge
+                    const countBadge = document.getElementById('filteredToolCount');
+                    if (countBadge) {
+                        countBadge.textContent = `${filteredTools.length} tool${filteredTools.length !== 1 ? 's' : ''}`;
+                    }
 
                     // Render filtered tools
                     renderTools(filteredTools);
