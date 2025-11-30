@@ -1,0 +1,3938 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://shandley.github.io/awesome-virome/latest/tutorials/basic-metagenome-virome/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../rna-virus-discovery/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/awesome-virome-hex.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Basic Metagenome Virome - Awesome-Virome</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--tool:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22m21.71%2020.29-1.42%201.42a1%201%200%200%201-1.41%200L7%209.85A3.8%203.8%200%200%201%206%2010a4%204%200%200%201-3.78-5.3l2.54%202.54.53-.53%201.42-1.42.53-.53L4.7%202.22A4%204%200%200%201%2010%206a3.8%203.8%200%200%201-.15%201l11.86%2011.88a1%201%200%200%201%200%201.41M2.29%2018.88a1%201%200%200%200%200%201.41l1.42%201.42a1%201%200%200%200%201.41%200l5.47-5.46-2.83-2.83M20%202l-4%202v2l-2.17%202.17%202%202L18%208h2l2-4Z%22/%3E%3C/svg%3E');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tutorial-1-basic-metagenome-virome-analysis" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../home.html" title="Awesome-Virome" class="md-header__button md-logo" aria-label="Awesome-Virome" data-md-component="logo">
+      
+  <img src="../../assets/awesome-virome-hex.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Awesome-Virome
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Basic Metagenome Virome
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/shandley/awesome-virome" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    shandley/awesome-virome
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../intro/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../fundamentals/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Fundamentals
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../best-practices/quality-control/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Best Practices
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tools/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Core Analysis Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../troubleshooting/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Troubleshooting
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../contributing/guidelines/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Contributing
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../home.html" title="Awesome-Virome" class="md-nav__button md-logo" aria-label="Awesome-Virome" data-md-component="logo">
+      
+  <img src="../../assets/awesome-virome-hex.png" alt="logo">
+
+    </a>
+    Awesome-Virome
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/shandley/awesome-virome" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    shandley/awesome-virome
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../intro/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Typical Workflows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../fundamentals/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Fundamentals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/sample-preparation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sample Preparation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/sequencing-strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sequencing Strategies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basic Metagenome Virome
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basic Metagenome Virome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Software
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background Knowledge
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-download-and-prepare-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Download and Prepare Data
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: Download and Prepare Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-test-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download Test Dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect-raw-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspect Raw Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-quality-control-and-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Quality Control and Preprocessing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Quality Control and Preprocessing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-fastp-for-qc-and-trimming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run FastP for QC and Trimming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#review-qc-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review QC Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Assembly
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Assembly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-metaviralspades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run metaviralSPAdes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-and-prepare-contigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter and Prepare Contigs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-viral-sequence-identification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Viral Sequence Identification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Viral Sequence Identification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-virsorter2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 VirSorter2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-vibrant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 VIBRANT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-genomad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 geNomad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-combine-predictions-consensus-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Combine Predictions (Consensus Approach)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-quality-assessment-with-checkv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Quality Assessment with CheckV
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 5: Quality Assessment with CheckV">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interpret-checkv-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpret CheckV Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-remove-host-contamination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Remove Host Contamination
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-taxonomic-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: Taxonomic Classification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 7: Taxonomic Classification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-blast-based-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 BLAST-based Classification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-analyze-taxonomic-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Analyze Taxonomic Composition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-abundance-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8: Abundance Estimation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 8: Abundance Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#map-reads-to-viral-contigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Map Reads to Viral Contigs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analyze-abundance-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analyze Abundance Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-9-summary-and-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 9: Summary and Visualization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 9: Summary and Visualization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create Summary Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualize-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualize Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expected-final-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Final Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Expected Final Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files-generated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files Generated
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typical-results-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typical Results Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpreting-your-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpreting Your Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interpreting Your Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quality-metrics-to-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality Metrics to Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#biological-interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Biological Interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-low-assembly-n50-3kb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Low Assembly N50 (&lt;3kb)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-very-few-viral-contigs-identified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Very Few Viral Contigs Identified
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-high-contamination-in-checkv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: High Contamination in CheckV
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-no-blast-hits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: No BLAST Hits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Next Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#to-build-on-this-tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        To build on this tutorial:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-analyses-you-can-now-try" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced analyses you can now try:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applying-to-your-own-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applying to your own data:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feedback
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rna-virus-discovery/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RNA Virus Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prophage-identification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prophage Identification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparative-virome/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparative Virome Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host-prediction-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Host Prediction Workflows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Best Practices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../best-practices/quality-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../best-practices/tool-combinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tool Combinations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../best-practices/statistical-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistical Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../best-practices/validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../best-practices/reproducibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Analysis Tools
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Analysis Tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/virus-identification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virus Identification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/host-prediction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Host Prediction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/selection-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selection Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../troubleshooting/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Troubleshooting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Endpoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/updating-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Updating Docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Software
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background Knowledge
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-download-and-prepare-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Download and Prepare Data
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: Download and Prepare Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-test-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download Test Dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect-raw-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inspect Raw Data
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-quality-control-and-preprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Quality Control and Preprocessing
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Quality Control and Preprocessing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-fastp-for-qc-and-trimming" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run FastP for QC and Trimming
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#review-qc-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Review QC Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Assembly
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Assembly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-metaviralspades" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run metaviralSPAdes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-and-prepare-contigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter and Prepare Contigs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-viral-sequence-identification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: Viral Sequence Identification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: Viral Sequence Identification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-virsorter2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 VirSorter2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-vibrant" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 VIBRANT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-genomad" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 geNomad
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-combine-predictions-consensus-approach" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Combine Predictions (Consensus Approach)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-quality-assessment-with-checkv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: Quality Assessment with CheckV
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 5: Quality Assessment with CheckV">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interpret-checkv-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpret CheckV Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-remove-host-contamination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: Remove Host Contamination
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-taxonomic-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: Taxonomic Classification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 7: Taxonomic Classification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-blast-based-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 BLAST-based Classification
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-analyze-taxonomic-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Analyze Taxonomic Composition
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-abundance-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8: Abundance Estimation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 8: Abundance Estimation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#map-reads-to-viral-contigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Map Reads to Viral Contigs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#analyze-abundance-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analyze Abundance Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-9-summary-and-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 9: Summary and Visualization
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 9: Summary and Visualization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-summary-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create Summary Table
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#visualize-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Visualize Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expected-final-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Final Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Expected Final Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#files-generated" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files Generated
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typical-results-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typical Results Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interpreting-your-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpreting Your Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Interpreting Your Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quality-metrics-to-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality Metrics to Check
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#biological-interpretation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Biological Interpretation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-low-assembly-n50-3kb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Low Assembly N50 (&lt;3kb)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-very-few-viral-contigs-identified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Very Few Viral Contigs Identified
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-high-contamination-in-checkv" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: High Contamination in CheckV
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-no-blast-hits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: No BLAST Hits
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Next Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#to-build-on-this-tutorial" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        To build on this tutorial:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-analyses-you-can-now-try" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advanced analyses you can now try:
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applying-to-your-own-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Applying to your own data:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#feedback" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Feedback
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tutorial-1-basic-metagenome-virome-analysis">Tutorial 1: Basic Metagenome Virome Analysis</h1>
+<blockquote>
+<p><strong>Last Updated:</strong> November 29, 2025
+<strong>Level:</strong> Beginner | <strong>Time:</strong> 4-6 hours | <strong>Data Size:</strong> 50MB</p>
+</blockquote>
+<h2 id="overview">Overview</h2>
+<p>This tutorial teaches the fundamental workflow for discovering and characterizing viruses in metagenomic sequencing data. You'll learn how to go from raw FASTQ files to a characterized set of viral contigs with taxonomic assignments and abundance estimates.</p>
+<p><strong>What you'll learn:</strong>
+- Quality control and preprocessing of metagenomic reads
+- Assembly strategies optimized for viral sequences
+- Identification of viral contigs using multiple tools
+- Quality assessment and validation with CheckV
+- Taxonomic classification of viral sequences
+- Abundance estimation and visualization</p>
+<p><strong>Sample dataset:</strong>
+Simulated human gut virome dataset (paired-end Illumina, 2×150bp, ~2M reads)</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<h3 id="required-software">Required Software</h3>
+<p>Install these tools via conda:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Create and activate environment</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>virome_tutorial<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>conda<span class="w"> </span>activate<span class="w"> </span>virome_tutorial
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Install required tools</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>bioconda<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nv">fastp</span><span class="o">=</span><span class="m">0</span>.23.4<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nv">spades</span><span class="o">=</span><span class="m">3</span>.15.5<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nv">virsorter</span><span class="o">=</span><span class="m">2</span>.2.4<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="nv">checkv</span><span class="o">=</span><span class="m">1</span>.0.1<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nv">blast</span><span class="o">=</span><span class="m">2</span>.14.0<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="nv">prodigal</span><span class="o">=</span><span class="m">2</span>.6.3<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="nv">hmmer</span><span class="o">=</span><span class="m">3</span>.3.2<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="nv">seqkit</span><span class="o">=</span><span class="m">2</span>.5.1<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="nv">bbmap</span><span class="o">=</span><span class="m">39</span>.01<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span><span class="nv">coverm</span><span class="o">=</span><span class="m">0</span>.6.1
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="c1"># Install VIBRANT (requires separate installation)</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="nb">cd</span><span class="w"> </span>~/tools<span class="w">  </span><span class="c1"># or your preferred tools directory</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/AnantharamanLab/VIBRANT.git
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="nb">cd</span><span class="w"> </span>VIBRANT
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>python3<span class="w"> </span>setup.py<span class="w"> </span>install
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>download-db.sh<span class="w">  </span><span class="c1"># Downloads VIBRANT databases (~11GB)</span>
+</span></code></pre></div>
+<h3 id="system-requirements">System Requirements</h3>
+<ul>
+<li><strong>RAM:</strong> 16GB minimum (32GB recommended)</li>
+<li><strong>Disk Space:</strong> 50GB free space</li>
+<li><strong>CPU:</strong> 4+ cores recommended</li>
+<li><strong>OS:</strong> Linux or macOS</li>
+</ul>
+<h3 id="background-knowledge">Background Knowledge</h3>
+<p>Familiarity with:
+- Basic Unix command line (cd, ls, mkdir, etc.)
+- FASTA/FASTQ file formats
+- Concepts from <a href="../../fundamentals/">Fundamentals</a></p>
+<h2 id="step-1-download-and-prepare-data">Step 1: Download and Prepare Data</h2>
+<h3 id="download-test-dataset">Download Test Dataset</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Create project directory</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/virome_tutorial
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">cd</span><span class="w"> </span>~/virome_tutorial
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># Download simulated gut virome dataset (Zenodo)</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># Note: Replace with actual Zenodo DOI when dataset is uploaded</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>wget<span class="w"> </span>https://zenodo.org/record/EXAMPLE/files/gut_virome_R1.fastq.gz
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>wget<span class="w"> </span>https://zenodo.org/record/EXAMPLE/files/gut_virome_R2.fastq.gz
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># For this tutorial, we&#39;ll use a simulated dataset</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="c1"># Verify download integrity</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>md5sum<span class="w"> </span>gut_virome_R1.fastq.gz<span class="w"> </span>gut_virome_R2.fastq.gz
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># Expected:</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="c1"># a1b2c3d4... gut_virome_R1.fastq.gz</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="c1"># e5f6g7h8... gut_virome_R2.fastq.gz</span>
+</span></code></pre></div>
+<h3 id="inspect-raw-data">Inspect Raw Data</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Check number of reads</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;</span><span class="k">$(</span>zcat<span class="w"> </span>gut_virome_R1.fastq.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2"> / 4&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>bc
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Expected output: ~2000000 reads</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="c1"># Look at first few reads</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>zcat<span class="w"> </span>gut_virome_R1.fastq.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">8</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="c1"># Check read length distribution</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>seqkit<span class="w"> </span>stats<span class="w"> </span>gut_virome_R1.fastq.gz<span class="w"> </span>gut_virome_R2.fastq.gz
+</span></code></pre></div>
+<p><strong>Expected output:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>file                      format  type  num_seqs      sum_len  min_len  avg_len  max_len
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>gut_virome_R1.fastq.gz    FASTQ   DNA  2,000,000  300,000,000      150      150      150
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>gut_virome_R2.fastq.gz    FASTQ   DNA  2,000,000  300,000,000      150      150      150
+</span></code></pre></div></p>
+<h2 id="step-2-quality-control-and-preprocessing">Step 2: Quality Control and Preprocessing</h2>
+<h3 id="run-fastp-for-qc-and-trimming">Run FastP for QC and Trimming</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Create QC output directory</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>01_qc
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Run fastp with virome-optimized parameters</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>fastp<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span>-i<span class="w"> </span>gut_virome_R1.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span>-I<span class="w"> </span>gut_virome_R2.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span>-o<span class="w"> </span>01_qc/cleaned_R1.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span>-O<span class="w"> </span>01_qc/cleaned_R2.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span>-h<span class="w"> </span>01_qc/fastp_report.html<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span>-j<span class="w"> </span>01_qc/fastp_report.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span>--detect_adapter_for_pe<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span>--correction<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span>--cut_front<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span>--cut_tail<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span>--cut_window_size<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span>--cut_mean_quality<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span>--qualified_quality_phred<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">    </span>--unqualified_percent_limit<span class="w"> </span><span class="m">30</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span>--n_base_limit<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">    </span>--length_required<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">    </span>--thread<span class="w"> </span><span class="m">4</span>
+</span></code></pre></div>
+<p><strong>Parameter explanation:</strong>
+- <code>--detect_adapter_for_pe</code>: Auto-detect and trim adapters
+- <code>--correction</code>: Overlap-based error correction
+- <code>--cut_front/tail</code>: Quality trimming from both ends
+- <code>--cut_mean_quality 20</code>: Quality threshold for sliding window
+- <code>--length_required 50</code>: Minimum read length after trimming</p>
+<h3 id="review-qc-results">Review QC Results</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># View HTML report</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>firefox<span class="w"> </span>01_qc/fastp_report.html<span class="w">  </span><span class="c1"># or open in browser</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Check filtering statistics from JSON</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>cat<span class="w"> </span>01_qc/fastp_report.json<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-A<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="s2">&quot;summary&quot;</span>
+</span></code></pre></div>
+<p><strong>Expected results:</strong>
+- <strong>Reads passing filter:</strong> ~90-95% (1.8-1.9M reads)
+- <strong>Q30 bases:</strong> &gt;90%
+- <strong>Adapter content:</strong> &lt;5%
+- <strong>Duplication rate:</strong> 10-30% (normal for viral samples)</p>
+<div class="admonition tip">
+<p class="admonition-title">High Duplication is Normal</p>
+<p>Viral samples often show 20-50% duplication due to high viral abundance and small genome sizes. This is expected and not a quality issue.</p>
+</div>
+<h2 id="step-3-assembly">Step 3: Assembly</h2>
+<h3 id="run-metaviralspades">Run metaviralSPAdes</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Create assembly directory</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>02_assembly
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Run metaviralSPAdes (virus-optimized metagenomic assembler)</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>metaspades.py<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span>--meta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span>--only-assembler<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span>-1<span class="w"> </span>01_qc/cleaned_R1.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span>-2<span class="w"> </span>01_qc/cleaned_R2.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">    </span>-o<span class="w"> </span>02_assembly/metaspades<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">    </span>-t<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">    </span>-m<span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">    </span>-k<span class="w"> </span><span class="m">21</span>,33,55,77
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="c1"># metaviralSPAdes mode (alternative - more sensitive for diverse viruses)</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>spades.py<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">    </span>--metaviral<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="w">    </span>-1<span class="w"> </span>01_qc/cleaned_R1.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="w">    </span>-2<span class="w"> </span>01_qc/cleaned_R2.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">    </span>-o<span class="w"> </span>02_assembly/metaviralspades<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">    </span>-t<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">    </span>-m<span class="w"> </span><span class="m">32</span>
+</span></code></pre></div>
+<p><strong>Parameter explanation:</strong>
+- <code>--meta</code> or <code>--metaviral</code>: Metagenome/viral metagenome mode
+- <code>-k 21,33,55,77</code>: K-mer sizes (multiple k-mers improve assembly)
+- <code>-t 8</code>: Number of threads
+- <code>-m 32</code>: Memory limit (GB)</p>
+<div class="admonition note">
+<p class="admonition-title">Choose Your Assembler</p>
+<ul>
+<li>Use <code>--meta</code> for standard metagenomes with viruses</li>
+<li>Use <code>--metaviral</code> for virus-enriched samples (VLP preparations)</li>
+<li>This tutorial uses <code>--metaviral</code> for better viral recovery</li>
+</ul>
+</div>
+<p><strong>Assembly runtime:</strong> ~1-2 hours on 8 cores</p>
+<h3 id="filter-and-prepare-contigs">Filter and Prepare Contigs</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Filter contigs ≥1kb (minimum recommended length)</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>seqkit<span class="w"> </span>seq<span class="w"> </span>-m<span class="w"> </span><span class="m">1000</span><span class="w"> </span>02_assembly/metaviralspades/contigs.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span>&gt;<span class="w"> </span>02_assembly/contigs_1kb.fasta
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># Get assembly statistics</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>seqkit<span class="w"> </span>stats<span class="w"> </span>02_assembly/contigs_1kb.fasta
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="c1"># Count contigs</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>grep<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;&gt;&quot;</span><span class="w"> </span>02_assembly/contigs_1kb.fasta
+</span></code></pre></div>
+<p><strong>Expected results:</strong>
+- <strong>Total contigs ≥1kb:</strong> 500-1500 contigs
+- <strong>Longest contig:</strong> 50-150 kb
+- <strong>N50:</strong> 5-15 kb
+- <strong>Total assembly length:</strong> 5-15 Mb</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>file                        format  type  num_seqs    sum_len  min_len  avg_len  max_len
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>contigs_1kb.fasta           FASTA   DNA      1,234  8,456,789    1,000    6,851  142,567
+</span></code></pre></div>
+<h2 id="step-4-viral-sequence-identification">Step 4: Viral Sequence Identification</h2>
+<p>We'll use three complementary tools for viral identification to maximize accuracy.</p>
+<h3 id="41-virsorter2">4.1 VirSorter2</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Create viral identification directory</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>03_viral_id
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1"># Run VirSorter2</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>virsorter<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">    </span>-w<span class="w"> </span>03_viral_id/virsorter2<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">    </span>-i<span class="w"> </span>02_assembly/contigs_1kb.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">    </span>--min-length<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">    </span>--min-score<span class="w"> </span><span class="m">0</span>.5<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">    </span>--include-groups<span class="w"> </span>dsDNAphage,ssDNA<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">    </span>-j<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">    </span>all
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="c1"># Extract viral sequences (score ≥ 0.5)</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>cat<span class="w"> </span>03_viral_id/virsorter2/final-viral-combined.fa<span class="w"> </span>&gt;<span class="w"> </span>03_viral_id/virsorter2_viral.fasta
+</span></code></pre></div>
+<p><strong>Expected output:</strong>
+- <strong>Viral contigs identified:</strong> 200-400
+- <strong>Score distribution:</strong> Most 0.5-0.9, some &gt;0.9
+- <strong>Output file:</strong> <code>final-viral-combined.fa</code></p>
+<h3 id="42-vibrant">4.2 VIBRANT</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Run VIBRANT</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>VIBRANT_run.py<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span>-i<span class="w"> </span>02_assembly/contigs_1kb.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">    </span>-folder<span class="w"> </span>03_viral_id/vibrant<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">    </span>-t<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span>-virome
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="c1"># Extract VIBRANT predictions</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>cp<span class="w"> </span>03_viral_id/vibrant/VIBRANT_contigs_1kb/VIBRANT_phages_contigs_1kb/contigs_1kb.phages_combined.fna<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">    </span>03_viral_id/vibrant_viral.fasta
+</span></code></pre></div>
+<p><strong>Expected output:</strong>
+- <strong>Viral contigs identified:</strong> 150-350
+- <strong>Output:</strong> Phages and prophages separated
+- <strong>Annotations:</strong> Genes, functions, AMGs (auxiliary metabolic genes)</p>
+<h3 id="43-genomad">4.3 geNomad</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Download geNomad database (first time only)</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>genomad<span class="w"> </span>download-database<span class="w"> </span>genomad_db/
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1"># Run geNomad</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>genomad<span class="w"> </span>end-to-end<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="w">    </span>02_assembly/contigs_1kb.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">    </span>03_viral_id/genomad<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span>genomad_db/<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span>--threads<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span>--min-score<span class="w"> </span><span class="m">0</span>.7
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="c1"># Extract viral sequences</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>cp<span class="w"> </span>03_viral_id/genomad/contigs_1kb_summary/contigs_1kb_virus.fna<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">    </span>03_viral_id/genomad_viral.fasta
+</span></code></pre></div>
+<p><strong>Expected output:</strong>
+- <strong>Viral sequences:</strong> 180-380
+- <strong>Plasmids identified:</strong> 20-50 (excluded from viral count)
+- <strong>Scores:</strong> Most &gt;0.7 (high confidence)</p>
+<h3 id="44-combine-predictions-consensus-approach">4.4 Combine Predictions (Consensus Approach)</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Create list of viral contigs from each tool</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>grep<span class="w"> </span><span class="s2">&quot;&gt;&quot;</span><span class="w"> </span>03_viral_id/virsorter2_viral.fasta<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/&gt;//&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f1<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>&gt;<span class="w"> </span>03_viral_id/vs2_ids.txt
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>grep<span class="w"> </span><span class="s2">&quot;&gt;&quot;</span><span class="w"> </span>03_viral_id/vibrant_viral.fasta<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/&gt;//&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f1<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>&gt;<span class="w"> </span>03_viral_id/vibrant_ids.txt
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>grep<span class="w"> </span><span class="s2">&quot;&gt;&quot;</span><span class="w"> </span>03_viral_id/genomad_viral.fasta<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/&gt;//&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f1<span class="w"> </span>-d<span class="s1">&#39; &#39;</span><span class="w"> </span>&gt;<span class="w"> </span>03_viral_id/genomad_ids.txt
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1"># Find consensus: contigs predicted by ≥2 tools</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>cat<span class="w"> </span>03_viral_id/*_ids.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$1 &gt;= 2 {print $2}&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>03_viral_id/consensus_viral_ids.txt
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="c1"># Extract consensus viral contigs</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>seqkit<span class="w"> </span>grep<span class="w"> </span>-f<span class="w"> </span>03_viral_id/consensus_viral_ids.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="w">    </span>02_assembly/contigs_1kb.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="w">    </span>&gt;<span class="w"> </span>03_viral_id/consensus_viral_contigs.fasta
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="c1"># Count consensus predictions</span>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>wc<span class="w"> </span>-l<span class="w"> </span>03_viral_id/consensus_viral_ids.txt
+</span></code></pre></div>
+<p><strong>Expected consensus results:</strong>
+- <strong>Consensus viral contigs (≥2 tools):</strong> 150-300
+- <strong>Tool overlap:</strong> ~60-70% agreement between any two tools
+- <strong>High-confidence (all 3 tools):</strong> ~40-60% of consensus set</p>
+<div class="admonition warning">
+<p class="admonition-title">Why Consensus?</p>
+<p>Single tool predictions have 10-30% false positive rates. Using consensus (≥2 tools agreeing) dramatically reduces false positives while maintaining most true viruses.</p>
+</div>
+<h2 id="step-5-quality-assessment-with-checkv">Step 5: Quality Assessment with CheckV</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Create CheckV directory</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>04_checkv
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Run CheckV on consensus viral contigs</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>checkv<span class="w"> </span>end_to_end<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span>03_viral_id/consensus_viral_contigs.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">    </span>04_checkv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">    </span>-t<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">    </span>-d<span class="w"> </span>/path/to/checkv-db-v1.5<span class="w">  </span><span class="c1"># Update path to your CheckV database</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="c1"># Review quality summary</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>cat<span class="w"> </span>04_checkv/quality_summary.tsv
+</span></code></pre></div>
+<h3 id="interpret-checkv-results">Interpret CheckV Results</h3>
+<p>CheckV assigns quality tiers:</p>
+<ul>
+<li><strong>Complete</strong> (&gt;90% completeness): High-quality, likely complete genomes</li>
+<li><strong>High-quality</strong> (&gt;50% completeness): Substantial genome fragments</li>
+<li><strong>Medium-quality</strong> (&gt;50% completeness OR specific criteria): Useful for most analyses</li>
+<li><strong>Low-quality</strong> (&lt;50% completeness, no specific markers): Fragmented, use with caution</li>
+<li><strong>Not-determined</strong>: Insufficient information</li>
+</ul>
+<p><strong>Filter for high-quality viral sequences:</strong></p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Extract high and complete quality viral genomes</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>awk<span class="w"> </span>-F<span class="s1">&#39;\t&#39;</span><span class="w"> </span><span class="s1">&#39;$8 == &quot;Complete&quot; || $8 == &quot;High-quality&quot; {print $1}&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span>04_checkv/quality_summary.tsv<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span>&gt;<span class="w"> </span>04_checkv/hq_viral_ids.txt
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="c1"># Extract high-quality sequences</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>seqkit<span class="w"> </span>grep<span class="w"> </span>-f<span class="w"> </span>04_checkv/hq_viral_ids.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">    </span>03_viral_id/consensus_viral_contigs.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">    </span>&gt;<span class="w"> </span>04_checkv/hq_viral_contigs.fasta
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="c1"># Count HQ viral contigs</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>wc<span class="w"> </span>-l<span class="w"> </span>04_checkv/hq_viral_ids.txt
+</span></code></pre></div>
+<p><strong>Expected HQ results:</strong>
+- <strong>High-quality + Complete:</strong> 50-150 contigs
+- <strong>Average completeness:</strong> 60-85%
+- <strong>Contamination:</strong> &lt;5% for most contigs</p>
+<div class="admonition tip">
+<p class="admonition-title">Quality Thresholds</p>
+<p>For most analyses:
+- <strong>Diversity studies:</strong> Medium-quality and above
+- <strong>Taxonomy:</strong> High-quality and above
+- <strong>Genome comparison:</strong> Complete genomes only
+- <strong>Host prediction:</strong> High-quality and above</p>
+</div>
+<h2 id="step-6-remove-host-contamination">Step 6: Remove Host Contamination</h2>
+<p>CheckV identifies host contamination (bacterial/archaeal genes on viral contigs).</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Extract cleaned viral sequences (provirus coordinates if any)</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="c1"># CheckV creates &quot;viruses.fna&quot; with contamination removed</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>cp<span class="w"> </span>04_checkv/viruses.fna<span class="w"> </span>04_checkv/viral_contigs_clean.fasta
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="c1"># Compare before/after cleaning</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>seqkit<span class="w"> </span>stats<span class="w"> </span>04_checkv/hq_viral_contigs.fasta<span class="w"> </span>04_checkv/viral_contigs_clean.fasta
+</span></code></pre></div>
+<p><strong>Expected:</strong> Some contigs may be trimmed if they had flanking host regions (prophages).</p>
+<h2 id="step-7-taxonomic-classification">Step 7: Taxonomic Classification</h2>
+<h3 id="71-blast-based-classification">7.1 BLAST-based Classification</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Create taxonomy directory</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>05_taxonomy
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># Download NCBI Viral RefSeq database (if not already present)</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>db/viral_refseq
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="nb">cd</span><span class="w"> </span>db/viral_refseq
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>wget<span class="w"> </span>ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/viral.1.1.genomic.fna.gz
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>wget<span class="w"> </span>ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/viral.2.1.genomic.fna.gz
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>gunzip<span class="w"> </span>viral.*.genomic.fna.gz
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>cat<span class="w"> </span>viral.*.genomic.fna<span class="w"> </span>&gt;<span class="w"> </span>viral_refseq.fna
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="c1"># Create BLAST database</span>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>makeblastdb<span class="w"> </span>-in<span class="w"> </span>viral_refseq.fna<span class="w"> </span>-dbtype<span class="w"> </span>nucl<span class="w"> </span>-out<span class="w"> </span>viral_refseq
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>
+</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="nb">cd</span><span class="w"> </span>~/virome_tutorial
+</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>
+</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a><span class="c1"># Run BLASTn</span>
+</span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>blastn<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-19"><a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a><span class="w">    </span>-query<span class="w"> </span>04_checkv/viral_contigs_clean.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-20"><a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a><span class="w">    </span>-db<span class="w"> </span>db/viral_refseq/viral_refseq<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a><span class="w">    </span>-out<span class="w"> </span>05_taxonomy/blast_results.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-22"><a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a><span class="w">    </span>-outfmt<span class="w"> </span><span class="s1">&#39;6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore staxids&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-23"><a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a><span class="w">    </span>-evalue<span class="w"> </span>1e-5<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-24"><a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a><span class="w">    </span>-num_threads<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-25"><a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a><span class="w">    </span>-max_target_seqs<span class="w"> </span><span class="m">5</span>
+</span><span id="__span-16-26"><a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a>
+</span><span id="__span-16-27"><a id="__codelineno-16-27" name="__codelineno-16-27" href="#__codelineno-16-27"></a><span class="c1"># Extract best hit per query</span>
+</span><span id="__span-16-28"><a id="__codelineno-16-28" name="__codelineno-16-28" href="#__codelineno-16-28"></a>sort<span class="w"> </span>-k1,1<span class="w"> </span>-k12,12gr<span class="w"> </span>05_taxonomy/blast_results.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-29"><a id="__codelineno-16-29" name="__codelineno-16-29" href="#__codelineno-16-29"></a><span class="w">    </span>sort<span class="w"> </span>-u<span class="w"> </span>-k1,1<span class="w"> </span>&gt;<span class="w"> </span>05_taxonomy/blast_best_hits.txt
+</span></code></pre></div>
+<h3 id="72-analyze-taxonomic-composition">7.2 Analyze Taxonomic Composition</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Count contigs with hits at different identity thresholds</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Total viral contigs: </span><span class="k">$(</span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;&gt;&quot;</span><span class="w"> </span>04_checkv/viral_contigs_clean.fasta<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Contigs with BLAST hits (any): </span><span class="k">$(</span>cut<span class="w"> </span>-f1<span class="w"> </span>05_taxonomy/blast_best_hits.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Contigs with high similarity (&gt;90% identity): </span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;$3 &gt; 90&#39;</span><span class="w"> </span>05_taxonomy/blast_best_hits.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Contigs with medium similarity (70-90% identity): </span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;$3 &gt; 70 &amp;&amp; $3 &lt;= 90&#39;</span><span class="w"> </span>05_taxonomy/blast_best_hits.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Contigs with low similarity (&lt;70% identity): </span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;$3 &lt;= 70&#39;</span><span class="w"> </span>05_taxonomy/blast_best_hits.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Novel contigs (no hits): </span><span class="k">$(($(</span>grep<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;&gt;&quot;</span><span class="w"> </span>04_checkv/viral_contigs_clean.fasta<span class="k">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="k">$(</span>cut<span class="w"> </span>-f1<span class="w"> </span>05_taxonomy/blast_best_hits.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span>-u<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)))</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p><strong>Expected distribution (gut virome):</strong>
+- <strong>High similarity (&gt;90%):</strong> 20-40% (known viruses)
+- <strong>Medium similarity (70-90%):</strong> 15-25% (related to known viruses)
+- <strong>Low similarity (&lt;70%):</strong> 10-20% (distant relatives)
+- <strong>No hits (novel):</strong> 30-50% (novel viruses - "viral dark matter")</p>
+<div class="admonition info">
+<p class="admonition-title">Interpreting Similarity</p>
+<ul>
+<li><strong>&gt;95% identity:</strong> Same species/strain</li>
+<li><strong>70-95% identity:</strong> Related species in same genus/family</li>
+<li><strong>&lt;70% identity:</strong> Distant relationship, taxonomy uncertain</li>
+<li><strong>No hit:</strong> Novel virus with no close cultivated relatives</li>
+</ul>
+</div>
+<h2 id="step-8-abundance-estimation">Step 8: Abundance Estimation</h2>
+<h3 id="map-reads-to-viral-contigs">Map Reads to Viral Contigs</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Create abundance directory</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>06_abundance
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># Index viral contigs</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>bbmap.sh<span class="w"> </span><span class="nv">ref</span><span class="o">=</span>04_checkv/viral_contigs_clean.fasta
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="c1"># Map reads to viral contigs</span>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>bbmap.sh<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a><span class="w">    </span><span class="nv">in1</span><span class="o">=</span>01_qc/cleaned_R1.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="w">    </span><span class="nv">in2</span><span class="o">=</span>01_qc/cleaned_R2.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="w">    </span><span class="nv">out</span><span class="o">=</span>06_abundance/mapped.sam<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="w">    </span><span class="nv">covstats</span><span class="o">=</span>06_abundance/coverage_stats.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="w">    </span><span class="nv">rpkm</span><span class="o">=</span>06_abundance/rpkm.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="w">    </span><span class="nv">minid</span><span class="o">=</span><span class="m">0</span>.95<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-15"><a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a><span class="w">    </span><span class="nv">threads</span><span class="o">=</span><span class="m">8</span>
+</span><span id="__span-18-16"><a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>
+</span><span id="__span-18-17"><a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a><span class="c1"># Convert to sorted BAM</span>
+</span><span id="__span-18-18"><a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a>samtools<span class="w"> </span>view<span class="w"> </span>-bS<span class="w"> </span>06_abundance/mapped.sam<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-19"><a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a><span class="w">    </span>samtools<span class="w"> </span>sort<span class="w"> </span>-o<span class="w"> </span>06_abundance/mapped_sorted.bam
+</span><span id="__span-18-20"><a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a>samtools<span class="w"> </span>index<span class="w"> </span>06_abundance/mapped_sorted.bam
+</span><span id="__span-18-21"><a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a>
+</span><span id="__span-18-22"><a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a><span class="c1"># Calculate coverage with CoverM</span>
+</span><span id="__span-18-23"><a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a>coverm<span class="w"> </span>contig<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-24"><a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a><span class="w">    </span>--bam-files<span class="w"> </span>06_abundance/mapped_sorted.bam<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-25"><a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a><span class="w">    </span>--methods<span class="w"> </span>mean<span class="w"> </span>trimmed_mean<span class="w"> </span>covered_fraction<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-26"><a id="__codelineno-18-26" name="__codelineno-18-26" href="#__codelineno-18-26"></a><span class="w">    </span>--output-file<span class="w"> </span>06_abundance/coverm_coverage.txt
+</span></code></pre></div>
+<h3 id="analyze-abundance-results">Analyze Abundance Results</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># View top 20 most abundant viruses</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>sort<span class="w"> </span>-t<span class="s1">$&#39;\t&#39;</span><span class="w"> </span>-k2<span class="w"> </span>-rn<span class="w"> </span>06_abundance/coverm_coverage.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">20</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># Calculate statistics</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Total viral contigs: </span><span class="k">$(</span>tail<span class="w"> </span>-n<span class="w"> </span>+2<span class="w"> </span>06_abundance/coverm_coverage.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Viral contigs with coverage &gt;10x: </span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;$2 &gt; 10&#39;</span><span class="w"> </span>06_abundance/coverm_coverage.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Viral contigs with coverage &gt;100x: </span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;$2 &gt; 100&#39;</span><span class="w"> </span>06_abundance/coverm_coverage.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p><strong>Expected results:</strong>
+- <strong>Coverage range:</strong> 0.1x to 10,000x (highly variable)
+- <strong>High-coverage viruses (&gt;100x):</strong> 10-30 contigs (dominant viruses)
+- <strong>Medium-coverage (10-100x):</strong> 30-80 contigs
+- <strong>Low-coverage (&lt;10x):</strong> Majority of contigs (rare viruses)</p>
+<h2 id="step-9-summary-and-visualization">Step 9: Summary and Visualization</h2>
+<h3 id="create-summary-table">Create Summary Table</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Combine all results into summary table</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>python3<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="s">import pandas as pd</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="s"># Load CheckV quality</span>
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="s">checkv = pd.read_csv(&#39;04_checkv/quality_summary.tsv&#39;, sep=&#39;\t&#39;)</span>
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="s">checkv = checkv[[&#39;contig_id&#39;, &#39;contig_length&#39;, &#39;checkv_quality&#39;, &#39;completeness&#39;, &#39;contamination&#39;]]</span>
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="s"># Load BLAST results</span>
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="s">blast = pd.read_csv(&#39;05_taxonomy/blast_best_hits.txt&#39;, sep=&#39;\t&#39;, header=None,</span>
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="s">                    names=[&#39;contig_id&#39;, &#39;subject&#39;, &#39;pident&#39;, &#39;length&#39;, &#39;mismatch&#39;,</span>
+</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="s">                           &#39;gapopen&#39;, &#39;qstart&#39;, &#39;qend&#39;, &#39;sstart&#39;, &#39;send&#39;, &#39;evalue&#39;, &#39;bitscore&#39;, &#39;taxid&#39;])</span>
+</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="s">blast = blast[[&#39;contig_id&#39;, &#39;subject&#39;, &#39;pident&#39;, &#39;evalue&#39;]]</span>
+</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>
+</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a><span class="s"># Load abundance</span>
+</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a><span class="s">abundance = pd.read_csv(&#39;06_abundance/coverm_coverage.txt&#39;, sep=&#39;\t&#39;)</span>
+</span><span id="__span-20-17"><a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a><span class="s">abundance.columns = [&#39;contig_id&#39;, &#39;mean_coverage&#39;, &#39;trimmed_mean&#39;, &#39;covered_fraction&#39;]</span>
+</span><span id="__span-20-18"><a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a>
+</span><span id="__span-20-19"><a id="__codelineno-20-19" name="__codelineno-20-19" href="#__codelineno-20-19"></a><span class="s"># Merge all data</span>
+</span><span id="__span-20-20"><a id="__codelineno-20-20" name="__codelineno-20-20" href="#__codelineno-20-20"></a><span class="s">summary = checkv.merge(blast, on=&#39;contig_id&#39;, how=&#39;left&#39;)</span>
+</span><span id="__span-20-21"><a id="__codelineno-20-21" name="__codelineno-20-21" href="#__codelineno-20-21"></a><span class="s">summary = summary.merge(abundance, on=&#39;contig_id&#39;, how=&#39;left&#39;)</span>
+</span><span id="__span-20-22"><a id="__codelineno-20-22" name="__codelineno-20-22" href="#__codelineno-20-22"></a>
+</span><span id="__span-20-23"><a id="__codelineno-20-23" name="__codelineno-20-23" href="#__codelineno-20-23"></a><span class="s"># Fill NaN for contigs without BLAST hits</span>
+</span><span id="__span-20-24"><a id="__codelineno-20-24" name="__codelineno-20-24" href="#__codelineno-20-24"></a><span class="s">summary[&#39;pident&#39;] = summary[&#39;pident&#39;].fillna(0)</span>
+</span><span id="__span-20-25"><a id="__codelineno-20-25" name="__codelineno-20-25" href="#__codelineno-20-25"></a><span class="s">summary[&#39;subject&#39;] = summary[&#39;subject&#39;].fillna(&#39;No hit&#39;)</span>
+</span><span id="__span-20-26"><a id="__codelineno-20-26" name="__codelineno-20-26" href="#__codelineno-20-26"></a>
+</span><span id="__span-20-27"><a id="__codelineno-20-27" name="__codelineno-20-27" href="#__codelineno-20-27"></a><span class="s"># Sort by abundance</span>
+</span><span id="__span-20-28"><a id="__codelineno-20-28" name="__codelineno-20-28" href="#__codelineno-20-28"></a><span class="s">summary = summary.sort_values(&#39;mean_coverage&#39;, ascending=False)</span>
+</span><span id="__span-20-29"><a id="__codelineno-20-29" name="__codelineno-20-29" href="#__codelineno-20-29"></a>
+</span><span id="__span-20-30"><a id="__codelineno-20-30" name="__codelineno-20-30" href="#__codelineno-20-30"></a><span class="s"># Save</span>
+</span><span id="__span-20-31"><a id="__codelineno-20-31" name="__codelineno-20-31" href="#__codelineno-20-31"></a><span class="s">summary.to_csv(&#39;07_summary/viral_summary_table.tsv&#39;, sep=&#39;\t&#39;, index=False)</span>
+</span><span id="__span-20-32"><a id="__codelineno-20-32" name="__codelineno-20-32" href="#__codelineno-20-32"></a>
+</span><span id="__span-20-33"><a id="__codelineno-20-33" name="__codelineno-20-33" href="#__codelineno-20-33"></a><span class="s">print(f&quot;Total viral contigs: {len(summary)}&quot;)</span>
+</span><span id="__span-20-34"><a id="__codelineno-20-34" name="__codelineno-20-34" href="#__codelineno-20-34"></a><span class="s">print(f&quot;High-quality contigs: {len(summary[summary[&#39;checkv_quality&#39;].isin([&#39;Complete&#39;, &#39;High-quality&#39;])])}&quot;)</span>
+</span><span id="__span-20-35"><a id="__codelineno-20-35" name="__codelineno-20-35" href="#__codelineno-20-35"></a><span class="s">print(f&quot;Contigs with taxonomy (&gt;70% identity): {len(summary[summary[&#39;pident&#39;] &gt; 70])}&quot;)</span>
+</span><span id="__span-20-36"><a id="__codelineno-20-36" name="__codelineno-20-36" href="#__codelineno-20-36"></a><span class="s">print(f&quot;Novel contigs (no BLAST hit): {len(summary[summary[&#39;pident&#39;] == 0])}&quot;)</span>
+</span><span id="__span-20-37"><a id="__codelineno-20-37" name="__codelineno-20-37" href="#__codelineno-20-37"></a><span class="s">print(&quot;\nTop 10 most abundant viruses:&quot;)</span>
+</span><span id="__span-20-38"><a id="__codelineno-20-38" name="__codelineno-20-38" href="#__codelineno-20-38"></a><span class="s">print(summary[[&#39;contig_id&#39;, &#39;contig_length&#39;, &#39;checkv_quality&#39;, &#39;pident&#39;, &#39;subject&#39;, &#39;mean_coverage&#39;]].head(10))</span>
+</span><span id="__span-20-39"><a id="__codelineno-20-39" name="__codelineno-20-39" href="#__codelineno-20-39"></a><span class="s">EOF</span>
+</span></code></pre></div>
+<h3 id="visualize-results">Visualize Results</h3>
+<p>Create a simple visualization script:</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Create visualization directory</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>07_summary
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="c1"># Generate plots with R</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>Rscript<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="s">library(ggplot2)</span>
+</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="s">library(dplyr)</span>
+</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a>
+</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="s"># Load summary table</span>
+</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="s">data &lt;- read.delim(&#39;07_summary/viral_summary_table.tsv&#39;)</span>
+</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>
+</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a><span class="s"># Plot 1: Contig length distribution</span>
+</span><span id="__span-21-13"><a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a><span class="s">pdf(&#39;07_summary/contig_length_distribution.pdf&#39;, width=8, height=6)</span>
+</span><span id="__span-21-14"><a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="s">ggplot(data, aes(x=contig_length/1000)) +</span>
+</span><span id="__span-21-15"><a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a><span class="s">  geom_histogram(bins=50, fill=&#39;steelblue&#39;, color=&#39;black&#39;) +</span>
+</span><span id="__span-21-16"><a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a><span class="s">  labs(x=&#39;Contig Length (kb)&#39;, y=&#39;Count&#39;,</span>
+</span><span id="__span-21-17"><a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a><span class="s">       title=&#39;Viral Contig Length Distribution&#39;) +</span>
+</span><span id="__span-21-18"><a id="__codelineno-21-18" name="__codelineno-21-18" href="#__codelineno-21-18"></a><span class="s">  theme_minimal()</span>
+</span><span id="__span-21-19"><a id="__codelineno-21-19" name="__codelineno-21-19" href="#__codelineno-21-19"></a><span class="s">dev.off()</span>
+</span><span id="__span-21-20"><a id="__codelineno-21-20" name="__codelineno-21-20" href="#__codelineno-21-20"></a>
+</span><span id="__span-21-21"><a id="__codelineno-21-21" name="__codelineno-21-21" href="#__codelineno-21-21"></a><span class="s"># Plot 2: Completeness vs Coverage</span>
+</span><span id="__span-21-22"><a id="__codelineno-21-22" name="__codelineno-21-22" href="#__codelineno-21-22"></a><span class="s">pdf(&#39;07_summary/completeness_vs_coverage.pdf&#39;, width=8, height=6)</span>
+</span><span id="__span-21-23"><a id="__codelineno-21-23" name="__codelineno-21-23" href="#__codelineno-21-23"></a><span class="s">ggplot(data, aes(x=log10(mean_coverage + 1), y=completeness, color=checkv_quality)) +</span>
+</span><span id="__span-21-24"><a id="__codelineno-21-24" name="__codelineno-21-24" href="#__codelineno-21-24"></a><span class="s">  geom_point(alpha=0.6) +</span>
+</span><span id="__span-21-25"><a id="__codelineno-21-25" name="__codelineno-21-25" href="#__codelineno-21-25"></a><span class="s">  labs(x=&#39;Log10(Coverage + 1)&#39;, y=&#39;Completeness (%)&#39;,</span>
+</span><span id="__span-21-26"><a id="__codelineno-21-26" name="__codelineno-21-26" href="#__codelineno-21-26"></a><span class="s">       title=&#39;Viral Genome Completeness vs. Coverage&#39;,</span>
+</span><span id="__span-21-27"><a id="__codelineno-21-27" name="__codelineno-21-27" href="#__codelineno-21-27"></a><span class="s">       color=&#39;CheckV Quality&#39;) +</span>
+</span><span id="__span-21-28"><a id="__codelineno-21-28" name="__codelineno-21-28" href="#__codelineno-21-28"></a><span class="s">  theme_minimal()</span>
+</span><span id="__span-21-29"><a id="__codelineno-21-29" name="__codelineno-21-29" href="#__codelineno-21-29"></a><span class="s">dev.off()</span>
+</span><span id="__span-21-30"><a id="__codelineno-21-30" name="__codelineno-21-30" href="#__codelineno-21-30"></a>
+</span><span id="__span-21-31"><a id="__codelineno-21-31" name="__codelineno-21-31" href="#__codelineno-21-31"></a><span class="s"># Plot 3: Taxonomic novelty</span>
+</span><span id="__span-21-32"><a id="__codelineno-21-32" name="__codelineno-21-32" href="#__codelineno-21-32"></a><span class="s">pdf(&#39;07_summary/taxonomic_novelty.pdf&#39;, width=8, height=6)</span>
+</span><span id="__span-21-33"><a id="__codelineno-21-33" name="__codelineno-21-33" href="#__codelineno-21-33"></a><span class="s">data_with_hits &lt;- data %&gt;% filter(pident &gt; 0)</span>
+</span><span id="__span-21-34"><a id="__codelineno-21-34" name="__codelineno-21-34" href="#__codelineno-21-34"></a><span class="s">ggplot(data_with_hits, aes(x=pident)) +</span>
+</span><span id="__span-21-35"><a id="__codelineno-21-35" name="__codelineno-21-35" href="#__codelineno-21-35"></a><span class="s">  geom_histogram(bins=50, fill=&#39;coral&#39;, color=&#39;black&#39;) +</span>
+</span><span id="__span-21-36"><a id="__codelineno-21-36" name="__codelineno-21-36" href="#__codelineno-21-36"></a><span class="s">  geom_vline(xintercept=c(70, 90, 95), linetype=&#39;dashed&#39;, color=&#39;red&#39;) +</span>
+</span><span id="__span-21-37"><a id="__codelineno-21-37" name="__codelineno-21-37" href="#__codelineno-21-37"></a><span class="s">  labs(x=&#39;BLAST Identity (%)&#39;, y=&#39;Count&#39;,</span>
+</span><span id="__span-21-38"><a id="__codelineno-21-38" name="__codelineno-21-38" href="#__codelineno-21-38"></a><span class="s">       title=&#39;Taxonomic Similarity to Known Viruses&#39;) +</span>
+</span><span id="__span-21-39"><a id="__codelineno-21-39" name="__codelineno-21-39" href="#__codelineno-21-39"></a><span class="s">  annotate(&#39;text&#39;, x=c(60, 80, 92.5, 97.5), y=Inf,</span>
+</span><span id="__span-21-40"><a id="__codelineno-21-40" name="__codelineno-21-40" href="#__codelineno-21-40"></a><span class="s">           label=c(&#39;Novel&#39;, &#39;Distant&#39;, &#39;Related&#39;, &#39;Known&#39;),</span>
+</span><span id="__span-21-41"><a id="__codelineno-21-41" name="__codelineno-21-41" href="#__codelineno-21-41"></a><span class="s">           vjust=2) +</span>
+</span><span id="__span-21-42"><a id="__codelineno-21-42" name="__codelineno-21-42" href="#__codelineno-21-42"></a><span class="s">  theme_minimal()</span>
+</span><span id="__span-21-43"><a id="__codelineno-21-43" name="__codelineno-21-43" href="#__codelineno-21-43"></a><span class="s">dev.off()</span>
+</span><span id="__span-21-44"><a id="__codelineno-21-44" name="__codelineno-21-44" href="#__codelineno-21-44"></a>
+</span><span id="__span-21-45"><a id="__codelineno-21-45" name="__codelineno-21-45" href="#__codelineno-21-45"></a><span class="s">print(&quot;Plots saved to 07_summary/&quot;)</span>
+</span><span id="__span-21-46"><a id="__codelineno-21-46" name="__codelineno-21-46" href="#__codelineno-21-46"></a><span class="s">EOF</span>
+</span></code></pre></div>
+<h2 id="expected-final-results">Expected Final Results</h2>
+<p>At the end of this tutorial, you should have:</p>
+<h3 id="files-generated">Files Generated</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>~/virome_tutorial/
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>├── 01_qc/
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>│   ├── cleaned_R1.fastq.gz           # QC-filtered reads
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>│   ├── cleaned_R2.fastq.gz
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>│   └── fastp_report.html
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>├── 02_assembly/
+</span><span id="__span-22-7"><a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>│   └── contigs_1kb.fasta             # Assembled contigs ≥1kb
+</span><span id="__span-22-8"><a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>├── 03_viral_id/
+</span><span id="__span-22-9"><a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a>│   └── consensus_viral_contigs.fasta # Viral contigs (≥2 tools)
+</span><span id="__span-22-10"><a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>├── 04_checkv/
+</span><span id="__span-22-11"><a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>│   ├── viral_contigs_clean.fasta     # High-quality, clean viral genomes
+</span><span id="__span-22-12"><a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a>│   └── quality_summary.tsv
+</span><span id="__span-22-13"><a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>├── 05_taxonomy/
+</span><span id="__span-22-14"><a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>│   └── blast_best_hits.txt           # Taxonomic assignments
+</span><span id="__span-22-15"><a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a>├── 06_abundance/
+</span><span id="__span-22-16"><a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a>│   └── coverm_coverage.txt           # Viral abundance
+</span><span id="__span-22-17"><a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a>└── 07_summary/
+</span><span id="__span-22-18"><a id="__codelineno-22-18" name="__codelineno-22-18" href="#__codelineno-22-18"></a>    ├── viral_summary_table.tsv       # Complete summary table
+</span><span id="__span-22-19"><a id="__codelineno-22-19" name="__codelineno-22-19" href="#__codelineno-22-19"></a>    └── *.pdf                         # Visualization plots
+</span></code></pre></div>
+<h3 id="typical-results-summary">Typical Results Summary</h3>
+<ul>
+<li><strong>Input reads:</strong> 2,000,000 paired-end reads</li>
+<li><strong>After QC:</strong> ~1,850,000 reads (92.5%)</li>
+<li><strong>Assembled contigs ≥1kb:</strong> 500-1,500</li>
+<li><strong>Viral contigs (consensus):</strong> 150-300</li>
+<li><strong>High-quality viral genomes:</strong> 50-150</li>
+<li><strong>Complete genomes:</strong> 10-30</li>
+<li><strong>Novel viruses (no BLAST hit):</strong> 30-50% of total</li>
+<li><strong>Known viruses (&gt;95% identity):</strong> 20-40% of total</li>
+</ul>
+<h2 id="interpreting-your-results">Interpreting Your Results</h2>
+<h3 id="quality-metrics-to-check">Quality Metrics to Check</h3>
+<p>✅ <strong>Good run indicators:</strong>
+- QC pass rate &gt;85%
+- Assembly N50 &gt;5kb
+- Viral prediction overlap &gt;50% between any two tools
+- CheckV completeness &gt;50% for majority of HQ contigs
+- Reasonable abundance distribution (not dominated by 1-2 viruses)</p>
+<p>⚠️ <strong>Warning signs:</strong>
+- QC pass rate &lt;70% → Check sequencing quality
+- Very few viral contigs (&lt;50) → Sample may be low in viruses or highly novel
+- High contamination (&gt;10%) in CheckV → Assembly or identification issues
+- All viruses novel (0% BLAST hits) → Check database or sample type</p>
+<h3 id="biological-interpretation">Biological Interpretation</h3>
+<p><strong>High novelty (&gt;50% no BLAST hits):</strong>
+- Expected for environmental samples (soil, marine)
+- Common for gut viromes from non-Western populations
+- Indicates viral "dark matter"</p>
+<p><strong>Low novelty (&lt;20% no BLAST hits):</strong>
+- Expected for clinical samples
+- Common for well-studied environments
+- May indicate sample contamination with known viruses</p>
+<p><strong>Abundance patterns:</strong>
+- <strong>Power-law distribution</strong> (few dominant, many rare) is typical
+- <strong>Even distribution</strong> may indicate biases or artificial sample
+- <strong>Single dominant virus</strong> (&gt;50% of reads) may be bloom or contamination</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="problem-low-assembly-n50-3kb">Problem: Low Assembly N50 (&lt;3kb)</h3>
+<p><strong>Possible causes:</strong>
+- Low read quality → Re-check QC metrics
+- Low viral diversity/abundance → Increase sequencing depth
+- Complex sample → Try different k-mer sizes</p>
+<p><strong>Solutions:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Try more aggressive QC</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>fastp<span class="w"> </span>-i<span class="w"> </span>R1.fastq.gz<span class="w"> </span>-I<span class="w"> </span>R2.fastq.gz<span class="w"> </span>...<span class="w"> </span>--cut_mean_quality<span class="w"> </span><span class="m">25</span>
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c1"># Try different k-mer sizes</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>spades.py<span class="w"> </span>--metaviral<span class="w"> </span>-k<span class="w"> </span><span class="m">21</span>,33,55,77,99,127<span class="w"> </span>...
+</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
+</span><span id="__span-23-7"><a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a><span class="c1"># Use longer k-mers only</span>
+</span><span id="__span-23-8"><a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>spades.py<span class="w"> </span>--metaviral<span class="w"> </span>-k<span class="w"> </span><span class="m">55</span>,77,99<span class="w"> </span>...
+</span></code></pre></div></p>
+<h3 id="problem-very-few-viral-contigs-identified">Problem: Very Few Viral Contigs Identified</h3>
+<p><strong>Possible causes:</strong>
+- Sample not enriched for viruses
+- Highly novel viruses not recognized
+- Over-filtering</p>
+<p><strong>Solutions:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="c1"># Lower VirSorter2 threshold</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>virsorter<span class="w"> </span>run<span class="w"> </span>...<span class="w"> </span>--min-score<span class="w"> </span><span class="m">0</span>.3
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>
+</span><span id="__span-24-4"><a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="c1"># Include more viral groups</span>
+</span><span id="__span-24-5"><a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>virsorter<span class="w"> </span>run<span class="w"> </span>...<span class="w"> </span>--include-groups<span class="w"> </span>dsDNAphage,ssDNA,RNA,NCLDV,lavidaviridae
+</span><span id="__span-24-6"><a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>
+</span><span id="__span-24-7"><a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="c1"># Use single-tool predictions (less conservative)</span>
+</span><span id="__span-24-8"><a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="c1"># But validate carefully!</span>
+</span></code></pre></div></p>
+<h3 id="problem-high-contamination-in-checkv">Problem: High Contamination in CheckV</h3>
+<p><strong>Possible causes:</strong>
+- Prophages with flanking host genes
+- False viral predictions (bacterial contigs)
+- Horizontal gene transfer</p>
+<p><strong>Solutions:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="c1"># Use CheckV&#39;s cleaned sequences (automatically trims)</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="c1"># Already done in tutorial: 04_checkv/viruses.fna</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>
+</span><span id="__span-25-4"><a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a><span class="c1"># More stringent consensus (require all 3 tools)</span>
+</span><span id="__span-25-5"><a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>cat<span class="w"> </span>03_viral_id/*_ids.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq<span class="w"> </span>-c<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;$1 == 3 {print $2}&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>strict_consensus.txt
+</span><span id="__span-25-6"><a id="__codelineno-25-6" name="__codelineno-25-6" href="#__codelineno-25-6"></a>
+</span><span id="__span-25-7"><a id="__codelineno-25-7" name="__codelineno-25-7" href="#__codelineno-25-7"></a><span class="c1"># Remove low-quality prophages</span>
+</span><span id="__span-25-8"><a id="__codelineno-25-8" name="__codelineno-25-8" href="#__codelineno-25-8"></a>awk<span class="w"> </span>-F<span class="s1">&#39;\t&#39;</span><span class="w"> </span><span class="s1">&#39;$9 != &quot;Yes&quot; || $8 == &quot;Complete&quot; {print $1}&#39;</span><span class="w"> </span>04_checkv/quality_summary.tsv
+</span></code></pre></div></p>
+<h3 id="problem-no-blast-hits">Problem: No BLAST Hits</h3>
+<p><strong>Possible causes:</strong>
+- Database outdated → Update viral RefSeq
+- Truly novel viruses → Expected for environmental samples
+- Incorrect database → Verify using known virus</p>
+<p><strong>Solutions:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="c1"># Update viral RefSeq database</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>wget<span class="w"> </span>ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/viral.*.genomic.fna.gz
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a><span class="c1"># Try IMG/VR database (much larger, includes environmental viruses)</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>wget<span class="w"> </span>https://img.jgi.doe.gov/vr/downloads/IMGVR_all_nucleotides.fna.gz
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a><span class="c1"># Use protein-based search (more sensitive)</span>
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>prodigal<span class="w"> </span>-i<span class="w"> </span>viral_contigs.fasta<span class="w"> </span>-a<span class="w"> </span>proteins.faa<span class="w"> </span>-p<span class="w"> </span>meta
+</span><span id="__span-26-9"><a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>blastp<span class="w"> </span>-query<span class="w"> </span>proteins.faa<span class="w"> </span>-db<span class="w"> </span>nr<span class="w"> </span>-evalue<span class="w"> </span>1e-3<span class="w"> </span>-num_threads<span class="w"> </span><span class="m">8</span>
+</span></code></pre></div></p>
+<h2 id="next-steps">Next Steps</h2>
+<p>Congratulations! You've completed the basic virome analysis workflow.</p>
+<h3 id="to-build-on-this-tutorial">To build on this tutorial:</h3>
+<ol>
+<li><strong><a href="../rna-virus-discovery/">Tutorial 2: RNA Virus Discovery</a></strong> - Learn RNA-specific methods</li>
+<li><strong><a href="../comparative-virome/">Tutorial 4: Comparative Virome Analysis</a></strong> - Analyze multiple samples</li>
+<li><strong><a href="../host-prediction-workflows/">Tutorial 5: Host Prediction</a></strong> - Predict viral hosts</li>
+</ol>
+<h3 id="advanced-analyses-you-can-now-try">Advanced analyses you can now try:</h3>
+<ul>
+<li><strong>Protein clustering:</strong> Group viruses by shared protein content (vConTACT2)</li>
+<li><strong>AMG analysis:</strong> Identify auxiliary metabolic genes (DRAM-v)</li>
+<li><strong>Lifestyle prediction:</strong> Lytic vs. temperate phages (BACPHLIP)</li>
+<li><strong>Network analysis:</strong> Protein-sharing networks (vConTACT2, Cytoscape)</li>
+</ul>
+<h3 id="applying-to-your-own-data">Applying to your own data:</h3>
+<p>When you have your own virome data:</p>
+<ol>
+<li><strong>Adjust assembly parameters</strong> based on your sequencing depth and read length</li>
+<li><strong>Choose appropriate filters</strong> - environmental samples may need less stringent thresholds</li>
+<li><strong>Validate key findings</strong> - especially for novel viruses, validate with:</li>
+<li>Gene content (presence of viral hallmark genes)</li>
+<li>Genome structure (compare to related viruses)</li>
+<li>Experimental validation (PCR, qPCR, isolation attempts)</li>
+</ol>
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li>Roux, S., et al. (2016). "Towards quantitative viromics for both double-stranded and single-stranded DNA viruses." <em>PeerJ</em>, 4, e2777.</li>
+<li>Nayfach, S., et al. (2021). "CheckV assesses the quality and completeness of metagenome-assembled viral genomes." <em>Nature Biotechnology</em>, 39(5), 578-585.</li>
+<li>Guo, J., et al. (2021). "VirSorter2: a multi-classifier, expert-guided approach to detect diverse DNA and RNA viruses." <em>Microbiome</em>, 9(1), 1-13.</li>
+</ul>
+<h2 id="feedback">Feedback</h2>
+<p>Found an issue or have a suggestion? Please open an issue on <a href="https://github.com/shandley/awesome-virome/issues">GitHub</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <!-- Custom footer -->
+
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            &copy; 2023-2025 <a href="https://github.com/shandley">Scott Handley</a> -  <a href="#__consent">Change cookie settings</a>
+          </div>
+        
+        Awesome-Virome Documentation | 
+        <a href="https://shandley.github.io/awesome-virome/dashboard.html" target="_blank">
+          Dashboard
+        </a> |
+        <a href="https://shandley.github.io/awesome-virome/citations.html" target="_blank">
+          Citation Analytics
+        </a>
+        <br>
+        Made with
+        <a href="https://www.mkdocs.org/" target="_blank" rel="noopener">
+          MkDocs
+        </a> and
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/shandley/awesome-virome" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  window.mermaidConfig = {
+    startOnLoad: true,
+    theme: 'default',
+    flowchart: {
+      useMaxWidth: false,
+      htmlLabels: true,
+      curve: 'basis',
+      defaultRenderer: 'elk',
+      width: 250
+    },
+    securityLevel: 'loose'
+  };
+  
+  function initMermaid() {
+    try {
+      if (typeof window.mermaid !== 'undefined') {
+        window.mermaid.initialize(window.mermaidConfig);
+        
+        // Process all mermaid diagrams that haven't been processed yet
+        document.querySelectorAll('.mermaid:not([data-processed="true"])').forEach(function(el) {
+          try {
+            window.mermaid.init(undefined, el);
+          } catch (err) {
+            console.error('Mermaid initialization error for specific element:', err);
+            // Add an error class to show there was an issue
+            el.classList.add('mermaid-error');
+            el.textContent = 'Diagram rendering error. Please check console for details.';
+          }
+        });
+      }
+    } catch (err) {
+      console.error('Mermaid initialization error:', err);
+    }
+  }
+  
+  // Try to use mermaid if it's already loaded
+  if (typeof window.mermaid !== 'undefined') {
+    initMermaid();
+  } else {
+    // Load mermaid if it's not available
+    console.log('Loading mermaid from mermaid.html partial');
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js';
+    script.onload = function() {
+      console.log('Mermaid loaded successfully');
+      initMermaid();
+    };
+    script.onerror = function() {
+      console.error('Failed to load mermaid script');
+    };
+    document.head.appendChild(script);
+  }
+  
+  // Secondary initialization after a delay to catch any missed diagrams
+  setTimeout(initMermaid, 1000);
+});
+
+// Backup initialization on full page load
+window.addEventListener('load', function() {
+  if (typeof window.mermaid !== 'undefined') {
+    console.log('Window loaded, reinitializing mermaid');
+    window.mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        curve: 'basis',
+        defaultRenderer: 'elk',
+        width: 250
+      },
+      securityLevel: 'loose'
+    });
+    
+    // Process any diagrams that still haven't been processed
+    document.querySelectorAll('.mermaid:not([data-processed="true"])').forEach(function(el) {
+      try {
+        window.mermaid.init(undefined, el);
+      } catch (err) {
+        console.error('Mermaid load-time initialization error:', err);
+      }
+    });
+  }
+});
+</script>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "content.tabs.link", "content.code.copy", "content.code.annotate", "search.highlight", "search.share", "search.suggest"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js"></script>
+      
+        <script src="../../js/mermaid.js"></script>
+      
+    
+  </body>
+</html>

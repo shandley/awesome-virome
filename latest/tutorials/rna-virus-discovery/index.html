@@ -1,0 +1,3714 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://shandley.github.io/awesome-virome/latest/tutorials/rna-virus-discovery/">
+      
+      
+        <link rel="prev" href="../basic-metagenome-virome/">
+      
+      
+        <link rel="next" href="../prophage-identification/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/awesome-virome-hex.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>RNA Virus Discovery - Awesome-Virome</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+  
+  
+    
+      
+      
+    
+  
+  
+  <style>:root{--md-admonition-icon--tool:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22m21.71%2020.29-1.42%201.42a1%201%200%200%201-1.41%200L7%209.85A3.8%203.8%200%200%201%206%2010a4%204%200%200%201-3.78-5.3l2.54%202.54.53-.53%201.42-1.42.53-.53L4.7%202.22A4%204%200%200%201%2010%206a3.8%203.8%200%200%201-.15%201l11.86%2011.88a1%201%200%200%201%200%201.41M2.29%2018.88a1%201%200%200%200%200%201.41l1.42%201.42a1%201%200%200%200%201.41%200l5.47-5.46-2.83-2.83M20%202l-4%202v2l-2.17%202.17%202%202L18%208h2l2-4Z%22/%3E%3C/svg%3E');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#tutorial-2-rna-virus-discovery" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../home.html" title="Awesome-Virome" class="md-header__button md-logo" aria-label="Awesome-Virome" data-md-component="logo">
+      
+  <img src="../../assets/awesome-virome-hex.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Awesome-Virome
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              RNA Virus Discovery
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="teal"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/shandley/awesome-virome" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    shandley/awesome-virome
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../intro/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../fundamentals/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Fundamentals
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Tutorials
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../best-practices/quality-control/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Best Practices
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../tools/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Core Analysis Tools
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../troubleshooting/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Troubleshooting
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../api/overview/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  API Reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../contributing/guidelines/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Contributing
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../home.html" title="Awesome-Virome" class="md-nav__button md-logo" aria-label="Awesome-Virome" data-md-component="logo">
+      
+  <img src="../../assets/awesome-virome-hex.png" alt="logo">
+
+    </a>
+    Awesome-Virome
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/shandley/awesome-virome" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    shandley/awesome-virome
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../intro/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Typical Workflows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Versioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../fundamentals/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fundamentals
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Fundamentals
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/sample-preparation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sample Preparation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fundamentals/sequencing-strategies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sequencing Strategies
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tutorials
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tutorials
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic-metagenome-virome/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Basic Metagenome Virome
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RNA Virus Discovery
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RNA Virus Discovery
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Software
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background Knowledge
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-download-and-prepare-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Download and Prepare Data
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: Download and Prepare Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-test-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download Test Dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-quality-control-for-rna-seq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Quality Control for RNA-seq
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Quality Control for RNA-seq">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-fastp-with-rna-specific-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run FastP with RNA-specific Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-remove-ribosomal-rna-contamination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Remove Ribosomal RNA Contamination
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Remove Ribosomal RNA Contamination">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-sortmerna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run SortMeRNA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-rna-virus-assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: RNA Virus Assembly
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: RNA Virus Assembly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-de-novo-assembly-with-trinity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 De Novo Assembly with Trinity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-alternative-metaviralspades-rna-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Alternative: metaviralSPAdes RNA Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-combine-assemblies-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Combine Assemblies (Optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-contigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter Contigs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-rna-virus-identification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: RNA Virus Identification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 5: RNA Virus Identification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-rdrp-based-identification-with-rdrp-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 RdRp-Based Identification with RdRp-scan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-extract-rdrp-positive-contigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Extract RdRp-Positive Contigs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-blast-based-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 BLAST-Based Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-rna-virus-genome-completeness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: RNA Virus Genome Completeness
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6: RNA Virus Genome Completeness">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#assess-genome-completeness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assess Genome Completeness
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-completeness-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Completeness Assessment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-rna-virus-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: RNA Virus Classification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 7: RNA Virus Classification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-taxonomic-assignment-based-on-blast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Taxonomic Assignment Based on BLAST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-phylogenetic-analysis-of-rdrp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Phylogenetic Analysis of RdRp
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-abundance-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8: Abundance Estimation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-9-summary-and-functional-annotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 9: Summary and Functional Annotation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 9: Summary and Functional Annotation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-comprehensive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create Comprehensive Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expected-final-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Final Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Expected Final Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directory Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typical-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typical Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-very-few-rdrp-hits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Very Few RdRp Hits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-high-rrna-contamination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: High rRNA Contamination
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-fragmented-assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Fragmented Assembly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prophage-identification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prophage Identification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparative-virome/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparative Virome Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../host-prediction-workflows/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Host Prediction Workflows
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Best Practices
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Best Practices
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../best-practices/quality-control/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quality Control
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../best-practices/tool-combinations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tool Combinations
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../best-practices/statistical-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistical Analysis
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../best-practices/validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../best-practices/reproducibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reproducibility
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core Analysis Tools
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Core Analysis Tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/virus-identification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Virus Identification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/host-prediction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Host Prediction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/selection-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Selection Guide
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../troubleshooting/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Troubleshooting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Endpoints
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/examples/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guidelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/validation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Validation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/updating-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Updating Docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#required-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Software
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        System Requirements
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#background-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Background Knowledge
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-download-and-prepare-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1: Download and Prepare Data
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 1: Download and Prepare Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#download-test-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Download Test Dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-quality-control-for-rna-seq" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2: Quality Control for RNA-seq
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 2: Quality Control for RNA-seq">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-fastp-with-rna-specific-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run FastP with RNA-specific Parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-remove-ribosomal-rna-contamination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3: Remove Ribosomal RNA Contamination
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 3: Remove Ribosomal RNA Contamination">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#run-sortmerna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run SortMeRNA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-rna-virus-assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 4: RNA Virus Assembly
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 4: RNA Virus Assembly">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-de-novo-assembly-with-trinity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 De Novo Assembly with Trinity
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-alternative-metaviralspades-rna-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Alternative: metaviralSPAdes RNA Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-combine-assemblies-optional" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Combine Assemblies (Optional)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filter-contigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filter Contigs
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-rna-virus-identification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 5: RNA Virus Identification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 5: RNA Virus Identification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-rdrp-based-identification-with-rdrp-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 RdRp-Based Identification with RdRp-scan
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-extract-rdrp-positive-contigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Extract RdRp-Positive Contigs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-blast-based-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 BLAST-Based Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-6-rna-virus-genome-completeness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 6: RNA Virus Genome Completeness
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 6: RNA Virus Genome Completeness">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#assess-genome-completeness" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assess Genome Completeness
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-completeness-assessment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Manual Completeness Assessment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-7-rna-virus-classification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 7: RNA Virus Classification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 7: RNA Virus Classification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-taxonomic-assignment-based-on-blast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Taxonomic Assignment Based on BLAST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-phylogenetic-analysis-of-rdrp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Phylogenetic Analysis of RdRp
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-8-abundance-estimation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 8: Abundance Estimation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-9-summary-and-functional-annotation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 9: Summary and Functional Annotation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Step 9: Summary and Functional Annotation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-comprehensive-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Create Comprehensive Summary
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#expected-final-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Expected Final Results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Expected Final Results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Directory Structure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typical-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typical Results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Troubleshooting
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-very-few-rdrp-hits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Very Few RdRp Hits
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-high-rrna-contamination" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: High rRNA Contamination
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-fragmented-assembly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem: Fragmented Assembly
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next Steps
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="tutorial-2-rna-virus-discovery">Tutorial 2: RNA Virus Discovery</h1>
+<blockquote>
+<p><strong>Last Updated:</strong> November 29, 2025
+<strong>Level:</strong> Intermediate | <strong>Time:</strong> 6-8 hours | <strong>Data Size:</strong> 100MB</p>
+</blockquote>
+<h2 id="overview">Overview</h2>
+<p>RNA viruses are abundant and diverse, but present unique challenges compared to DNA viruses. This tutorial covers the complete workflow for discovering RNA viruses in metagenomic or transcriptomic data, including specialized methods for handling RNA sequences.</p>
+<p><strong>What you'll learn:</strong>
+- RNA extraction and quality assessment
+- RNA-seq specific quality control
+- Assembly strategies for RNA viral genomes
+- RdRp (RNA-dependent RNA polymerase)-based virus identification
+- RNA virus annotation and classification
+- Phylogenetic placement of novel RNA viruses</p>
+<p><strong>Sample dataset:</strong>
+Simulated plant RNA virome (single-end Illumina RNA-seq, 150bp, ~3M reads)</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<h3 id="required-software">Required Software</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Create environment for RNA virus analysis</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>rna_virome<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>conda<span class="w"> </span>activate<span class="w"> </span>rna_virome
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1"># Install RNA-specific tools</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>bioconda<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nv">fastp</span><span class="o">=</span><span class="m">0</span>.23.4<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nv">sortmerna</span><span class="o">=</span><span class="m">4</span>.3.6<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nv">trinity</span><span class="o">=</span><span class="m">2</span>.15.1<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="nv">spades</span><span class="o">=</span><span class="m">3</span>.15.5<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nv">blast</span><span class="o">=</span><span class="m">2</span>.14.0<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="nv">hmmer</span><span class="o">=</span><span class="m">3</span>.3.2<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="nv">mafft</span><span class="o">=</span><span class="m">7</span>.505<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="nv">iqtree</span><span class="o">=</span><span class="m">2</span>.2.0<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="nv">seqkit</span><span class="o">=</span><span class="m">2</span>.5.1<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">    </span>cd-hit<span class="o">=</span><span class="m">4</span>.8.1
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="c1"># Install RdRp-scan (RNA virus identification)</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>pip<span class="w"> </span>install<span class="w"> </span>rdp-scan
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="c1"># Install palmID (R-based RdRp search)</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="c1"># Requires R - install separately if not available</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>R<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;install.packages(&#39;palmid&#39;)&quot;</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="c1"># Install metaviralSPAdes RNA module</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="c1"># Already included in SPAdes installation above</span>
+</span></code></pre></div>
+<h3 id="system-requirements">System Requirements</h3>
+<ul>
+<li><strong>RAM:</strong> 32GB minimum (RNA assembly is memory-intensive)</li>
+<li><strong>Disk Space:</strong> 100GB free space</li>
+<li><strong>CPU:</strong> 8+ cores recommended</li>
+<li><strong>OS:</strong> Linux or macOS</li>
+</ul>
+<h3 id="background-knowledge">Background Knowledge</h3>
+<p>Complete <a href="../basic-metagenome-virome/">Tutorial 1</a> first, and review:
+- <a href="../../fundamentals/sample-preparation/">Sample Preparation</a> - RNA extraction section
+- RNA virus biology (Baltimore Classes III, IV, V, VI)
+- Reverse transcription concepts</p>
+<h2 id="step-1-download-and-prepare-data">Step 1: Download and Prepare Data</h2>
+<h3 id="download-test-dataset">Download Test Dataset</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Create project directory</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>~/rna_virome_tutorial
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nb">cd</span><span class="w"> </span>~/rna_virome_tutorial
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1"># Download simulated plant RNA virome dataset</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="c1"># Note: Replace with actual Zenodo DOI when dataset is uploaded</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>wget<span class="w"> </span>https://zenodo.org/record/EXAMPLE/files/plant_rnaseq.fastq.gz
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1"># Verify download</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>md5sum<span class="w"> </span>plant_rnaseq.fastq.gz
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="c1"># Expected: x9y8z7w6... plant_rnaseq.fastq.gz</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># Inspect data</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>seqkit<span class="w"> </span>stats<span class="w"> </span>plant_rnaseq.fastq.gz
+</span></code></pre></div>
+<p><strong>Expected output:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>file                    format  type  num_seqs      sum_len  min_len  avg_len  max_len
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>plant_rnaseq.fastq.gz   FASTQ   DNA  3,000,000  450,000,000      150      150      150
+</span></code></pre></div></p>
+<h2 id="step-2-quality-control-for-rna-seq">Step 2: Quality Control for RNA-seq</h2>
+<p>RNA-seq has specific QC considerations compared to DNA sequencing.</p>
+<h3 id="run-fastp-with-rna-specific-parameters">Run FastP with RNA-specific Parameters</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Create QC directory</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>01_qc
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Run fastp optimized for RNA-seq</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>fastp<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span>-i<span class="w"> </span>plant_rnaseq.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span>-o<span class="w"> </span>01_qc/cleaned_reads.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span>-h<span class="w"> </span>01_qc/fastp_report.html<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span>-j<span class="w"> </span>01_qc/fastp_report.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span>--detect_adapter_for_pe<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span>--correction<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">    </span>--cut_front<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span>--cut_tail<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span>--cut_window_size<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span>--cut_mean_quality<span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span>--qualified_quality_phred<span class="w"> </span><span class="m">25</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span>--unqualified_percent_limit<span class="w"> </span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span>--length_required<span class="w"> </span><span class="m">50</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span>--thread<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">    </span>--poly_x_min_len<span class="w"> </span><span class="m">10</span>
+</span></code></pre></div>
+<p><strong>RNA-specific parameters:</strong>
+- <code>--poly_x_min_len 10</code>: Remove poly-A/T tails (common in RNA-seq)
+- Higher quality thresholds (Q25 instead of Q20)
+- More stringent quality filtering</p>
+<p><strong>Expected results:</strong>
+- <strong>Reads passing filter:</strong> ~85-90%
+- <strong>Poly-A trimming:</strong> 5-15% of reads trimmed
+- <strong>Q30 bases:</strong> &gt;95%</p>
+<h2 id="step-3-remove-ribosomal-rna-contamination">Step 3: Remove Ribosomal RNA Contamination</h2>
+<p>Plant RNA-seq often contains residual rRNA even after rRNA depletion.</p>
+<h3 id="run-sortmerna">Run SortMeRNA</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Download rRNA databases (first time only)</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>db/sortmerna
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">cd</span><span class="w"> </span>db/sortmerna
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>wget<span class="w"> </span>https://github.com/biocore/sortmerna/releases/download/v4.3.6/database.tar.gz
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>tar<span class="w"> </span>-xzf<span class="w"> </span>database.tar.gz
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="nb">cd</span><span class="w"> </span>~/rna_virome_tutorial
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="c1"># Run SortMeRNA to filter rRNA</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>sortmerna<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span>--ref<span class="w"> </span>db/sortmerna/smr_v4.3_default_db.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">    </span>--reads<span class="w"> </span>01_qc/cleaned_reads.fastq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">    </span>--aligned<span class="w"> </span>01_qc/rRNA_reads<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">    </span>--other<span class="w"> </span>01_qc/non_rRNA_reads<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span>--workdir<span class="w"> </span>01_qc/sortmerna_work<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span>--fastx<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">    </span>--num_alignments<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">    </span>--threads<span class="w"> </span><span class="m">8</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="c1"># Compress output</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>gzip<span class="w"> </span>01_qc/non_rRNA_reads.fq
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="c1"># Check rRNA removal efficiency</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Total reads after QC: </span><span class="k">$(</span>zcat<span class="w"> </span>01_qc/cleaned_reads.fastq.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1/4}&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;rRNA reads removed: </span><span class="k">$(</span>cat<span class="w"> </span>01_qc/rRNA_reads.fq<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1/4}&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Non-rRNA reads retained: </span><span class="k">$(</span>zcat<span class="w"> </span>01_qc/non_rRNA_reads.fq.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $1/4}&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p><strong>Expected results:</strong>
+- <strong>rRNA contamination:</strong> 5-30% of reads (varies by sample prep)
+- <strong>Non-rRNA reads:</strong> 70-95% retained for analysis</p>
+<div class="admonition warning">
+<p class="admonition-title">High rRNA Content</p>
+<p>If &gt;40% of reads are rRNA, this indicates poor rRNA depletion during library prep. Results will still be valid but sequencing depth is effectively reduced.</p>
+</div>
+<h2 id="step-4-rna-virus-assembly">Step 4: RNA Virus Assembly</h2>
+<p>RNA virus genomes are typically smaller and have different assembly characteristics than DNA viruses.</p>
+<h3 id="41-de-novo-assembly-with-trinity">4.1 De Novo Assembly with Trinity</h3>
+<p>Trinity is optimized for transcriptome assembly and works well for RNA viruses.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Create assembly directory</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>02_assembly
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Run Trinity (RNA-seq assembler)</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>Trinity<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span>--seqType<span class="w"> </span>fq<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span>--single<span class="w"> </span>01_qc/non_rRNA_reads.fq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span>--max_memory<span class="w"> </span>32G<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span>--CPU<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span>--output<span class="w"> </span>02_assembly/trinity<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span>--full_cleanup
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="c1"># Trinity outputs to specific filename</span>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>mv<span class="w"> </span>02_assembly/trinity/Trinity.fasta<span class="w"> </span>02_assembly/trinity_contigs.fasta
+</span></code></pre></div>
+<p><strong>Trinity parameters:</strong>
+- <code>--seqType fq</code>: Input format (FASTQ)
+- <code>--single</code>: Single-end reads (use <code>--left</code> and <code>--right</code> for paired-end)
+- <code>--max_memory 32G</code>: Maximum memory
+- <code>--full_cleanup</code>: Remove intermediate files to save space</p>
+<p><strong>Assembly runtime:</strong> 2-4 hours</p>
+<h3 id="42-alternative-metaviralspades-rna-mode">4.2 Alternative: metaviralSPAdes RNA Mode</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Run metaviralSPAdes with RNA mode</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>spades.py<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span>--rna<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">    </span>--s1<span class="w"> </span>01_qc/non_rRNA_reads.fq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span>-o<span class="w"> </span>02_assembly/spades_rna<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span>-t<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span>-m<span class="w"> </span><span class="m">32</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span>-k<span class="w"> </span><span class="m">21</span>,33,55
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1"># Copy contigs</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>cp<span class="w"> </span>02_assembly/spades_rna/transcripts.fasta<span class="w"> </span>02_assembly/spades_contigs.fasta
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Choosing an Assembler</p>
+<ul>
+<li><strong>Trinity:</strong> Better for diverse RNA virus communities, more sensitive</li>
+<li><strong>metaviralSPAdes:</strong> Faster, good for high-abundance viruses</li>
+<li><strong>Best approach:</strong> Run both and combine results</li>
+</ul>
+</div>
+<h3 id="43-combine-assemblies-optional">4.3 Combine Assemblies (Optional)</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Concatenate assemblies</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>cat<span class="w"> </span>02_assembly/trinity_contigs.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span>02_assembly/spades_contigs.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span>&gt;<span class="w"> </span>02_assembly/combined_contigs.fasta
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># Remove redundancy with CD-HIT-EST</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>cd-hit-est<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span>-i<span class="w"> </span>02_assembly/combined_contigs.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span>-o<span class="w"> </span>02_assembly/combined_nr.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span>-c<span class="w"> </span><span class="m">0</span>.95<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span>-n<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">    </span>-T<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span>-M<span class="w"> </span><span class="m">16000</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="c1"># Use non-redundant set for downstream analysis</span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>cp<span class="w"> </span>02_assembly/combined_nr.fasta<span class="w"> </span>02_assembly/contigs_final.fasta
+</span></code></pre></div>
+<h3 id="filter-contigs">Filter Contigs</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Filter contigs ≥500bp (RNA viruses can be small)</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>seqkit<span class="w"> </span>seq<span class="w"> </span>-m<span class="w"> </span><span class="m">500</span><span class="w"> </span>02_assembly/contigs_final.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span>&gt;<span class="w"> </span>02_assembly/contigs_500bp.fasta
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1"># Get assembly statistics</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>seqkit<span class="w"> </span>stats<span class="w"> </span>02_assembly/contigs_500bp.fasta
+</span></code></pre></div>
+<p><strong>Expected results:</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>file                     format  type  num_seqs    sum_len  min_len  avg_len  max_len
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>contigs_500bp.fasta      FASTA   DNA      8,456  5,234,567      500      619   25,678
+</span></code></pre></div></p>
+<ul>
+<li><strong>Total contigs ≥500bp:</strong> 5,000-10,000</li>
+<li><strong>Longest contig:</strong> 15-30 kb</li>
+<li><strong>N50:</strong> 800-1,500 bp</li>
+</ul>
+<h2 id="step-5-rna-virus-identification">Step 5: RNA Virus Identification</h2>
+<p>RNA viruses encode characteristic proteins, particularly RNA-dependent RNA polymerase (RdRp).</p>
+<h3 id="51-rdrp-based-identification-with-rdrp-scan">5.1 RdRp-Based Identification with RdRp-scan</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Create viral ID directory</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>03_viral_id
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Predict ORFs with Prodigal (metagenomic mode)</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>prodigal<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">    </span>-i<span class="w"> </span>02_assembly/contigs_500bp.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">    </span>-a<span class="w"> </span>03_viral_id/proteins.faa<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="w">    </span>-p<span class="w"> </span>meta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">    </span>-q
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="c1"># Download RdRp database (first time only)</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>db/rdrp
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="nb">cd</span><span class="w"> </span>db/rdrp
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>wget<span class="w"> </span>http://s3.climb.ac.uk/ADM_share/profile_db/rdrp_search/rdrp_profile_db.tar.gz
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>tar<span class="w"> </span>-xzf<span class="w"> </span>rdrp_profile_db.tar.gz
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="nb">cd</span><span class="w"> </span>~/rna_virome_tutorial
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="c1"># Run RdRp-scan</span>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>rdrp_scan<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="w">    </span>-i<span class="w"> </span>03_viral_id/proteins.faa<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="w">    </span>-o<span class="w"> </span>03_viral_id/rdrp_scan_results<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="w">    </span>-d<span class="w"> </span>db/rdrp/rdrp_profile_db<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a><span class="w">    </span>-e<span class="w"> </span>1e-5<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="w">    </span>-t<span class="w"> </span><span class="m">8</span>
+</span></code></pre></div>
+<p><strong>Expected output:</strong>
+- <strong>Contigs with RdRp:</strong> 50-200
+- <strong>E-value range:</strong> Most &lt;1e-20 (high confidence)
+- <strong>Output files:</strong>
+  - <code>rdrp_hits.txt</code>: List of contigs with RdRp
+  - <code>rdrp_alignments.txt</code>: Detailed alignments</p>
+<h3 id="52-extract-rdrp-positive-contigs">5.2 Extract RdRp-Positive Contigs</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># Extract contig IDs with RdRp hits</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>cut<span class="w"> </span>-f1<span class="w"> </span>03_viral_id/rdrp_scan_results/rdrp_hits.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span>sed<span class="w"> </span><span class="s1">&#39;s/_[0-9]*$//&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">    </span>sort<span class="w"> </span>-u<span class="w"> </span>&gt;<span class="w"> </span>03_viral_id/rdrp_contig_ids.txt
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="c1"># Extract RdRp-positive contigs</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>seqkit<span class="w"> </span>grep<span class="w"> </span>-f<span class="w"> </span>03_viral_id/rdrp_contig_ids.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">    </span>02_assembly/contigs_500bp.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span>&gt;<span class="w"> </span>03_viral_id/rdrp_positive_contigs.fasta
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="c1"># Count</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>wc<span class="w"> </span>-l<span class="w"> </span>03_viral_id/rdrp_contig_ids.txt
+</span></code></pre></div>
+<p><strong>Expected:</strong> 50-200 RdRp-positive contigs</p>
+<h3 id="53-blast-based-validation">5.3 BLAST-Based Validation</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Download RNA virus database</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>db/rna_virus
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nb">cd</span><span class="w"> </span>db/rna_virus
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1"># Download NCBI RefSeq RNA viruses</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1"># Filtering for Baltimore Classes III, IV, V, VI</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>wget<span class="w"> </span>ftp://ftp.ncbi.nlm.nih.gov/refseq/release/viral/viral.*.genomic.fna.gz
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>zcat<span class="w"> </span>viral.*.genomic.fna.gz<span class="w"> </span>&gt;<span class="w"> </span>all_viral.fna
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="c1"># Filter for RNA viruses (you may need to do this manually or use taxonomy)</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="c1"># For this tutorial, we&#39;ll use all viral sequences</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>makeblastdb<span class="w"> </span>-in<span class="w"> </span>all_viral.fna<span class="w"> </span>-dbtype<span class="w"> </span>nucl<span class="w"> </span>-out<span class="w"> </span>rna_virus_db
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="nb">cd</span><span class="w"> </span>~/rna_virome_tutorial
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="c1"># BLAST RdRp-positive contigs</span>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>blastn<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="w">    </span>-query<span class="w"> </span>03_viral_id/rdrp_positive_contigs.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="w">    </span>-db<span class="w"> </span>db/rna_virus/rna_virus_db<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="w">    </span>-out<span class="w"> </span>03_viral_id/blast_results.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="w">    </span>-outfmt<span class="w"> </span><span class="s1">&#39;6 qseqid sseqid pident length evalue bitscore stitle&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="w">    </span>-evalue<span class="w"> </span>1e-5<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="w">    </span>-num_threads<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="w">    </span>-max_target_seqs<span class="w"> </span><span class="m">3</span>
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>
+</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a><span class="c1"># Extract best hit per query</span>
+</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>sort<span class="w"> </span>-k1,1<span class="w"> </span>-k6,6gr<span class="w"> </span>03_viral_id/blast_results.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-12-28"><a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a><span class="w">    </span>sort<span class="w"> </span>-u<span class="w"> </span>-k1,1<span class="w"> </span>&gt;<span class="w"> </span>03_viral_id/blast_best_hits.txt
+</span><span id="__span-12-29"><a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a>
+</span><span id="__span-12-30"><a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a><span class="c1"># Analyze hit distribution</span>
+</span><span id="__span-12-31"><a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Total RdRp+ contigs: </span><span class="k">$(</span>wc<span class="w"> </span>-l<span class="w"> </span>&lt;<span class="w"> </span>03_viral_id/rdrp_contig_ids.txt<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-12-32"><a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Contigs with BLAST hit: </span><span class="k">$(</span>cut<span class="w"> </span>-f1<span class="w"> </span>03_viral_id/blast_best_hits.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-12-33"><a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;High similarity (&gt;80%): </span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;$3 &gt; 80&#39;</span><span class="w"> </span>03_viral_id/blast_best_hits.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-12-34"><a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Medium similarity (50-80%): </span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;$3 &gt; 50 &amp;&amp; $3 &lt;= 80&#39;</span><span class="w"> </span>03_viral_id/blast_best_hits.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+</span><span id="__span-12-35"><a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Low similarity (&lt;50%): </span><span class="k">$(</span>awk<span class="w"> </span><span class="s1">&#39;$3 &lt;= 50&#39;</span><span class="w"> </span>03_viral_id/blast_best_hits.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l<span class="k">)</span><span class="s2">&quot;</span>
+</span></code></pre></div>
+<p><strong>Expected distribution:</strong>
+- <strong>BLAST hits:</strong> 60-80% of RdRp+ contigs
+- <strong>High similarity (&gt;80%):</strong> 20-40% (known viruses)
+- <strong>Medium similarity (50-80%):</strong> 30-50% (related viruses)
+- <strong>Low similarity (&lt;50%):</strong> 10-20% (distant relatives)
+- <strong>No BLAST hit:</strong> 20-40% (novel RNA viruses)</p>
+<h2 id="step-6-rna-virus-genome-completeness">Step 6: RNA Virus Genome Completeness</h2>
+<p>Unlike DNA viruses, we don't have CheckV for RNA viruses. We'll assess completeness manually.</p>
+<h3 id="assess-genome-completeness">Assess Genome Completeness</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Create completeness directory</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>04_completeness
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Check for presence of key genes (RdRp, capsid, etc.)</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># Run HMMER against Pfam or custom RNA virus HMMs</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># Download Pfam database (if not already present)</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>db/pfam
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="nb">cd</span><span class="w"> </span>db/pfam
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>wget<span class="w"> </span>http://ftp.ebi.ac.uk/pub/databases/Pfam/current_release/Pfam-A.hmm.gz
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>gunzip<span class="w"> </span>Pfam-A.hmm.gz
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>hmmpress<span class="w"> </span>Pfam-A.hmm
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="nb">cd</span><span class="w"> </span>~/rna_virome_tutorial
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="c1"># Search for RNA virus protein families</span>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>hmmsearch<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="w">    </span>--tblout<span class="w"> </span>04_completeness/pfam_hits.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="w">    </span>-E<span class="w"> </span>1e-5<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="w">    </span>--cpu<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="w">    </span>db/pfam/Pfam-A.hmm<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="w">    </span>03_viral_id/proteins.faa
+</span></code></pre></div>
+<h3 id="manual-completeness-assessment">Manual Completeness Assessment</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Extract contigs with multiple viral genes (more likely complete)</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>python3<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="s">import pandas as pd</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="s"># Define RNA virus marker genes (Pfam IDs)</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="s">rna_virus_markers = {</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="s">    &#39;PF00680&#39;: &#39;RdRp_1&#39;,</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="s">    &#39;PF00978&#39;: &#39;RdRp_2&#39;,</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="s">    &#39;PF00073&#39;: &#39;RdRp_3&#39;,</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="s">    &#39;PF04196&#39;: &#39;RdRp_4&#39;,</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="s">    &#39;PF00073&#39;: &#39;RdRp_5&#39;,</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="s">    &#39;PF00910&#39;: &#39;RNA_helicase&#39;,</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="s">    &#39;PF00073&#39;: &#39;Peptidase&#39;,</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="s">    &#39;PF00073&#39;: &#39;Capsid&#39;</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="s">}</span>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="s"># Load HMMER results</span>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="s">hits = []</span>
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="s">with open(&#39;04_completeness/pfam_hits.txt&#39;) as f:</span>
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a><span class="s">    for line in f:</span>
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="s">        if line.startswith(&#39;#&#39;):</span>
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="s">            continue</span>
+</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a><span class="s">        fields = line.strip().split()</span>
+</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a><span class="s">        protein_id = fields[0]</span>
+</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="s">        pfam_id = fields[1]</span>
+</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a><span class="s">        evalue = float(fields[4])</span>
+</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>
+</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a><span class="s">        if evalue &lt; 1e-5:</span>
+</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a><span class="s">            hits.append((protein_id, pfam_id, evalue))</span>
+</span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a>
+</span><span id="__span-14-31"><a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a><span class="s"># Extract contig IDs and count markers</span>
+</span><span id="__span-14-32"><a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a><span class="s">contig_markers = {}</span>
+</span><span id="__span-14-33"><a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a><span class="s">for protein_id, pfam_id, evalue in hits:</span>
+</span><span id="__span-14-34"><a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a><span class="s">    # Extract contig ID (assuming format: contigID_geneNumber)</span>
+</span><span id="__span-14-35"><a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a><span class="s">    contig_id = &#39;_&#39;.join(protein_id.split(&#39;_&#39;)[:-1])</span>
+</span><span id="__span-14-36"><a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a>
+</span><span id="__span-14-37"><a id="__codelineno-14-37" name="__codelineno-14-37" href="#__codelineno-14-37"></a><span class="s">    if pfam_id in rna_virus_markers:</span>
+</span><span id="__span-14-38"><a id="__codelineno-14-38" name="__codelineno-14-38" href="#__codelineno-14-38"></a><span class="s">        if contig_id not in contig_markers:</span>
+</span><span id="__span-14-39"><a id="__codelineno-14-39" name="__codelineno-14-39" href="#__codelineno-14-39"></a><span class="s">            contig_markers[contig_id] = set()</span>
+</span><span id="__span-14-40"><a id="__codelineno-14-40" name="__codelineno-14-40" href="#__codelineno-14-40"></a><span class="s">        contig_markers[contig_id].add(rna_virus_markers[pfam_id])</span>
+</span><span id="__span-14-41"><a id="__codelineno-14-41" name="__codelineno-14-41" href="#__codelineno-14-41"></a>
+</span><span id="__span-14-42"><a id="__codelineno-14-42" name="__codelineno-14-42" href="#__codelineno-14-42"></a><span class="s"># Assess completeness</span>
+</span><span id="__span-14-43"><a id="__codelineno-14-43" name="__codelineno-14-43" href="#__codelineno-14-43"></a><span class="s">complete_contigs = []</span>
+</span><span id="__span-14-44"><a id="__codelineno-14-44" name="__codelineno-14-44" href="#__codelineno-14-44"></a><span class="s">partial_contigs = []</span>
+</span><span id="__span-14-45"><a id="__codelineno-14-45" name="__codelineno-14-45" href="#__codelineno-14-45"></a>
+</span><span id="__span-14-46"><a id="__codelineno-14-46" name="__codelineno-14-46" href="#__codelineno-14-46"></a><span class="s">for contig_id, markers in contig_markers.items():</span>
+</span><span id="__span-14-47"><a id="__codelineno-14-47" name="__codelineno-14-47" href="#__codelineno-14-47"></a><span class="s">    marker_count = len(markers)</span>
+</span><span id="__span-14-48"><a id="__codelineno-14-48" name="__codelineno-14-48" href="#__codelineno-14-48"></a>
+</span><span id="__span-14-49"><a id="__codelineno-14-49" name="__codelineno-14-49" href="#__codelineno-14-49"></a><span class="s">    if marker_count &gt;= 3:  # At least 3 RNA virus markers</span>
+</span><span id="__span-14-50"><a id="__codelineno-14-50" name="__codelineno-14-50" href="#__codelineno-14-50"></a><span class="s">        complete_contigs.append((contig_id, marker_count, &#39;,&#39;.join(markers)))</span>
+</span><span id="__span-14-51"><a id="__codelineno-14-51" name="__codelineno-14-51" href="#__codelineno-14-51"></a><span class="s">    elif marker_count &gt;= 1:</span>
+</span><span id="__span-14-52"><a id="__codelineno-14-52" name="__codelineno-14-52" href="#__codelineno-14-52"></a><span class="s">        partial_contigs.append((contig_id, marker_count, &#39;,&#39;.join(markers)))</span>
+</span><span id="__span-14-53"><a id="__codelineno-14-53" name="__codelineno-14-53" href="#__codelineno-14-53"></a>
+</span><span id="__span-14-54"><a id="__codelineno-14-54" name="__codelineno-14-54" href="#__codelineno-14-54"></a><span class="s"># Save results</span>
+</span><span id="__span-14-55"><a id="__codelineno-14-55" name="__codelineno-14-55" href="#__codelineno-14-55"></a><span class="s">with open(&#39;04_completeness/complete_contigs.txt&#39;, &#39;w&#39;) as f:</span>
+</span><span id="__span-14-56"><a id="__codelineno-14-56" name="__codelineno-14-56" href="#__codelineno-14-56"></a><span class="s">    for contig_id, count, markers in complete_contigs:</span>
+</span><span id="__span-14-57"><a id="__codelineno-14-57" name="__codelineno-14-57" href="#__codelineno-14-57"></a><span class="s">        f.write(f&quot;{contig_id}\t{count}\t{markers}\n&quot;)</span>
+</span><span id="__span-14-58"><a id="__codelineno-14-58" name="__codelineno-14-58" href="#__codelineno-14-58"></a>
+</span><span id="__span-14-59"><a id="__codelineno-14-59" name="__codelineno-14-59" href="#__codelineno-14-59"></a><span class="s">print(f&quot;Contigs with ≥3 markers (likely complete): {len(complete_contigs)}&quot;)</span>
+</span><span id="__span-14-60"><a id="__codelineno-14-60" name="__codelineno-14-60" href="#__codelineno-14-60"></a><span class="s">print(f&quot;Contigs with 1-2 markers (partial): {len(partial_contigs)}&quot;)</span>
+</span><span id="__span-14-61"><a id="__codelineno-14-61" name="__codelineno-14-61" href="#__codelineno-14-61"></a><span class="s">EOF</span>
+</span><span id="__span-14-62"><a id="__codelineno-14-62" name="__codelineno-14-62" href="#__codelineno-14-62"></a>
+</span><span id="__span-14-63"><a id="__codelineno-14-63" name="__codelineno-14-63" href="#__codelineno-14-63"></a><span class="c1"># Extract likely complete genomes</span>
+</span><span id="__span-14-64"><a id="__codelineno-14-64" name="__codelineno-14-64" href="#__codelineno-14-64"></a>cut<span class="w"> </span>-f1<span class="w"> </span>04_completeness/complete_contigs.txt<span class="w"> </span>&gt;<span class="w"> </span>04_completeness/complete_contig_ids.txt
+</span><span id="__span-14-65"><a id="__codelineno-14-65" name="__codelineno-14-65" href="#__codelineno-14-65"></a>
+</span><span id="__span-14-66"><a id="__codelineno-14-66" name="__codelineno-14-66" href="#__codelineno-14-66"></a>seqkit<span class="w"> </span>grep<span class="w"> </span>-f<span class="w"> </span>04_completeness/complete_contig_ids.txt<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-67"><a id="__codelineno-14-67" name="__codelineno-14-67" href="#__codelineno-14-67"></a><span class="w">    </span>03_viral_id/rdrp_positive_contigs.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-14-68"><a id="__codelineno-14-68" name="__codelineno-14-68" href="#__codelineno-14-68"></a><span class="w">    </span>&gt;<span class="w"> </span>04_completeness/complete_rna_viruses.fasta
+</span></code></pre></div>
+<p><strong>Expected results:</strong>
+- <strong>Likely complete genomes (≥3 markers):</strong> 10-50
+- <strong>Partial genomes (1-2 markers):</strong> 40-150</p>
+<h2 id="step-7-rna-virus-classification">Step 7: RNA Virus Classification</h2>
+<h3 id="71-taxonomic-assignment-based-on-blast">7.1 Taxonomic Assignment Based on BLAST</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Create taxonomy directory</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>05_taxonomy
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="c1"># Analyze BLAST results for taxonomy</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>python3<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="s">import pandas as pd</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="s"># Load BLAST results</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="s">blast = pd.read_csv(&#39;03_viral_id/blast_best_hits.txt&#39;, sep=&#39;\t&#39;, header=None,</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="s">                    names=[&#39;qseqid&#39;, &#39;sseqid&#39;, &#39;pident&#39;, &#39;length&#39;, &#39;evalue&#39;, &#39;bitscore&#39;, &#39;stitle&#39;])</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="s"># Extract virus family from subject title (manual parsing)</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="s">def extract_family(title):</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="s">    # Common RNA virus families</span>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="s">    families = [&#39;Picornaviridae&#39;, &#39;Flaviviridae&#39;, &#39;Coronaviridae&#39;, &#39;Rhabdoviridae&#39;,</span>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="s">                &#39;Paramyxoviridae&#39;, &#39;Orthomyxoviridae&#39;, &#39;Bunyaviridae&#39;, &#39;Reoviridae&#39;,</span>
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="s">                &#39;Togaviridae&#39;, &#39;Caliciviridae&#39;, &#39;Astroviridae&#39;, &#39;Hepeviridae&#39;]</span>
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>
+</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="s">    for family in families:</span>
+</span><span id="__span-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="s">        if family.lower() in title.lower():</span>
+</span><span id="__span-15-21"><a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="s">            return family</span>
+</span><span id="__span-15-22"><a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a><span class="s">    return &#39;Unknown&#39;</span>
+</span><span id="__span-15-23"><a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a>
+</span><span id="__span-15-24"><a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a><span class="s">blast[&#39;family&#39;] = blast[&#39;stitle&#39;].apply(extract_family)</span>
+</span><span id="__span-15-25"><a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a>
+</span><span id="__span-15-26"><a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a><span class="s"># Summarize taxonomy</span>
+</span><span id="__span-15-27"><a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a><span class="s">print(&quot;\nTaxonomic distribution (based on best BLAST hits):&quot;)</span>
+</span><span id="__span-15-28"><a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a><span class="s">print(blast[&#39;family&#39;].value_counts())</span>
+</span><span id="__span-15-29"><a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a>
+</span><span id="__span-15-30"><a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a><span class="s"># Save taxonomy table</span>
+</span><span id="__span-15-31"><a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a><span class="s">blast[[&#39;qseqid&#39;, &#39;pident&#39;, &#39;family&#39;, &#39;stitle&#39;]].to_csv(</span>
+</span><span id="__span-15-32"><a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a><span class="s">    &#39;05_taxonomy/rna_virus_taxonomy.tsv&#39;, sep=&#39;\t&#39;, index=False)</span>
+</span><span id="__span-15-33"><a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a><span class="s">EOF</span>
+</span></code></pre></div>
+<h3 id="72-phylogenetic-analysis-of-rdrp">7.2 Phylogenetic Analysis of RdRp</h3>
+<p>For publication-quality classification, place your viruses phylogenetically.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Extract RdRp protein sequences</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="c1"># Assuming we have RdRp coordinates from RdRp-scan</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>seqkit<span class="w"> </span>grep<span class="w"> </span>-r<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;RdRp&quot;</span><span class="w"> </span>03_viral_id/proteins.faa<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">    </span>&gt;<span class="w"> </span>05_taxonomy/rdrp_proteins.faa
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="c1"># Download reference RdRp sequences (curated set)</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="c1"># You would normally use a published RdRp reference set</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="c1"># For this tutorial, we&#39;ll use top BLAST hits as references</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="c1"># Extract reference RdRps from BLAST results</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>cut<span class="w"> </span>-f2<span class="w"> </span>03_viral_id/blast_best_hits.txt<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-n<span class="w"> </span><span class="m">50</span><span class="w"> </span>&gt;<span class="w"> </span>05_taxonomy/ref_accessions.txt
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="c1"># Fetch reference sequences (requires internet and NCBI E-utilities)</span>
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="c1"># Simplified for tutorial - you&#39;d use efetch in practice</span>
+</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>
+</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a><span class="c1"># Combine query and reference RdRps</span>
+</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a><span class="c1"># cat 05_taxonomy/rdrp_proteins.faa reference_rdrps.faa &gt; 05_taxonomy/all_rdrps.faa</span>
+</span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>
+</span><span id="__span-16-19"><a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a><span class="c1"># Align with MAFFT</span>
+</span><span id="__span-16-20"><a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a>mafft<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a><span class="w">    </span>--auto<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-22"><a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a><span class="w">    </span>--thread<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-23"><a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a><span class="w">    </span>05_taxonomy/rdrp_proteins.faa<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-24"><a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a><span class="w">    </span>&gt;<span class="w"> </span>05_taxonomy/rdrp_alignment.faa
+</span><span id="__span-16-25"><a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a>
+</span><span id="__span-16-26"><a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a><span class="c1"># Trim alignment (remove poorly aligned regions)</span>
+</span><span id="__span-16-27"><a id="__codelineno-16-27" name="__codelineno-16-27" href="#__codelineno-16-27"></a><span class="c1"># trimal -in 05_taxonomy/rdrp_alignment.faa -out 05_taxonomy/rdrp_alignment_trimmed.faa -automated1</span>
+</span><span id="__span-16-28"><a id="__codelineno-16-28" name="__codelineno-16-28" href="#__codelineno-16-28"></a>
+</span><span id="__span-16-29"><a id="__codelineno-16-29" name="__codelineno-16-29" href="#__codelineno-16-29"></a><span class="c1"># Build phylogenetic tree with IQ-TREE</span>
+</span><span id="__span-16-30"><a id="__codelineno-16-30" name="__codelineno-16-30" href="#__codelineno-16-30"></a>iqtree<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-31"><a id="__codelineno-16-31" name="__codelineno-16-31" href="#__codelineno-16-31"></a><span class="w">    </span>-s<span class="w"> </span>05_taxonomy/rdrp_alignment.faa<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-32"><a id="__codelineno-16-32" name="__codelineno-16-32" href="#__codelineno-16-32"></a><span class="w">    </span>-m<span class="w"> </span>TEST<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-33"><a id="__codelineno-16-33" name="__codelineno-16-33" href="#__codelineno-16-33"></a><span class="w">    </span>-bb<span class="w"> </span><span class="m">1000</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-34"><a id="__codelineno-16-34" name="__codelineno-16-34" href="#__codelineno-16-34"></a><span class="w">    </span>-nt<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-35"><a id="__codelineno-16-35" name="__codelineno-16-35" href="#__codelineno-16-35"></a><span class="w">    </span>-pre<span class="w"> </span>05_taxonomy/rdrp_tree
+</span></code></pre></div>
+<p><strong>IQ-TREE parameters:</strong>
+- <code>-m TEST</code>: Automatically select best substitution model
+- <code>-bb 1000</code>: 1000 ultrafast bootstrap replicates
+- <code>-nt 8</code>: Number of threads</p>
+<p><strong>Output files:</strong>
+- <code>rdrp_tree.treefile</code>: Best ML tree (Newick format)
+- <code>rdrp_tree.iqtree</code>: Detailed analysis log
+- <code>rdrp_tree.contree</code>: Consensus tree</p>
+<p><strong>Visualize tree:</strong></p>
+<div class="language-R highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># In R</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nf">library</span><span class="p">(</span><span class="n">ape</span><span class="p">)</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="nf">library</span><span class="p">(</span><span class="n">ggtree</span><span class="p">)</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="c1"># Load tree</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="n">tree</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.tree</span><span class="p">(</span><span class="s">&#39;05_taxonomy/rdrp_tree.treefile&#39;</span><span class="p">)</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="c1"># Plot</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="nf">pdf</span><span class="p">(</span><span class="s">&#39;05_taxonomy/rdrp_phylogeny.pdf&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">width</span><span class="o">=</span><span class="m">12</span><span class="p">,</span><span class="w"> </span><span class="n">height</span><span class="o">=</span><span class="m">16</span><span class="p">)</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="nf">ggtree</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span><span class="w"> </span><span class="n">layout</span><span class="o">=</span><span class="s">&#39;rectangular&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="w">  </span><span class="nf">geom_tiplab</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="m">2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="w">  </span><span class="nf">geom_treescale</span><span class="p">()</span><span class="w"> </span><span class="o">+</span>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="w">  </span><span class="nf">theme_tree2</span><span class="p">()</span>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="nf">dev.off</span><span class="p">()</span>
+</span></code></pre></div>
+<h2 id="step-8-abundance-estimation">Step 8: Abundance Estimation</h2>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Create abundance directory</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>06_abundance
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="c1"># Map reads to RdRp-positive contigs</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="c1"># Index contigs</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>bwa<span class="w"> </span>index<span class="w"> </span>03_viral_id/rdrp_positive_contigs.fasta
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="c1"># Map reads</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>bwa<span class="w"> </span>mem<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a><span class="w">    </span>-t<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11" href="#__codelineno-18-11"></a><span class="w">    </span>03_viral_id/rdrp_positive_contigs.fasta<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12" href="#__codelineno-18-12"></a><span class="w">    </span>01_qc/non_rRNA_reads.fq.gz<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13" href="#__codelineno-18-13"></a><span class="w">    </span><span class="p">|</span><span class="w"> </span>samtools<span class="w"> </span>view<span class="w"> </span>-bS<span class="w"> </span>-<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14" href="#__codelineno-18-14"></a><span class="w">    </span><span class="p">|</span><span class="w"> </span>samtools<span class="w"> </span>sort<span class="w"> </span>-o<span class="w"> </span>06_abundance/mapped_sorted.bam
+</span><span id="__span-18-15"><a id="__codelineno-18-15" name="__codelineno-18-15" href="#__codelineno-18-15"></a>
+</span><span id="__span-18-16"><a id="__codelineno-18-16" name="__codelineno-18-16" href="#__codelineno-18-16"></a>samtools<span class="w"> </span>index<span class="w"> </span>06_abundance/mapped_sorted.bam
+</span><span id="__span-18-17"><a id="__codelineno-18-17" name="__codelineno-18-17" href="#__codelineno-18-17"></a>
+</span><span id="__span-18-18"><a id="__codelineno-18-18" name="__codelineno-18-18" href="#__codelineno-18-18"></a><span class="c1"># Calculate coverage</span>
+</span><span id="__span-18-19"><a id="__codelineno-18-19" name="__codelineno-18-19" href="#__codelineno-18-19"></a>samtools<span class="w"> </span>depth<span class="w"> </span>06_abundance/mapped_sorted.bam<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-18-20"><a id="__codelineno-18-20" name="__codelineno-18-20" href="#__codelineno-18-20"></a><span class="w">    </span>&gt;<span class="w"> </span>06_abundance/coverage_per_base.txt
+</span><span id="__span-18-21"><a id="__codelineno-18-21" name="__codelineno-18-21" href="#__codelineno-18-21"></a>
+</span><span id="__span-18-22"><a id="__codelineno-18-22" name="__codelineno-18-22" href="#__codelineno-18-22"></a><span class="c1"># Calculate mean coverage per contig</span>
+</span><span id="__span-18-23"><a id="__codelineno-18-23" name="__codelineno-18-23" href="#__codelineno-18-23"></a>python3<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+</span><span id="__span-18-24"><a id="__codelineno-18-24" name="__codelineno-18-24" href="#__codelineno-18-24"></a><span class="s">import pandas as pd</span>
+</span><span id="__span-18-25"><a id="__codelineno-18-25" name="__codelineno-18-25" href="#__codelineno-18-25"></a>
+</span><span id="__span-18-26"><a id="__codelineno-18-26" name="__codelineno-18-26" href="#__codelineno-18-26"></a><span class="s"># Load coverage data</span>
+</span><span id="__span-18-27"><a id="__codelineno-18-27" name="__codelineno-18-27" href="#__codelineno-18-27"></a><span class="s">cov = pd.read_csv(&#39;06_abundance/coverage_per_base.txt&#39;, sep=&#39;\t&#39;,</span>
+</span><span id="__span-18-28"><a id="__codelineno-18-28" name="__codelineno-18-28" href="#__codelineno-18-28"></a><span class="s">                  header=None, names=[&#39;contig&#39;, &#39;pos&#39;, &#39;depth&#39;])</span>
+</span><span id="__span-18-29"><a id="__codelineno-18-29" name="__codelineno-18-29" href="#__codelineno-18-29"></a>
+</span><span id="__span-18-30"><a id="__codelineno-18-30" name="__codelineno-18-30" href="#__codelineno-18-30"></a><span class="s"># Calculate mean coverage per contig</span>
+</span><span id="__span-18-31"><a id="__codelineno-18-31" name="__codelineno-18-31" href="#__codelineno-18-31"></a><span class="s">mean_cov = cov.groupby(&#39;contig&#39;)[&#39;depth&#39;].agg([&#39;mean&#39;, &#39;std&#39;, &#39;max&#39;]).reset_index()</span>
+</span><span id="__span-18-32"><a id="__codelineno-18-32" name="__codelineno-18-32" href="#__codelineno-18-32"></a><span class="s">mean_cov.columns = [&#39;contig_id&#39;, &#39;mean_coverage&#39;, &#39;std_coverage&#39;, &#39;max_coverage&#39;]</span>
+</span><span id="__span-18-33"><a id="__codelineno-18-33" name="__codelineno-18-33" href="#__codelineno-18-33"></a>
+</span><span id="__span-18-34"><a id="__codelineno-18-34" name="__codelineno-18-34" href="#__codelineno-18-34"></a><span class="s"># Save</span>
+</span><span id="__span-18-35"><a id="__codelineno-18-35" name="__codelineno-18-35" href="#__codelineno-18-35"></a><span class="s">mean_cov.to_csv(&#39;06_abundance/contig_coverage.tsv&#39;, sep=&#39;\t&#39;, index=False)</span>
+</span><span id="__span-18-36"><a id="__codelineno-18-36" name="__codelineno-18-36" href="#__codelineno-18-36"></a>
+</span><span id="__span-18-37"><a id="__codelineno-18-37" name="__codelineno-18-37" href="#__codelineno-18-37"></a><span class="s"># Summary</span>
+</span><span id="__span-18-38"><a id="__codelineno-18-38" name="__codelineno-18-38" href="#__codelineno-18-38"></a><span class="s">print(f&quot;Contigs with coverage: {len(mean_cov)}&quot;)</span>
+</span><span id="__span-18-39"><a id="__codelineno-18-39" name="__codelineno-18-39" href="#__codelineno-18-39"></a><span class="s">print(f&quot;High coverage (&gt;100x): {len(mean_cov[mean_cov[&#39;mean_coverage&#39;] &gt; 100])}&quot;)</span>
+</span><span id="__span-18-40"><a id="__codelineno-18-40" name="__codelineno-18-40" href="#__codelineno-18-40"></a><span class="s">print(f&quot;Medium coverage (10-100x): {len(mean_cov[(mean_cov[&#39;mean_coverage&#39;] &gt;= 10) &amp; (mean_cov[&#39;mean_coverage&#39;] &lt;= 100)])}&quot;)</span>
+</span><span id="__span-18-41"><a id="__codelineno-18-41" name="__codelineno-18-41" href="#__codelineno-18-41"></a><span class="s">print(f&quot;Low coverage (&lt;10x): {len(mean_cov[mean_cov[&#39;mean_coverage&#39;] &lt; 10])}&quot;)</span>
+</span><span id="__span-18-42"><a id="__codelineno-18-42" name="__codelineno-18-42" href="#__codelineno-18-42"></a>
+</span><span id="__span-18-43"><a id="__codelineno-18-43" name="__codelineno-18-43" href="#__codelineno-18-43"></a><span class="s"># Top 10 most abundant</span>
+</span><span id="__span-18-44"><a id="__codelineno-18-44" name="__codelineno-18-44" href="#__codelineno-18-44"></a><span class="s">print(&quot;\nTop 10 most abundant RNA viruses:&quot;)</span>
+</span><span id="__span-18-45"><a id="__codelineno-18-45" name="__codelineno-18-45" href="#__codelineno-18-45"></a><span class="s">print(mean_cov.nlargest(10, &#39;mean_coverage&#39;)[[&#39;contig_id&#39;, &#39;mean_coverage&#39;]])</span>
+</span><span id="__span-18-46"><a id="__codelineno-18-46" name="__codelineno-18-46" href="#__codelineno-18-46"></a><span class="s">EOF</span>
+</span></code></pre></div>
+<h2 id="step-9-summary-and-functional-annotation">Step 9: Summary and Functional Annotation</h2>
+<h3 id="create-comprehensive-summary">Create Comprehensive Summary</h3>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Create summary directory</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>07_summary
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="c1"># Combine all results</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>python3<span class="w"> </span><span class="s">&lt;&lt; &#39;EOF&#39;</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="s">import pandas as pd</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>
+</span><span id="__span-19-8"><a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a><span class="s"># Load contig info</span>
+</span><span id="__span-19-9"><a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="s">from Bio import SeqIO</span>
+</span><span id="__span-19-10"><a id="__codelineno-19-10" name="__codelineno-19-10" href="#__codelineno-19-10"></a><span class="s">contigs_info = {}</span>
+</span><span id="__span-19-11"><a id="__codelineno-19-11" name="__codelineno-19-11" href="#__codelineno-19-11"></a><span class="s">for record in SeqIO.parse(&#39;03_viral_id/rdrp_positive_contigs.fasta&#39;, &#39;fasta&#39;):</span>
+</span><span id="__span-19-12"><a id="__codelineno-19-12" name="__codelineno-19-12" href="#__codelineno-19-12"></a><span class="s">    contigs_info[record.id] = len(record.seq)</span>
+</span><span id="__span-19-13"><a id="__codelineno-19-13" name="__codelineno-19-13" href="#__codelineno-19-13"></a>
+</span><span id="__span-19-14"><a id="__codelineno-19-14" name="__codelineno-19-14" href="#__codelineno-19-14"></a><span class="s">contig_df = pd.DataFrame(list(contigs_info.items()), columns=[&#39;contig_id&#39;, &#39;length&#39;])</span>
+</span><span id="__span-19-15"><a id="__codelineno-19-15" name="__codelineno-19-15" href="#__codelineno-19-15"></a>
+</span><span id="__span-19-16"><a id="__codelineno-19-16" name="__codelineno-19-16" href="#__codelineno-19-16"></a><span class="s"># Load RdRp scan results</span>
+</span><span id="__span-19-17"><a id="__codelineno-19-17" name="__codelineno-19-17" href="#__codelineno-19-17"></a><span class="s"># Simplified - would parse actual RdRp-scan output</span>
+</span><span id="__span-19-18"><a id="__codelineno-19-18" name="__codelineno-19-18" href="#__codelineno-19-18"></a><span class="s"># For tutorial, we&#39;ll use the IDs we extracted</span>
+</span><span id="__span-19-19"><a id="__codelineno-19-19" name="__codelineno-19-19" href="#__codelineno-19-19"></a><span class="s">rdrp_ids = pd.read_csv(&#39;03_viral_id/rdrp_contig_ids.txt&#39;, header=None, names=[&#39;contig_id&#39;])</span>
+</span><span id="__span-19-20"><a id="__codelineno-19-20" name="__codelineno-19-20" href="#__codelineno-19-20"></a><span class="s">rdrp_ids[&#39;has_rdrp&#39;] = True</span>
+</span><span id="__span-19-21"><a id="__codelineno-19-21" name="__codelineno-19-21" href="#__codelineno-19-21"></a>
+</span><span id="__span-19-22"><a id="__codelineno-19-22" name="__codelineno-19-22" href="#__codelineno-19-22"></a><span class="s"># Load BLAST results</span>
+</span><span id="__span-19-23"><a id="__codelineno-19-23" name="__codelineno-19-23" href="#__codelineno-19-23"></a><span class="s">blast = pd.read_csv(&#39;03_viral_id/blast_best_hits.txt&#39;, sep=&#39;\t&#39;, header=None,</span>
+</span><span id="__span-19-24"><a id="__codelineno-19-24" name="__codelineno-19-24" href="#__codelineno-19-24"></a><span class="s">                    names=[&#39;contig_id&#39;, &#39;subject&#39;, &#39;pident&#39;, &#39;length&#39;, &#39;evalue&#39;, &#39;bitscore&#39;, &#39;description&#39;])</span>
+</span><span id="__span-19-25"><a id="__codelineno-19-25" name="__codelineno-19-25" href="#__codelineno-19-25"></a>
+</span><span id="__span-19-26"><a id="__codelineno-19-26" name="__codelineno-19-26" href="#__codelineno-19-26"></a><span class="s"># Load completeness</span>
+</span><span id="__span-19-27"><a id="__codelineno-19-27" name="__codelineno-19-27" href="#__codelineno-19-27"></a><span class="s">complete = pd.read_csv(&#39;04_completeness/complete_contigs.txt&#39;, sep=&#39;\t&#39;, header=None,</span>
+</span><span id="__span-19-28"><a id="__codelineno-19-28" name="__codelineno-19-28" href="#__codelineno-19-28"></a><span class="s">                       names=[&#39;contig_id&#39;, &#39;marker_count&#39;, &#39;markers&#39;])</span>
+</span><span id="__span-19-29"><a id="__codelineno-19-29" name="__codelineno-19-29" href="#__codelineno-19-29"></a><span class="s">complete[&#39;completeness&#39;] = &#39;Complete (≥3 markers)&#39;</span>
+</span><span id="__span-19-30"><a id="__codelineno-19-30" name="__codelineno-19-30" href="#__codelineno-19-30"></a>
+</span><span id="__span-19-31"><a id="__codelineno-19-31" name="__codelineno-19-31" href="#__codelineno-19-31"></a><span class="s"># Load taxonomy</span>
+</span><span id="__span-19-32"><a id="__codelineno-19-32" name="__codelineno-19-32" href="#__codelineno-19-32"></a><span class="s">taxonomy = pd.read_csv(&#39;05_taxonomy/rna_virus_taxonomy.tsv&#39;, sep=&#39;\t&#39;)</span>
+</span><span id="__span-19-33"><a id="__codelineno-19-33" name="__codelineno-19-33" href="#__codelineno-19-33"></a>
+</span><span id="__span-19-34"><a id="__codelineno-19-34" name="__codelineno-19-34" href="#__codelineno-19-34"></a><span class="s"># Load abundance</span>
+</span><span id="__span-19-35"><a id="__codelineno-19-35" name="__codelineno-19-35" href="#__codelineno-19-35"></a><span class="s">abundance = pd.read_csv(&#39;06_abundance/contig_coverage.tsv&#39;, sep=&#39;\t&#39;)</span>
+</span><span id="__span-19-36"><a id="__codelineno-19-36" name="__codelineno-19-36" href="#__codelineno-19-36"></a>
+</span><span id="__span-19-37"><a id="__codelineno-19-37" name="__codelineno-19-37" href="#__codelineno-19-37"></a><span class="s"># Merge all</span>
+</span><span id="__span-19-38"><a id="__codelineno-19-38" name="__codelineno-19-38" href="#__codelineno-19-38"></a><span class="s">summary = contig_df.merge(rdrp_ids, on=&#39;contig_id&#39;, how=&#39;left&#39;)</span>
+</span><span id="__span-19-39"><a id="__codelineno-19-39" name="__codelineno-19-39" href="#__codelineno-19-39"></a><span class="s">summary = summary.merge(blast[[&#39;contig_id&#39;, &#39;pident&#39;, &#39;description&#39;]], on=&#39;contig_id&#39;, how=&#39;left&#39;)</span>
+</span><span id="__span-19-40"><a id="__codelineno-19-40" name="__codelineno-19-40" href="#__codelineno-19-40"></a><span class="s">summary = summary.merge(complete[[&#39;contig_id&#39;, &#39;completeness&#39;, &#39;marker_count&#39;]], on=&#39;contig_id&#39;, how=&#39;left&#39;)</span>
+</span><span id="__span-19-41"><a id="__codelineno-19-41" name="__codelineno-19-41" href="#__codelineno-19-41"></a><span class="s">summary = summary.merge(taxonomy[[&#39;qseqid&#39;, &#39;family&#39;]], left_on=&#39;contig_id&#39;, right_on=&#39;qseqid&#39;, how=&#39;left&#39;)</span>
+</span><span id="__span-19-42"><a id="__codelineno-19-42" name="__codelineno-19-42" href="#__codelineno-19-42"></a><span class="s">summary = summary.merge(abundance[[&#39;contig_id&#39;, &#39;mean_coverage&#39;]], on=&#39;contig_id&#39;, how=&#39;left&#39;)</span>
+</span><span id="__span-19-43"><a id="__codelineno-19-43" name="__codelineno-19-43" href="#__codelineno-19-43"></a>
+</span><span id="__span-19-44"><a id="__codelineno-19-44" name="__codelineno-19-44" href="#__codelineno-19-44"></a><span class="s"># Fill NaN</span>
+</span><span id="__span-19-45"><a id="__codelineno-19-45" name="__codelineno-19-45" href="#__codelineno-19-45"></a><span class="s">summary[&#39;completeness&#39;] = summary[&#39;completeness&#39;].fillna(&#39;Partial&#39;)</span>
+</span><span id="__span-19-46"><a id="__codelineno-19-46" name="__codelineno-19-46" href="#__codelineno-19-46"></a><span class="s">summary[&#39;family&#39;] = summary[&#39;family&#39;].fillna(&#39;Unknown&#39;)</span>
+</span><span id="__span-19-47"><a id="__codelineno-19-47" name="__codelineno-19-47" href="#__codelineno-19-47"></a><span class="s">summary[&#39;pident&#39;] = summary[&#39;pident&#39;].fillna(0)</span>
+</span><span id="__span-19-48"><a id="__codelineno-19-48" name="__codelineno-19-48" href="#__codelineno-19-48"></a>
+</span><span id="__span-19-49"><a id="__codelineno-19-49" name="__codelineno-19-49" href="#__codelineno-19-49"></a><span class="s"># Sort by abundance</span>
+</span><span id="__span-19-50"><a id="__codelineno-19-50" name="__codelineno-19-50" href="#__codelineno-19-50"></a><span class="s">summary = summary.sort_values(&#39;mean_coverage&#39;, ascending=False)</span>
+</span><span id="__span-19-51"><a id="__codelineno-19-51" name="__codelineno-19-51" href="#__codelineno-19-51"></a>
+</span><span id="__span-19-52"><a id="__codelineno-19-52" name="__codelineno-19-52" href="#__codelineno-19-52"></a><span class="s"># Save</span>
+</span><span id="__span-19-53"><a id="__codelineno-19-53" name="__codelineno-19-53" href="#__codelineno-19-53"></a><span class="s">summary.to_csv(&#39;07_summary/rna_virus_summary.tsv&#39;, sep=&#39;\t&#39;, index=False)</span>
+</span><span id="__span-19-54"><a id="__codelineno-19-54" name="__codelineno-19-54" href="#__codelineno-19-54"></a>
+</span><span id="__span-19-55"><a id="__codelineno-19-55" name="__codelineno-19-55" href="#__codelineno-19-55"></a><span class="s">print(f&quot;Total RdRp-positive contigs: {len(summary)}&quot;)</span>
+</span><span id="__span-19-56"><a id="__codelineno-19-56" name="__codelineno-19-56" href="#__codelineno-19-56"></a><span class="s">print(f&quot;Likely complete genomes: {len(summary[summary[&#39;completeness&#39;].str.contains(&#39;Complete&#39;)])}&quot;)</span>
+</span><span id="__span-19-57"><a id="__codelineno-19-57" name="__codelineno-19-57" href="#__codelineno-19-57"></a><span class="s">print(f&quot;Known viruses (&gt;80% identity): {len(summary[summary[&#39;pident&#39;] &gt; 80])}&quot;)</span>
+</span><span id="__span-19-58"><a id="__codelineno-19-58" name="__codelineno-19-58" href="#__codelineno-19-58"></a><span class="s">print(f&quot;Novel viruses (no BLAST hit): {len(summary[summary[&#39;pident&#39;] == 0])}&quot;)</span>
+</span><span id="__span-19-59"><a id="__codelineno-19-59" name="__codelineno-19-59" href="#__codelineno-19-59"></a>
+</span><span id="__span-19-60"><a id="__codelineno-19-60" name="__codelineno-19-60" href="#__codelineno-19-60"></a><span class="s">print(&quot;\nTop 10 RNA viruses by abundance:&quot;)</span>
+</span><span id="__span-19-61"><a id="__codelineno-19-61" name="__codelineno-19-61" href="#__codelineno-19-61"></a><span class="s">print(summary[[&#39;contig_id&#39;, &#39;length&#39;, &#39;family&#39;, &#39;pident&#39;, &#39;mean_coverage&#39;, &#39;completeness&#39;]].head(10))</span>
+</span><span id="__span-19-62"><a id="__codelineno-19-62" name="__codelineno-19-62" href="#__codelineno-19-62"></a><span class="s">EOF</span>
+</span></code></pre></div>
+<h2 id="expected-final-results">Expected Final Results</h2>
+<h3 id="directory-structure">Directory Structure</h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>~/rna_virome_tutorial/
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>├── 01_qc/
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>│   ├── cleaned_reads.fastq.gz
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>│   └── non_rRNA_reads.fq.gz
+</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>├── 02_assembly/
+</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>│   └── contigs_500bp.fasta
+</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a>├── 03_viral_id/
+</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>│   ├── rdrp_positive_contigs.fasta
+</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>│   └── blast_best_hits.txt
+</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>├── 04_completeness/
+</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>│   └── complete_rna_viruses.fasta
+</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>├── 05_taxonomy/
+</span><span id="__span-20-13"><a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a>│   ├── rna_virus_taxonomy.tsv
+</span><span id="__span-20-14"><a id="__codelineno-20-14" name="__codelineno-20-14" href="#__codelineno-20-14"></a>│   └── rdrp_tree.treefile
+</span><span id="__span-20-15"><a id="__codelineno-20-15" name="__codelineno-20-15" href="#__codelineno-20-15"></a>├── 06_abundance/
+</span><span id="__span-20-16"><a id="__codelineno-20-16" name="__codelineno-20-16" href="#__codelineno-20-16"></a>│   └── contig_coverage.tsv
+</span><span id="__span-20-17"><a id="__codelineno-20-17" name="__codelineno-20-17" href="#__codelineno-20-17"></a>└── 07_summary/
+</span><span id="__span-20-18"><a id="__codelineno-20-18" name="__codelineno-20-18" href="#__codelineno-20-18"></a>    └── rna_virus_summary.tsv
+</span></code></pre></div>
+<h3 id="typical-results">Typical Results</h3>
+<ul>
+<li><strong>Input reads:</strong> 3,000,000</li>
+<li><strong>After QC:</strong> ~2,550,000 (85%)</li>
+<li><strong>After rRNA removal:</strong> ~2,040,000 (80% of QC reads)</li>
+<li><strong>Assembled contigs ≥500bp:</strong> 5,000-10,000</li>
+<li><strong>RdRp-positive contigs:</strong> 50-200</li>
+<li><strong>Likely complete genomes:</strong> 10-50</li>
+<li><strong>Novel RNA viruses:</strong> 20-40% with no BLAST hit</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="problem-very-few-rdrp-hits">Problem: Very Few RdRp Hits</h3>
+<p><strong>Solutions:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Lower RdRp-scan e-value threshold</span>
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>rdrp_scan<span class="w"> </span>...<span class="w"> </span>-e<span class="w"> </span>1e-3<span class="w">  </span><span class="c1"># instead of 1e-5</span>
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>
+</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="c1"># Try alternative RdRp databases</span>
+</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="c1"># Use palmID from Serratus project</span>
+</span></code></pre></div></p>
+<h3 id="problem-high-rrna-contamination">Problem: High rRNA Contamination</h3>
+<p><strong>Solutions:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># More stringent rRNA filtering</span>
+</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>sortmerna<span class="w"> </span>--best<span class="w"> </span><span class="m">1</span><span class="w"> </span>--num_alignments<span class="w"> </span><span class="m">1</span><span class="w"> </span>...
+</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>
+</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="c1"># Multiple rounds of filtering</span>
+</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>sortmerna<span class="w"> </span>...<span class="w"> </span><span class="c1"># Round 1</span>
+</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a>sortmerna<span class="w"> </span>--reads<span class="w"> </span>output_from_round1.fq<span class="w"> </span>...<span class="w"> </span><span class="c1"># Round 2</span>
+</span></code></pre></div></p>
+<h3 id="problem-fragmented-assembly">Problem: Fragmented Assembly</h3>
+<p><strong>Solutions:</strong>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="c1"># Increase k-mer sizes for SPAdes</span>
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>spades.py<span class="w"> </span>--rna<span class="w"> </span>-k<span class="w"> </span><span class="m">25</span>,35,45,55,65,75<span class="w"> </span>...
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>
+</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a><span class="c1"># Use Trinity (better for complex transcriptomes)</span>
+</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>Trinity<span class="w"> </span>--max_memory<span class="w"> </span>64G<span class="w"> </span>--CPU<span class="w"> </span><span class="m">16</span><span class="w"> </span>...
+</span></code></pre></div></p>
+<h2 id="next-steps">Next Steps</h2>
+<p><strong>Advanced RNA virus analyses:</strong>
+- Recombination detection (RDP, SimPlot)
+- Secondary structure prediction (RNAfold)
+- Viral strain analysis (variant calling)</p>
+<p><strong>Related tutorials:</strong>
+- <a href="../comparative-virome/">Tutorial 4: Comparative Virome</a> - Compare RNA viruses across samples
+- <a href="../host-prediction-workflows/">Tutorial 5: Host Prediction</a> - Predict eukaryotic hosts</p>
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li>Wolf, Y. I., et al. (2018). "Origins and evolution of the global RNA virome." <em>mBio</em>, 9(6), e02329-18.</li>
+<li>Mushegian, A., &amp; Elena, S. F. (2015). "Evolution of plant virus movement proteins from the 30K superfamily and of their homologs integrated in plant genomes." <em>Virology</em>, 476, 304-315.</li>
+<li>Krishnamurthy, S. R., &amp; Wang, D. (2017). "Origins and challenges of viral dark matter." <em>Virus Research</em>, 239, 136-142.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <!-- Custom footer -->
+
+<footer class="md-footer">
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            &copy; 2023-2025 <a href="https://github.com/shandley">Scott Handley</a> -  <a href="#__consent">Change cookie settings</a>
+          </div>
+        
+        Awesome-Virome Documentation | 
+        <a href="https://shandley.github.io/awesome-virome/dashboard.html" target="_blank">
+          Dashboard
+        </a> |
+        <a href="https://shandley.github.io/awesome-virome/citations.html" target="_blank">
+          Citation Analytics
+        </a>
+        <br>
+        Made with
+        <a href="https://www.mkdocs.org/" target="_blank" rel="noopener">
+          MkDocs
+        </a> and
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/shandley/awesome-virome" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  window.mermaidConfig = {
+    startOnLoad: true,
+    theme: 'default',
+    flowchart: {
+      useMaxWidth: false,
+      htmlLabels: true,
+      curve: 'basis',
+      defaultRenderer: 'elk',
+      width: 250
+    },
+    securityLevel: 'loose'
+  };
+  
+  function initMermaid() {
+    try {
+      if (typeof window.mermaid !== 'undefined') {
+        window.mermaid.initialize(window.mermaidConfig);
+        
+        // Process all mermaid diagrams that haven't been processed yet
+        document.querySelectorAll('.mermaid:not([data-processed="true"])').forEach(function(el) {
+          try {
+            window.mermaid.init(undefined, el);
+          } catch (err) {
+            console.error('Mermaid initialization error for specific element:', err);
+            // Add an error class to show there was an issue
+            el.classList.add('mermaid-error');
+            el.textContent = 'Diagram rendering error. Please check console for details.';
+          }
+        });
+      }
+    } catch (err) {
+      console.error('Mermaid initialization error:', err);
+    }
+  }
+  
+  // Try to use mermaid if it's already loaded
+  if (typeof window.mermaid !== 'undefined') {
+    initMermaid();
+  } else {
+    // Load mermaid if it's not available
+    console.log('Loading mermaid from mermaid.html partial');
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js';
+    script.onload = function() {
+      console.log('Mermaid loaded successfully');
+      initMermaid();
+    };
+    script.onerror = function() {
+      console.error('Failed to load mermaid script');
+    };
+    document.head.appendChild(script);
+  }
+  
+  // Secondary initialization after a delay to catch any missed diagrams
+  setTimeout(initMermaid, 1000);
+});
+
+// Backup initialization on full page load
+window.addEventListener('load', function() {
+  if (typeof window.mermaid !== 'undefined') {
+    console.log('Window loaded, reinitializing mermaid');
+    window.mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      flowchart: {
+        useMaxWidth: false,
+        htmlLabels: true,
+        curve: 'basis',
+        defaultRenderer: 'elk',
+        width: 250
+      },
+      securityLevel: 'loose'
+    });
+    
+    // Process any diagrams that still haven't been processed
+    document.querySelectorAll('.mermaid:not([data-processed="true"])').forEach(function(el) {
+      try {
+        window.mermaid.init(undefined, el);
+      } catch (err) {
+        console.error('Mermaid load-time initialization error:', err);
+      }
+    });
+  }
+});
+</script>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.indexes", "navigation.top", "navigation.footer", "content.tabs.link", "content.code.copy", "content.code.annotate", "search.highlight", "search.share", "search.suggest"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@9.4.3/dist/mermaid.min.js"></script>
+      
+        <script src="../../js/mermaid.js"></script>
+      
+    
+  </body>
+</html>
