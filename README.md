@@ -120,7 +120,6 @@ Here are the most popular and well-maintained tools in each major category:
 ### 🦠 Virus and Phage Identification
 | Tool | Stars | Description |
 |------|-------|-------------|
-| [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) | ⭐ 1114 | Fast sequence similarity search |
 | [geNomad](https://github.com/apcamargo/genomad) [v1.6.0, 2023] | ⭐ 219 | ML-based virus identification including proviruses |
 | [VIBRANT](https://github.com/AnantharamanLab/VIBRANT) | ⭐ 159 | Virus identification by boundary detection + annotation |
 
@@ -135,7 +134,6 @@ Here are the most popular and well-maintained tools in each major category:
 | Tool | Stars | Description |
 |------|-------|-------------|
 | [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) | ⭐ 797 | Assembler for viruses from metagenomic data |
-| [Prodigal/MetaProdigal](https://github.com/hyattpd/Prodigal) | ⭐ 471 | Gene prediction for prokaryotic genomes |
 | [Pharokka](https://github.com/gbouras13/pharokka) [v1.5.0, 2023] | ⭐ 158 | Rapid phage annotation tool |
 
 ### 📊 Taxonomy
@@ -146,9 +144,7 @@ Here are the most popular and well-maintained tools in each major category:
 | [VIPtree](https://github.com/yosuken/ViPTreeGen) | ⭐ 19 | Viral proteomic tree generation |
 
 **📈 Most Starred Overall:**
-1. [AlphaFold-Multimer](https://github.com/deepmind/alphafold) (⭐ 13320) - Protein structure prediction
 2. [CovidMD](https://github.com/lammps/lammps) (⭐ 2365) - Molecular dynamics for COVID-19
-3. [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) (⭐ 1114) - Fast sequence alignment
 
 ## Contents
 
@@ -345,14 +341,11 @@ Here are the most popular and well-maintained tools in each major category:
 
 ### Gene Finding
 
-- [Prodigal](https://github.com/hyattpd/Prodigal) [Updated: 03/2025] - Gene prediction program for prokaryotic genomes, effective for phage genomes. [source] [C]
-- [MetaProdigal](https://github.com/hyattpd/Prodigal) [Updated: 03/2025] - Version of Prodigal optimized for metagenomic datasets with mixed microbial communities. [source] [C]
 - [GeneMarkS](http://exon.gatech.edu/GeneMark/) - Gene prediction tool with specific models for viral sequences. [web service] [Perl/C++]
 - [GeneMarkS-2](http://exon.gatech.edu/GeneMark/genemarks2.cgi) - Improved version of GeneMarkS with enhanced performance for phage genomes. [web service] [Perl/C++]
 - [PHANOTATE](https://github.com/deprekate/PHANOTATE) [Updated: 01/2025] - Phage gene finder using a graph-based algorithm to identify ORFs missed by other programs. [Python]
 - [PhageBoost](https://github.com/ku-cbd/PhageBoost) [Updated: 02/2025] - Machine learning tool for identifying structural proteins in phage genomes. [R]
 - [PhiSpy](https://github.com/linsalrob/PhiSpy) [v4.2.23, 2023] - While primarily for prophage identification, includes ORF prediction capabilities. [conda, pip] [Python]
-- [GLIMMER](https://ccb.jhu.edu/software/glimmer/) - Gene finder originally designed for bacteria but frequently used for phage genomes. [source] [C++]
 - [VIGOR](https://github.com/JCVI-VIRIFX/VIGOR4) [unavailable] - Viral genome annotation tool designed specifically for viral genomes, primarily eukaryotic viruses. [source] [Java/Perl]
 - [PhageTerm](https://sourceforge.net/projects/phageterm/) - Tool for identifying phage termini and packaging mechanisms, helpful for ORF identification. [source] [Python]
 - [Pharokka](https://github.com/gbouras13/pharokka) [v1.5.0, 2023] [v1.5.0, 2023] [Updated: 03/2025] - Dedicated phage annotation tool that includes ORF prediction. [conda] [Python]
@@ -498,17 +491,12 @@ Here are the most popular and well-maintained tools in each major category:
 
 ### Structural Analysis Tools
 
-- [AlphaFold-Multimer](https://github.com/deepmind/alphafold) [Updated: 03/2025] - Useful for viral protein complex structure prediction. [Python]
-- [HNADOCK](http://huanglab.phys.hust.edu.cn/hnadock/) - Modeling of nucleic acid-protein complexes, useful for viral proteins. [web service]
-- [I-TASSER](https://zhanggroup.org/I-TASSER/) - Widely used for viral protein structure prediction. [web service]
 - [VIPERdb](http://viperdb.scripps.edu/) - Virus particle explorer database with structure visualization. [web service]
 - [VIRALpro](http://scratch.proteomics.ics.uci.edu/) - Viral capsid and tail protein prediction. [web service]
 
 ### Antimicrobial Resistance Analysis
 
-- [AMRFinder](https://github.com/ncbi/amr) [Updated: 03/2025] - NCBI's tool for identifying resistance genes, can be applied to phage genomes. [C++]
 - [PHANOTATE-AMR](https://github.com/deprekate/PHANOTATE) [Updated: 01/2025] - Extension adding AMR gene identification in phages. [Python]
-- [ResFinder](https://github.com/cadms/resfinder) [Updated: 02/2025] - Identifies resistance genes in bacteriophages. [Python]
 - [VirAMR](https://github.com/phglab/VirAMR) [unavailable] - Detects antimicrobial resistance genes in viral genomes. [Python]
 
 ### Viral Metatranscriptomics
@@ -576,7 +564,6 @@ Here are the most popular and well-maintained tools in each major category:
 
 ### Dark Matter Viral Analysis
 
-- [BLAST+DIAMOND](https://github.com/bbuchfink/diamond) [Updated: 03/2025] - Accelerated BLAST for dark matter analysis. [C++]
 - [DarkVirome](https://web.archive.org/web/20210922051028/https://github.com/VerinaG/dark-virome) [unavailable] - Analysis of unclassified viral sequences. [Python]
 - [Recentrifuge](https://github.com/khyox/recentrifuge) [Updated: 02/2025] - Classification tool for novel sequences. [Python]
 - [VirSorter-DarkMatter](https://github.com/simroux/VirSorter) [Updated: 01/2025] - Extension focused on novel viral sequences. [Perl]
