@@ -265,16 +265,6 @@
             color: white;
         }
 
-        /* Citations badge */
-        .citations-badge {
-            background-color: var(--accent-color);
-            color: white;
-            padding: 0.35em 0.65em;
-            font-size: 0.75em;
-            font-weight: 700;
-            border-radius: 0.25rem;
-        }
-
         /* Export buttons styling */
         .card-header .btn-outline-light {
             color: white !important;
@@ -436,16 +426,6 @@
                                     <option value="500">500+ stars</option>
                                 </select>
                             </div>
-                            <div class="col-md-3 mb-2">
-                                <label for="citationsFilter" class="form-label">Minimum Citations</label>
-                                <select class="form-select" id="citationsFilter">
-                                    <option value="0">Any number of citations</option>
-                                    <option value="10">10+ citations</option>
-                                    <option value="50">50+ citations</option>
-                                    <option value="100">100+ citations</option>
-                                    <option value="200">200+ citations</option>
-                                </select>
-                            </div>
                         </div>
                         <div class="row mt-3">
                             <div class="col-12 text-end">
@@ -471,19 +451,15 @@
                     </div>
                     <div class="card-body">
                         <div class="row text-center">
-                            <div class="col-md-3 mb-3 mb-md-0">
+                            <div class="col-md-4 mb-3 mb-md-0">
                                 <div class="h3 mb-1" id="summaryTotalTools">-</div>
                                 <small class="text-muted">Total Tools</small>
                             </div>
-                            <div class="col-md-3 mb-3 mb-md-0">
+                            <div class="col-md-4 mb-3 mb-md-0">
                                 <div class="h3 mb-1" id="summaryAvgStars">-</div>
                                 <small class="text-muted">Avg Stars</small>
                             </div>
-                            <div class="col-md-3 mb-3 mb-md-0">
-                                <div class="h3 mb-1" id="summaryAvgCitations">-</div>
-                                <small class="text-muted">Avg Citations</small>
-                            </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <div class="h3 mb-1" id="summaryTopLanguage">-</div>
                                 <small class="text-muted">Top Language</small>
                             </div>
@@ -535,7 +511,6 @@
                                         <th>Tool Name</th>
                                         <th>Category</th>
                                         <th>Stars</th>
-                                        <th>Citations</th>
                                         <th>Last Updated</th>
                                         <th>Maintenance</th>
                                         <th>Language</th>
@@ -546,7 +521,7 @@
                                 </thead>
                                 <tbody id="comparisonTableBody">
                                     <tr>
-                                        <td colspan="10" class="text-center">
+                                        <td colspan="9" class="text-center">
                                             <div class="py-5">
                                                 <div class="spinner-border text-primary mb-3" role="status">
                                                     <span class="visually-hidden">Loading...</span>
@@ -687,10 +662,9 @@
             // Initialize DataTable
             let comparisonTable;
 
-            // Global filter state for stars and citations
+            // Global filter state for stars
             let globalMinStars = 0;
-            let globalMinCitations = 0;
-            
+
             // Load data from the repository's data.json and impact_data.json files
             loadData();
             
@@ -782,20 +756,7 @@
                             
                             // Limit to 5 features max
                             keyFeatures = keyFeatures.slice(0, 5);
-                            
-                            // Calculate total citations if available in impact data
-                            let totalCitations = 0;
-                            let influentialCitations = 0;
-                            const impactTool = impactMap[tool.name];
-                            
-                            if (impactTool) {
-                                if (impactTool.citations_by_year) {
-                                    totalCitations = Object.values(impactTool.citations_by_year)
-                                        .reduce((sum, count) => sum + (Number(count) || 0), 0);
-                                }
-                                influentialCitations = impactTool.influential_citations || 0;
-                            }
-                            
+
                             // Determine maintenance status based on lastUpdated date
                             let maintenanceStatus = 'inactive';
                             if (tool.lastUpdated) {
@@ -841,8 +802,6 @@
                                 name: tool.name,
                                 category: tool.category || 'Uncategorized',
                                 stars: tool.stars || 0,
-                                citations: totalCitations,
-                                influentialCitations: influentialCitations,
                                 lastUpdated: tool.lastUpdated || null,
                                 maintenanceStatus: maintenanceStatus,
                                 language: mainLanguage,
@@ -863,7 +822,7 @@
                         // Display error in table
                         document.getElementById('comparisonTableBody').innerHTML = `
                             <tr>
-                                <td colspan="10" class="text-center">
+                                <td colspan="9" class="text-center">
                                     <div class="alert alert-danger my-3">
                                         <i class="bi bi-exclamation-triangle-fill me-2"></i>
                                         Error loading data: ${error.message}
@@ -877,7 +836,7 @@
                     console.error('Error in data fetch setup:', error);
                     document.getElementById('comparisonTableBody').innerHTML = `
                         <tr>
-                            <td colspan="10" class="text-center">
+                            <td colspan="9" class="text-center">
                                 <div class="alert alert-danger my-3">
                                     <i class="bi bi-exclamation-triangle-fill me-2"></i>
                                     Error setting up data fetch: ${error.message}
@@ -958,10 +917,7 @@
                     
                     // Format stars with icon
                     const starsHtml = `<div class="stars-container"><i class="bi bi-star-fill star-icon"></i> ${tool.stars.toLocaleString()}</div>`;
-                    
-                    // Format citations with badge
-                    const citationsHtml = `<span class="citations-badge">${tool.citations.toLocaleString()}</span>`;
-                    
+
                     // Format last updated date
                     const lastUpdated = new Date(tool.lastUpdated).toLocaleDateString();
                     
@@ -978,7 +934,6 @@
                         <td><a href="#" class="tool-detail-link" data-tool-name="${tool.name}">${tool.name}</a></td>
                         <td><span class="badge-category">${tool.category}</span></td>
                         <td>${starsHtml}</td>
-                        <td>${citationsHtml}</td>
                         <td>${lastUpdated}</td>
                         <td>${maintenanceHtml}</td>
                         <td><span class="badge-language">${tool.language}</span></td>
@@ -1033,7 +988,7 @@
                     ]
                 });
 
-                // Add custom filter for stars and citations
+                // Add custom filter for stars
                 $.fn.dataTable.ext.search.push(
                     function(settings, data, dataIndex) {
                         // Only apply to our comparison table
@@ -1045,12 +1000,8 @@
                         const starsText = data[2] || '';
                         const stars = parseInt(starsText.replace(/[^\d]/g, '')) || 0;
 
-                        // Extract citations value (column 3)
-                        const citationsText = data[3] || '';
-                        const citations = parseInt(citationsText.replace(/[^\d]/g, '')) || 0;
-
                         // Check if row meets minimum requirements
-                        return stars >= globalMinStars && citations >= globalMinCitations;
+                        return stars >= globalMinStars;
                     }
                 );
 
@@ -1075,7 +1026,6 @@
                 if (visibleRows.length === 0) {
                     document.getElementById('summaryTotalTools').textContent = '0';
                     document.getElementById('summaryAvgStars').textContent = '-';
-                    document.getElementById('summaryAvgCitations').textContent = '-';
                     document.getElementById('summaryTopLanguage').textContent = '-';
                     document.getElementById('summaryActive').textContent = '0';
                     document.getElementById('summaryMaintained').textContent = '0';
@@ -1084,7 +1034,6 @@
                 }
 
                 let totalStars = 0;
-                let totalCitations = 0;
                 const languageCounts = {};
                 let activeCount = 0;
                 let maintainedCount = 0;
@@ -1099,19 +1048,14 @@
                     const stars = parseInt(starsText.replace(/[^\d]/g, '')) || 0;
                     totalStars += stars;
 
-                    // Extract citations (column 3)
-                    const citationsText = row[3] || '';
-                    const citations = parseInt(citationsText.replace(/[^\d]/g, '')) || 0;
-                    totalCitations += citations;
-
-                    // Extract language (column 6) from badge
-                    const languageHTML = row[6] || '';
+                    // Extract language (column 5 after removing citations column) from badge
+                    const languageHTML = row[5] || '';
                     const languageMatch = languageHTML.match(/>([^<]+)</);
                     const language = languageMatch ? languageMatch[1].trim() : 'Unknown';
                     languageCounts[language] = (languageCounts[language] || 0) + 1;
 
-                    // Extract maintenance status (column 5)
-                    const statusHTML = row[5] || '';
+                    // Extract maintenance status (column 4 after removing citations column)
+                    const statusHTML = row[4] || '';
                     if (statusHTML.includes('✅ Active')) {
                         activeCount++;
                     } else if (statusHTML.includes('⚠️ Maintained')) {
@@ -1121,9 +1065,8 @@
                     }
                 }
 
-                // Calculate averages
+                // Calculate average stars
                 const avgStars = Math.round(totalStars / visibleRows.length);
-                const avgCitations = Math.round(totalCitations / visibleRows.length);
 
                 // Find most common language
                 let topLanguage = '-';
@@ -1138,7 +1081,6 @@
                 // Update summary display
                 document.getElementById('summaryTotalTools').textContent = visibleRows.length.toLocaleString();
                 document.getElementById('summaryAvgStars').textContent = avgStars.toLocaleString();
-                document.getElementById('summaryAvgCitations').textContent = avgCitations.toLocaleString();
                 document.getElementById('summaryTopLanguage').textContent = topLanguage;
                 document.getElementById('summaryActive').textContent = activeCount.toLocaleString();
                 document.getElementById('summaryMaintained').textContent = maintainedCount.toLocaleString();
@@ -1155,7 +1097,6 @@
                 }
 
                 let toolsWithStars = 0;
-                let toolsWithCitations = 0;
                 let toolsWithPackageManager = 0;
 
                 // Process each row
@@ -1167,26 +1108,19 @@
                     const stars = parseInt(starsText.replace(/[^\d]/g, '')) || 0;
                     if (stars > 0) toolsWithStars++;
 
-                    // Check for citations (column 3)
-                    const citationsText = row[3] || '';
-                    const citations = parseInt(citationsText.replace(/[^\d]/g, '')) || 0;
-                    if (citations > 0) toolsWithCitations++;
-
-                    // Check for package manager (column 7)
-                    const packageManager = row[7] || '';
+                    // Check for package manager (column 6 after removing citations column)
+                    const packageManager = row[6] || '';
                     if (packageManager && packageManager !== 'source' && packageManager.trim() !== '') {
                         toolsWithPackageManager++;
                     }
                 }
 
                 const starsPercent = ((toolsWithStars / allRows.length) * 100).toFixed(1);
-                const citationsPercent = ((toolsWithCitations / allRows.length) * 100).toFixed(1);
                 const packagePercent = ((toolsWithPackageManager / allRows.length) * 100).toFixed(1);
 
                 document.getElementById('dataQualityText').innerHTML = `
                     <strong>Data Quality:</strong>
                     <span class="ms-3"><i class="bi bi-star-fill me-1" style="color: gold;"></i>${toolsWithStars}/${allRows.length} (${starsPercent}%) have stars</span>
-                    <span class="ms-3"><i class="bi bi-book me-1"></i>${toolsWithCitations}/${allRows.length} (${citationsPercent}%) have citations</span>
                     <span class="ms-3"><i class="bi bi-box-seam me-1"></i>${toolsWithPackageManager}/${allRows.length} (${packagePercent}%) have package managers</span>
                 `;
             }
@@ -1247,15 +1181,11 @@
                                     ${maintenanceHtml}
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between">
-                                    <strong>Stars:</strong> 
+                                    <strong>Stars:</strong>
                                     <div class="stars-container"><i class="bi bi-star-fill star-icon"></i> ${toolData.stars.toLocaleString()}</div>
                                 </li>
                                 <li class="list-group-item d-flex justify-content-between">
-                                    <strong>Citations:</strong> 
-                                    <span class="citations-badge">${toolData.citations.toLocaleString()}</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <strong>Last Updated:</strong> 
+                                    <strong>Last Updated:</strong>
                                     <span>${new Date(toolData.lastUpdated).toLocaleDateString()}</span>
                                 </li>
                             </ul>
@@ -1306,7 +1236,6 @@
                 const packageFilter = document.getElementById('packageFilter');
                 const searchFilter = document.getElementById('searchFilter');
                 const starsFilter = document.getElementById('starsFilter');
-                const citationsFilter = document.getElementById('citationsFilter');
                 const applyFiltersBtn = document.getElementById('applyFilters');
                 const resetFiltersBtn = document.getElementById('resetFilters');
 
@@ -1320,24 +1249,24 @@
                         comparisonTable.column(1).search(categoryFilter.value);
                     }
 
-                    // Apply language filter
+                    // Apply language filter (column 5 after removing citations)
                     if (languageFilter.value) {
-                        comparisonTable.column(6).search(languageFilter.value);
+                        comparisonTable.column(5).search(languageFilter.value);
                     }
 
-                    // Apply maintenance status filter
+                    // Apply maintenance status filter (column 4 after removing citations)
                     if (maintenanceFilter.value) {
                         let statusText = '';
                         if (maintenanceFilter.value === 'active') statusText = '✅ Active';
                         else if (maintenanceFilter.value === 'maintained') statusText = '⚠️ Maintained';
                         else if (maintenanceFilter.value === 'inactive') statusText = '❌ Inactive';
 
-                        comparisonTable.column(5).search(statusText);
+                        comparisonTable.column(4).search(statusText);
                     }
 
-                    // Apply package manager filter
+                    // Apply package manager filter (column 6 after removing citations)
                     if (packageFilter.value) {
-                        comparisonTable.column(7).search(packageFilter.value);
+                        comparisonTable.column(6).search(packageFilter.value);
                     }
 
                     // Apply search filter
@@ -1345,9 +1274,8 @@
                         comparisonTable.search(searchFilter.value);
                     }
 
-                    // Set global filter values for stars and citations
+                    // Set global filter value for stars
                     globalMinStars = parseInt(starsFilter.value) || 0;
-                    globalMinCitations = parseInt(citationsFilter.value) || 0;
 
                     // Trigger single draw with all filters applied
                     comparisonTable.draw();
@@ -1364,7 +1292,6 @@
                 maintenanceFilter.addEventListener('change', () => applyAllFilters());
                 packageFilter.addEventListener('change', () => applyAllFilters());
                 starsFilter.addEventListener('change', () => applyAllFilters());
-                citationsFilter.addEventListener('change', () => applyAllFilters());
 
                 // Apply filters button click (kept for explicit user action)
                 applyFiltersBtn.addEventListener('click', function() {
@@ -1380,11 +1307,9 @@
                     packageFilter.value = '';
                     searchFilter.value = '';
                     starsFilter.value = '0';
-                    citationsFilter.value = '0';
 
-                    // Reset global filter values
+                    // Reset global filter value
                     globalMinStars = 0;
-                    globalMinCitations = 0;
 
                     // Clear any existing DataTable search and render all tools
                     comparisonTable.search('').columns().search('').draw();
@@ -1416,7 +1341,6 @@
                     if (packageFilter.value) params.set('package', packageFilter.value);
                     if (searchFilter.value) params.set('search', searchFilter.value);
                     if (starsFilter.value && starsFilter.value !== '0') params.set('stars', starsFilter.value);
-                    if (citationsFilter.value && citationsFilter.value !== '0') params.set('citations', citationsFilter.value);
 
                     const newURL = params.toString() ?
                         `${window.location.pathname}?${params.toString()}` :
@@ -1435,7 +1359,6 @@
                     if (params.has('package')) packageFilter.value = params.get('package');
                     if (params.has('search')) searchFilter.value = params.get('search');
                     if (params.has('stars')) starsFilter.value = params.get('stars');
-                    if (params.has('citations')) citationsFilter.value = params.get('citations');
 
                     // Apply filters if any URL parameters were set
                     if (params.toString()) {
