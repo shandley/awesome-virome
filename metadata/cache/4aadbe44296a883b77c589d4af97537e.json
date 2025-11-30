@@ -1,0 +1,1618 @@
+{
+  "cache_date": "2025-11-01T09:48:54.296296",
+  "data": [
+    {
+      "created": "2025-11-01T08:00:27.492674+00:00",
+      "modified": "2025-11-01T08:00:27.650619+00:00",
+      "id": 17500032,
+      "conceptrecid": "4733457",
+      "doi": "10.5281/zenodo.17500032",
+      "conceptdoi": "10.5281/zenodo.4733457",
+      "doi_url": "https://doi.org/10.5281/zenodo.17500032",
+      "metadata": {
+        "title": "STIR Software for Tomographic Image Reconstruction",
+        "doi": "10.5281/zenodo.17500032",
+        "publication_date": "2025-11-01",
+        "description": "<h1>Summary of changes in STIR release 6.3</h1>\n<h2>Overall summary</h2>\n<p>This version is 100% backwards compatible with STIR 6.2, aside from three important bug fixes, which will change results (see below).</p>\n<p>This is a release with many new features, as listed below. Highlights are</p>\n<ul>\n<li>the new Gibbs penalty hierarchy with CUDA and OpenMP support (and much easier addition of new potential functions) (Matteo Neel Colombo, Univ of Milano-Bicocca),</li>\n<li>new 2D analytic reconstruction algorithms (including two that allow quantitative reconstruction of SPECT) (Dimitra Kyriakopoulou, UCL),</li>\n<li>better Python support including algebraic operations and faster conversion to NumPy arrays (Kris Thielemans, UCL),</li>\n<li>continuous memory storage for arrays (allowing zero-copy access to image/projection data in SIRF Python, but not yet in STIR Python)\n(Kris Thielemans, UCL),</li>\n<li>faster scatter estimation for blocks on cylindrical scanners (Markus Jehl, Positrigo),</li>\n<li>reduced memory usage for iterative reconstructions, avoiding hitting the current limitation of 2^31 elements in <code>ProjDataInMemory</code> (Kris Thielemans, UCL),</li>\n<li>Python code for adapting e7tools output for Siemens Vision 600 to STIR (Nicole Jurjew, UCL)</li>\n</ul>\n<p>But there are many other changes from other contibutors as well, see below. Of course, there is also the usual code-cleanup and some\nimprovements to the documentation. Overall overview and release management was by Kris Thielemans (UCL) with help from Daniel Deidda (NPL).</p>\n<h2>Patch release info</h2>\n<ul>\n<li>6.3.0 released 31/10/2025<br>\n<a href=\"https://github.com/UCL/STIR/milestone/12\">GitHub Milestone 6.3</a></li>\n</ul>\n<h2>Summary for end users (also to be read by developers)</h2>\n<h3>New functionality</h3>\n<h4>General</h4>\n<ul>\n<li><p>Several 2D analytic reconstruction algorithms were added for PET (i.e. inverting the 2D Radon transform) and parallel beam SPECT (inverting the 2D attenuated Radon transform). The latter allow quantitatively correct analytic reconstruction of SPECT data (after scatter correction).</p>\n<ul>\n<li>The Spline Reconstruction Technique (SRT) algorithm has been added  in 2 different versions: <code>SRT2D</code> for PET and <code>SRT2DSPECT</code> for SPECT.\nThe reference for the implemented algorithms is:<br>\nFokas, A. S., A. Iserles, and V. Marinakis. Reconstruction algorithm  for single photon emission computed tomography and its numerical  implementation. Journal of the Royal Society Interface 3.6 (2006):   45-54.</li>\n<li><code>GRD2D</code> for PET is a direct Fourier method using regridding with  Kaiser-Bessel functions.</li>\n<li><code>DDSR2D</code> for parallel beam SPECT uses Hilbert transforms in projection space.</li>\n</ul>\n<p>The reference for the implementation of these algorithms is:<br>\nDimitra Kyriakopoulou, Analytical and Numerical Aspects of Tomography,\nPhD thesis, University College London (UCL), 2024,<br>\nAvailable at:\n<a href=\"https://discovery.ucl.ac.uk/id/eprint/10202525/\">discovery.ucl.ac.uk/id/eprint/10202525/</a>.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1420\">PR #1420</a> and <a href=\"https://github.com/UCL/STIR/pull/1595\">PR #1595</a>.</p>\n</li>\n<li><p>Wiener and Gamma filters were added.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1420\">PR #1420</a>.</p>\n</li>\n<li><p><code>ScatterSimulation</code> can now downsample the scanner transaxially (crystals per ring) for <code>BlocksOnCylindrical</code>, scanners, which speeds\nup <code>ScatterEstimation</code> considerably. By default, downsampling the detectors per reading is disabled for backwards compatibility.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1291\">PR #1291</a></p>\n</li>\n<li><p>The priors code has been refactored to provide two common, parallelized base classes for CPU and GPU implementations\n(<code>GibbsPenalty</code> and <code>CudaGibbsPenalty</code>).<br>\nOn CPU, we introduce <code>GibbsQuadraticPenalty</code> and <code>GibbsRelativeDifferencePenalty</code>, which inherit from the parallelized\n<code>GibbsPenalty</code> base class (now parallelized using OpenMP).<br>\nGPU implementations are also provided as <code>CudaGibbsQuadraticPenalty</code> and <code>CudaGibbsRelativeDifferencePenalty</code>.<br>\nCurrently, the new Gibbs penalties are still missing the paraboloidal surrogates related method implementations. They provide two new\nmethods: <code>compute_gradient_times_input</code> and <code>compute_Hessian_diagonal</code>.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1629\">PR #1629</a></p>\n</li>\n<li><p>Data from GE Discovery MI systems in RDF9 should now be readable. TOF information on these scanners has also been added. However, projection data is currently still always returned as non-TOF (but list-mode data  is read as TOF).<br>\n<a href=\"https://github.com/UCL/STIR/pull/1503\">PR #1503</a></p>\n</li>\n<li><p>Added the ability to set a forward projector for mask projection in  the <code>ScatterEstimation</code> class.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1530\">PR #1530</a></p>\n</li>\n<li><p>Duration in sinogram interfile/exam_info obtained from <code>LmToProjData</code>/<code>lm_to_projdata</code> has the correct value if we unlist all\nthe events. This is not true for ROOT files  <a href=\"https://github.com/UCL/STIR/pull/1519\">PR #1519</a></p>\n</li>\n<li><p><code>LmToProjData</code> class/<code>lm_to_projdata</code> utility now no longer requires a template projection data. If none is specified, it will use the\nproj_data_info from the input list-mode.<br>\n<strong>Warning</strong> for some scanners with TOF capabilities, this will result in very large projection data (possibly larger than the default from\nthe vendor).<br>\n<a href=\"https://github.com/UCL/STIR/pull/1315\">PR #1315</a></p>\n</li>\n<li><p>Adapt the SPECTUB projector to handle data with only a subset of the views (constructed using <code>ProjData::get_subsets()</code>. This is useful for SIRF/CIL applications using stochastic optimisation.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1596\">PR #1596</a></p>\n</li>\n</ul>\n<h4>Python</h4>\n<ul>\n<li>&quot;Container&quot; classes such as <code>FloatVoxelsOnCartesianGrid</code>, <code>ProjDataInMemory</code> and array-classes now have numerical operations\nproperly defined, for instance <code>a = b + c</code> and <code>a -= 3</code>. Note that <code>a = 1 + b</code> is not yet available.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1630\">PR #1630</a></li>\n<li>The above &quot;container&quot; classes now have an extra member `as_array()`  which returns a numpy <code>ndarray</code>. This is equivalent to\n`stirextra.to_numpy()` which will become deprecated later. In addition, the <code>fill()</code> method now directly accepts an <code>ndarray</code>,\navoiding the need to go via an iterator. These additions also make it easier to prt SIRF python code to STIR.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1632\">PR #1632</a></li>\n<li>Added a Python script to convert e7tools generated Siemens Biograph  Vision 600 sinograms to STIR compatible format.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1593\">PR #1593</a></li>\n</ul>\n<h4>Utilities</h4>\n<ul>\n<li><code>stir_timings</code> has now an extra option to parse a par-file for a  projector-pair.</li>\n</ul>\n<h3>Changed functionality</h3>\n<ul>\n<li>In previous versions, when reading data/images where the radionuclide  was not set, a default was used (F18 for PET, Tcm99 for SPECT). This led to surprising (and sometimes wrong) behaviour. The radionuclide is now kept as &quot;unknown&quot;.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1574\">PR #1574</a></li>\n<li>Default ECAT scanner configurations updated to use a negative intrinsic tilt.</li>\n<li>When computing the sensitivity images in <code>PoissonLogLikelihoodWithLinearModelForMeanAndProjData</code>, we now avoid creating an extra <code>ProjDataInMemory</code> in most cases (there are still some corner cases for TOF data when using non-TOF projector for the sensitivity, but then the memory overhead is small). This enables LAFOV PET reconstructions with the &quot;ray tracing&quot; matrix (we use less memory, and we avoid running into a current <code>ProjDataInMemory</code>\n<a href=\"https://github.com/UCL/STIR/issues/1505\">limitation on the number of  bins</a>).<br>\n<a href=\"https://github.com/UCL/STIR/pull/1617\">PR #1716</a></li>\n<li>Boost format was replaced by `std::format` for formatting strings. If C++20 or newer is not yet used, a work-around is in place by using the <a href=\"https://github.com/fmtlib/fmt/\">{fmt} library</a> (included as as a git submodule). Import <code>stir/format.h</code> and then use the <code>format()</code> function to create strings containing various variables. If the format string is not known at compile time, use <code>runtime_format()</code> instead.<br>\nCheck the updated STIR-developers-overview.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1591\">PR #1591</a> and <a href=\"https://github.com/UCL/STIR/pull/1605\">PR\n#1605</a></li>\n</ul>\n<h4>Changes to examples</h4>\n<ul>\n<li>Python example <code>plot_sinogram_profiles.py</code> has been renamed to <code>plot_projdata_profiles.py</code> and generalised to work with TOF\ndimensions etc. A small <code>pytest</code> has been added as well.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1370\">PR #1370</a></li>\n<li>Python example <code>ProjDataVisualisation.py</code> now has a vmax slider.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1568\">PR #1568</a></li>\n</ul>\n<h3>Bug fixes</h3>\n<ul>\n<li>Fixed a bug in the scatter estimation code (introduced in release 5.1.0) if input data is 3D and &quot;cylindrical&quot; (there was no bug for\n&quot;blocksoncylindrical&quot; data). The scatter estimation runs on data constructed via SSRB. However, the attenuation correction factors were\nincorrectly obtained with adding of oblique segments (as opposed to averaging). This resulted in intermediate images that had the wrong\nattenuation correction which were approximately num_segments times\nlarger. This was compensated by the tail-fitting, but resulted in unexpected scale factors (scale factors were around 1/num_segments\ntimes what was expected). This means that if you used the &quot;min/max  scale factor&quot; feature in the scatter estimate, you will have to adjust your threshold values. Expected scatter tail-fitting scale factors should now be restored to ~1-1.5 (depending on the amount of multiple and out-of-FOV scatter). See <a href=\"https://github.com/UCL/STIR/issues/1532\">Issue #1532</a> for more detail.\nFixed by using averaging functionality of SSRB instead of adding segments for attenuation correction factors.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1531\">PR #1531</a></li>\n<li>Fixed a bug in the distributed LM computation code (introduced in 6.1) that neglected to accumulate outputs when not built with OpenMP.<br>\nSee <a href=\"https://github.com/UCL/STIR/pull/1566\">PR #1566</a>.</li>\n<li>Fixed bugs in <code>accumulate_sub_Hessian_times_input</code> and <code>accumulate_sub_Hessian_times_input</code> (and hence the non-subset  versions) for objective functions when the prior is not zero.<br>\nSee <a href=\"https://github.com/UCL/STIR/pull/1649\">PR #1649</a> and <a href=\"https://github.com/UCL/STIR/pull/1651\">PR #1651</a>.</li>\n</ul>\n<h3>Build system</h3>\n<ul>\n<li>Enable more diagnostics in CMake when finding CERN's ROOT (we used to silence them)<br>\n<a href=\"https://github.com/UCL/STIR/pull/1552\">PR #1552</a></li>\n<li>Use OpenMP by default Introduce advanced variable <code>MINI_STIR</code> defaulting to <code>OFF</code> for developers. This will build a heavily reduced version of STIR which can speed up development time.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1584\">PR #1584</a></li>\n</ul>\n<h3>Known problems</h3>\n<p>See <a href=\"https://github.com/UCL/STIR/labels/bug\">our issue tracker</a>.<br>\nAn important bug is for the &quot;ray tracing matrix&quot; projector for TOF PET. Oblique segments currently have problems, see <a href=\"https://github.com/UCL/STIR/issues/1537\">#1537</a>.</p>\n<h2>What is new for developers (aside from what should be obvious from the above):</h2>\n<h3>New functionality</h3>\n<ul>\n<li><code>ProjDataInMemory</code> <code>read_from_file</code> method now returns a <code>ProjDataInMemory</code> object.</li>\n<li><code>Array::resize</code> and <code>Array::grow</code> argument <code>initialise_with_0</code> usage fixed.</li>\n</ul>\n<h3>Changed functionality</h3>\n<ul>\n<li>In C++, &quot;Container&quot; classes such as <code>VoxelsOnCartesianGrid</code>, <code>ProjDataInMemory</code> and array-classes now have numerical operations that return objects of the correct type. (Previously, it was a base-class such as <code>NumericVectorWithOffset&lt;Array&lt;2, float&gt;, float&gt;</code>).<br>\n<a href=\"https://github.com/UCL/STIR/pull/1630\">PR #1630</a></li>\n<li>Made 2 (deprecated) members of <code>ProjDataInfoBlocksOnCylindricalNoArcCorr</code> <code>private</code> and do some clean-up of which files to include.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1556\">PR #1556</a></li>\n<li><code>LmToProjData::get_template_proj_data_info_sptr()</code> is now a <code>const</code> member returning a <code>shared_ptr&lt;const ProjDataInfo&gt;</code>.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1315\">PR #1315</a></li>\n<li>As <code>stir::Array</code> template arguments might change in the future, it is now recommended to include <code>stir/ArrayFwd.h</code> when using forward declaration and use the <code>ArrayType</code> template-alias in places where a rectangular array that might live on a GPU is intended.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1589\">PR #1589</a></li>\n<li><code>Array</code> copy constructor now also uses contiguous memory allocation (as opposed to a sequence of 1D vectors).<br>\n<a href=\"https://github.com/UCL/STIR/pull/1592\">PR #1592</a>.</li>\n</ul>\n<h3>Bug fixes</h3>\n<ul>\n<li>Fixed minor incompatibility with gcc-14 and clang-18 by adding an extra include file.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1552\">PR #1552</a></li>\n<li>Changed the way that some SWIG work-arounds are implemented, avoiding the SWIG-generated wrapper to be compiled with the <code>SWIG</code> preprocessor symbol.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1647\">PR #1647</a></li>\n</ul>\n<h3>New Deprecations and renames</h3>\n<ul>\n<li><code>truncate_end_planes</code> will be removed in v7.0 legacy compatibility with version 3, 4 and 5 will be removed in v7.0.  CMake options <code>STIR_PROJECTORS_AS_V3</code>, <code>STIR_LEGACY_IGNORE_VIEW_OFFSET</code> and <code>STIR_ROOT_ROTATION_AS_V4</code> will therefore be removed.</li>\n<li>Starting from v7.0, <code>GeneralizedPrior</code> will be renamed to <code>GeneralizedPenalty</code>.   <code>QuadraticPrior</code>, <code>RelativeDifferencePrior</code>, and <code>LogcoshPrior</code> will be removed in favor of the new <code>GibbsPenalty</code> framework. <a href=\"https://github.com/UCL/STIR/issues/1426\">Issue #1426</a></li>\n</ul>\n<h3>Test changes</h3>\n<p>All new features and most code changes were accompanied by new tests.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Efthimiou, Nikos",
+            "affiliation": null,
+            "orcid": "0000-0003-1947-5033"
+          },
+          {
+            "name": "Mustafovic, Sanida",
+            "affiliation": "Imperial College London (UK)"
+          },
+          {
+            "name": "Brown, Richard",
+            "affiliation": "University College London",
+            "orcid": "0000-0001-6989-9200"
+          },
+          {
+            "name": "Twyman Skelly, Robert",
+            "affiliation": "University College London and Prescient Imaging"
+          },
+          {
+            "name": "Deidda, Daniel",
+            "affiliation": "National Physics Laboratory (UK)",
+            "orcid": "0000-0002-2766-4339"
+          },
+          {
+            "name": "Tsoumpas, Charalampos",
+            "affiliation": null
+          },
+          {
+            "name": "Jehl, Markus",
+            "affiliation": "Positrigo"
+          },
+          {
+            "name": "Kyriakopoulou, Dimitra",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Falcon, Carles",
+            "affiliation": null
+          },
+          {
+            "name": "Borgeaud, Tim",
+            "affiliation": "Hammersmith Imanet Ltd"
+          },
+          {
+            "name": "Colombo, Matteo Neel",
+            "affiliation": "University of Milano-Bicocca (Italy)"
+          },
+          {
+            "name": "Wadhwa, Palak",
+            "affiliation": "University of Leeds (UK)"
+          },
+          {
+            "name": "Khateri, Parisa",
+            "affiliation": "ETH Zuerich"
+          },
+          {
+            "name": "Beisel, Tobias",
+            "affiliation": null
+          },
+          {
+            "name": "Strugari, Matthew",
+            "affiliation": "Dalhousie University (Canada)"
+          },
+          {
+            "name": "Emond, Elise",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Gillman, Ashley",
+            "affiliation": "Commonwealth Scientific and Industrial Research Organisation, and University of Queensland",
+            "orcid": "0000-0001-9130-1092"
+          },
+          {
+            "name": "Jacobson, Matthew",
+            "affiliation": null
+          },
+          {
+            "name": "Zverovich, Alexey",
+            "affiliation": "Brunel University (UK)"
+          },
+          {
+            "name": "Fuster Marti, Berta",
+            "affiliation": "University of Barcelona (Spain)"
+          },
+          {
+            "name": "Labbe, Claire",
+            "affiliation": null
+          },
+          {
+            "name": "Jurjew, Nicole",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Biguri, Ander",
+            "affiliation": "University College London",
+            "orcid": "0000-0002-2636-3032"
+          },
+          {
+            "name": "Fischer, Jannis",
+            "affiliation": null,
+            "orcid": "0000-0002-8329-0220"
+          },
+          {
+            "name": "Roethlisberger, Michael",
+            "affiliation": "ETH Zuerich"
+          },
+          {
+            "name": "Bertolli, Ottavia",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Brusaferri, Ludovica",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Thomas, Benjamin",
+            "affiliation": "University College London",
+            "orcid": "0000-0002-9784-1177"
+          },
+          {
+            "name": "Pasca, Edoardo",
+            "affiliation": "UK Research & Innovation",
+            "orcid": "0000-0001-6957-2160"
+          },
+          {
+            "name": "Aguiar, Pablo",
+            "affiliation": null
+          },
+          {
+            "name": "Niknejad, Tahereh",
+            "affiliation": null
+          },
+          {
+            "name": "Sadki, Mustapha",
+            "affiliation": "Brunel University (UK)"
+          },
+          {
+            "name": "Singh, Imraj",
+            "affiliation": "University College London (UK)",
+            "orcid": "0000-0003-2186-0977"
+          },
+          {
+            "name": "Kerrouche, Nacer",
+            "affiliation": "Hammersmith Imanet Ltd"
+          },
+          {
+            "name": "Dikaios, Nikos",
+            "affiliation": null
+          },
+          {
+            "name": "Ovtchinnikov, Evgueni",
+            "affiliation": null,
+            "orcid": "0000-0002-9359-6514"
+          },
+          {
+            "name": "Fardell, Gemma",
+            "affiliation": "UK Research & Innovation",
+            "orcid": "0000-0003-2388-5211"
+          },
+          {
+            "name": "Schmidtlein, C Ross",
+            "affiliation": "UK Research & Innovation"
+          },
+          {
+            "name": "Valente, Patrick",
+            "affiliation": "Brunel University (UK)"
+          },
+          {
+            "name": "Porter, Sam David",
+            "affiliation": "University College London, National Physics Laboratory (UK)"
+          },
+          {
+            "name": "Schramm, Georg",
+            "affiliation": "Katholieke Universiteit Leuven (Belgium)"
+          },
+          {
+            "name": "Ehrhardt, Matthias J.",
+            "affiliation": null,
+            "orcid": "0000-0001-8523-353X"
+          },
+          {
+            "name": "V\u00f6lgyes, David",
+            "affiliation": null
+          },
+          {
+            "name": "Dinelle, Katie",
+            "affiliation": null
+          },
+          {
+            "name": "Belluzzo, Damiano",
+            "affiliation": "Hospedale San Raffaele Milano (Italy)"
+          },
+          {
+            "name": "Ching, Daniel",
+            "affiliation": null
+          },
+          {
+            "name": "Hague, Darren",
+            "affiliation": "Brunel University (UK)"
+          },
+          {
+            "name": "Tunnicliffe, Harry",
+            "affiliation": "University of Leeds (UK)"
+          },
+          {
+            "name": "Dao, Viet Anh",
+            "affiliation": "University of Leeds (UK)"
+          },
+          {
+            "name": "Chen, Gefei",
+            "affiliation": null
+          },
+          {
+            "name": "Mikhaylova, Ekaterina",
+            "affiliation": "Positrigo"
+          },
+          {
+            "name": "da Costa-Luis, Casper O.",
+            "affiliation": null,
+            "orcid": "0000-0002-7211-1557"
+          },
+          {
+            "name": "Li, Zekai",
+            "affiliation": "Rijksuniversiteit Groningen (Netherlands)"
+          },
+          {
+            "name": "Reeves, Antonia",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Rashidnasab, Alaleh",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Whitehead, Alexander C.",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Tsai, Yu-jung",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Gillen, Rebecca",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Vavrek, Jayson",
+            "affiliation": null
+          },
+          {
+            "name": "Kohr, Holger",
+            "affiliation": null
+          },
+          {
+            "name": "tokkot",
+            "affiliation": null
+          },
+          {
+            "name": "El Katib, Mahmoud",
+            "affiliation": null
+          },
+          {
+            "name": "Thielemans, Kris",
+            "affiliation": "University College London",
+            "orcid": "0000-0002-5514-199X"
+          }
+        ],
+        "keywords": [
+          "pet",
+          "spect",
+          "medical imaging",
+          "image reconstruction",
+          "open-source software"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/UCL/STIR/tree/rel_6.3.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "rel_6.3.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/UCL/STIR"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "apache2.0"
+        },
+        "communities": [
+          {
+            "id": "ccp-petmr"
+          },
+          {
+            "id": "synerbi"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 7,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "4733457"
+              }
+            }
+          ]
+        },
+        "notes": "If you use this software, please cite it using the metadata from this file."
+      },
+      "title": "STIR Software for Tomographic Image Reconstruction",
+      "links": {
+        "self": "https://zenodo.org/api/records/17500032",
+        "self_html": "https://zenodo.org/records/17500032",
+        "preview_html": "https://zenodo.org/records/17500032?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17500032",
+        "self_doi": "https://doi.org/10.5281/zenodo.17500032",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17500032",
+        "reserve_doi": "https://zenodo.org/api/records/17500032/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/4733457",
+        "parent_html": "https://zenodo.org/records/4733457",
+        "parent_doi": "https://doi.org/10.5281/zenodo.4733457",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.4733457",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17500032/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17500032/sequence/default",
+        "files": "https://zenodo.org/api/records/17500032/files",
+        "media_files": "https://zenodo.org/api/records/17500032/media-files",
+        "archive": "https://zenodo.org/api/records/17500032/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17500032/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17500032/versions/latest",
+        "latest_html": "https://zenodo.org/records/17500032/latest",
+        "versions": "https://zenodo.org/api/records/17500032/versions",
+        "draft": "https://zenodo.org/api/records/17500032/draft",
+        "access_links": "https://zenodo.org/api/records/17500032/access/links",
+        "access_grants": "https://zenodo.org/api/records/17500032/access/grants",
+        "access_users": "https://zenodo.org/api/records/17500032/access/users",
+        "access_request": "https://zenodo.org/api/records/17500032/access/request",
+        "access": "https://zenodo.org/api/records/17500032/access",
+        "communities": "https://zenodo.org/api/records/17500032/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17500032/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17500032/request-deletion",
+        "requests": "https://zenodo.org/api/records/17500032/requests"
+      },
+      "updated": "2025-11-01T08:00:27.650619+00:00",
+      "recid": "17500032",
+      "revision": 4,
+      "files": [
+        {
+          "id": "13a681d9-8145-4112-854b-1f114d6fce67",
+          "key": "UCL/STIR-rel_6.3.0.zip",
+          "size": 32615522,
+          "checksum": "md5:de7e64540b62bf5dc164a8e07d222a99",
+          "links": {
+            "self": "https://zenodo.org/api/records/17500032/files/UCL/STIR-rel_6.3.0.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:084d8485c2de0631f487b4b0974bf1754ef690c7;origin=https://doi.org/10.5281/zenodo.4733457;visit=swh:1:snp:cdf632b745358e680a2ef0ce534be0aacb2da2de;anchor=swh:1:rel:7070fdd320e1b87bb4866cd87e15c12350da16a0;path=UCL-STIR-4591e80"
+      },
+      "owners": [
+        {
+          "id": "48990"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 119,
+        "unique_downloads": 119,
+        "views": 1289,
+        "unique_views": 1238,
+        "version_downloads": 2,
+        "version_unique_downloads": 2,
+        "version_unique_views": 11,
+        "version_views": 11
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T07:41:54.387418+00:00",
+      "modified": "2025-11-01T07:41:54.558922+00:00",
+      "id": 17499837,
+      "conceptrecid": "17499836",
+      "doi": "10.5281/zenodo.17499837",
+      "conceptdoi": "10.5281/zenodo.17499836",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499837",
+      "metadata": {
+        "title": "A Versatile GPMV-Imaging Platform for Quantitative Analysis of Receptor Binding and Membrane Fusion",
+        "doi": "10.5281/zenodo.17499837",
+        "publication_date": "2025-11-01",
+        "description": "<p><span>Membrane fusion is central to biological processes such as viral entry, fertilization and cell-to-cell fusion. Gaining a mechanistic understanding of fusion requires the ability to visualize and quantify the dynamic interaction between two membranes and their associated protein machineries at high temporal and spatial resolution. However, studying these processes in live cells remains challenging due to the complexity of the cellular environment. Here we demonstrate a versatile cell-free platform based on giant plasma membrane vesicles (GPMVs) that enables controlled, quantitative analysis of receptor binding and membrane fusion kinetics in a native membrane context. As proof of concept, we reconstitute the SARS-CoV-1 Spike-ACE2 interaction, capturing specific receptor engagement and accumulation at the membrane interface using confocal microscopy and micropipette aspiration. Fusion was induced by proteolytic activation and quantified using both high-resolution microscopy and high-throughput Imaging Flow Cytometry. The platform also reveals the influence of membrane composition on fusion efficiency, demonstrated by the impact of cholesterol depletion. This approach provides a broadly applicable system for dissecting membrane fusion and protein-protein interactions across membranes, with compatibility for biophysical, imaging and structural analysis. It offers new opportunities for mechanistic studies and inhibitor screening in a biologically relevant yet experimentally accessible context.</span></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Yosibash, Inbar",
+            "affiliation": "Tel Aviv University"
+          },
+          {
+            "name": "Khan, Suman",
+            "affiliation": "Weizmann Institute of Science",
+            "orcid": "0000-0003-0564-5716"
+          },
+          {
+            "name": "Avinoam, Ori",
+            "affiliation": "Weizmann Institute of Science",
+            "orcid": "0000-0003-3543-168X"
+          },
+          {
+            "name": "Sorkin, Raya",
+            "affiliation": "Tel Aviv University",
+            "orcid": "0000-0001-9006-5411"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "grants": [
+          {
+            "code": "101077502",
+            "internal_id": "10.13039/501100000780::101077502",
+            "funder": {
+              "name": "European Commission",
+              "doi": "10.13039/501100000780",
+              "acronym": "EC"
+            },
+            "title": "How do tetraspanin proteins organize, shape, and remodel biological membranes?",
+            "acronym": "ReMembrane",
+            "program": "HORIZON.1.1",
+            "url": "https://cordis.europa.eu/projects/101077502"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499836"
+              }
+            }
+          ]
+        }
+      },
+      "title": "A Versatile GPMV-Imaging Platform for Quantitative Analysis of Receptor Binding and Membrane Fusion",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499837",
+        "self_html": "https://zenodo.org/records/17499837",
+        "preview_html": "https://zenodo.org/records/17499837?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499837",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499837",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499837",
+        "reserve_doi": "https://zenodo.org/api/records/17499837/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499836",
+        "parent_html": "https://zenodo.org/records/17499836",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499836",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499836",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499837/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499837/sequence/default",
+        "files": "https://zenodo.org/api/records/17499837/files",
+        "media_files": "https://zenodo.org/api/records/17499837/media-files",
+        "archive": "https://zenodo.org/api/records/17499837/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499837/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499837/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499837/latest",
+        "versions": "https://zenodo.org/api/records/17499837/versions",
+        "draft": "https://zenodo.org/api/records/17499837/draft",
+        "access_links": "https://zenodo.org/api/records/17499837/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499837/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499837/access/users",
+        "access_request": "https://zenodo.org/api/records/17499837/access/request",
+        "access": "https://zenodo.org/api/records/17499837/access",
+        "communities": "https://zenodo.org/api/records/17499837/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499837/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499837/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499837/requests"
+      },
+      "updated": "2025-11-01T07:41:54.558922+00:00",
+      "recid": "17499837",
+      "revision": 4,
+      "files": [
+        {
+          "id": "dc998548-09bb-4c97-81b5-83fcec64c457",
+          "key": "Confocal_fusion_index.zip",
+          "size": 969835542,
+          "checksum": "md5:3fd7d43d8f318e5890438c9ebbd24e0e",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499837/files/Confocal_fusion_index.zip/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1449558"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 7,
+        "unique_views": 3,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 3,
+        "version_views": 7
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T07:10:52.418550+00:00",
+      "modified": "2025-11-01T07:10:52.697337+00:00",
+      "id": 17499756,
+      "conceptrecid": "17499755",
+      "doi": "10.5281/zenodo.17499756",
+      "conceptdoi": "10.5281/zenodo.17499755",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499756",
+      "metadata": {
+        "title": "The Effect of Brand Awareness on Brand Image and Purchase Decisions: A Study of Club Bottled Water in Mataram City",
+        "doi": "10.5281/zenodo.17499756",
+        "publication_date": "2025-11-01",
+        "description": "<p>This study aims to analyze the effect of Brand Awareness on Brand Image and Purchase Decisions of Club brand bottled drinking water in Mataram City. The type of research used is quantitative research with associative causality method. The population in this study are consumers of Club brand bottled drinking water who live in Mataram City. The research sample was 100 respondents selected using purposive sampling technique with the criteria of having purchased Club brand bottled drinking water products. Data analysis was carried out using SmartPLS software version 4.1.1.5. The results showed that Brand Awareness was proven to have a positive and significant effect on Purchasing Decisions both directly and through Brand Image.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Yuliana Sentia",
+            "affiliation": "Management, Faculty of Economics and Business, University of Mataram, Mataram, Indonesia"
+          },
+          {
+            "name": "Handayani Rinuastuti",
+            "affiliation": "Faculty of Economics and Business, University of Mataram, Mataram, Indonesia"
+          }
+        ],
+        "keywords": [
+          "Brand Awareness, Purchase Decision, Brand Image"
+        ],
+        "language": "ang",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "10",
+          "pages": "7098- 7108",
+          "title": "Journal of Economics, Finance And Management Studies",
+          "volume": "08"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499755"
+              }
+            }
+          ]
+        }
+      },
+      "title": "The Effect of Brand Awareness on Brand Image and Purchase Decisions: A Study of Club Bottled Water in Mataram City",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499756",
+        "self_html": "https://zenodo.org/records/17499756",
+        "preview_html": "https://zenodo.org/records/17499756?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499756",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499756",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499756",
+        "reserve_doi": "https://zenodo.org/api/records/17499756/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499755",
+        "parent_html": "https://zenodo.org/records/17499755",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499755",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499755",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499756/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499756/sequence/default",
+        "files": "https://zenodo.org/api/records/17499756/files",
+        "media_files": "https://zenodo.org/api/records/17499756/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17499756:53.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17499756:53.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17499756:53.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17499756:53.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17499756:53.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17499756:53.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17499756/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499756/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499756/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499756/latest",
+        "versions": "https://zenodo.org/api/records/17499756/versions",
+        "draft": "https://zenodo.org/api/records/17499756/draft",
+        "access_links": "https://zenodo.org/api/records/17499756/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499756/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499756/access/users",
+        "access_request": "https://zenodo.org/api/records/17499756/access/request",
+        "access": "https://zenodo.org/api/records/17499756/access",
+        "communities": "https://zenodo.org/api/records/17499756/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499756/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499756/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499756/requests"
+      },
+      "updated": "2025-11-01T07:10:52.697337+00:00",
+      "recid": "17499756",
+      "revision": 4,
+      "files": [
+        {
+          "id": "4ea07dd3-c52f-40c8-8687-3f6a4be76d8b",
+          "key": "53.pdf",
+          "size": 470037,
+          "checksum": "md5:e2895e4af31d3d55522273aa47f2cd8b",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499756/files/53.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "190052"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 2,
+        "unique_downloads": 2,
+        "views": 4,
+        "unique_views": 4,
+        "version_downloads": 2,
+        "version_unique_downloads": 2,
+        "version_unique_views": 4,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T06:00:38.582631+00:00",
+      "modified": "2025-11-01T06:00:38.797656+00:00",
+      "id": 17499275,
+      "conceptrecid": "17499274",
+      "doi": "10.5281/zenodo.17499275",
+      "conceptdoi": "10.5281/zenodo.17499274",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499275",
+      "metadata": {
+        "title": "Advanced Animal Detection and Notification System Using Embedded Technology",
+        "doi": "10.5281/zenodo.17499275",
+        "publication_date": "2024-12-01",
+        "description": "<p><span>The<span> </span>smart<span> </span>alert<span> </span>system<span> </span>for<span> </span>railway<span> </span>safety<span> </span>addresses<span> </span>significant<span> </span>challenges<span> </span>in<span> </span>track<span> </span>monitoring<span> </span>and<span> </span>collision prevention by employing advanced technology to<span> </span>overcome<span> </span>the<span> </span>limitations<span> </span>of<span> </span>traditional<span> </span>systems.<span> </span>Conventional<span> </span>railway<span> </span>safety<span> </span>mechanisms<span> </span>often<span> </span>fail<span> </span>to<span> </span>provide<span> </span>real-time<span> </span>detection<span> </span>of<span> </span>trains<span> </span>and<span> </span>obstacles,<span> </span>resulting<span> </span>in delayed responses and an increased risk of accidents.<span> </span>Furthermore, these systems tend to be reactive, responding<span> </span>to incidents only after they occur, rather than proactively<span> </span>preventing them. To bridge this gap, the proposed system<span> </span>integrates state-of-the-art tools and technologies to ensure<span> </span><span>real-time monitoring and rapid action. It utilizes Python and<span> </span></span>YOLOv4,<span> </span>a<span> </span>deep<span> </span>learning<span> </span>model<span> </span>renowned<span> </span>for<span> </span>object<span> </span>detection, to process live camera feeds, enabling the system<span> </span>to instantly identify and classify trains, obstacles, or other<span> </span>potential hazards on the tracks. This immediate detection<span> </span><span>significantly</span><span> </span>reduces<span> </span>collision<span> </span>risks<span> </span>and<span> </span>enhances<span> </span>safety.<span> </span>The<span> </span>system employs an alarm and an LCD display to deliver<span> </span>timely<span> </span>alerts<span> </span>to<span> </span>relevant<span> </span>personnel,<span> </span>ensuring<span> </span>prompt<span> </span>responses<span> </span>to<span> </span>detected<span> </span>hazards.<span> </span>For<span> </span>communication,<span> </span>it<span> </span>incorporates Node MCU and LoRa modules, which enable<span> </span>efficient and reliable wireless data transmission over long<span> </span>distances,<span> </span>ensuring<span> </span>that<span> </span>critical<span> </span>information<span> </span>reaches<span> </span>intended recipients even in remote areas. Additionally, the<span> </span>system<span> </span>features<span> </span>an<span> </span>L298<span> </span>motor<span> </span>driver<span> </span>to<span> </span>dynamically<span> </span>adjust<span> </span>train speeds based on real-time track conditions, further<span> </span>reducing<span> </span>risks<span> </span>and<span> </span>optimizing<span> </span>operational<span> </span>efficiency.<span> </span>By<span> </span>integrating<span> </span>these<span> </span>components,<span> </span>the<span> </span>system<span> </span>provides<span> </span>a<span> </span>cohesive and robust framework for real-time monitoring,<span> </span>alerting, and control, transforming railway safety measures<span> </span>from reactive to proactive. This innovative approach not<span> </span>only prevents accidents before they occur but also enhances<span> </span>overall<span> </span>railway<span> </span>operations<span> </span>by<span> </span>improving<span> </span>responsiveness<span> </span>and<span> </span>operational reliability. The system&rsquo;s ability to process real-<span> </span>time<span> </span>data<span> </span>and<span> </span>automate<span> </span>safety<span> </span>measures<span> </span>establishes<span> </span>a<span> </span>modern,<span> </span>technology-driven<span> </span>framework<span> </span>for<span> </span>a<span> </span>safer<span> </span>and<span> </span>more<span> </span>efficient<span> </span>railway<span> </span>network.<span> </span>This<span> </span>comprehensive<span> </span>solution<span> </span>addresses<span> </span>critical<span> </span>safety<span> </span>concerns,<span> </span>offering<span> </span>significant<span> </span>advancements in railway safety and operational efficiency,<span> </span>and<span> </span>setting<span> </span>a<span> </span>new<span> </span>standard<span> </span>for<span> </span>transportation<span> </span>infrastructure.<span> </span>Through<span> </span>the<span> </span>seamless<span> </span>integration<span> </span>of<span> </span>cutting-edge<span> </span>technologies,<span> </span>the<span> </span>project<span> </span>redefines<span> </span>traditional<span> </span>safety<span> </span>protocols, ensuring a more reliable and proactive approach to<span> </span>railway safety<span> </span>and<span> </span>operations.</span></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "C.Ramesh",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Journal",
+          "type": "publication",
+          "subtype": "journal"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499274"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Advanced Animal Detection and Notification System Using Embedded Technology",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499275",
+        "self_html": "https://zenodo.org/records/17499275",
+        "preview_html": "https://zenodo.org/records/17499275?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499275",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499275",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499275",
+        "reserve_doi": "https://zenodo.org/api/records/17499275/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499274",
+        "parent_html": "https://zenodo.org/records/17499274",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499274",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499274",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499275/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499275/sequence/default",
+        "files": "https://zenodo.org/api/records/17499275/files",
+        "media_files": "https://zenodo.org/api/records/17499275/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17499275:1113-1121.202410667.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17499275:1113-1121.202410667.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17499275:1113-1121.202410667.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17499275:1113-1121.202410667.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17499275:1113-1121.202410667.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17499275:1113-1121.202410667.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17499275/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499275/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499275/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499275/latest",
+        "versions": "https://zenodo.org/api/records/17499275/versions",
+        "draft": "https://zenodo.org/api/records/17499275/draft",
+        "access_links": "https://zenodo.org/api/records/17499275/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499275/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499275/access/users",
+        "access_request": "https://zenodo.org/api/records/17499275/access/request",
+        "access": "https://zenodo.org/api/records/17499275/access",
+        "communities": "https://zenodo.org/api/records/17499275/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499275/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499275/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499275/requests"
+      },
+      "updated": "2025-11-01T06:00:38.797656+00:00",
+      "recid": "17499275",
+      "revision": 4,
+      "files": [
+        {
+          "id": "04de2f11-0611-438f-8403-749b7bd221ed",
+          "key": "1113-1121.202410667.pdf",
+          "size": 209390,
+          "checksum": "md5:5275ecd9bcfa93d3c99148dc7aa02d16",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499275/files/1113-1121.202410667.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1167930"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T05:56:44.154788+00:00",
+      "modified": "2025-11-01T05:56:44.396351+00:00",
+      "id": 17499308,
+      "conceptrecid": "17499307",
+      "doi": "10.5281/zenodo.17499308",
+      "conceptdoi": "10.5281/zenodo.17499307",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499308",
+      "metadata": {
+        "title": "Review of generative AI for multimodal cybersecurity threat simulation",
+        "doi": "10.5281/zenodo.17499308",
+        "publication_date": "2025-07-31",
+        "description": "<p>The rise of Generative artificial intelligence (GenAI) has redefined the cyber threat landscape and the defensive strategies required to mitigate sophisticated, multimodal attacks. This study presents a comprehensive postdoctoral-level review of the current state of GenAI applications in cybersecurity threat simulation, with particular focus on large language models (LLMs), generative adversarial networks (GANs), and multimodal transformers that produce synthetic text, audio, image, and video content. Despite increasing interest in GenAI-enhanced red-teaming, most implementations remain narrowly scoped, lacking the integration needed for full-spectrum, multimodal threat simulations. Employing a systematic literature review methodology, this research analyzed 172 peer-reviewed publications, technical reports, and toolkits indexed in Scopus, IEEE Xplore, ACM Digital Library, and Web of Science. The review revealed substantial innovation in text-based simulations (e.g., phishing, malware generation) but a pronounced gap in holistic frameworks that align with the full cyber kill chain or MITRE ATT and CK matrix. Key findings highlight the underdevelopment of benchmark datasets, tool interoperability issues, and insufficient empirical testing of GenAI-driven simulations in live cybersecurity environments. The study proposes new theoretical constructs and evaluation criteria for simulation realism and deception metrics while calling for open-source, policy-compliant, and ethically governed simulation platforms. Implications for cybersecurity practice, education, and national policy are discussed, with future research directions outlined around simulation standardization, adversarial robustness, and governance frameworks. This review establishes a critical foundation for advancing multimodal GenAI simulation research and its application in proactive, intelligent cyber defense.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Ogunboyo, Awolesi Abolanle",
+            "affiliation": "Independent Researcher, USA."
+          }
+        ],
+        "keywords": [
+          "Generative AI",
+          "Cybersecurity Simulation",
+          "Multimodal Threats",
+          "Large Language Models",
+          "Adversarial Testing",
+          "Cyber Defense Frameworks"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "1",
+          "pages": "302-312",
+          "title": "World Journal of Advanced Research and Reviews",
+          "volume": "27"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "10.30574/wjarr.2025.27.1.2532"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "wjarr"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499307"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Review of generative AI for multimodal cybersecurity threat simulation",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499308",
+        "self_html": "https://zenodo.org/records/17499308",
+        "preview_html": "https://zenodo.org/records/17499308?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499308",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499308",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499308",
+        "reserve_doi": "https://zenodo.org/api/records/17499308/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499307",
+        "parent_html": "https://zenodo.org/records/17499307",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499307",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499307",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499308/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499308/sequence/default",
+        "files": "https://zenodo.org/api/records/17499308/files",
+        "media_files": "https://zenodo.org/api/records/17499308/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17499308:WJARR-2025-2532.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17499308:WJARR-2025-2532.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17499308:WJARR-2025-2532.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17499308:WJARR-2025-2532.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17499308:WJARR-2025-2532.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17499308:WJARR-2025-2532.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17499308/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499308/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499308/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499308/latest",
+        "versions": "https://zenodo.org/api/records/17499308/versions",
+        "draft": "https://zenodo.org/api/records/17499308/draft",
+        "access_links": "https://zenodo.org/api/records/17499308/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499308/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499308/access/users",
+        "access_request": "https://zenodo.org/api/records/17499308/access/request",
+        "access": "https://zenodo.org/api/records/17499308/access",
+        "communities": "https://zenodo.org/api/records/17499308/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499308/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499308/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499308/requests"
+      },
+      "updated": "2025-11-01T05:56:44.396351+00:00",
+      "recid": "17499308",
+      "revision": 4,
+      "files": [
+        {
+          "id": "90ea7e88-9a6b-4a87-ab91-b927f2e8562f",
+          "key": "WJARR-2025-2532.pdf",
+          "size": 574685,
+          "checksum": "md5:33b9e41cd7a72281190b8400907deefa",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499308/files/WJARR-2025-2532.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "155121"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T03:36:40.276466+00:00",
+      "modified": "2025-11-01T03:36:40.499530+00:00",
+      "id": 17498537,
+      "conceptrecid": "17498536",
+      "doi": "10.5281/zenodo.17498537",
+      "conceptdoi": "10.5281/zenodo.17498536",
+      "doi_url": "https://doi.org/10.5281/zenodo.17498537",
+      "metadata": {
+        "title": "The correlation between Body Mass Index (BMI) and Mid Upper Arm Circumference (MUAC) of mothers with low birth weight in Malang city in 2021-2023",
+        "doi": "10.5281/zenodo.17498537",
+        "publication_date": "2025-07-31",
+        "description": "<p>Background: Low Birth Weight (LBW) is the leading cause of neonatal death in East Java, accounting for 34.5% of cases in 2021. In Malang City, LBW cases increased from 348 (2021) to 501 (2023). LBW infants are at higher risk for respiratory distress, hypoglycemia, neurological disorders, and infections. Early assessment of maternal Body Mass Index (BMI) and Mid-Upper Arm Circumference (MUAC) may help prevent LBW. Research on the relationship between BMI, MUAC, and LBW in Malang City has not been conducted previously.&nbsp;</p>\n<p>Objective: To analyze the relationship between maternal BMI and MUAC with LBW at Adjoining and Contumely Health Centers, Malang City, from 2021&ndash;2023.&nbsp;</p>\n<p>Methods: This retrospective correlational study used a quantitative approach, with ethical approval (No. 124/EC/KEPK/FKUA/2024). A sample of 128 mothers delivered live singleton LBW infants was selected through purposive sampling. Data on BMI and MUAC were obtained from medical records during the last antenatal care visit. Analysis was performed using the Spearman correlation test at a 95% significance level with Microsoft Excel and SPSS.</p>\n<p>Results: A very weak positive correlation was found between maternal BMI and LBW (p=0.043; rs=0,179). No correlation was observed between MUAC and LBW (p=0.073). Moderate and weak positive correlations were found for BMI (p=0.005; Rs=0.460) and MUAC (p=0.019; Rs=0.394) in the first trimester.&nbsp;</p>\n<p>Conclusion: Maternal BMI shows a very weak positive correlation with LBW, moderate in the first trimester, while maternal MUAC in the first trimester has a weak positive correlation with LBW.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Maulana, Azwan Yusuf",
+            "affiliation": "Medical Program, Faculty of Medicine, Universitas Airlangga, Surabaya, Indonesia."
+          },
+          {
+            "name": "Sari, Dewi Ratna",
+            "affiliation": "Department of Anatomy, Histology, and Pharmacology, Faculty of Medicine, Universitas Airlangga, Surabaya, Indonesia."
+          },
+          {
+            "name": "Dwiningsih, Sri Ratna",
+            "affiliation": "Department of Obstetrics and Gynecology, Faculty of Medicine, Universitas Airlangga, Surabaya, Indonesia."
+          },
+          {
+            "name": "Atika, Atika",
+            "affiliation": "Department of Public Health and Preventive Medicine, Faculty of Medicine, Universitas Airlangga, Surabaya, Indonesia."
+          }
+        ],
+        "keywords": [
+          "Body Mass Index",
+          "Mid-Upper Arm Circumference",
+          "Low Birth Weight",
+          "Nutrition Status",
+          "Anthropometry"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "1",
+          "pages": "104-114",
+          "title": "World Journal of Advanced Research and Reviews",
+          "volume": "27"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "10.30574/wjarr.2025.27.1.2499"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "wjarr"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17498536"
+              }
+            }
+          ]
+        }
+      },
+      "title": "The correlation between Body Mass Index (BMI) and Mid Upper Arm Circumference (MUAC) of mothers with low birth weight in Malang city in 2021-2023",
+      "links": {
+        "self": "https://zenodo.org/api/records/17498537",
+        "self_html": "https://zenodo.org/records/17498537",
+        "preview_html": "https://zenodo.org/records/17498537?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17498537",
+        "self_doi": "https://doi.org/10.5281/zenodo.17498537",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17498537",
+        "reserve_doi": "https://zenodo.org/api/records/17498537/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17498536",
+        "parent_html": "https://zenodo.org/records/17498536",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17498536",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17498536",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17498537/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17498537/sequence/default",
+        "files": "https://zenodo.org/api/records/17498537/files",
+        "media_files": "https://zenodo.org/api/records/17498537/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17498537:WJARR-2025-2499.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17498537:WJARR-2025-2499.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17498537:WJARR-2025-2499.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17498537:WJARR-2025-2499.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17498537:WJARR-2025-2499.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17498537:WJARR-2025-2499.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17498537/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17498537/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17498537/versions/latest",
+        "latest_html": "https://zenodo.org/records/17498537/latest",
+        "versions": "https://zenodo.org/api/records/17498537/versions",
+        "draft": "https://zenodo.org/api/records/17498537/draft",
+        "access_links": "https://zenodo.org/api/records/17498537/access/links",
+        "access_grants": "https://zenodo.org/api/records/17498537/access/grants",
+        "access_users": "https://zenodo.org/api/records/17498537/access/users",
+        "access_request": "https://zenodo.org/api/records/17498537/access/request",
+        "access": "https://zenodo.org/api/records/17498537/access",
+        "communities": "https://zenodo.org/api/records/17498537/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17498537/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17498537/request-deletion",
+        "requests": "https://zenodo.org/api/records/17498537/requests"
+      },
+      "updated": "2025-11-01T03:36:40.499530+00:00",
+      "recid": "17498537",
+      "revision": 4,
+      "files": [
+        {
+          "id": "2efd2806-0b2a-4f8f-b7a9-53bec5867a38",
+          "key": "WJARR-2025-2499.pdf",
+          "size": 602240,
+          "checksum": "md5:da8d07273a3645b6b5764aacd3317acc",
+          "links": {
+            "self": "https://zenodo.org/api/records/17498537/files/WJARR-2025-2499.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "155121"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T03:14:36.692363+00:00",
+      "modified": "2025-11-01T03:14:36.914772+00:00",
+      "id": 17498450,
+      "conceptrecid": "17498449",
+      "doi": "10.5281/zenodo.17498450",
+      "conceptdoi": "10.5281/zenodo.17498449",
+      "doi_url": "https://doi.org/10.5281/zenodo.17498450",
+      "metadata": {
+        "title": "\u0ba8\u0bbf\u0bb2\u0bb5\u0bbf\u0baf\u0bb2\u0bcd \u0b85\u0b9f\u0bbf\u0baa\u0bcd\u0baa\u0b9f\u0bc8\u0baf\u0bbf\u0bb2\u0bcd \u0ba8\u0bb1\u0bcd\u0bb1\u0bbf\u0ba3\u0bc8 / Geographical Based Classification in Natrinai",
+        "doi": "10.5281/zenodo.17498450",
+        "publication_date": "2025-08-15",
+        "description": "<p><em><span>Man is a symbol of the fighting spirit. There are so many living beings that have emerged in the world that have survived many millions of years and have remained unchanged. Nevertheless, man has made immense progress through his spirit. From discovering deep-sea wonders to inventing science and technology that led to flying in the sky, it is considered a victory for man's relentless struggle. It is not a matter that how much one grows in life, science supports the development of mankind. The human mind is inclined to relax and to enjoy and experience the life-oriented arts. In Tamil Literature, Sangam literature is regarded as an asset to the indigenous knowledge and experience of the Tamils. In the Sangam literature, the Agam literature has recorded the Tamil life portraying the knowledge and experience that had been in the land and has made use of it knowing its usefulness. Man has prepared and paved the land in a way that he can live and satisfy the necessities of his life according to its nature. He has called it by various names. The Tamil land has been divided into five landscapes. Hence, the article describes how the land has been identified as mountainous, forest, agricultural, coastal and arid land as evidenced in the Sangam classic Natrinai.</span></em></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "\u0b9a\u0bc1. \u0bb0\u0bae\u0bcd\u0baf\u0bbe / S. Ramya",
+            "affiliation": null,
+            "orcid": "0009-0000-2913-0317"
+          }
+        ],
+        "version": "1",
+        "language": "tam",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "SPL 1",
+          "pages": "450-460",
+          "title": "IJTLLS",
+          "volume": "8"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17498449"
+              }
+            }
+          ]
+        }
+      },
+      "title": "\u0ba8\u0bbf\u0bb2\u0bb5\u0bbf\u0baf\u0bb2\u0bcd \u0b85\u0b9f\u0bbf\u0baa\u0bcd\u0baa\u0b9f\u0bc8\u0baf\u0bbf\u0bb2\u0bcd \u0ba8\u0bb1\u0bcd\u0bb1\u0bbf\u0ba3\u0bc8 / Geographical Based Classification in Natrinai",
+      "links": {
+        "self": "https://zenodo.org/api/records/17498450",
+        "self_html": "https://zenodo.org/records/17498450",
+        "preview_html": "https://zenodo.org/records/17498450?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17498450",
+        "self_doi": "https://doi.org/10.5281/zenodo.17498450",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17498450",
+        "reserve_doi": "https://zenodo.org/api/records/17498450/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17498449",
+        "parent_html": "https://zenodo.org/records/17498449",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17498449",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17498449",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17498450/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17498450/sequence/default",
+        "files": "https://zenodo.org/api/records/17498450/files",
+        "media_files": "https://zenodo.org/api/records/17498450/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17498450:42.%20S.%20Ramya.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17498450:42.%20S.%20Ramya.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17498450:42.%20S.%20Ramya.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17498450:42.%20S.%20Ramya.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17498450:42.%20S.%20Ramya.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17498450:42.%20S.%20Ramya.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17498450/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17498450/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17498450/versions/latest",
+        "latest_html": "https://zenodo.org/records/17498450/latest",
+        "versions": "https://zenodo.org/api/records/17498450/versions",
+        "draft": "https://zenodo.org/api/records/17498450/draft",
+        "access_links": "https://zenodo.org/api/records/17498450/access/links",
+        "access_grants": "https://zenodo.org/api/records/17498450/access/grants",
+        "access_users": "https://zenodo.org/api/records/17498450/access/users",
+        "access_request": "https://zenodo.org/api/records/17498450/access/request",
+        "access": "https://zenodo.org/api/records/17498450/access",
+        "communities": "https://zenodo.org/api/records/17498450/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17498450/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17498450/request-deletion",
+        "requests": "https://zenodo.org/api/records/17498450/requests"
+      },
+      "updated": "2025-11-01T03:14:36.914772+00:00",
+      "recid": "17498450",
+      "revision": 4,
+      "files": [
+        {
+          "id": "2f36d410-9a36-499c-8bee-b127bccbdbe3",
+          "key": "42. S. Ramya.pdf",
+          "size": 800069,
+          "checksum": "md5:b8e5ebbe80a5ed57786597b80012af56",
+          "links": {
+            "self": "https://zenodo.org/api/records/17498450/files/42. S. Ramya.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "288143"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-31T22:28:42.532897+00:00",
+      "modified": "2025-10-31T22:28:42.860148+00:00",
+      "id": 17497645,
+      "conceptrecid": "17497644",
+      "doi": "10.5281/zenodo.17497645",
+      "conceptdoi": "10.5281/zenodo.17497644",
+      "doi_url": "https://doi.org/10.5281/zenodo.17497645",
+      "metadata": {
+        "title": "Unboxing the Black Box",
+        "doi": "10.5281/zenodo.17497645",
+        "publication_date": "2025-10-31",
+        "description": "<p><strong><span>During the Covid-19 lockdowns, producers who were unable to generate income through DJing turned to social media. They began livestreaming their production of electronic dance music (EDM) on platforms such as Twitch and YouTube, where viewers could support them through donations. This created an environment where the production of EDM songs became a public and interactive spectacle, contrasting with the previously solitary nature of music production (Butler, 2014).</span></strong></p>\n<p><strong><span>&nbsp;</span></strong></p>\n<p><strong><span>This paper argues that recent developments in Digital Audio Workstations (DAWs) from recording tools to those focused on sound generation and processing (Reuter, 2022) have been integral to the platformization (Poell et al., 2019) of DAWs. This evolution has enabled music production to become a social phenomenon that spans multiple platforms, from Discord music challenges to PayPal donations. The paper will demonstrate the potential for musicology in having the often black-boxed process of music production &ldquo;unboxed&rdquo; and will explore the consequences for composers who respond to continuous suggestions from comment sections, using examples from producer John Selway</span></strong></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "S\u00f8rensen, Rasmus Riegels",
+            "affiliation": "Lund University",
+            "orcid": "0009-0007-6480-4453"
+          }
+        ],
+        "keywords": [
+          "Platformisation",
+          "Techno",
+          "Live-streaming",
+          "New Materialism"
+        ],
+        "dates": [
+          {
+            "type": "available"
+          }
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Conference paper",
+          "type": "publication",
+          "subtype": "conferencepaper"
+        },
+        "meeting": {
+          "title": "Music and Online Cultures in a Changing Platform Ecosystem",
+          "dates": "19-21 June 2025",
+          "place": "Nova University, Lisbon"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "10.5281/zenodo.17497645"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17497644"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Unboxing the Black Box",
+      "links": {
+        "self": "https://zenodo.org/api/records/17497645",
+        "self_html": "https://zenodo.org/records/17497645",
+        "preview_html": "https://zenodo.org/records/17497645?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17497645",
+        "self_doi": "https://doi.org/10.5281/zenodo.17497645",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17497645",
+        "reserve_doi": "https://zenodo.org/api/records/17497645/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17497644",
+        "parent_html": "https://zenodo.org/records/17497644",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17497644",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17497644",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17497645/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17497645/sequence/default",
+        "files": "https://zenodo.org/api/records/17497645/files",
+        "media_files": "https://zenodo.org/api/records/17497645/media-files",
+        "archive": "https://zenodo.org/api/records/17497645/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17497645/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17497645/versions/latest",
+        "latest_html": "https://zenodo.org/records/17497645/latest",
+        "versions": "https://zenodo.org/api/records/17497645/versions",
+        "draft": "https://zenodo.org/api/records/17497645/draft",
+        "access_links": "https://zenodo.org/api/records/17497645/access/links",
+        "access_grants": "https://zenodo.org/api/records/17497645/access/grants",
+        "access_users": "https://zenodo.org/api/records/17497645/access/users",
+        "access_request": "https://zenodo.org/api/records/17497645/access/request",
+        "access": "https://zenodo.org/api/records/17497645/access",
+        "communities": "https://zenodo.org/api/records/17497645/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17497645/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17497645/request-deletion",
+        "requests": "https://zenodo.org/api/records/17497645/requests"
+      },
+      "updated": "2025-10-31T22:28:42.860148+00:00",
+      "recid": "17497645",
+      "revision": 4,
+      "files": [
+        {
+          "id": "22982999-4316-4f93-a2f7-a3dc67076608",
+          "key": "Unboxing the Black Box Paper.docx",
+          "size": 2014261,
+          "checksum": "md5:6a100f6316a3218fbb5f1691b7271d20",
+          "links": {
+            "self": "https://zenodo.org/api/records/17497645/files/Unboxing the Black Box Paper.docx/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1449388"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 2,
+        "unique_views": 1,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 1,
+        "version_views": 2
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-31T21:32:40.571590+00:00",
+      "modified": "2025-10-31T21:32:40.857690+00:00",
+      "id": 17497431,
+      "conceptrecid": "17497430",
+      "doi": "10.5281/zenodo.17497431",
+      "conceptdoi": "10.5281/zenodo.17497430",
+      "doi_url": "https://doi.org/10.5281/zenodo.17497431",
+      "metadata": {
+        "title": "Buried alive: extracellular polymeric substances promote clay mineral templating of live eukaryotic algae",
+        "doi": "10.5281/zenodo.17497431",
+        "publication_date": "2025-10-31",
+        "description": "<p>The Proterozoic fossil record of early eukaryotes is a crucial archive for major events in the early evolution of life, yet it is composed almost entirely of non-biomineralized organisms which required special environmental conditions to be preserved. Emerging work has shown that clay minerals can enhance preservation, and fossils of early eukaryotes are closely associated with clay minerals. Thus, understanding the role of clay minerals in organic preservation directly affects our interpretation of the early eukaryotic fossil record. Here, we perform taphonomic experiments using green algae and clay mineral substrates to investigate how clay minerals &lsquo;template&rsquo; protist-grade organisms and enhance their preservation potential. We show that clay mineral templating occurs on geologically instantaneous timescales (days-weeks)&mdash;while organisms are still alive&mdash;via interactions with extracellular polymeric substances. Furthermore, we show that the extent and rate of templating is affected both by both the presence or absence of light and mineralogy. These results point towards a secular bias, which in turn likely influences our view of evolution during the Proterozoic.</p>\n<p>This dataset contains (3) spreadsheets from SEM, ICP-MS, and pH data, and one zip file with (6) .csv files containing relative abundances of cell types (healthy/clay-coated healthy/clay-coated unhealthy).&nbsp;</p>\n<h4>Files and variables</h4>\n<h5>File: SEMdata_raw.xlsx</h5>\n<p><strong>Description:</strong>&nbsp;This spreadsheet contains data from SEM-EDS point counts of elemental abundances, shown in Figure S3.</p>\n<h5>File: ICPMS.xlsx</h5>\n<p><strong>Description:</strong>&nbsp;This spreadsheet contains data from ICP-MS measurements of cation concentrations, shown in Figure 8.</p>\n<h5>File: pH.xlsx</h5>\n<p><strong>Description:</strong>&nbsp;This spreadsheet contains a replicate list and pH measurements from each sampling interval, shown in Figure 8.</p>\n<h5>File: Image_analysis.zip</h5>\n<p><strong>Description:</strong> This zip folder contains (6) .csv files which contain relative abundances of cell types (healthy/clay-coated healthy/clay-coated unhealthy), shown in Figure 4.&nbsp;</p>",
+        "access_right": "restricted",
+        "creators": [
+          {
+            "name": "Tingle, Kelly",
+            "affiliation": null,
+            "orcid": "0000-0002-6121-9677"
+          },
+          {
+            "name": "Anderson, Ross",
+            "affiliation": "University of Oxford",
+            "orcid": "0000-0002-0558-7563"
+          },
+          {
+            "name": "Schiffbauer, James",
+            "affiliation": "University of Missouri",
+            "orcid": "0000-0003-4726-0355"
+          },
+          {
+            "name": "Czaja, Andrew",
+            "affiliation": "University of Cincinnati",
+            "orcid": "0000-0002-2450-0734"
+          },
+          {
+            "name": "Bryce, Belanger",
+            "affiliation": "Vanderbilt University"
+          },
+          {
+            "name": "Manning-Berg, Ashley",
+            "affiliation": "University of Tennessee at Chattanooga",
+            "orcid": "0000-0002-6891-1180"
+          },
+          {
+            "name": "Darroch, Simon",
+            "affiliation": "Senckenberg Research Institute and Natural History Museum Frankfurt/M",
+            "orcid": "0000-0003-1922-7136"
+          },
+          {
+            "name": "Oster, Jessica",
+            "affiliation": "Vanderbilt University",
+            "orcid": "0000-0002-1780-2435"
+          }
+        ],
+        "keywords": [
+          "geobiology",
+          "paleobiology",
+          "taphonomy"
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17497430"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Buried alive: extracellular polymeric substances promote clay mineral templating of live eukaryotic algae",
+      "links": {
+        "self": "https://zenodo.org/api/records/17497431",
+        "self_html": "https://zenodo.org/records/17497431",
+        "preview_html": "https://zenodo.org/records/17497431?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17497431",
+        "self_doi": "https://doi.org/10.5281/zenodo.17497431",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17497431",
+        "reserve_doi": "https://zenodo.org/api/records/17497431/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17497430",
+        "parent_html": "https://zenodo.org/records/17497430",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17497430",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17497430",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17497431/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17497431/sequence/default",
+        "files": "https://zenodo.org/api/records/17497431/files",
+        "media_files": "https://zenodo.org/api/records/17497431/media-files",
+        "archive": "https://zenodo.org/api/records/17497431/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17497431/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17497431/versions/latest",
+        "latest_html": "https://zenodo.org/records/17497431/latest",
+        "versions": "https://zenodo.org/api/records/17497431/versions",
+        "draft": "https://zenodo.org/api/records/17497431/draft",
+        "access_links": "https://zenodo.org/api/records/17497431/access/links",
+        "access_grants": "https://zenodo.org/api/records/17497431/access/grants",
+        "access_users": "https://zenodo.org/api/records/17497431/access/users",
+        "access_request": "https://zenodo.org/api/records/17497431/access/request",
+        "access": "https://zenodo.org/api/records/17497431/access",
+        "communities": "https://zenodo.org/api/records/17497431/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17497431/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17497431/request-deletion",
+        "requests": "https://zenodo.org/api/records/17497431/requests"
+      },
+      "updated": "2025-10-31T21:32:40.857690+00:00",
+      "recid": "17497431",
+      "revision": 4,
+      "files": [],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1449366"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-31T14:50:17.599977+00:00",
+      "modified": "2025-10-31T14:50:17.957455+00:00",
+      "id": 17494887,
+      "conceptrecid": "17494886",
+      "doi": "10.5281/zenodo.17494887",
+      "conceptdoi": "10.5281/zenodo.17494886",
+      "doi_url": "https://doi.org/10.5281/zenodo.17494887",
+      "metadata": {
+        "title": "PENILE MYIASIS IN AN ELDERLY DIABETIC MALE WITH INDWELLING CATHETER: A RARE CASE REPORT",
+        "doi": "10.5281/zenodo.17494887",
+        "publication_date": "2025-11-01",
+        "description": "<p>Background: Myiasis, the infestation of human tissue by fly larvae, is an uncommon clinical entity, particularly in the urogenital region. Penile myiasis is exceptionally rare and usually occurs in debilitated patients with poor hygiene or indwelling catheters. Case Presentation: We report a 73-year-old male with a history of diabetes mellitus, hypertension, coronary artery disease, and chronic kidney disease, who presented with fever, decreased urine output, and penile ulcerations. He had undergone prior urological interventions and was on long- term catheterization. On examination, paraphimosis with multiple penile ulcers infested with live maggots was noted, along with a sacral bedsore. Laboratory investigations revealed leukocytosis, hyponatremia, renal dysfunction, and hypoalbuminemia. Imaging demonstrated bilateral renal calculi with an indwelling left DJ stent. The patient underwent emergency debridement, circumcision, removal of maggots, and bladder calculi extraction. Cystoscopy excluded intravesical myiasis. He was managed with antibiotics, analgesics, supportive care, and catheter care. The patient improved symptomatically and was discharged with appropriate follow-up. Conclusion: Penile myiasis is a rare but important condition in debilitated, catheterized patients. Prompt recognition and comprehensive management are essential to prevent severe complications, including intravesical spread and sepsis. Preventive measures, including hygiene education and careful catheter care, are crucial in at-risk populations.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "1*Dr. Sandhiya Rajendran, 2Dr. Deepak David and 3Dr. D. Devaprasath Jeyasekharan",
+            "affiliation": null
+          }
+        ],
+        "keywords": [
+          "Penile myiasis, urogenital myiasis, catheter-associated infection, elderly, case report."
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "3049-3013",
+            "relation": "isReferencedBy",
+            "resource_type": "publication-article",
+            "scheme": "issn"
+          }
+        ],
+        "references": [
+          "Passos MRL, Barreto NA, Varella RQ, Rodrigues GHS, Lewis DA. Penile myiasis: a case report. Sex Transm Infect., 2004 Jun; 80(3): 183-184. doi:10.1136/sti.2003.007922.",
+          "Passos MRL, Ferreira DC, Arze WNC, Silva JCS, Passos FDL, Curvelo JAR. Penile myiasis as a differential diagnosis for genital ulcer: a case report. Braz J Infect Dis., 2008 Apr; 12(2): 105-107. doi:10.1590/S1413- 86702008000200011.",
+          "Jesuyajolu DA, Jesuyajolu P. Furuncular myiasis affecting the glans penis of a young boy caused by the larvae of Cordylobia anthropophaga (the tumbu fly): a case report. Pan Afr Med J., 2022; 42: 75. doi:10.11604/pamj.2022.42.75.29946.",
+          "Ghimire S, Adhikari P, Shrestha N, Luitel B, Chalise PR, Mandal S. A rare case report of penile myiasis in a catheterized patient. Int J Surg Case Rep., 2025; 126: 110744. doi:10.1016/j.ijscr.2024.110744.",
+          "Preputial myiasis: about one case. Basic Clin Androl, 2011; 21: 260-262. doi:10.1007/s12610-011-0144-1.",
+          "Urgent penectomy in a patient presenting with epidermoid carcinoma of the penis associated to myiasis. Int Braz J Urol., 2007; 33(4): (pages). Available from: https://www.scielo.br/j/ibju/a/kfZc4qTVHk9 6jyrGT8LdkYB",
+          "Penile carcinoma and myiasis: A rare association. Case report and literature review. (2020). PMID: 33102107. Available from: https://pubmed.ncbi.nlm.nih.gov/33102107"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "4",
+          "pages": "50-52",
+          "title": "World Journal of Advance Pharmaceutical Sciences",
+          "volume": "2"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "3049-3013"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17494886"
+              }
+            }
+          ]
+        }
+      },
+      "title": "PENILE MYIASIS IN AN ELDERLY DIABETIC MALE WITH INDWELLING CATHETER: A RARE CASE REPORT",
+      "links": {
+        "self": "https://zenodo.org/api/records/17494887",
+        "self_html": "https://zenodo.org/records/17494887",
+        "preview_html": "https://zenodo.org/records/17494887?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17494887",
+        "self_doi": "https://doi.org/10.5281/zenodo.17494887",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17494887",
+        "reserve_doi": "https://zenodo.org/api/records/17494887/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17494886",
+        "parent_html": "https://zenodo.org/records/17494886",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17494886",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17494886",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17494887/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17494887/sequence/default",
+        "files": "https://zenodo.org/api/records/17494887/files",
+        "media_files": "https://zenodo.org/api/records/17494887/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17494887:4%20WJAPS%20264.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17494887:4%20WJAPS%20264.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17494887:4%20WJAPS%20264.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17494887:4%20WJAPS%20264.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17494887:4%20WJAPS%20264.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17494887:4%20WJAPS%20264.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17494887/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17494887/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17494887/versions/latest",
+        "latest_html": "https://zenodo.org/records/17494887/latest",
+        "versions": "https://zenodo.org/api/records/17494887/versions",
+        "draft": "https://zenodo.org/api/records/17494887/draft",
+        "access_links": "https://zenodo.org/api/records/17494887/access/links",
+        "access_grants": "https://zenodo.org/api/records/17494887/access/grants",
+        "access_users": "https://zenodo.org/api/records/17494887/access/users",
+        "access_request": "https://zenodo.org/api/records/17494887/access/request",
+        "access": "https://zenodo.org/api/records/17494887/access",
+        "communities": "https://zenodo.org/api/records/17494887/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17494887/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17494887/request-deletion",
+        "requests": "https://zenodo.org/api/records/17494887/requests"
+      },
+      "updated": "2025-10-31T14:50:17.957455+00:00",
+      "recid": "17494887",
+      "revision": 4,
+      "files": [
+        {
+          "id": "5ee37c30-b382-4bce-bc90-5dbbdfddbce4",
+          "key": "4 WJAPS 264.pdf",
+          "size": 427630,
+          "checksum": "md5:89eb1556b4045dc697fbf285f43bd6c6",
+          "links": {
+            "self": "https://zenodo.org/api/records/17494887/files/4 WJAPS 264.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1299186"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    }
+  ]
+}

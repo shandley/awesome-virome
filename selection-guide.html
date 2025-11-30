@@ -1,0 +1,1749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Virome Analysis Tool Selection Guide</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            /* Modern virology-themed color palette */
+            --primary-color: #109b81; /* Teal green */
+            --primary-light: #6FC3BA;
+            --primary-dark: #097362;
+            --secondary-color: #2C4B7C; /* Deep blue */
+            --secondary-light: #557EBF;
+            --secondary-dark: #193152;
+            --accent-color: #9D5EB0; /* Purple for viruses */
+            --accent-light: #C89AD3;
+            --accent-dark: #6A3877;
+            --info-color: #3498db; /* Blue for info */
+            --success-color: #28a745; /* Green for success */
+            --warning-color: #ffc107; /* Yellow for warnings */
+            --danger-color: #e74c3c; /* Red for errors */
+            --light-bg: #f8f9fa;
+            --dark-bg: #1E293B; /* Dark slate blue */
+            --card-bg: #ffffff;
+            --card-bg-dark: #334155;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            --card-shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.1);
+            --transition-speed: 0.3s;
+            --border-radius: 12px;
+            --section-padding: 2rem;
+            --card-spacing: 1.5rem;
+            --nav-height: 4rem;
+            
+            /* Category-specific colors */
+            --color-identification: #4682B4; /* Steel Blue */
+            --color-host: #6A5ACD; /* Slate Blue */
+            --color-genome: #20B2AA; /* Light Sea Green */
+            --color-taxonomy: #DB7093; /* Pale Violet Red */
+            --color-functional: #9370DB; /* Medium Purple */
+            --color-structural: #4169E1; /* Royal Blue */
+            --color-crispr: #FF6347; /* Tomato */
+            --color-database: #3CB371; /* Medium Sea Green */
+            --color-sequence: #1E90FF; /* Dodger Blue */
+            --color-visualization: #FF8C00; /* Dark Orange */
+        }
+        
+        /* Dark mode variables */
+        [data-theme="dark"] {
+            --primary-color: #1AB394;
+            --primary-light: #5BD6BC;
+            --primary-dark: #0D8A70;
+            --light-bg: #1E293B;
+            --dark-bg: #0F172A;
+            --card-bg: #334155;
+            --card-bg-dark: #1E293B;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            --card-shadow-hover: 0 8px 15px rgba(0, 0, 0, 0.3);
+            color: #E2E8F0;
+        }
+        
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--light-bg);
+            color: #333;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            padding-top: var(--nav-height);
+        }
+        
+        [data-theme="dark"] body {
+            color: #E2E8F0;
+        }
+        
+        /* Dark mode toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            margin-left: 1rem;
+            outline: none;
+            position: relative;
+            transition: all var(--transition-speed);
+        }
+        
+        .theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .theme-toggle:focus-visible {
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+            outline: none;
+        }
+        
+        .theme-toggle i {
+            font-size: 1.2rem;
+        }
+        
+        /* Navbar styling */
+        .navbar {
+            background: linear-gradient(135deg, var(--secondary-dark), var(--secondary-color));
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 0.75rem 1rem;
+            height: var(--nav-height);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: #fff;
+            font-size: 1.3rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .navbar-brand i {
+            background: linear-gradient(135deg, #5BD6BC, #109b81);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-right: 0.3rem;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            transition: color var(--transition-speed);
+        }
+        
+        .nav-link:hover, .nav-link:focus {
+            color: #ffffff !important;
+        }
+        
+        .nav-link.active {
+            color: #ffffff !important;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 1rem;
+            right: 1rem;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px 3px 0 0;
+        }
+        
+        /* Container styling */
+        .guide-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        /* Path visualization */
+        .path-indicator {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+        }
+        
+        [data-theme="dark"] .path-indicator {
+            background-color: var(--card-bg-dark);
+        }
+        
+        .path-item {
+            display: inline-block;
+            margin-right: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            background-color: var(--secondary-light);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .path-item i {
+            margin-right: 0.5rem;
+        }
+        
+        .path-separator {
+            display: inline-block;
+            margin: 0 0.5rem;
+            color: var(--secondary-color);
+        }
+        
+        /* Question cards */
+        .question-card {
+            margin-bottom: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            background-color: var(--card-bg);
+            overflow: hidden;
+            transition: box-shadow var(--transition-speed);
+        }
+        
+        [data-theme="dark"] .question-card {
+            background-color: var(--card-bg-dark);
+        }
+        
+        .question-card:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
+        
+        .question-header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark));
+            color: white;
+            padding: 1.5rem;
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+        
+        .question-body {
+            padding: 1.5rem;
+        }
+        
+        /* Option buttons */
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .option-btn {
+            display: block;
+            padding: 1rem;
+            text-align: left;
+            border: none;
+            border-radius: var(--border-radius);
+            background-color: var(--light-bg);
+            color: #333;
+            transition: transform var(--transition-speed), 
+                     box-shadow var(--transition-speed),
+                     background-color var(--transition-speed);
+            box-shadow: var(--card-shadow);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        [data-theme="dark"] .option-btn {
+            background-color: var(--card-bg);
+            color: #E2E8F0;
+        }
+        
+        .option-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+        
+        .option-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--card-shadow-hover);
+        }
+        
+        .option-btn h5 {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .option-btn p {
+            margin-bottom: 0;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        /* Result cards */
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .result-card {
+            border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow);
+            background-color: var(--card-bg);
+            overflow: hidden;
+            transition: transform var(--transition-speed), 
+                      box-shadow var(--transition-speed);
+            position: relative;
+        }
+        
+        [data-theme="dark"] .result-card {
+            background-color: var(--card-bg-dark);
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow-hover);
+        }
+        
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background-color: var(--primary-color);
+        }
+        
+        .result-header {
+            background-color: var(--secondary-light);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+        }
+        
+        .result-body {
+            padding: 1.5rem;
+        }
+        
+        .result-footer {
+            padding: 1rem;
+            background-color: rgba(0, 0, 0, 0.03);
+            text-align: right;
+        }
+        
+        [data-theme="dark"] .result-footer {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Badges */
+        .badge {
+            padding: 0.4em 0.6em;
+            font-weight: 500;
+            font-size: 0.75rem;
+            border-radius: 6px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            letter-spacing: 0.3px;
+            margin-right: 0.3rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .badge-category {
+            background-color: var(--color-identification);
+            color: white;
+        }
+        
+        /* Navigation buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn-back, .btn-reset {
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: background-color var(--transition-speed), 
+                     box-shadow var(--transition-speed);
+        }
+        
+        .btn-back {
+            background-color: #f8f9fa;
+            color: #333;
+            border: 1px solid #dee2e6;
+        }
+        
+        [data-theme="dark"] .btn-back {
+            background-color: var(--card-bg-dark);
+            color: #E2E8F0;
+            border-color: #4b5563;
+        }
+        
+        .btn-back:hover {
+            background-color: #e9ecef;
+        }
+        
+        [data-theme="dark"] .btn-back:hover {
+            background-color: #4b5563;
+        }
+        
+        .btn-reset {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+        }
+        
+        .btn-reset:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .option-grid, .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Hidden elements */
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Animated transitions */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+        
+        /* Tool recommendation tags */
+        .tool-tag {
+            display: inline-block;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            background-color: var(--primary-light);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: background-color var(--transition-speed);
+        }
+        
+        .tool-tag:hover {
+            background-color: var(--primary-color);
+        }
+        
+        /* Feature list */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-list li {
+            padding: 0.25rem 0;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .feature-list li i {
+            color: var(--success-color);
+            margin-right: 0.5rem;
+            margin-top: 0.25rem;
+        }
+        
+        /* Helper classes */
+        .text-emphasis {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        [data-theme="dark"] .text-emphasis {
+            color: var(--primary-light);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-virus me-2"></i>Awesome-<span>Virome</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="comparison.html">Tool Comparison</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="selection-guide.html">Selection Guide</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="citations.html">Citation Analytics</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <button class="theme-toggle me-3" id="themeToggle">
+                        <i class="bi bi-sun"></i>
+                    </button>
+                    <a href="https://github.com/shandley/awesome-virome" class="btn btn-outline-light" target="_blank">
+                        <i class="bi bi-github me-1"></i> GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="guide-container">
+        <!-- Introduction Section -->
+        <div id="intro-section">
+            <h1 class="mb-4">Find the Right Tool for Your Research</h1>
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                This interactive guide will help you navigate through the vast ecosystem of viral analysis tools based on your specific research needs.
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4>How to Use This Guide</h4>
+                    <p>Answer a series of questions about your research to receive tailored tool recommendations:</p>
+                    <ul>
+                        <li>Start by selecting your main research objective</li>
+                        <li>Answer follow-up questions to refine your needs</li>
+                        <li>Receive customized tool recommendations based on your responses</li>
+                        <li>Click on any tool to see more details</li>
+                    </ul>
+                    <button id="start-guide" class="btn btn-primary mt-3">
+                        <i class="bi bi-arrow-right-circle me-2"></i> Start Guide
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Path Indicator -->
+        <div id="path-indicator" class="path-indicator hidden">
+            <div class="path-content">
+                <span class="path-item"><i class="bi bi-house"></i>Start</span>
+            </div>
+        </div>
+        
+        <!-- Main Question Area -->
+        <div id="question-area" class="hidden">
+            <!-- Question card will be dynamically inserted here -->
+        </div>
+        
+        <!-- Results Section -->
+        <div id="results-section" class="hidden">
+            <h2 class="mb-4">Recommended Tools</h2>
+            <p class="lead">Based on your requirements, here are the most suitable tools for your research:</p>
+            
+            <div id="results-grid" class="result-grid">
+                <!-- Result cards will be dynamically inserted here -->
+            </div>
+            
+            <div class="nav-buttons">
+                <button id="restart-guide" class="btn btn-reset">
+                    <i class="bi bi-arrow-counterclockwise me-2"></i> Start Over
+                </button>
+                <a href="comparison.html" class="btn btn-primary">
+                    <i class="bi bi-table me-2"></i> Compare All Tools
+                </a>
+            </div>
+        </div>
+        
+        <!-- Navigation Buttons -->
+        <div id="nav-buttons" class="nav-buttons hidden">
+            <button id="back-button" class="btn btn-back">
+                <i class="bi bi-arrow-left me-2"></i> Back
+            </button>
+            <button id="reset-button" class="btn btn-reset">
+                <i class="bi bi-arrow-counterclockwise me-2"></i> Start Over
+            </button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Theme toggling
+            const themeToggle = document.getElementById('themeToggle');
+            const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            // Set initial theme based on user preference
+            if (localStorage.getItem('theme') === 'dark' || (prefersDarkMode && !localStorage.getItem('theme'))) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeToggle.innerHTML = '<i class="bi bi-moon"></i>';
+            }
+            
+            themeToggle.addEventListener('click', function() {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    themeToggle.innerHTML = '<i class="bi bi-sun"></i>';
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    themeToggle.innerHTML = '<i class="bi bi-moon"></i>';
+                    localStorage.setItem('theme', 'dark');
+                }
+            });
+            
+            // Decision Tree Data Structure
+            const decisionTree = {
+                start: {
+                    question: "What is your main research objective?",
+                    description: "Select the primary goal of your viral analysis research.",
+                    options: [
+                        {
+                            id: "identification",
+                            text: "Virus Identification",
+                            description: "Discover and identify viruses in sequencing data",
+                            icon: "bi-search",
+                            next: "identification_type"
+                        },
+                        {
+                            id: "host",
+                            text: "Host Prediction",
+                            description: "Predict potential hosts for viral sequences",
+                            icon: "bi-signpost-split",
+                            next: "host_method" 
+                        },
+                        {
+                            id: "genome",
+                            text: "Genome Analysis",
+                            description: "Analyze, annotate, or assemble viral genomes",
+                            icon: "bi-bar-chart",
+                            next: "genome_task"
+                        },
+                        {
+                            id: "classification",
+                            text: "Taxonomic Classification",
+                            description: "Classify viruses and determine their evolutionary relationships",
+                            icon: "bi-diagram-3",
+                            next: "taxonomy_approach"
+                        },
+                        {
+                            id: "functional",
+                            text: "Functional Analysis",
+                            description: "Analyze the function of viral genes and proteins",
+                            icon: "bi-gear",
+                            next: "functional_type"
+                        },
+                        {
+                            id: "structural",
+                            text: "Structural Analysis",
+                            description: "Analyze viral protein structures and interactions",
+                            icon: "bi-box",
+                            next: "structural_approach"
+                        }
+                    ]
+                },
+                
+                // Virus Identification Branch
+                identification_type: {
+                    question: "What type of virus identification are you performing?",
+                    description: "Select the specific approach for virus identification.",
+                    options: [
+                        {
+                            id: "metagenome",
+                            text: "Metagenomic Analysis",
+                            description: "Identify viruses in complex metagenomic samples",
+                            next: "metagenome_sample"
+                        },
+                        {
+                            id: "rna",
+                            text: "RNA Virus Identification",
+                            description: "Specifically target RNA viruses in your data",
+                            next: "rna_approach"
+                        },
+                        {
+                            id: "dark_matter",
+                            text: "Novel/Dark Matter Viruses",
+                            description: "Discover completely novel viruses with no known homologs",
+                            next: "darkmatter_approach"
+                        },
+                        {
+                            id: "prophage",
+                            text: "Prophage/Integrated Viruses",
+                            description: "Identify viral sequences integrated in host genomes",
+                            next: "prophage_host"
+                        }
+                    ]
+                },
+                
+                metagenome_sample: {
+                    question: "What is your sample type?",
+                    description: "Different tools are optimized for different sample origins.",
+                    options: [
+                        {
+                            id: "environmental",
+                            text: "Environmental Samples",
+                            description: "Soil, water, air, or other environmental samples",
+                            next: "metagenome_resources"
+                        },
+                        {
+                            id: "clinical",
+                            text: "Clinical Samples",
+                            description: "Human or animal clinical specimens",
+                            next: "metagenome_resources"
+                        },
+                        {
+                            id: "marine",
+                            text: "Marine/Aquatic Samples",
+                            description: "Ocean, sea, lake, or other aquatic environments",
+                            next: "metagenome_resources"
+                        },
+                        {
+                            id: "any",
+                            text: "General Purpose",
+                            description: "Not specific to any particular environment",
+                            next: "metagenome_resources"
+                        }
+                    ]
+                },
+                
+                metagenome_resources: {
+                    question: "What computational resources do you have available?",
+                    description: "Some tools require significant computational power, while others are designed for limited resources.",
+                    options: [
+                        {
+                            id: "high",
+                            text: "High Performance Computing",
+                            description: "Access to computing clusters or powerful servers",
+                            next: "metagenome_results"
+                        },
+                        {
+                            id: "medium",
+                            text: "Standard Workstation",
+                            description: "Desktop computer with good specifications",
+                            next: "metagenome_results"
+                        },
+                        {
+                            id: "low",
+                            text: "Limited Resources",
+                            description: "Laptop or computer with limited RAM/CPU",
+                            next: "metagenome_results"
+                        },
+                        {
+                            id: "cloud",
+                            text: "Cloud-Based Solutions",
+                            description: "Prefer tools that run in the cloud",
+                            next: "metagenome_results"
+                        }
+                    ]
+                },
+                
+                metagenome_results: {
+                    results: [
+                        {
+                            name: "VirSorter2",
+                            category: "Virus and Phage Identification",
+                            description: "A multi-classifier, expert-guided approach to detect diverse DNA and RNA virus sequences.",
+                            link: "https://github.com/jiarong/VirSorter2",
+                            features: [
+                                "Multi-classifier approach",
+                                "Works with fragmented metagenomic contigs",
+                                "Improved accuracy over original VirSorter",
+                                "Identifies both DNA and RNA viruses"
+                            ],
+                            requirements: "Requires moderate computational resources",
+                            labels: ["DNA Viruses", "RNA Viruses", "Command Line", "Active Development"],
+                            matches: {
+                                environmental: true, clinical: true, marine: true, any: true,
+                                high: true, medium: true, low: false, cloud: true
+                            }
+                        },
+                        {
+                            name: "VIBRANT",
+                            category: "Virus and Phage Identification",
+                            description: "Virus Identification By iteRative ANnoTation - automated recovery of viral genomes from metagenomes.",
+                            link: "https://github.com/AnantharamanLab/VIBRANT",
+                            features: [
+                                "Automated viral genome recovery",
+                                "Provides functional annotation",
+                                "High accuracy for complete viral genomes",
+                                "Works well with novel viruses"
+                            ],
+                            requirements: "Moderate RAM requirements",
+                            labels: ["DNA Viruses", "Phages", "Command Line", "Active Development"],
+                            matches: {
+                                environmental: true, clinical: true, marine: true, any: true,
+                                high: true, medium: true, low: false, cloud: true
+                            }
+                        },
+                        {
+                            name: "geNomad",
+                            category: "Virus and Phage Identification",
+                            description: "Identifies viral and plasmid sequences in genomic and metagenomic data using machine learning.",
+                            link: "https://github.com/apcamargo/genomad",
+                            features: [
+                                "Machine learning approach",
+                                "Capable of identifying plasmids along with viruses",
+                                "Low false positive rate",
+                                "Provides taxonomic classification"
+                            ],
+                            requirements: "Moderate computational requirements",
+                            labels: ["DNA Viruses", "Plasmids", "Command Line", "Active Development"],
+                            matches: {
+                                environmental: true, clinical: true, marine: true, any: true,
+                                high: true, medium: true, low: false, cloud: true
+                            }
+                        },
+                        {
+                            name: "DeepVirFinder",
+                            category: "Virus and Phage Identification",
+                            description: "Uses deep learning to identify viral sequences in metagenomic data, particularly effective with short contigs.",
+                            link: "https://github.com/jessieren/DeepVirFinder",
+                            features: [
+                                "Deep learning approach",
+                                "Works well with short contigs",
+                                "No reference database required",
+                                "Good for novel virus discovery"
+                            ],
+                            requirements: "GPU acceleration recommended for training",
+                            labels: ["DNA Viruses", "Deep Learning", "Command Line"],
+                            matches: {
+                                environmental: true, clinical: true, marine: true, any: true,
+                                high: true, medium: true, low: false, cloud: true
+                            }
+                        },
+                        {
+                            name: "VirMiner",
+                            category: "Virus and Phage Identification",
+                            description: "A pipeline for viral identification and functional annotation in human microbiome datasets.",
+                            link: "https://github.com/TingtZHENG/VirMiner",
+                            features: [
+                                "Web-based user interface",
+                                "Specialized for human microbiome",
+                                "Functional annotation",
+                                "Viral operational taxonomic units (vOTUs)"
+                            ],
+                            requirements: "Web server available, local installation requires moderate resources",
+                            labels: ["Human Microbiome", "Web Interface", "Phages"],
+                            matches: {
+                                environmental: false, clinical: true, marine: false, any: true,
+                                high: true, medium: true, low: true, cloud: true
+                            }
+                        },
+                        {
+                            name: "Seeker",
+                            category: "Virus and Phage Identification",
+                            description: "Ultra-fast viral sequence identification using k-mer signatures and machine learning.",
+                            link: "https://github.com/gussow/seeker",
+                            features: [
+                                "Extremely fast processing",
+                                "Lightweight resource requirements",
+                                "Effective on short sequences",
+                                "Pre-trained machine learning models"
+                            ],
+                            requirements: "Low computational requirements",
+                            labels: ["Fast", "Command Line", "Machine Learning"],
+                            matches: {
+                                environmental: true, clinical: true, marine: true, any: true,
+                                high: true, medium: true, low: true, cloud: true
+                            }
+                        }
+                    ]
+                },
+                
+                rna_approach: {
+                    question: "What RNA virus detection approach do you prefer?",
+                    description: "RNA virus detection can use different strategies depending on your needs.",
+                    options: [
+                        {
+                            id: "rdrp",
+                            text: "RdRp-based Detection",
+                            description: "Identify RNA viruses based on RNA-dependent RNA polymerase",
+                            next: "rna_results"
+                        },
+                        {
+                            id: "denovo",
+                            text: "De novo Identification",
+                            description: "Discover novel RNA viruses without reliance on known references",
+                            next: "rna_results"
+                        },
+                        {
+                            id: "assembly",
+                            text: "RNA Virus Assembly",
+                            description: "Assemble RNA viral genomes from sequencing reads",
+                            next: "rna_results"
+                        },
+                        {
+                            id: "general",
+                            text: "General RNA Virus Analysis",
+                            description: "Multiple approaches for RNA virus identification",
+                            next: "rna_results"
+                        }
+                    ]
+                },
+                
+                rna_results: {
+                    results: [
+                        {
+                            name: "RdRp-scan",
+                            category: "RNA Virus Identification",
+                            description: "A tool for the identification of RNA-dependent RNA polymerase (RdRp) in sequence data.",
+                            link: "https://github.com/rcedgar/palmscan",
+                            features: [
+                                "Fast profile-based RdRp detection",
+                                "High sensitivity for diverse RNA viruses",
+                                "Detection of RdRp palm domain",
+                                "Works with fragmented sequences"
+                            ],
+                            requirements: "Low computational requirements",
+                            labels: ["RdRp", "RNA Viruses", "Command Line"],
+                            matches: {
+                                rdrp: true, denovo: false, assembly: false, general: true
+                            }
+                        },
+                        {
+                            name: "metaviralSPAdes-RNA",
+                            category: "RNA Virus Identification",
+                            description: "A modified metaSPAdes assembler optimized for RNA viral genome assembly.",
+                            link: "https://github.com/ablab/spades",
+                            features: [
+                                "Specialized RNA virus assembly",
+                                "De novo assembly approach",
+                                "Handles highly diverse RNA viral populations",
+                                "Optimized for metatranscriptomic data"
+                            ],
+                            requirements: "Moderate to high RAM requirements",
+                            labels: ["RNA Viruses", "Assembly", "Command Line"],
+                            matches: {
+                                rdrp: false, denovo: true, assembly: true, general: true
+                            }
+                        },
+                        {
+                            name: "VirMine-RNA",
+                            category: "RNA Virus Identification",
+                            description: "An extension of VirMine focused on RNA virus identification in metatranscriptomic data.",
+                            link: "https://github.com/TingtZHENG/VirMiner",
+                            features: [
+                                "Specialized for RNA virus detection",
+                                "Works with metatranscriptomic data",
+                                "Functional annotation",
+                                "Web-based interface available"
+                            ],
+                            requirements: "Web server available, local installation requires moderate resources",
+                            labels: ["RNA Viruses", "Web Interface", "Metatranscriptomics"],
+                            matches: {
+                                rdrp: false, denovo: true, assembly: false, general: true
+                            }
+                        },
+                        {
+                            name: "palmID",
+                            category: "RNA Virus Identification",
+                            description: "Identifies and classifies RNA virus sequences based on the conserved RdRp palm domain.",
+                            link: "https://github.com/rcedgar/palmscan",
+                            features: [
+                                "RdRp palm domain detection",
+                                "Taxonomic classification of RNA viruses",
+                                "Highly sensitive for diverse RdRp sequences",
+                                "Fast processing"
+                            ],
+                            requirements: "Low computational requirements",
+                            labels: ["RdRp", "RNA Viruses", "Taxonomy", "Command Line"],
+                            matches: {
+                                rdrp: true, denovo: false, assembly: false, general: true
+                            }
+                        }
+                    ]
+                },
+                
+                // Host Prediction Branch
+                host_method: {
+                    question: "What host prediction approach are you interested in?",
+                    description: "Different methods are available for predicting virus-host relationships.",
+                    options: [
+                        {
+                            id: "alignment",
+                            text: "Alignment-based Methods",
+                            description: "Predict hosts based on sequence similarity and alignment",
+                            next: "host_organism"
+                        },
+                        {
+                            id: "kmer",
+                            text: "K-mer Based Methods",
+                            description: "Use k-mer frequency patterns to predict hosts",
+                            next: "host_organism"
+                        },
+                        {
+                            id: "crispr",
+                            text: "CRISPR-based Prediction",
+                            description: "Use CRISPR spacers to identify phage-host relationships",
+                            next: "host_organism"
+                        },
+                        {
+                            id: "machine",
+                            text: "Machine Learning Approaches",
+                            description: "Use AI/ML models to predict virus-host interactions",
+                            next: "host_organism"
+                        }
+                    ]
+                },
+                
+                host_organism: {
+                    question: "What type of host are you studying?",
+                    description: "Different tools are optimized for different host types.",
+                    options: [
+                        {
+                            id: "bacteria",
+                            text: "Bacterial Hosts",
+                            description: "For phages and bacterial viruses",
+                            next: "host_results"
+                        },
+                        {
+                            id: "eukaryote",
+                            text: "Eukaryotic Hosts",
+                            description: "For viruses infecting eukaryotes (plants, animals, fungi)",
+                            next: "host_results"
+                        },
+                        {
+                            id: "human",
+                            text: "Human/Mammalian Hosts",
+                            description: "Specifically for viruses infecting humans or mammals",
+                            next: "host_results"
+                        },
+                        {
+                            id: "any",
+                            text: "General Purpose",
+                            description: "Tools that work across different host types",
+                            next: "host_results"
+                        }
+                    ]
+                },
+                
+                host_results: {
+                    results: [
+                        {
+                            name: "WIsH",
+                            category: "Host Prediction",
+                            description: "Who Is the Host predicts bacteriophage hosts based on genomic k-mer patterns.",
+                            link: "https://github.com/soedinglab/WIsH",
+                            features: [
+                                "K-mer frequency-based approach",
+                                "Fast and accurate for bacteriophages",
+                                "No need for reference database matching",
+                                "Works well with novel phages"
+                            ],
+                            requirements: "Low computational requirements",
+                            labels: ["Phages", "K-mer Based", "Command Line"],
+                            matches: {
+                                alignment: false, kmer: true, crispr: false, machine: false,
+                                bacteria: true, eukaryote: false, human: false, any: false
+                            }
+                        },
+                        {
+                            name: "iPHoP",
+                            category: "Host Prediction",
+                            description: "Integrating deep learning and genomic signal processing for phage host prediction.",
+                            link: "https://bitbucket.org/srouxjgi/iphop/src/main/",
+                            features: [
+                                "Ensemble of multiple methods",
+                                "Machine learning approach",
+                                "High accuracy for bacterial hosts",
+                                "Provides confidence scores"
+                            ],
+                            requirements: "Moderate computational requirements",
+                            labels: ["Phages", "Machine Learning", "Command Line", "Active Development"],
+                            matches: {
+                                alignment: true, kmer: true, crispr: false, machine: true,
+                                bacteria: true, eukaryote: false, human: false, any: false
+                            }
+                        },
+                        {
+                            name: "CHERRY",
+                            category: "Host Prediction",
+                            description: "Machine learning-based approach for predicting virus-host interactions.",
+                            link: "https://github.com/xiaochuanle/CHERRY",
+                            features: [
+                                "Deep learning approach",
+                                "Works for both bacteria and eukaryotes",
+                                "No alignment required",
+                                "High accuracy with novel viruses"
+                            ],
+                            requirements: "GPU acceleration recommended",
+                            labels: ["Machine Learning", "Multiple Host Types", "Command Line"],
+                            matches: {
+                                alignment: false, kmer: false, crispr: false, machine: true,
+                                bacteria: true, eukaryote: true, human: true, any: true
+                            }
+                        },
+                        {
+                            name: "CrisprOpenDB",
+                            category: "Host Prediction",
+                            description: "Uses CRISPR spacer matches to predict phage-host relationships.",
+                            link: "https://github.com/edzuf/CrisprOpenDB",
+                            features: [
+                                "CRISPR-based host prediction",
+                                "Large database of CRISPR spacers",
+                                "High specificity",
+                                "Works for known CRISPR-containing bacteria"
+                            ],
+                            requirements: "Moderate RAM requirements",
+                            labels: ["CRISPR", "Phages", "Command Line"],
+                            matches: {
+                                alignment: false, kmer: false, crispr: true, machine: false,
+                                bacteria: true, eukaryote: false, human: false, any: false
+                            }
+                        },
+                        {
+                            name: "VirHostMatcher-Net",
+                            category: "Host Prediction",
+                            description: "Network-based virus-host prediction that combines multiple genomic features.",
+                            link: "https://github.com/WeiliWw/VirHostMatcher-Net",
+                            features: [
+                                "Combines multiple features",
+                                "Higher accuracy than alignment-only methods",
+                                "Works with fragmented viral genomes",
+                                "Effective for novel viruses"
+                            ],
+                            requirements: "Moderate computational requirements",
+                            labels: ["Network-based", "Bacteria", "Command Line"],
+                            matches: {
+                                alignment: true, kmer: true, crispr: false, machine: true,
+                                bacteria: true, eukaryote: false, human: false, any: false
+                            }
+                        },
+                        {
+                            name: "HostPhinder",
+                            category: "Host Prediction",
+                            description: "K-mer based approach for predicting phage hosts from genomic sequences.",
+                            link: "https://github.com/julvi/HostPhinder",
+                            features: [
+                                "K-mer based approach",
+                                "Fast processing",
+                                "Good for closely related phages",
+                                "Web server available"
+                            ],
+                            requirements: "Low computational requirements",
+                            labels: ["K-mer Based", "Phages", "Web Interface"],
+                            matches: {
+                                alignment: false, kmer: true, crispr: false, machine: false,
+                                bacteria: true, eukaryote: false, human: false, any: false
+                            }
+                        }
+                    ]
+                },
+                
+                // Genome Analysis Branch
+                genome_task: {
+                    question: "What genome analysis task are you performing?",
+                    description: "Select the specific genome analysis you need to perform.",
+                    options: [
+                        {
+                            id: "assembly",
+                            text: "Genome Assembly",
+                            description: "Assemble viral genomes from sequencing reads",
+                            next: "assembly_type"
+                        },
+                        {
+                            id: "annotation",
+                            text: "Genome Annotation",
+                            description: "Annotate genes and features in viral genomes",
+                            next: "annotation_type"
+                        },
+                        {
+                            id: "completeness",
+                            text: "Genome Completeness",
+                            description: "Assess the completeness of viral genomes",
+                            next: "completeness_results"
+                        },
+                        {
+                            id: "comparison",
+                            text: "Genome Comparison",
+                            description: "Compare viral genomes to identify similarities and differences",
+                            next: "comparison_results"
+                        }
+                    ]
+                },
+                
+                assembly_type: {
+                    question: "What type of viral genome assembly do you need?",
+                    description: "Different assembly approaches are optimized for different virus types and data.",
+                    options: [
+                        {
+                            id: "metagenome",
+                            text: "Metagenomic Viral Assembly",
+                            description: "Assemble viruses from complex metagenomic data",
+                            next: "assembly_results"
+                        },
+                        {
+                            id: "isolate",
+                            text: "Viral Isolate Assembly",
+                            description: "Assemble genomes from viral isolates or enriched samples",
+                            next: "assembly_results"
+                        },
+                        {
+                            id: "rna",
+                            text: "RNA Virus Assembly",
+                            description: "Specialized assembly for RNA viral genomes",
+                            next: "assembly_results"
+                        },
+                        {
+                            id: "long",
+                            text: "Long-Read Assembly",
+                            description: "Assembly using long-read sequencing data (Nanopore, PacBio)",
+                            next: "assembly_results"
+                        }
+                    ]
+                },
+                
+                assembly_results: {
+                    results: [
+                        {
+                            name: "metaviralSPAdes",
+                            category: "Genome Assembly",
+                            description: "A metagenome assembler optimized for viral genome assembly from metagenomic data.",
+                            link: "https://github.com/ablab/spades",
+                            features: [
+                                "Specialized viral genome assembly",
+                                "Handles complex metagenomic datasets",
+                                "Optimized for short read data",
+                                "Good for recovering complete viral genomes"
+                            ],
+                            requirements: "High RAM requirements for large datasets",
+                            labels: ["Metagenomics", "Short Reads", "Command Line", "Active Development"],
+                            matches: {
+                                metagenome: true, isolate: true, rna: false, long: false
+                            }
+                        },
+                        {
+                            name: "coronaSPAdes",
+                            category: "Genome Assembly",
+                            description: "Specialized assembler for coronavirus genomes, handles RNA virus assembly.",
+                            link: "https://github.com/ablab/spades",
+                            features: [
+                                "Optimized for coronavirus assembly",
+                                "Handles RNA virus structure",
+                                "Good for both isolates and metagenomes",
+                                "Part of the SPAdes toolkit"
+                            ],
+                            requirements: "Moderate RAM requirements",
+                            labels: ["Coronavirus", "RNA Viruses", "Command Line"],
+                            matches: {
+                                metagenome: false, isolate: true, rna: true, long: false
+                            }
+                        },
+                        {
+                            name: "metaviralSPAdes-RNA",
+                            category: "Genome Assembly",
+                            description: "SPAdes extension optimized for RNA virus assembly from metatranscriptomic data.",
+                            link: "https://github.com/ablab/spades",
+                            features: [
+                                "Specialized for RNA virus assembly",
+                                "Handles metatranscriptomic data",
+                                "Accounts for RNA-specific features",
+                                "Good sensitivity for low-abundance RNA viruses"
+                            ],
+                            requirements: "Moderate to high RAM requirements",
+                            labels: ["RNA Viruses", "Metatranscriptomics", "Command Line"],
+                            matches: {
+                                metagenome: true, isolate: false, rna: true, long: false
+                            }
+                        },
+                        {
+                            name: "Viral-NGS",
+                            category: "Genome Assembly",
+                            description: "A comprehensive pipeline for viral genome assembly and analysis from NGS data.",
+                            link: "https://github.com/broadinstitute/viral-ngs",
+                            features: [
+                                "Complete viral analysis pipeline",
+                                "Reference-based assembly",
+                                "De novo assembly option",
+                                "Intrahost variant calling"
+                            ],
+                            requirements: "Moderate computational requirements",
+                            labels: ["Clinical Virology", "Pipeline", "Command Line"],
+                            matches: {
+                                metagenome: false, isolate: true, rna: true, long: false
+                            }
+                        },
+                        {
+                            name: "Virtus",
+                            category: "Genome Assembly",
+                            description: "Viral genome assembly and analysis pipeline for RNA viruses.",
+                            link: "https://github.com/yyoshiaki/VirTIS",
+                            features: [
+                                "Specialized for RNA virus analysis",
+                                "Reference-guided assembly",
+                                "De novo assembly option",
+                                "Works with clinical samples"
+                            ],
+                            requirements: "Moderate computational requirements",
+                            labels: ["RNA Viruses", "Clinical", "Command Line"],
+                            matches: {
+                                metagenome: false, isolate: true, rna: true, long: false
+                            }
+                        }
+                    ]
+                },
+                
+                annotation_type: {
+                    question: "What type of genome annotation do you need?",
+                    description: "Different annotation approaches are available for viral genomes.",
+                    options: [
+                        {
+                            id: "gene",
+                            text: "Gene Finding/Prediction",
+                            description: "Identify coding regions in viral genomes",
+                            next: "annotation_results"
+                        },
+                        {
+                            id: "phage",
+                            text: "Phage-specific Annotation",
+                            description: "Specialized annotation for bacteriophage genomes",
+                            next: "annotation_results"
+                        },
+                        {
+                            id: "functional",
+                            text: "Functional Annotation",
+                            description: "Predict functions of viral genes and proteins",
+                            next: "annotation_results"
+                        },
+                        {
+                            id: "comprehensive",
+                            text: "Comprehensive Annotation",
+                            description: "Complete annotation pipeline with multiple features",
+                            next: "annotation_results"
+                        }
+                    ]
+                },
+                
+                annotation_results: {
+                    results: [
+                        {
+                            name: "Pharokka",
+                            category: "Genome Annotation",
+                            description: "Fast and accurate bacteriophage annotation tool using specialized databases.",
+                            link: "https://github.com/gbouras13/pharokka",
+                            features: [
+                                "Specialized phage genome annotation",
+                                "Fast processing",
+                                "Uses phage-specific databases",
+                                "Good visualization options"
+                            ],
+                            requirements: "Low to moderate computational requirements",
+                            labels: ["Phages", "Command Line", "Active Development"],
+                            matches: {
+                                gene: true, phage: true, functional: true, comprehensive: true
+                            }
+                        },
+                        {
+                            name: "PHANOTATE",
+                            category: "Genome Annotation",
+                            description: "PHAge Nucleotide-Optimized Thresholding And Annotation Tool Engine - specialized for phage gene prediction.",
+                            link: "https://github.com/deprekate/PHANOTATE",
+                            features: [
+                                "Optimized for phage gene prediction",
+                                "Accounts for overlapping genes",
+                                "Better than general gene predictors for phages",
+                                "Fast processing"
+                            ],
+                            requirements: "Low computational requirements",
+                            labels: ["Phages", "Gene Prediction", "Command Line"],
+                            matches: {
+                                gene: true, phage: true, functional: false, comprehensive: false
+                            }
+                        },
+                        {
+                            name: "DRAMv",
+                            category: "Genome Annotation",
+                            description: "DRAM for Viruses - comprehensive viral genome annotation tool.",
+                            link: "https://github.com/WrightonLabCSU/DRAM",
+                            features: [
+                                "Comprehensive viral annotation",
+                                "Functional assignments",
+                                "AMR and auxiliary metabolic gene detection",
+                                "Extensive visualization"
+                            ],
+                            requirements: "Moderate computational requirements",
+                            labels: ["Comprehensive", "Metabolism", "Command Line", "Active Development"],
+                            matches: {
+                                gene: true, phage: true, functional: true, comprehensive: true
+                            }
+                        },
+                        {
+                            name: "VAPiD",
+                            category: "Genome Annotation",
+                            description: "Viral Annotation Pipeline and Identification - streamlined annotation for viral genomes.",
+                            link: "https://github.com/rcs333/VAPiD",
+                            features: [
+                                "User-friendly viral annotation",
+                                "GenBank submission preparation",
+                                "Multiple reference databases",
+                                "Handles eukaryotic viruses well"
+                            ],
+                            requirements: "Low computational requirements",
+                            labels: ["Eukaryotic Viruses", "GenBank", "Command Line"],
+                            matches: {
+                                gene: true, phage: false, functional: true, comprehensive: true
+                            }
+                        },
+                        {
+                            name: "Cenote-Taker 3",
+                            category: "Genome Annotation",
+                            description: "Comprehensive viral genome annotation tool with improved gene calling.",
+                            link: "https://github.com/mtisza1/Cenote-Taker3",
+                            features: [
+                                "Comprehensive viral annotation",
+                                "Support for diverse virus types",
+                                "Database submission preparation",
+                                "Specialized gene prediction"
+                            ],
+                            requirements: "Moderate computational requirements",
+                            labels: ["Comprehensive", "Multiple Virus Types", "Command Line", "Active Development"],
+                            matches: {
+                                gene: true, phage: true, functional: true, comprehensive: true
+                            }
+                        }
+                    ]
+                },
+                
+                completeness_results: {
+                    results: [
+                        {
+                            name: "CheckV",
+                            category: "Genome Completeness",
+                            description: "Assesses the quality and completeness of viral genomes from metagenomes.",
+                            link: "https://bitbucket.org/berkeleylab/checkv/src/master/",
+                            features: [
+                                "Viral genome completeness estimation",
+                                "Contamination detection",
+                                "Quality metrics for viral contigs",
+                                "Reference-based assessment"
+                            ],
+                            requirements: "Moderate computational requirements",
+                            labels: ["Quality Control", "DNA Viruses", "Command Line", "Active Development"]
+                        },
+                        {
+                            name: "VIBRANT",
+                            category: "Genome Completeness",
+                            description: "In addition to identification, provides quality metrics for viral genomes.",
+                            link: "https://github.com/AnantharamanLab/VIBRANT",
+                            features: [
+                                "Completeness estimation",
+                                "Circular genome detection",
+                                "Quality assessment",
+                                "Works alongside viral identification"
+                            ],
+                            requirements: "Moderate RAM requirements",
+                            labels: ["Quality Control", "DNA Viruses", "Command Line", "Active Development"]
+                        },
+                        {
+                            name: "ViromeQC",
+                            category: "Genome Completeness",
+                            description: "Quality control tool to assess viral enrichment and contamination in viromes.",
+                            link: "https://github.com/SegataLab/viromeqc",
+                            features: [
+                                "Viral enrichment estimation",
+                                "Contamination assessment",
+                                "Comparative metrics",
+                                "Applicable to diverse sample types"
+                            ],
+                            requirements: "Low computational requirements",
+                            labels: ["Quality Control", "Enrichment", "Command Line"]
+                        }
+                    ]
+                },
+                
+                comparison_results: {
+                    results: [
+                        {
+                            name: "VIGA",
+                            category: "Genome Comparison",
+                            description: "Viral Genome Annotator provides tools for annotation and comparison of viral genomes.",
+                            link: "https://github.com/EGTortuero/viga",
+                            features: [
+                                "Genome annotation",
+                                "Comparative analysis",
+                                "GenBank submission preparation",
+                                "Support for diverse virus types"
+                            ],
+                            requirements: "Moderate computational requirements",
+                            labels: ["Annotation", "Comparison", "Command Line"]
+                        },
+                        {
+                            name: "VIRIDIC",
+                            category: "Genome Comparison",
+                            description: "Virus Intergenomic Distance Calculator for accurate viral genome comparisons.",
+                            link: "https://github.com/matthijnssenslab/viridic",
+                            features: [
+                                "Intergenomic distance calculation",
+                                "Clustering of related viruses",
+                                "Visualization of viral relationships",
+                                "Suitable for taxonomic studies"
+                            ],
+                            requirements: "Moderate computational requirements",
+                            labels: ["Distance Calculation", "Taxonomy", "Command Line"]
+                        },
+                        {
+                            name: "vConTACT2.0",
+                            category: "Genome Comparison",
+                            description: "Viral Contig Automatic Clustering and Taxonomy for gene-sharing network analysis.",
+                            link: "https://bitbucket.org/MAVERICLab/vcontact2/src/master/",
+                            features: [
+                                "Network-based viral clustering",
+                                "Taxonomic classification",
+                                "Gene-sharing analysis",
+                                "Visualization of viral relationships"
+                            ],
+                            requirements: "Moderate to high computational requirements",
+                            labels: ["Clustering", "Taxonomy", "Command Line", "Active Development"]
+                        }
+                    ]
+                }
+            };
+            
+            // State management
+            let currentState = 'start';
+            let pathHistory = ['start'];
+            let userSelections = {};
+            
+            // Initialize the guide
+            const startGuideBtn = document.getElementById('start-guide');
+            const introSection = document.getElementById('intro-section');
+            const questionArea = document.getElementById('question-area');
+            const resultsSection = document.getElementById('results-section');
+            const pathIndicator = document.getElementById('path-indicator');
+            const navButtons = document.getElementById('nav-buttons');
+            const backButton = document.getElementById('back-button');
+            const resetButton = document.getElementById('reset-button');
+            const restartGuideBtn = document.getElementById('restart-guide');
+            
+            // Start the guide
+            startGuideBtn.addEventListener('click', function() {
+                introSection.classList.add('hidden');
+                questionArea.classList.remove('hidden');
+                pathIndicator.classList.remove('hidden');
+                navButtons.classList.remove('hidden');
+                renderQuestion(currentState);
+            });
+            
+            // Handle back button
+            backButton.addEventListener('click', function() {
+                if (pathHistory.length > 1) {
+                    pathHistory.pop(); // Remove current
+                    currentState = pathHistory[pathHistory.length - 1];
+                    renderQuestion(currentState);
+                }
+            });
+            
+            // Handle reset button
+            resetButton.addEventListener('click', function() {
+                resetGuide();
+            });
+            
+            // Handle restart from results
+            restartGuideBtn.addEventListener('click', function() {
+                resetGuide();
+            });
+            
+            // Reset the guide
+            function resetGuide() {
+                currentState = 'start';
+                pathHistory = ['start'];
+                userSelections = {};
+                resultsSection.classList.add('hidden');
+                questionArea.classList.remove('hidden');
+                navButtons.classList.remove('hidden');
+                renderQuestion(currentState);
+            }
+            
+            // Render a question
+            function renderQuestion(stateId) {
+                const state = decisionTree[stateId];
+                
+                // Check if we've reached a results state
+                if (state.results) {
+                    renderResults(state.results);
+                    return;
+                }
+                
+                // Update the path indicator
+                updatePathIndicator();
+                
+                // Create the question card
+                const questionCard = document.createElement('div');
+                questionCard.className = 'question-card animate-fade-in';
+                questionCard.innerHTML = `
+                    <div class="question-header">
+                        <i class="bi bi-question-circle me-2"></i>${state.question}
+                    </div>
+                    <div class="question-body">
+                        <p>${state.description}</p>
+                        <div class="option-grid">
+                            ${state.options.map(option => `
+                                <button class="option-btn" data-option-id="${option.id}" data-next="${option.next}">
+                                    <h5>
+                                        ${option.icon ? `<i class="bi ${option.icon} me-2"></i>` : ''}
+                                        ${option.text}
+                                    </h5>
+                                    <p>${option.description}</p>
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                // Clear previous question and add new one
+                questionArea.innerHTML = '';
+                questionArea.appendChild(questionCard);
+                
+                // Add event listeners to options
+                const optionButtons = questionArea.querySelectorAll('.option-btn');
+                optionButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const optionId = this.getAttribute('data-option-id');
+                        const nextState = this.getAttribute('data-next');
+                        
+                        // Store user selection
+                        userSelections[stateId] = optionId;
+                        
+                        // Update state and history
+                        currentState = nextState;
+                        pathHistory.push(currentState);
+                        
+                        // Render next question
+                        renderQuestion(currentState);
+                    });
+                });
+                
+                // Update back button visibility
+                backButton.style.visibility = pathHistory.length > 1 ? 'visible' : 'hidden';
+            }
+            
+            // Render results
+            function renderResults(results) {
+                // Hide question area and nav buttons
+                questionArea.classList.add('hidden');
+                navButtons.classList.add('hidden');
+                
+                // Show results section
+                resultsSection.classList.remove('hidden');
+                
+                // Filter results based on user selections
+                const filteredResults = results.filter(result => {
+                    if (!result.matches) return true;
+                    
+                    // Check if the result matches all selected options
+                    for (const [state, selection] of Object.entries(userSelections)) {
+                        if (result.matches[selection] === false) return false;
+                    }
+                    
+                    return true;
+                });
+                
+                // Update path indicator
+                updatePathIndicator('Results');
+                
+                // Create result cards
+                const resultsGrid = document.getElementById('results-grid');
+                resultsGrid.innerHTML = '';
+                
+                if (filteredResults.length === 0) {
+                    resultsGrid.innerHTML = `
+                        <div class="col-12 text-center py-5">
+                            <i class="bi bi-search me-2"></i>
+                            <h4>No matching tools found</h4>
+                            <p>Try adjusting your criteria or starting over with different selections.</p>
+                        </div>
+                    `;
+                } else {
+                    filteredResults.forEach(result => {
+                        const resultCard = document.createElement('div');
+                        resultCard.className = 'result-card animate-fade-in';
+                        resultCard.innerHTML = `
+                            <div class="result-header">
+                                <i class="bi bi-tools me-2"></i>${result.name}
+                            </div>
+                            <div class="result-body">
+                                <span class="badge badge-category mb-3">${result.category}</span>
+                                <p>${result.description}</p>
+                                
+                                <h6 class="mt-4 mb-2">Key Features</h6>
+                                <ul class="feature-list">
+                                    ${result.features.map(feature => `
+                                        <li><i class="bi bi-check-circle-fill"></i>${feature}</li>
+                                    `).join('')}
+                                </ul>
+                                
+                                <h6 class="mt-3 mb-2">Requirements</h6>
+                                <p><i class="bi bi-cpu me-2"></i>${result.requirements}</p>
+                                
+                                <div class="mt-3">
+                                    ${result.labels.map(label => `
+                                        <span class="tool-tag">${label}</span>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            <div class="result-footer">
+                                <a href="${result.link}" class="btn btn-sm btn-primary" target="_blank">
+                                    <i class="bi bi-box-arrow-up-right me-1"></i> View Tool
+                                </a>
+                            </div>
+                        `;
+                        
+                        resultsGrid.appendChild(resultCard);
+                    });
+                }
+            }
+            
+            // Update path indicator
+            function updatePathIndicator(finalStep = null) {
+                const pathContent = document.querySelector('.path-content');
+                pathContent.innerHTML = '<span class="path-item"><i class="bi bi-house"></i>Start</span>';
+                
+                // Add path items
+                for (let i = 1; i < pathHistory.length; i++) {
+                    const state = decisionTree[pathHistory[i-1]];
+                    const selection = userSelections[pathHistory[i-1]];
+                    
+                    // Find the selected option
+                    const option = state.options.find(opt => opt.id === selection);
+                    
+                    if (option) {
+                        // Add separator
+                        pathContent.innerHTML += '<span class="path-separator"><i class="bi bi-chevron-right"></i></span>';
+                        
+                        // Add path item
+                        pathContent.innerHTML += `<span class="path-item">${option.text}</span>`;
+                    }
+                }
+                
+                // Add final step if provided
+                if (finalStep) {
+                    pathContent.innerHTML += '<span class="path-separator"><i class="bi bi-chevron-right"></i></span>';
+                    pathContent.innerHTML += `<span class="path-item"><i class="bi bi-check-circle"></i>${finalStep}</span>`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1623 @@
+{
+  "cache_date": "2025-11-01T08:40:01.109670",
+  "data": [
+    {
+      "created": "2025-11-01T08:00:27.492674+00:00",
+      "modified": "2025-11-01T08:00:27.650619+00:00",
+      "id": 17500032,
+      "conceptrecid": "4733457",
+      "doi": "10.5281/zenodo.17500032",
+      "conceptdoi": "10.5281/zenodo.4733457",
+      "doi_url": "https://doi.org/10.5281/zenodo.17500032",
+      "metadata": {
+        "title": "STIR Software for Tomographic Image Reconstruction",
+        "doi": "10.5281/zenodo.17500032",
+        "publication_date": "2025-11-01",
+        "description": "<h1>Summary of changes in STIR release 6.3</h1>\n<h2>Overall summary</h2>\n<p>This version is 100% backwards compatible with STIR 6.2, aside from three important bug fixes, which will change results (see below).</p>\n<p>This is a release with many new features, as listed below. Highlights are</p>\n<ul>\n<li>the new Gibbs penalty hierarchy with CUDA and OpenMP support (and much easier addition of new potential functions) (Matteo Neel Colombo, Univ of Milano-Bicocca),</li>\n<li>new 2D analytic reconstruction algorithms (including two that allow quantitative reconstruction of SPECT) (Dimitra Kyriakopoulou, UCL),</li>\n<li>better Python support including algebraic operations and faster conversion to NumPy arrays (Kris Thielemans, UCL),</li>\n<li>continuous memory storage for arrays (allowing zero-copy access to image/projection data in SIRF Python, but not yet in STIR Python)\n(Kris Thielemans, UCL),</li>\n<li>faster scatter estimation for blocks on cylindrical scanners (Markus Jehl, Positrigo),</li>\n<li>reduced memory usage for iterative reconstructions, avoiding hitting the current limitation of 2^31 elements in <code>ProjDataInMemory</code> (Kris Thielemans, UCL),</li>\n<li>Python code for adapting e7tools output for Siemens Vision 600 to STIR (Nicole Jurjew, UCL)</li>\n</ul>\n<p>But there are many other changes from other contibutors as well, see below. Of course, there is also the usual code-cleanup and some\nimprovements to the documentation. Overall overview and release management was by Kris Thielemans (UCL) with help from Daniel Deidda (NPL).</p>\n<h2>Patch release info</h2>\n<ul>\n<li>6.3.0 released 31/10/2025<br>\n<a href=\"https://github.com/UCL/STIR/milestone/12\">GitHub Milestone 6.3</a></li>\n</ul>\n<h2>Summary for end users (also to be read by developers)</h2>\n<h3>New functionality</h3>\n<h4>General</h4>\n<ul>\n<li><p>Several 2D analytic reconstruction algorithms were added for PET (i.e. inverting the 2D Radon transform) and parallel beam SPECT (inverting the 2D attenuated Radon transform). The latter allow quantitatively correct analytic reconstruction of SPECT data (after scatter correction).</p>\n<ul>\n<li>The Spline Reconstruction Technique (SRT) algorithm has been added  in 2 different versions: <code>SRT2D</code> for PET and <code>SRT2DSPECT</code> for SPECT.\nThe reference for the implemented algorithms is:<br>\nFokas, A. S., A. Iserles, and V. Marinakis. Reconstruction algorithm  for single photon emission computed tomography and its numerical  implementation. Journal of the Royal Society Interface 3.6 (2006):   45-54.</li>\n<li><code>GRD2D</code> for PET is a direct Fourier method using regridding with  Kaiser-Bessel functions.</li>\n<li><code>DDSR2D</code> for parallel beam SPECT uses Hilbert transforms in projection space.</li>\n</ul>\n<p>The reference for the implementation of these algorithms is:<br>\nDimitra Kyriakopoulou, Analytical and Numerical Aspects of Tomography,\nPhD thesis, University College London (UCL), 2024,<br>\nAvailable at:\n<a href=\"https://discovery.ucl.ac.uk/id/eprint/10202525/\">discovery.ucl.ac.uk/id/eprint/10202525/</a>.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1420\">PR #1420</a> and <a href=\"https://github.com/UCL/STIR/pull/1595\">PR #1595</a>.</p>\n</li>\n<li><p>Wiener and Gamma filters were added.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1420\">PR #1420</a>.</p>\n</li>\n<li><p><code>ScatterSimulation</code> can now downsample the scanner transaxially (crystals per ring) for <code>BlocksOnCylindrical</code>, scanners, which speeds\nup <code>ScatterEstimation</code> considerably. By default, downsampling the detectors per reading is disabled for backwards compatibility.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1291\">PR #1291</a></p>\n</li>\n<li><p>The priors code has been refactored to provide two common, parallelized base classes for CPU and GPU implementations\n(<code>GibbsPenalty</code> and <code>CudaGibbsPenalty</code>).<br>\nOn CPU, we introduce <code>GibbsQuadraticPenalty</code> and <code>GibbsRelativeDifferencePenalty</code>, which inherit from the parallelized\n<code>GibbsPenalty</code> base class (now parallelized using OpenMP).<br>\nGPU implementations are also provided as <code>CudaGibbsQuadraticPenalty</code> and <code>CudaGibbsRelativeDifferencePenalty</code>.<br>\nCurrently, the new Gibbs penalties are still missing the paraboloidal surrogates related method implementations. They provide two new\nmethods: <code>compute_gradient_times_input</code> and <code>compute_Hessian_diagonal</code>.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1629\">PR #1629</a></p>\n</li>\n<li><p>Data from GE Discovery MI systems in RDF9 should now be readable. TOF information on these scanners has also been added. However, projection data is currently still always returned as non-TOF (but list-mode data  is read as TOF).<br>\n<a href=\"https://github.com/UCL/STIR/pull/1503\">PR #1503</a></p>\n</li>\n<li><p>Added the ability to set a forward projector for mask projection in  the <code>ScatterEstimation</code> class.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1530\">PR #1530</a></p>\n</li>\n<li><p>Duration in sinogram interfile/exam_info obtained from <code>LmToProjData</code>/<code>lm_to_projdata</code> has the correct value if we unlist all\nthe events. This is not true for ROOT files  <a href=\"https://github.com/UCL/STIR/pull/1519\">PR #1519</a></p>\n</li>\n<li><p><code>LmToProjData</code> class/<code>lm_to_projdata</code> utility now no longer requires a template projection data. If none is specified, it will use the\nproj_data_info from the input list-mode.<br>\n<strong>Warning</strong> for some scanners with TOF capabilities, this will result in very large projection data (possibly larger than the default from\nthe vendor).<br>\n<a href=\"https://github.com/UCL/STIR/pull/1315\">PR #1315</a></p>\n</li>\n<li><p>Adapt the SPECTUB projector to handle data with only a subset of the views (constructed using <code>ProjData::get_subsets()</code>. This is useful for SIRF/CIL applications using stochastic optimisation.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1596\">PR #1596</a></p>\n</li>\n</ul>\n<h4>Python</h4>\n<ul>\n<li>&quot;Container&quot; classes such as <code>FloatVoxelsOnCartesianGrid</code>, <code>ProjDataInMemory</code> and array-classes now have numerical operations\nproperly defined, for instance <code>a = b + c</code> and <code>a -= 3</code>. Note that <code>a = 1 + b</code> is not yet available.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1630\">PR #1630</a></li>\n<li>The above &quot;container&quot; classes now have an extra member `as_array()`  which returns a numpy <code>ndarray</code>. This is equivalent to\n`stirextra.to_numpy()` which will become deprecated later. In addition, the <code>fill()</code> method now directly accepts an <code>ndarray</code>,\navoiding the need to go via an iterator. These additions also make it easier to prt SIRF python code to STIR.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1632\">PR #1632</a></li>\n<li>Added a Python script to convert e7tools generated Siemens Biograph  Vision 600 sinograms to STIR compatible format.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1593\">PR #1593</a></li>\n</ul>\n<h4>Utilities</h4>\n<ul>\n<li><code>stir_timings</code> has now an extra option to parse a par-file for a  projector-pair.</li>\n</ul>\n<h3>Changed functionality</h3>\n<ul>\n<li>In previous versions, when reading data/images where the radionuclide  was not set, a default was used (F18 for PET, Tcm99 for SPECT). This led to surprising (and sometimes wrong) behaviour. The radionuclide is now kept as &quot;unknown&quot;.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1574\">PR #1574</a></li>\n<li>Default ECAT scanner configurations updated to use a negative intrinsic tilt.</li>\n<li>When computing the sensitivity images in <code>PoissonLogLikelihoodWithLinearModelForMeanAndProjData</code>, we now avoid creating an extra <code>ProjDataInMemory</code> in most cases (there are still some corner cases for TOF data when using non-TOF projector for the sensitivity, but then the memory overhead is small). This enables LAFOV PET reconstructions with the &quot;ray tracing&quot; matrix (we use less memory, and we avoid running into a current <code>ProjDataInMemory</code>\n<a href=\"https://github.com/UCL/STIR/issues/1505\">limitation on the number of  bins</a>).<br>\n<a href=\"https://github.com/UCL/STIR/pull/1617\">PR #1716</a></li>\n<li>Boost format was replaced by `std::format` for formatting strings. If C++20 or newer is not yet used, a work-around is in place by using the <a href=\"https://github.com/fmtlib/fmt/\">{fmt} library</a> (included as as a git submodule). Import <code>stir/format.h</code> and then use the <code>format()</code> function to create strings containing various variables. If the format string is not known at compile time, use <code>runtime_format()</code> instead.<br>\nCheck the updated STIR-developers-overview.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1591\">PR #1591</a> and <a href=\"https://github.com/UCL/STIR/pull/1605\">PR\n#1605</a></li>\n</ul>\n<h4>Changes to examples</h4>\n<ul>\n<li>Python example <code>plot_sinogram_profiles.py</code> has been renamed to <code>plot_projdata_profiles.py</code> and generalised to work with TOF\ndimensions etc. A small <code>pytest</code> has been added as well.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1370\">PR #1370</a></li>\n<li>Python example <code>ProjDataVisualisation.py</code> now has a vmax slider.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1568\">PR #1568</a></li>\n</ul>\n<h3>Bug fixes</h3>\n<ul>\n<li>Fixed a bug in the scatter estimation code (introduced in release 5.1.0) if input data is 3D and &quot;cylindrical&quot; (there was no bug for\n&quot;blocksoncylindrical&quot; data). The scatter estimation runs on data constructed via SSRB. However, the attenuation correction factors were\nincorrectly obtained with adding of oblique segments (as opposed to averaging). This resulted in intermediate images that had the wrong\nattenuation correction which were approximately num_segments times\nlarger. This was compensated by the tail-fitting, but resulted in unexpected scale factors (scale factors were around 1/num_segments\ntimes what was expected). This means that if you used the &quot;min/max  scale factor&quot; feature in the scatter estimate, you will have to adjust your threshold values. Expected scatter tail-fitting scale factors should now be restored to ~1-1.5 (depending on the amount of multiple and out-of-FOV scatter). See <a href=\"https://github.com/UCL/STIR/issues/1532\">Issue #1532</a> for more detail.\nFixed by using averaging functionality of SSRB instead of adding segments for attenuation correction factors.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1531\">PR #1531</a></li>\n<li>Fixed a bug in the distributed LM computation code (introduced in 6.1) that neglected to accumulate outputs when not built with OpenMP.<br>\nSee <a href=\"https://github.com/UCL/STIR/pull/1566\">PR #1566</a>.</li>\n<li>Fixed bugs in <code>accumulate_sub_Hessian_times_input</code> and <code>accumulate_sub_Hessian_times_input</code> (and hence the non-subset  versions) for objective functions when the prior is not zero.<br>\nSee <a href=\"https://github.com/UCL/STIR/pull/1649\">PR #1649</a> and <a href=\"https://github.com/UCL/STIR/pull/1651\">PR #1651</a>.</li>\n</ul>\n<h3>Build system</h3>\n<ul>\n<li>Enable more diagnostics in CMake when finding CERN's ROOT (we used to silence them)<br>\n<a href=\"https://github.com/UCL/STIR/pull/1552\">PR #1552</a></li>\n<li>Use OpenMP by default Introduce advanced variable <code>MINI_STIR</code> defaulting to <code>OFF</code> for developers. This will build a heavily reduced version of STIR which can speed up development time.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1584\">PR #1584</a></li>\n</ul>\n<h3>Known problems</h3>\n<p>See <a href=\"https://github.com/UCL/STIR/labels/bug\">our issue tracker</a>.<br>\nAn important bug is for the &quot;ray tracing matrix&quot; projector for TOF PET. Oblique segments currently have problems, see <a href=\"https://github.com/UCL/STIR/issues/1537\">#1537</a>.</p>\n<h2>What is new for developers (aside from what should be obvious from the above):</h2>\n<h3>New functionality</h3>\n<ul>\n<li><code>ProjDataInMemory</code> <code>read_from_file</code> method now returns a <code>ProjDataInMemory</code> object.</li>\n<li><code>Array::resize</code> and <code>Array::grow</code> argument <code>initialise_with_0</code> usage fixed.</li>\n</ul>\n<h3>Changed functionality</h3>\n<ul>\n<li>In C++, &quot;Container&quot; classes such as <code>VoxelsOnCartesianGrid</code>, <code>ProjDataInMemory</code> and array-classes now have numerical operations that return objects of the correct type. (Previously, it was a base-class such as <code>NumericVectorWithOffset&lt;Array&lt;2, float&gt;, float&gt;</code>).<br>\n<a href=\"https://github.com/UCL/STIR/pull/1630\">PR #1630</a></li>\n<li>Made 2 (deprecated) members of <code>ProjDataInfoBlocksOnCylindricalNoArcCorr</code> <code>private</code> and do some clean-up of which files to include.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1556\">PR #1556</a></li>\n<li><code>LmToProjData::get_template_proj_data_info_sptr()</code> is now a <code>const</code> member returning a <code>shared_ptr&lt;const ProjDataInfo&gt;</code>.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1315\">PR #1315</a></li>\n<li>As <code>stir::Array</code> template arguments might change in the future, it is now recommended to include <code>stir/ArrayFwd.h</code> when using forward declaration and use the <code>ArrayType</code> template-alias in places where a rectangular array that might live on a GPU is intended.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1589\">PR #1589</a></li>\n<li><code>Array</code> copy constructor now also uses contiguous memory allocation (as opposed to a sequence of 1D vectors).<br>\n<a href=\"https://github.com/UCL/STIR/pull/1592\">PR #1592</a>.</li>\n</ul>\n<h3>Bug fixes</h3>\n<ul>\n<li>Fixed minor incompatibility with gcc-14 and clang-18 by adding an extra include file.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1552\">PR #1552</a></li>\n<li>Changed the way that some SWIG work-arounds are implemented, avoiding the SWIG-generated wrapper to be compiled with the <code>SWIG</code> preprocessor symbol.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1647\">PR #1647</a></li>\n</ul>\n<h3>New Deprecations and renames</h3>\n<ul>\n<li><code>truncate_end_planes</code> will be removed in v7.0 legacy compatibility with version 3, 4 and 5 will be removed in v7.0.  CMake options <code>STIR_PROJECTORS_AS_V3</code>, <code>STIR_LEGACY_IGNORE_VIEW_OFFSET</code> and <code>STIR_ROOT_ROTATION_AS_V4</code> will therefore be removed.</li>\n<li>Starting from v7.0, <code>GeneralizedPrior</code> will be renamed to <code>GeneralizedPenalty</code>.   <code>QuadraticPrior</code>, <code>RelativeDifferencePrior</code>, and <code>LogcoshPrior</code> will be removed in favor of the new <code>GibbsPenalty</code> framework. <a href=\"https://github.com/UCL/STIR/issues/1426\">Issue #1426</a></li>\n</ul>\n<h3>Test changes</h3>\n<p>All new features and most code changes were accompanied by new tests.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Efthimiou, Nikos",
+            "affiliation": null,
+            "orcid": "0000-0003-1947-5033"
+          },
+          {
+            "name": "Mustafovic, Sanida",
+            "affiliation": "Imperial College London (UK)"
+          },
+          {
+            "name": "Brown, Richard",
+            "affiliation": "University College London",
+            "orcid": "0000-0001-6989-9200"
+          },
+          {
+            "name": "Twyman Skelly, Robert",
+            "affiliation": "University College London and Prescient Imaging"
+          },
+          {
+            "name": "Deidda, Daniel",
+            "affiliation": "National Physics Laboratory (UK)",
+            "orcid": "0000-0002-2766-4339"
+          },
+          {
+            "name": "Tsoumpas, Charalampos",
+            "affiliation": null
+          },
+          {
+            "name": "Jehl, Markus",
+            "affiliation": "Positrigo"
+          },
+          {
+            "name": "Kyriakopoulou, Dimitra",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Falcon, Carles",
+            "affiliation": null
+          },
+          {
+            "name": "Borgeaud, Tim",
+            "affiliation": "Hammersmith Imanet Ltd"
+          },
+          {
+            "name": "Colombo, Matteo Neel",
+            "affiliation": "University of Milano-Bicocca (Italy)"
+          },
+          {
+            "name": "Wadhwa, Palak",
+            "affiliation": "University of Leeds (UK)"
+          },
+          {
+            "name": "Khateri, Parisa",
+            "affiliation": "ETH Zuerich"
+          },
+          {
+            "name": "Beisel, Tobias",
+            "affiliation": null
+          },
+          {
+            "name": "Strugari, Matthew",
+            "affiliation": "Dalhousie University (Canada)"
+          },
+          {
+            "name": "Emond, Elise",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Gillman, Ashley",
+            "affiliation": "Commonwealth Scientific and Industrial Research Organisation, and University of Queensland",
+            "orcid": "0000-0001-9130-1092"
+          },
+          {
+            "name": "Jacobson, Matthew",
+            "affiliation": null
+          },
+          {
+            "name": "Zverovich, Alexey",
+            "affiliation": "Brunel University (UK)"
+          },
+          {
+            "name": "Fuster Marti, Berta",
+            "affiliation": "University of Barcelona (Spain)"
+          },
+          {
+            "name": "Labbe, Claire",
+            "affiliation": null
+          },
+          {
+            "name": "Jurjew, Nicole",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Biguri, Ander",
+            "affiliation": "University College London",
+            "orcid": "0000-0002-2636-3032"
+          },
+          {
+            "name": "Fischer, Jannis",
+            "affiliation": null,
+            "orcid": "0000-0002-8329-0220"
+          },
+          {
+            "name": "Roethlisberger, Michael",
+            "affiliation": "ETH Zuerich"
+          },
+          {
+            "name": "Bertolli, Ottavia",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Brusaferri, Ludovica",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Thomas, Benjamin",
+            "affiliation": "University College London",
+            "orcid": "0000-0002-9784-1177"
+          },
+          {
+            "name": "Pasca, Edoardo",
+            "affiliation": "UK Research & Innovation",
+            "orcid": "0000-0001-6957-2160"
+          },
+          {
+            "name": "Aguiar, Pablo",
+            "affiliation": null
+          },
+          {
+            "name": "Niknejad, Tahereh",
+            "affiliation": null
+          },
+          {
+            "name": "Sadki, Mustapha",
+            "affiliation": "Brunel University (UK)"
+          },
+          {
+            "name": "Singh, Imraj",
+            "affiliation": "University College London (UK)",
+            "orcid": "0000-0003-2186-0977"
+          },
+          {
+            "name": "Kerrouche, Nacer",
+            "affiliation": "Hammersmith Imanet Ltd"
+          },
+          {
+            "name": "Dikaios, Nikos",
+            "affiliation": null
+          },
+          {
+            "name": "Ovtchinnikov, Evgueni",
+            "affiliation": null,
+            "orcid": "0000-0002-9359-6514"
+          },
+          {
+            "name": "Fardell, Gemma",
+            "affiliation": "UK Research & Innovation",
+            "orcid": "0000-0003-2388-5211"
+          },
+          {
+            "name": "Schmidtlein, C Ross",
+            "affiliation": "UK Research & Innovation"
+          },
+          {
+            "name": "Valente, Patrick",
+            "affiliation": "Brunel University (UK)"
+          },
+          {
+            "name": "Porter, Sam David",
+            "affiliation": "University College London, National Physics Laboratory (UK)"
+          },
+          {
+            "name": "Schramm, Georg",
+            "affiliation": "Katholieke Universiteit Leuven (Belgium)"
+          },
+          {
+            "name": "Ehrhardt, Matthias J.",
+            "affiliation": null,
+            "orcid": "0000-0001-8523-353X"
+          },
+          {
+            "name": "V\u00f6lgyes, David",
+            "affiliation": null
+          },
+          {
+            "name": "Dinelle, Katie",
+            "affiliation": null
+          },
+          {
+            "name": "Belluzzo, Damiano",
+            "affiliation": "Hospedale San Raffaele Milano (Italy)"
+          },
+          {
+            "name": "Ching, Daniel",
+            "affiliation": null
+          },
+          {
+            "name": "Hague, Darren",
+            "affiliation": "Brunel University (UK)"
+          },
+          {
+            "name": "Tunnicliffe, Harry",
+            "affiliation": "University of Leeds (UK)"
+          },
+          {
+            "name": "Dao, Viet Anh",
+            "affiliation": "University of Leeds (UK)"
+          },
+          {
+            "name": "Chen, Gefei",
+            "affiliation": null
+          },
+          {
+            "name": "Mikhaylova, Ekaterina",
+            "affiliation": "Positrigo"
+          },
+          {
+            "name": "da Costa-Luis, Casper O.",
+            "affiliation": null,
+            "orcid": "0000-0002-7211-1557"
+          },
+          {
+            "name": "Li, Zekai",
+            "affiliation": "Rijksuniversiteit Groningen (Netherlands)"
+          },
+          {
+            "name": "Reeves, Antonia",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Rashidnasab, Alaleh",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Whitehead, Alexander C.",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Tsai, Yu-jung",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Gillen, Rebecca",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Vavrek, Jayson",
+            "affiliation": null
+          },
+          {
+            "name": "Kohr, Holger",
+            "affiliation": null
+          },
+          {
+            "name": "tokkot",
+            "affiliation": null
+          },
+          {
+            "name": "El Katib, Mahmoud",
+            "affiliation": null
+          },
+          {
+            "name": "Thielemans, Kris",
+            "affiliation": "University College London",
+            "orcid": "0000-0002-5514-199X"
+          }
+        ],
+        "keywords": [
+          "pet",
+          "spect",
+          "medical imaging",
+          "image reconstruction",
+          "open-source software"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/UCL/STIR/tree/rel_6.3.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "rel_6.3.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/UCL/STIR"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "apache2.0"
+        },
+        "communities": [
+          {
+            "id": "synerbi"
+          },
+          {
+            "id": "ccp-petmr"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 7,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "4733457"
+              }
+            }
+          ]
+        },
+        "notes": "If you use this software, please cite it using the metadata from this file."
+      },
+      "title": "STIR Software for Tomographic Image Reconstruction",
+      "links": {
+        "self": "https://zenodo.org/api/records/17500032",
+        "self_html": "https://zenodo.org/records/17500032",
+        "preview_html": "https://zenodo.org/records/17500032?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17500032",
+        "self_doi": "https://doi.org/10.5281/zenodo.17500032",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17500032",
+        "reserve_doi": "https://zenodo.org/api/records/17500032/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/4733457",
+        "parent_html": "https://zenodo.org/records/4733457",
+        "parent_doi": "https://doi.org/10.5281/zenodo.4733457",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.4733457",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17500032/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17500032/sequence/default",
+        "files": "https://zenodo.org/api/records/17500032/files",
+        "media_files": "https://zenodo.org/api/records/17500032/media-files",
+        "archive": "https://zenodo.org/api/records/17500032/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17500032/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17500032/versions/latest",
+        "latest_html": "https://zenodo.org/records/17500032/latest",
+        "versions": "https://zenodo.org/api/records/17500032/versions",
+        "draft": "https://zenodo.org/api/records/17500032/draft",
+        "access_links": "https://zenodo.org/api/records/17500032/access/links",
+        "access_grants": "https://zenodo.org/api/records/17500032/access/grants",
+        "access_users": "https://zenodo.org/api/records/17500032/access/users",
+        "access_request": "https://zenodo.org/api/records/17500032/access/request",
+        "access": "https://zenodo.org/api/records/17500032/access",
+        "communities": "https://zenodo.org/api/records/17500032/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17500032/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17500032/request-deletion",
+        "requests": "https://zenodo.org/api/records/17500032/requests"
+      },
+      "updated": "2025-11-01T08:00:27.650619+00:00",
+      "recid": "17500032",
+      "revision": 4,
+      "files": [
+        {
+          "id": "13a681d9-8145-4112-854b-1f114d6fce67",
+          "key": "UCL/STIR-rel_6.3.0.zip",
+          "size": 32615522,
+          "checksum": "md5:de7e64540b62bf5dc164a8e07d222a99",
+          "links": {
+            "self": "https://zenodo.org/api/records/17500032/files/UCL/STIR-rel_6.3.0.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:084d8485c2de0631f487b4b0974bf1754ef690c7;origin=https://doi.org/10.5281/zenodo.4733457;visit=swh:1:snp:cdf632b745358e680a2ef0ce534be0aacb2da2de;anchor=swh:1:rel:7070fdd320e1b87bb4866cd87e15c12350da16a0;path=UCL-STIR-4591e80"
+      },
+      "owners": [
+        {
+          "id": "48990"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 117,
+        "unique_downloads": 117,
+        "views": 1278,
+        "unique_views": 1227,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T07:25:42.605168+00:00",
+      "modified": "2025-11-01T07:25:43.407370+00:00",
+      "id": 17499708,
+      "conceptrecid": "17499707",
+      "doi": "10.5281/zenodo.17499708",
+      "conceptdoi": "10.5281/zenodo.17499707",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499708",
+      "metadata": {
+        "title": "Humanity space. International almanac. Vol. 14, No 7",
+        "doi": "10.5281/zenodo.17499708",
+        "publication_date": "2025-11-01",
+        "description": "<p>Humanity space (\u0413\u0443\u043c\u0430\u043d\u0438\u0442\u0430\u0440\u043d\u043e\u0435&nbsp;\u043f\u0440\u043e\u0441\u0442\u0440\u0430\u043d\u0441\u0442\u0432\u043e.&nbsp;\u041c\u0435\u0436\u0434\u0443\u043d\u0430\u0440\u043e\u0434\u043d\u044b\u0439&nbsp;\u0430\u043b\u044c\u043c\u0430\u043d\u0430\u0445&nbsp;= Humanity space. International almanac) has been published since 2012. Articles that are the result of scientific research are published. Texts could be original researches, containing new, previously unpublished results, surveys, analytical and conceptual manuscripts on specific issues of the humanities and natural sciences.</p>\n<p>Publication is registered in the ISSN International Centre in Paris (identification number printed version: ISSN 2226-0773).</p>\n<p>There are 4 issues per year, as well as supplements in the form of an appendix to the journal.</p>\n<p>Almanac is presented in many databases and directories: Zoological Record (Web of Science), ZooBank, EBSCO, ERIH PLUS, Index Copernicus International, Genamics JournalSeek, Google Scholar, Intellectual System of the Thematic Research of Scientific Metric Data (ISTINA), Russian Science Citation Index (RSCI), \u0421yberleninka etc.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Lazarev, Maxim",
+            "affiliation": "Free Economic Society of Russia",
+            "orcid": "0000-0002-4040-0987"
+          }
+        ],
+        "keywords": [
+          "philological sciences, fiction, literary criticism, contemporary literature, unpublished stories",
+          "\u0444\u0438\u043b\u043e\u043b\u043e\u0433\u0438\u0447\u0435\u0441\u043a\u0438\u0435 \u043d\u0430\u0443\u043a\u0438, \u0445\u0443\u0434\u043e\u0436\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u0430\u044f \u043b\u0438\u0442\u0435\u0440\u0430\u0442\u0443\u0440\u0430, \u043b\u0438\u0442\u0435\u0440\u0430\u0442\u0443\u0440\u043e\u0432\u0435\u0434\u0435\u043d\u0438\u0435, \u0441\u043e\u0432\u0440\u0435\u043c\u0435\u043d\u043d\u0430\u044f \u043b\u0438\u0442\u0435\u0440\u0430\u0442\u0443\u0440\u0430, \u043d\u0435\u043e\u043f\u0443\u0431\u043b\u0438\u043a\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u0440\u0430\u0441\u0441\u043a\u0430\u0437\u044b"
+        ],
+        "language": "rus",
+        "resource_type": {
+          "title": "Journal",
+          "type": "publication",
+          "subtype": "journal"
+        },
+        "journal": {
+          "issue": "7",
+          "pages": "521-589",
+          "title": "Humanity space. International almanac",
+          "volume": "14"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "2226-0773"
+          },
+          {
+            "identifier": "EDN: HOLWFJ"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499707"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Humanity space. International almanac. Vol. 14, No 7",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499708",
+        "self_html": "https://zenodo.org/records/17499708",
+        "preview_html": "https://zenodo.org/records/17499708?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499708",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499708",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499708",
+        "reserve_doi": "https://zenodo.org/api/records/17499708/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499707",
+        "parent_html": "https://zenodo.org/records/17499707",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499707",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499707",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499708/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499708/sequence/default",
+        "files": "https://zenodo.org/api/records/17499708/files",
+        "media_files": "https://zenodo.org/api/records/17499708/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17499708:Humanity_space_International_almanac_2025_14_7.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17499708:Humanity_space_International_almanac_2025_14_7.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17499708:Humanity_space_International_almanac_2025_14_7.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17499708:Humanity_space_International_almanac_2025_14_7.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17499708:Humanity_space_International_almanac_2025_14_7.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17499708:Humanity_space_International_almanac_2025_14_7.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17499708/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499708/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499708/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499708/latest",
+        "versions": "https://zenodo.org/api/records/17499708/versions",
+        "draft": "https://zenodo.org/api/records/17499708/draft",
+        "access_links": "https://zenodo.org/api/records/17499708/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499708/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499708/access/users",
+        "access_request": "https://zenodo.org/api/records/17499708/access/request",
+        "access": "https://zenodo.org/api/records/17499708/access",
+        "communities": "https://zenodo.org/api/records/17499708/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499708/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499708/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499708/requests"
+      },
+      "updated": "2025-11-01T07:25:43.407370+00:00",
+      "recid": "17499708",
+      "revision": 4,
+      "files": [
+        {
+          "id": "657db95f-c04b-444b-b18f-c4547eba907c",
+          "key": "Humanity_space_International_almanac_2025_14_7.pdf",
+          "size": 1364524,
+          "checksum": "md5:6f244e46329fd1c84c9616c56c356322",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499708/files/Humanity_space_International_almanac_2025_14_7.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "339964"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T05:59:15.540313+00:00",
+      "modified": "2025-11-01T05:59:15.746030+00:00",
+      "id": 17499326,
+      "conceptrecid": "17499325",
+      "doi": "10.5281/zenodo.17499326",
+      "conceptdoi": "10.5281/zenodo.17499325",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499326",
+      "metadata": {
+        "title": "Fabricated space maintainers: Improving fit and function in pediatric patients",
+        "doi": "10.5281/zenodo.17499326",
+        "publication_date": "2025-07-31",
+        "description": "<p>Introduction: Premature Loss of primary molars can significantly disrupt the normal eruption sequence and lead to complications such as Loss of arch length, crowding, midline deviation, and malocclusion. Early intervention through space maintenance is crucial, especially in the mixed dentition phase. This case highlights the clinical application of a fixed crown-loop space maintainer in preserving the mesiodistal space post-extraction of a non-restorable primary molar.&nbsp;</p>\n<p>Case History: An 8-year-old female presented with extensive caries in tooth 85 and structural compromise in tooth 84. Clinical and radiographic examination indicated the necessity of extraction and immediate space maintenance. A stainless-steel crown was fitted on tooth 84 with a custom-fabricated loop, followed by extraction of tooth 85 and appliance cementation. Over four months, the eruption of tooth 45 was observed, and the appliance was removed due to loosening.&nbsp;</p>\n<p>Discussion: The use of a crown and loop space maintainer was indicated due to the poor prognosis of the adjacent abutment tooth, offering both full coronal coverage and reliable anchorage. Compared to band-retained alternatives, stainless steel crowns enhance durability and chairside efficiency. Regular monitoring ensured the appliance did not interfere with soft tissue or tooth eruption. This case supports the efficacy of such appliances in maintaining arch integrity and guiding proper occlusal development.&nbsp;</p>\n<p>Conclusion: A fixed crown-loop space maintainer effectively preserved arch space, facilitated proper eruption of the successor tooth, and maintained function in a pediatric patient with premature molar Loss. Its success underscores the importance of individualized planning, durable materials, and routine follow-up in pediatric space management strategies.&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "DH, Delaneira Alvita",
+            "affiliation": "Department of Pediatric Dentistry, Faculty of Dental Medicine, Universitas Airlangga, Surabaya, Indonesia."
+          },
+          {
+            "name": "Anindyariani, Alocitta",
+            "affiliation": "Department of Pediatric Dentistry, Faculty of Dental Medicine, Universitas Airlangga, Surabaya, Indonesia."
+          },
+          {
+            "name": "Nuraini, Prawati",
+            "affiliation": "Department of Pediatric Dentistry, Faculty of Dental Medicine, Universitas Airlangga, Surabaya, Indonesia."
+          }
+        ],
+        "keywords": [
+          "Premature Tooth Loss",
+          "Space Maintainer",
+          "Crown-Loop Appliance",
+          "Interceptive Orthodontic",
+          "Human and Health"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "1",
+          "pages": "313-317",
+          "title": "World Journal of Advanced Research and Reviews",
+          "volume": "27"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "10.30574/wjarr.2025.27.1.2521"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "wjarr"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499325"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Fabricated space maintainers: Improving fit and function in pediatric patients",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499326",
+        "self_html": "https://zenodo.org/records/17499326",
+        "preview_html": "https://zenodo.org/records/17499326?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499326",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499326",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499326",
+        "reserve_doi": "https://zenodo.org/api/records/17499326/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499325",
+        "parent_html": "https://zenodo.org/records/17499325",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499325",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499325",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499326/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499326/sequence/default",
+        "files": "https://zenodo.org/api/records/17499326/files",
+        "media_files": "https://zenodo.org/api/records/17499326/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17499326:WJARR-2025-2521.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17499326:WJARR-2025-2521.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17499326:WJARR-2025-2521.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17499326:WJARR-2025-2521.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17499326:WJARR-2025-2521.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17499326:WJARR-2025-2521.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17499326/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499326/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499326/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499326/latest",
+        "versions": "https://zenodo.org/api/records/17499326/versions",
+        "draft": "https://zenodo.org/api/records/17499326/draft",
+        "access_links": "https://zenodo.org/api/records/17499326/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499326/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499326/access/users",
+        "access_request": "https://zenodo.org/api/records/17499326/access/request",
+        "access": "https://zenodo.org/api/records/17499326/access",
+        "communities": "https://zenodo.org/api/records/17499326/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499326/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499326/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499326/requests"
+      },
+      "updated": "2025-11-01T05:59:15.746030+00:00",
+      "recid": "17499326",
+      "revision": 4,
+      "files": [
+        {
+          "id": "e08e5e54-9585-4b21-9d31-77a27bfc1128",
+          "key": "WJARR-2025-2521.pdf",
+          "size": 495388,
+          "checksum": "md5:9f7a6ea42d16b465db98aaa6f0d833b2",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499326/files/WJARR-2025-2521.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "155121"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 2,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 2,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T05:39:06.108126+00:00",
+      "modified": "2025-11-01T05:39:06.299515+00:00",
+      "id": 17499184,
+      "conceptrecid": "17499183",
+      "doi": "10.5281/zenodo.17499184",
+      "conceptdoi": "10.5281/zenodo.17499183",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499184",
+      "metadata": {
+        "title": "Psychometric instruments to assess decision-making skills in clinical-legal settings: A scoping review",
+        "doi": "10.5281/zenodo.17499184",
+        "publication_date": "2025-07-31",
+        "description": "<p>The assessment of decision-making capacity in patients with severe and persistent psychiatric disorders constitutes a highly complex clinical, ethical, and legal challenge. This scoping review aimed to identify, describe, and analyze the main psychometric instruments used to assess decision-making capacity in diverse clinical settings. To this end, a systematic literature search was conducted in specialized databases (PubMed, Scopus, SciELO, PsycINFO, and Web of Science) following the methodological guidelines of the Joanna Briggs Institute (JBI). Sixteen studies published between 2015 and 2025 were selected after applying rigorous inclusion and exclusion criteria.</p>\n<p>The results show that the most widely used instrument is the MacArthur Competence Assessment Tool for Treatment (MacCAT-T), due to its comprehensive approach to the domains of comprehension, appreciation, reasoning, and expression of choice. Other relevant instruments were also identified, such as the Aid to Capacity Evaluation (ACE), the UBACC, and the CCTI, each with particular strengths depending on the context of application. However, important limitations persist, such as the lack of cultural adaptations and poor standardization in Spanish-speaking populations. Furthermore, it is concluded that the available instruments are useful and reliable, but their effective application requires careful integration with clinical protocols, adequate staff training, and ethical and legal considerations. As such, the study contributes to clarifying the current landscape of tools available for assessing decision-making capacity, highlighting their importance in protecting patient autonomy in highly vulnerable contexts.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Licona, Jos\u00e9 Fernando Mendez",
+            "affiliation": "Universidad Libre Seccional Cali, Valle del Cauca-Colombia."
+          }
+        ],
+        "keywords": [
+          "Decision-Making Capacity",
+          "Psychometric Instruments",
+          "Psychiatric Disorders",
+          "Cancer",
+          "Euthanasia",
+          "Assisted Suicide"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "1",
+          "pages": "269-274",
+          "title": "World Journal of Advanced Research and Reviews",
+          "volume": "27"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "10.30574/wjarr.2025.27.1.2538"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "wjarr"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499183"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Psychometric instruments to assess decision-making skills in clinical-legal settings: A scoping review",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499184",
+        "self_html": "https://zenodo.org/records/17499184",
+        "preview_html": "https://zenodo.org/records/17499184?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499184",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499184",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499184",
+        "reserve_doi": "https://zenodo.org/api/records/17499184/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499183",
+        "parent_html": "https://zenodo.org/records/17499183",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499183",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499183",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499184/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499184/sequence/default",
+        "files": "https://zenodo.org/api/records/17499184/files",
+        "media_files": "https://zenodo.org/api/records/17499184/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17499184:WJARR-2025-2538.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17499184:WJARR-2025-2538.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17499184:WJARR-2025-2538.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17499184:WJARR-2025-2538.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17499184:WJARR-2025-2538.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17499184:WJARR-2025-2538.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17499184/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499184/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499184/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499184/latest",
+        "versions": "https://zenodo.org/api/records/17499184/versions",
+        "draft": "https://zenodo.org/api/records/17499184/draft",
+        "access_links": "https://zenodo.org/api/records/17499184/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499184/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499184/access/users",
+        "access_request": "https://zenodo.org/api/records/17499184/access/request",
+        "access": "https://zenodo.org/api/records/17499184/access",
+        "communities": "https://zenodo.org/api/records/17499184/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499184/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499184/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499184/requests"
+      },
+      "updated": "2025-11-01T05:39:06.299515+00:00",
+      "recid": "17499184",
+      "revision": 4,
+      "files": [
+        {
+          "id": "73f3a89d-8725-425e-9d13-2d1435043884",
+          "key": "WJARR-2025-2538.pdf",
+          "size": 484872,
+          "checksum": "md5:e918302c630203fd2709c758b195d1f6",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499184/files/WJARR-2025-2538.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "155121"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 2,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 2,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T04:14:41.599921+00:00",
+      "modified": "2025-11-01T04:14:41.729536+00:00",
+      "id": 17498701,
+      "conceptrecid": "17498700",
+      "doi": "10.5281/zenodo.17498701",
+      "conceptdoi": "10.5281/zenodo.17498700",
+      "doi_url": "https://doi.org/10.5281/zenodo.17498701",
+      "metadata": {
+        "title": "Complementary and alternative treatments for managing chemotherapy-induced nausea and vomiting in pediatric cancer patients: A scoping review",
+        "doi": "10.5281/zenodo.17498701",
+        "publication_date": "2025-07-31",
+        "description": "<p>Introduction: Chemotherapy-induced nausea and vomiting are a very common side effect of chemotherapy. To date, neither complete efficacy has been shown for any pharmacological interventions, especially for pediatric patients. Complementary and alternative medicine (CAM) therapy can potentially fill an important niche within the treatment and care continuum, serving as an adjunct to standard care usually provided.</p>\n<p>Purpose: This article seeks to examine and identify complementary and alternative methods of nausea and vomiting management in pediatric patients with cancer who receive treatment with chemotherapy.</p>\n<p>Methods: A scoping review was conducted with an emphasis on major alternative therapies, including acupressure, acupuncture, aromatherapy, and music therapy, from the PubMed and Scopus databases. Both qualitative and quantitative research from 2005 to 2025, either in Greek or English, was included within the review. An international outlook was considered for conducting the study. Article identification, selection, and presentation were done according to PRISMA-ScR guidelines and applied individually to each category before combining them. Inclusion criteria for the articles included cancer patients who were receiving chemotherapy and had symptoms of nausea and vomiting.</p>\n<p>Results: There was a total of 15 articles included. Outcomes were beneficial, particularly regarding a lack of progression of chemotherapy-induced nausea and vomiting (CINV) due to the use of acupuncture techniques (auricular, classic, and electroacupuncture) along with music therapy. Although aromatherapy did not exhibit improvements of symptoms, it helped stabilize levels of CINV; however, acupressure with Sea-Bands or manual techniques, although easy to administer and quickly applied, were unable to reap statistically significant results from any study within these analyses.</p>\n<p>Conclusions: The concurrent administration of complementary and standard therapies can potentially benefit from reducing antiemetic drug consumption, successfully controlling both acute and delayed CINV, and improving patients' quality of life. This study calls for more research and clinical trials aimed at assessing these methods for their efficacy and safety and integrating them into clinical practice. Scientific roles for nurses as researchers, caregivers, and teachers have been identified and appreciated throughout various studies.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Metaxa, Maria-Anastasia",
+            "affiliation": "Department of Nursing, National and Kapodistrian University of Athens, Greece."
+          },
+          {
+            "name": "Koutelekos, Ioannis",
+            "affiliation": "Department of Nursing, University of West Attica, Athens, Greece."
+          },
+          {
+            "name": "Moshovi, Maria",
+            "affiliation": "Department of Medicine, National and Kapodistrian University of Athens, Greece."
+          },
+          {
+            "name": "Perdikaris, Pantelis",
+            "affiliation": "Department of Nursing, School of Health Sciences, University of Peloponnese, Greece."
+          }
+        ],
+        "keywords": [
+          "Alternative Therapies",
+          "Nausea",
+          "Vomiting",
+          "Acupuncture",
+          "Acupressure",
+          "Music Therapy",
+          "Aromatherapy"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "1",
+          "pages": "180-193",
+          "title": "World Journal of Advanced Research and Reviews",
+          "volume": "27"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "10.30574/wjarr.2025.27.1.2380"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "wjarr"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17498700"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Complementary and alternative treatments for managing chemotherapy-induced nausea and vomiting in pediatric cancer patients: A scoping review",
+      "links": {
+        "self": "https://zenodo.org/api/records/17498701",
+        "self_html": "https://zenodo.org/records/17498701",
+        "preview_html": "https://zenodo.org/records/17498701?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17498701",
+        "self_doi": "https://doi.org/10.5281/zenodo.17498701",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17498701",
+        "reserve_doi": "https://zenodo.org/api/records/17498701/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17498700",
+        "parent_html": "https://zenodo.org/records/17498700",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17498700",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17498700",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17498701/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17498701/sequence/default",
+        "files": "https://zenodo.org/api/records/17498701/files",
+        "media_files": "https://zenodo.org/api/records/17498701/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17498701:WJARR-2025-2380.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17498701:WJARR-2025-2380.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17498701:WJARR-2025-2380.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17498701:WJARR-2025-2380.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17498701:WJARR-2025-2380.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17498701:WJARR-2025-2380.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17498701/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17498701/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17498701/versions/latest",
+        "latest_html": "https://zenodo.org/records/17498701/latest",
+        "versions": "https://zenodo.org/api/records/17498701/versions",
+        "draft": "https://zenodo.org/api/records/17498701/draft",
+        "access_links": "https://zenodo.org/api/records/17498701/access/links",
+        "access_grants": "https://zenodo.org/api/records/17498701/access/grants",
+        "access_users": "https://zenodo.org/api/records/17498701/access/users",
+        "access_request": "https://zenodo.org/api/records/17498701/access/request",
+        "access": "https://zenodo.org/api/records/17498701/access",
+        "communities": "https://zenodo.org/api/records/17498701/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17498701/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17498701/request-deletion",
+        "requests": "https://zenodo.org/api/records/17498701/requests"
+      },
+      "updated": "2025-11-01T04:14:41.729536+00:00",
+      "recid": "17498701",
+      "revision": 4,
+      "files": [
+        {
+          "id": "41a0d133-e786-4a97-87ab-72bf372a3aab",
+          "key": "WJARR-2025-2380.pdf",
+          "size": 552621,
+          "checksum": "md5:9a1e0201ba8e93f6d6f1de94d74fefdc",
+          "links": {
+            "self": "https://zenodo.org/api/records/17498701/files/WJARR-2025-2380.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "155121"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 2,
+        "unique_downloads": 2,
+        "views": 2,
+        "unique_views": 2,
+        "version_downloads": 2,
+        "version_unique_downloads": 2,
+        "version_unique_views": 2,
+        "version_views": 2
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T02:59:01.202642+00:00",
+      "modified": "2025-11-01T02:59:01.429036+00:00",
+      "id": 17498393,
+      "conceptrecid": "17498392",
+      "doi": "10.5281/zenodo.17498393",
+      "conceptdoi": "10.5281/zenodo.17498392",
+      "doi_url": "https://doi.org/10.5281/zenodo.17498393",
+      "metadata": {
+        "title": "Epigenetic Dynamics Optimization Algorithm and Its Mechanism Study",
+        "doi": "10.5281/zenodo.17498393",
+        "publication_date": "2025-11-01",
+        "description": "<p><span>Epigenetics is the study of gene expression regulation and phenotypic shaping. Its core characteristic is the dynamic regulation of gene expression without altering the gene sequence. Key epigenetic mechanisms include DNA methylation, histone modification, noncoding RNA regulation, and chromatin remodeling. These mechanisms are reversible, heritable, multi-layered, dynamic, and environmentally adaptable. Inspired by the principles of epigenetics, this paper proposes a novel heuristic optimization algorithm, Epigenetic Dynamics Optimization (EDO). Building on the core properties of epigenetics, this algorithm incorporates the reversible methylation dynamics mechanism (RMD), the multi-layered histone energy mechanism (MHE), the noncoding RNA cooperative network (NCN), and the chromatin topology remodeling mechanism (CTR), enabling individual activity control, local search optimization, global hopping, and coordinated transfer of neighborhood information. This paper provides a detailed explanation of the algorithmic mechanism, mathematical formula derivation, and optimization strategy design, providing a theoretical foundation for future research on epigenetic heuristic optimization algorithms.</span></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Zhang, Jincheng",
+            "affiliation": null,
+            "orcid": "0009-0005-1860-0009"
+          }
+        ],
+        "resource_type": {
+          "title": "Preprint",
+          "type": "publication",
+          "subtype": "preprint"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17498392"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Epigenetic Dynamics Optimization Algorithm and Its Mechanism Study",
+      "links": {
+        "self": "https://zenodo.org/api/records/17498393",
+        "self_html": "https://zenodo.org/records/17498393",
+        "preview_html": "https://zenodo.org/records/17498393?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17498393",
+        "self_doi": "https://doi.org/10.5281/zenodo.17498393",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17498393",
+        "reserve_doi": "https://zenodo.org/api/records/17498393/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17498392",
+        "parent_html": "https://zenodo.org/records/17498392",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17498392",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17498392",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17498393/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17498393/sequence/default",
+        "files": "https://zenodo.org/api/records/17498393/files",
+        "media_files": "https://zenodo.org/api/records/17498393/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17498393:Epigenetic%20Dynamics%20Optimization%20Algorithm%20and%20Its%20Mechanism%20Study.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17498393:Epigenetic%20Dynamics%20Optimization%20Algorithm%20and%20Its%20Mechanism%20Study.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17498393:Epigenetic%20Dynamics%20Optimization%20Algorithm%20and%20Its%20Mechanism%20Study.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17498393:Epigenetic%20Dynamics%20Optimization%20Algorithm%20and%20Its%20Mechanism%20Study.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17498393:Epigenetic%20Dynamics%20Optimization%20Algorithm%20and%20Its%20Mechanism%20Study.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17498393:Epigenetic%20Dynamics%20Optimization%20Algorithm%20and%20Its%20Mechanism%20Study.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17498393/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17498393/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17498393/versions/latest",
+        "latest_html": "https://zenodo.org/records/17498393/latest",
+        "versions": "https://zenodo.org/api/records/17498393/versions",
+        "draft": "https://zenodo.org/api/records/17498393/draft",
+        "access_links": "https://zenodo.org/api/records/17498393/access/links",
+        "access_grants": "https://zenodo.org/api/records/17498393/access/grants",
+        "access_users": "https://zenodo.org/api/records/17498393/access/users",
+        "access_request": "https://zenodo.org/api/records/17498393/access/request",
+        "access": "https://zenodo.org/api/records/17498393/access",
+        "communities": "https://zenodo.org/api/records/17498393/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17498393/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17498393/request-deletion",
+        "requests": "https://zenodo.org/api/records/17498393/requests"
+      },
+      "updated": "2025-11-01T02:59:01.429036+00:00",
+      "recid": "17498393",
+      "revision": 4,
+      "files": [
+        {
+          "id": "e1f9943a-d54a-4dd7-8d2b-ff34180050af",
+          "key": "Epigenetic Dynamics Optimization Algorithm and Its Mechanism Study.pdf",
+          "size": 713461,
+          "checksum": "md5:ffe97e873260caec918cf627eaedad89",
+          "links": {
+            "self": "https://zenodo.org/api/records/17498393/files/Epigenetic Dynamics Optimization Algorithm and Its Mechanism Study.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1352438"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T00:32:09.900288+00:00",
+      "modified": "2025-11-01T00:32:10.212328+00:00",
+      "id": 17498020,
+      "conceptrecid": "17497994",
+      "doi": "10.5281/zenodo.17498020",
+      "conceptdoi": "10.5281/zenodo.17497994",
+      "doi_url": "https://doi.org/10.5281/zenodo.17498020",
+      "metadata": {
+        "title": "Metagenomic Agentic Discovery (MAD) Skills with NMDC",
+        "doi": "10.5281/zenodo.17498020",
+        "publication_date": "2025-10-27",
+        "description": "<p><span>Agents are AI systems that leverage large language models (LLMs) to carry out complex, open-ended tasks on our behalf &mdash; from writing code and analyzing datasets to organizing databases, often with remarkable results. However, getting started with agents can seem daunting, and customizing them even more so. In this seminar, I will demystify agentic systems by walking through how they work and how you can start using them for day-to-day tasks. I'll introduce a new paradigm that allows you to teach agents custom \"skills,\" enabling them to adapt to specialized domains and workflows. As a demonstration, I'll show how to use the NMDC's agentic MCP interface to search for genomic data relevant to microbial metal chelator discovery. I'll close with perspectives on how these tools could integrate into the new BER data </span><span>lakehouse</span><span>, and the opportunities they present for accelerating scientific discovery.</span></p>\n<p><br>https://github.com/microbiomedata/nmdc-mcp</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Mungall, Christopher",
+            "affiliation": "Lawrence Berkeley National Laboratory",
+            "orcid": "0000-0002-6601-2165"
+          }
+        ],
+        "custom": {
+          "code:codeRepository": "https://github.com/microbiomedata/nmdc-mcp"
+        },
+        "resource_type": {
+          "title": "Presentation",
+          "type": "presentation"
+        },
+        "meeting": {
+          "title": "Demystifying AI & Data Management Series",
+          "place": "Lawrence Berkeley National Laboratory"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 1,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17497994"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Metagenomic Agentic Discovery (MAD) Skills with NMDC",
+      "links": {
+        "self": "https://zenodo.org/api/records/17498020",
+        "self_html": "https://zenodo.org/records/17498020",
+        "preview_html": "https://zenodo.org/records/17498020?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17498020",
+        "self_doi": "https://doi.org/10.5281/zenodo.17498020",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17498020",
+        "reserve_doi": "https://zenodo.org/api/records/17498020/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17497994",
+        "parent_html": "https://zenodo.org/records/17497994",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17497994",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17497994",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17498020/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17498020/sequence/default",
+        "files": "https://zenodo.org/api/records/17498020/files",
+        "media_files": "https://zenodo.org/api/records/17498020/media-files",
+        "archive": "https://zenodo.org/api/records/17498020/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17498020/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17498020/versions/latest",
+        "latest_html": "https://zenodo.org/records/17498020/latest",
+        "versions": "https://zenodo.org/api/records/17498020/versions",
+        "draft": "https://zenodo.org/api/records/17498020/draft",
+        "access_links": "https://zenodo.org/api/records/17498020/access/links",
+        "access_grants": "https://zenodo.org/api/records/17498020/access/grants",
+        "access_users": "https://zenodo.org/api/records/17498020/access/users",
+        "access_request": "https://zenodo.org/api/records/17498020/access/request",
+        "access": "https://zenodo.org/api/records/17498020/access",
+        "communities": "https://zenodo.org/api/records/17498020/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17498020/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17498020/request-deletion",
+        "requests": "https://zenodo.org/api/records/17498020/requests"
+      },
+      "updated": "2025-11-01T00:32:10.212328+00:00",
+      "recid": "17498020",
+      "revision": 4,
+      "files": [
+        {
+          "id": "6c816a2a-02a3-43e4-9321-a2a10b36a891",
+          "key": "2025-10-27-Chris-Mungall_cc.mp4",
+          "size": 236750539,
+          "checksum": "md5:b65a037f351697437d67f0a5d8270c1b",
+          "links": {
+            "self": "https://zenodo.org/api/records/17498020/files/2025-10-27-Chris-Mungall_cc.mp4/content"
+          }
+        },
+        {
+          "id": "22c27ed5-137a-4cb7-a03f-7aa99187ae8a",
+          "key": "MAD Skills - Metagenomic Agentic Discovery (MAD) Skills with NMDC.pptx",
+          "size": 470040100,
+          "checksum": "md5:41603a67c1e0f5c5adb64dbefc930580",
+          "links": {
+            "self": "https://zenodo.org/api/records/17498020/files/MAD Skills - Metagenomic Agentic Discovery (MAD) Skills with NMDC.pptx/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "13996"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 3,
+        "unique_downloads": 2,
+        "views": 4,
+        "unique_views": 4,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 2,
+        "version_views": 2
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T00:16:44.882267+00:00",
+      "modified": "2025-11-01T00:16:45.026923+00:00",
+      "id": 17497985,
+      "conceptrecid": "4060477",
+      "doi": "10.5281/zenodo.17497985",
+      "conceptdoi": "10.5281/zenodo.4060477",
+      "doi_url": "https://doi.org/10.5281/zenodo.17497985",
+      "metadata": {
+        "title": "PowerSystems.jl \u2014 A power system data management package for large scale modeling",
+        "doi": "10.5281/zenodo.17497985",
+        "publication_date": "2025-11-01",
+        "description": "<h2>PowerSystems v5.0.0</h2>\n<p><a href=\"https://github.com/NREL-Sienna/PowerSystems.jl/compare/v4.6.2...v5.0.0\">Diff since v4.6.2</a></p>\n<h2>Breaking changes</h2>\n<ul>\n<li>Redefinition of many structs and parsing logic</li>\n<li>New support for interfaces with Supplemental Attributes</li>\n<li>Changes to the TimeSeries handling</li>\n<li>Support for New Hydro Structures</li>\n<li>Support for New HVDC structures.</li>\n</ul>\n<p><strong>Merged pull requests:</strong></p>\n<ul>\n<li>Hc/how to build system using csv files (#1281) (@hannahchubin)</li>\n<li>Shiftable power load (#1298) (@akody)</li>\n<li>feat(hydro): Adding new Hydro structs for <code>HydroPowerSimulations</code> (#1307) (@pesap)</li>\n<li>Initial handling and parsing for Multi-Section Lines (#1330) (@mcllerena)</li>\n<li>change type of DynamicBranch from ACBranch to ACTransmission; fix namespace collision for nodes5(), nodes14() in tests (#1332) (@rbolgaryn)</li>\n<li>base transformer conversion on % diff (#1334) (@m-bossart)</li>\n<li>B and C ratings for DynamicBranch (#1339) (@rbolgaryn)</li>\n<li>Fix parsing bugs / handle missing data (#1340) (@mcllerena)</li>\n<li>Fix matpower files parsing bug and update tests (#1345) (@mcllerena)</li>\n<li>Handle Transformer Impedance Correction Tables parsing from PSS/e (#1347) (@mcllerena)</li>\n<li>New Update to Import/Export structs (#1349) (@rodrigomha)</li>\n<li>Update hydro structs with height levels (#1354) (@rodrigomha)</li>\n<li>Remove obsolete method for remove_supplemental_attribute! (#1355) (@daniel-thom)</li>\n<li>add fixed term to renewable cost (#1356) (@rodrigomha)</li>\n<li>Add descriptors for dynamic generator and inverter (#1357) (@rodrigomha)</li>\n<li>Adding load conforming field (#1358) (@mcllerena)</li>\n<li>Revert shunt (fixed and switched) naming (#1359) (@mcllerena)</li>\n<li>Mb/change 3wt arcs (#1360) (@m-bossart)</li>\n<li>Jd/synch condensers (#1361) (@jd-lara)</li>\n<li>Update test and fix bug (#1362) (@mcllerena)</li>\n<li>New hydro pumped (#1365) (@rodrigomha)</li>\n<li>Add conformity field to all StaticLoad subtypes (#1367) (@mcllerena)</li>\n<li>Jd/update ext docstring (#1368) (@jd-lara)</li>\n<li>export geo_json (#1369) (@jd-lara)</li>\n<li>Add base power for transformers (#1370) (@rodrigomha)</li>\n<li>Jd/system docstring (#1371) (@jd-lara)</li>\n<li>Mb/parse psse transformer name (#1375) (@m-bossart)</li>\n<li>Fix parse psse test (#1376) (@rodrigomha)</li>\n<li>Remove angle limits checks (#1377) (@rodrigomha)</li>\n<li>Jd/update deprecations (#1379) (@jd-lara)</li>\n<li>move ThermalStandard to bus1 for PowerFlows (#1383) (@yasirroni)</li>\n<li>Fix RTS GMLC link from main to master (#1384) (@yasirroni)</li>\n<li>Jd/psy45 docs (#1385) (@jd-lara)</li>\n<li>Fix tests for psy5 (#1387) (@rodrigomha)</li>\n<li>Adding missing base_power field  (#1388) (@mcllerena)</li>\n<li>Handle unit conversion for branches (#1389) (@rodrigomha)</li>\n<li>Documentation new PR (#1390) (@jd-lara)</li>\n<li>fixing PSB tests (#1391) (@rbolgaryn)</li>\n<li>Add removal validation for areas  (#1392) (@jd-lara)</li>\n<li>fix: Removing <code>TimeSeriesKey</code> from field values. (#1394) (@pesap)</li>\n<li>Change h2v factor in HydroReservoir to ValueCurve (#1395) (@rodrigomha)</li>\n<li>Transformer validation checks (#1396) (@rodrigomha)</li>\n<li>check alpha == 0 for transformer2w (#1397) (@m-bossart)</li>\n<li>Remove bus modifications during parsing  (#1398) (@m-bossart)</li>\n<li>Support remove_time_series! for supplemental attributes (#1403) (@daniel-thom)</li>\n<li>Add available to ACBus  (#1404) (@jd-lara)</li>\n<li>remove delta winding connection from transformer3w struct (#1406) (@m-bossart)</li>\n<li>change siftable power load to use Min Max and tests (#1407) (@jd-lara)</li>\n<li>update missing scaling fields (#1408) (@jd-lara)</li>\n<li>Mb/transformer impedance scaling (#1410) (@m-bossart)</li>\n<li>Changes for Ybus Validation  (#1412) (@m-bossart)</li>\n<li>add defaults which get bus voltages (#1414) (@m-bossart)</li>\n<li>Add missing fields here and there: tests now pass (#1415) (@luke-kiernan)</li>\n<li>Update hydro reservoir to add cost (#1416) (@rodrigomha)</li>\n<li>when correcting line to transformer, add new transformer fields (#1417) (@luke-kiernan)</li>\n<li>Update current pti parser to handle V35 PSSE files (#1419) (@mcllerena)</li>\n<li>hc/dyn_injector_shiftable_load (#1421) (@hannahchubin)</li>\n<li>Mb/matpower transformer shunts (#1422) (@m-bossart)</li>\n<li>hc/psy5_missing_scalings (#1425) (@hannahchubin)</li>\n<li>Add transformer tap setting correction to match PSSE  (#1428) (@m-bossart)</li>\n<li>Don't add dummy buses to system (#1430) (@m-bossart)</li>\n<li>3WTransformer tap position correction to match PSSE (#1431) (@mcllerena)</li>\n<li>Add get_num_components for System (#1432) (@daniel-thom)</li>\n<li>Fix logging for valid bustype and devices (#1434) (@m-bossart)</li>\n<li>Parse gens as Synchronous Condensers under given conditions (#1437) (@mcllerena)</li>\n<li>remove aggregating multi-section lines during parsing (#1438) (@m-bossart)</li>\n<li>Improve parser messaging when missing a generator (#1439) (@daniel-thom)</li>\n<li>Add synchronous condenser logic to ps_table_data (#1440) (@mcllerena)</li>\n<li>Fix test naming and method to get synchronoues condensers (#1441) (@mcllerena)</li>\n<li>fix psy5 tests1 (#1443) (@jd-lara)</li>\n<li>interruptible standard load (#1444) (@jd-lara)</li>\n<li>add detailed log message (#1445) (@jd-lara)</li>\n<li>Jd/psy45 docsv3 (#1446) (@jd-lara)</li>\n<li>Add <code>available</code> to <code>ACBus</code> instantiation in docs (#1447) (@GabrielKS)</li>\n<li>New version of documentation v4  (#1452) (@jd-lara)</li>\n<li>Convert zero impedance branches to a closed switch during parsing (#1456) (@m-bossart)</li>\n<li>Add PhaseShiftingTransformer3W struct (#1462) (@mcllerena)</li>\n<li>3WT bug fixes (#1465) (@m-bossart)</li>\n<li>Fix issues for tests in new struct PST3W (#1466) (@mcllerena)</li>\n<li>fix compilation (#1467) (@jd-lara)</li>\n<li>Feat/component attribute pairs (#1470) (@daniel-thom)</li>\n<li>Fix SC parsing logic (#1471) (@mcllerena)</li>\n<li>Ml/fix msg conformity field (#1473) (@mcllerena)</li>\n<li>Remove is_available check and add more checks to the SC parsing test (#1474) (@mcllerena)</li>\n<li>Approach to add threshold of 1e-4 for zero impedance values (#1475) (@mcllerena)</li>\n<li>Refactor the supplemental attribute query API (#1476) (@daniel-thom)</li>\n<li>Fix device base comment and explanation at working_with_time_series.md (#1477) (@yasirroni)</li>\n<li>Small bug fixes found in LCC fields (#1479) (@mcllerena)</li>\n<li>Fix bug in InterruptibleStandardLoad parsing (#1481) (@mcllerena)</li>\n<li>Add tap correction case for CW = 2 (#1482) (@mcllerena)</li>\n<li>services fixes (#1485) (@jd-lara)</li>\n<li>bump formatter and apply changes (#1486) (@jd-lara)</li>\n<li>motor loads (#1487) (@jd-lara)</li>\n<li>add transformer phase shift (#1488) (@rbolgaryn)</li>\n<li>device undefined  (#1489) (@m-bossart)</li>\n<li>add missing checks on supports services (#1490) (@jd-lara)</li>\n<li>Fix broken hybrid system test (#1491) (@daniel-thom)</li>\n<li>Jd/fix controllable transformer parsing (#1492) (@jd-lara)</li>\n<li>Mb/fixes for ybus tests (#1493) (@m-bossart)</li>\n<li>bug  fixes for improved ybus match (#1494) (@m-bossart)</li>\n<li>Sign convention for constant admittance to build zip loads (#1499) (@mcllerena)</li>\n<li>update serialization for hydroturbine-reservoir (#1500) (@rodrigomha)</li>\n<li>Update metadata reimport to match latest updates of PowerFlows.jl (#1509) (@mcllerena)</li>\n<li>Skip devices that dont support services like reservoir (#1510) (@rodrigomha)</li>\n<li>make naming consistent for getting transformer angles  (#1511) (@m-bossart)</li>\n<li>Fix broken documentation links  (#1512) (@kdayday)</li>\n<li>Jd/parser updates mmwg (#1516) (@jd-lara)</li>\n<li>add turbine enum (#1517) (@jd-lara)</li>\n<li>add new abstract typo &quot;UnplannedOutage&quot; for GeometricDistributionForcedOutage and FixedForcedOutage. (#1518) (@SebastianManriqueM)</li>\n<li>fix enum docstrings (#1519) (@jd-lara)</li>\n<li>add missing docstrings (#1523) (@jd-lara)</li>\n<li>add a fix for services tests in PSI (#1527) (@jd-lara)</li>\n<li>[BREAKING] Remove HydroEnergyReservoir struct (#1529) (@rodrigomha)</li>\n<li>fix: Add serialization to <code>HydroReservoir</code> in <code>HydroPumpTurbine</code> components (#1532) (@pesap)</li>\n<li>Remove &quot;no active gens found at PV&quot; message and tests (#1533) (@luke-kiernan)</li>\n<li>Fix bugs found in V35 PJM file (#1537) (@mcllerena)</li>\n<li>Update hydro models to enable cascading models (#1539) (@rodrigomha)</li>\n<li>add reserves to agc (#1543) (@m-bossart)</li>\n<li>add get supplemental attributes method with component type input (#1544) (@luke-kiernan)</li>\n<li>add methods to get frequency droop from generators  (#1545) (@m-bossart)</li>\n<li>more parsing fixes  (#1546) (@jd-lara)</li>\n<li>psse parse fixes (#1548) (@jd-lara)</li>\n<li>Add available to dcbus (#1549) (@rodrigomha)</li>\n<li>Update psse reimport metadata / psy files to match v35 exporter update (#1552) (@mcllerena)</li>\n<li>Psy5 (#1553) (@kennedy-mindermann)</li>\n<li>fix isolated bus modifications for tfw 3w (#1554) (@m-bossart)</li>\n<li>Unify time series interfaces (#1555) (@daniel-thom)</li>\n</ul>\n<p><strong>Closed issues:</strong></p>\n<ul>\n<li>Add validation code for dynamic components  (#660)</li>\n<li>PSS/E Parser - Branch Voltage endpoints (#1040)</li>\n<li>Document the use of <code>from_subsystem</code> (#1113)</li>\n<li>Create Coordinated Line  (#1156)</li>\n<li>feat: Hydro data modeling improvement (#1182)</li>\n<li>Remove validation warning message for each dynamic component (#1183)</li>\n<li>export <code>get_geo_json</code> (#1189)</li>\n<li>Tests for InterruptiblePowerLoad (#1199)</li>\n<li>Github pull request template links are broken (#1212)</li>\n<li>Export? and document SupplementalAttribute (#1213)</li>\n<li>Update thermal fuels enum (#1239)</li>\n<li>add <code>check_component_removal</code> for Interchange  (#1251)</li>\n<li>Not all the kwargs for System are in the docstring  (#1254)</li>\n<li>Write to a DB from the JSON file (#1260)</li>\n<li>Read from the DB to OpenAPI (#1261)</li>\n<li>Read data from OpenAPI to Sienna (#1262)</li>\n<li>Merge the efforts for CEM and PCM databases (#1263)</li>\n<li>Add LCC Parser for PowerFlowData (#1272)</li>\n<li>Handling and Parsing Multi Section Lines from PSS/E (#1280)</li>\n<li>remove_supplemental_attribute! bug (#1282)</li>\n<li>HydroPumpedStorage outflow does not do conversion but inflow does. (#1285)</li>\n<li>Determine documentation needs for 3W Transformer (#1300)</li>\n<li>2T HVDC Data Models tracker (#1302)</li>\n<li>Add component for imports/exports (#1310)</li>\n<li>Add Fixed Term to RenewableGenerationCost (#1316)</li>\n<li>Add Base power for transformers (#1322)</li>\n<li>QAQC Parsing and writing MMWG PSSe case (#1327)</li>\n<li>Threshold for line voltage difference (#1333)</li>\n<li>Validation range for voltage angle (#1335)</li>\n<li>Create docstrings &amp; explanations for Transformer3W component (#1336)</li>\n<li>Create How's-to/tutorials for 3WT component (#1337)</li>\n<li>Handling missing parsing fixes/features (#1341)</li>\n<li>PSY 5 migration guide (#1343)</li>\n<li>Implement get_value for branch impedance for <code>with_units_base</code> (#1344)</li>\n<li>Parse impedance correction tables from PSS/e (#1346)</li>\n<li>Update doc strings for structs that use the ext argument (#1348)</li>\n<li>Refactor HydroPumpStorage (#1350)</li>\n<li>feat: Add backwards compatibility for HydroEnergyReservoir (#1352)</li>\n<li>feat: Add backwards compatibility to HPS (#1353)</li>\n<li>add serialization/deserialization tests for new structs (#1366)</li>\n<li>implement correctly the getter functions for the impedances depending on the selected base. (#1372)</li>\n<li>Review deprecated file for old deprecations that can be eliminated (#1373)</li>\n<li>change the valid ranges code in the validation code for transformers. (#1374)</li>\n<li>Example at <code>creating_system.md</code> can't be solved by <code>solve_powerflow</code> (#1382)</li>\n<li>Status of <code>RenewableDispatch</code> (#1386)</li>\n<li>FuelCurve constructor call (#1393)</li>\n<li>Transformer3W delta_winding_connection (#1399)</li>\n<li>PSY5 ShiftablePowerLoad won't build (#1400)</li>\n<li>PSY.remove_time_series!() not defined for SupplementalAttribute? (#1402)</li>\n<li>Update/Implement parser to handle V35 PSSE files (#1405)</li>\n<li>Error message when a component is removed and the reference in the device was kept (#1409)</li>\n<li>Time varying costs for arbitrary generators (#1413)</li>\n<li><code>set_units_base_system!(sys, &quot;NATURAL_UNITS&quot;)</code> ignored by <code>linerate_calculation(line)</code> and cause unnecessary warning (#1418)</li>\n<li>Update Transformers to Support PSSe (#1420)</li>\n<li>Missing scalings for some r, x, g, b, and maybe other params (#1424)</li>\n<li>Correct PSSE parsing for LCC and VSC Lines (#1426)</li>\n<li>Transformer Tap Corrections to match PSSE (#1427)</li>\n<li>Parsing dummy buses for multi-section lines (#1429)</li>\n<li>Parse synchronous condensers (#1433)</li>\n<li>Implement Converter Script (#1449)</li>\n<li>Add more testing for PSY V35 parser (#1451)</li>\n<li>Add phase shift angles to Transformer3W (#1453)</li>\n<li>Convert zero impedance branches (lines and transformers) to breaker/switches (#1455)</li>\n<li>Document attributes maps (#1464)</li>\n<li>Parsing 3W transformer bug with CW=2 and COD=1 (#1480)</li>\n<li>Motor Load Handling (#1483)</li>\n<li>Constant impedance load (#1495)</li>\n<li>Doc: mention others devices simulation extensions in <code>formulation_library</code> (#1498)</li>\n<li>Replace alpha with phase shift (#1508)</li>\n<li>Remove prime_mover_type from HydroPumpTurbine (#1513)</li>\n<li>PSSe import: <code>group_number</code> and <code>control_objective</code> values (#1514)</li>\n<li>Implement <code>status</code> for HydroGen components (#1515)</li>\n<li>Move PV checks to PowerFlows.jl (#1525)</li>\n<li>Update tutorials to be compatible with PSY5 (#1528)</li>\n<li>Inspecting time series attached to a system (#1535)</li>\n<li>Issue with building sys from PJM PSSE file (#1536)</li>\n<li>Add reserves to AGC (#1541)</li>\n<li>Bug in parsing breaker/switch from PSSE (#1547)</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Lara, Jos\u00e9 Daniel",
+            "affiliation": null
+          },
+          {
+            "name": "Barrows, Clayton",
+            "affiliation": null
+          },
+          {
+            "name": "Thom, Daniel",
+            "affiliation": null
+          },
+          {
+            "name": "Krishnamurthy, Dheepak",
+            "affiliation": null
+          },
+          {
+            "name": "Callaway, Duncan",
+            "affiliation": null
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/NREL-Sienna/PowerSystems.jl/tree/v5.0.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v5.0.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/NREL-Sienna/PowerSystems.jl"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "bsd-3-clause"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 119,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "4060477"
+              }
+            }
+          ]
+        },
+        "notes": "If you use this software, please cite it as below."
+      },
+      "title": "PowerSystems.jl \u2014 A power system data management package for large scale modeling",
+      "links": {
+        "self": "https://zenodo.org/api/records/17497985",
+        "self_html": "https://zenodo.org/records/17497985",
+        "preview_html": "https://zenodo.org/records/17497985?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17497985",
+        "self_doi": "https://doi.org/10.5281/zenodo.17497985",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17497985",
+        "reserve_doi": "https://zenodo.org/api/records/17497985/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/4060477",
+        "parent_html": "https://zenodo.org/records/4060477",
+        "parent_doi": "https://doi.org/10.5281/zenodo.4060477",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.4060477",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17497985/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17497985/sequence/default",
+        "files": "https://zenodo.org/api/records/17497985/files",
+        "media_files": "https://zenodo.org/api/records/17497985/media-files",
+        "archive": "https://zenodo.org/api/records/17497985/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17497985/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17497985/versions/latest",
+        "latest_html": "https://zenodo.org/records/17497985/latest",
+        "versions": "https://zenodo.org/api/records/17497985/versions",
+        "draft": "https://zenodo.org/api/records/17497985/draft",
+        "access_links": "https://zenodo.org/api/records/17497985/access/links",
+        "access_grants": "https://zenodo.org/api/records/17497985/access/grants",
+        "access_users": "https://zenodo.org/api/records/17497985/access/users",
+        "access_request": "https://zenodo.org/api/records/17497985/access/request",
+        "access": "https://zenodo.org/api/records/17497985/access",
+        "communities": "https://zenodo.org/api/records/17497985/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17497985/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17497985/request-deletion",
+        "requests": "https://zenodo.org/api/records/17497985/requests"
+      },
+      "updated": "2025-11-01T00:16:45.026923+00:00",
+      "recid": "17497985",
+      "revision": 4,
+      "files": [
+        {
+          "id": "194dbc15-cce3-402e-a90a-bdb57b75cf56",
+          "key": "NREL-Sienna/PowerSystems.jl-v5.0.0.zip",
+          "size": 3633828,
+          "checksum": "md5:ed614966b176630e422364f66fe75310",
+          "links": {
+            "self": "https://zenodo.org/api/records/17497985/files/NREL-Sienna/PowerSystems.jl-v5.0.0.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:7627549caa10c8d896da098bcdc1e2236daf1e3f;origin=https://doi.org/10.5281/zenodo.4060477;visit=swh:1:snp:1fc30b322fd289ddc7baab069472fff4048cbb09;anchor=swh:1:rel:a79af14b9cafb911219a06aeffbcf2511a119b8a;path=NREL-Sienna-PowerSystems.jl-062d719"
+      },
+      "owners": [
+        {
+          "id": "125845"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 780,
+        "unique_downloads": 757,
+        "views": 3907,
+        "unique_views": 3848,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-31T22:26:33.623366+00:00",
+      "modified": "2025-10-31T22:26:33.863944+00:00",
+      "id": 17497669,
+      "conceptrecid": "17497668",
+      "doi": "10.5281/zenodo.17497669",
+      "conceptdoi": "10.5281/zenodo.17497668",
+      "doi_url": "https://doi.org/10.5281/zenodo.17497669",
+      "metadata": {
+        "title": "Multiscale Simulation of Colorimetric Response of Silver Nanoparticles to Lead Ion Adsorption and Aggregation",
+        "doi": "10.5281/zenodo.17497669",
+        "publication_date": "2025-10-31",
+        "description": "<p>Silver nanoparticles (AgNPs) exhibit distinct color changes upon interaction with heavy metal ions such as lead (Pb2+), forming the basis of simple and sensitive colorimetric sensors. These sensors are increasingly relevant in environmental monitoring and public health, as Pb contamination remains a persistent threat even at trace levels. The observed color transitions arise from a combination of size-dependent optical effects, nanoparticle aggregation, and surface chemical modifications. In this work, we present a computational framework capable of reproducing these spectral and perceptual changes using physically grounded models that are computationally efficient and executable on standard hardware.</p>\n<p>The simulation pipeline integrates three main components: Mie theory for isolated nanoparticle scattering, coupled-dipole modeling for aggregation-induced plasmonic coupling, and parametric adjustments of the silver dielectric function to represent Pb adsorption and associated electron density changes. Extinction spectra obtained from these calculations are converted to visible sRGB colors under CIE D65 illumination to provide perceptual visualization. Simulated results reproduce the experimentally observed yellow-orange-brown color sequence as a function of particle size, degree of aggregation, and surface interaction, providing quantitative insight into the mechanisms driving AgNP-based Pb detection. This framework offers a practical predictive tool for designing nanoparticle-based colorimetric sensors without the need for computationally intensive quantum chemical calculations.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Garg, Aarav",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Publication",
+          "type": "publication"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17497668"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Multiscale Simulation of Colorimetric Response of Silver Nanoparticles to Lead Ion Adsorption and Aggregation",
+      "links": {
+        "self": "https://zenodo.org/api/records/17497669",
+        "self_html": "https://zenodo.org/records/17497669",
+        "preview_html": "https://zenodo.org/records/17497669?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17497669",
+        "self_doi": "https://doi.org/10.5281/zenodo.17497669",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17497669",
+        "reserve_doi": "https://zenodo.org/api/records/17497669/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17497668",
+        "parent_html": "https://zenodo.org/records/17497668",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17497668",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17497668",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17497669/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17497669/sequence/default",
+        "files": "https://zenodo.org/api/records/17497669/files",
+        "media_files": "https://zenodo.org/api/records/17497669/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17497669:Multiscale_Simulation_of_Colorimetric_Response_of_Silver_Nanoparticles_to_Lead_Ion_Adsorption_and_Aggregation.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17497669:Multiscale_Simulation_of_Colorimetric_Response_of_Silver_Nanoparticles_to_Lead_Ion_Adsorption_and_Aggregation.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17497669:Multiscale_Simulation_of_Colorimetric_Response_of_Silver_Nanoparticles_to_Lead_Ion_Adsorption_and_Aggregation.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17497669:Multiscale_Simulation_of_Colorimetric_Response_of_Silver_Nanoparticles_to_Lead_Ion_Adsorption_and_Aggregation.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17497669:Multiscale_Simulation_of_Colorimetric_Response_of_Silver_Nanoparticles_to_Lead_Ion_Adsorption_and_Aggregation.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17497669:Multiscale_Simulation_of_Colorimetric_Response_of_Silver_Nanoparticles_to_Lead_Ion_Adsorption_and_Aggregation.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17497669/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17497669/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17497669/versions/latest",
+        "latest_html": "https://zenodo.org/records/17497669/latest",
+        "versions": "https://zenodo.org/api/records/17497669/versions",
+        "draft": "https://zenodo.org/api/records/17497669/draft",
+        "access_links": "https://zenodo.org/api/records/17497669/access/links",
+        "access_grants": "https://zenodo.org/api/records/17497669/access/grants",
+        "access_users": "https://zenodo.org/api/records/17497669/access/users",
+        "access_request": "https://zenodo.org/api/records/17497669/access/request",
+        "access": "https://zenodo.org/api/records/17497669/access",
+        "communities": "https://zenodo.org/api/records/17497669/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17497669/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17497669/request-deletion",
+        "requests": "https://zenodo.org/api/records/17497669/requests"
+      },
+      "updated": "2025-10-31T22:26:33.863944+00:00",
+      "recid": "17497669",
+      "revision": 4,
+      "files": [
+        {
+          "id": "bf256787-a21b-48a9-89e8-96d465584bbb",
+          "key": "Multiscale_Simulation_of_Colorimetric_Response_of_Silver_Nanoparticles_to_Lead_Ion_Adsorption_and_Aggregation.pdf",
+          "size": 359255,
+          "checksum": "md5:43f2139a7179629cde18f1f6e0f8bd1a",
+          "links": {
+            "self": "https://zenodo.org/api/records/17497669/files/Multiscale_Simulation_of_Colorimetric_Response_of_Silver_Nanoparticles_to_Lead_Ion_Adsorption_and_Aggregation.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1449391"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 4,
+        "unique_downloads": 3,
+        "views": 4,
+        "unique_views": 3,
+        "version_downloads": 4,
+        "version_unique_downloads": 3,
+        "version_unique_views": 3,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-31T21:53:04.367420+00:00",
+      "modified": "2025-10-31T21:53:04.721981+00:00",
+      "id": 17196884,
+      "conceptrecid": "17196883",
+      "doi": "10.5281/zenodo.17196884",
+      "conceptdoi": "10.5281/zenodo.17196883",
+      "doi_url": "https://doi.org/10.5281/zenodo.17196884",
+      "metadata": {
+        "title": "Mapping the scientific landscape of artificial intelligence in mental health",
+        "doi": "10.5281/zenodo.17196884",
+        "publication_date": "2025-09-30",
+        "description": "<p>Artificial Intelligence (AI) has gained increasing popularity in contemporary scientific research; however, its application in mental health still requires a consolidated understanding of existing findings regarding effectiveness. This bibliometric study aims to synthesize current knowledge and explore research trends related to AI's role in mental health. It investigates how advancements in modern technologies are used to predict, prevent, and treat mental disorders, and evaluates their effectiveness. A literature search was conducted using Lens software to retrieve peer-reviewed empirical studies in English from highly ranked databases, covering the period from 2005 to 2025. A total of 97 relevant publications were identified and analyzed for patterns, trends, and associations using the Bibliometrix package in R. Results reveal a sharp increase in publications after 2020. Clinical and applied psychology emerged as dominant fields. Eating and Weight Disorders is the leading journal (n=22), followed by the Journal of Psychopathology and Behavioral Assessment (n=19) and Cognitive Therapy and Research (n=17). The United States is both the most productive (n=149) and most cited country (n=8,896). AI has demonstrated promise in detecting symptoms of depression and suicidal behavior, preventing mental health disorders, and enhancing traditional psychological interventions. Nonetheless, several gaps remain, including the underrepresentation of diverse populations and a limited understanding of factors influencing user acceptance of AI-based tools. This study provides researchers with an overview of publication trends, collaboration networks, keyword analysis, and future research directions. It also supports practitioners in selecting appropriate AI-based interventions to improve mental health outcomes and overall well-being within healthcare systems.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Shubina, Ivanna",
+            "affiliation": "Liberal Arts Department, American University of the Middle East",
+            "orcid": "0000-0003-2409-995X"
+          },
+          {
+            "name": "Dzido, Adrian Jarema",
+            "affiliation": "Computing Science Department, Radboud University, Nijmegen",
+            "orcid": "0009-0008-8236-0662"
+          }
+        ],
+        "keywords": [
+          "artificial intelligence",
+          "mental health",
+          "depression"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Conference paper",
+          "type": "publication",
+          "subtype": "conferencepaper"
+        },
+        "journal": {
+          "issue": "2",
+          "pages": "5",
+          "title": "Journal of Artificial Intelligence and Computing Applications",
+          "volume": "3"
+        },
+        "meeting": {
+          "title": "International Conference on Artificial Intelligence for Mental Health",
+          "acronym": "ICAIMH",
+          "dates": "2-3 July 2025",
+          "place": "M\u00e9rida, Yucat\u00e1n, M\u00e9xico",
+          "url": "https://www.icaimh.org/2025"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "jaica"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17196883"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Mapping the scientific landscape of artificial intelligence in mental health",
+      "links": {
+        "self": "https://zenodo.org/api/records/17196884",
+        "self_html": "https://zenodo.org/records/17196884",
+        "preview_html": "https://zenodo.org/records/17196884?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17196884",
+        "self_doi": "https://doi.org/10.5281/zenodo.17196884",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17196884",
+        "reserve_doi": "https://zenodo.org/api/records/17196884/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17196883",
+        "parent_html": "https://zenodo.org/records/17196883",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17196883",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17196883",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17196884/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17196884/sequence/default",
+        "files": "https://zenodo.org/api/records/17196884/files",
+        "media_files": "https://zenodo.org/api/records/17196884/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17196884:5.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17196884:5.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17196884:5.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17196884:5.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17196884:5.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17196884:5.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17196884/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17196884/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17196884/versions/latest",
+        "latest_html": "https://zenodo.org/records/17196884/latest",
+        "versions": "https://zenodo.org/api/records/17196884/versions",
+        "draft": "https://zenodo.org/api/records/17196884/draft",
+        "access_links": "https://zenodo.org/api/records/17196884/access/links",
+        "access_grants": "https://zenodo.org/api/records/17196884/access/grants",
+        "access_users": "https://zenodo.org/api/records/17196884/access/users",
+        "access_request": "https://zenodo.org/api/records/17196884/access/request",
+        "access": "https://zenodo.org/api/records/17196884/access",
+        "communities": "https://zenodo.org/api/records/17196884/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17196884/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17196884/request-deletion",
+        "requests": "https://zenodo.org/api/records/17196884/requests"
+      },
+      "updated": "2025-10-31T21:53:04.721981+00:00",
+      "recid": "17196884",
+      "revision": 4,
+      "files": [
+        {
+          "id": "176d55ef-45db-4796-8c87-f863b1597914",
+          "key": "5.pdf",
+          "size": 638994,
+          "checksum": "md5:1dea12446d6a1c5baa66dce35d8da5c2",
+          "links": {
+            "self": "https://zenodo.org/api/records/17196884/files/5.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1045781"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 3,
+        "unique_downloads": 1,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 3,
+        "version_unique_downloads": 1,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    }
+  ]
+}

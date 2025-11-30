@@ -1,0 +1,1948 @@
+{
+  "cache_date": "2025-08-01T08:43:07.290047",
+  "data": [
+    {
+      "created": "2025-08-01T08:39:16.546076+00:00",
+      "modified": "2025-08-01T08:39:16.784351+00:00",
+      "id": 16676301,
+      "conceptrecid": "10282345",
+      "doi": "10.5281/zenodo.16676301",
+      "conceptdoi": "10.5281/zenodo.10282345",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676301",
+      "metadata": {
+        "title": "bodkan/slendr: slendr 1.2.0",
+        "doi": "10.5281/zenodo.16676301",
+        "publication_date": "2025-08-01",
+        "description": "<ul>\n<li><p>Due to new issues related to conda activating environments in an incorrect path which <a href=\"https://github.com/bodkan/slendr/issues/179\">started to pop up</a> (possibly due to a misfeature in the <em>reticulate</em> package), activating procedure in <em>slendr</em> was reverted to a slower, but apparently <a href=\"https://github.com/bodkan/slendr/pull/182/commits/de868c160fb8eafd278676b98fd99edc90373c61\">more robust approach</a>. This will unfortunately make running massively parallelized simulations on Windows problematic due to a suspected-but-hard-to-detect race condition in conda on Windows, which manifested in many parallel environment activations (one for each simulation process) on this platform. For the time being, users are advised to execute big parallelized simulations (we're talking thousands of simulations in an ABC setting) on unix systems. (<a href=\"https://github.com/bodkan/slendr/pull/182\">PR #182</a>)</p>\n</li>\n<li><p><em>slendr</em> now allows recording of specific singular samples under unique names. See the documentation to <code>schedule_sampling()</code> for an example. (<a href=\"https://github.com/bodkan/slendr/pull/181\">PR #181</a>)</p>\n</li>\n<li><p>The dependency <em>rnaturalearth</em> has introduced some low-level changes that required minor tweaks to <em>slendr</em>'s spatial internals. Thanks to @PMassicotte for his kind help on fixing this! (<a href=\"https://github.com/bodkan/slendr/pull/180\">PR #180</a>)</p>\n</li>\n<li><p>Fixed an issue with setting <code>lock = TRUE</code> in the <code>set_range()</code> function (issue #176 reported by @Sgornard -- thank you!). (<a href=\"https://github.com/bodkan/slendr/commit/6d01e407\">#6d01e407</a>)</p>\n</li>\n<li><p>If a non-spatial population is created which has a spatial parent population, <em>slendr</em> gives an informative error message. (<a href=\"https://github.com/bodkan/slendr/commit/6bb646\">#6bb646</a>)</p>\n</li>\n<li><p><code>plot_model()</code> now uses the same color for population ranges and population labels.  (<a href=\"https://github.com/bodkan/slendr/commit/c54632e5\">#c54632e5</a>)</p>\n</li>\n<li><p><code>plot_map()</code> can now optionally visualize splits in a spatial setting (<a href=\"https://github.com/bodkan/slendr/commit/4664388c\">#4664388c</a>)</p>\n</li>\n<li><p><code>plot_model()</code> now plots y-axis time using a more readable integer scale.  (<a href=\"https://github.com/bodkan/slendr/commit/6b0e7fcc\">#6b0e7fcc</a>)</p>\n</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Martin Petr",
+            "affiliation": null
+          },
+          {
+            "name": "Ben Haller",
+            "affiliation": "Cornell University, Stick Software"
+          },
+          {
+            "name": "Philippe Massicotte",
+            "affiliation": null
+          },
+          {
+            "name": "GKresearch",
+            "affiliation": null
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/bodkan/slendr/tree/v1.2.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v1.2.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/bodkan/slendr"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 6,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10282345"
+              }
+            }
+          ]
+        }
+      },
+      "title": "bodkan/slendr: slendr 1.2.0",
+      "links": {
+        "self": "https://zenodo.org/api/records/16676301",
+        "self_html": "https://zenodo.org/records/16676301",
+        "preview_html": "https://zenodo.org/records/16676301?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676301",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676301",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676301",
+        "reserve_doi": "https://zenodo.org/api/records/16676301/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/10282345",
+        "parent_html": "https://zenodo.org/records/10282345",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10282345",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10282345",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676301/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676301/sequence/default",
+        "files": "https://zenodo.org/api/records/16676301/files",
+        "media_files": "https://zenodo.org/api/records/16676301/media-files",
+        "archive": "https://zenodo.org/api/records/16676301/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676301/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676301/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676301/latest",
+        "versions": "https://zenodo.org/api/records/16676301/versions",
+        "draft": "https://zenodo.org/api/records/16676301/draft",
+        "access_links": "https://zenodo.org/api/records/16676301/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676301/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676301/access/users",
+        "access_request": "https://zenodo.org/api/records/16676301/access/request",
+        "access": "https://zenodo.org/api/records/16676301/access",
+        "communities": "https://zenodo.org/api/records/16676301/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676301/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676301/requests"
+      },
+      "updated": "2025-08-01T08:39:16.784351+00:00",
+      "recid": "16676301",
+      "revision": 4,
+      "files": [
+        {
+          "id": "e2809f1d-d3a9-4309-aa5f-8c80e2571030",
+          "key": "bodkan/slendr-v1.2.0.zip",
+          "size": 12860156,
+          "checksum": "md5:47784cd8192b1bae28944cdbb1f8eb45",
+          "links": {
+            "self": "https://zenodo.org/api/records/16676301/files/bodkan/slendr-v1.2.0.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:ba599d222cb84302e97de9d2d7f6f4ca60fe67d7;origin=https://doi.org/10.5281/zenodo.10282345;visit=swh:1:snp:5aa5c7c40cbf434e48d03f83ad855c6584faa469;anchor=swh:1:rel:03e2c99189b6d7e01e0df0a834495d7b80b2fd91;path=bodkan-slendr-7edefc3"
+      },
+      "owners": [
+        {
+          "id": "107104"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 25,
+        "unique_downloads": 25,
+        "views": 181,
+        "unique_views": 149,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:38:02.506083+00:00",
+      "modified": "2025-08-01T08:38:03.595195+00:00",
+      "id": 16676056,
+      "conceptrecid": "16676055",
+      "doi": "10.1016/j.array.2025.100466",
+      "doi_url": "https://doi.org/10.1016/j.array.2025.100466",
+      "metadata": {
+        "title": "Between machines and art: The impact of CNC technology on artistic creation",
+        "doi": "10.1016/j.array.2025.100466",
+        "publication_date": "2025-07-23",
+        "description": "<p>This study shows how a hybrid workflow based on a Style-GAN-3 (with 256 &times; 256 pixel resolution) together with a &euro;185 open-hardware plotter reframes authorship by uniting algorithmic invention with material execution. Specifically, it focuses on the development of a low-cost CNC machine, named &lsquo;Gorosito&rsquo;, which includes various customisation elements, such as the ability to interchange drawing tools to suit the operator/artist. Experimental validation of Gorosito is performed using images generated with generative AI and also including a comparison of the results with those produced by a commercial CNC machine. Results reveal precision of 0.045<span><span></span></span>&nbsp;mm and a 34% cost saving comparing with other commercial solutions. Our findings also show that each artwork, derived from the same digital file, acquires a unique expression, which leads to a redefinition of authenticity in digital art and provides a renewed perspective on the interplay between technology, artistic creation and cultural perception. The study thus positions Gorosito as an open and reproducible framework that any creative-code laboratory can adopt, bridging machine learning research with low-cost digital fabrication.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Fraile-Narv\u00e1ez, Marcelo",
+            "affiliation": "Universidad Rey Juan Carlos",
+            "orcid": "0000-0002-9321-4512"
+          },
+          {
+            "name": "Chidean, Mihaela I.",
+            "affiliation": "Universidad Rey Juan Carlos",
+            "orcid": "0000-0001-9692-8871"
+          }
+        ],
+        "dates": [
+          {
+            "type": "available"
+          }
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "pages": "100466",
+          "title": "Array",
+          "volume": "25"
+        },
+        "license": {
+          "id": "cc-by-nc-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16676055"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Between machines and art: The impact of CNC technology on artistic creation",
+      "links": {
+        "self": "https://zenodo.org/api/records/16676056",
+        "self_html": "https://zenodo.org/records/16676056",
+        "preview_html": "https://zenodo.org/records/16676056?preview=1",
+        "doi": "https://doi.org/10.1016/j.array.2025.100466",
+        "self_doi": "https://doi.org/10.1016/j.array.2025.100466",
+        "self_doi_html": "https://zenodo.org/doi/10.1016/j.array.2025.100466",
+        "reserve_doi": "https://zenodo.org/api/records/16676056/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16676055",
+        "parent_html": "https://zenodo.org/records/16676055",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676056/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676056/sequence/default",
+        "files": "https://zenodo.org/api/records/16676056/files",
+        "media_files": "https://zenodo.org/api/records/16676056/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16676056:1-s2.0-S2590005625000931-main.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16676056:1-s2.0-S2590005625000931-main.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16676056:1-s2.0-S2590005625000931-main.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16676056:1-s2.0-S2590005625000931-main.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16676056:1-s2.0-S2590005625000931-main.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16676056:1-s2.0-S2590005625000931-main.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16676056/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676056/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676056/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676056/latest",
+        "versions": "https://zenodo.org/api/records/16676056/versions",
+        "draft": "https://zenodo.org/api/records/16676056/draft",
+        "access_links": "https://zenodo.org/api/records/16676056/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676056/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676056/access/users",
+        "access_request": "https://zenodo.org/api/records/16676056/access/request",
+        "access": "https://zenodo.org/api/records/16676056/access",
+        "communities": "https://zenodo.org/api/records/16676056/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676056/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676056/requests"
+      },
+      "updated": "2025-08-01T08:38:03.595195+00:00",
+      "recid": "16676056",
+      "revision": 4,
+      "files": [
+        {
+          "id": "5ff296e0-280f-4a95-bc46-4d3ea512a064",
+          "key": "1-s2.0-S2590005625000931-main.pdf",
+          "size": 4911548,
+          "checksum": "md5:df6f16fb3f3682ada5a2b75ecaf0561e",
+          "links": {
+            "self": "https://zenodo.org/api/records/16676056/files/1-s2.0-S2590005625000931-main.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1310992"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:30:42.525651+00:00",
+      "modified": "2025-08-01T08:30:42.744920+00:00",
+      "id": 16676018,
+      "conceptrecid": "6379973",
+      "doi": "10.5281/zenodo.16676018",
+      "conceptdoi": "10.5281/zenodo.6379973",
+      "doi_url": "https://doi.org/10.5281/zenodo.16676018",
+      "metadata": {
+        "title": "Research Software Directory (as a service)",
+        "doi": "10.5281/zenodo.16676018",
+        "publication_date": "2025-08-01",
+        "description": "The Research Software Directory (as a service) is a content management system that is tailored to research software. Its main goal is to increase the visibility, impact and reuse of research software.",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Cahen, Ewan Jacov",
+            "affiliation": "Netherlands eScience Center"
+          },
+          {
+            "name": "Mijatovic, Dusan",
+            "affiliation": "Netherlands eScience Center",
+            "orcid": "0000-0002-1898-4461"
+          },
+          {
+            "name": "Garcia Gonzalez, Jesus",
+            "affiliation": "Netherlands eScience Center",
+            "orcid": "0000-0002-2170-3253"
+          },
+          {
+            "name": "Maassen, Jason",
+            "affiliation": "Netherlands eScience Center",
+            "orcid": "0000-0002-8172-4865"
+          },
+          {
+            "name": "Jong, Maaike",
+            "affiliation": "Netherlands eScience Center",
+            "orcid": "0000-0003-4803-7411"
+          },
+          {
+            "name": "Mee\u00dfen, Christian",
+            "affiliation": "Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences",
+            "orcid": "0000-0001-8151-8722"
+          },
+          {
+            "name": "R\u00fcster, Matthias",
+            "affiliation": "Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences",
+            "orcid": "0000-0001-7305-9044"
+          },
+          {
+            "name": "Hanisch, Marc",
+            "affiliation": "Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences",
+            "orcid": "0000-0001-5272-4674"
+          },
+          {
+            "name": "Ziegner, Norman",
+            "affiliation": "Helmholtz Centre for Environmental Research GmbH - UFZ",
+            "orcid": "0000-0001-7579-216X"
+          },
+          {
+            "name": "Stock, Paula",
+            "affiliation": "Helmholtz Centre Potsdam - GFZ German Research Centre for Geosciences"
+          }
+        ],
+        "keywords": [
+          "Research Software",
+          "Software Citation",
+          "FAIR Sofware",
+          "Software Impact",
+          "Software Reuse"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/research-software-directory/RSD-as-a-service/tree/v4.1.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v4.1.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/research-software-directory/RSD-as-a-service"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "apache2.0"
+        },
+        "communities": [
+          {
+            "id": "nlesc"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 79,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "6379973"
+              }
+            }
+          ]
+        },
+        "notes": "Please cite this software using the information provided in this file."
+      },
+      "title": "Research Software Directory (as a service)",
+      "links": {
+        "self": "https://zenodo.org/api/records/16676018",
+        "self_html": "https://zenodo.org/records/16676018",
+        "preview_html": "https://zenodo.org/records/16676018?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16676018",
+        "self_doi": "https://doi.org/10.5281/zenodo.16676018",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16676018",
+        "reserve_doi": "https://zenodo.org/api/records/16676018/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/6379973",
+        "parent_html": "https://zenodo.org/records/6379973",
+        "parent_doi": "https://doi.org/10.5281/zenodo.6379973",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.6379973",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16676018/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16676018/sequence/default",
+        "files": "https://zenodo.org/api/records/16676018/files",
+        "media_files": "https://zenodo.org/api/records/16676018/media-files",
+        "archive": "https://zenodo.org/api/records/16676018/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16676018/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16676018/versions/latest",
+        "latest_html": "https://zenodo.org/records/16676018/latest",
+        "versions": "https://zenodo.org/api/records/16676018/versions",
+        "draft": "https://zenodo.org/api/records/16676018/draft",
+        "access_links": "https://zenodo.org/api/records/16676018/access/links",
+        "access_grants": "https://zenodo.org/api/records/16676018/access/grants",
+        "access_users": "https://zenodo.org/api/records/16676018/access/users",
+        "access_request": "https://zenodo.org/api/records/16676018/access/request",
+        "access": "https://zenodo.org/api/records/16676018/access",
+        "communities": "https://zenodo.org/api/records/16676018/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16676018/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16676018/requests"
+      },
+      "updated": "2025-08-01T08:30:42.744920+00:00",
+      "recid": "16676018",
+      "revision": 4,
+      "files": [
+        {
+          "id": "c7e9a20a-1591-42c0-8606-b867361d2fd3",
+          "key": "research-software-directory/RSD-as-a-service-v4.1.0.zip",
+          "size": 180542565,
+          "checksum": "md5:4b59a3a9bbda9a20b69710eead477421",
+          "links": {
+            "self": "https://zenodo.org/api/records/16676018/files/research-software-directory/RSD-as-a-service-v4.1.0.zip/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "19643"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 356,
+        "unique_downloads": 354,
+        "views": 16493,
+        "unique_views": 8999,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:29:39.688775+00:00",
+      "modified": "2025-08-01T08:35:52.654144+00:00",
+      "id": 16675974,
+      "conceptrecid": "16675973",
+      "doi": "10.5852/ejt.2025.1004.2977",
+      "doi_url": "https://doi.org/10.5852/ejt.2025.1004.2977",
+      "metadata": {
+        "title": "Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+        "doi": "10.5852/ejt.2025.1004.2977",
+        "publication_date": "2025-07-28",
+        "description": "M\u00f4nico, Alexander Tamanini, Courtois, Elodie A., Koch, Esteban Diego, Dewynter, Michel Blanc Ma\u00ebl, Kok, Philippe J.R. (2025): Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands. European Journal of Taxonomy 1004: 259-293, DOI: 10.5852/ejt.2025.1004.2977, URL: https://europeanjournaloftaxonomy.eu/index.php/ejt/article/download/2977/13411",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "M\u00f4nico, Alexander Tamanini",
+            "affiliation": "Coordena\u00e7\u00e3o de Biodiversidade, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Courtois, Elodie A.",
+            "affiliation": "ENIA (Naturalist Expertise Instrumentation and Analysis), independent researcher, Remire-Montjoly, French Guiana."
+          },
+          {
+            "name": "Koch, Esteban Diego",
+            "affiliation": "Programa de P\u00f3s-Gradua\u00e7\u00e3o em Gen\u00e9tica, Conserva\u00e7\u00e3o e Biologia Evolutiva, Instituto Nacional de Pesquisas da Amaz\u00f4nia, Manaus, Amazonas, Brazil."
+          },
+          {
+            "name": "Dewynter, Michel Blanc Ma\u00ebl",
+            "affiliation": null
+          },
+          {
+            "name": "Kok, Philippe J.R.",
+            "affiliation": "Department of Ecology and Vertebrate Zoology, Faculty of Biology and Environmental Protection, University of Lodz, Lodz, Poland. & Department of Life Sciences, The Natural History Museum, London, United Kingdom."
+          }
+        ],
+        "keywords": [
+          "Biodiversity",
+          "Taxonomy",
+          "Animalia",
+          "Chordata",
+          "Amphibia",
+          "Anura",
+          "Craugastoridae"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C784F5136021486FCBBF82B",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "http://treatment.plazi.org/id/992457192C704F4A361311A5FE93FBB9",
+            "relation": "hasPart",
+            "resource_type": "publication-taxonomictreatment",
+            "scheme": "url"
+          },
+          {
+            "identifier": "10.5281/zenodo.16675978",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.16675981",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.16675985",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.16675989",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.16675995",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.16676003",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.16676009",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.16676011",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.16676017",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.16676020",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.16676024",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.16676028",
+            "relation": "hasPart",
+            "resource_type": "image-figure",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1093/nar/25.17.3389",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1590/0031-1049.2014.54.05",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3897/herpetozoa.36.e97705",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3897/evolsyst.5.62661",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3897/vz.73.e109309",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3897/zookeys.610.8507",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.2307/1565048",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5962/bhl.title.16169",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.11646/zootaxa.3750.5.8",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5252/zoosystema2019v41a19",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.11646/zootaxa.4576.3.2",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1016/j.ympev.2022.107442",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1080/14772000.2022.2130464",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.11646/zootaxa.5297.4.4",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1655/05-40.1",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1371/journal.pone.0172615",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1073/pnas.0611051104",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1093/molbev/msx281",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1655/Herpetologica-D-14-00020",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1038/nmeth.4285",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1093/molbev/mst010",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1007/BF01731581",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1076/snfe.33.2.93.2158",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5852/ejt.2013.60",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.11646/zootaxa.2934.1.1",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1655/0733-1347(2007)20[105:NSOEAL]2.0.CO;2",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1655/0018-0831(2007)63[94:ANSOAE]2.0.CO;2",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.2307/3627301",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5962/bhl.part.29037",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5962/bhl.title.16268",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5962/bhl.title.16222",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5962/bhl.title.7951",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.11606/issn.2316-9079.v5i2p135-143",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.11606/issn.2316-9079.v6i1p23-35",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.179899",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.25225/jvb.23026",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1016/j.ympev.2015.02.001",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3897/vz.72.e90435",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1016/j.ympev.2024.108203",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1080/10.1093/biolinnean/blac006",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3897/vz.60.e31018",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1093/molbev/msu300",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1371/journal.pone.0143392",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1655/D-18-00019",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1655/06-007.1",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1111/j.1463-6409.2008.00381.x",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1186/1742-9994-7-16",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3897/zookeys.868.26766",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.11646/zootaxa.4838.1.4",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3897/zookeys.993.53559",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.3897/zookeys.594.8295",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1093/molbev/msab120",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5852/ejt.2022.836.1919",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1093/nar/gkw256",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1016/j.ympev.2017.04.017",
+            "relation": "cites",
+            "resource_type": "publication",
+            "scheme": "doi"
+          }
+        ],
+        "references": [
+          "Altschul S.F., Madden T.L., Schaffer A.A., Zhang J., Zhang Z., Miller W. & Lipman D.J. 1997. Gapped BLAST and PSI-BLAST: A new generation of protein database search programs. Nucleic Acids Research 25: 3389-3402. https://doi.org/10.1093/nar/25.17.3389",
+          "Arteaga-Navarro A.F., Bustamante M.R. & Guayasamin J.M. 2013. The Amphibians and Reptiles of Mindo. Life in the Cloudforest. Universidad Tecnologica Indoamerica, Quito.",
+          "Batallas-Revelo D. & Brito-M J. 2014. Nueva especie de rana del genero Pristimantis del grupo lacrimosus (Amphibia: Craugastoridae) del Parque Nacional Sangay, Ecuador. Papeis Avulsos de Zoologia 54: 51-62. https://doi.org/10.1590/0031-1049.2014.54.05",
+          "Batallas-Revelo D. & Brito-M J. 2023. The advertisement calls of Pristimantis galdi Jimenez de la Espada, 1870 and Pristimantis katoptroides (Flores, 1988) (Anura, Strabomantidae). Herpetozoa 36: 59-64. https://doi.org/10.3897/herpetozoa.36.e97705",
+          "Blanc M. 2016. Inventaire herpetologique du Pic Coudreau du Sud. Les Cahiers scientifiques du Parc amazonien de Guyane 2 (1): 327-339.",
+          "Carrion-Olmedo J.C. & Ron S.R. 2021. A new cryptic species of the Pristimantis lacrimosus group (Anura, Strabomantidae) from the eastern slopes of the Ecuadorian Andes. Evolutionary Systematics 5: 151-175. https://doi.org/10.3897/evolsyst.5.62661",
+          "Castillo-Urbina E., Vences M., Aguilar-Puntriano C., Glaw F. & Kohler J. 2023. Contributing to the taxonomic inventory of green-colored rain frogs: A new species of the Pristimantis lacrimosus group (Anura: Strabomantidae) from the southern Cordillera Azul, central Peru. Vertebrate Zoology 73: 1047- 1061. https://doi.org/10.3897/vz.73.e109309",
+          "Chavez G. & Catenazzi A. 2016. A new species of frog of the genus Pristimantis from Tingo Maria National Park, Huanuco Department, central Peru (Anura, Craugastoridae). ZooKeys 610: 113-130. https://doi.org/10.3897/zookeys.610.8507",
+          "Despax R. 1911. Mission geodesique de l'Equateur. Collections recueilles par M. le Dr. Rivet. Batraciens anoures. Bulletin du Museum national d'Histoire naturelle 17: 90-94. Available from https://www.biodiversitylibrary.org/page/34198121 [accessed 26 Nov. 2024].",
+          "Dewynter M., Courtois E.A., Massary J.-C. de, Uriot Q., Uriot S., Premel V., Villette B., Rufray V., Perrier M., Bouchet L., Le Pape T., Foxonet H., Remerand E., Baudain D., Baglan A., Marty C. & Bonnefond A. 2020. La base de donnees Faune-Guyane (Amphibiens, Squamates, Tortues & Caimans): Synthese 2019. Herp me! 2: 1- 87.",
+          "Dewynter M., Courtois E.A., Massary J.-C. de, Uriot Q., Uriot S., Premel V., Villette B., Rufray V., Perrier M., Bouchet L., Le Pape T., Foxonet H., Remerand E., Baudain D., Baglan A., Marty C. & Bonnefond A. 2021. La base de donnees Faune-Guyane (Amphibiens, Squamates, Tortues & Caimans): Synthese 2020. Herp me! 4: 1- 87.",
+          "Duellman W.E. 1978. Three new species of Eleutherodactylus from Amazonian Peru (Amphibia: Anura: Leptodactylidae). Herpetologica 34: 264-270.",
+          "Duellman W.E. 1990. A new species of Eleutherodactylus from the Andes of northern Peru (Anura: Leptodactylidae). Journal of Herpetology 24: 348-350. https://doi.org/10.2307/1565048",
+          "Duellman W.E. & Lehr E. 2009. Terrestrial-Breeding Frogs (Strabomantidae) in Peru. Natur und Tier Verlag.",
+          "Duellman W.E. & Pramuk J.B. 1999. Frogs of the genus Eleutherodactylus (Anura: Leptodactylidae) in the Andes of northern Peru. Scientific Papers. Natural History Museum, The University of Kansas 13: 1-78. https://doi.org/10.5962/bhl.title.16169",
+          "Fouquet A., Martinez Q., Courtois E.A., Dewynter M., Pineau K., Gaucher P., Blanc M., Marty C. & Kok P.J.R. 2013. A new species of the genus Pristimantis (Amphibia, Craugastoridae) associated with the moderately evelated massifs of French Guiana. Zootaxa 3750: 569-586. https://doi.org/10.11646/zootaxa.3750.5.8",
+          "Fouquet A., Vidal N. & Dewynter M. 2019a. The amphibians of the Mitaraka massif, French Guiana. Zoosystema 41: 359-374. https://doi.org/10.5252/zoosystema2019v41a19",
+          "Fouquet A., Vacher J.-P., Courtois E.A., Deschamps C., Ouboter P.E., Jairam R., Gaucher P., Dubois A. & Kok P.J.R. 2019b. A new species of Anomaloglossus (Anura: Aromobatidae) of the stepheni group with the redescription of A. baeobatrachus (Boistel and de Massary, 1999), and an amended definition of A. leopardus Ouboter and Jairam, 2012. Zootaxa 4576: 439-460. https://doi.org/10.11646/zootaxa.4576.3.2",
+          "Fouquet A., Cornuault J., Rodrigues M.T., Werneck F.P., Hrbek T., Acosta-Galvis A.R., Massemin D., Kok P.J.R. & Ernst R. 2022a. Diversity, biogeography and reproductive evolution in the genus Pipa (Amphibia: Anura: Pipidae). Molecular Phylogenetics and Evolution 170: 107442. https://doi.org/10.1016/j.ympev.2022.107442",
+          "Fouquet A., Rejaud A., Rodrigues M.T., Ron S.R., Chaparro J.C., Osorno M., Werneck F.P., Hrbek T., Lima A.P., Camacho-Badani T., Jaramillo-Martinez A.F. & Chave J. 2022b. Diversification of the Pristimantis conspicillatus group (Anura: Craugastoridae) within distinct neotropical areas throughout the Neogene. Systematics and Biodiversity 20: 1-16. https://doi.org/10.1080/14772000.2022.2130464",
+          "Fouquet A., Ferrao M. & Jairam R. 2023. Two new species of Allobates of the trilineatus clade (Anura: Aromobatidae) from the Eastern Guiana Shield. Zootaxa 5297: 533-561. https://doi.org/10.11646/zootaxa.5297.4.4",
+          "Fouquet A., Courtois E.A. & Dewynter M. 2024. Atlas of the Amphibians of French Guiana. Editions Biotope, Meze, Museum national d'Histoire naturelle, Paris (collection inventaires & biodiversite). Frost D.R. 2025. Amphibian Species of the World: an Online Reference. Version 6.2 Available from https://amphibiansoftheworld.amnh.org/ [accessed 15 Jul. 2025].",
+          "Guayasamin J.M., Ron S.R., Cisneros-Heredia D.F., Lamar W.W. & McCracken S.F. 2006. A new species of frog of the Eleutherodactylus lacrimosus assemblage (Leptodactylidae) from the western Amazon Basin, with comments on the utility of canopy surveys in lowland rainforest. Herpetologica 62: 191-202. https://doi.org/10.1655/05-40.1",
+          "Guayasamin J.M., Hutter C.R., Tapia E.E., Culebras J., Penafiel N., Pyron R.A., Morochz C., Funk W.C. & Arteaga-Navarro A.F. 2017. Diversification of the rainfrog Pristimantis ornatissimus in the lowlands and Andean foothills of Ecuador. PLoS ONE 12 (3): e0172615. https://doi.org/10.1371/journal.pone.0172615",
+          "Heinicke M.P., Duellman W.E. & Hedges S.B. 2007. Major Caribbean and Central American frog faunas originated by ancient oceanic dispersal. Proceedings of the National Academy of Sciences 104: 10092- 10097. https://doi.org/10.1073/pnas.0611051104",
+          "Heyer W.R. & Hardy L.M. 1991. A new species of frog of the Eleutherodactylus lacrimosus assembly from Amazonia, South America (Amphibia: Anura: Leptodactylidae). Proceedings of the Biological Society of Washington 104: 436-447. Available from https://www.biodiversitylibrary.org/page/34809134 [accessed 26 Nov. 2024].",
+          "Hoang D.T., Chernomor O., Von Haeseler A., Minh B.Q. & Vinh L.S. 2018. UFBoot2: Improving the ultrafast bootstrap approximation. Molecular Biology and Evolution 35: 518-522. https://doi.org/10.1093/molbev/msx281",
+          "Hutter C.R., Liu V., Kell T., Lyons J.A. & Guayasamin J.M. 2016. The natural history, distribution, and conservation of Lonely Rainfrogs, Pristimantis eremitus. Herpetologica 72: 13-22. https://doi.org/10.1655/Herpetologica-D-14-00020",
+          "K. Lisa Yang Center for Conservation Bioacoustics at the Cornell Lab of Ornithology 2024. Raven Pro: Interactive Sound Analysis Software. Version 1.6.5 [Computer software]. Available from https://www.ravensoundsoftware.com/ [accessed 11 Dec. 2024].",
+          "Kalyaanamoorthy S., Minh B.Q., Wong T.K., Von Haeseler A. & Jermiin L.S. 2017. ModelFinder: Fast model selection for accurate phylogenetic estimates. Nature Methods 14 (6): 587-589. https://doi.org/10.1038/nmeth.4285",
+          "Katoh K. & Standley D.M. 2013. MAFFT multiple sequence alignment software version 7: Improvements in performance and usability. Molecular Biology and Evolution 30: 772-780. https://doi.org/10.1093/molbev/mst010",
+          "Kimura M. 1980. A simple method for estimating evolutionary rates of base substitutions through comparative studies of nucleotide sequences. Journal of Molecular Evolution 16: 111-120. https://doi.org/10.1007/BF01731581",
+          "Kohler J., Morales V.R., Lotters S., Reichle S. & Aparicio J. 1998. A new green species of frog, genus Eleutherodactylus, from Bolivia and Peru (Amphibia, Anura, Leptodactylidae). Studies on Neotropical Fauna and Environment 33: 93-99. https://doi.org/10.1076/snfe.33.2.93.2158",
+          "Kok P.J. 2013. Two new charismatic Pristimantis species (Anura: Craugastoridae) from the tepuis of the \"Lost World\"(Pantepui region, South America). European Journal of Taxonomy 60: 1-24. https://doi.org/10.5852/ejt.2013.60",
+          "Kok P.J., Means D.B. & Bossuyt F. 2011. A new highland species of Pristimantis Jimenez de la Espada, 1871 (Anura: Strabomantidae) from the Pantepui region, northern South America. Zootaxa 2934: 1-19. https://doi.org/10.11646/zootaxa.2934.1.1",
+          "Lehr E., Lundberg M., Aguilar C. & von May R. 2006. New species of Eleutherodactylus (Anura: Leptodactylidae) from the eastern Andes of central Peru with comments on central Peruvian Eleutherodactylus. Herpetological Monographs 20: 105-128. https://doi.org/10.1655/0733-1347(2007)20[105:NSOEAL]2.0.CO;2",
+          "Lehr E., Torres-Gastello C.P. & Suarez-Segovia J. 2007. A new species of arboreal Eleutherodactylus (Anura: Leptodactylidae) from the Amazonian lowlands of central Peru. Herpetologica 63: 94-99. https://doi.org/10.1655/0018-0831(2007)63[94:ANSOAE]2.0.CO;2",
+          "Lescure J. & Marty C. 2000. Atlas des Amphibiens de Guyane. Museum d'Histoire naturelle, Paris.",
+          "Lescure J., Dewynter M., Fretey T., Ineich I., Ohler A., Vidal N. & De Massary J.-C. 2022. Liste taxinomique de l'herpetofaune dans l'outre-mer francais: VII. Les Amphibiens de la Guyane francaise. Bulletin de la Societe herpetologique de France 181: 17",
+          "Lynch J.D. 1970. Redescriptions of three little-known Eleutherodactylus from northwestern Ecuador (Amphibia: Leptodactylidae). Transactions of the Kansas Academy of Science 73: 169-180. https://doi.org/10.2307/3627301",
+          "Lynch J.D. 1976. New species of frogs (Leptodactylidae: Eleutherodactylus) from the Pacific versant of Ecuador. Occasional Papers of the Museum of Natural History, University of Kansas 55: 1-33. https://doi.org/10.5962/bhl.part.29037",
+          "Lynch J.D. 1979. Leptodactylid frogs of the genus Eleutherodactylus from the Andes of southern Ecuador. Miscellaneous Publication (University of Kansas. Museum of Natural History) 66: 1-62. https://doi.org/10.5962/bhl.title.16268",
+          "Lynch J.D. 1980a. Eleutherodactylus eremitus, a new trans-Andean species of the lacrimosus assembly from Ecuador (Amphibia: Leptodactylidae). Breviora 462: 1-7. Available from https://www.biodiversitylibrary.org/page/3189673 [accessed 26 Nov. 2024].",
+          "Lynch J.D. 1980b. Systematic status and distribution of some poorly known frogs of the genus Eleutherodactylus from the Chocoan lowlands of South America. Herpetologica 36: 175-189.",
+          "Lynch J.D. 1994. A new species of frog (genus Eleutherodactylus: Leptodactylidae) from a cloud forest in Departamento de Santander, Colombia. Revista de la Academia colombiana de Ciencias exactas, fisicas y naturales 19: 205-208.",
+          "Lynch J.D. & Duellman W.E. 1980. The Eleutherodactylus of the Amazonian slopes of the Ecuadorian Andes (Anura: Leptodactylidae). Miscellaneous publication (University of Kansas. Museum of Natural History) 69: 1-86. https://doi.org/10.5962/bhl.title.16222",
+          "Lynch J.D. & Duellman W.E. 1997. Frogs of the genus Eleutherodactylus in western Ecuador. Systematics, ecology, and biogeography. Special Publication (University of Kansas. Natural History Museum) 23: 1-236. https://doi.org/10.5962/bhl.title.7951",
+          "Maddison D.R. & Maddison W.P. 2000. MacClade 4, Analysis of Phylogeny and Character Evolution. M.S. Associates, Sunderland.",
+          "McCracken S.F. & Forstner M.R.J. 2006. Reproductive ecology and behavior of Eleutherodactylus aureolineatus (Anura, Brachycephalidae) in the canopy of the Upper Amazon Basin, Ecuador. Phyllomedusa Journal of Herpetology 5: 135-143. https://doi.org/10.11606/issn.2316-9079.v5i2p135-143",
+          "McCracken S.F. & Forstner M.R.J. 2014. Herpetofaunal community of a high canopy tank bromeliad (Aechmea zebrina) in the Yasuni Biosphere Reserve of Amazonian Ecuador, with comments on the use of \"arboreal\" in the herpetological literature. Amphibian & Reptile Conservation 8 (1): 65-75.",
+          "McCracken S.F., Forstner M.R.J. & Dixon J.R. 2007. A new species of the Eleutherodactylus lacrimosus assemblage (Anura, Brachycephalidae) from the lowland rainforest canopy of Yasuni National Park, Amazonian Ecuador. Phyllomedusa Journal of Herpetology 6: 23-36. https://doi.org/10.11606/issn.2316-9079.v6i1p23-35",
+          "Means D.B. & Savage J.M. 2007. Three new malodorous rainfrogs of the genus Pristimantis (Anura: Brachycephalidae) from the Wokomung Massif in west-central Guyana, South America. Zootaxa 1658: 39-55. https://doi.org/10.5281/zenodo.179899",
+          "Means D.B., Heinicke M.P., Hedges S.B., Macculloch R.D. & Lathrop A. 2023. Exceptional diversity of Pristimantis Landfrogs (Anura: Terraranae) on the Wokomung Massif, Guyana, with descriptions of three new species. Journal of Vertebrate Biology 72: 23026.1. https://doi.org/10.25225/jvb.23026",
+          "Mendoza A.M., Ospina O.E., Cardenas-Henao H. & Garcia-R J.C. 2015. A likelihood inference of historical biogeography in the world's most diverse terrestrial vertebrate genus: Diversification of directdeveloping frogs (Craugastoridae: Pristimantis) across the Neotropics. Molecular Phylogenetics and Evolution 85: 50-58. https://doi.org/10.1016/j.ympev.2015.02.001",
+          "Monico A.T., Ferrao M., Chaparro J.C., Fouquet A. & Lima A.P. 2022. A new species of rain frog (Anura: Strabomantidae: Pristimantis) from the Guiana Shield and amended diagnosis of P. ockendeni (Boulenger, 1912). Vertebrate Zoology 72: 1035-1065. https://doi.org/10.3897/vz.72.e90435",
+          "Monico A.T., Koch E.D., Ferrao M., Fernandes I.Y., Marques G.M.G., Chaparro J.C., Rodrigues M.T., Lima A.P. & Fouquet A. 2024. The small and inconspicuous majority: Revealing the megadiversity and historical biogeography of the Pristimantis unistrigatus species group (Anura, Strabomantidae). Molecular Phylogenetics and Evolution 201: e108203. https://doi.org/10.1016/j.ympev.2024.108203",
+          "Moraes L.J., Werneck F.P., Rejaud A., Rodrigues M.T., Prates I., Glaw F., Kok P.J., Ron S.R., Chaparro J.C., Osorno-Munoz M., Dal Vechio F., Recoder R.S., Marques-Souza S., Rojas R.R., Demay L., Herbek T. & Fouquet A. 2022. Diversification of tiny toads (Bufonidae: Amazophrynella) sheds light on ancient landscape dynamism in Amazonia. Biological Journal of the Linnean Society 136 (1): 75-91. https://doi.org/10.1080/10.1093/biolinnean/blac006",
+          "Morales V.R. 2007. Una especie nueva de Eleutherodactylus (Amphibia: Anura: Brachycephalidae) de la Amazonia central del Peru. Biotempo 7: 5-11.",
+          "Moravec J., Lehr E., Perez-Pena P.E., Lopez-Rojas J.J., Gagliardi-Urrutia L.A.G. & Arista-Tuanama I. 2010. A new green, arboreal species of Pristimantis (Anura: Strabomantidae) from Amazonian Peru. Vertebrate Zoology 60: 225-232. https://doi.org/10.3897/vz.60.e31018",
+          "Nguyen L.-T., Schmidt H.A., Von Haeseler A. & Minh B.Q. 2015. IQ-TREE: A fast and effective stochastic algorithm for estimating maximum-likelihood phylogenies. Molecular Biology and Evolution 32: 268-274. https://doi.org/10.1093/molbev/msu300",
+          "Ortega-Andrade H.M., Rojas-Soto O.R., Valencia J.H., Espinosa de los Monteros A., Morrone J.J., Ron S.R. & Cannatella D.C. 2015. Insights from integrative systematics reveal cryptic diversity in Pristimantis frogs (Anura: Craugastoridae) from the Upper Amazon Basin. PLoS ONE 10 (11): e0143392. https://doi.org/10.1371/journal.pone.0143392",
+          "Ospina-Sarria J.J. & Duellman W.E. 2019. Two new Species of Pristimantis (Amphibia: Anura: Strabomantidae) from southwestern Colombia. Herpetologica 75: 85-95. https://doi.org/10.1655/D-18-00019",
+          "Padial J.M., Castroviejo-Fisher S., Kohler J., Domic E. & De la Riva I. 2007. Systematics of the Eleutherodactylus fraudator species group (Anura: Brachycephalidae). Herpetological Monographs 21: 213-240. https://doi.org/10.1655/06-007.1",
+          "Padial J.M., Castroviejo-Fisher S., Kohler J., Vila C., Chaparro J.C. & De la Riva I. 2009. Deciphering the products of evolution at the species level: The need for an integrative taxonomy. Zoologica Scripta 38 (4): 431-447. https://doi.org/10.1111/j.1463-6409.2008.00381.x",
+          "Padial J.M., Miralles A., De la Riva I. & Vences M. 2010. The integrative future of taxonomy. Frontiers in Zoology 7: 1-14. https://doi.org/10.1186/1742-9994-7-16",
+          "Paez N.B. & Ron S.R. 2019. Systematics of Huicundomantis, a new subgenus of Pristimantis (Anura, Strabomantidae) with extraordinary cryptic diversity and eleven new species. ZooKeys 868: 1-112. https://doi.org/10.3897/zookeys.868.26766",
+          "Rivera-Correa M. & Daza J.M. 2020. Out of the blue: A new rain frog species of the genus Pristimantis (Anura: Craugastoridae) from the northern Cordillera Central in Colombia. Zootaxa 4838: 83-101. https://doi.org/10.11646/zootaxa.4838.1.4",
+          "Ron S.R., Carrion J., Caminer M.A., Sagredo Y., Navarrete M.J., Ortega J.A., Varela-Jaramillo A., Maldonado-Castro G.A. & Teran C. 2020. Three new species of frogs of the genus Pristimantis (Anura, Strabomantidae) with a redefinition of the P. lacrimosus species group. ZooKeys 993: 121-155. https://doi.org/10.3897/zookeys.993.53559",
+          "Savage J.M. 1965. A new bromeliad frog of the genus Eleutherodactylus from Costa Rica. Bulletin of the Southern California Academy of Sciences 64: 106-110. Available from https://www.biodiversitylibrary.org/page/34186172 [accessed 26 Nov. 2024].",
+          "Savage J.M. 2002. The Amphibians and Reptiles of Costa Rica. University of Chicago Press, Chicago.",
+          "Shepack A., von May R., Ttito A. & Catenazzi A. 2016. A new species of Pristimantis (Amphibia, Anura, Craugastoridae) from the foothills of the Andes in Manu National Park, southeastern Peru. ZooKeys 594: 143-164. https://doi.org/10.3897/zookeys.594.8295",
+          "Shreve B. 1935. On a new teiid and Amphibia from Panama, Ecuador, and Paraguay. Occasional Papers of the Boston Society of Natural History 8: 209-218.",
+          "Tamura K., Stecher G. & Kumar S. 2021. MEGA11: Molecular Evolutionary Genetics Analysis version 11. Molecular Biology and Evolution 38: 3022-3027. https://doi.org/10.1093/molbev/msab120",
+          "Taucce P.P., Costa-Campos C.E., Carvalho T.R. & Michalski F. 2022. Anurans (Amphibia: Anura) of the Brazilian state of Amapa, eastern Amazonia: species diversity and knowledge gaps. European Journal of Taxonomy 836: 96-130. https://doi.org/10.5852/ejt.2022.836.1919",
+          "Trifinopoulos J., Nguyen L.-T., von Haeseler A. & Minh B.Q. 2016. W-IQ-TREE: A fast online phylogenetic tool for maximum likelihood analysis. Nucleic Acids Research 44: W232-W235. https://doi.org/10.1093/nar/gkw256",
+          "Vacher J.P., Kok P.J., Rodrigues M.T., Lima J.D., Lorenzini A., Martinez Q., Fallet M., Courtois E.A., Blanc M., Gaucher P., Dewynter M., Jairam R., Ouboter P., Thebaud C. & Fouquet A. 2017. Cryptic diversity in Amazonian frogs: Integrative taxonomy of the genus Anomaloglossus (Amphibia: Anura: Aromobatidae) reveals a unique case of diversification within the Guiana Shield. Molecular Phylogenetics and Evolution 112: 158-173. https://doi.org/10.1016/j.ympev.2017.04.017"
+        ],
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "pages": "259-293",
+          "title": "European Journal of Taxonomy",
+          "volume": "1004"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "urn:lsid:zoobank.org:pub:CB09B464-1A8D-4805-B7CB-859D78B11825"
+          },
+          {
+            "identifier": "urn:lsid:plazi.org:pub:651D2F612C7E4F5C347A156EFFB3FF92"
+          },
+          {
+            "identifier": "http://publication.plazi.org/id/651D2F612C7E4F5C347A156EFFB3FF92"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "biosyslit"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16675973"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Two new Pristimantis (Anura: Strabomantidae) of the P. lacrimosus species group from the eastern Guiana Shield lowlands",
+      "links": {
+        "self": "https://zenodo.org/api/records/16675974",
+        "self_html": "https://zenodo.org/records/16675974",
+        "preview_html": "https://zenodo.org/records/16675974?preview=1",
+        "doi": "https://doi.org/10.5852/ejt.2025.1004.2977",
+        "self_doi": "https://doi.org/10.5852/ejt.2025.1004.2977",
+        "self_doi_html": "https://zenodo.org/doi/10.5852/ejt.2025.1004.2977",
+        "reserve_doi": "https://zenodo.org/api/records/16675974/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16675973",
+        "parent_html": "https://zenodo.org/records/16675973",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16675974/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16675974/sequence/default",
+        "files": "https://zenodo.org/api/records/16675974/files",
+        "media_files": "https://zenodo.org/api/records/16675974/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16675974:source.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16675974:source.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16675974:source.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16675974:source.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16675974:source.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16675974:source.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16675974/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16675974/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16675974/versions/latest",
+        "latest_html": "https://zenodo.org/records/16675974/latest",
+        "versions": "https://zenodo.org/api/records/16675974/versions",
+        "draft": "https://zenodo.org/api/records/16675974/draft",
+        "access_links": "https://zenodo.org/api/records/16675974/access/links",
+        "access_grants": "https://zenodo.org/api/records/16675974/access/grants",
+        "access_users": "https://zenodo.org/api/records/16675974/access/users",
+        "access_request": "https://zenodo.org/api/records/16675974/access/request",
+        "access": "https://zenodo.org/api/records/16675974/access",
+        "communities": "https://zenodo.org/api/records/16675974/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16675974/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16675974/requests"
+      },
+      "updated": "2025-08-01T08:35:52.654144+00:00",
+      "recid": "16675974",
+      "revision": 7,
+      "files": [
+        {
+          "id": "e9dedb0e-66ab-4c20-b6c0-bf6b23691dc3",
+          "key": "source.pdf",
+          "size": 9964317,
+          "checksum": "md5:651d2f612c7e4f5c347a156ea3b3ba92",
+          "links": {
+            "self": "https://zenodo.org/api/records/16675974/files/source.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1161"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:24:57.293140+00:00",
+      "modified": "2025-08-01T08:24:57.500303+00:00",
+      "id": 16675829,
+      "conceptrecid": "13643258",
+      "doi": "10.5281/zenodo.16675829",
+      "conceptdoi": "10.5281/zenodo.13643258",
+      "doi_url": "https://doi.org/10.5281/zenodo.16675829",
+      "metadata": {
+        "title": "Open and Reproducible Science in R Technical Handbook",
+        "doi": "10.5281/zenodo.16675829",
+        "publication_date": "2025-08-01",
+        "description": "<p>This is the third release of the Oxford IHTM Handbook. In this release:</p>\n<h2>What's Changed</h2>\n<ul>\n<li>update README by @ernestguevarra in https://github.com/OxfordIHTM/ihtm-handbook/pull/78</li>\n<li>add analytics id; spell check; fix #80; fix #82 by @ernestguevarra in https://github.com/OxfordIHTM/ihtm-handbook/pull/83</li>\n<li>use Oxford iHealth rather than Oxford CodeHub by @ernestguevarra in https://github.com/OxfordIHTM/ihtm-handbook/pull/90</li>\n<li>add netlify test deploy; fix #91 by @ernestguevarra in https://github.com/OxfordIHTM/ihtm-handbook/pull/93</li>\n<li>add CITATION.cff; fix #92 by @ernestguevarra in https://github.com/OxfordIHTM/ihtm-handbook/pull/96</li>\n</ul>\n<p><strong>Full Changelog</strong>: https://github.com/OxfordIHTM/ihtm-handbook/compare/v0.0.1.2024...v0.0.1.2025</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Ariana, Proochista",
+            "affiliation": null,
+            "orcid": "0000-0002-0154-2237"
+          },
+          {
+            "name": "Guevarra, Ernest",
+            "affiliation": null,
+            "orcid": "0000-0002-4887-4415"
+          },
+          {
+            "name": "Oxford iHealth",
+            "affiliation": null
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/OxfordIHTM/ihtm-handbook/tree/v0.0.1.2025",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v0.0.1.2025",
+        "custom": {
+          "code:codeRepository": "https://github.com/OxfordIHTM/ihtm-handbook"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "oxford-ihealth"
+          },
+          {
+            "id": "oxfordihtm"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 2,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "13643258"
+              }
+            }
+          ]
+        },
+        "notes": "If you use the software in this repository, please cite both the handbook from preferred-citation and the software itself."
+      },
+      "title": "Open and Reproducible Science in R Technical Handbook",
+      "links": {
+        "self": "https://zenodo.org/api/records/16675829",
+        "self_html": "https://zenodo.org/records/16675829",
+        "preview_html": "https://zenodo.org/records/16675829?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16675829",
+        "self_doi": "https://doi.org/10.5281/zenodo.16675829",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16675829",
+        "reserve_doi": "https://zenodo.org/api/records/16675829/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/13643258",
+        "parent_html": "https://zenodo.org/records/13643258",
+        "parent_doi": "https://doi.org/10.5281/zenodo.13643258",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.13643258",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16675829/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16675829/sequence/default",
+        "files": "https://zenodo.org/api/records/16675829/files",
+        "media_files": "https://zenodo.org/api/records/16675829/media-files",
+        "archive": "https://zenodo.org/api/records/16675829/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16675829/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16675829/versions/latest",
+        "latest_html": "https://zenodo.org/records/16675829/latest",
+        "versions": "https://zenodo.org/api/records/16675829/versions",
+        "draft": "https://zenodo.org/api/records/16675829/draft",
+        "access_links": "https://zenodo.org/api/records/16675829/access/links",
+        "access_grants": "https://zenodo.org/api/records/16675829/access/grants",
+        "access_users": "https://zenodo.org/api/records/16675829/access/users",
+        "access_request": "https://zenodo.org/api/records/16675829/access/request",
+        "access": "https://zenodo.org/api/records/16675829/access",
+        "communities": "https://zenodo.org/api/records/16675829/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16675829/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16675829/requests"
+      },
+      "updated": "2025-08-01T08:24:57.500303+00:00",
+      "recid": "16675829",
+      "revision": 4,
+      "files": [
+        {
+          "id": "71b17284-0958-402d-93e9-78f3778c489c",
+          "key": "OxfordIHTM/ihtm-handbook-v0.0.1.2025.zip",
+          "size": 7545911,
+          "checksum": "md5:5216c850695f276db7dece932b58ca14",
+          "links": {
+            "self": "https://zenodo.org/api/records/16675829/files/OxfordIHTM/ihtm-handbook-v0.0.1.2025.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:63762a141157876ae0e4acecea66a572b6606d1a;origin=https://doi.org/10.5281/zenodo.13643258;visit=swh:1:snp:1e9105ad2b12c4d17be131a2064decf46040b307;anchor=swh:1:rel:f44eff1a98478d3bd20e9cb7f4e7c7dc254395bd;path=OxfordIHTM-ihtm-handbook-0a5b84d"
+      },
+      "owners": [
+        {
+          "id": "40371"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 9,
+        "unique_downloads": 9,
+        "views": 34,
+        "unique_views": 32,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:21:25.291759+00:00",
+      "modified": "2025-08-01T08:21:25.833518+00:00",
+      "id": 16675668,
+      "conceptrecid": "16675667",
+      "doi": "10.5281/zenodo.16675668",
+      "conceptdoi": "10.5281/zenodo.16675667",
+      "doi_url": "https://doi.org/10.5281/zenodo.16675668",
+      "metadata": {
+        "title": "IMPORTANCE ISSUES OF AGRICULTURE IN INDIAN ECONOMY",
+        "doi": "10.5281/zenodo.16675668",
+        "publication_date": "2016-12-30",
+        "description": "<p>India, one of the world's most populous rural economies, remained locked until the early 1990s. Agriculture is a vital part of India's economy, and it is also one of the world's top two farm producers. This industry employs nearly 52 percent of India's workforce and contributes about 18.1 percent of the country's GDP.For nearly two-thirds of India's employed community, agriculture is their only source of income. In the next 20 years, India's already high population will surpass Japan's to become the world's third largest, while its economy will soon overtake Japan's to become the world's third largest. Agriculture is extremely important to the Indian economy. Agriculture supports more than 70% of rural families. Agriculture is a significant part of the Indian economy, accounting for about 17% of overall GDP and employing more than 60% of the workforce. Over the last few decades, India's agriculture has developed at a rapid pace. Agriculture is an important part of India's economy. Agriculture remains the backbone of growth, despite its contribution to the country's overall Gross Domestic Product (GDP) falling from around 30% in 1990-91 to less than 15% in 2011-2012, a pattern that is anticipated in any economy's development phase. Inadequacies in the provision of vital public goods such as research and production, extension programs, surface irrigation, rural roads, and so on, as well as inadequate policies, have resulted in the inability to achieve targeted growth in agriculture. We must overcome some of these deficiencies in order to achieve the 12th Plan's targeted development. There will be a substantial increase in public and private sector investment in agriculture research and growth, including extension, rural infrastructure, post-harvest and retail infrastructure, including storage and processing, legal reforms relating to land prices and agricultural commodity marketing, and appropriate price policy. Irrigation, energy for pumping water, fertilizer, and other farm inputs need to be priced more rationally.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Madhur Pahwa*, N Ravi Shankar** & Subhashini R***",
+            "affiliation": null
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "2455-4200",
+            "relation": "isPublishedIn",
+            "scheme": "issn"
+          }
+        ],
+        "dates": [
+          {
+            "type": "accepted"
+          }
+        ],
+        "references": [
+          "2455 - 4200"
+        ],
+        "resource_type": {
+          "title": "Publication",
+          "type": "publication"
+        },
+        "journal": {
+          "issue": "2",
+          "pages": "289-293",
+          "title": "International Journal of Engineering Research and Modern Education",
+          "volume": "1"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "2455-4200"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16675667"
+              }
+            }
+          ]
+        }
+      },
+      "title": "IMPORTANCE ISSUES OF AGRICULTURE IN INDIAN ECONOMY",
+      "links": {
+        "self": "https://zenodo.org/api/records/16675668",
+        "self_html": "https://zenodo.org/records/16675668",
+        "preview_html": "https://zenodo.org/records/16675668?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16675668",
+        "self_doi": "https://doi.org/10.5281/zenodo.16675668",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16675668",
+        "reserve_doi": "https://zenodo.org/api/records/16675668/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16675667",
+        "parent_html": "https://zenodo.org/records/16675667",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16675667",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16675667",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16675668/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16675668/sequence/default",
+        "files": "https://zenodo.org/api/records/16675668/files",
+        "media_files": "https://zenodo.org/api/records/16675668/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16675668:67e7d674b9ee1_219.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16675668:67e7d674b9ee1_219.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16675668:67e7d674b9ee1_219.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16675668:67e7d674b9ee1_219.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16675668:67e7d674b9ee1_219.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16675668:67e7d674b9ee1_219.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16675668/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16675668/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16675668/versions/latest",
+        "latest_html": "https://zenodo.org/records/16675668/latest",
+        "versions": "https://zenodo.org/api/records/16675668/versions",
+        "draft": "https://zenodo.org/api/records/16675668/draft",
+        "access_links": "https://zenodo.org/api/records/16675668/access/links",
+        "access_grants": "https://zenodo.org/api/records/16675668/access/grants",
+        "access_users": "https://zenodo.org/api/records/16675668/access/users",
+        "access_request": "https://zenodo.org/api/records/16675668/access/request",
+        "access": "https://zenodo.org/api/records/16675668/access",
+        "communities": "https://zenodo.org/api/records/16675668/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16675668/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16675668/requests"
+      },
+      "updated": "2025-08-01T08:21:25.833518+00:00",
+      "recid": "16675668",
+      "revision": 4,
+      "files": [
+        {
+          "id": "d281b161-3dde-4361-9242-4df30bdb0336",
+          "key": "67e7d674b9ee1_219.pdf",
+          "size": 733517,
+          "checksum": "md5:f1dc9165a5a5f8767a9eef7e2fd44342",
+          "links": {
+            "self": "https://zenodo.org/api/records/16675668/files/67e7d674b9ee1_219.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "24258"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:19:47.448407+00:00",
+      "modified": "2025-08-01T08:19:47.734108+00:00",
+      "id": 16675602,
+      "conceptrecid": "16675601",
+      "doi": "10.5281/zenodo.16675602",
+      "conceptdoi": "10.5281/zenodo.16675601",
+      "doi_url": "https://doi.org/10.5281/zenodo.16675602",
+      "metadata": {
+        "title": "Introducing CCOA (Clothing Context-Aware Optimization Algorithm): A Novel Metaheuristic Approach for Context-Aware Multi-Objective Optimization",
+        "doi": "10.5281/zenodo.16675602",
+        "publication_date": "2025-08-01",
+        "description": "<p><span>With the growing demand for personalized clothing, how to efficiently and accurately select the right clothing combination according to different occasions, weather conditions and personal preferences has become an urgent problem to be solved. This paper proposes a novel optimization method, namely the Clothing Context-Aware Optimization Algorithm (CCOA). The algorithm combines meta-heuristic optimization technology with human intuition in the matching process, comprehensively considers multiple factors such as weather, occasions, personal preferences, and realizes personalized and efficient clothing matching recommendations. Experimental verification shows that the algorithm has good performance in multi-objective optimization, meets the needs of real-world situations, and provides users with comfortable and beautiful matching solutions. It is worth noting that CCOA is not limited to the field of clothing matching. It also has a wide range of applicability and can be extended to other multi-objective decision-making optimization tasks, such as restaurant matching and travel luggage selection.</span></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Zhang, Jincheng",
+            "affiliation": null,
+            "orcid": "0009-0005-1860-0009"
+          }
+        ],
+        "resource_type": {
+          "title": "Preprint",
+          "type": "publication",
+          "subtype": "preprint"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16675601"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Introducing CCOA (Clothing Context-Aware Optimization Algorithm): A Novel Metaheuristic Approach for Context-Aware Multi-Objective Optimization",
+      "links": {
+        "self": "https://zenodo.org/api/records/16675602",
+        "self_html": "https://zenodo.org/records/16675602",
+        "preview_html": "https://zenodo.org/records/16675602?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16675602",
+        "self_doi": "https://doi.org/10.5281/zenodo.16675602",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16675602",
+        "reserve_doi": "https://zenodo.org/api/records/16675602/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16675601",
+        "parent_html": "https://zenodo.org/records/16675601",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16675601",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16675601",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16675602/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16675602/sequence/default",
+        "files": "https://zenodo.org/api/records/16675602/files",
+        "media_files": "https://zenodo.org/api/records/16675602/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16675602:Introducing%20CCOA%20(Clothing%20Context-Aware%20Optimization%20Algorithm)%20A%20Novel%20Metaheuristic%20Approach%20for%20Context-Aware%20Multi-Objective%20Optimization.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16675602:Introducing%20CCOA%20(Clothing%20Context-Aware%20Optimization%20Algorithm)%20A%20Novel%20Metaheuristic%20Approach%20for%20Context-Aware%20Multi-Objective%20Optimization.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16675602:Introducing%20CCOA%20(Clothing%20Context-Aware%20Optimization%20Algorithm)%20A%20Novel%20Metaheuristic%20Approach%20for%20Context-Aware%20Multi-Objective%20Optimization.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16675602:Introducing%20CCOA%20(Clothing%20Context-Aware%20Optimization%20Algorithm)%20A%20Novel%20Metaheuristic%20Approach%20for%20Context-Aware%20Multi-Objective%20Optimization.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16675602:Introducing%20CCOA%20(Clothing%20Context-Aware%20Optimization%20Algorithm)%20A%20Novel%20Metaheuristic%20Approach%20for%20Context-Aware%20Multi-Objective%20Optimization.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16675602:Introducing%20CCOA%20(Clothing%20Context-Aware%20Optimization%20Algorithm)%20A%20Novel%20Metaheuristic%20Approach%20for%20Context-Aware%20Multi-Objective%20Optimization.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16675602/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16675602/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16675602/versions/latest",
+        "latest_html": "https://zenodo.org/records/16675602/latest",
+        "versions": "https://zenodo.org/api/records/16675602/versions",
+        "draft": "https://zenodo.org/api/records/16675602/draft",
+        "access_links": "https://zenodo.org/api/records/16675602/access/links",
+        "access_grants": "https://zenodo.org/api/records/16675602/access/grants",
+        "access_users": "https://zenodo.org/api/records/16675602/access/users",
+        "access_request": "https://zenodo.org/api/records/16675602/access/request",
+        "access": "https://zenodo.org/api/records/16675602/access",
+        "communities": "https://zenodo.org/api/records/16675602/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16675602/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16675602/requests"
+      },
+      "updated": "2025-08-01T08:19:47.734108+00:00",
+      "recid": "16675602",
+      "revision": 4,
+      "files": [
+        {
+          "id": "0425d279-0ffc-47b5-b2f7-811a578ec529",
+          "key": "Introducing CCOA (Clothing Context-Aware Optimization Algorithm) A Novel Metaheuristic Approach for Context-Aware Multi-Objective Optimization.pdf",
+          "size": 471360,
+          "checksum": "md5:e10e1488d1abdfb0763a10101f7b0059",
+          "links": {
+            "self": "https://zenodo.org/api/records/16675602/files/Introducing CCOA (Clothing Context-Aware Optimization Algorithm) A Novel Metaheuristic Approach for Context-Aware Multi-Objective Optimization.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1352438"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:16:20.392278+00:00",
+      "modified": "2025-08-01T08:16:21.256832+00:00",
+      "id": 14380040,
+      "conceptrecid": "14380039",
+      "doi": "10.5281/zenodo.14380040",
+      "conceptdoi": "10.5281/zenodo.14380039",
+      "doi_url": "https://doi.org/10.5281/zenodo.14380040",
+      "metadata": {
+        "title": "Valproic Acid improves efficacy of oxaliplatin/fluoropyrimidine-based chemotherapy in colorectal adenocarcinoma models by targeting cancer stem cell compartment via \u03b2-Catenin modulation.",
+        "doi": "10.5281/zenodo.14380040",
+        "publication_date": "2025-07-31",
+        "description": "<p><span>Metastatic colorectal cancer (mCRC) patients despite the advances in systemic therapy approach have poor outcome in cases harboring BRAF or RAS mutations. Cancer stem cells (CSCs) play a central role in drug resistance and CRC recurrence. In this scenario targeting the epigenetic mechanisms that sustain CSC properties represents a promising therapeutic approach. </span><span>In this study, we report the efficacy and the potential to overcome chemotherapy resistance of a treatment strategy based on the addition of the epigenetic agent valproic acid (VPA), a well-known antiepileptic drug, to the standard chemotherapy oxaliplatin/fluoropyrimidine doublet, in</span><span> wild-type as well as BRAF- and RAS-muted CSCs enriched primary spheroid CRC cultures.</span><span> Specifically, we demonstrated that </span><span>VPA, </span><span>combined with chemotherapy, more effectively than other epigenetic drug-chemotherapy combinations, induced </span><span>inhibition of cell proliferation and clonogenic growth as well as apoptosis and DNA damage. Mechanistically, proteomic analysis demonstrated that VPA induced CSC differentiation and that </span><span>&beta;-Catenin represent critical target of VPA. Indeed VPA promotes proteasome-dependent degradation of &beta;-Catenin by enhancing its binding to the E2 ubiquitin-conjugating enzyme UBE2a, leading to a marked reduction in nuclear and cytoplasmic &beta;-Catenin levels, subsequently diminishing the activation of &beta;-Catenin/TCF-LEF target promoters.</span><span> These data were confirmed in three in vivo CRC xenograft models, including syngeneic CT26 immunocompetent mouse model, where VPA combined with oxaliplatin/capecitabine chemotherapy plus anti-VEGF treatment, a standard first line treatment for mCRC, significantly suppressed tumor growth and prolonged survival with minimal toxicity. Proteomic analysis of tumor tissue samples from the in vivo CRC models confirmed the VPA-mediated downmodulation of both CSC markers and </span><span>&beta;-Catenin</span><span>. </span></p>",
+        "access_right": "restricted",
+        "creators": [
+          {
+            "name": "Istituto Nazionale Tumori IRCCS \"Fondazione G. Pascale\"",
+            "affiliation": null
+          }
+        ],
+        "contributors": [
+          {
+            "name": "Lombardi, Rita",
+            "affiliation": "Istituto Nazionale Tumori IRCCS \"Fondazione G. Pascale\"",
+            "type": "DataCollector",
+            "orcid": "0000-0002-3098-9134"
+          },
+          {
+            "name": "Testa, Cristina",
+            "affiliation": null,
+            "type": "DataCollector",
+            "orcid": "0000-0003-3673-7250"
+          },
+          {
+            "name": "Iannelli, Federica",
+            "affiliation": "Istituto Nazionale Tumori IRCCS \"Fondazione G. Pascale\"",
+            "type": "DataCollector",
+            "orcid": "0000-0002-3301-0884"
+          },
+          {
+            "name": "Grumetti, Laura",
+            "affiliation": "Istituto Nazionale Tumori IRCCS \"Fondazione G. Pascale\"",
+            "type": "DataCollector",
+            "orcid": "0000-0002-9976-0282"
+          },
+          {
+            "name": "Moccia, Tania",
+            "affiliation": "Istituto Nazionale Tumori IRCCS \"Fondazione G. Pascale\"",
+            "type": "DataCollector",
+            "orcid": "0000-0002-0463-9552"
+          },
+          {
+            "name": "Barile, Veronica",
+            "affiliation": null,
+            "type": "DataCollector",
+            "orcid": "0009-0008-7319-2724"
+          },
+          {
+            "name": "Addi, Laura",
+            "affiliation": "Istituto Nazionale Tumori IRCCS \"Fondazione G. Pascale\"",
+            "type": "DataCollector",
+            "orcid": "0000-0002-0389-3559"
+          },
+          {
+            "name": "Memoli, Domenico",
+            "affiliation": null,
+            "type": "DataCollector",
+            "orcid": "0000-0001-5290-2709"
+          },
+          {
+            "name": "Leone, Alessandra",
+            "affiliation": "Istituto Nazionale Tumori IRCCS \"Fondazione G. Pascale\"",
+            "type": "DataCollector",
+            "orcid": "0000-0002-1051-2937"
+          },
+          {
+            "name": "Di Franco, Simone",
+            "affiliation": "University of Palermo",
+            "type": "Researcher",
+            "orcid": "0009-0009-0153-9693"
+          },
+          {
+            "name": "Stassi, Giorgio",
+            "affiliation": "University of Palermo",
+            "type": "Supervisor",
+            "orcid": "0000-0002-1016-9059"
+          },
+          {
+            "name": "Avallone, Antonio",
+            "affiliation": "Istituto Nazionale Tumori IRCCS \"Fondazione G. Pascale\"",
+            "type": "Supervisor",
+            "orcid": "0000-0001-6188-5664"
+          },
+          {
+            "name": "Bruzzese, Francesca",
+            "affiliation": "Istituto Nazionale Tumori IRCCS \"Fondazione G. Pascale\"",
+            "type": "DataCollector",
+            "orcid": "0000-0001-7741-9086"
+          },
+          {
+            "name": "Pucci, Biagio",
+            "affiliation": "Istituto Nazionale Tumori IRCCS \"Fondazione G. Pascale\"",
+            "type": "DataCollector",
+            "orcid": "0000-0003-4502-1748"
+          },
+          {
+            "name": "Budillon, Alfredo",
+            "affiliation": "Istituto Nazionale Tumori IRCCS \"Fondazione G. Pascale\"",
+            "type": "Supervisor",
+            "orcid": "0000-0002-6330-6053"
+          },
+          {
+            "name": "Di Gennaro, Elena",
+            "affiliation": "Istituto Nazionale Tumori IRCCS \"Fondazione G. Pascale\"",
+            "type": "Supervisor",
+            "orcid": "0000-0001-6223-7845"
+          }
+        ],
+        "keywords": [
+          "valproic acid",
+          "colonrectal cancer",
+          "cancer stem cell"
+        ],
+        "dates": [
+          {
+            "type": "accepted",
+            "description": "article"
+          }
+        ],
+        "references": [
+          "2025_RocaMS"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "14380039"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Valproic Acid improves efficacy of oxaliplatin/fluoropyrimidine-based chemotherapy in colorectal adenocarcinoma models by targeting cancer stem cell compartment via \u03b2-Catenin modulation.",
+      "links": {
+        "self": "https://zenodo.org/api/records/14380040",
+        "self_html": "https://zenodo.org/records/14380040",
+        "preview_html": "https://zenodo.org/records/14380040?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.14380040",
+        "self_doi": "https://doi.org/10.5281/zenodo.14380040",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14380040",
+        "reserve_doi": "https://zenodo.org/api/records/14380040/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/14380039",
+        "parent_html": "https://zenodo.org/records/14380039",
+        "parent_doi": "https://doi.org/10.5281/zenodo.14380039",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14380039",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:14380040/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:14380040/sequence/default",
+        "files": "https://zenodo.org/api/records/14380040/files",
+        "media_files": "https://zenodo.org/api/records/14380040/media-files",
+        "archive": "https://zenodo.org/api/records/14380040/files-archive",
+        "archive_media": "https://zenodo.org/api/records/14380040/media-files-archive",
+        "latest": "https://zenodo.org/api/records/14380040/versions/latest",
+        "latest_html": "https://zenodo.org/records/14380040/latest",
+        "versions": "https://zenodo.org/api/records/14380040/versions",
+        "draft": "https://zenodo.org/api/records/14380040/draft",
+        "access_links": "https://zenodo.org/api/records/14380040/access/links",
+        "access_grants": "https://zenodo.org/api/records/14380040/access/grants",
+        "access_users": "https://zenodo.org/api/records/14380040/access/users",
+        "access_request": "https://zenodo.org/api/records/14380040/access/request",
+        "access": "https://zenodo.org/api/records/14380040/access",
+        "communities": "https://zenodo.org/api/records/14380040/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/14380040/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/14380040/requests"
+      },
+      "updated": "2025-08-01T08:16:21.256832+00:00",
+      "recid": "14380040",
+      "revision": 4,
+      "files": [],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1230433"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:15:26.004174+00:00",
+      "modified": "2025-08-01T08:15:26.190288+00:00",
+      "id": 16675308,
+      "conceptrecid": "16675307",
+      "doi": "10.5281/zenodo.16675308",
+      "conceptdoi": "10.5281/zenodo.16675307",
+      "doi_url": "https://doi.org/10.5281/zenodo.16675308",
+      "metadata": {
+        "title": "Performance following comparative feedback",
+        "doi": "10.5281/zenodo.16675308",
+        "publication_date": "2025-08-01",
+        "description": "<p dir=\"ltr\">This data is part of an analysis to investigate how receiving multiple types of comparative feedback simultaneously affects subsequent learning task performance. While previous research often focuses on individual feedback types (temporal-comparative or social-comparative), this study explored the consequences of their simultaneous presentation. The primary aim was to examine the relationships between mixed (simultaneously negative and positive), consistently negative, and consistently positive comparative feedback and subsequent performance. The findings indicate that mixed comparative feedback is associated with decreased subsequent performance, whereas consistently negative feedback can be beneficial. Consistently positive feedback did not show a significant relationship with performance. These results suggest that educators and trainers should carefully consider how they deliver mixed feedback, potentially spacing it out or providing context, and recognize the potential benefits of informational, consistently negative feedback.</p>\n<p dir=\"ltr\">The dataset comprises performance and feedback data collected from 214 undergraduate business students. The sample was diverse, including 105 students from the United States and 109 from South Korea. However, each of these participants completed multiple rounds of learning tasks and received feedback after each round. Specifically, participants engaged in a computer-based Wisconsin Card Sorting Test, which served as the learning task. During the task, participants received manipulated temporal- and social-comparative feedback. This feedback was designed to be one of three types:</p>\n<ul>\n<li><strong>Consistently Positive:</strong> Both temporal and social feedback indicated positive performance.</li>\n<li><strong>Consistently Negative:</strong> Both temporal and social feedback indicated negative performance.</li>\n<li><strong>Mixed:</strong> One type of feedback (temporal or social) indicated positive performance, while the other indicated negative performance.</li>\n</ul>\n<p dir=\"ltr\">Hence, given that there are multiple round observations for each participant, this is a panel dataset.</p>\n<p dir=\"ltr\"><strong>Variables:</strong></p>\n<ul>\n<li><strong>Independent Variables:</strong></li>\n<li>\n<ul>\n<li><strong>Feedback Type:</strong> Categorical variable with three levels: Consistently Positive, Consistently Negative, Mixed.</li>\n</ul>\n</li>\n<li><strong>Dependent Variable:</strong></li>\n<li>\n<ul>\n<li><strong>Task Performance:</strong> Measured as the percentage of correct trials within a given round of the Wisconsin Card Sorting Test.</li>\n</ul>\n</li>\n<li><strong>Demographic Variables:</strong></li>\n<li>\n<ul>\n<li>Country of Origin (United States, South Korea)</li>\n<li>Gender identity</li>\n</ul>\n</li>\n</ul>\n<p>&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Anonymous",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16675307"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Performance following comparative feedback",
+      "links": {
+        "self": "https://zenodo.org/api/records/16675308",
+        "self_html": "https://zenodo.org/records/16675308",
+        "preview_html": "https://zenodo.org/records/16675308?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16675308",
+        "self_doi": "https://doi.org/10.5281/zenodo.16675308",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16675308",
+        "reserve_doi": "https://zenodo.org/api/records/16675308/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16675307",
+        "parent_html": "https://zenodo.org/records/16675307",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16675307",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16675307",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16675308/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16675308/sequence/default",
+        "files": "https://zenodo.org/api/records/16675308/files",
+        "media_files": "https://zenodo.org/api/records/16675308/media-files",
+        "archive": "https://zenodo.org/api/records/16675308/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16675308/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16675308/versions/latest",
+        "latest_html": "https://zenodo.org/records/16675308/latest",
+        "versions": "https://zenodo.org/api/records/16675308/versions",
+        "draft": "https://zenodo.org/api/records/16675308/draft",
+        "access_links": "https://zenodo.org/api/records/16675308/access/links",
+        "access_grants": "https://zenodo.org/api/records/16675308/access/grants",
+        "access_users": "https://zenodo.org/api/records/16675308/access/users",
+        "access_request": "https://zenodo.org/api/records/16675308/access/request",
+        "access": "https://zenodo.org/api/records/16675308/access",
+        "communities": "https://zenodo.org/api/records/16675308/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16675308/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16675308/requests"
+      },
+      "updated": "2025-08-01T08:15:26.190288+00:00",
+      "recid": "16675308",
+      "revision": 4,
+      "files": [
+        {
+          "id": "6a10725b-2d3e-45b3-9400-108f20afddca",
+          "key": "Performance following comparative feedback.xlsx",
+          "size": 911078,
+          "checksum": "md5:c84b56aa59ae217d04406b83e20b04ac",
+          "links": {
+            "self": "https://zenodo.org/api/records/16675308/files/Performance following comparative feedback.xlsx/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "1377798"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-08-01T08:14:55.078512+00:00",
+      "modified": "2025-08-01T08:14:55.439565+00:00",
+      "id": 16675350,
+      "conceptrecid": "16675349",
+      "doi": "10.5281/zenodo.16675350",
+      "conceptdoi": "10.5281/zenodo.16675349",
+      "doi_url": "https://doi.org/10.5281/zenodo.16675350",
+      "metadata": {
+        "title": "Auf dem Weg zum Gr\u00fcnen Museum",
+        "doi": "10.5281/zenodo.16675350",
+        "publication_date": "2025-08-01",
+        "description": "<p>Museen sollen mit dieser Handlungshilfe in die Lage versetzt werden, eine Treibhausgasbilanz aufzustellen,&nbsp;und erkennen, was dabei alles zu ber&uuml;cksichtigen ist und zugleich den Weg in Richtung&nbsp;eines &bdquo;Gr&uuml;nen Museums&ldquo; zu beschreiten. Damit eng verbunden ist das Geb&auml;udemanagement, denn&nbsp;nur wenn es Ihnen gelingt, zusammen mit Ihrer Haustechnik die Energieverbr&auml;uche zu reduzieren, ein&nbsp;Mobilit&auml;tskonzept f&uuml;r Ihr Museum zu erstellen und Ihre Beschaffung und Ihren Einkauf zu ver&auml;ndern,&nbsp;werden sich auch Erfolge bei der Treibhausgas (THG)-Bilanz einstellen. Dar&uuml;ber hinaus muss auch &uuml;ber&nbsp;Anpassungen an den Klimawandel nachgedacht werden, etwa in Bezug auf die weiter steigenden&nbsp;Risiken durch Starkwetterereignisse, Sturm oder die D&uuml;rre/Brandgefahr, oder wenn die Temperaturen<br>im Sommer extrem ansteigen und der Besuch Ihres Museums sowohl f&uuml;r Mitarbeitende als auch f&uuml;r&nbsp;Besucher*innen zu einer Anstrengung wird.<br>Im Unterschied zum Leitfaden &bdquo;Klimaschutz im Museum&ldquo; des Deutschen Museumsbundes (DMB)&nbsp;werden Sie mit dieser Handlungshilfe Schritt f&uuml;r Schritt bei der Erstellung Ihrer THG-Bilanz an die Hand&nbsp;genommen, indem Ihnen die Emissionsfaktoren und die Berechnungen vorgestellt werden. Sie k&ouml;nnen&nbsp;mit dieser Handlungshilfe selbstst&auml;ndig die THG-Bilanz Ihres Museums aufstellen und fortschreiben.&nbsp;Sie kann damit durchaus als Erg&auml;nzung und Erweiterung des Leitfadens des DMB verstanden werden.&nbsp;Gleichzeitig kann diese Handlungshilfe auch als Unterst&uuml;tzung f&uuml;r digitale Tools wie etwa das E-Tool f&uuml;r&nbsp;Klima1, Klimatool Culture4Climate2, CO2-Rechner3, Anleitung zum CO2-Rechner4 und SPRINT205 verstanden&nbsp;werden, um sich mit dem Thema der Klimabilanzierung auseinanderzusetzen. Je nach ihren verf&uuml;gbaren<br>personellen Kapazit&auml;ten sollten sich Museen fr&uuml;hzeitig Gedanken machen, wie sie sich zus&auml;tzliche&nbsp;Unterst&uuml;tzung f&uuml;r die Transformation in ein &bdquo;Gr&uuml;nes Museums&ldquo; sichern k&ouml;nnen. Auch wenn diese Handlungshilfe&nbsp;einen guten Einstieg bietet und inzwischen computergest&uuml;tzte Tools online verf&uuml;gbar sind,&nbsp;ist der Aufbau von zus&auml;tzlichen personellen und zeitlichen Kapazit&auml;ten und Ressourcen unabdingbar f&uuml;r&nbsp;einen Erfolg. Die Handlungshilfe soll es Museen also erleichtern, den Aufbruch auf einen l&auml;ngeren Weg&nbsp;der Transformation mit verschiedenen Phasen und reflektorischen Pausen einzuleiten.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Teichert, Volker",
+            "affiliation": null
+          },
+          {
+            "name": "Bunse, Franzsika",
+            "affiliation": null
+          },
+          {
+            "name": "Eleftheriou, Evangelia",
+            "affiliation": null
+          },
+          {
+            "name": "Simon, Stefan",
+            "affiliation": null
+          },
+          {
+            "name": "Forschungsst\u00e4tte der Evangelischen Studiengemeinschaft e.V.",
+            "affiliation": null
+          }
+        ],
+        "contributors": [
+          {
+            "name": "Deutsche Bundesstiftung Umwelt",
+            "affiliation": null,
+            "type": "Sponsor"
+          }
+        ],
+        "language": "deu",
+        "resource_type": {
+          "title": "Publication",
+          "type": "publication"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "AZ 38571/01"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "dbu"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "16675349"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Auf dem Weg zum Gr\u00fcnen Museum",
+      "links": {
+        "self": "https://zenodo.org/api/records/16675350",
+        "self_html": "https://zenodo.org/records/16675350",
+        "preview_html": "https://zenodo.org/records/16675350?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.16675350",
+        "self_doi": "https://doi.org/10.5281/zenodo.16675350",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16675350",
+        "reserve_doi": "https://zenodo.org/api/records/16675350/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/16675349",
+        "parent_html": "https://zenodo.org/records/16675349",
+        "parent_doi": "https://doi.org/10.5281/zenodo.16675349",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.16675349",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:16675350/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:16675350/sequence/default",
+        "files": "https://zenodo.org/api/records/16675350/files",
+        "media_files": "https://zenodo.org/api/records/16675350/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:16675350:DBU-Abschlussbericht-AZ-38571_01-Handlungshilfe.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:16675350:DBU-Abschlussbericht-AZ-38571_01-Handlungshilfe.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:16675350:DBU-Abschlussbericht-AZ-38571_01-Handlungshilfe.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:16675350:DBU-Abschlussbericht-AZ-38571_01-Handlungshilfe.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:16675350:DBU-Abschlussbericht-AZ-38571_01-Handlungshilfe.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:16675350:DBU-Abschlussbericht-AZ-38571_01-Handlungshilfe.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/16675350/files-archive",
+        "archive_media": "https://zenodo.org/api/records/16675350/media-files-archive",
+        "latest": "https://zenodo.org/api/records/16675350/versions/latest",
+        "latest_html": "https://zenodo.org/records/16675350/latest",
+        "versions": "https://zenodo.org/api/records/16675350/versions",
+        "draft": "https://zenodo.org/api/records/16675350/draft",
+        "access_links": "https://zenodo.org/api/records/16675350/access/links",
+        "access_grants": "https://zenodo.org/api/records/16675350/access/grants",
+        "access_users": "https://zenodo.org/api/records/16675350/access/users",
+        "access_request": "https://zenodo.org/api/records/16675350/access/request",
+        "access": "https://zenodo.org/api/records/16675350/access",
+        "communities": "https://zenodo.org/api/records/16675350/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/16675350/communities-suggestions",
+        "requests": "https://zenodo.org/api/records/16675350/requests"
+      },
+      "updated": "2025-08-01T08:14:55.439565+00:00",
+      "recid": "16675350",
+      "revision": 4,
+      "files": [
+        {
+          "id": "285ce92f-8491-4d90-a555-d962e12f8b4f",
+          "key": "DBU-Abschlussbericht-AZ-38571_01-Handlungshilfe.pdf",
+          "size": 16121630,
+          "checksum": "md5:fa666639503f0351e8e4f6333d6e3bc2",
+          "links": {
+            "self": "https://zenodo.org/api/records/16675350/files/DBU-Abschlussbericht-AZ-38571_01-Handlungshilfe.pdf/content"
+          }
+        }
+      ],
+      "swh": {},
+      "owners": [
+        {
+          "id": "78593"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 0,
+        "unique_views": 0,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    }
+  ]
+}

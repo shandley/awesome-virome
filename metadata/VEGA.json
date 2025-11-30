@@ -1,0 +1,112 @@
+{
+  "name": "VEGA",
+  "url": "https://github.com/pauloluniyi/VGEA",
+  "provider": "github",
+  "repo_path": "pauloluniyi/VGEA",
+  "description": "VGEA (Viral Genomes Easily Analyzed) is a pipeline for analysis of RNA virus next-generation sequencing data.",
+  "created_at": "2020-01-28T18:02:48Z",
+  "updated_at": "2025-03-12T01:27:59Z",
+  "pushed_at": "2021-09-12T13:10:06Z",
+  "stars": 19,
+  "watchers": 19,
+  "forks": 6,
+  "open_issues": 4,
+  "default_branch": "master",
+  "license": "GNU General Public License v3.0",
+  "license_url": "https://api.github.com/licenses/gpl-3.0",
+  "homepage": "",
+  "is_archived": false,
+  "is_disabled": false,
+  "fetch_time": "2025-04-01T08:37:53.715365",
+  "languages": {
+    "Shell": 13115,
+    "Python": 11607,
+    "Singularity": 4233,
+    "Dockerfile": 3070
+  },
+  "topics": [],
+  "latest_release": {
+    "name": "VGEA v1.1",
+    "tag": "v1.1",
+    "published_at": "2021-09-12T13:03:01Z",
+    "url": "https://github.com/pauloluniyi/VGEA/releases/tag/v1.1"
+  },
+  "dependencies": {
+    "sbom": {
+      "spdxVersion": "SPDX-2.3",
+      "dataLicense": "CC0-1.0",
+      "SPDXID": "SPDXRef-DOCUMENT",
+      "name": "com.github.pauloluniyi/VGEA",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/734c78fe-fc82-4961-8d88-d38a4806c6fc",
+      "creationInfo": {
+        "creators": [
+          "Tool: protobom-v0.0.0-20250331202703-27d429d3d3e7+dirty",
+          "Tool: GitHub.com-Dependency-Graph"
+        ],
+        "created": "2025-04-01T08:38:02Z"
+      },
+      "packages": [
+        {
+          "name": "actions/checkout",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-2-75c946",
+          "versionInfo": "2",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/checkout@2"
+            }
+          ]
+        },
+        {
+          "name": "snakemake/snakemake-github-action",
+          "SPDXID": "SPDXRef-githubactions-snakemake-snakemake-github-action-1.18.0-75c946",
+          "versionInfo": "1.18.0",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/snakemake/snakemake-github-action@1.18.0"
+            }
+          ]
+        },
+        {
+          "name": "com.github.pauloluniyi/VGEA",
+          "SPDXID": "SPDXRef-github-pauloluniyi-VGEA-master-cba6ae",
+          "versionInfo": "master",
+          "downloadLocation": "git+https://github.com/pauloluniyi/VGEA",
+          "filesAnalyzed": false,
+          "licenseDeclared": "GPL-3.0",
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:github/pauloluniyi/VGEA@master"
+            }
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "spdxElementId": "SPDXRef-github-pauloluniyi-VGEA-master-cba6ae",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-2-75c946",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-pauloluniyi-VGEA-master-cba6ae",
+          "relatedSpdxElement": "SPDXRef-githubactions-snakemake-snakemake-github-action-1.18.0-75c946",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-DOCUMENT",
+          "relatedSpdxElement": "SPDXRef-github-pauloluniyi-VGEA-master-cba6ae",
+          "relationshipType": "DESCRIBES"
+        }
+      ]
+    }
+  }
+}

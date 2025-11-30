@@ -1,18 +1,661 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Redirecting</title>
-  <noscript>
-    <meta http-equiv="refresh" content="1; url=1.0.0/" />
-  </noscript>
-  <script>
-    window.location.replace(
-      "1.0.0/" + window.location.search + window.location.hash
-    );
-  </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome-Virome - Curated Viral Analysis Tools</title>
+    <meta name="description" content="A comprehensive, curated database of 300+ software tools for virome analysis">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            /* Shadcn-inspired color palette */
+            --background: 0 0% 100%;
+            --foreground: 222.2 84% 4.9%;
+            --card: 0 0% 100%;
+            --card-foreground: 222.2 84% 4.9%;
+            --popover: 0 0% 100%;
+            --popover-foreground: 222.2 84% 4.9%;
+            --primary: 162 73% 33%;
+            --primary-foreground: 210 40% 98%;
+            --secondary: 210 40% 96.1%;
+            --secondary-foreground: 222.2 47.4% 11.2%;
+            --muted: 210 40% 96.1%;
+            --muted-foreground: 215.4 16.3% 46.9%;
+            --accent: 210 40% 96.1%;
+            --accent-foreground: 222.2 47.4% 11.2%;
+            --border: 214.3 31.8% 91.4%;
+            --input: 214.3 31.8% 91.4%;
+            --ring: 162 73% 33%;
+
+            /* Project colors */
+            --virome-primary: #109b81;
+            --virome-dark: #0d7a66;
+            --virome-light: #e6f7f4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: hsl(var(--foreground));
+            background-color: hsl(var(--background));
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        .nav {
+            background-color: hsl(var(--card));
+            border-bottom: 1px solid hsl(var(--border));
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(8px);
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: hsl(var(--foreground));
+            text-decoration: none;
+        }
+
+        .nav-brand span {
+            color: var(--virome-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: hsl(var(--muted-foreground));
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover {
+            color: hsl(var(--foreground));
+        }
+
+        /* Hero Section */
+        .hero {
+            background-color: hsl(var(--background));
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            color: hsl(var(--foreground));
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: hsl(var(--muted-foreground));
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem auto 3rem;
+            max-width: 800px;
+        }
+
+        .stat-card {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: 0.75rem;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .stat-card:hover {
+            border-color: var(--virome-primary);
+            box-shadow: 0 4px 12px rgba(16, 155, 129, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--virome-primary);
+            line-height: 1;
+        }
+
+        .stat-label {
+            margin-top: 0.5rem;
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.625rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .button-primary {
+            background-color: var(--virome-primary);
+            color: white;
+        }
+
+        .button-primary:hover {
+            background-color: var(--virome-dark);
+            box-shadow: 0 4px 12px rgba(16, 155, 129, 0.2);
+        }
+
+        .button-secondary {
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            border-color: hsl(var(--border));
+        }
+
+        .button-secondary:hover {
+            background-color: hsl(var(--accent));
+            border-color: hsl(var(--muted-foreground));
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 2rem;
+        }
+
+        .section-muted {
+            background-color: hsl(var(--muted));
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+            color: hsl(var(--foreground));
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        /* Tool Cards */
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .tool-card {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: 0.75rem;
+            padding: 2rem;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            transition: all 0.2s;
+        }
+
+        .tool-card:hover {
+            border-color: var(--virome-primary);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .tool-icon {
+            width: 3rem;
+            height: 3rem;
+            background-color: var(--virome-light);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .tool-icon i {
+            font-size: 1.5rem;
+            color: var(--virome-primary);
+        }
+
+        .tool-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: hsl(var(--foreground));
+        }
+
+        .tool-card p {
+            color: hsl(var(--muted-foreground));
+            margin-bottom: 1.25rem;
+            font-size: 0.9375rem;
+        }
+
+        .tool-features {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .tool-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        .tool-features i {
+            color: var(--virome-primary);
+            font-size: 1rem;
+        }
+
+        /* Resource Cards */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border));
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.2s;
+        }
+
+        .resource-card:hover {
+            border-color: var(--virome-primary);
+            background-color: var(--virome-light);
+        }
+
+        .resource-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: var(--virome-light);
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .resource-icon i {
+            font-size: 1.25rem;
+            color: var(--virome-primary);
+        }
+
+        .resource-content h4 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: hsl(var(--foreground));
+        }
+
+        .resource-content p {
+            font-size: 0.8125rem;
+            color: hsl(var(--muted-foreground));
+            margin: 0;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(to bottom, hsl(var(--background)), hsl(var(--muted)));
+            border-top: 1px solid hsl(var(--border));
+            border-bottom: 1px solid hsl(var(--border));
+        }
+
+        /* Footer */
+        .footer {
+            background-color: hsl(var(--card));
+            border-top: 1px solid hsl(var(--border));
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer p {
+            color: hsl(var(--muted-foreground));
+            font-size: 0.875rem;
+            line-height: 1.8;
+        }
+
+        .footer a {
+            color: var(--virome-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .nav-link {
+                font-size: 0.8125rem;
+            }
+
+            .hero {
+                padding: 4rem 1.5rem 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                font-size: 1.125rem;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 3.5rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.875rem;
+            }
+
+            .tool-grid,
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  Redirecting to <a href="1.0.0/">1.0.0/</a>...
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="landing-page.html" class="nav-brand">Awesome-<span>Virome</span></a>
+            <ul class="nav-links">
+                <li><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+                <li><a href="comparison.html" class="nav-link">Comparison</a></li>
+                <li><a href="selection-guide.html" class="nav-link">Selection Guide</a></li>
+                <li><a href="https://github.com/shandley/awesome-virome" class="nav-link"><i class="bi bi-github"></i> GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <img src="awesome-virome-hex.png" alt="Awesome-Virome" class="logo">
+            <h1>Awesome-Virome</h1>
+            <p class="hero-description">A comprehensive, curated database of software tools for virome analysis</p>
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">300+</div>
+                    <div class="stat-label">Curated Tools</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Major Categories</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">164</div>
+                    <div class="stat-label">Active Repositories</div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <a href="dashboard.html" class="button button-primary">
+                    <i class="bi bi-bar-chart-fill"></i>
+                    <span>Explore Dashboard</span>
+                </a>
+                <a href="1.0.0/" class="button button-secondary">
+                    <i class="bi bi-book"></i>
+                    <span>Documentation</span>
+                </a>
+                <a href="https://github.com/shandley/awesome-virome/blob/main/README.md" class="button button-secondary">
+                    <i class="bi bi-list-ul"></i>
+                    <span>Browse Tools</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Tools Section -->
+    <section class="section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Explore Interactively</h2>
+                <p class="section-subtitle">Discover and compare viral analysis tools with our interactive web applications</p>
+            </div>
+
+            <div class="tool-grid">
+                <a href="dashboard.html" class="tool-card">
+                    <div class="tool-icon">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <h3>Interactive Dashboard</h3>
+                    <p>Visualize the entire virome analysis ecosystem at a glance</p>
+                    <ul class="tool-features">
+                        <li><i class="bi bi-check-circle-fill"></i> Tool categorization treemap</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Interactive network graph</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Timeline visualization</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Technology trends analysis</li>
+                    </ul>
+                </a>
+
+                <a href="comparison.html" class="tool-card">
+                    <div class="tool-icon">
+                        <i class="bi bi-columns-gap"></i>
+                    </div>
+                    <h3>Tool Comparison</h3>
+                    <p>Compare tools side-by-side to find the perfect fit</p>
+                    <ul class="tool-features">
+                        <li><i class="bi bi-check-circle-fill"></i> Multi-tool comparison</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Advanced filtering options</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Smart sorting capabilities</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Export to CSV/JSON</li>
+                    </ul>
+                </a>
+
+                <a href="selection-guide.html" class="tool-card">
+                    <div class="tool-icon">
+                        <i class="bi bi-compass"></i>
+                    </div>
+                    <h3>Selection Guide</h3>
+                    <p>Get personalized recommendations through our decision tree</p>
+                    <ul class="tool-features">
+                        <li><i class="bi bi-check-circle-fill"></i> Simple questionnaire</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Guided pathways</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Tailored recommendations</li>
+                        <li><i class="bi bi-check-circle-fill"></i> Feature explanations</li>
+                    </ul>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="section section-muted">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Additional Resources</h2>
+                <p class="section-subtitle">Everything you need to get started with virome analysis</p>
+            </div>
+
+            <div class="resource-grid">
+                <a href="1.0.0/" class="resource-card">
+                    <div class="resource-icon">
+                        <i class="bi bi-book-half"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h4>Workflow Documentation</h4>
+                        <p>Learn virome analysis</p>
+                    </div>
+                </a>
+
+                <a href="https://github.com/shandley/awesome-virome/blob/main/README.md" class="resource-card">
+                    <div class="resource-icon">
+                        <i class="bi bi-list-ul"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h4>Complete Tool List</h4>
+                        <p>Browse all 300+ tools</p>
+                    </div>
+                </a>
+
+                <a href="https://github.com/shandley/awesome-virome/blob/main/API.md" class="resource-card">
+                    <div class="resource-icon">
+                        <i class="bi bi-code-square"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h4>API Documentation</h4>
+                        <p>Programmatic access</p>
+                    </div>
+                </a>
+
+                <a href="https://github.com/shandley/awesome-virome/blob/main/CONTRIBUTING.md" class="resource-card">
+                    <div class="resource-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h4>Contributing Guide</h4>
+                        <p>Add or update tools</p>
+                    </div>
+                </a>
+
+                <a href="https://github.com/shandley/awesome-virome" class="resource-card" target="_blank">
+                    <div class="resource-icon">
+                        <i class="bi bi-github"></i>
+                    </div>
+                    <div class="resource-content">
+                        <h4>GitHub Repository</h4>
+                        <p>View source code</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Ready to Start Your Virome Analysis?</h2>
+                <p class="section-subtitle">Explore 300+ tools, compare options, and find the perfect fit for your research</p>
+            </div>
+
+            <div class="button-group">
+                <a href="dashboard.html" class="button button-primary">
+                    <i class="bi bi-bar-chart-fill"></i>
+                    <span>Launch Dashboard</span>
+                </a>
+                <a href="1.0.0/" class="button button-secondary">
+                    <i class="bi bi-book"></i>
+                    <span>Read Documentation</span>
+                </a>
+                <a href="https://github.com/shandley/awesome-virome" class="button button-secondary">
+                    <i class="bi bi-github"></i>
+                    <span>View on GitHub</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>
+                <strong>Awesome-Virome</strong> - A curated database of viral analysis tools<br>
+                Maintained by <a href="https://github.com/shandley">Scott Handley</a> and contributors |
+                Licensed under <a href="https://github.com/shandley/awesome-virome/blob/main/LICENSE">MIT</a>
+            </p>
+        </div>
+    </footer>
 </body>
 </html>

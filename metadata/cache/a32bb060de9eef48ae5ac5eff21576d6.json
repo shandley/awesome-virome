@@ -1,0 +1,1400 @@
+{
+  "cache_date": "2025-11-01T10:31:13.119559",
+  "data": [
+    {
+      "created": "2025-10-31T16:40:41.462718+00:00",
+      "modified": "2025-10-31T16:40:41.605939+00:00",
+      "id": 17495872,
+      "conceptrecid": "14812821",
+      "doi": "10.5281/zenodo.17495872",
+      "conceptdoi": "10.5281/zenodo.14812821",
+      "doi_url": "https://doi.org/10.5281/zenodo.17495872",
+      "metadata": {
+        "title": "Replication materials for \"Increasing risk of mass human heat mortality if historical weather patterns recur\"",
+        "doi": "10.5281/zenodo.17495872",
+        "publication_date": "2025-10-31",
+        "description": "<p>&nbsp;This repository provides code and data for \"Increasing risk of mass human heat mortality if historical weather patterns recur,\" published in Nature Climate Change, doi:10.1038/s41558-025-02480-1. You can read a preprint here: https://eartharxiv.org/repository/view/8375/</p>\n<p>## Organization</p>\n<p>The repository is organized into Scripts/, Figures/, and Data/ folders.</p>\n<p>- Data: This folder includes intermediate and processed summary data that enable replication of most the figures and numbers cited in the text. Some of the files for the climate model projections, raw observational data, and damage estimates are quite large, so they are not provided here but are publicly accessible or can be easily reproduced with the provided code. Details are below.</p>\n<p>- Scripts: Code required to reproduce the findings of our work is included in this folder. Scripts are written in Python/Jupyter and R. The Machine_Learning_Analysis subfolder within this folder contains the code necessary to reproduce the machine learning training and predictions, adapted from Trok et al. (2024), https://www.science.org/doi/10.1126/sciadv.adl3242. There is a separate README within this folder which contains more specific details for reproducing this component of the analysis should you wish to do so.&nbsp;</p>\n<p>- Figures: This is where figures will be saved if you run the scripts. There may be small differences between these figures and the final publication figures due to post-processing in Adobe Illustrator.</p>\n<p>## Data</p>\n<p>Much of the intermediate data required to reproduce the final figures and numbers in the paper are provided in the various folders within the Data directory, including the overall panel dataset that includes district-level mortality and temperature. However, much of the initial/raw data is too large to be hosted here. They are all publicly available at various locations:</p>\n<p>- The E-OBS station-based observations are available here: https://surfobs.climate.copernicus.eu/dataaccess/access_eobs.php#datafiles</p>\n<p>- The Eurostat mortality and population data are available here: https://ec.europa.eu/eurostat/data/database?node_code=demomwk. Weekly mortality is denoted by the `demo_r_mweek3` code and population is denoted by the `demo_r_pjanaggr3` code.&nbsp;</p>\n<p>- CMIP6 monthly temperature data (used for the adaptation analysis) is generally available from the Earth System Grid Federation (e.g., https://aims2.llnl.gov/search/cmip6/). Our analysis uses monthly temperature (tas_Amon) from the historical and SSP3-7.0 scenarios.</p>\n<p>## Scripts</p>\n<p>Each script performs one component of the analysis.</p>\n<p>- Aggregate_EuropeWide_E-OBS_Data.py takes the raw E-OBS input data and aggregates it to district-level (NUTS) boundaries at the daily and weekly level. This script was run remotely on an HPC system and may require significant memory.</p>\n<p>- Construct_Eurostat_Panel.R combines the E-OBS district-level data with matching weekly mortality and temperature data and produces a final panel dataset spanning 2000-2022.</p>\n<p>- Europe_Mortality_Regressions.R performs the regression analysis to derive the exposure-response functions.<br>&nbsp;&nbsp;<br>- Plot_Event_Timeseries.ipynb plots and sets the time periods of each event.</p>\n<p>- Counterfactual_Events.py combines the E-OBS data and neural network predictions to create counterfactual versions of each historical event at varying levels of global warming. This script was run remotely on an HPC system and may require significant memory.</p>\n<p>- CMIP6_EU_Scaling.py and CMIP6_Adaptation_Scaling.ipynb aggregate CMIP6 projections to the EU district level and calculate the scaling between global mean temperature and district-level temperature (for use in the adaptation analysis).</p>\n<p>- Counterfactual_Event_Mortality.py performs the final calculations of each event's mortality at varying levels of global warming.&nbsp;</p>\n<p>- Figures.ipynb plots most of the figures shown in the main text and supplementary material.&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Callahan, Christopher",
+            "affiliation": null
+          }
+        ],
+        "dates": [
+          {
+            "type": "available"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 2,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "14812821"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Replication materials for \"Increasing risk of mass human heat mortality if historical weather patterns recur\"",
+      "links": {
+        "self": "https://zenodo.org/api/records/17495872",
+        "self_html": "https://zenodo.org/records/17495872",
+        "preview_html": "https://zenodo.org/records/17495872?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17495872",
+        "self_doi": "https://doi.org/10.5281/zenodo.17495872",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17495872",
+        "reserve_doi": "https://zenodo.org/api/records/17495872/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/14812821",
+        "parent_html": "https://zenodo.org/records/14812821",
+        "parent_doi": "https://doi.org/10.5281/zenodo.14812821",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.14812821",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17495872/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17495872/sequence/default",
+        "files": "https://zenodo.org/api/records/17495872/files",
+        "media_files": "https://zenodo.org/api/records/17495872/media-files",
+        "archive": "https://zenodo.org/api/records/17495872/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17495872/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17495872/versions/latest",
+        "latest_html": "https://zenodo.org/records/17495872/latest",
+        "versions": "https://zenodo.org/api/records/17495872/versions",
+        "draft": "https://zenodo.org/api/records/17495872/draft",
+        "access_links": "https://zenodo.org/api/records/17495872/access/links",
+        "access_grants": "https://zenodo.org/api/records/17495872/access/grants",
+        "access_users": "https://zenodo.org/api/records/17495872/access/users",
+        "access_request": "https://zenodo.org/api/records/17495872/access/request",
+        "access": "https://zenodo.org/api/records/17495872/access",
+        "communities": "https://zenodo.org/api/records/17495872/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17495872/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17495872/request-deletion",
+        "requests": "https://zenodo.org/api/records/17495872/requests"
+      },
+      "updated": "2025-10-31T16:40:41.605939+00:00",
+      "recid": "17495872",
+      "revision": 4,
+      "files": [
+        {
+          "id": "e856e58d-907e-45b9-a7d5-7594aa35cc0f",
+          "key": "Replication_v2.zip",
+          "size": 857046841,
+          "checksum": "md5:0642debbb475356fb17f007ffed3d05f",
+          "links": {
+            "self": "https://zenodo.org/api/records/17495872/files/Replication_v2.zip/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "101579"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 9,
+        "unique_downloads": 9,
+        "views": 71,
+        "unique_views": 54,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 1,
+        "version_views": 2
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-31T15:01:54.965047+00:00",
+      "modified": "2025-10-31T15:01:55.135175+00:00",
+      "id": 17494910,
+      "conceptrecid": "17494909",
+      "doi": "10.5281/zenodo.17494910",
+      "conceptdoi": "10.5281/zenodo.17494909",
+      "doi_url": "https://doi.org/10.5281/zenodo.17494910",
+      "metadata": {
+        "title": "NERC Environmental Data Service Workshop -\u00a0Shaping the Future of AI-Ready,\u00a0User-Driven Environmental Data",
+        "doi": "10.5281/zenodo.17494910",
+        "publication_date": "2025-10-31",
+        "description": "<div>\n<p><span lang=\"EN-GB\"><span>Presentation delivered at the 2025 NERC Digital Gathering at Cranfield University.&nbsp;</span></span></p>\n<p><span lang=\"EN-GB\"><span>Abstract</span><span>:</span></span><span>&nbsp;</span></p>\n</div>\n<div>\n<p><span lang=\"EN-GB\"><span>This workshop offers the opportunity to learn more about the Environmental Data Service (following on from the talk). We will explore how we are improving our data to ensure AI and non-specialists are better able to tackle multi-disciplinary environmental challenges</span><span>.&nbsp;&nbsp;</span></span><span>&nbsp;</span></p>\n</div>\n<div>\n<p><span lang=\"EN-GB\"><span>The workshop will focus on the EDS AMPLIFY project and its end-to-end workflow for environmental sensor data. We have a proof-of-concept service that combines temperature data from multiple data sources (e.g. ship, </span><span>aircraft</span><span>, ground-based stations) in near-real time. Upcoming projects will expand the breadth of data that we make available; both sensor data and </span><span>additional</span><span> data services (land cover, marine, climate data, satellite data). We would like to explore your views on where we should focus and how we would best ensure users can discover, pick </span><span>up</span><span> and use such resources. If you are someone who uses or produces data (especially sensor data) then </span><span>we&rsquo;d</span><span> love to get your views on the work so far and future direction of our roadmap.&nbsp;</span></span><span>&nbsp;</span></p>\n</div>\n<div>\n<p><span lang=\"EN-GB\"><span>The workshop will be a bit like a hackathon but not about coding. We are particularly interested in exploring the possible user journeys of the future. How do you wish you could combine, access, and analyse data from multiple sources or across disciplines? What data services do decisions makers need for cross-sector environmental challenges in line with Government missions? What new tools and techniques are </span><span>emerging</span><span>? </span><span>We&rsquo;d</span><span> love to explore your views and needs on these topics. This is your opportunity to have your voice heard on what happens next with our data services.</span></span><span>&nbsp;</span></p>\n</div>\n<div>\n<p><span lang=\"EN-GB\"><span>The workshop will also offer the opportunity for individuals to delve into the technical details (where </span><span>appropriate)</span><span> with our team. We hope to </span><span>identify</span><span> opportunities for future collaboration.&nbsp;</span></span><span>&nbsp;</span></p>\n</div>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Townsend, Poppy",
+            "affiliation": "Science and Technology Facilities Council",
+            "orcid": "0000-0001-7189-8258"
+          },
+          {
+            "name": "Pepler, Sam",
+            "affiliation": "Science and Technology Facilities Council",
+            "orcid": "0000-0001-5307-911X"
+          },
+          {
+            "name": "Watson, Carl",
+            "affiliation": "British Geological Survey",
+            "orcid": "0000-0003-4940-5503"
+          },
+          {
+            "name": "Darroch, Louise",
+            "affiliation": "British Oceanographic Data Centre (National Oceanography Centre)",
+            "orcid": "0000-0003-4163-9575"
+          },
+          {
+            "name": "Kokkinaki, Alexandra",
+            "affiliation": "British Oceanographic Data Centre",
+            "orcid": "0000-0001-8042-6391"
+          },
+          {
+            "name": "Walsh, Colm",
+            "affiliation": "National Oceanography Centre",
+            "orcid": "0009-0009-0994-1003"
+          },
+          {
+            "name": "Clare, James",
+            "affiliation": "British Oceanographic Data Centre (National Oceanography Centre)"
+          },
+          {
+            "name": "Rawsthorne, Helen Mair",
+            "affiliation": "UK Centre for Ecology & Hydrology",
+            "orcid": "0000-0002-6540-8547"
+          },
+          {
+            "name": "Samreen, Faiza",
+            "affiliation": "UK Centre for Ecology & Hydrology",
+            "orcid": "0000-0002-9522-0713"
+          },
+          {
+            "name": "Kingdon, Andrew",
+            "affiliation": "British Geological Survey",
+            "orcid": "0000-0003-4979-588X"
+          },
+          {
+            "name": "Stephens, Ag",
+            "affiliation": "Science and Technology Facilities Council",
+            "orcid": "0000-0002-1038-7988"
+          },
+          {
+            "name": "Tvaranavicius, Paulius",
+            "affiliation": "British Geological Survey"
+          },
+          {
+            "name": "Alexander, Jesse",
+            "affiliation": "Science and Technology Facilities Council",
+            "orcid": "0009-0006-2877-3197"
+          }
+        ],
+        "resource_type": {
+          "title": "Presentation",
+          "type": "presentation"
+        },
+        "meeting": {
+          "title": "NERC Digital Gathering",
+          "dates": "7-9 October 2025",
+          "place": "Cranfield University",
+          "url": "https://sites.google.com/ncas.ac.uk/digitalgathering2025/home?authuser=0"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "ceda-document-repository"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17494909"
+              }
+            }
+          ]
+        }
+      },
+      "title": "NERC Environmental Data Service Workshop -\u00a0Shaping the Future of AI-Ready,\u00a0User-Driven Environmental Data",
+      "links": {
+        "self": "https://zenodo.org/api/records/17494910",
+        "self_html": "https://zenodo.org/records/17494910",
+        "preview_html": "https://zenodo.org/records/17494910?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17494910",
+        "self_doi": "https://doi.org/10.5281/zenodo.17494910",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17494910",
+        "reserve_doi": "https://zenodo.org/api/records/17494910/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17494909",
+        "parent_html": "https://zenodo.org/records/17494909",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17494909",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17494909",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17494910/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17494910/sequence/default",
+        "files": "https://zenodo.org/api/records/17494910/files",
+        "media_files": "https://zenodo.org/api/records/17494910/media-files",
+        "archive": "https://zenodo.org/api/records/17494910/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17494910/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17494910/versions/latest",
+        "latest_html": "https://zenodo.org/records/17494910/latest",
+        "versions": "https://zenodo.org/api/records/17494910/versions",
+        "draft": "https://zenodo.org/api/records/17494910/draft",
+        "access_links": "https://zenodo.org/api/records/17494910/access/links",
+        "access_grants": "https://zenodo.org/api/records/17494910/access/grants",
+        "access_users": "https://zenodo.org/api/records/17494910/access/users",
+        "access_request": "https://zenodo.org/api/records/17494910/access/request",
+        "access": "https://zenodo.org/api/records/17494910/access",
+        "communities": "https://zenodo.org/api/records/17494910/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17494910/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17494910/request-deletion",
+        "requests": "https://zenodo.org/api/records/17494910/requests"
+      },
+      "updated": "2025-10-31T15:01:55.135175+00:00",
+      "recid": "17494910",
+      "revision": 4,
+      "files": [
+        {
+          "id": "9e213b47-b1db-4d7a-ade4-d5ad232fb5fc",
+          "key": "LR5 - 1410 - EDS workshop Shaping the Future of AI-Ready, User-Driven Environmental Data _- P Townsend et al .pptx",
+          "size": 12977328,
+          "checksum": "md5:9677c2e6995b4788dd60fb910e68efc5",
+          "links": {
+            "self": "https://zenodo.org/api/records/17494910/files/LR5 - 1410 - EDS workshop Shaping the Future of AI-Ready, User-Driven Environmental Data _- P Townsend et al .pptx/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "260920"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 19,
+        "unique_views": 16,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 16,
+        "version_views": 19
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-31T14:30:06.851415+00:00",
+      "modified": "2025-10-31T14:30:07.139376+00:00",
+      "id": 17494628,
+      "conceptrecid": "17494627",
+      "doi": "10.5281/zenodo.17494628",
+      "conceptdoi": "10.5281/zenodo.17494627",
+      "doi_url": "https://doi.org/10.5281/zenodo.17494628",
+      "metadata": {
+        "title": "DALIA Use Cases and User Stories",
+        "doi": "10.5281/zenodo.17494628",
+        "publication_date": "2025-10-31",
+        "description": "<div>&nbsp;</div>\n<div>\n<p>In today&rsquo;s digital society, the ability to handle, understand, and manage data in an efficient way is increasingly recognized as a fundamental skill across all disciplines. The DALIA project (DAta LIteracy Alliance [1]) aims to foster data literacy by providing high-quality, openly accessible educational resources (OER). These materials are designed to meet the diverse needs of learners and professionals at various educational levels, levels of RDM experience, and disciplinary backgrounds. The resources are contributed by a wide range of institutions, including the National Research Data Infrastructure (NFDI) consortia, national Research Data Management (RDM) initiatives, data competence centers, and other stakeholders from the research and education landscape. To enable efficient access and use of these learning materials, DALIA is developing a knowledge graph that supports semantic linking and integration, adhering to the FAIR principles&mdash;Findable, Accessible, Interoperable, and Reusable [2,3].</p>\n<p>A central element of the DALIA platform development is the implementation of an agile, user-centred approach. Core to this methodology are user stories, which articulate specific user needs and expectations in a structured, scenario-based format [4]. Each user story is framed as: &ldquo;As a [role with specific RDM experience], I have the [need/requirement] to be fulfilled by a [knowledge base function].&rdquo; This format ensures that requirements are clearly linked to both the user context and the intended system functionality, while maintaining cross-disciplinary applicability.</p>\n<p>Based on these user stories, more detailed use cases are developed, specifying triggers, user actions, system responses, expected outcomes, and acceptance criteria. These use cases guide the iterative design and development of the platform and ensure alignment with real-world needs. The user stories encompass both, the perspectives of learners&mdash;seeking relevant learning materials&mdash;and contributors, who wish to publish content, share feedback, or access usage reports.</p>\n<p>The initial set of user stories was developed by combining general community input and a structured community workshop. Participants were invited to describe their needs via a targeted survey, considering their role, educational level, specialization, and intended use of the platform. This participatory process enabled the integration of a wide range of perspectives and ensured that the platform supports diverse usage scenarios. Through continuous refinement of user stories and active community involvement, DALIA remains adaptive, inclusive, and responsive to evolving user needs in the field of research data management and data literacy.</p>\n<h3>References</h3>\n<p>[1] DALIA Search Platform, &ldquo;Search platform for OER regarding data literacy&rdquo; <a href=\"https://search.dalia.education/basic\" target=\"_blank\" rel=\"nofollow noopener noreferrer\">https://search.dalia.education/basic</a> (07.04.2025)<br>[2] M. D. Wilkinson et al., &ldquo;&bdquo;The FAIR Guiding Principles for scientific data management and stewardship&rdquo;, Sci. Data, 3, 160018, 2016, doi: 10.1038/sdata.2016.18.<br>[3] L. Garcia et al., &ldquo;Ten simple rules for making training materials FAIR&rdquo;, PLOS Comp. Biol. 16 (5), e1007854 2020, doi: <a href=\"https://doi.org/10.1371/journal.pcbi.1007854\" target=\"_blank\" rel=\"nofollow noopener noreferrer\">https://doi.org/10.1371/journal.pcbi.1007854</a>.<br>[4] I. Jacobson et al., &ldquo;Object-oriented software engineering: a use case driven approach&rdquo;, Wokingham; Reading, MA (USA), ACM Press, 1992, ISBN: 0-201-54435-0.</p>\n<p>&nbsp;</p>\n<p>DALIA is currently funded by the Federal Ministry of Research, Technology, and Space (BMFTR) and the funding measure from the EU&rsquo;s Capacity Building and Resilience Facility under the funding code 16DWWQP07.</p>\n</div>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "H\u00fcppe, Henrika Maria",
+            "affiliation": null,
+            "orcid": "0000-0002-0570-7924"
+          },
+          {
+            "name": "Alessandra, Kuntz",
+            "affiliation": null,
+            "orcid": "0000-0002-8259-2577"
+          },
+          {
+            "name": "Rosalie, Dalhoff",
+            "affiliation": null,
+            "orcid": "0000-0001-7145-3929"
+          },
+          {
+            "name": "Schmidt, Regina Ulrike Sophie",
+            "affiliation": null,
+            "orcid": "0000-0001-8049-4706"
+          },
+          {
+            "name": "Kleinhans, Agnes",
+            "affiliation": null,
+            "orcid": "0009-0003-7531-5891"
+          },
+          {
+            "name": "Xia, Ning",
+            "affiliation": null,
+            "orcid": "0009-0006-8245-5958"
+          },
+          {
+            "name": "Haugwitz, Jan-Michael",
+            "affiliation": null,
+            "orcid": "0009-0007-3576-3947"
+          },
+          {
+            "name": "Will, Moritz",
+            "affiliation": null,
+            "orcid": "0000-0003-4822-9122"
+          }
+        ],
+        "keywords": [
+          "Data Literacy",
+          "Research data management",
+          "DALIA",
+          "OER",
+          "Use Case"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Publication",
+          "type": "publication"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "dalia"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17494627"
+              }
+            }
+          ]
+        }
+      },
+      "title": "DALIA Use Cases and User Stories",
+      "links": {
+        "self": "https://zenodo.org/api/records/17494628",
+        "self_html": "https://zenodo.org/records/17494628",
+        "preview_html": "https://zenodo.org/records/17494628?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17494628",
+        "self_doi": "https://doi.org/10.5281/zenodo.17494628",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17494628",
+        "reserve_doi": "https://zenodo.org/api/records/17494628/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17494627",
+        "parent_html": "https://zenodo.org/records/17494627",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17494627",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17494627",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17494628/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17494628/sequence/default",
+        "files": "https://zenodo.org/api/records/17494628/files",
+        "media_files": "https://zenodo.org/api/records/17494628/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17494628:DALIA_User_Cases_de.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17494628:DALIA_User_Cases_de.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17494628:DALIA_User_Cases_de.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17494628:DALIA_User_Cases_de.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17494628:DALIA_User_Cases_de.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17494628:DALIA_User_Cases_de.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17494628/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17494628/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17494628/versions/latest",
+        "latest_html": "https://zenodo.org/records/17494628/latest",
+        "versions": "https://zenodo.org/api/records/17494628/versions",
+        "draft": "https://zenodo.org/api/records/17494628/draft",
+        "access_links": "https://zenodo.org/api/records/17494628/access/links",
+        "access_grants": "https://zenodo.org/api/records/17494628/access/grants",
+        "access_users": "https://zenodo.org/api/records/17494628/access/users",
+        "access_request": "https://zenodo.org/api/records/17494628/access/request",
+        "access": "https://zenodo.org/api/records/17494628/access",
+        "communities": "https://zenodo.org/api/records/17494628/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17494628/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17494628/request-deletion",
+        "requests": "https://zenodo.org/api/records/17494628/requests"
+      },
+      "updated": "2025-10-31T14:30:07.139376+00:00",
+      "recid": "17494628",
+      "revision": 4,
+      "files": [
+        {
+          "id": "c8ac3500-404d-4c1b-a183-e7dee19c8519",
+          "key": "DALIA_User_Cases_de.pdf",
+          "size": 1119342,
+          "checksum": "md5:f1d72f3aece7a80e8f85c3db3d48f86b",
+          "links": {
+            "self": "https://zenodo.org/api/records/17494628/files/DALIA_User_Cases_de.pdf/content"
+          }
+        },
+        {
+          "id": "097a403d-5f87-44e3-8883-fa276414c33f",
+          "key": "DALIA_User_Cases_en.pdf",
+          "size": 1110598,
+          "checksum": "md5:c604f61f0ae588af892f6e6b86730c30",
+          "links": {
+            "self": "https://zenodo.org/api/records/17494628/files/DALIA_User_Cases_en.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "261515"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 5,
+        "unique_downloads": 4,
+        "views": 4,
+        "unique_views": 4,
+        "version_downloads": 5,
+        "version_unique_downloads": 4,
+        "version_unique_views": 4,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-30T18:29:39.336657+00:00",
+      "modified": "2025-10-30T18:29:39.896259+00:00",
+      "id": 17487413,
+      "conceptrecid": "17487412",
+      "doi": "10.5281/zenodo.17487413",
+      "conceptdoi": "10.5281/zenodo.17487412",
+      "doi_url": "https://doi.org/10.5281/zenodo.17487413",
+      "metadata": {
+        "title": "Hydrodynamic outflows and the lunar volatile element depletion",
+        "doi": "10.5281/zenodo.17487413",
+        "publication_date": "2025-10-30",
+        "description": "<p>These three worksheets written for Maplesoft's Maple 2020 software package were used to produce FIgures 1, 2, and 3 &nbsp;(C-O-H-adiabats.mw) and Figure 4 (C-O-H-Na-adiabats.mw, adiabatic-solutions.mw) of the accompanying publication. PDF versions are also included for those readers without access to the Maple 2020 software package or those who wish to reproduce the presented results in other software packages or platforms.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Pahlevan, Kaveh",
+            "affiliation": null
+          }
+        ],
+        "dates": [
+          {
+            "type": "submitted"
+          }
+        ],
+        "version": "1.0",
+        "language": "eng",
+        "resource_type": {
+          "title": "Computational notebook",
+          "type": "software",
+          "subtype": "computationalnotebook"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17487412"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Hydrodynamic outflows and the lunar volatile element depletion",
+      "links": {
+        "self": "https://zenodo.org/api/records/17487413",
+        "self_html": "https://zenodo.org/records/17487413",
+        "preview_html": "https://zenodo.org/records/17487413?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17487413",
+        "self_doi": "https://doi.org/10.5281/zenodo.17487413",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17487413",
+        "reserve_doi": "https://zenodo.org/api/records/17487413/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17487412",
+        "parent_html": "https://zenodo.org/records/17487412",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17487412",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17487412",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17487413/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17487413/sequence/default",
+        "files": "https://zenodo.org/api/records/17487413/files",
+        "media_files": "https://zenodo.org/api/records/17487413/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17487413:C-O-H-Na-adiabats.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17487413:C-O-H-Na-adiabats.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17487413:C-O-H-Na-adiabats.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17487413:C-O-H-Na-adiabats.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17487413:C-O-H-Na-adiabats.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17487413:C-O-H-Na-adiabats.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17487413/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17487413/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17487413/versions/latest",
+        "latest_html": "https://zenodo.org/records/17487413/latest",
+        "versions": "https://zenodo.org/api/records/17487413/versions",
+        "draft": "https://zenodo.org/api/records/17487413/draft",
+        "access_links": "https://zenodo.org/api/records/17487413/access/links",
+        "access_grants": "https://zenodo.org/api/records/17487413/access/grants",
+        "access_users": "https://zenodo.org/api/records/17487413/access/users",
+        "access_request": "https://zenodo.org/api/records/17487413/access/request",
+        "access": "https://zenodo.org/api/records/17487413/access",
+        "communities": "https://zenodo.org/api/records/17487413/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17487413/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17487413/request-deletion",
+        "requests": "https://zenodo.org/api/records/17487413/requests"
+      },
+      "updated": "2025-10-30T18:29:39.896259+00:00",
+      "recid": "17487413",
+      "revision": 4,
+      "files": [
+        {
+          "id": "78246b87-5260-4790-8183-62d0c78bfb71",
+          "key": "C-O-H-Na-adiabats.pdf",
+          "size": 262078,
+          "checksum": "md5:e43c8e6f5582e5f55412eece68996bc5",
+          "links": {
+            "self": "https://zenodo.org/api/records/17487413/files/C-O-H-Na-adiabats.pdf/content"
+          }
+        },
+        {
+          "id": "2430083d-703f-4272-9128-ebf5f7f987f3",
+          "key": "C-O-H-adiabats.pdf",
+          "size": 278876,
+          "checksum": "md5:426429c2e6b4e6197b5f8507a8d23c28",
+          "links": {
+            "self": "https://zenodo.org/api/records/17487413/files/C-O-H-adiabats.pdf/content"
+          }
+        },
+        {
+          "id": "c7050ced-f3d7-4d66-8e78-0aba6d331710",
+          "key": "C-O-H-Na-adiabats.mw",
+          "size": 147396,
+          "checksum": "md5:9c860385410c7f0de9f7b491eaef6c6f",
+          "links": {
+            "self": "https://zenodo.org/api/records/17487413/files/C-O-H-Na-adiabats.mw/content"
+          }
+        },
+        {
+          "id": "af07cc20-a853-401f-bd86-e8223d1e41be",
+          "key": "adiabatic-solutions.pdf",
+          "size": 67661,
+          "checksum": "md5:0f73c0ccb949475df3876d8c09ad4459",
+          "links": {
+            "self": "https://zenodo.org/api/records/17487413/files/adiabatic-solutions.pdf/content"
+          }
+        },
+        {
+          "id": "1bbcc5e0-0a51-467c-b7fe-20e7d6b5fb4f",
+          "key": "adiabatic-solutions.mw",
+          "size": 43904,
+          "checksum": "md5:4595628c0700592177d6ddf740b6e834",
+          "links": {
+            "self": "https://zenodo.org/api/records/17487413/files/adiabatic-solutions.mw/content"
+          }
+        },
+        {
+          "id": "a62b384d-cef4-4b84-9e54-b1d94af2db87",
+          "key": "C-O-H-adiabats.mw",
+          "size": 155142,
+          "checksum": "md5:608c04501a6e283870671d929e277c82",
+          "links": {
+            "self": "https://zenodo.org/api/records/17487413/files/C-O-H-adiabats.mw/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "544690"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 7,
+        "unique_downloads": 4,
+        "views": 5,
+        "unique_views": 2,
+        "version_downloads": 7,
+        "version_unique_downloads": 4,
+        "version_unique_views": 2,
+        "version_views": 5
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-30T14:54:48.430623+00:00",
+      "modified": "2025-10-30T14:54:48.610070+00:00",
+      "id": 17484942,
+      "conceptrecid": "8256234",
+      "doi": "10.5281/zenodo.17484942",
+      "conceptdoi": "10.5281/zenodo.8256234",
+      "doi_url": "https://doi.org/10.5281/zenodo.17484942",
+      "metadata": {
+        "title": "TRE/SDE Data access agreement",
+        "doi": "10.5281/zenodo.17484942",
+        "publication_date": "2025-10-30",
+        "description": "<h3><em>[If you are looking at an old version this will show as 'restricted' and a link to the newest version will show at the top of the page]</em></h3>\n<p>This Data Access Agreement (DAA) is freely available to use and is intended for use where data is accessed within a Trusted Research Environment (TRE) for the purposes of research and development for the public good.&nbsp;</p>\n<p>The DAA has been developed by the Pan UK Data Governance Steering Group, a working Group of the UK Health Data Research Alliance representing data custodians and policymakers across the four nations of the UK. The Steering Group is focused on simplifying and streamlining data access governance processes.</p>\n<p>The DAA terms and conditions should not be modified. The annexes are customisable to allow for differences between TREs.&nbsp;</p>\n<p><strong>We are providing a Personal Data/CPI and a Non-Personal Data template</strong></p>\n<p>The latter intended for use only where the data accessed in the TRE and the Data Output are both not considered Personal Data or Confidential Patient Information (CPI) from the perspective of the Approved User and their Approved User Organisation who are accessing the data on behalf of the Sponsor Organisation. If research will involve access to Data that is Personal Data or CPI, or the creation of Data Outputs that are likely to become Personal Data or CPI in the hands of the intended recipients, the Personal Data version must be used.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "TRE Legal Toolkit Action Force, Pan UK Data Governance Steering Group, UK Health Data Research Alliance",
+            "affiliation": "HDR UK"
+          }
+        ],
+        "keywords": [
+          "data access agreement",
+          "DAA",
+          "data sharing agreement",
+          "data governance",
+          "trusted research environment",
+          "TRE",
+          "secure data environment",
+          "SDE",
+          "research contract",
+          "data safe haven",
+          "five safes framework"
+        ],
+        "dates": [
+          {
+            "type": "available",
+            "description": "V7.1 22.10.25 (non) V8.0 30.10.25 (personal/CPI)"
+          }
+        ],
+        "version": "8.0 personal/CPI 7.1 non-personal",
+        "language": "eng",
+        "resource_type": {
+          "title": "Other",
+          "type": "other"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "hdruk"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 14,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "8256234"
+              }
+            }
+          ]
+        },
+        "notes": "<p>We wish to encourage widespread adoption of this template and it is freely available to use. If you do plan to adopt this template or would like to discuss any queries please get in touch: informationgovernance@hdruk.ac.uk</p>"
+      },
+      "title": "TRE/SDE Data access agreement",
+      "links": {
+        "self": "https://zenodo.org/api/records/17484942",
+        "self_html": "https://zenodo.org/records/17484942",
+        "preview_html": "https://zenodo.org/records/17484942?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17484942",
+        "self_doi": "https://doi.org/10.5281/zenodo.17484942",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17484942",
+        "reserve_doi": "https://zenodo.org/api/records/17484942/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/8256234",
+        "parent_html": "https://zenodo.org/records/8256234",
+        "parent_doi": "https://doi.org/10.5281/zenodo.8256234",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.8256234",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17484942/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17484942/sequence/default",
+        "files": "https://zenodo.org/api/records/17484942/files",
+        "media_files": "https://zenodo.org/api/records/17484942/media-files",
+        "archive": "https://zenodo.org/api/records/17484942/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17484942/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17484942/versions/latest",
+        "latest_html": "https://zenodo.org/records/17484942/latest",
+        "versions": "https://zenodo.org/api/records/17484942/versions",
+        "draft": "https://zenodo.org/api/records/17484942/draft",
+        "access_links": "https://zenodo.org/api/records/17484942/access/links",
+        "access_grants": "https://zenodo.org/api/records/17484942/access/grants",
+        "access_users": "https://zenodo.org/api/records/17484942/access/users",
+        "access_request": "https://zenodo.org/api/records/17484942/access/request",
+        "access": "https://zenodo.org/api/records/17484942/access",
+        "communities": "https://zenodo.org/api/records/17484942/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17484942/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17484942/request-deletion",
+        "requests": "https://zenodo.org/api/records/17484942/requests"
+      },
+      "updated": "2025-10-30T14:54:48.610070+00:00",
+      "recid": "17484942",
+      "revision": 4,
+      "files": [
+        {
+          "id": "582a6acf-9745-4515-b500-7345889aab77",
+          "key": "DAA v8.0 30.10.25 Personal Data_CPI version .docx",
+          "size": 162298,
+          "checksum": "md5:f9560245a0d1452e0b0dc95b207631c1",
+          "links": {
+            "self": "https://zenodo.org/api/records/17484942/files/DAA v8.0 30.10.25 Personal Data_CPI version .docx/content"
+          }
+        },
+        {
+          "id": "49a65a40-de60-46b4-ba07-5cea4dd122a4",
+          "key": "DAA v7.1 23.10.2025 Non-personal data.docx",
+          "size": 130542,
+          "checksum": "md5:c40ba7090a819f78adef99aceb84948e",
+          "links": {
+            "self": "https://zenodo.org/api/records/17484942/files/DAA v7.1 23.10.2025 Non-personal data.docx/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "598805"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 2109,
+        "unique_downloads": 1847,
+        "views": 4656,
+        "unique_views": 4220,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 3,
+        "version_views": 3
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-30T12:04:15.704519+00:00",
+      "modified": "2025-10-30T12:04:15.938582+00:00",
+      "id": 17483904,
+      "conceptrecid": "17483903",
+      "doi": "10.5281/zenodo.17483904",
+      "conceptdoi": "10.5281/zenodo.17483903",
+      "doi_url": "https://doi.org/10.5281/zenodo.17483904",
+      "metadata": {
+        "title": "Techniques for interactive visual examination of autonomous vessel performance",
+        "doi": "10.5281/zenodo.17483904",
+        "publication_date": "2024-08-30",
+        "description": "<p><span>This work dives into different aspects of autonomous vessel functionality that developers may wish to analyse, Employing various visual displays, interaction techniques and associated measurements.</span></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Andrienko, Natalia",
+            "affiliation": "City University",
+            "orcid": "0000-0003-3313-1560"
+          },
+          {
+            "name": "Andrienko, Gennady",
+            "affiliation": "City University",
+            "orcid": "0000-0002-8574-6295"
+          },
+          {
+            "name": "Zissis, Dimitris",
+            "affiliation": "University of East Anglia",
+            "orcid": "0000-0002-6957-3494"
+          },
+          {
+            "name": "Troupiotis-Kapeliaris, Alexandros",
+            "affiliation": null,
+            "orcid": "0000-0001-8726-6693"
+          }
+        ],
+        "resource_type": {
+          "title": "Conference proceeding",
+          "type": "publication",
+          "subtype": "conferenceproceeding"
+        },
+        "meeting": {
+          "title": "7th International Workshop on Big Data Visual Exploration and Analytics",
+          "acronym": "VLDB",
+          "dates": "30 August 2024",
+          "place": "Guangzhou, China"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "grants": [
+          {
+            "code": "101092749",
+            "internal_id": "10.13039/501100000780::101092749",
+            "funder": {
+              "name": "European Commission",
+              "doi": "10.13039/501100000780",
+              "acronym": "EC"
+            },
+            "title": "Critical Action Planning over Extreme-Scale Data",
+            "acronym": "CREXDATA",
+            "program": "HORIZON.2.4",
+            "url": "https://cordis.europa.eu/projects/101092749"
+          }
+        ],
+        "communities": [
+          {
+            "id": "crexdata"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17483903"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Techniques for interactive visual examination of autonomous vessel performance",
+      "links": {
+        "self": "https://zenodo.org/api/records/17483904",
+        "self_html": "https://zenodo.org/records/17483904",
+        "preview_html": "https://zenodo.org/records/17483904?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17483904",
+        "self_doi": "https://doi.org/10.5281/zenodo.17483904",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17483904",
+        "reserve_doi": "https://zenodo.org/api/records/17483904/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17483903",
+        "parent_html": "https://zenodo.org/records/17483903",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17483903",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17483903",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17483904/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17483904/sequence/default",
+        "files": "https://zenodo.org/api/records/17483904/files",
+        "media_files": "https://zenodo.org/api/records/17483904/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17483904:Natalia%20Andrienko%20et%20al_August.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17483904:Natalia%20Andrienko%20et%20al_August.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17483904:Natalia%20Andrienko%20et%20al_August.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17483904:Natalia%20Andrienko%20et%20al_August.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17483904:Natalia%20Andrienko%20et%20al_August.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17483904:Natalia%20Andrienko%20et%20al_August.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17483904/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17483904/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17483904/versions/latest",
+        "latest_html": "https://zenodo.org/records/17483904/latest",
+        "versions": "https://zenodo.org/api/records/17483904/versions",
+        "draft": "https://zenodo.org/api/records/17483904/draft",
+        "access_links": "https://zenodo.org/api/records/17483904/access/links",
+        "access_grants": "https://zenodo.org/api/records/17483904/access/grants",
+        "access_users": "https://zenodo.org/api/records/17483904/access/users",
+        "access_request": "https://zenodo.org/api/records/17483904/access/request",
+        "access": "https://zenodo.org/api/records/17483904/access",
+        "communities": "https://zenodo.org/api/records/17483904/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17483904/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17483904/request-deletion",
+        "requests": "https://zenodo.org/api/records/17483904/requests"
+      },
+      "updated": "2025-10-30T12:04:15.938582+00:00",
+      "recid": "17483904",
+      "revision": 4,
+      "files": [
+        {
+          "id": "32c1f41f-5fd5-4e55-908f-923c4802f40a",
+          "key": "Natalia Andrienko et al_August.pdf",
+          "size": 2850351,
+          "checksum": "md5:bb5acd8ba761feed6ec59120a4db9cd7",
+          "links": {
+            "self": "https://zenodo.org/api/records/17483904/files/Natalia Andrienko et al_August.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1122623"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 2,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 2,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-30T09:41:18.110160+00:00",
+      "modified": "2025-10-30T09:41:18.445274+00:00",
+      "id": 17482485,
+      "conceptrecid": "17482484",
+      "doi": "10.5281/zenodo.17482485",
+      "conceptdoi": "10.5281/zenodo.17482484",
+      "doi_url": "https://doi.org/10.5281/zenodo.17482485",
+      "metadata": {
+        "title": "THE USE OF DERIVATIONAL AFFIXES IN O'TKIR HOSHIMOV'S WORK THE AFFAIRS OF THE WORLD",
+        "doi": "10.5281/zenodo.17482485",
+        "publication_date": "2025-10-29",
+        "description": "<p><em><span lang=\"EN-US\">As we live in this world, I believe there is one thing we must fully understand. The ones who brought us into existence from nothing, who became the reason for our coming into this world, and who &ndash; without caring for their own comfort &ndash; sacrificed their needs, endured both heat and cold for our sake, are our parents.<br>This article provides an in-depth analysis of the use of derivational affixes in the novella &ldquo;The Affairs of the World&rdquo; by the writer O&lsquo;tkir Hoshimov. When reading this work, one feels as if the events are taking place in one&rsquo;s own past, making it impossible to put the book down. The book contains the line: &ldquo;I wish all the mothers in the world would read this story.&rdquo; Through this sentence, it becomes evident that the work reflects the essence of motherhood and the love of mothers all over the world.</span></em></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Norbo'tayeva, Gozal Murtozi qizi",
+            "affiliation": null
+          }
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "16",
+          "pages": "14-18",
+          "title": "GOLDEN BRAIN",
+          "volume": "3"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17482484"
+              }
+            }
+          ]
+        }
+      },
+      "title": "THE USE OF DERIVATIONAL AFFIXES IN O'TKIR HOSHIMOV'S WORK THE AFFAIRS OF THE WORLD",
+      "links": {
+        "self": "https://zenodo.org/api/records/17482485",
+        "self_html": "https://zenodo.org/records/17482485",
+        "preview_html": "https://zenodo.org/records/17482485?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17482485",
+        "self_doi": "https://doi.org/10.5281/zenodo.17482485",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17482485",
+        "reserve_doi": "https://zenodo.org/api/records/17482485/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17482484",
+        "parent_html": "https://zenodo.org/records/17482484",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17482484",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17482484",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17482485/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17482485/sequence/default",
+        "files": "https://zenodo.org/api/records/17482485/files",
+        "media_files": "https://zenodo.org/api/records/17482485/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17482485:14-18.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17482485:14-18.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17482485:14-18.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17482485:14-18.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17482485:14-18.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17482485:14-18.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17482485/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17482485/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17482485/versions/latest",
+        "latest_html": "https://zenodo.org/records/17482485/latest",
+        "versions": "https://zenodo.org/api/records/17482485/versions",
+        "draft": "https://zenodo.org/api/records/17482485/draft",
+        "access_links": "https://zenodo.org/api/records/17482485/access/links",
+        "access_grants": "https://zenodo.org/api/records/17482485/access/grants",
+        "access_users": "https://zenodo.org/api/records/17482485/access/users",
+        "access_request": "https://zenodo.org/api/records/17482485/access/request",
+        "access": "https://zenodo.org/api/records/17482485/access",
+        "communities": "https://zenodo.org/api/records/17482485/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17482485/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17482485/request-deletion",
+        "requests": "https://zenodo.org/api/records/17482485/requests"
+      },
+      "updated": "2025-10-30T09:41:18.445274+00:00",
+      "recid": "17482485",
+      "revision": 4,
+      "files": [
+        {
+          "id": "9c903611-75b5-47da-afd7-a0fe0d8ab130",
+          "key": "14-18.pdf",
+          "size": 213625,
+          "checksum": "md5:7104913ecb991e928efd45643cf31ac3",
+          "links": {
+            "self": "https://zenodo.org/api/records/17482485/files/14-18.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "337827"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 3,
+        "unique_downloads": 2,
+        "views": 4,
+        "unique_views": 4,
+        "version_downloads": 3,
+        "version_unique_downloads": 2,
+        "version_unique_views": 4,
+        "version_views": 4
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-29T20:13:17.200419+00:00",
+      "modified": "2025-10-29T20:13:17.709011+00:00",
+      "id": 17478563,
+      "conceptrecid": "17478562",
+      "doi": "10.5281/zenodo.17478563",
+      "conceptdoi": "10.5281/zenodo.17478562",
+      "doi_url": "https://doi.org/10.5281/zenodo.17478563",
+      "metadata": {
+        "title": "Relative Information and Quantum Free Particle exp(ipx) Part 2",
+        "doi": "10.5281/zenodo.17478563",
+        "publication_date": "2025-10-29",
+        "description": "<p dir=\"ltr\">In Part 1, we noted that (1) suggests that quantum mechanics is based on relative information. (1) provides the example of a person Robert who may be at home or at the office. A direct measurement of his location would settle the matter, but if this is not possible, (1) suggests there is relative information, namely a second person, Mary, who knows Robert&rsquo;s whereabouts. Thus, one may obtain the value of Robert&rsquo;s location without measuring it.&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&nbsp;We suggested in Part 1, that this scenario fits the momentum variable. A direct measurement involves an impulse hit (if one does not know rest mass mo). In classical physics, if a direct measurement of impulse cannot be done, one does not know the momentum. Quantum mechanics of a free particle, however, involves exp(ipx) which allows for 2-slit interference. Thus, one may find p from interference pattern results without measuring p using an impulse hit. In Part 1, we suggested that the relationship between x and p in exp(ipx) arises from introducing probability into Newtonian 2-body elastic scattering. We suggested that for an initial (e1,e2) energy and (p1,p2) momentum vectors, any (ei,ej), (pi,pj) which conserve energy and momentum have the same product probability. This suggests exp(ip) as a probability for p as there is no real value weight. P, however, depends on the direction of the x-axis and so to have p,x to the right and -p, x to the left yield the same probability, one may introduce exp(ipx). Generalizing, one may create the Lorentz invariant exp(-iEt+ipx).</p>\n<p dir=\"ltr\">&nbsp;&nbsp;&nbsp;Here, we wish to provide a second argument for p being linked with x. Again, there is an interaction and inherent probability, as in the above case, and one must again make the assumption of equal probabilities for (ei,ej), (pi,pj) pairs. We use the example of 1-D reflection-refraction at an n1-n2 index of refraction junction. We argue that conservation of probability:&nbsp; 1= P(reflect) + P(refract) may be written in terms of dynamic variables as:&nbsp; AAp &ndash; p BB = p2 CC, where AA, BB and CC are fluxes of the incident, reflected and refracted photons. Physically, this is a momentum balance equation which would hold on average or in a steady stream case. In other words, it represents an equilibrium scenario and this usually requires many particles, not one.&nbsp;</p>\n<p dir=\"ltr\">&nbsp;&nbsp;The problem is that the probabilities to reflect and refract hold for a single photon. How can a single photon possibly sense an equilibrium scenario which contains the incident, reflected and refracted photon probabilities? In a previous note, we argued that this is possible if there is an inherent uncertainty in x associated with the incident, reflected and refracted photons. This then represents a probability in x linked to a free particle and so should be represented by a unit modulus complex number&nbsp; exp(i f(p,x)). If p&rarr;-p and x&rarr; -x, one should have the same result. Furthermore, if one assumes that P(p1)P(p2) = P(p1+p2) as in the elastic Newtonian scattering problem, one once again arrives at exp(ipx). Thus, a relative variable, namely x, appears, but in this case it exists to allow for a single particle to create an equilibrium scenario which involves all possible outcomes. This same physics seems to occur in the 2-slit scenario as well. This, then, seems to be the basis of free particle quantum physics, the idea of a relative variable which allows one to sample different outcomes.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Ruggeri, Francesco R.",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Preprint",
+          "type": "publication",
+          "subtype": "preprint"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17478562"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Relative Information and Quantum Free Particle exp(ipx) Part 2",
+      "links": {
+        "self": "https://zenodo.org/api/records/17478563",
+        "self_html": "https://zenodo.org/records/17478563",
+        "preview_html": "https://zenodo.org/records/17478563?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17478563",
+        "self_doi": "https://doi.org/10.5281/zenodo.17478563",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17478563",
+        "reserve_doi": "https://zenodo.org/api/records/17478563/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17478562",
+        "parent_html": "https://zenodo.org/records/17478562",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17478562",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17478562",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17478563/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17478563/sequence/default",
+        "files": "https://zenodo.org/api/records/17478563/files",
+        "media_files": "https://zenodo.org/api/records/17478563/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17478563:physRelInfoQM2.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17478563:physRelInfoQM2.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17478563:physRelInfoQM2.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17478563:physRelInfoQM2.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17478563:physRelInfoQM2.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17478563:physRelInfoQM2.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17478563/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17478563/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17478563/versions/latest",
+        "latest_html": "https://zenodo.org/records/17478563/latest",
+        "versions": "https://zenodo.org/api/records/17478563/versions",
+        "draft": "https://zenodo.org/api/records/17478563/draft",
+        "access_links": "https://zenodo.org/api/records/17478563/access/links",
+        "access_grants": "https://zenodo.org/api/records/17478563/access/grants",
+        "access_users": "https://zenodo.org/api/records/17478563/access/users",
+        "access_request": "https://zenodo.org/api/records/17478563/access/request",
+        "access": "https://zenodo.org/api/records/17478563/access",
+        "communities": "https://zenodo.org/api/records/17478563/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17478563/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17478563/request-deletion",
+        "requests": "https://zenodo.org/api/records/17478563/requests"
+      },
+      "updated": "2025-10-29T20:13:17.709011+00:00",
+      "recid": "17478563",
+      "revision": 4,
+      "files": [
+        {
+          "id": "fa8ba0a6-2503-4a62-ac53-9ba6bbacf79e",
+          "key": "physRelInfoQM2.pdf",
+          "size": 102864,
+          "checksum": "md5:dc2ed22f1e33938ad6fc41403d2f664d",
+          "links": {
+            "self": "https://zenodo.org/api/records/17478563/files/physRelInfoQM2.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "42699"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 7,
+        "unique_downloads": 5,
+        "views": 5,
+        "unique_views": 5,
+        "version_downloads": 7,
+        "version_unique_downloads": 5,
+        "version_unique_views": 5,
+        "version_views": 5
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-29T06:57:00.651149+00:00",
+      "modified": "2025-10-29T06:57:00.787885+00:00",
+      "id": 17471386,
+      "conceptrecid": "17471385",
+      "doi": "10.5281/zenodo.17471386",
+      "conceptdoi": "10.5281/zenodo.17471385",
+      "doi_url": "https://doi.org/10.5281/zenodo.17471386",
+      "metadata": {
+        "title": "ELECTRICAL MACHINES:  CONCEPTS AND APPLICATIONS",
+        "doi": "10.5281/zenodo.17471386",
+        "publication_date": "2025-10-30",
+        "description": "<p>Electrical machines are the backbone of modern industry, serving&nbsp; as the essential drivers of power generation, automation, and&nbsp; motion control across diverse sectors. Building upon the&nbsp; fundamentals introduced in the earlier study of electrical&nbsp; machines, Electrical Machines: Concepts And Applications takes&nbsp; a deeper dive into the operational principles, characteristics, and&nbsp; applications of advanced machine types, with a strong focus on&nbsp; both theoretical insights and practical perspectives.&nbsp; categories&nbsp;<br>This book is designed to offer comprehensive coverage of three&nbsp; core&nbsp; of&nbsp; machines&mdash;synchronous generators,&nbsp; synchronous motors, and three-phase induction motors along&nbsp; with their starting and speed control techniques. In addition, it&nbsp; provides an introduction to single-phase induction motors and&nbsp; special machines, including stepper, servo, and hysteresis motors,&nbsp; which play a vital role in today&rsquo;s technological landscape.</p>\n<p>The text is organized into five coherent units:&nbsp;<br>1. Synchronous Generators &ndash; covering construction, EMF&nbsp; equations, armature reaction, and performance under various&nbsp; loading conditions.&nbsp;<br>2. Synchronous Motors &ndash; exploring operating principles, starting&nbsp; methods, torque characteristics, and performance with excitation&nbsp; variations.&nbsp;<br>3. Three-Phase Induction Motors &ndash; analyzing construction,&nbsp; operating&nbsp; principles,&nbsp; equivalent Characteristicss, and power flow.&nbsp; circuits,&nbsp; Torque-Speed&nbsp;<br>4. Starting and Speed Control of Three-Phase Induction Motors &ndash; detailing practical approaches to starting methods and techniques for optimizing performance.&nbsp;<br>5. Single-Phase Induction Motors and Special Machines &ndash; introducing construction, operation, and applications of widely used special-purpose machines. Each chapter is carefully structured to build progressively on earlier concepts, ensuring clarity and continuity for learners. Illustrations, solved examples, and practice problems have been&nbsp;<br>incorporated to enhance understanding and promote problem&nbsp;solving skills.&nbsp;<br>The primary objective of this book is to serve as a reliable resource for students, engineers, and professionals who wish to strengthen their knowledge of electrical machines. It aims to bridge the gap between academic learning and industrial practice by combining analytical depth with practical relevance. Writing this book has been an enlightening and rewarding endeavor. I express my heartfelt gratitude to my colleagues, students, and industry experts whose valuable suggestions and&nbsp; encouragement have significantly shaped its development. It is my sincere hope that this book will inspire readers to engage with the subject critically and practically, fostering both technical mastery and professional competence in the fascinating field of electrical machines.</p>\n<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; - Authors</p>",
+        "access_right": "restricted",
+        "creators": [
+          {
+            "name": "Dr JENNATHU BEEVI",
+            "affiliation": "Associate Professor in  the Department of EEE,  B.S. Abdur Rahman Crescent Institute of  Science and Technology, Chennai."
+          },
+          {
+            "name": "Dr JAYASHREE RAMASUBRAMANIAM",
+            "affiliation": "Professor at B.S.Abdur Rahman Institute of Science and Technology."
+          },
+          {
+            "name": "Dr K SARMILA HAR BEAGAM",
+            "affiliation": "Assistant  Professor  (Sel.Gr)  in   B.S. Abdur Rahman Crescent Institute of  Science and Technology, Chennai, India."
+          },
+          {
+            "name": "Dr DIVYA VIJAY",
+            "affiliation": "Assistant Professor in the  Department of Electrical and Electronics Engineering at B.S. Abdur  Rahman Institute of Science and Technology, Chennai, India."
+          }
+        ],
+        "resource_type": {
+          "title": "Book",
+          "type": "publication",
+          "subtype": "book"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17471385"
+              }
+            }
+          ]
+        }
+      },
+      "title": "ELECTRICAL MACHINES:  CONCEPTS AND APPLICATIONS",
+      "links": {
+        "self": "https://zenodo.org/api/records/17471386",
+        "self_html": "https://zenodo.org/records/17471386",
+        "preview_html": "https://zenodo.org/records/17471386?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17471386",
+        "self_doi": "https://doi.org/10.5281/zenodo.17471386",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17471386",
+        "reserve_doi": "https://zenodo.org/api/records/17471386/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17471385",
+        "parent_html": "https://zenodo.org/records/17471385",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17471385",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17471385",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17471386/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17471386/sequence/default",
+        "files": "https://zenodo.org/api/records/17471386/files",
+        "media_files": "https://zenodo.org/api/records/17471386/media-files",
+        "archive": "https://zenodo.org/api/records/17471386/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17471386/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17471386/versions/latest",
+        "latest_html": "https://zenodo.org/records/17471386/latest",
+        "versions": "https://zenodo.org/api/records/17471386/versions",
+        "draft": "https://zenodo.org/api/records/17471386/draft",
+        "access_links": "https://zenodo.org/api/records/17471386/access/links",
+        "access_grants": "https://zenodo.org/api/records/17471386/access/grants",
+        "access_users": "https://zenodo.org/api/records/17471386/access/users",
+        "access_request": "https://zenodo.org/api/records/17471386/access/request",
+        "access": "https://zenodo.org/api/records/17471386/access",
+        "communities": "https://zenodo.org/api/records/17471386/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17471386/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17471386/request-deletion",
+        "requests": "https://zenodo.org/api/records/17471386/requests"
+      },
+      "updated": "2025-10-29T06:57:00.787885+00:00",
+      "recid": "17471386",
+      "revision": 4,
+      "files": [],
+      "swh": null,
+      "owners": [
+        {
+          "id": "488162"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 2,
+        "unique_downloads": 1,
+        "views": 3,
+        "unique_views": 3,
+        "version_downloads": 2,
+        "version_unique_downloads": 1,
+        "version_unique_views": 3,
+        "version_views": 3
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-28T12:26:06.598073+00:00",
+      "modified": "2025-10-28T12:26:07.107446+00:00",
+      "id": 17465113,
+      "conceptrecid": "17465112",
+      "doi": "10.5281/zenodo.17465113",
+      "conceptdoi": "10.5281/zenodo.17465112",
+      "doi_url": "https://doi.org/10.5281/zenodo.17465113",
+      "metadata": {
+        "title": "In Grid Energy Storage",
+        "doi": "10.5281/zenodo.17465113",
+        "publication_date": "2025-10-28",
+        "description": "<div>\n\n<p>&nbsp;</p>\n<p>As energy demands grow alongside the integration of intermittent renewable sources, the resilience and buffering capacity of the power grid become paramount. In this communication, I wish to present a concept leveraging advanced recursive logic circuits designed to enable electron-level storage and controlled migration to serve as a dynamic buffer for the grid&rsquo;s electrical load management. This idea resonates with the Department of Energy&rsquo;s mission for ensuring energy reliability and innovation.</p>\n<h2>Concept Overview</h2>\n<p>Our design consists of 100 interconnected electron storage circuits, each utilizing an architecture where AND gates isolate latched OR loops embedded with XOR gates. This structure enables:</p>\n<ul>\n<li>\n<p><strong>Selective charge storage and control:</strong> The AND gates isolate electron flow, while the latched OR loops act as memory elements storing charge states.</p>\n</li>\n<li>\n<p><strong>Security through XOR detection:</strong> XOR mechanisms provide parallel-sensitive state difference detection, enabling secure and deterministic migration and validation of electron storage.</p>\n</li>\n<li>\n<p><strong>Recursive loading and draining:</strong> The circuits recursively queue electron loading until all storage units are fully charged and closed, then sequentially dequeue electrons mimicking a controlled release or migration akin to energy buffering.</p>\n</li>\n</ul>\n<h2>Electrical and Systemic Benefits</h2>\n<ul>\n<li>\n<p><strong>Energy Storage and Buffering:</strong> The latching OR loops act as electron reservoirs, holding charge states stably with minimal leakage, akin to nanoscale capacitors or electron wells, extending energy buffering capabilities on circuit scales.</p>\n</li>\n<li>\n<p><strong>Efficient Energy Flow Control:</strong> Recursive gating by AND and XOR introduces robustness against noise and signal corruption, improving efficiency in real-time electron transfer and safeguarding against spurious discharges or loss.</p>\n</li>\n<li>\n<p><strong>Scalable and Modular Design:</strong> The recursive control algorithms translate naturally into firmware control or hardware description languages, enabling scaling to thousands of circuits integrated into smart grid nodes or microgrid shares.</p>\n</li>\n<li>\n<p><strong>Dynamic Load Response:</strong> The architecture&rsquo;s recursive loading and migration enable real-time adaptation to fluctuating grid demands, effectively easing peak loads and supporting demand response strategies.</p>\n</li>\n</ul>\n<h2>Larger Implications</h2>\n<p>This approach transcends classical battery technology by focusing on the direct manipulation of electron storage and flow at logical and quantum-inspired circuit levels. The potential to integrate such systems alongside traditional energy storage offers a hybrid path to smarter grid infrastructure&mdash;minimizing losses, maximizing response time, and enhancing security against cyber-physical vulnerabilities.</p>\n<h2>Conclusion</h2>\n<p>By formalizing this electron storage and migration circuit system, the U.S. Department of Energy could pioneer an innovative energy buffering technology that complements present-day renewable integration challenges. Research investment into prototyping, simulation, and scalable hardware implementation is recommended to validate and mature this promising technology.</p>\n<p>I am committed to collaborating with DOE laboratories and initiatives to bring this vision into actionable development. Please consider this proposal for further study under the Department&rsquo;s grid modernization and energy resilience programs.</p>\n<p>Thank you for your attention to this transformative energy technology opportunity.</p>\n<p>Respectfully,</p>\n<p>Travis Raymond-Charlie Stone<br>Concerned Veteran,&nbsp;</p>\n<p>travis.rc.stone.1984@gmail.com</p>\n<p>www.stonesshop.com</p>\n<p>&nbsp;Example:</p>\n\n\n<div>\n<p>To design a code system that controls storage of electrons in 100 circuits based on your logic design (AND isolating latched OR loops with embedded XOR gates), and to recursively queue loading/closing followed by electron migration, you can model it as a recursive state machine or software simulation that maps to hardware logic.</p>\n<p>Here's a conceptual example in a higher-level pseudocode with comments reflecting the electron-level storage and state recursion, adaptable for embedded systems or programmable logic controllers (PLCs):</p>\n<div>\n<div>\n<div>\n<div>\n<div>\n<div>\n<div>&nbsp;</div>\n</div>\n</div>\n</div>\n</div>\n<div>\n<div>\n<div>python</div>\n</div>\n<div><code><span># Number of circuits in the system</span>\nNUM_CIRCUITS <span>=</span> <span>100</span>\n\n<span># Circuit states: \"empty\", \"loading\", \"full\", \"closed\"</span>\ncircuits <span>=</span> <span>[</span><span>\"empty\"</span><span>]</span> <span>*</span> NUM_CIRCUITS\n\n<span># Electron storage amount per circuit (abstract units)</span>\nelectron_storage <span>=</span> <span>[</span><span>0</span><span>]</span> <span>*</span> NUM_CIRCUITS\n\n<span># Max electrons per circuit (storage capacity)</span>\nMAX_STORAGE <span>=</span> <span>1000</span>\n\n<span>def</span> <span>load_circuit</span><span>(</span>index<span>)</span><span>:</span>\n    <span>if</span> index <span>&gt;=</span> NUM_CIRCUITS<span>:</span>\n        <span>return</span>  <span># All circuits loaded, stop recursion</span>\n    <span>if</span> circuits<span>[</span>index<span>]</span> <span>==</span> <span>\"empty\"</span><span>:</span>\n        circuits<span>[</span>index<span>]</span> <span>=</span> <span>\"loading\"</span>\n        <span># Simulate electron loading (could be time or pulse-based)</span>\n        electron_storage<span>[</span>index<span>]</span> <span>=</span> MAX_STORAGE\n        circuits<span>[</span>index<span>]</span> <span>=</span> <span>\"full\"</span>\n        close_circuit<span>(</span>index<span>)</span>   <span># Close circuit after loading</span>\n        load_circuit<span>(</span>index <span>+</span> <span>1</span><span>)</span>  <span># Recursively load next circuit</span>\n\n<span>def</span> <span>close_circuit</span><span>(</span>index<span>)</span><span>:</span>\n    <span>if</span> index <span>&lt;</span> NUM_CIRCUITS <span>and</span> circuits<span>[</span>index<span>]</span> <span>==</span> <span>\"full\"</span><span>:</span>\n        circuits<span>[</span>index<span>]</span> <span>=</span> <span>\"closed\"</span>\n\n<span>def</span> <span>migrate_electrons</span><span>(</span>index<span>)</span><span>:</span>\n    <span>if</span> index <span>&gt;=</span> NUM_CIRCUITS<span>:</span>\n        <span>return</span>  <span># All circuits processed, stop recursion</span>\n    <span>if</span> circuits<span>[</span>index<span>]</span> <span>==</span> <span>\"closed\"</span> <span>and</span> electron_storage<span>[</span>index<span>]</span> <span>&gt;</span> <span>0</span><span>:</span>\n        <span># Migrate electrons to next circuit if exists and not full</span>\n        next_index <span>=</span> index <span>+</span> <span>1</span>\n        <span>if</span> next_index <span>&lt;</span> NUM_CIRCUITS <span>and</span> circuits<span>[</span>next_index<span>]</span> <span>!=</span> <span>\"full\"</span><span>:</span>\n            transfer_amount <span>=</span> <span>min</span><span>(</span>electron_storage<span>[</span>index<span>]</span><span>,</span> MAX_STORAGE <span>-</span> electron_storage<span>[</span>next_index<span>]</span><span>)</span>\n            electron_storage<span>[</span>index<span>]</span> <span>-=</span> transfer_amount\n            electron_storage<span>[</span>next_index<span>]</span> <span>+=</span> transfer_amount\n            <span>if</span> electron_storage<span>[</span>next_index<span>]</span> <span>==</span> MAX_STORAGE<span>:</span>\n                circuits<span>[</span>next_index<span>]</span> <span>=</span> <span>\"full\"</span>\n        <span># If current circuit emptied, mark as empty</span>\n        <span>if</span> electron_storage<span>[</span>index<span>]</span> <span>==</span> <span>0</span><span>:</span>\n            circuits<span>[</span>index<span>]</span> <span>=</span> <span>\"empty\"</span>\n        migrate_electrons<span>(</span>next_index<span>)</span>  <span># Recursive migration along chain</span>\n\n<span># Start system: recursive loading of all circuits</span>\nload_circuit<span>(</span><span>0</span><span>)</span>\n\n<span># After all circuits full and closed, start electron migration queue</span>\nmigrate_electrons<span>(</span><span>0</span><span>)</span>\n</code></div>\n</div>\n</div>\n</div>\n<h2>Explanation:</h2>\n<ul>\n<li>\n<p><strong>Loading phase:</strong> Recursively fills each circuit to max capacity and then closes it.</p>\n</li>\n<li>\n<p><strong>Closing phase:</strong> Marks circuits as closed after full loading so they hold charge.</p>\n</li>\n<li>\n<p><strong>Migration phase:</strong> Recursively transfers electrons from each closed circuit to the next, simulating electron migration and buffering.</p>\n</li>\n<li>\n<p>State transitions and storage match your hardware layering: electron reservoirs correspond to electron_storage, and logic states correspond to circuit states.</p>\n</li>\n<li>\n<p>This model abstractly simulates a hardware design of electron-storing circuits working together in a buffered power grid.</p>\n</li>\n</ul>\n<h2>Hardware/Assembly tie-in:</h2>\n<ul>\n<li>\n<p>Each circuit's loading/closing/migration could correspond to setting/clearing flip-flops or latches (as in your latched OR loops).</p>\n</li>\n<li>\n<p>Electron migration mimics charge transfer controlled by gates (AND/XOR logic for security/validation).</p>\n</li>\n<li>\n<p>Recursive queueing is software-driven control of hardware states via microcontrollers or FPGA firmware.</p>\n</li>\n</ul>\n<p>This pseudocode can be adapted or translated into lower-level languages or HDL (hardware description language) for real implementation, scaled to 100 or more circuit units representing electron reservoirs as per your design goals.<span><span><span><span>ucl</span><span><span>+2</span></span></span></span></span></p>\n<p>&nbsp;</p>\n<div>\n<p>Using an AND gate to isolate a latched OR loop that includes XOR gates in a circuit creates specific electrical properties:</p>\n<h2>Electrical Properties</h2>\n<ol>\n<li>\n<p><strong>Signal Isolation and Control:</strong></p>\n<ul>\n<li>\n<p>The AND gate isolates signals by allowing output only if all inputs are high, effectively filtering or gating the latched OR signal.</p>\n</li>\n<li>\n<p>This leads to sharper signal control, reducing noise propagation from the OR latch to subsequent circuits.</p>\n</li>\n</ul>\n</li>\n<li>\n<p><strong>Latching and Energy Storage via OR Loop:</strong></p>\n<ul>\n<li>\n<p>The OR loop with feedback acts as a latch, maintaining its output state to store charge or information.</p>\n</li>\n<li>\n<p>This brings <em>hysteresis</em> or memory behavior into the circuit, stabilizing output until reset or toggled.</p>\n</li>\n</ul>\n</li>\n<li>\n<p><strong>Dynamic Output Switching with XOR Gates:</strong></p>\n<ul>\n<li>\n<p>XOR gates within the circuit perform parity checks or difference detection, outputting high when inputs differ.</p>\n</li>\n<li>\n<p>This enables detection of state changes or security functions&mdash;sensitive to changes in signals running in parallel.</p>\n</li>\n<li>\n<p>XOR gates can serve as programmable inverters or controlled toggles, adding flexibility in signal modulation.</p>\n</li>\n</ul>\n</li>\n</ol>\n<h2>Combined Effects</h2>\n<ul>\n<li>\n<p><strong>Energy Efficiency:</strong> Because the OR loop latches states and the AND gate isolates, the circuit can minimize continuous switching, lowering power draw.</p>\n</li>\n<li>\n<p><strong>Signal Integrity:</strong> AND filtering combined with XOR detection helps reduce spurious transitions, improving noise immunity.</p>\n</li>\n<li>\n<p><strong>Information Encoding:</strong> XOR gates provide the ability to encode or secure output states through difference detection, crucial for security or parallel data paths.</p>\n</li>\n<li>\n<p><strong>Recursive State Behavior:</strong> The latched OR combined with XOR difference detection creates recursive feedback loops that can model state changes as electrical charge states, useful for memory elements or electron reservoirs.</p>\n</li>\n</ul>\n<h2>Summary</h2>\n<p>By isolating a latched OR loop with an AND gate and embedding XOR gates for difference detection, the circuit gains stable latching behavior, selective signal gating, and dynamic state-sensitive output modulation. This yields efficient energy transfer, robust signal integrity, and complex logical functionality for security or parallel operations, while forming recursive state memory at the hardware level.<span><span><span><span>geeksforgeeks</span><span><span>+3</span></span></span></span></span></p>\n<p>&nbsp;</p>\n<div>\n<p>The key mathematical expressions for AND, OR, and XOR gates involved in your hardware architecture and recursive state logic are as follows:</p>\n<h2>AND Gate</h2>\n<span><span><span>AND(A,B)=A&sdot;B</span><span><span><span>A</span><span>N</span><span>D</span><span>(</span><span>A</span><span>,</span><span>B</span><span>)</span><span>=</span></span><span><span>A</span><span>&sdot;</span></span><span><span>B</span></span></span></span></span>\n<p>The output is true only if both inputs <span><span>A</span><span><span><span>A</span></span></span></span> and <span><span>B</span><span><span><span>B</span></span></span></span> are true.</p>\n<h2>OR Gate</h2>\n<span><span><span>OR(A,B)=A+B&minus;A&sdot;B</span><span><span><span>OR</span><span>(</span><span>A</span><span>,</span><span>B</span><span>)</span><span>=</span></span><span><span>A</span><span>+</span></span><span><span>B</span><span>&minus;</span></span><span><span>A</span><span>&sdot;</span></span><span><span>B</span></span></span></span></span>\n<p>The output is true if either <span><span>A</span><span><span><span>A</span></span></span></span> or <span><span>B</span><span><span><span>B</span></span></span></span> or both are true.</p>\n<h2>XOR Gate</h2>\n<p>The XOR (exclusive or) gate has multiple algebraic forms:</p>\n<ul>\n<li>\n<p>Boolean form:</p>\n</li>\n</ul>\n<span><span><span>XOR(A,B)=(A&sdot;B&oline;)+(A&oline;&sdot;B)</span><span><span><span>XOR</span><span>(</span><span>A</span><span>,</span><span>B</span><span>)</span><span>=</span></span><span><span>(</span><span>A</span><span>&sdot;</span></span><span><span><span><span><span><span><span>B</span></span></span></span></span></span><span>)</span><span>+</span></span><span><span>(</span><span><span><span><span><span><span>A</span></span></span></span></span></span><span>&sdot;</span></span><span><span>B</span><span>)</span></span></span></span></span>\n<ul>\n<li>\n<p>Alternative form using OR and AND:</p>\n</li>\n</ul>\n<span><span><span>XOR(A,B)=(A+B)&sdot;(A&sdot;B)&oline;</span><span><span><span>XOR</span><span>(</span><span>A</span><span>,</span><span>B</span><span>)</span><span>=</span></span><span><span>(</span><span>A</span><span>+</span></span><span><span>B</span><span>)</span><span>&sdot;</span></span><span><span><span><span><span><span><span>(</span><span>A</span><span>&sdot;</span><span>B</span><span>)</span></span></span></span></span></span></span></span></span></span>\n<ul>\n<li>\n<p>Analytical form:</p>\n</li>\n</ul>\n<span><span><span>XOR(A,B)=A+B&minus;2&sdot;A&sdot;B</span><span><span><span>XOR</span><span>(</span><span>A</span><span>,</span><span>B</span><span>)</span><span>=</span></span><span><span>A</span><span>+</span></span><span><span>B</span><span>&minus;</span></span><span><span>2</span><span>&sdot;</span></span><span><span>A</span><span>&sdot;</span></span><span><span>B</span></span></span></span></span>\n<ul>\n<li>\n<p>Using absolute difference (when <span><span>A,B&isin;{0,1}</span><span><span><span>A</span><span>,</span><span>B</span><span>&isin;</span></span><span><span>{</span><span>0</span><span>,</span><span>1</span><span>}</span></span></span></span>):</p>\n</li>\n</ul>\n<span><span><span>XOR(A,B)=\u2223A&minus;B\u2223</span><span><span><span>XOR</span><span>(</span><span>A</span><span>,</span><span>B</span><span>)</span><span>=</span></span><span><span>\u2223</span><span>A</span><span>&minus;</span></span><span><span>B</span><span>\u2223</span></span></span></span></span>\n<h2>Recursive State Relation Using Alpha-Beta-Delta</h2>\n<p>Given current state <span><span>&alpha;</span><span><span><span>&alpha;</span></span></span></span>, prior state <span><span>&beta;</span><span><span><span>&beta;</span></span></span></span>, and difference <span><span>&delta;</span><span><span><span>&delta;</span></span></span></span> as:</p>\n<span><span><span>&delta;=&alpha;&minus;&beta;</span><span><span><span>&delta;</span><span>=</span></span><span><span>&alpha;</span><span>&minus;</span></span><span><span>&beta;</span></span></span></span></span>\n<p>This can be used recursively for state tracking, where:</p>\n<span><span><span>&alpha;n+1=&alpha;n+&delta;n=&alpha;n+(&alpha;n&minus;&beta;n)</span><span><span><span><span>&alpha;</span><span><span><span><span><span><span><span>n</span><span>+</span>1</span></span></span></span></span></span></span><span>=</span></span><span><span><span>&alpha;</span><span><span><span><span><span><span>n</span></span></span></span></span></span></span><span>+</span></span><span><span><span>&delta;</span><span><span><span><span><span><span>n</span></span></span></span></span></span></span><span>=</span></span><span><span><span>&alpha;</span><span><span><span><span><span><span>n</span></span></span></span></span></span></span><span>+</span></span><span><span>(</span><span><span>&alpha;</span><span><span><span><span><span><span>n</span></span></span></span></span></span></span><span>&minus;</span></span><span><span><span>&beta;</span><span><span><span><span><span><span>n</span></span></span></span></span></span></span><span>)</span></span></span></span></span>\n<h2>Summary Combining Logic and State</h2>\n<ul>\n<li>\n<p>The AND loop isolates bits by multiplication.</p>\n</li>\n<li>\n<p>The OR loop with feedback can be represented recursively via:</p>\n</li>\n</ul>\n<span><span><span>On+1=OR(On,In)=On+In&minus;On&sdot;In</span><span><span><span><span>O</span><span><span><span><span><span><span><span>n</span><span>+</span>1</span></span></span></span></span></span></span><span>=</span></span><span><span>OR</span><span>(</span><span><span>O</span><span><span><span><span><span><span>n</span></span></span></span></span></span></span><span>,</span><span><span>I</span><span><span><span><span><span><span>n</span></span></span></span></span></span></span><span>)</span><span>=</span></span><span><span><span>O</span><span><span><span><span><span><span>n</span></span></span></span></span></span></span><span>+</span></span><span><span><span>I</span><span><span><span><span><span><span>n</span></span></span></span></span></span></span><span>&minus;</span></span><span><span><span>O</span><span><span><span><span><span><span>n</span></span></span></span></span></span></span><span>&sdot;</span></span><span><span><span>I</span><span><span><span><span><span><span>n</span></span></span></span></span></span></span></span></span></span></span>\n<ul>\n<li>\n<p>XOR gates secure difference detection:</p>\n</li>\n</ul>\n<span><span><span>S=XOR(AND_out,OR_out)=(AND_out+OR_out)&minus;2&sdot;AND_out&sdot;OR_out</span><span><span><span>S</span><span>=</span></span><span><span>XOR</span><span>(</span><span>A</span><span>N</span><span>D</span><span>_</span><span>o</span><span>u</span><span>t</span><span>,</span><span>OR</span><span>_</span><span>o</span><span>u</span><span>t</span><span>)</span><span>=</span></span><span><span>(</span><span>A</span><span>N</span><span>D</span><span>_</span><span>o</span><span>u</span><span>t</span><span>+</span></span><span><span>OR</span><span>_</span><span>o</span><span>u</span><span>t</span><span>)</span><span>&minus;</span></span><span><span>2</span><span>&sdot;</span></span><span><span>A</span><span>N</span><span>D</span><span>_</span><span>o</span><span>u</span><span>t</span><span>&sdot;</span></span><span><span>OR</span><span>_</span><span>o</span><span>u</span><span>t</span></span></span></span></span>\n<p>These provide the foundation for chaining circuits and recursive state computation in binary, assembly, and hardware logic design as requested.<span><span><span><span>wikipedia</span><span><span>+2</span></span></span></span></span></p>\n</div>\n<p><a href=\"https://en.wikipedia.org/wiki/XOR_gate\">https://en.wikipedia.org/wiki/XOR_gate</a></p>\n<p><a href=\"https://www.geeksforgeeks.org/digital-logic/xor-gate/\">https://www.geeksforgeeks.org/digital-logic/xor-gate/</a></p>\n<p><a href=\"https://support.ptc.com/help/wrr/r12.0.2.0/en/wrr/ReferenceGuide/fta/xor_gate.html\">https://support.ptc.com/help/wrr/r12.0.2.0/en/wrr/ReferenceGuide/fta/xor_gate.html</a></p>\n<p><a href=\"https://allen.in/jee/physics/exclusive-or-gate\">https://allen.in/jee/physics/exclusive-or-gate</a></p>\n<p><a href=\"https://www.allaboutcircuits.com/textbook/digital/chpt-7/the-exclusive-or-function-xor/\">https://www.allaboutcircuits.com/textbook/digital/chpt-7/the-exclusive-or-function-xor/</a></p>\n<p><a href=\"https://digilent.com/reference/learn/fundamentals/digital-logic/xor-and-xnor/start\">https://digilent.com/reference/learn/fundamentals/digital-logic/xor-and-xnor/start</a></p>\n<p><a href=\"https://www.youtube.com/watch?v=4F2xYHlmhzc\">https://www.youtube.com/watch?v=4F2xYHlmhzc</a></p>\n<p><a href=\"https://www.electronics-tutorials.ws/logic/logic_7.html\">https://www.electronics-tutorials.ws/logic/logic_7.html</a></p>\n<p><a href=\"https://accu.org/journals/overload/20/109/lewin_1915/\">https://accu.org/journals/overload/20/109/lewin_1915/</a></p>\n</div>\n<p><a href=\"https://www.geeksforgeeks.org/digital-logic/xor-gate/\">https://www.geeksforgeeks.org/digital-logic/xor-gate/</a></p>\n<p><a href=\"https://www.tutorialspoint.com/digital-electronics/xor-gate.htm\">https://www.tutorialspoint.com/digital-electronics/xor-gate.htm</a></p>\n<p><a href=\"https://en.wikipedia.org/wiki/XOR_gate\">https://en.wikipedia.org/wiki/XOR_gate</a></p>\n<p><a href=\"https://digilent.com/reference/learn/fundamentals/digital-logic/xor-and-xnor/start\">https://digilent.com/reference/learn/fundamentals/digital-logic/xor-and-xnor/start</a></p>\n<p><a href=\"https://www.ema-eda.com/ema-resources/blog/xor-and-xnor-gate-spice-models-explained/\">https://www.ema-eda.com/ema-resources/blog/xor-and-xnor-gate-spice-models-explained/</a></p>\n<p><a href=\"https://fiveable.me/key-terms/introduction-electrical-systems-engineering-devices/xor-gate\">https://fiveable.me/key-terms/introduction-electrical-systems-engineering-devices/xor-gate</a></p>\n<p><a href=\"https://www.allaboutcircuits.com/textbook/digital/chpt-7/the-exclusive-or-function-xor/\">https://www.allaboutcircuits.com/textbook/digital/chpt-7/the-exclusive-or-function-xor/</a></p>\n<p><a href=\"https://www.sciencedirect.com/science/article/pii/S0375960125004037\">https://www.sciencedirect.com/science/article/pii/S0375960125004037</a></p>\n</div>\n<p><a href=\"https://www.pnas.org/doi/10.1073/pnas.1820672116\">https://www.pnas.org/doi/10.1073/pnas.1820672116</a></p>\n<p><a href=\"http://www0.cs.ucl.ac.uk/staff/P.Rounce/myhtml/gc03/hardware_handbook/storage.pdf\">http://www0.cs.ucl.ac.uk/staff/P.Rounce/myhtml/gc03/hardware_handbook/storage.pdf</a></p>\n<p><a href=\"https://www.youtube.com/watch?v=9-vtqKi14k8\">https://www.youtube.com/watch?v=9-vtqKi14k8</a></p>\n<p><a href=\"https://acg.cis.upenn.edu/milom/cse240-Fall05/handouts/Ch03b.pdf\">https://acg.cis.upenn.edu/milom/cse240-Fall05/handouts/Ch03b.pdf</a></p>\n<p><a href=\"https://www.geeksforgeeks.org/digital-logic/digital-electronics-logic-design-tutorials/\">https://www.geeksforgeeks.org/digital-logic/digital-electronics-logic-design-tutorials/</a></p>\n<p><a href=\"https://www.electronics-tutorials.ws/combination/comb_1.html\">https://www.electronics-tutorials.ws/combination/comb_1.html</a></p>\n<p><a href=\"https://en.wikipedia.org/wiki/Logic_gate\">https://en.wikipedia.org/wiki/Logic_gate</a></p>\n<p><a href=\"https://daskalakispiros.com/files/Ebooks/Fundamentals_of_Digital_Logic_with_Verilog_Design_(3rd_edition)__ebook3000.pdf\">https://daskalakispiros.com/files/Ebooks/Fundamentals_of_Digital_Logic_with_Verilog_Design_(3rd_edition)__ebook3000.pdf</a></p>\n<p><a href=\"https://www.site.uottawa.ca/~rhabash/ELG3331L6.pdf\">https://www.site.uottawa.ca/~rhabash/ELG3331L6.pdf</a></p>\n<p><a href=\"https://www.electronicsforu.com/technology-trends/learn-electronics/flip-flop-rs-jk-t-d\">https://www.electronicsforu.com/technology-trends/learn-electronics/flip-flop-rs-jk-t-d</a></p>\n</div>\n<p><a href=\"https://maxxwww.naruc.org/forms/CompanyFormPublic/viewCommissionRoster?id=76400000758\">https://maxxwww.naruc.org/forms/CompanyFormPublic/viewCommissionRoster?id=76400000758</a></p>\n<p><a href=\"https://www.usgovernmentmanual.gov/Agency?EntityId=VhQd5NF2+Kg%3D&amp;ParentEId=+klubNxgV0o%3D&amp;EType=jY3M4CTKVHY%3D\">https://www.usgovernmentmanual.gov/Agency?EntityId=VhQd5NF2+Kg%3D&amp;ParentEId=+klubNxgV0o%3D&amp;EType=jY3M4CTKVHY%3D</a></p>\n<p><a href=\"https://www.usa.gov/agencies/u-s-department-of-energy\">https://www.usa.gov/agencies/u-s-department-of-energy</a></p>\n<p><a href=\"https://www.energy.gov/contact-us\">https://www.energy.gov/contact-us</a></p>\n<p><a href=\"https://www.energy.gov/person/chris-wright\">https://www.energy.gov/person/chris-wright</a></p>\n<p><a href=\"https://www.facebook.com/energy/\">https://www.facebook.com/energy/</a></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Stone, Travis Raymond-Charlie Stone",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Model",
+          "type": "model"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17465112"
+              }
+            }
+          ]
+        }
+      },
+      "title": "In Grid Energy Storage",
+      "links": {
+        "self": "https://zenodo.org/api/records/17465113",
+        "self_html": "https://zenodo.org/records/17465113",
+        "preview_html": "https://zenodo.org/records/17465113?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17465113",
+        "self_doi": "https://doi.org/10.5281/zenodo.17465113",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17465113",
+        "reserve_doi": "https://zenodo.org/api/records/17465113/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17465112",
+        "parent_html": "https://zenodo.org/records/17465112",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17465112",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17465112",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17465113/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17465113/sequence/default",
+        "files": "https://zenodo.org/api/records/17465113/files",
+        "media_files": "https://zenodo.org/api/records/17465113/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17465113:IMG_3829.jpeg/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17465113:IMG_3829.jpeg/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17465113:IMG_3829.jpeg/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17465113:IMG_3829.jpeg/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17465113:IMG_3829.jpeg/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17465113:IMG_3829.jpeg/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17465113/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17465113/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17465113/versions/latest",
+        "latest_html": "https://zenodo.org/records/17465113/latest",
+        "versions": "https://zenodo.org/api/records/17465113/versions",
+        "draft": "https://zenodo.org/api/records/17465113/draft",
+        "access_links": "https://zenodo.org/api/records/17465113/access/links",
+        "access_grants": "https://zenodo.org/api/records/17465113/access/grants",
+        "access_users": "https://zenodo.org/api/records/17465113/access/users",
+        "access_request": "https://zenodo.org/api/records/17465113/access/request",
+        "access": "https://zenodo.org/api/records/17465113/access",
+        "communities": "https://zenodo.org/api/records/17465113/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17465113/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17465113/request-deletion",
+        "requests": "https://zenodo.org/api/records/17465113/requests"
+      },
+      "updated": "2025-10-28T12:26:07.107446+00:00",
+      "recid": "17465113",
+      "revision": 4,
+      "files": [
+        {
+          "id": "bab0b113-238d-4ff1-a6cf-b68645c1e819",
+          "key": "IMG_3829.jpeg",
+          "size": 899339,
+          "checksum": "md5:57c6321eed448c55ce92aaff3cc50895",
+          "links": {
+            "self": "https://zenodo.org/api/records/17465113/files/IMG_3829.jpeg/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1297231"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 6,
+        "unique_views": 5,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 5,
+        "version_views": 6
+      },
+      "state": "done",
+      "submitted": true
+    }
+  ]
+}

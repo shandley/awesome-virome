@@ -1,0 +1,115 @@
+{
+  "name": "PHANOTATE",
+  "url": "https://github.com/deprekate/PHANOTATE",
+  "provider": "github",
+  "repo_path": "deprekate/PHANOTATE",
+  "description": "PHANOTATE: a tool to annotate phage genomes. ",
+  "created_at": "2017-05-16T21:30:09Z",
+  "updated_at": "2025-03-24T15:26:59Z",
+  "pushed_at": "2024-12-02T18:24:08Z",
+  "stars": 73,
+  "watchers": 73,
+  "forks": 10,
+  "open_issues": 13,
+  "default_branch": "master",
+  "license": "GNU General Public License v3.0",
+  "license_url": "https://api.github.com/licenses/gpl-3.0",
+  "homepage": "",
+  "is_archived": false,
+  "is_disabled": false,
+  "fetch_time": "2025-04-01T08:38:52.384845",
+  "languages": {
+    "Python": 56101
+  },
+  "topics": [
+    "genomics",
+    "phage",
+    "annotation",
+    "annotate-phage-genomes"
+  ],
+  "latest_release": {
+    "name": "1.5.0",
+    "tag": "1.5.0",
+    "published_at": "2020-07-10T03:27:31Z",
+    "url": "https://github.com/deprekate/PHANOTATE/releases/tag/1.5.0"
+  },
+  "dependencies": {
+    "sbom": {
+      "spdxVersion": "SPDX-2.3",
+      "dataLicense": "CC0-1.0",
+      "SPDXID": "SPDXRef-DOCUMENT",
+      "name": "com.github.deprekate/PHANOTATE",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/12b5d06e-98f9-4c76-9eb9-5c0cd477ace3",
+      "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
+      "creationInfo": {
+        "creators": [
+          "Tool: protobom-v0.0.0-20250331202703-27d429d3d3e7+dirty",
+          "Tool: GitHub.com-Dependency-Graph"
+        ],
+        "created": "2025-04-01T08:39:00Z"
+      },
+      "packages": [
+        {
+          "name": "fastpath",
+          "SPDXID": "SPDXRef-pypi-fastpath-75c946",
+          "versionInfo": ">= 1.3",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/fastpath"
+            }
+          ]
+        },
+        {
+          "name": "genbank",
+          "SPDXID": "SPDXRef-pypi-genbank-75c946",
+          "versionInfo": ">= 0.119",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/genbank"
+            }
+          ]
+        },
+        {
+          "name": "com.github.deprekate/PHANOTATE",
+          "SPDXID": "SPDXRef-github-deprekate-PHANOTATE-master-721557",
+          "versionInfo": "master",
+          "downloadLocation": "git+https://github.com/deprekate/PHANOTATE",
+          "filesAnalyzed": false,
+          "licenseDeclared": "GPL-3.0",
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:github/deprekate/PHANOTATE@master"
+            }
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "spdxElementId": "SPDXRef-github-deprekate-PHANOTATE-master-721557",
+          "relatedSpdxElement": "SPDXRef-pypi-fastpath-75c946",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-deprekate-PHANOTATE-master-721557",
+          "relatedSpdxElement": "SPDXRef-pypi-genbank-75c946",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-DOCUMENT",
+          "relatedSpdxElement": "SPDXRef-github-deprekate-PHANOTATE-master-721557",
+          "relationshipType": "DESCRIBES"
+        }
+      ]
+    }
+  }
+}

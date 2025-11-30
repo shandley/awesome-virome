@@ -1,0 +1,1558 @@
+{
+  "cache_date": "2025-11-01T10:55:29.371393",
+  "data": [
+    {
+      "created": "2025-10-16T09:12:16.783501+00:00",
+      "modified": "2025-10-24T14:42:04.578624+00:00",
+      "id": 17183573,
+      "conceptrecid": "17183572",
+      "doi": "10.5281/zenodo.17183573",
+      "conceptdoi": "10.5281/zenodo.17183572",
+      "doi_url": "https://doi.org/10.5281/zenodo.17183573",
+      "metadata": {
+        "title": "Prokaryotic Gene Catalogs v1 (years 2009\u20132015) from the Blanes and Banyuls Bay Microbial Observatories (BBMO\u2013SOLA)",
+        "doi": "10.5281/zenodo.17183573",
+        "publication_date": "2025-10-16",
+        "description": "<p>&nbsp;</p>\n<h3>---------------------------------------------------------------------<br>Introduction<br>---------------------------------------------------------------------&nbsp;</h3>\n<p>This repository contains the first public release (v1) of the BBMO&ndash;SOLA prokaryotic gene catalog and derived abundance tables for genes and functions from two long-term coastal observatories in the NW Mediterranean: Blanes Bay Microbial Observatory (BBMO, http://bbmo.icm.csic.es) and Banyuls Bay Microbial Observatory (SOLA, https://www.obs-banyuls.fr/en/oob.html). The dataset includes a length-filtered non-redundant gene catalog, functional profiles (COG, Pfam, KEGG KO, eggNOG, CAZy), an OTU table (miTags), taxonomic assignments (GTDB), and per-sample environmental metadata.</p>\n<p>The catalog was built from 174 metagenomes (monthly sampling from January 2009 to December 2015; 84 BBMO and 90 SOLA). Reads were cleaned and individually assembled with MEGAHIT&nbsp;v1.1.3, genes were predicted with MetaGeneMark v3.38 and Prodigal v2.6.3, then clustered at 95% identity / 80% coverage with MMseqs2 v.9-d36de&nbsp;linclust to generate a non-redundant catalog. Genes &lt;250 bp were removed, yielding 209,195,684 genes in the filtered catalog. Functional annotation used COG (rpsblast v<span lang=\"EN-GB\">2.7.1</span>), Pfam (<span lang=\"EN-GB\">HMMER3</span>), KEGG (DIAMOND <span lang=\"EN-GB\">blastp v0.9.22</span>), eggNOG (<span lang=\"EN-GB\">HMMER3</span>), and CAZy (DIAMOND <span lang=\"EN-GB\">blastp v0.9.22</span>). Taxonomic assignment used MMseqs2 (release v11-e1a1c) against GTDB r89 (unclustered 54k reference). Abundance profiles were obtained by mapping cleaned reads to the catalog and counting with HTSeq&nbsp;v0.10.0, followed by successive gene-length (within-sample) and metagenome size (between-sample) normalizations.</p>\n<p>In addition, for comparative purposes, this repository includes a customised prokaryotic gene catalog and associated functional profiles from the TARA Oceans expedition (248,627,885 genes &gt;250 bp), derived from a subset of 179 samples representing the small-size fractions from surface, DCM and mesopelagic waters across tropical, subtropical, and polar regions. The catalog was processed following the same pipeline and methodological criteria as BBMO&ndash;SOLA (assembly, ORF prediction, clustering at 95% identity, filtering of genes &lt;250 bp, functional annotation against Pfam, KEGG KO and taxonomic assignment with MMseqs2/GTDB r89), ensuring that both datasets are directly comparable. Gene abundances are reported as length- and metagenome-size&ndash;normalized counts, with functional profiles including KEGG KO and Pfam domain abundances.</p>\n<h3><br>---------------------------------------------------------------------<br>Location<br>---------------------------------------------------------------------</h3>\n<p>This repository provides the BBMO&ndash;SOLA prokaryotic gene catalog together with functional annotations, taxonomic assignments, OTU table, and environmental metadata. It also includes the corresponding processed versions of the TARA prokaryotic gene catalog with functional and taxonomic annotations. All resources are available exclusively through this Zenodo record: 10.5281/zenodo.17183573.</p>\n<p>&nbsp;</p>\n<h3>---------------------------------------------------------------------<br>Directory Descriptions<br>---------------------------------------------------------------------<br><br>BBMO - SOLA:</h3>\n<ul>\n<li>\n<p><strong>Gene catalog (filtered, non-redundant):</strong></p>\n<ul>\n<li>\n<p><code>BLSO_95id_min250.fasta.gz</code> &ndash; 209,195,684 representative genes at 95% ANI,&nbsp;<strong>&gt;250 bp</strong>. (Catalog)</p>\n</li>\n</ul>\n</li>\n<li>\n<p><strong>Abundance tables (tab-delimited):</strong></p>\n<ul>\n<li>\n<p><code>BBMOSOLA-GC_250bp_gene.lengthNorm.metaGsizeGbNorm.counts.tbl.gz</code> &ndash; <strong>gene</strong> abundances (length- &amp; metagenome-size&ndash;normalized).</p>\n</li>\n<li>\n<p><code>BBMOSOLA-GC_250bp_COG.lengthNorm.metaGsizeNorm.counts.txt</code> &ndash; <strong>COG</strong> functional abundances.</p>\n</li>\n<li>\n<p><code>BBMOSOLA-GC_250bp_pfam.lengthNorm.metaGsizeNorm.counts.txt</code> &ndash; <strong>Pfam</strong> domain abundances.</p>\n</li>\n<li>\n<p><code>BBMOSOLA-GC_250bp_KEGG.ko.lengthNorm.metaGsizeNorm.counts.txt</code> &ndash; <strong>KEGG KO</strong> abundances.</p>\n</li>\n<li>\n<p><code>BBMOSOLA-GC_250bp_eggNOG.lengthNorm.metaGsizeNorm.counts.txt</code> &ndash; <strong>eggNOG</strong> abundances.</p>\n</li>\n<li>\n<p><code>BBMOSOLA-GC_250bp_CAZy.lengthNorm.metaGsizeNorm.counts.txt</code> &ndash; <strong>CAZy</strong> family abundances.</p>\n</li>\n</ul>\n</li>\n<li>\n<p><strong>Taxonomy &amp; OTUs:</strong></p>\n<ul>\n<li>\n<p><code>BBMOSOLA.gene.taxonomy.tsv</code> &ndash; MMseqs2/GTDB r89 assignments for catalog genes (Kraken/Krona-style consolidated output summarized).</p>\n</li>\n<li>\n<p><code>BBMOSOLA.otu_table97.txt</code> &ndash; miTags OTU table (97% identity).</p>\n</li>\n</ul>\n</li>\n<li>\n<p><strong>Environmental metadata:</strong></p>\n<ul>\n<li>\n<p><code>BBMOSOLA.environmental_metadata.txt</code> &ndash; per-sample environmental variables (e.g., temperature, salinity, nutrients, chlorophyll, day length).</p>\n</li>\n</ul>\n</li>\n</ul>\n<h3>&nbsp;TARA:</h3>\n<ul>\n<li>\n<p><strong>Gene catalog (filtered, non-redundant):</strong></p>\n<ul>\n<li>\n<p><code>TARA.GC_95id_min250.fasta.gz</code> &ndash; 248,627,885 representative genes at 95% ANI,&nbsp;<strong>&gt;250 bp</strong>. (Catalog)</p>\n</li>\n</ul>\n</li>\n<li>\n<p><strong>Abundance tables (tab-delimited):</strong></p>\n<ul>\n<li><code>TARA-GC-ICMv_250bp_gene.lengthNorm.metaGsizeGbNorm.counts.tbl</code>&nbsp;&ndash; <strong>gene</strong> abundances (length- &amp; metagenome-size&ndash;normalized).</li>\n<li>\n<p><code>TARA-GC-ICMv_250bp_KEGG.ko.lengthNorm.metaGsizeNorm.counts.tbl</code> &ndash; <strong>KEGG KO</strong> abundances.</p>\n</li>\n<li>\n<p><code>TARA-GC-ICMv_250bp_pfam.lengthNorm.metaGsizeNorm.counts.tbl</code> &ndash; <strong>Pfam</strong> domain abundances.</p>\n</li>\n</ul>\n</li>\n<li>\n<p><strong>Taxonomy:</strong></p>\n<ul>\n<li>\n<p><code>TARA_taxonomyResults.tsv</code> &ndash; MMseqs2/GTDB r89 assignments for catalog genes (Kraken/Krona-style consolidated output summarized).</p>\n</li>\n</ul>\n</li>\n</ul>\n<h3><br>---------------------------------------------------------------------<br>Contact information<br>---------------------------------------------------------------------</h3>\n<p>For any questions, please contact with Dr. Ramiro Logares '<a href=\"mailto:logares@icm.csic.es\">logares@icm.csic.es</a>', Lidia Montiel '<a href=\"mailto:montiel@icm.csic.es\">montiel@icm.csic.es</a>' &nbsp;or Sergio Gonz&aacute;lez-Motos '<a href=\"mailto:sgonzalez@icm.csic.es\">sgonzalez@icm.csic.es</a>'.</p>\n<h3><br>---------------------------------------------------------------------<br>Acknowledgements<br>---------------------------------------------------------------------</h3>\n<p>This work is an effort of the log-lab (<a href=\"https://log-lab.barcelona/\" target=\"_blank\" rel=\"noopener noreferrer\">https://log-lab.barcelona</a>) and the Ecology of Marine Microbes (EMM;&nbsp;<a href=\"https://emm.icm.csic.es/\" target=\"_blank\" rel=\"noopener noreferrer\">https://emm.icm.csic.es</a>) group at the Institut de Ci&egrave;ncies del Mar, Barcelona, Spain (ICM - CSIC). All the bioinformatics analyses were performed at the Marine Bioinformatics Core Service ICM - CSIC (MARBITS; <a href=\"http://marbits.icm.csic.es/\">http://marbits.icm.csic.es/</a>) and the Finisterrae III supercomputer at the Centro de Supercomputaci&oacute;n de Galicia (CESGA; <a href=\"https://www.cesga.es/\">https://www.cesga.es/</a>).</p>\n<h3><br>---------------------------------------------------------------------<br>Copyright notice<br>---------------------------------------------------------------------</h3>\n<p>Prokaryotic Gene Catalogs v1 (years 2009&ndash;2015) from the Blanes and Banyuls Bay Microbial Observatories (BBMO&ndash;SOLA) (C).<br><br>This catalog is provided &ldquo;as is&rdquo; and without any warranty of any kind, of openly available for non-commercial purposes. You can redistribute and/or modify it as you wish, under the terms of the Creative Commons Attribution Share Alike 4.0 International license.&nbsp;<br><br>For commercial purposes, please contact us.<br><br></p>\n<h3>&nbsp; &nbsp; &nbsp;&nbsp;</h3>\n<p>&nbsp;</p>",
+        "access_right": "embargoed",
+        "embargo_date": "2026-04-01",
+        "creators": [
+          {
+            "name": "Montiel, Lidia",
+            "affiliation": "Instituto de Ciencias del Mar (ICM-CSIC)",
+            "orcid": "0000-0003-1514-1669"
+          },
+          {
+            "name": "Gonz\u00e1lez-Motos, Sergio",
+            "affiliation": "Instituto de Ciencias del Mar (ICM-CSIC)",
+            "orcid": "0000-0002-6415-5859"
+          },
+          {
+            "name": "Balagu\u00e9, Vanessa",
+            "affiliation": "Instituto de Ciencias del Mar (ICM-CSIC)",
+            "orcid": "0000-0001-6813-8207"
+          },
+          {
+            "name": "Bouget, Francois-Yves",
+            "affiliation": "CNRS D\u00e9l\u00e9gation Languedoc-Roussillon",
+            "orcid": "0000-0001-7652-4490"
+          },
+          {
+            "name": "Massana, Ramon",
+            "affiliation": "Instituto de Ciencias del Mar (ICM-CSIC)",
+            "orcid": "0000-0001-9172-5418"
+          },
+          {
+            "name": "Gasol, Josep M",
+            "affiliation": "Instituto de Ciencias del Mar (ICM-CSIC)",
+            "orcid": "0000-0001-5238-2387"
+          },
+          {
+            "name": "Gonz\u00e1lez, Jos\u00e9",
+            "affiliation": "University of La Laguna",
+            "orcid": "0000-0002-9926-3323"
+          },
+          {
+            "name": "Galand, Pierre E.",
+            "affiliation": "Observatoire Oc\u00e9anologique de Banyuls",
+            "orcid": "0000-0002-2238-3247"
+          },
+          {
+            "name": "Logares, Ramiro",
+            "affiliation": "Instituto de Ciencias del Mar (ICM-CSIC)",
+            "orcid": "0000-0002-8213-0604"
+          }
+        ],
+        "keywords": [
+          "BBMO",
+          "SOLA",
+          "time series",
+          "metagenomics"
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-sa-4.0"
+        },
+        "grants": [
+          {
+            "code": "PID2019-105775RB-I00",
+            "internal_id": "003x0zc53::PID2019-105775RB-I00",
+            "funder": {
+              "name": "Agencia Estatal de Investigaci\u00f3n"
+            },
+            "title": "MINIME"
+          },
+          {
+            "code": "PID2022-136281NB-I00",
+            "internal_id": "003x0zc53::PID2022-136281NB-I00",
+            "funder": {
+              "name": "Agencia Estatal de Investigaci\u00f3n"
+            },
+            "title": "MAORI"
+          },
+          {
+            "code": "CTM2015-69936-P",
+            "internal_id": "003x0zc53::CTM2015-69936-P",
+            "funder": {
+              "name": "Agencia Estatal de Investigaci\u00f3n"
+            },
+            "title": "INTERACTOMICS"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17183572"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Prokaryotic Gene Catalogs v1 (years 2009\u20132015) from the Blanes and Banyuls Bay Microbial Observatories (BBMO\u2013SOLA)",
+      "links": {
+        "self": "https://zenodo.org/api/records/17183573",
+        "self_html": "https://zenodo.org/records/17183573",
+        "preview_html": "https://zenodo.org/records/17183573?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17183573",
+        "self_doi": "https://doi.org/10.5281/zenodo.17183573",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17183573",
+        "reserve_doi": "https://zenodo.org/api/records/17183573/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17183572",
+        "parent_html": "https://zenodo.org/records/17183572",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17183572",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17183572",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17183573/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17183573/sequence/default",
+        "files": "https://zenodo.org/api/records/17183573/files",
+        "media_files": "https://zenodo.org/api/records/17183573/media-files",
+        "archive": "https://zenodo.org/api/records/17183573/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17183573/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17183573/versions/latest",
+        "latest_html": "https://zenodo.org/records/17183573/latest",
+        "versions": "https://zenodo.org/api/records/17183573/versions",
+        "draft": "https://zenodo.org/api/records/17183573/draft",
+        "access_links": "https://zenodo.org/api/records/17183573/access/links",
+        "access_grants": "https://zenodo.org/api/records/17183573/access/grants",
+        "access_users": "https://zenodo.org/api/records/17183573/access/users",
+        "access_request": "https://zenodo.org/api/records/17183573/access/request",
+        "access": "https://zenodo.org/api/records/17183573/access",
+        "communities": "https://zenodo.org/api/records/17183573/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17183573/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17183573/request-deletion",
+        "requests": "https://zenodo.org/api/records/17183573/requests"
+      },
+      "updated": "2025-10-24T14:42:04.578624+00:00",
+      "recid": "17183573",
+      "revision": 18,
+      "files": [],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1414422"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 39,
+        "unique_views": 31,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 31,
+        "version_views": 39
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-10-09T07:20:25.833628+00:00",
+      "modified": "2025-10-09T07:20:26.076130+00:00",
+      "id": 17286354,
+      "conceptrecid": "17286353",
+      "doi": "10.5281/zenodo.17286354",
+      "conceptdoi": "10.5281/zenodo.17286353",
+      "doi_url": "https://doi.org/10.5281/zenodo.17286354",
+      "metadata": {
+        "title": "Protein sequences from representative genomes of the Genome Taxonomy DataBase (r214) and associated metadata table",
+        "doi": "10.5281/zenodo.17286354",
+        "publication_date": "2025-10-07",
+        "description": "<p>These files are directly mirrored from the Genome Taxonomy DataBase (<a href=\"https://gtdb.ecogenomic.org/downloads\">https://gtdb.ecogenomic.org/downloads</a>) but were required by the publisher to be made available via a stable and permanent URL in the form of a DOI. These files were used in the analyses in our manuscript (preprint:&nbsp;<a href=\"https://doi.org/10.1101/2025.03.17.643616\">10.1101/2025.03.17.643616</a>,&nbsp;<a href=\"https://github.com/ClavelLab/pocpbenchmark_manuscript/blob/0b1f0e0e96f871d02f5c18f274d34b974224bcb4/targets_prepare_pocpbenchmark_data.R\">workflow for the manuscript</a>).</p>\n<ul>\n<li><code>gtdb_proteins_aa_reps_r214.tar.gz</code> contains all protein sequences predicted by Prodigal for all representatives bacterial genomes of version r214 of GTDB</li>\n<li><code>bac120_metadata_r214.tar.gz</code> contains the full metadata table for all genomes present in the version r214 of GTDB</li>\n</ul>\n<p>&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Pauvert, Charlie",
+            "affiliation": "Universit\u00e4tsklinikum Aachen",
+            "orcid": "0000-0001-9832-2507"
+          },
+          {
+            "name": "Hitch, Thomas C. A.",
+            "affiliation": "Universit\u00e4tsklinikum Aachen",
+            "orcid": "0000-0003-2244-7412"
+          },
+          {
+            "name": "Clavel, Thomas",
+            "affiliation": "Universit\u00e4tsklinikum Aachen",
+            "orcid": "0000-0002-7229-5595"
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "10.5281/zenodo.16688238",
+            "relation": "isRequiredBy",
+            "resource_type": "software",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.5281/zenodo.14974869",
+            "relation": "isSourceOf",
+            "resource_type": "dataset",
+            "scheme": "doi"
+          },
+          {
+            "identifier": "10.1101/2025.03.17.643616",
+            "relation": "isPublishedIn",
+            "resource_type": "publication-preprint",
+            "scheme": "doi"
+          }
+        ],
+        "dates": [
+          {
+            "type": "created"
+          }
+        ],
+        "version": "r214",
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-sa-4.0"
+        },
+        "grants": [
+          {
+            "code": "460129525",
+            "internal_id": "018mejw64::460129525",
+            "funder": {
+              "name": "Deutsche Forschungsgemeinschaft"
+            }
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17286353"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Protein sequences from representative genomes of the Genome Taxonomy DataBase (r214) and associated metadata table",
+      "links": {
+        "self": "https://zenodo.org/api/records/17286354",
+        "self_html": "https://zenodo.org/records/17286354",
+        "preview_html": "https://zenodo.org/records/17286354?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17286354",
+        "self_doi": "https://doi.org/10.5281/zenodo.17286354",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17286354",
+        "reserve_doi": "https://zenodo.org/api/records/17286354/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17286353",
+        "parent_html": "https://zenodo.org/records/17286353",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17286353",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17286353",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17286354/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17286354/sequence/default",
+        "files": "https://zenodo.org/api/records/17286354/files",
+        "media_files": "https://zenodo.org/api/records/17286354/media-files",
+        "archive": "https://zenodo.org/api/records/17286354/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17286354/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17286354/versions/latest",
+        "latest_html": "https://zenodo.org/records/17286354/latest",
+        "versions": "https://zenodo.org/api/records/17286354/versions",
+        "draft": "https://zenodo.org/api/records/17286354/draft",
+        "access_links": "https://zenodo.org/api/records/17286354/access/links",
+        "access_grants": "https://zenodo.org/api/records/17286354/access/grants",
+        "access_users": "https://zenodo.org/api/records/17286354/access/users",
+        "access_request": "https://zenodo.org/api/records/17286354/access/request",
+        "access": "https://zenodo.org/api/records/17286354/access",
+        "communities": "https://zenodo.org/api/records/17286354/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17286354/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17286354/request-deletion",
+        "requests": "https://zenodo.org/api/records/17286354/requests"
+      },
+      "updated": "2025-10-09T07:20:26.076130+00:00",
+      "recid": "17286354",
+      "revision": 4,
+      "files": [
+        {
+          "id": "4a781815-9962-4d1d-a023-df58441c4dce",
+          "key": "bac120_metadata_r214.tar.gz",
+          "size": 83540772,
+          "checksum": "md5:65a6d03b39dab7733ed846f74bdabde6",
+          "links": {
+            "self": "https://zenodo.org/api/records/17286354/files/bac120_metadata_r214.tar.gz/content"
+          }
+        },
+        {
+          "id": "9fd3811c-bd58-4755-b72f-1dd3cf80ac6f",
+          "key": "gtdb_proteins_aa_reps_r214.tar.gz",
+          "size": 55168432265,
+          "checksum": "md5:50af474dd0c70166588270e7a123aa58",
+          "links": {
+            "self": "https://zenodo.org/api/records/17286354/files/gtdb_proteins_aa_reps_r214.tar.gz/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "339666"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 0,
+        "unique_downloads": 0,
+        "views": 5,
+        "unique_views": 5,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 5,
+        "version_views": 5
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-12T15:06:00.748833+00:00",
+      "modified": "2025-09-12T15:06:01.087057+00:00",
+      "id": 17087464,
+      "conceptrecid": "10672305",
+      "doi": "10.5281/zenodo.17087464",
+      "conceptdoi": "10.5281/zenodo.10672305",
+      "doi_url": "https://doi.org/10.5281/zenodo.17087464",
+      "metadata": {
+        "title": "A catalog of genes, genomes and species of the dog (Canis lupus familiaris) intestinal microbiota",
+        "doi": "10.5281/zenodo.17087464",
+        "publication_date": "2025-09-10",
+        "description": "<p></p><h1>Data sources</h1><br>This dataset was constructed using metagenomic sequencing data from the bioproject PRJEB20308 from Coelho et al. 2018 (129 samples)<br><h1>Metagenomic assembly</h1><br>First, sequencing adapters removal and read trimming was performed with fastp. Reads mapped on the host genome (ROS_Cfam_1.0 GCF_014441545.1) with bowtie2 were removed with samtools. Finally, Metagenomic assembly was performed with metaSPAdes. Contigs of less than 1500 bp were removed.<br><h1>MAGs recovery</h1><br>MAGs were generated with COMEBin (multi-coverage mode) and MAGs quality was assessed with CheckM2. MAGs with completeness &lt; 70% or contamination &gt; 5% or N50 &lt; 5Kb were discarded. Pairwise Average Nucleotide Identity (ANI) was computed for all recovered MAGs with fastANI and dereplication at species level (ANI cutoff = 95%).<br><h1>Non-redundant gene catalog</h1><br>Genes were predicted on all contigs from metagenomic assemblies with Prodigal (parameters : -m -p meta). Genes were pooled and clustered with cd-hit-est (parameters -c 0.95 -aS 0.90 -G 0 -d 0 -M 0 -T 0) by choosing those from the longest contigs as representatives.<br><h1>MSPs recovery</h1><br>Reads were aligned against the non-redundant gene catalog with the Meteor software suite to produce a raw gene abundance table (1,0M genes quantified in 129 samples). Then, co-abundant genes were binned in 234 Metagenomic Species Pan-genomes (MSPs, i.e. gene clusters that likely belong to the same microbial species) using MSPminer.<br><h1>MAGs and MSPs taxonomic annotation</h1><br>Dereplicated MAGs were annotated with GTDB-Tk based on GTDB r220. Then, MAGs taxonomic annotation was propagated to the corresponding MSPs.<br><h1>Construction of the phylogenetic tree</h1><br>39 universal phylogenetic markers genes were extracted from the dereplicated MAGs with fetchMGs. Then, the markers were separately aligned with MUSCLE. The 40 alignments were merged and trimmed with trimAl (parameters: -automated1). Finally, the phylogenetic tree was computed with FastTreeMP (parameters: -gamma -pseudo -spr -mlacc 3 -slownni).<h1>Mapping rate distribution across public cohorts</h1>We generated mapping rate distribution plots using Meteor2 (default parameters), comparing performance between: PRJEB20308 (cohort used in catalogue assembly) and PRNJNA714112 (independent cohort not used in assembly).<p></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Plaza Onate, Florian",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-zero"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 9,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10672305"
+              }
+            }
+          ]
+        }
+      },
+      "title": "A catalog of genes, genomes and species of the dog (Canis lupus familiaris) intestinal microbiota",
+      "links": {
+        "self": "https://zenodo.org/api/records/17087464",
+        "self_html": "https://zenodo.org/records/17087464",
+        "preview_html": "https://zenodo.org/records/17087464?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17087464",
+        "self_doi": "https://doi.org/10.5281/zenodo.17087464",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17087464",
+        "reserve_doi": "https://zenodo.org/api/records/17087464/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/10672305",
+        "parent_html": "https://zenodo.org/records/10672305",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10672305",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10672305",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17087464/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17087464/sequence/default",
+        "files": "https://zenodo.org/api/records/17087464/files",
+        "media_files": "https://zenodo.org/api/records/17087464/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17087464:catalogue_mapping_rate_clf_1_0_gut.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17087464:catalogue_mapping_rate_clf_1_0_gut.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17087464:catalogue_mapping_rate_clf_1_0_gut.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17087464:catalogue_mapping_rate_clf_1_0_gut.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17087464:catalogue_mapping_rate_clf_1_0_gut.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17087464:catalogue_mapping_rate_clf_1_0_gut.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17087464/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17087464/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17087464/versions/latest",
+        "latest_html": "https://zenodo.org/records/17087464/latest",
+        "versions": "https://zenodo.org/api/records/17087464/versions",
+        "draft": "https://zenodo.org/api/records/17087464/draft",
+        "access_links": "https://zenodo.org/api/records/17087464/access/links",
+        "access_grants": "https://zenodo.org/api/records/17087464/access/grants",
+        "access_users": "https://zenodo.org/api/records/17087464/access/users",
+        "access_request": "https://zenodo.org/api/records/17087464/access/request",
+        "access": "https://zenodo.org/api/records/17087464/access",
+        "communities": "https://zenodo.org/api/records/17087464/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17087464/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17087464/request-deletion",
+        "requests": "https://zenodo.org/api/records/17087464/requests"
+      },
+      "updated": "2025-09-12T15:06:01.087057+00:00",
+      "recid": "17087464",
+      "revision": 4,
+      "files": [
+        {
+          "id": "fc24bbea-2731-45ba-8568-34c8a353ffbb",
+          "key": "catalogue_mapping_rate_clf_1_0_gut.pdf",
+          "size": 5192,
+          "checksum": "md5:411644f11e0e3fac26dca80fc25c2575",
+          "links": {
+            "self": "https://zenodo.org/api/records/17087464/files/catalogue_mapping_rate_clf_1_0_gut.pdf/content"
+          }
+        },
+        {
+          "id": "21b5a4f5-88bb-4508-9031-11646c184acb",
+          "key": "clf_1_0_gut.tar.xz",
+          "size": 1414839404,
+          "checksum": "md5:0e4821983590f139a8c40e33d9927f33",
+          "links": {
+            "self": "https://zenodo.org/api/records/17087464/files/clf_1_0_gut.tar.xz/content"
+          }
+        },
+        {
+          "id": "7f108fad-7c6c-44a0-9ade-f3ed78e4c54f",
+          "key": "clf_1_0_gut_taxo.tar.xz",
+          "size": 125017288,
+          "checksum": "md5:1f6e637b7392820ab6d19fa42f2b8e50",
+          "links": {
+            "self": "https://zenodo.org/api/records/17087464/files/clf_1_0_gut_taxo.tar.xz/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "258127"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 187,
+        "unique_downloads": 177,
+        "views": 329,
+        "unique_views": 318,
+        "version_downloads": 52,
+        "version_unique_downloads": 49,
+        "version_unique_views": 21,
+        "version_views": 22
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-12T15:05:19.657188+00:00",
+      "modified": "2025-09-12T15:05:20.026652+00:00",
+      "id": 17091699,
+      "conceptrecid": "10656834",
+      "doi": "10.5281/zenodo.17091699",
+      "conceptdoi": "10.5281/zenodo.10656834",
+      "doi_url": "https://doi.org/10.5281/zenodo.17091699",
+      "metadata": {
+        "title": "A catalog of genes, genomes and species of the cat (Felis catus) intestinal microbiota",
+        "doi": "10.5281/zenodo.17091699",
+        "publication_date": "2025-09-10",
+        "description": "<p></p><h1>Data sources</h1><br>This dataset was constructed using two different bioprojects:<br>PRJNA758898 from Ma et al. 2022. 16 samples from 16 animals.<br>PRJEB9357 from Deusch et al. 2015. 88 samples from 30 animals.<br>PRJEB4391 from Deusch et al. 2014. 36 samples from 18 animals.<br>PRJNA944553. 30 samples from 30 animals.<br>PRJNA908260 from Bai et al. 2023. 8 samples from 8 animals.<br>PRJNA923753 from Ho et al. 2023. 1 sample.<br><h1>Metagenomic assembly</h1><br>De novo metagenomic assembly was performed on samples listed above. First, sequencing adapters removal and read trimming was performed with fastp. Reads mapped on the host genome (GCF_018350175.1) with bowtie2 were removed with samtools. Finally, Metagenomic assembly was performed with metaSPAdes. Contigs of less than 1500 bp were removed.<br><h1>MAGs recovery</h1><br>MAGs were generated with COMEBin (multi-coverage mode) and MAGs quality was assessed with CheckM2. MAGs with completeness &lt; 70% or contamination &gt; 5% or N50 &lt; 5Kb were discarded. Pairwise Average Nucleotide Identity (ANI) was computed for all recovered MAGs with fastANI and dereplication at species level (ANI cutoff = 95%).<br><h1>Non-redundant gene catalog</h1><br>Genes were predicted on all contigs from metagenomic assemblies with Prodigal (parameters : -m -p meta). Genes were pooled and clustered with cd-hit-est (parameters -c 0.95 -aS 0.90 -G 0 -d 0 -M 0 -T 0) by choosing those from the longest contigs as representatives.<br><h1>MSPs recovery</h1><br>Samples from multiple cohorts (listed above + PRJNA906124 from Lee et al. 2022) were aligned against the non-redundant gene catalog with the Meteor software suite to produce a raw gene abundance table (1,3M genes quantified in 212 samples). Then, co-abundant genes were binned in 344 Metagenomic Species Pan-genomes (MSPs, i.e. gene clusters that likely belong to the same microbial species) using MSPminer.<br><h1>MAGs and MSPs taxonomic annotation</h1><br>Dereplicated MAGs were annotated with GTDB-Tk based on GTDB r214. Then, MAGs taxonomic annotation was propagated to the corresponding MSPs.<br><h1>Construction of the phylogenetic tree</h1><br>39 universal phylogenetic markers genes were extracted from the dereplicated MAGs with fetchMGs. Then, the markers were separately aligned with MUSCLE. The 40 alignments were merged and trimmed with trimAl (parameters: -automated1). Finally, the phylogenetic tree was computed with FastTreeMP (parameters: -gamma -pseudo -spr -mlacc 3 -slownni).<h1>Mapping rate distribution across public cohorts</h1>We generated mapping rate distribution plots using Meteor2 (default parameters) for PRJEB4391, PRJEB9357, PRJNA758898, PRJNA906124, PRJNA908260, PRJNA923753 and PRJNA944553 used in catalogue assembly.<p></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Plaza Onate, Florian",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-zero"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 9,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10656834"
+              }
+            }
+          ]
+        }
+      },
+      "title": "A catalog of genes, genomes and species of the cat (Felis catus) intestinal microbiota",
+      "links": {
+        "self": "https://zenodo.org/api/records/17091699",
+        "self_html": "https://zenodo.org/records/17091699",
+        "preview_html": "https://zenodo.org/records/17091699?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17091699",
+        "self_doi": "https://doi.org/10.5281/zenodo.17091699",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17091699",
+        "reserve_doi": "https://zenodo.org/api/records/17091699/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/10656834",
+        "parent_html": "https://zenodo.org/records/10656834",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10656834",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10656834",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17091699/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17091699/sequence/default",
+        "files": "https://zenodo.org/api/records/17091699/files",
+        "media_files": "https://zenodo.org/api/records/17091699/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17091699:catalogue_mapping_rate_fc_1_3_gut.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17091699:catalogue_mapping_rate_fc_1_3_gut.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17091699:catalogue_mapping_rate_fc_1_3_gut.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17091699:catalogue_mapping_rate_fc_1_3_gut.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17091699:catalogue_mapping_rate_fc_1_3_gut.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17091699:catalogue_mapping_rate_fc_1_3_gut.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17091699/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17091699/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17091699/versions/latest",
+        "latest_html": "https://zenodo.org/records/17091699/latest",
+        "versions": "https://zenodo.org/api/records/17091699/versions",
+        "draft": "https://zenodo.org/api/records/17091699/draft",
+        "access_links": "https://zenodo.org/api/records/17091699/access/links",
+        "access_grants": "https://zenodo.org/api/records/17091699/access/grants",
+        "access_users": "https://zenodo.org/api/records/17091699/access/users",
+        "access_request": "https://zenodo.org/api/records/17091699/access/request",
+        "access": "https://zenodo.org/api/records/17091699/access",
+        "communities": "https://zenodo.org/api/records/17091699/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17091699/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17091699/request-deletion",
+        "requests": "https://zenodo.org/api/records/17091699/requests"
+      },
+      "updated": "2025-09-12T15:05:20.026652+00:00",
+      "recid": "17091699",
+      "revision": 4,
+      "files": [
+        {
+          "id": "e8cce577-be8f-421a-b80f-ba04086b6e08",
+          "key": "catalogue_mapping_rate_fc_1_3_gut.pdf",
+          "size": 5738,
+          "checksum": "md5:e8ed1d6cee84806c423b98e16c204600",
+          "links": {
+            "self": "https://zenodo.org/api/records/17091699/files/catalogue_mapping_rate_fc_1_3_gut.pdf/content"
+          }
+        },
+        {
+          "id": "082d16d6-a120-4ce3-910e-e2d398e8a559",
+          "key": "fc_1_3_gut.tar.xz",
+          "size": 1983124296,
+          "checksum": "md5:3a68e519be6792d4f12060df5056dca0",
+          "links": {
+            "self": "https://zenodo.org/api/records/17091699/files/fc_1_3_gut.tar.xz/content"
+          }
+        },
+        {
+          "id": "c6281a9e-a8c3-4390-ae2a-1755e09e53f6",
+          "key": "fc_1_3_gut_taxo.tar.xz",
+          "size": 186042136,
+          "checksum": "md5:b17285df20a5003debefac97c076da61",
+          "links": {
+            "self": "https://zenodo.org/api/records/17091699/files/fc_1_3_gut_taxo.tar.xz/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "258127"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 318,
+        "unique_downloads": 313,
+        "views": 390,
+        "unique_views": 369,
+        "version_downloads": 43,
+        "version_unique_downloads": 41,
+        "version_unique_views": 18,
+        "version_views": 19
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-12T15:03:56.132387+00:00",
+      "modified": "2025-09-12T15:03:56.592590+00:00",
+      "id": 17091762,
+      "conceptrecid": "10673723",
+      "doi": "10.5281/zenodo.17091762",
+      "conceptdoi": "10.5281/zenodo.10673723",
+      "doi_url": "https://doi.org/10.5281/zenodo.17091762",
+      "metadata": {
+        "title": "MetaChick: characterization of the chicken caecal metagenome by deep shotgun sequencing",
+        "doi": "10.5281/zenodo.17091762",
+        "publication_date": "2025-09-10",
+        "description": "<p></p><h1>Data sources</h1><br>This dataset was constructed using the samples of the MetaChick project (phase 1) corresponding to the cecal content of 340 animals. Sequencing data and associated metadata have been submitted to INSDC (bioproject: PRJEB38174).<br><h1>Sequencing data QC and metagenomic assembly</h1><br>First, sequencing adapters removal and read trimming was performed with fastxtend. Reads mapped on the host genome (GRCg7b GCA_016699485.1) with bowtie2 were removed with samtools. Finally, metagenomic assembly was performed with metaSPAdes v3.14.1. Contigs of less than 1500 bp were removed.<br><h1>MAGs recovery</h1><br>MAGs were generated with MetaBAT 2 (multi-coverage mode) and MAGs quality was assessed with CheckM. MAGs with completeness &lt; 70% or contamination &gt; 5% or N50 &lt; 8Kb were discarded. Pairwise Average Nucleotide Identity (ANI) was computed for all recovered MAGs with fastANI and dereplication at species level (ANI cutoff = 95%).<br><h1>Non-redundant gene catalog</h1><br>Genes were predicted on all contigs from metagenomic assemblies with Prodigal (parameters : -m -p meta). Genes were pooled and clustered with cd-hit-est (parameters -c 0.95 -aS 0.90 -G 0 -d 0 -M 0 -T 0) by choosing those from the longest contigs as representatives.<br><h1>MSPs recovery</h1><br>A raw gene abundance table (13,6M genes quantified in 340 samples) was generated with meteorMeteor. Then, co-abundant genes were binned in Metagenomic Species Pan-genomes (MSPs, i.e. gene clusters that likely belong to the same microbial species) using MSPminer.<br><h1>MAGs and MSPs taxonomic annotation</h1><br>Dereplicated MAGs were annotated with GTDB-Tk based on GTDB r214. Then, MAGs taxonomic annotation was propagated to the corresponding MSPs.<br><h1>Construction of the phylogenetic tree</h1><br>39 universal phylogenetic markers genes were extracted from the dereplicated MAGs with fetchMGs. Then, the markers were separately aligned with MUSCLE. The 40 alignments were merged and trimmed with trimAl (parameters: -automated1). Finally, the phylogenetic tree was computed with FastTreeMP (parameters: -gamma -pseudo -spr -mlacc 3 -slownni).<h1>Mapping rate distribution across public cohorts</h1>We generated mapping rate distribution plots using Meteor2 (default parameters), comparing performance between: PRJEB38174 (cohort used in catalogue assembly) and PRJEB29033, PRJEB33338, PRJEB53667 (independent cohort not used in assembly).<p></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Plaza Onate, Florian",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "JEAMMET, Marie",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "PONS, Nicolas",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "EHRLICH, Stanislav Dusko",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "ESTELLE, Jordi",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "CALENGE, Fanny",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-zero"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 9,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10673723"
+              }
+            }
+          ]
+        }
+      },
+      "title": "MetaChick: characterization of the chicken caecal metagenome by deep shotgun sequencing",
+      "links": {
+        "self": "https://zenodo.org/api/records/17091762",
+        "self_html": "https://zenodo.org/records/17091762",
+        "preview_html": "https://zenodo.org/records/17091762?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17091762",
+        "self_doi": "https://doi.org/10.5281/zenodo.17091762",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17091762",
+        "reserve_doi": "https://zenodo.org/api/records/17091762/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/10673723",
+        "parent_html": "https://zenodo.org/records/10673723",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10673723",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10673723",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17091762/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17091762/sequence/default",
+        "files": "https://zenodo.org/api/records/17091762/files",
+        "media_files": "https://zenodo.org/api/records/17091762/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17091762:catalogue_mapping_rate_gg_13_6_caecal.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17091762:catalogue_mapping_rate_gg_13_6_caecal.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17091762:catalogue_mapping_rate_gg_13_6_caecal.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17091762:catalogue_mapping_rate_gg_13_6_caecal.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17091762:catalogue_mapping_rate_gg_13_6_caecal.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17091762:catalogue_mapping_rate_gg_13_6_caecal.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17091762/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17091762/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17091762/versions/latest",
+        "latest_html": "https://zenodo.org/records/17091762/latest",
+        "versions": "https://zenodo.org/api/records/17091762/versions",
+        "draft": "https://zenodo.org/api/records/17091762/draft",
+        "access_links": "https://zenodo.org/api/records/17091762/access/links",
+        "access_grants": "https://zenodo.org/api/records/17091762/access/grants",
+        "access_users": "https://zenodo.org/api/records/17091762/access/users",
+        "access_request": "https://zenodo.org/api/records/17091762/access/request",
+        "access": "https://zenodo.org/api/records/17091762/access",
+        "communities": "https://zenodo.org/api/records/17091762/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17091762/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17091762/request-deletion",
+        "requests": "https://zenodo.org/api/records/17091762/requests"
+      },
+      "updated": "2025-09-12T15:03:56.592590+00:00",
+      "recid": "17091762",
+      "revision": 4,
+      "files": [
+        {
+          "id": "354e7d99-0bac-49a5-ac57-fda0629b91fc",
+          "key": "gg_13_6_caecal.tar.xz",
+          "size": 19372370100,
+          "checksum": "md5:280a6bd6f6cd2942a6a2b148f7886b63",
+          "links": {
+            "self": "https://zenodo.org/api/records/17091762/files/gg_13_6_caecal.tar.xz/content"
+          }
+        },
+        {
+          "id": "0dc659e7-25cc-40e0-80da-21c950b3cedd",
+          "key": "catalogue_mapping_rate_gg_13_6_caecal.pdf",
+          "size": 5502,
+          "checksum": "md5:549641261aa734026367cf2ca56799b5",
+          "links": {
+            "self": "https://zenodo.org/api/records/17091762/files/catalogue_mapping_rate_gg_13_6_caecal.pdf/content"
+          }
+        },
+        {
+          "id": "1d73562c-e7bb-4519-a3c9-3c4907edd150",
+          "key": "gg_13_6_caecal_taxo.tar.xz",
+          "size": 1360687880,
+          "checksum": "md5:ddb9008626784d6767fee927f258c980",
+          "links": {
+            "self": "https://zenodo.org/api/records/17091762/files/gg_13_6_caecal_taxo.tar.xz/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "258127"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 268,
+        "unique_downloads": 262,
+        "views": 504,
+        "unique_views": 487,
+        "version_downloads": 51,
+        "version_unique_downloads": 48,
+        "version_unique_views": 11,
+        "version_views": 12
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-12T15:01:09.322909+00:00",
+      "modified": "2025-09-12T15:01:09.628443+00:00",
+      "id": 17091806,
+      "conceptrecid": "10679308",
+      "doi": "10.5281/zenodo.17091806",
+      "conceptdoi": "10.5281/zenodo.10679308",
+      "doi_url": "https://doi.org/10.5281/zenodo.17091806",
+      "metadata": {
+        "title": "A catalog of genes and species of the human skin microbiota",
+        "doi": "10.5281/zenodo.17091806",
+        "publication_date": "2025-09-10",
+        "description": "<p></p><h1>Dataset overview</h1><br>This dataset provides:<br>a non-redundant high-quality catalog of 2.9 million genes<br>392 Metagenomic Species Pangenomes (MSPs)<br>This dataset can be used to analyze shotgun sequencing data of the human skin microbiota.<br><h1>How to use this dataset</h1><br>Create a gene abundance table by aligning reads from each sample against the catalog. For this purpose, you can use Meteor or NGLess. Then, normalize raw counts by gene length.<br>Taxonomic profiling: the abundance of each species can be estimated as the average abundance of its 100 first core genes. To reduce the false positive rate, only consider that a species is present if at least 10/100 marker genes are detected.<br><h1>Methods</h1><br><h2>Data sources</h2><br>This dataset was built using the following data sources:<br>118 isolate-derived genomes from the HMRGD<br>246 isolate-derived genomes from the Skin Microbial Genome Collection (SMGC)<br>1,407 skin metagenome assemblies from the Skin Microbial Genome Collection (SMGC)<br><h2>Non-redundant gene catalog</h2><br>After filtering out short contigs (&lt;1500 bp), genes were predicted with Prodigal on genomes (mode: single) and metagenome assemblies (mode: meta). Complete genes (partial=00) were pooled and clustered with cd-hit-est (parameters -c 0.95 -aS 0.90 -G 0 -d 0 -M 0 -T 0) by choosing those from the longest contigs as representatives.<br><h2>Functional annotation</h2><br>KOs assignments were obtained with KofamScan using the KEGG 107 database.<br><h2>MSPs recovery</h2><br>Reads from the 1,120 skin metagenomes available in the bioproject PRJNA46333 were aligned against the non-redundant gene catalog with the Meteor software suite to produce a raw gene abundance table (2.9M genes quantified in 1,120samples). Then, co-abundant genes were binned in 392 Metagenomic Species Pan-genomes (MSPs, i.e. clusters of co-abundant genes that likely belong to the same microbial species) using MSPminer.<br><h2>MSPs taxonomic annotation</h2><br>Taxonomic annotation was performed by alignment of all core and accessory genes against representative genomes of the GTDB database (release r214) using blastn (version 2.7.1, task = megablast, word_size = 16). A species-level assignment was given if &gt; 50% of the genes matched the representative genome of a given species, with a mean nucleotide identity \u2265 95% and mean gene length coverage \u2265 90%. The remaining MSPs were assigned to a higher taxonomic level (genus to superkingdom), if more than 50% of their genes had the same annotation.<br><h2>Construction of the phylogenetic tree</h2><br>39 universal phylogenetic markers genes were extracted from the MSPs (or the corresponding genome if available) with fetchMGs. Then, the markers were separately aligned with MUSCLE. The 40 alignments were merged and trimmed with trimAl (parameters: -automated1). Finally, the phylogenetic tree was computed with FastTreeMP (parameters: -gamma -pseudo -spr -mlacc 3 -slownni).<h1>Mapping rate distribution across public cohorts</h1>We generated mapping rate distribution plots using Meteor2 (default parameters), comparing performance between: PRJNA46333 (cohort used in catalogue assembly) and PRJEB80549 (independent cohort not used in assembly).<p></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Plaza Onate, Florian",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-zero"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 9,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10679308"
+              }
+            }
+          ]
+        }
+      },
+      "title": "A catalog of genes and species of the human skin microbiota",
+      "links": {
+        "self": "https://zenodo.org/api/records/17091806",
+        "self_html": "https://zenodo.org/records/17091806",
+        "preview_html": "https://zenodo.org/records/17091806?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17091806",
+        "self_doi": "https://doi.org/10.5281/zenodo.17091806",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17091806",
+        "reserve_doi": "https://zenodo.org/api/records/17091806/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/10679308",
+        "parent_html": "https://zenodo.org/records/10679308",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10679308",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10679308",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17091806/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17091806/sequence/default",
+        "files": "https://zenodo.org/api/records/17091806/files",
+        "media_files": "https://zenodo.org/api/records/17091806/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17091806:catalogue_mapping_rate_hs_2_9_skin.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17091806:catalogue_mapping_rate_hs_2_9_skin.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17091806:catalogue_mapping_rate_hs_2_9_skin.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17091806:catalogue_mapping_rate_hs_2_9_skin.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17091806:catalogue_mapping_rate_hs_2_9_skin.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17091806:catalogue_mapping_rate_hs_2_9_skin.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17091806/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17091806/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17091806/versions/latest",
+        "latest_html": "https://zenodo.org/records/17091806/latest",
+        "versions": "https://zenodo.org/api/records/17091806/versions",
+        "draft": "https://zenodo.org/api/records/17091806/draft",
+        "access_links": "https://zenodo.org/api/records/17091806/access/links",
+        "access_grants": "https://zenodo.org/api/records/17091806/access/grants",
+        "access_users": "https://zenodo.org/api/records/17091806/access/users",
+        "access_request": "https://zenodo.org/api/records/17091806/access/request",
+        "access": "https://zenodo.org/api/records/17091806/access",
+        "communities": "https://zenodo.org/api/records/17091806/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17091806/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17091806/request-deletion",
+        "requests": "https://zenodo.org/api/records/17091806/requests"
+      },
+      "updated": "2025-09-12T15:01:09.628443+00:00",
+      "recid": "17091806",
+      "revision": 4,
+      "files": [
+        {
+          "id": "ae1a43bb-0bce-4d45-a2d8-e8fd1f941112",
+          "key": "catalogue_mapping_rate_hs_2_9_skin.pdf",
+          "size": 5028,
+          "checksum": "md5:cc2728d90aba38d35636d97cdbc0bbd1",
+          "links": {
+            "self": "https://zenodo.org/api/records/17091806/files/catalogue_mapping_rate_hs_2_9_skin.pdf/content"
+          }
+        },
+        {
+          "id": "77bc9f27-1505-4ff1-9d37-47aeddca86b8",
+          "key": "hs_2_9_skin_taxo.tar.xz",
+          "size": 264810984,
+          "checksum": "md5:795f5d0bbf47677a5da4e7b21a692f1b",
+          "links": {
+            "self": "https://zenodo.org/api/records/17091806/files/hs_2_9_skin_taxo.tar.xz/content"
+          }
+        },
+        {
+          "id": "833ac30f-6426-4f2f-afb5-fee7e8462398",
+          "key": "hs_2_9_skin.tar.xz",
+          "size": 3910334004,
+          "checksum": "md5:5aa2a2d6b2acaf8d03a4c808f8e5a2f6",
+          "links": {
+            "self": "https://zenodo.org/api/records/17091806/files/hs_2_9_skin.tar.xz/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "258127"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 303,
+        "unique_downloads": 292,
+        "views": 390,
+        "unique_views": 368,
+        "version_downloads": 55,
+        "version_unique_downloads": 52,
+        "version_unique_views": 14,
+        "version_views": 16
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-12T15:00:04.283568+00:00",
+      "modified": "2025-09-12T15:00:04.618401+00:00",
+      "id": 17091834,
+      "conceptrecid": "10685509",
+      "doi": "10.5281/zenodo.17091834",
+      "conceptdoi": "10.5281/zenodo.10685509",
+      "doi_url": "https://doi.org/10.5281/zenodo.17091834",
+      "metadata": {
+        "title": "A catalog of genes and species of the human oral microbiota",
+        "doi": "10.5281/zenodo.17091834",
+        "publication_date": "2025-09-10",
+        "description": "<p></p><h1>Data sources</h1><br>The oral gene catalog was built using three primary sources:<br><br>Bacterial Genomes from the Human Oral Microbiome Database (HOMD).<br>Fungal Genomes from the NCBI RefSeq database.<br>Metagenomic Sequencing Data from multiple oral microbiome studies.<br>The creation of the oral gene catalog was a multi-step process, combining and refining genes from each source.<br><br><h1>Bacterial Genes</h1><br>A total of 1,505 bacterial genomes were downloaded from HOMD (version 20170215, accessed in December 2017). Genes shorter than 60 nucleotides or containing ambiguous bases were filtered out. Redundancy was removed using CD-HIT-EST (v4.6; parameters: -aS 0.9 -c 0.95 -T 0 -M 0 -t 0 -d 0 -G 0). This process yielded 1,459,394 unique HOMD genes for the catalog.<br><br><h1>Fungal Genes</h1><br>1,017 fungal genomes were downloaded from NCBI RefSeq (May 2017). For the 492 genomes lacking existing annotations, gene calling was performed using Genemark-ES in fungi mode. After initial redundancy removal with CD-HIT-EST (v4.6; parameters: -aS 0.9 -c 0.95 -T 0 -M 0 -t 0 -d 0 -G 0), genes were selected for inclusion only if their corresponding genome was present in at least 20% of the samples in one of the metagenomic cohorts, determined by mapping reads with Bowtie2 (v2.2.3). This led to the selection of 2,440,644 fungal genes.<br><br><h1>Metagenomic Sequencing Data</h1><br>The gene catalog was supplemented with data from 689 oral metagenomes, including newly sequenced samples, from the following studies:<br><br>Human Microbiome Project (HMP): 382 samples (bioproject PRJNA255439).<br>Chinese Cohort: 212 samples (bioproject PRJEB6997).<br>TwinsUK Cohort: 48 newly sequenced samples (bioproject: PRJEB38483).<br>Raw reads were subjected to quality control and trimmed using AlienTrimmer 0.4.0 (parameters: -k 10 -l 45 -m 5 -p 40 -q 20). Human sequences were removed by mapping against the human reference genome (GRCh38.p11) using Bowtie2 2.2.3. Metagenomic assembly was performed using SPAdes 3.9.0 (parameters: \"-k 21,33,55 --only-assembler \u2013meta\" for Illumina paired-end data, or \"--iontorrent -t 24 -m 300 -k 21,33,55 --only-assembler\" for Ion Torrent single-end data). Contigs shorter than 500 bp or with coverage less than 2x were discarded. Gene calling was conducted with Prodigal (parameters: -m -p meta). Genes shorter than 60 bp were filtered out, and redundancy was removed with CD-HIT-EST (v4.6; parameters: -aS 0.9 -c 0.95 -T 0 -M 0 -t 0 -d 0 -G 0).<br><br><h1>Final Gene Catalog</h1><br>The final gene catalog was assembled by sequentially adding non-redundant genes from each data source. Genes from HOMD and fungal genomes were combined first using cd-hit-est-2d. Then, non-redundant genes from the HMP, Chinese, and TwinsUK cohorts were sequentially added using cd-hit-est-2d (same parameters as cd-hit-est). A final redundancy removal step was performed. This process resulted in a catalogue of 8.4 million non-redundant genes<br><br><h1>MSPs Recovery</h1><br>The 689 metagenomic samples were aligned against the final gene catalog using the Meteor software suite to produce a gene abundance table. Then, co-abundant genes were binned into 853 Metagenomic Species Pan-genomes (MSPs) using MSPminer.<br><br><h1>MSPs Taxonomic Annotation</h1><br>Taxonomic annotation for the MSPs was performed by aligning all core and accessory genes against representative genomes from the GTDB database (release r214) using blastn (task: megablast, word_size: 16).<br><br>A species-level assignment was given if over 50% of the genes matched a representative genome with a mean nucleotide identity of at least 95% and a mean gene length coverage of at least 90%.<br>The remaining MSPs were assigned to a higher taxonomic level (genus to superkingdom) if more than 50% of their genes shared the same annotation.<h1>Mapping rate distribution across public cohorts</h1>We generated mapping rate distribution plots using Meteor2 (default parameters), comparing performance between: PRJEB6997, PRJNA255439, PRJNA48479 (cohort used in catalogue assembly) and PRJEB24090, PRJEB28422, PRJEB45799 (independent cohort not used in assembly).<p></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Le Chatelier, Emmanuelle",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "Almeida, Mathieu",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "Plaza Onate, Florian",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "Pons, Nicolas",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "Gauthier, Franck",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "Ghozlane, Amine",
+            "affiliation": "Universit\u00e9 Paris-Cit\u00e9, Institut Pasteur"
+          },
+          {
+            "name": "Ehrlich, Stanislav Dusko",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "Witherden, Elizabeth",
+            "affiliation": "King's College London"
+          },
+          {
+            "name": "Gomez-Cabrero, David",
+            "affiliation": "King's College London, NavarraBiomed"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-zero"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 9,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10685509"
+              }
+            }
+          ]
+        }
+      },
+      "title": "A catalog of genes and species of the human oral microbiota",
+      "links": {
+        "self": "https://zenodo.org/api/records/17091834",
+        "self_html": "https://zenodo.org/records/17091834",
+        "preview_html": "https://zenodo.org/records/17091834?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17091834",
+        "self_doi": "https://doi.org/10.5281/zenodo.17091834",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17091834",
+        "reserve_doi": "https://zenodo.org/api/records/17091834/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/10685509",
+        "parent_html": "https://zenodo.org/records/10685509",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10685509",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10685509",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17091834/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17091834/sequence/default",
+        "files": "https://zenodo.org/api/records/17091834/files",
+        "media_files": "https://zenodo.org/api/records/17091834/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17091834:catalogue_mapping_rate_hs_8_4_oral.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17091834:catalogue_mapping_rate_hs_8_4_oral.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17091834:catalogue_mapping_rate_hs_8_4_oral.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17091834:catalogue_mapping_rate_hs_8_4_oral.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17091834:catalogue_mapping_rate_hs_8_4_oral.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17091834:catalogue_mapping_rate_hs_8_4_oral.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17091834/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17091834/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17091834/versions/latest",
+        "latest_html": "https://zenodo.org/records/17091834/latest",
+        "versions": "https://zenodo.org/api/records/17091834/versions",
+        "draft": "https://zenodo.org/api/records/17091834/draft",
+        "access_links": "https://zenodo.org/api/records/17091834/access/links",
+        "access_grants": "https://zenodo.org/api/records/17091834/access/grants",
+        "access_users": "https://zenodo.org/api/records/17091834/access/users",
+        "access_request": "https://zenodo.org/api/records/17091834/access/request",
+        "access": "https://zenodo.org/api/records/17091834/access",
+        "communities": "https://zenodo.org/api/records/17091834/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17091834/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17091834/request-deletion",
+        "requests": "https://zenodo.org/api/records/17091834/requests"
+      },
+      "updated": "2025-09-12T15:00:04.618401+00:00",
+      "recid": "17091834",
+      "revision": 4,
+      "files": [
+        {
+          "id": "109eaa12-1ab0-4991-994a-74d03b737df6",
+          "key": "hs_8_4_oral.tar.xz",
+          "size": 13856821076,
+          "checksum": "md5:34a6bf413b3954ede28c287a64775cd0",
+          "links": {
+            "self": "https://zenodo.org/api/records/17091834/files/hs_8_4_oral.tar.xz/content"
+          }
+        },
+        {
+          "id": "6577e2c5-3821-4b3e-acb0-054a91443245",
+          "key": "catalogue_mapping_rate_hs_8_4_oral.pdf",
+          "size": 16199,
+          "checksum": "md5:eb4194f49df53b4d39c3aeb576f0666b",
+          "links": {
+            "self": "https://zenodo.org/api/records/17091834/files/catalogue_mapping_rate_hs_8_4_oral.pdf/content"
+          }
+        },
+        {
+          "id": "f202aa86-4e98-497f-abc0-c79f469efeb2",
+          "key": "hs_8_4_oral_taxo.tar.xz",
+          "size": 665300648,
+          "checksum": "md5:3cefe6a903fd85e359b67ca644b76f12",
+          "links": {
+            "self": "https://zenodo.org/api/records/17091834/files/hs_8_4_oral_taxo.tar.xz/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "258127"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 290,
+        "unique_downloads": 267,
+        "views": 355,
+        "unique_views": 335,
+        "version_downloads": 50,
+        "version_unique_downloads": 45,
+        "version_unique_views": 16,
+        "version_views": 21
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-12T14:56:51.223725+00:00",
+      "modified": "2025-09-12T14:56:51.629548+00:00",
+      "id": 17092353,
+      "conceptrecid": "10658547",
+      "doi": "10.5281/zenodo.17092353",
+      "conceptdoi": "10.5281/zenodo.10658547",
+      "doi_url": "https://doi.org/10.5281/zenodo.17092353",
+      "metadata": {
+        "title": "MIMIC2: Murine Intestinal Microbiota Integrated Catalog v2",
+        "doi": "10.5281/zenodo.17092353",
+        "publication_date": "2025-09-10",
+        "description": "<p></p><h1>Dataset overview</h1><br>The MIMIC2 dataset provides:<br>a non-redundant high-quality catalog of 5.0 million genes<br>6,967 Metagenome-Assembled Genomes (MAGs)<br>1,252 Metagenomic Species Pangenomes (MSPs)<br>This dataset can be used to analyze shotgun sequencing data of the murine gut microbiota.<br><h1>Methods</h1><br><h2>Data sources</h2><br>The MIMIC2 dataset was constructed using two different data sources:<br>Source 1: the Mouse Gastrointestinal Bacterial Catalogue (MGBC) which is a compilation of 276 genomes from cultured isolates and 45,218 metagenome-assembled genomes (MAGs) from 1,960 publicly available mouse metagenomes<br>Source 2: 68 samples of Messaoudene et al. (PRJNA783624) and 85 deeply sequenced samples from bioproject CNP0000619 published by Xiao et al.<br><h2>Metagenomic assembly</h2><br>De novo metagenomic assembly was performed on the 153 samples from the data Source 2. First, sequencing adapters removal and read trimming was performed with fastp. Reads mapped on the host genome (GCF_000001635.27) with bowtie2 were removed with samtools. Finally, Metagenomic assembly was performed with metaSPAdes. Contigs of less than 1500 bp were removed.<br><h2>MAGs recovery</h2><br>Reads of each sample from the data Source 2 were aligned to their respective assembly with bowtie2 and results were indexed in sorted bam files with samtools. Then, contigs coverage was computed in each sample with jgi_summarize_bam_contig_depths. MAGs were generated with MetaBAT 2 and MAGs quality was assessed with checkM. MAGs with completeness &lt; 70% or contamination &gt; 5% or N50 &lt; 8Kb were discarded.<br><h2>Non-redundant gene catalog</h2><br>Genes were predicted on all contigs from the data Source 2 with Prodigal (parameters : -m -p meta ). Likewise, genes were predicted on all genomes from the data Source 1 (MGBC) with Prodigal (parameters : -m -p single ). Genes from the two data sources were pooled and those shorter than 90 bp or incomplete were discarded. Finally, genes were clustered with cd-hit-est (parameters -c 0.95 -aS 0.90 -G 0 -d 0 -M 0 -T 0 ) by choosing those from the longest contigs as representatives.<br><h2>MSPs recovery</h2><br>Samples from 19 cohorts (see below) were aligned against the non-redundant gene catalog with the Meteor software suite to produce a raw gene abundance table (5M genes quantified in 1374 samples). Then, co-abundant genes were binned in 1,252 Metagenomic Species Pan-genomes (MSPs, i.e. clusters of &gt; 500 co-abundant genes that likely belong to the same microbial species) using MSPminer.<br><br>The 19 cohorts used to recover the MSPs are:<br>PRJNA783624<br>CNP0000619<br>PRJEB15095<br>PRJEB22007<br>PRJEB22710<br>PRJEB31298<br>PRJEB32790<br>PRJEB32890<br>PRJEB3374<br>PRJEB36943<br>PRJEB44286<br>PRJEB7759<br>PRJNA293255<br>PRJNA390686<br>PRJNA397886<br>PRJNA515074<br>PRJNA540893<br>PRJNA549182<br>PRJEB40719<br><h2>MSPs taxonomic annotation</h2><br>Representative genomes of the MMGC collection were annotated with GTDB-Tk based on GTDB r202. Then, taxonomic annotation of MMGC genomes was propagated to the corresponding MSPs.<br><br>For the MSPs without any corresponding MAG, taxonomic annotation was performed by alignment of all core and accessory genes against representative genomes of the GTDB database (release r202) using blastn (version 2.7.1, task = megablast, word_size = 16). A species-level assignment was given if &gt; 50% of the genes matched the representative genome of a given species, with a mean nucleotide identity \u2265 95% and mean gene length coverage \u2265 90%. The remaining MSPs were assigned to a higher taxonomic level (genus to superkingdom), if more than 50% of their genes had the same annotation.<br><h2>Construction of the phylogenetic tree</h2><br>39 universal phylogenetic markers genes were extracted from the 1,252 MSPs (or the corresponding MAGs if available) with fetchMGs. Then, the markers were separately aligned with MUSCLE. The 40 alignments were merged and trimmed with trimAl (parameters: -automated1). Finally, the phylogenetic tree was computed with FastTreeMP (parameters: -gamma -pseudo -spr -mlacc 3 -slownni).<h1>Mapping rate distribution across public cohorts</h1>We generated mapping rate distribution plots using Meteor2 (default parameters), comparing performance between: CNP0000619, PRJEB15095, PRJEB22007, PRJNA783624 (cohort used in catalogue assembly) and PRJNA760892 (independent cohort not used in assembly).<p></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Plaza Onate, Florian",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "GITTON-QUENT, Oscar",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "ALMEIDA, Mathieu",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "LE CHATELIER, Emmanuelle",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-zero"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 9,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10658547"
+              }
+            }
+          ]
+        }
+      },
+      "title": "MIMIC2: Murine Intestinal Microbiota Integrated Catalog v2",
+      "links": {
+        "self": "https://zenodo.org/api/records/17092353",
+        "self_html": "https://zenodo.org/records/17092353",
+        "preview_html": "https://zenodo.org/records/17092353?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17092353",
+        "self_doi": "https://doi.org/10.5281/zenodo.17092353",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17092353",
+        "reserve_doi": "https://zenodo.org/api/records/17092353/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/10658547",
+        "parent_html": "https://zenodo.org/records/10658547",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10658547",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10658547",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17092353/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17092353/sequence/default",
+        "files": "https://zenodo.org/api/records/17092353/files",
+        "media_files": "https://zenodo.org/api/records/17092353/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17092353:catalogue_mapping_rate_mm_5_0_gut.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17092353:catalogue_mapping_rate_mm_5_0_gut.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17092353:catalogue_mapping_rate_mm_5_0_gut.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17092353:catalogue_mapping_rate_mm_5_0_gut.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17092353:catalogue_mapping_rate_mm_5_0_gut.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17092353:catalogue_mapping_rate_mm_5_0_gut.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17092353/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17092353/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17092353/versions/latest",
+        "latest_html": "https://zenodo.org/records/17092353/latest",
+        "versions": "https://zenodo.org/api/records/17092353/versions",
+        "draft": "https://zenodo.org/api/records/17092353/draft",
+        "access_links": "https://zenodo.org/api/records/17092353/access/links",
+        "access_grants": "https://zenodo.org/api/records/17092353/access/grants",
+        "access_users": "https://zenodo.org/api/records/17092353/access/users",
+        "access_request": "https://zenodo.org/api/records/17092353/access/request",
+        "access": "https://zenodo.org/api/records/17092353/access",
+        "communities": "https://zenodo.org/api/records/17092353/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17092353/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17092353/request-deletion",
+        "requests": "https://zenodo.org/api/records/17092353/requests"
+      },
+      "updated": "2025-09-12T14:56:51.629548+00:00",
+      "recid": "17092353",
+      "revision": 4,
+      "files": [
+        {
+          "id": "c9e13f39-ea00-420c-80d1-5c91542cd784",
+          "key": "mm_5_0_gut.tar.xz",
+          "size": 7538007176,
+          "checksum": "md5:73bc304528554d7e9bce9a6cf8e787df",
+          "links": {
+            "self": "https://zenodo.org/api/records/17092353/files/mm_5_0_gut.tar.xz/content"
+          }
+        },
+        {
+          "id": "5dbd070f-2f0e-4183-bbe4-266225f3568c",
+          "key": "mm_5_0_gut_taxo.tar.xz",
+          "size": 667750132,
+          "checksum": "md5:f27f6a734620ee338af41f7e15865ff7",
+          "links": {
+            "self": "https://zenodo.org/api/records/17092353/files/mm_5_0_gut_taxo.tar.xz/content"
+          }
+        },
+        {
+          "id": "a3c77374-0c0f-446e-a886-39efc71eefa6",
+          "key": "catalogue_mapping_rate_mm_5_0_gut.pdf",
+          "size": 5654,
+          "checksum": "md5:776dcacb2b0740ac13badf51cd4ebef8",
+          "links": {
+            "self": "https://zenodo.org/api/records/17092353/files/catalogue_mapping_rate_mm_5_0_gut.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "258127"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 316,
+        "unique_downloads": 299,
+        "views": 362,
+        "unique_views": 344,
+        "version_downloads": 46,
+        "version_unique_downloads": 42,
+        "version_unique_views": 20,
+        "version_views": 21
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-12T14:56:00.487928+00:00",
+      "modified": "2025-09-12T14:56:01.008209+00:00",
+      "id": 17092391,
+      "conceptrecid": "10659710",
+      "doi": "10.5281/zenodo.17092391",
+      "conceptdoi": "10.5281/zenodo.10659710",
+      "doi_url": "https://doi.org/10.5281/zenodo.17092391",
+      "metadata": {
+        "title": "MicroReset: characterization of the rabbit (Oryctolagus cuniculus) fecal metagenome and resistome by deep shotgun sequencing",
+        "doi": "10.5281/zenodo.17092391",
+        "publication_date": "2025-09-10",
+        "description": "<p></p><h1>Data source</h1><br>The dataset was generated from 30 rabbit fecal samples subjected to deep shotgun metagenomic sequencing. The sequencing data is available under the BioProject PRJEB50625.<br>Metagenomic Assembly<br>Raw sequencing reads were first pre-processed using fastp for adapter removal and quality trimming. Host-derived reads were filtered out by mapping to the rabbit reference genome (GCF_000001635.27) using Bowtie2 and removing mapped reads with Samtools. Each sample was individually assembled using metaSPAdes. Contigs shorter than 1,500 bp were excluded from downstream analysis.<br><h1>MAG Recovery</h1><br>Reads from each sample were mapped to all 30 assemblies (30\u00d730 mappings) using Bowtie2. The resulting alignments were sorted and indexed with Samtools. Contig coverage across all samples was computed using `jgi_summarize_bam_contig_depths`. Binning was performed with MetaBAT 2 and SemiBin v1.3. MAG quality was assessed with CheckM. Only high-quality MAGs (\u226570% completeness, \u22645% contamination, N50 \u2265 8 kb) were retained.<br>Non-Redundant Gene Catalog<br>Gene prediction was carried out using Prodigal on all contigs from the current study (with `-m -p meta`). Genes shorter than 90 bp or lacking start/stop codons were discarded. The remaining genes from both sources were pooled and clustered using CD-HIT-EST (parameters: `-c 0.95 -aS 0.90 -G 0 -d 0 -M 0 -T 0`). The longest contigs were used to select representative genes.<br><h1>MSP Recovery</h1><br>Shotgun reads from the 30 samples were aligned to the non-redundant gene catalog using the Meteor suite, generating a gene abundance matrix (5.7 million genes \u00d7 30 samples). Co-abundant genes were grouped into 1,053 Metagenomic Species Pan-genomes (MSPs) using MSPminer.<br><h1>Taxonomic Annotation of MSPs</h1><br>MAGs representing each species were taxonomically annotated using GTDB-Tk with GTDB release r214. The resulting taxonomy was propagated to the corresponding MSPs.<br><h1>Phylogenetic Tree Construction</h1><br>A set of 39 universal phylogenetic marker genes was extracted from the 1,053 MSPs (or their corresponding MAGs, when available) using fetchMGs. Each marker was independently aligned using MUSCLE, and the alignments were concatenated and trimmed using trimAl (parameter: `-automated1`). A maximum-likelihood phylogenetic tree was constructed with FastTreeMP (parameters: `-gamma -pseudo -spr -mlacc 3 -slownni`).<h1>Mapping rate distribution across public cohorts</h1>We generated mapping rate distribution plots using Meteor2 (default parameters) for PRJEB50625 (cohort used in catalogue assembly).<p></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Plaza Onate, Florian",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "COULIBALY, Camille",
+            "affiliation": "INRAE, Universit\u00e9 Paris-Saclay"
+          },
+          {
+            "name": "ACHARD, Caroline",
+            "affiliation": "INRAE, Equipe NED, UMR1388 GENPHYSE"
+          },
+          {
+            "name": "GHOZLANE, Amine",
+            "affiliation": "Universit\u00e9 Paris-cit\u00e9, Institut Pasteur"
+          },
+          {
+            "name": "PONS, Nicolas",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "Rupp\u00e9, Etienne",
+            "affiliation": "INSERM, IAME"
+          },
+          {
+            "name": "Dile, Benoit",
+            "affiliation": "LABOVET Conseil, R\u00e9seau Cristal"
+          },
+          {
+            "name": "Boucher, Samuel",
+            "affiliation": "LABOVET Conseil, R\u00e9seau Cristal"
+          },
+          {
+            "name": "CHATELLIER, Stephane",
+            "affiliation": "Clinique V\u00e9t\u00e9rinaire des March\u00e9s de Bretagne"
+          },
+          {
+            "name": "LE NORMAND, Bernadette",
+            "affiliation": "Clinique V\u00e9t\u00e9rinaire des March\u00e9s de Bretagne"
+          },
+          {
+            "name": "SAUSSET, Romain",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "LE CHATELIER, Emmanuelle",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "PETIT, Marie-Agnes",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "ESTELLE, Jordi",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "ZEMB, Olivier",
+            "affiliation": "INRAE, Equipe NED, UMR1388 GENPHYSE"
+          },
+          {
+            "name": "ALMEIDA, Mathieu",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-zero"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 9,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10659710"
+              }
+            }
+          ]
+        }
+      },
+      "title": "MicroReset: characterization of the rabbit (Oryctolagus cuniculus) fecal metagenome and resistome by deep shotgun sequencing",
+      "links": {
+        "self": "https://zenodo.org/api/records/17092391",
+        "self_html": "https://zenodo.org/records/17092391",
+        "preview_html": "https://zenodo.org/records/17092391?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17092391",
+        "self_doi": "https://doi.org/10.5281/zenodo.17092391",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17092391",
+        "reserve_doi": "https://zenodo.org/api/records/17092391/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/10659710",
+        "parent_html": "https://zenodo.org/records/10659710",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10659710",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10659710",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17092391/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17092391/sequence/default",
+        "files": "https://zenodo.org/api/records/17092391/files",
+        "media_files": "https://zenodo.org/api/records/17092391/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17092391:catalogue_mapping_rate_oc_5_7_gut.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17092391:catalogue_mapping_rate_oc_5_7_gut.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17092391:catalogue_mapping_rate_oc_5_7_gut.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17092391:catalogue_mapping_rate_oc_5_7_gut.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17092391:catalogue_mapping_rate_oc_5_7_gut.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17092391:catalogue_mapping_rate_oc_5_7_gut.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17092391/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17092391/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17092391/versions/latest",
+        "latest_html": "https://zenodo.org/records/17092391/latest",
+        "versions": "https://zenodo.org/api/records/17092391/versions",
+        "draft": "https://zenodo.org/api/records/17092391/draft",
+        "access_links": "https://zenodo.org/api/records/17092391/access/links",
+        "access_grants": "https://zenodo.org/api/records/17092391/access/grants",
+        "access_users": "https://zenodo.org/api/records/17092391/access/users",
+        "access_request": "https://zenodo.org/api/records/17092391/access/request",
+        "access": "https://zenodo.org/api/records/17092391/access",
+        "communities": "https://zenodo.org/api/records/17092391/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17092391/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17092391/request-deletion",
+        "requests": "https://zenodo.org/api/records/17092391/requests"
+      },
+      "updated": "2025-09-12T14:56:01.008209+00:00",
+      "recid": "17092391",
+      "revision": 4,
+      "files": [
+        {
+          "id": "bceb317b-8c1b-4e4e-a592-41db2b492d18",
+          "key": "oc_5_7_gut.tar.xz",
+          "size": 8140344440,
+          "checksum": "md5:738b371d7a7c5f678bfd8774ade6646d",
+          "links": {
+            "self": "https://zenodo.org/api/records/17092391/files/oc_5_7_gut.tar.xz/content"
+          }
+        },
+        {
+          "id": "1cf0a36d-14f4-49cd-b183-d2d52c6f722c",
+          "key": "catalogue_mapping_rate_oc_5_7_gut.pdf",
+          "size": 4661,
+          "checksum": "md5:d303711190cff0d5f37087b32a8a886e",
+          "links": {
+            "self": "https://zenodo.org/api/records/17092391/files/catalogue_mapping_rate_oc_5_7_gut.pdf/content"
+          }
+        },
+        {
+          "id": "63676239-562f-4bd1-a85e-0464e5459d1e",
+          "key": "oc_5_7_gut_taxo.tar.xz",
+          "size": 516693460,
+          "checksum": "md5:16dd45d4b5ebbc09f41bdc3273ce9848",
+          "links": {
+            "self": "https://zenodo.org/api/records/17092391/files/oc_5_7_gut_taxo.tar.xz/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "258127"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 305,
+        "unique_downloads": 303,
+        "views": 407,
+        "unique_views": 386,
+        "version_downloads": 57,
+        "version_unique_downloads": 57,
+        "version_unique_views": 16,
+        "version_views": 16
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-09-12T14:53:10.616861+00:00",
+      "modified": "2025-09-12T14:53:10.925193+00:00",
+      "id": 17092408,
+      "conceptrecid": "10672634",
+      "doi": "10.5281/zenodo.17092408",
+      "conceptdoi": "10.5281/zenodo.10672634",
+      "doi_url": "https://doi.org/10.5281/zenodo.17092408",
+      "metadata": {
+        "title": "A catalog of genes and species of the brown rat (Rattus norvegicus) gut microbiota",
+        "doi": "10.5281/zenodo.17092408",
+        "publication_date": "2025-09-10",
+        "description": "<p></p><h1>Dataset overview</h1><br>We built a catalog of 5.9M genes found in the brown rat gut microbiota. Co-abundant genes were binned in 1627 Metagenomic Species for which we provide taxonomic labels.<br><br>This dataset can be used to analyze shotgun sequencing data of the brown rat gut microbiota.<h1>Data sources </h1><br>Rat fecal (and milk) samples characterized by shotgun metagenomic sequencing during the Mamiprooffi project. Sequencing data will be submitted soon on the European Nucleotide Archive (Bioproject PRJEB57230)<br>The gene catalog of the Sprague-Dawley rat gut metagenome published by Pan et al.<br><h1>Metagenomic assembly</h1><br>Metagenomic assembly was performed on the Mamiprooffi samples (Data Source 1) with SPAdes (parameters: --iontorrent --careful). Contigs of less than 1500 bp or successfully aligned on the rat genome (Rnor_6.0) were removed.<br>Non-redundant gene catalog<br>Genes were predicted on all contigs with Prodigal (parameters : -m -p meta ). Genes with missing start codon or shorter than 99 bp were discarded.<br>Then, partial and complete genes were separately clustered with cd-hit-est (parameters -c 0.95 -aS 0.90 -G 0 -d 0 -M 0 -T 0 ). Finally, these two non-redundant gene sets were merged with the previously published catalog (Data Source 2) using cd-hit-est-2d by considering at first complete genes (contact us for futher details).<br>Functionnal annotation<br>KEGG Orthologs (KOs) were assigned to genes of the final catalog with KofamScan (version 1.3.0, KEGG 107 database)<br><h1>Metagenomic Species</h1><br>Using the Meteor software suite, reads from samples in Bioprojects PRJEB57230 and PRJEB22973 were mapped against the final non redundant catalog to build a raw gene abundance table (5.9 million genes quantified in 370 samples). This table was submitted to MSPminer and Canopy. A total of 1627 clusters of co-abundant genes or MetaGenomic Species (MGS) were discovered.<br>Quality control of each MGS was manually performed by visualizing heatmaps representative of the normalized gene abundance profiles.<br><h1>Taxonomic annotation of Metagenomic Species</h1><br>MGS taxonomic annotation was performed by aligning all core and accessory genes against the GTDB r214 representative genomes using blastn [4] (version 2.10.1, task = megablast, word_size = 16). The 20 best hits for each gene were kept. A species-level assignment was given if &gt; 50% of the genes matched a GTDB representative genome with a mean identity \u2265 95% and mean gene length coverage \u2265 90%. The remaining MGS were assigned to a higher taxonomic levels (genus to superkingdom) if more than 50% of their genes had the same annotation.<h1>Mapping rate distribution across public cohorts</h1>We generated mapping rate distribution plots using Meteor2 (default parameters), comparing performance between: PRJEB22973 and PRJEB57230 (cohort used in catalogue assembly) and PRNJNA609596 (independent cohort not used in assembly).<p></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Plaza Onate, Florian",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "MICHEL, Catherine",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "GHARBI, Houssem",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "ALMEIDA, Mathieu",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "PAGNIEZ, Anthony",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "POCHERON, Anne-Lise",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          },
+          {
+            "name": "LE DREAN, Gwenola",
+            "affiliation": "Universit\u00e9 de Nantes, UMR_A 1280 Physiologie des Adaptations Nutritionnelles"
+          },
+          {
+            "name": "PARNET, Patricia",
+            "affiliation": "Universit\u00e9 de Nantes, UMR_A 1280 Physiologie des Adaptations Nutritionnelles"
+          },
+          {
+            "name": "LE CHATELIER, Emmanuelle",
+            "affiliation": "Universit\u00e9 Paris-Saclay, INRAE"
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-zero"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 9,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "10672634"
+              }
+            }
+          ]
+        }
+      },
+      "title": "A catalog of genes and species of the brown rat (Rattus norvegicus) gut microbiota",
+      "links": {
+        "self": "https://zenodo.org/api/records/17092408",
+        "self_html": "https://zenodo.org/records/17092408",
+        "preview_html": "https://zenodo.org/records/17092408?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17092408",
+        "self_doi": "https://doi.org/10.5281/zenodo.17092408",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17092408",
+        "reserve_doi": "https://zenodo.org/api/records/17092408/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/10672634",
+        "parent_html": "https://zenodo.org/records/10672634",
+        "parent_doi": "https://doi.org/10.5281/zenodo.10672634",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.10672634",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17092408/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17092408/sequence/default",
+        "files": "https://zenodo.org/api/records/17092408/files",
+        "media_files": "https://zenodo.org/api/records/17092408/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17092408:catalogue_mapping_rate_rn_5_9_gut.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17092408:catalogue_mapping_rate_rn_5_9_gut.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17092408:catalogue_mapping_rate_rn_5_9_gut.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17092408:catalogue_mapping_rate_rn_5_9_gut.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17092408:catalogue_mapping_rate_rn_5_9_gut.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17092408:catalogue_mapping_rate_rn_5_9_gut.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17092408/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17092408/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17092408/versions/latest",
+        "latest_html": "https://zenodo.org/records/17092408/latest",
+        "versions": "https://zenodo.org/api/records/17092408/versions",
+        "draft": "https://zenodo.org/api/records/17092408/draft",
+        "access_links": "https://zenodo.org/api/records/17092408/access/links",
+        "access_grants": "https://zenodo.org/api/records/17092408/access/grants",
+        "access_users": "https://zenodo.org/api/records/17092408/access/users",
+        "access_request": "https://zenodo.org/api/records/17092408/access/request",
+        "access": "https://zenodo.org/api/records/17092408/access",
+        "communities": "https://zenodo.org/api/records/17092408/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17092408/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17092408/request-deletion",
+        "requests": "https://zenodo.org/api/records/17092408/requests"
+      },
+      "updated": "2025-09-12T14:53:10.925193+00:00",
+      "recid": "17092408",
+      "revision": 4,
+      "files": [
+        {
+          "id": "3dfe6b8e-ef02-4a6a-9567-9fd603715eb0",
+          "key": "catalogue_mapping_rate_rn_5_9_gut.pdf",
+          "size": 6349,
+          "checksum": "md5:a72b30715f00812efbc908354c27d8be",
+          "links": {
+            "self": "https://zenodo.org/api/records/17092408/files/catalogue_mapping_rate_rn_5_9_gut.pdf/content"
+          }
+        },
+        {
+          "id": "0ad12fd0-c6b6-4607-a2c3-ebd18616d0d0",
+          "key": "rn_5_9_gut.tar.xz",
+          "size": 7117754064,
+          "checksum": "md5:6100bd5fd88e754873e5af83aca1d587",
+          "links": {
+            "self": "https://zenodo.org/api/records/17092408/files/rn_5_9_gut.tar.xz/content"
+          }
+        },
+        {
+          "id": "924ddba1-e6f7-447f-9024-07cef0fb6234",
+          "key": "rn_5_9_gut_taxo.tar.xz",
+          "size": 747948340,
+          "checksum": "md5:01ffd4c28f67606836b75f3b28961895",
+          "links": {
+            "self": "https://zenodo.org/api/records/17092408/files/rn_5_9_gut_taxo.tar.xz/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "258127"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 318,
+        "unique_downloads": 316,
+        "views": 307,
+        "unique_views": 292,
+        "version_downloads": 20,
+        "version_unique_downloads": 20,
+        "version_unique_views": 10,
+        "version_views": 10
+      },
+      "state": "done",
+      "submitted": true
+    }
+  ]
+}

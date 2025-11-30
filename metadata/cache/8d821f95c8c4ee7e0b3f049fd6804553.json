@@ -1,0 +1,1626 @@
+{
+  "cache_date": "2025-11-01T08:41:31.013977",
+  "data": [
+    {
+      "created": "2025-11-01T08:00:27.492674+00:00",
+      "modified": "2025-11-01T08:00:27.650619+00:00",
+      "id": 17500032,
+      "conceptrecid": "4733457",
+      "doi": "10.5281/zenodo.17500032",
+      "conceptdoi": "10.5281/zenodo.4733457",
+      "doi_url": "https://doi.org/10.5281/zenodo.17500032",
+      "metadata": {
+        "title": "STIR Software for Tomographic Image Reconstruction",
+        "doi": "10.5281/zenodo.17500032",
+        "publication_date": "2025-11-01",
+        "description": "<h1>Summary of changes in STIR release 6.3</h1>\n<h2>Overall summary</h2>\n<p>This version is 100% backwards compatible with STIR 6.2, aside from three important bug fixes, which will change results (see below).</p>\n<p>This is a release with many new features, as listed below. Highlights are</p>\n<ul>\n<li>the new Gibbs penalty hierarchy with CUDA and OpenMP support (and much easier addition of new potential functions) (Matteo Neel Colombo, Univ of Milano-Bicocca),</li>\n<li>new 2D analytic reconstruction algorithms (including two that allow quantitative reconstruction of SPECT) (Dimitra Kyriakopoulou, UCL),</li>\n<li>better Python support including algebraic operations and faster conversion to NumPy arrays (Kris Thielemans, UCL),</li>\n<li>continuous memory storage for arrays (allowing zero-copy access to image/projection data in SIRF Python, but not yet in STIR Python)\n(Kris Thielemans, UCL),</li>\n<li>faster scatter estimation for blocks on cylindrical scanners (Markus Jehl, Positrigo),</li>\n<li>reduced memory usage for iterative reconstructions, avoiding hitting the current limitation of 2^31 elements in <code>ProjDataInMemory</code> (Kris Thielemans, UCL),</li>\n<li>Python code for adapting e7tools output for Siemens Vision 600 to STIR (Nicole Jurjew, UCL)</li>\n</ul>\n<p>But there are many other changes from other contibutors as well, see below. Of course, there is also the usual code-cleanup and some\nimprovements to the documentation. Overall overview and release management was by Kris Thielemans (UCL) with help from Daniel Deidda (NPL).</p>\n<h2>Patch release info</h2>\n<ul>\n<li>6.3.0 released 31/10/2025<br>\n<a href=\"https://github.com/UCL/STIR/milestone/12\">GitHub Milestone 6.3</a></li>\n</ul>\n<h2>Summary for end users (also to be read by developers)</h2>\n<h3>New functionality</h3>\n<h4>General</h4>\n<ul>\n<li><p>Several 2D analytic reconstruction algorithms were added for PET (i.e. inverting the 2D Radon transform) and parallel beam SPECT (inverting the 2D attenuated Radon transform). The latter allow quantitatively correct analytic reconstruction of SPECT data (after scatter correction).</p>\n<ul>\n<li>The Spline Reconstruction Technique (SRT) algorithm has been added  in 2 different versions: <code>SRT2D</code> for PET and <code>SRT2DSPECT</code> for SPECT.\nThe reference for the implemented algorithms is:<br>\nFokas, A. S., A. Iserles, and V. Marinakis. Reconstruction algorithm  for single photon emission computed tomography and its numerical  implementation. Journal of the Royal Society Interface 3.6 (2006):   45-54.</li>\n<li><code>GRD2D</code> for PET is a direct Fourier method using regridding with  Kaiser-Bessel functions.</li>\n<li><code>DDSR2D</code> for parallel beam SPECT uses Hilbert transforms in projection space.</li>\n</ul>\n<p>The reference for the implementation of these algorithms is:<br>\nDimitra Kyriakopoulou, Analytical and Numerical Aspects of Tomography,\nPhD thesis, University College London (UCL), 2024,<br>\nAvailable at:\n<a href=\"https://discovery.ucl.ac.uk/id/eprint/10202525/\">discovery.ucl.ac.uk/id/eprint/10202525/</a>.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1420\">PR #1420</a> and <a href=\"https://github.com/UCL/STIR/pull/1595\">PR #1595</a>.</p>\n</li>\n<li><p>Wiener and Gamma filters were added.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1420\">PR #1420</a>.</p>\n</li>\n<li><p><code>ScatterSimulation</code> can now downsample the scanner transaxially (crystals per ring) for <code>BlocksOnCylindrical</code>, scanners, which speeds\nup <code>ScatterEstimation</code> considerably. By default, downsampling the detectors per reading is disabled for backwards compatibility.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1291\">PR #1291</a></p>\n</li>\n<li><p>The priors code has been refactored to provide two common, parallelized base classes for CPU and GPU implementations\n(<code>GibbsPenalty</code> and <code>CudaGibbsPenalty</code>).<br>\nOn CPU, we introduce <code>GibbsQuadraticPenalty</code> and <code>GibbsRelativeDifferencePenalty</code>, which inherit from the parallelized\n<code>GibbsPenalty</code> base class (now parallelized using OpenMP).<br>\nGPU implementations are also provided as <code>CudaGibbsQuadraticPenalty</code> and <code>CudaGibbsRelativeDifferencePenalty</code>.<br>\nCurrently, the new Gibbs penalties are still missing the paraboloidal surrogates related method implementations. They provide two new\nmethods: <code>compute_gradient_times_input</code> and <code>compute_Hessian_diagonal</code>.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1629\">PR #1629</a></p>\n</li>\n<li><p>Data from GE Discovery MI systems in RDF9 should now be readable. TOF information on these scanners has also been added. However, projection data is currently still always returned as non-TOF (but list-mode data  is read as TOF).<br>\n<a href=\"https://github.com/UCL/STIR/pull/1503\">PR #1503</a></p>\n</li>\n<li><p>Added the ability to set a forward projector for mask projection in  the <code>ScatterEstimation</code> class.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1530\">PR #1530</a></p>\n</li>\n<li><p>Duration in sinogram interfile/exam_info obtained from <code>LmToProjData</code>/<code>lm_to_projdata</code> has the correct value if we unlist all\nthe events. This is not true for ROOT files  <a href=\"https://github.com/UCL/STIR/pull/1519\">PR #1519</a></p>\n</li>\n<li><p><code>LmToProjData</code> class/<code>lm_to_projdata</code> utility now no longer requires a template projection data. If none is specified, it will use the\nproj_data_info from the input list-mode.<br>\n<strong>Warning</strong> for some scanners with TOF capabilities, this will result in very large projection data (possibly larger than the default from\nthe vendor).<br>\n<a href=\"https://github.com/UCL/STIR/pull/1315\">PR #1315</a></p>\n</li>\n<li><p>Adapt the SPECTUB projector to handle data with only a subset of the views (constructed using <code>ProjData::get_subsets()</code>. This is useful for SIRF/CIL applications using stochastic optimisation.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1596\">PR #1596</a></p>\n</li>\n</ul>\n<h4>Python</h4>\n<ul>\n<li>&quot;Container&quot; classes such as <code>FloatVoxelsOnCartesianGrid</code>, <code>ProjDataInMemory</code> and array-classes now have numerical operations\nproperly defined, for instance <code>a = b + c</code> and <code>a -= 3</code>. Note that <code>a = 1 + b</code> is not yet available.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1630\">PR #1630</a></li>\n<li>The above &quot;container&quot; classes now have an extra member `as_array()`  which returns a numpy <code>ndarray</code>. This is equivalent to\n`stirextra.to_numpy()` which will become deprecated later. In addition, the <code>fill()</code> method now directly accepts an <code>ndarray</code>,\navoiding the need to go via an iterator. These additions also make it easier to prt SIRF python code to STIR.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1632\">PR #1632</a></li>\n<li>Added a Python script to convert e7tools generated Siemens Biograph  Vision 600 sinograms to STIR compatible format.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1593\">PR #1593</a></li>\n</ul>\n<h4>Utilities</h4>\n<ul>\n<li><code>stir_timings</code> has now an extra option to parse a par-file for a  projector-pair.</li>\n</ul>\n<h3>Changed functionality</h3>\n<ul>\n<li>In previous versions, when reading data/images where the radionuclide  was not set, a default was used (F18 for PET, Tcm99 for SPECT). This led to surprising (and sometimes wrong) behaviour. The radionuclide is now kept as &quot;unknown&quot;.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1574\">PR #1574</a></li>\n<li>Default ECAT scanner configurations updated to use a negative intrinsic tilt.</li>\n<li>When computing the sensitivity images in <code>PoissonLogLikelihoodWithLinearModelForMeanAndProjData</code>, we now avoid creating an extra <code>ProjDataInMemory</code> in most cases (there are still some corner cases for TOF data when using non-TOF projector for the sensitivity, but then the memory overhead is small). This enables LAFOV PET reconstructions with the &quot;ray tracing&quot; matrix (we use less memory, and we avoid running into a current <code>ProjDataInMemory</code>\n<a href=\"https://github.com/UCL/STIR/issues/1505\">limitation on the number of  bins</a>).<br>\n<a href=\"https://github.com/UCL/STIR/pull/1617\">PR #1716</a></li>\n<li>Boost format was replaced by `std::format` for formatting strings. If C++20 or newer is not yet used, a work-around is in place by using the <a href=\"https://github.com/fmtlib/fmt/\">{fmt} library</a> (included as as a git submodule). Import <code>stir/format.h</code> and then use the <code>format()</code> function to create strings containing various variables. If the format string is not known at compile time, use <code>runtime_format()</code> instead.<br>\nCheck the updated STIR-developers-overview.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1591\">PR #1591</a> and <a href=\"https://github.com/UCL/STIR/pull/1605\">PR\n#1605</a></li>\n</ul>\n<h4>Changes to examples</h4>\n<ul>\n<li>Python example <code>plot_sinogram_profiles.py</code> has been renamed to <code>plot_projdata_profiles.py</code> and generalised to work with TOF\ndimensions etc. A small <code>pytest</code> has been added as well.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1370\">PR #1370</a></li>\n<li>Python example <code>ProjDataVisualisation.py</code> now has a vmax slider.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1568\">PR #1568</a></li>\n</ul>\n<h3>Bug fixes</h3>\n<ul>\n<li>Fixed a bug in the scatter estimation code (introduced in release 5.1.0) if input data is 3D and &quot;cylindrical&quot; (there was no bug for\n&quot;blocksoncylindrical&quot; data). The scatter estimation runs on data constructed via SSRB. However, the attenuation correction factors were\nincorrectly obtained with adding of oblique segments (as opposed to averaging). This resulted in intermediate images that had the wrong\nattenuation correction which were approximately num_segments times\nlarger. This was compensated by the tail-fitting, but resulted in unexpected scale factors (scale factors were around 1/num_segments\ntimes what was expected). This means that if you used the &quot;min/max  scale factor&quot; feature in the scatter estimate, you will have to adjust your threshold values. Expected scatter tail-fitting scale factors should now be restored to ~1-1.5 (depending on the amount of multiple and out-of-FOV scatter). See <a href=\"https://github.com/UCL/STIR/issues/1532\">Issue #1532</a> for more detail.\nFixed by using averaging functionality of SSRB instead of adding segments for attenuation correction factors.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1531\">PR #1531</a></li>\n<li>Fixed a bug in the distributed LM computation code (introduced in 6.1) that neglected to accumulate outputs when not built with OpenMP.<br>\nSee <a href=\"https://github.com/UCL/STIR/pull/1566\">PR #1566</a>.</li>\n<li>Fixed bugs in <code>accumulate_sub_Hessian_times_input</code> and <code>accumulate_sub_Hessian_times_input</code> (and hence the non-subset  versions) for objective functions when the prior is not zero.<br>\nSee <a href=\"https://github.com/UCL/STIR/pull/1649\">PR #1649</a> and <a href=\"https://github.com/UCL/STIR/pull/1651\">PR #1651</a>.</li>\n</ul>\n<h3>Build system</h3>\n<ul>\n<li>Enable more diagnostics in CMake when finding CERN's ROOT (we used to silence them)<br>\n<a href=\"https://github.com/UCL/STIR/pull/1552\">PR #1552</a></li>\n<li>Use OpenMP by default Introduce advanced variable <code>MINI_STIR</code> defaulting to <code>OFF</code> for developers. This will build a heavily reduced version of STIR which can speed up development time.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1584\">PR #1584</a></li>\n</ul>\n<h3>Known problems</h3>\n<p>See <a href=\"https://github.com/UCL/STIR/labels/bug\">our issue tracker</a>.<br>\nAn important bug is for the &quot;ray tracing matrix&quot; projector for TOF PET. Oblique segments currently have problems, see <a href=\"https://github.com/UCL/STIR/issues/1537\">#1537</a>.</p>\n<h2>What is new for developers (aside from what should be obvious from the above):</h2>\n<h3>New functionality</h3>\n<ul>\n<li><code>ProjDataInMemory</code> <code>read_from_file</code> method now returns a <code>ProjDataInMemory</code> object.</li>\n<li><code>Array::resize</code> and <code>Array::grow</code> argument <code>initialise_with_0</code> usage fixed.</li>\n</ul>\n<h3>Changed functionality</h3>\n<ul>\n<li>In C++, &quot;Container&quot; classes such as <code>VoxelsOnCartesianGrid</code>, <code>ProjDataInMemory</code> and array-classes now have numerical operations that return objects of the correct type. (Previously, it was a base-class such as <code>NumericVectorWithOffset&lt;Array&lt;2, float&gt;, float&gt;</code>).<br>\n<a href=\"https://github.com/UCL/STIR/pull/1630\">PR #1630</a></li>\n<li>Made 2 (deprecated) members of <code>ProjDataInfoBlocksOnCylindricalNoArcCorr</code> <code>private</code> and do some clean-up of which files to include.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1556\">PR #1556</a></li>\n<li><code>LmToProjData::get_template_proj_data_info_sptr()</code> is now a <code>const</code> member returning a <code>shared_ptr&lt;const ProjDataInfo&gt;</code>.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1315\">PR #1315</a></li>\n<li>As <code>stir::Array</code> template arguments might change in the future, it is now recommended to include <code>stir/ArrayFwd.h</code> when using forward declaration and use the <code>ArrayType</code> template-alias in places where a rectangular array that might live on a GPU is intended.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1589\">PR #1589</a></li>\n<li><code>Array</code> copy constructor now also uses contiguous memory allocation (as opposed to a sequence of 1D vectors).<br>\n<a href=\"https://github.com/UCL/STIR/pull/1592\">PR #1592</a>.</li>\n</ul>\n<h3>Bug fixes</h3>\n<ul>\n<li>Fixed minor incompatibility with gcc-14 and clang-18 by adding an extra include file.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1552\">PR #1552</a></li>\n<li>Changed the way that some SWIG work-arounds are implemented, avoiding the SWIG-generated wrapper to be compiled with the <code>SWIG</code> preprocessor symbol.<br>\n<a href=\"https://github.com/UCL/STIR/pull/1647\">PR #1647</a></li>\n</ul>\n<h3>New Deprecations and renames</h3>\n<ul>\n<li><code>truncate_end_planes</code> will be removed in v7.0 legacy compatibility with version 3, 4 and 5 will be removed in v7.0.  CMake options <code>STIR_PROJECTORS_AS_V3</code>, <code>STIR_LEGACY_IGNORE_VIEW_OFFSET</code> and <code>STIR_ROOT_ROTATION_AS_V4</code> will therefore be removed.</li>\n<li>Starting from v7.0, <code>GeneralizedPrior</code> will be renamed to <code>GeneralizedPenalty</code>.   <code>QuadraticPrior</code>, <code>RelativeDifferencePrior</code>, and <code>LogcoshPrior</code> will be removed in favor of the new <code>GibbsPenalty</code> framework. <a href=\"https://github.com/UCL/STIR/issues/1426\">Issue #1426</a></li>\n</ul>\n<h3>Test changes</h3>\n<p>All new features and most code changes were accompanied by new tests.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Efthimiou, Nikos",
+            "affiliation": null,
+            "orcid": "0000-0003-1947-5033"
+          },
+          {
+            "name": "Mustafovic, Sanida",
+            "affiliation": "Imperial College London (UK)"
+          },
+          {
+            "name": "Brown, Richard",
+            "affiliation": "University College London",
+            "orcid": "0000-0001-6989-9200"
+          },
+          {
+            "name": "Twyman Skelly, Robert",
+            "affiliation": "University College London and Prescient Imaging"
+          },
+          {
+            "name": "Deidda, Daniel",
+            "affiliation": "National Physics Laboratory (UK)",
+            "orcid": "0000-0002-2766-4339"
+          },
+          {
+            "name": "Tsoumpas, Charalampos",
+            "affiliation": null
+          },
+          {
+            "name": "Jehl, Markus",
+            "affiliation": "Positrigo"
+          },
+          {
+            "name": "Kyriakopoulou, Dimitra",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Falcon, Carles",
+            "affiliation": null
+          },
+          {
+            "name": "Borgeaud, Tim",
+            "affiliation": "Hammersmith Imanet Ltd"
+          },
+          {
+            "name": "Colombo, Matteo Neel",
+            "affiliation": "University of Milano-Bicocca (Italy)"
+          },
+          {
+            "name": "Wadhwa, Palak",
+            "affiliation": "University of Leeds (UK)"
+          },
+          {
+            "name": "Khateri, Parisa",
+            "affiliation": "ETH Zuerich"
+          },
+          {
+            "name": "Beisel, Tobias",
+            "affiliation": null
+          },
+          {
+            "name": "Strugari, Matthew",
+            "affiliation": "Dalhousie University (Canada)"
+          },
+          {
+            "name": "Emond, Elise",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Gillman, Ashley",
+            "affiliation": "Commonwealth Scientific and Industrial Research Organisation, and University of Queensland",
+            "orcid": "0000-0001-9130-1092"
+          },
+          {
+            "name": "Jacobson, Matthew",
+            "affiliation": null
+          },
+          {
+            "name": "Zverovich, Alexey",
+            "affiliation": "Brunel University (UK)"
+          },
+          {
+            "name": "Fuster Marti, Berta",
+            "affiliation": "University of Barcelona (Spain)"
+          },
+          {
+            "name": "Labbe, Claire",
+            "affiliation": null
+          },
+          {
+            "name": "Jurjew, Nicole",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Biguri, Ander",
+            "affiliation": "University College London",
+            "orcid": "0000-0002-2636-3032"
+          },
+          {
+            "name": "Fischer, Jannis",
+            "affiliation": null,
+            "orcid": "0000-0002-8329-0220"
+          },
+          {
+            "name": "Roethlisberger, Michael",
+            "affiliation": "ETH Zuerich"
+          },
+          {
+            "name": "Bertolli, Ottavia",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Brusaferri, Ludovica",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Thomas, Benjamin",
+            "affiliation": "University College London",
+            "orcid": "0000-0002-9784-1177"
+          },
+          {
+            "name": "Pasca, Edoardo",
+            "affiliation": "UK Research & Innovation",
+            "orcid": "0000-0001-6957-2160"
+          },
+          {
+            "name": "Aguiar, Pablo",
+            "affiliation": null
+          },
+          {
+            "name": "Niknejad, Tahereh",
+            "affiliation": null
+          },
+          {
+            "name": "Sadki, Mustapha",
+            "affiliation": "Brunel University (UK)"
+          },
+          {
+            "name": "Singh, Imraj",
+            "affiliation": "University College London (UK)",
+            "orcid": "0000-0003-2186-0977"
+          },
+          {
+            "name": "Kerrouche, Nacer",
+            "affiliation": "Hammersmith Imanet Ltd"
+          },
+          {
+            "name": "Dikaios, Nikos",
+            "affiliation": null
+          },
+          {
+            "name": "Ovtchinnikov, Evgueni",
+            "affiliation": null,
+            "orcid": "0000-0002-9359-6514"
+          },
+          {
+            "name": "Fardell, Gemma",
+            "affiliation": "UK Research & Innovation",
+            "orcid": "0000-0003-2388-5211"
+          },
+          {
+            "name": "Schmidtlein, C Ross",
+            "affiliation": "UK Research & Innovation"
+          },
+          {
+            "name": "Valente, Patrick",
+            "affiliation": "Brunel University (UK)"
+          },
+          {
+            "name": "Porter, Sam David",
+            "affiliation": "University College London, National Physics Laboratory (UK)"
+          },
+          {
+            "name": "Schramm, Georg",
+            "affiliation": "Katholieke Universiteit Leuven (Belgium)"
+          },
+          {
+            "name": "Ehrhardt, Matthias J.",
+            "affiliation": null,
+            "orcid": "0000-0001-8523-353X"
+          },
+          {
+            "name": "V\u00f6lgyes, David",
+            "affiliation": null
+          },
+          {
+            "name": "Dinelle, Katie",
+            "affiliation": null
+          },
+          {
+            "name": "Belluzzo, Damiano",
+            "affiliation": "Hospedale San Raffaele Milano (Italy)"
+          },
+          {
+            "name": "Ching, Daniel",
+            "affiliation": null
+          },
+          {
+            "name": "Hague, Darren",
+            "affiliation": "Brunel University (UK)"
+          },
+          {
+            "name": "Tunnicliffe, Harry",
+            "affiliation": "University of Leeds (UK)"
+          },
+          {
+            "name": "Dao, Viet Anh",
+            "affiliation": "University of Leeds (UK)"
+          },
+          {
+            "name": "Chen, Gefei",
+            "affiliation": null
+          },
+          {
+            "name": "Mikhaylova, Ekaterina",
+            "affiliation": "Positrigo"
+          },
+          {
+            "name": "da Costa-Luis, Casper O.",
+            "affiliation": null,
+            "orcid": "0000-0002-7211-1557"
+          },
+          {
+            "name": "Li, Zekai",
+            "affiliation": "Rijksuniversiteit Groningen (Netherlands)"
+          },
+          {
+            "name": "Reeves, Antonia",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Rashidnasab, Alaleh",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Whitehead, Alexander C.",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Tsai, Yu-jung",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Gillen, Rebecca",
+            "affiliation": "University College London"
+          },
+          {
+            "name": "Vavrek, Jayson",
+            "affiliation": null
+          },
+          {
+            "name": "Kohr, Holger",
+            "affiliation": null
+          },
+          {
+            "name": "tokkot",
+            "affiliation": null
+          },
+          {
+            "name": "El Katib, Mahmoud",
+            "affiliation": null
+          },
+          {
+            "name": "Thielemans, Kris",
+            "affiliation": "University College London",
+            "orcid": "0000-0002-5514-199X"
+          }
+        ],
+        "keywords": [
+          "pet",
+          "spect",
+          "medical imaging",
+          "image reconstruction",
+          "open-source software"
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/UCL/STIR/tree/rel_6.3.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "rel_6.3.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/UCL/STIR"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "apache2.0"
+        },
+        "communities": [
+          {
+            "id": "synerbi"
+          },
+          {
+            "id": "ccp-petmr"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 7,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "4733457"
+              }
+            }
+          ]
+        },
+        "notes": "If you use this software, please cite it using the metadata from this file."
+      },
+      "title": "STIR Software for Tomographic Image Reconstruction",
+      "links": {
+        "self": "https://zenodo.org/api/records/17500032",
+        "self_html": "https://zenodo.org/records/17500032",
+        "preview_html": "https://zenodo.org/records/17500032?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17500032",
+        "self_doi": "https://doi.org/10.5281/zenodo.17500032",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17500032",
+        "reserve_doi": "https://zenodo.org/api/records/17500032/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/4733457",
+        "parent_html": "https://zenodo.org/records/4733457",
+        "parent_doi": "https://doi.org/10.5281/zenodo.4733457",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.4733457",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17500032/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17500032/sequence/default",
+        "files": "https://zenodo.org/api/records/17500032/files",
+        "media_files": "https://zenodo.org/api/records/17500032/media-files",
+        "archive": "https://zenodo.org/api/records/17500032/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17500032/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17500032/versions/latest",
+        "latest_html": "https://zenodo.org/records/17500032/latest",
+        "versions": "https://zenodo.org/api/records/17500032/versions",
+        "draft": "https://zenodo.org/api/records/17500032/draft",
+        "access_links": "https://zenodo.org/api/records/17500032/access/links",
+        "access_grants": "https://zenodo.org/api/records/17500032/access/grants",
+        "access_users": "https://zenodo.org/api/records/17500032/access/users",
+        "access_request": "https://zenodo.org/api/records/17500032/access/request",
+        "access": "https://zenodo.org/api/records/17500032/access",
+        "communities": "https://zenodo.org/api/records/17500032/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17500032/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17500032/request-deletion",
+        "requests": "https://zenodo.org/api/records/17500032/requests"
+      },
+      "updated": "2025-11-01T08:00:27.650619+00:00",
+      "recid": "17500032",
+      "revision": 4,
+      "files": [
+        {
+          "id": "13a681d9-8145-4112-854b-1f114d6fce67",
+          "key": "UCL/STIR-rel_6.3.0.zip",
+          "size": 32615522,
+          "checksum": "md5:de7e64540b62bf5dc164a8e07d222a99",
+          "links": {
+            "self": "https://zenodo.org/api/records/17500032/files/UCL/STIR-rel_6.3.0.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:084d8485c2de0631f487b4b0974bf1754ef690c7;origin=https://doi.org/10.5281/zenodo.4733457;visit=swh:1:snp:cdf632b745358e680a2ef0ce534be0aacb2da2de;anchor=swh:1:rel:7070fdd320e1b87bb4866cd87e15c12350da16a0;path=UCL-STIR-4591e80"
+      },
+      "owners": [
+        {
+          "id": "48990"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 117,
+        "unique_downloads": 117,
+        "views": 1278,
+        "unique_views": 1227,
+        "version_downloads": 0,
+        "version_unique_downloads": 0,
+        "version_unique_views": 0,
+        "version_views": 0
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T07:54:08.585381+00:00",
+      "modified": "2025-11-01T07:54:09.501756+00:00",
+      "id": 17499978,
+      "conceptrecid": "17499977",
+      "doi": "10.5281/zenodo.17499978",
+      "conceptdoi": "10.5281/zenodo.17499977",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499978",
+      "metadata": {
+        "title": "Exploring Legislation, Constitutionality, Cybercrime, and Sciences: A Cinematic Analysis and Interpretation of Juvenile Justice, in the Digital Age",
+        "doi": "10.5281/zenodo.17499978",
+        "publication_date": "2025-11-07",
+        "description": "<p><span lang=\"EN-US\">This analytical paper undertakes an extensive, critical, and comprehensive examination of the juvenile justice system, with a particular focus on the legal disparities, legislative framework, interpretation, and its socio-legal ramifications. This study will scrutinize the child-centric statutes, ancillary legislations, and cybercrime jurisprudence to analyse their alignment in both conceptual and operational manner. The paper explores the legislation through fictional cinematic narration and real-life examples to evaluate whether it contextualizes itself to the societal and jurisprudential reality<em> </em>as it majorly focuses on section 15 of the Juvenile Justice</span><span lang=\"EN-US\"> </span><span lang=\"EN-US\">(Care and Protection of Children) Act, 2015 which empowers the juvenile justice board to determine whether children aged 16-18 should be tried as adults for heinous crime constituting cyber offences<em>. </em>It tries to investigate the coherence of Indian legislative developments and implementation efficacy, and every possible hurdle in between, as it looks into the amendment brought about because of the public outburst in the<em> Nirbhaya case, </em>and its implications. The analysis is further drawn in conjunction with legislative reforms and the international convention to establish the intention of the lawmakers, nationwide institutionalization, and safeguards. The author, going forward, brings foreign juvenile systems, frameworks, and reforms in an attempt to study how other countries deal with juvenile delinquency. The conclusive aim of the research is to bridge the subject to its principal values of rehabilitation and reintegration with solutions, emphasizing fundamentally the constitutional mandate to uphold the child's best interests as it focuses on section 15 of the Juvenile Justice</span><span lang=\"EN-US\"> </span><span lang=\"EN-US\">(Care and Protection of Children) Act, 2015.</span></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Nandanwar, Prasanna",
+            "affiliation": "Student, Symbiosis International University"
+          }
+        ],
+        "references": [
+          "Juvenile Justice (Care and Protection of Children) Act, 2015, No. 2, Acts of Parliament, 2016 (India). Information Technology Act, 2000, No. 21, Acts of Parliament, 2000 (India). Adusumilli, S. (2024, December). The evolution of juvenile justice jurisprudence in India: Retribution to restoration. White Black Legal \u2013 The Law Journal, 3(1). https://www.whiteblacklegal.co.in  ICLG. (2024, November 6). Cybersecurity laws and regulations: India 2025. International Comparative Legal Guides. https://iclg.com/practice-areas/cybersecurity-laws-and-regulations/india Anand, M. (2023). Cybercrime and cyber laws in India. Indian Journal of Law and Legal Research,5(2). https://heinonline.org/HOL/LandingPage?handle=hein.journals/injlolw11&div=224&id=&page= Mack, J. W. (1909). The juvenile court. Harvard Law Review, 24(2), 104\u2013122. Nieborg, S., Verwey-Jonker Instituut, & others. (2000). Child and juvenile delinquency: Strategies of prevention and intervention in Germany and the Netherlands (p. 20). Verwey-Jonker Instituut. Pickles, A., Edwards, D., Horvath, L., & Emsley, R. (2023). Research reviews: Advances in methods for evaluating child and adolescent mental health interventions. Journal of Child Psychology and Psychiatry, 64(12), 1765\u20131775. https://doi.org/10.1111/jcpp.13892 Johnson, S. B., Blum, R. W., & Giedd, J. N. (2009). Adolescent maturity and the brain: The promise and pitfalls of neuroscience research in adolescent health policy. Journal of Adolescent Health, 45(3), 216\u2013221. https://doi.org/10.1016/j.jadohealth.2009.05.016  Singh, D. (2019). An analysis of Section 15 of the Juvenile Justice Act, 2015. Christ University Law Journal, 8(2), 1\u201323. https://doi.org/10.12728/culj.15.1 Iqbal, J., & Beigh, B. M. (2017). Cybercrime in India: Trends and challenges. International Journal of Innovations & Advancement in Computer Science, 6(12), 187\u2013195. Retrieved from https://www.researchgate.net/profile/Juneed-Iqbal/publication/322245372_Cybercrime_in_India_Trends_and_Challenges/links/5a4e040c458515a6bc6ea9e3/Cybercrime-in-India-Trends-and-Challenges.pdf Khan, N., & Gulati, S. (2023). International legislative framework of cybercrimes: A comparative study of India, Israel, and USA. Journal of Positive School Psychology, 7(1), 782\u2013800. http://journalppw.com Bhatia, V. (Director). (2020). Hacked [Film]. Loneranger Productions; Zee Studios. Roper v. Simmons, 543 U.S. 551 (2005): Supreme Court of the United States. (2005). Roper v. Simmons, 543 U.S. 551. Supreme Court of India. (2014, March 28). Dr. Subramanian Swamy & others v. Raju through Member, Juvenile Justice Board & another, SLP (Crl.) No. 1953 of 2013. https://indiankanoon.org/doc/134314390/ Supreme Court of India. (2017). Mukesh & another v. State for NCT of Delhi & others, (2017) 6 SCC 1. https://indiankanoon.org/doc/31205809/ Venkatesan, J. (2021, November 16). SC reserves orders on validity of Juvenile Justice Act: 'The Act provides for a straitjacket interpretation of 'juvenile:' a person below 18 is a minor'. The Hindu. https://www.thehindu.com/news/national/sc-reserves-orders-on-validity-of-juvenilejustice-act/article5631810.ece United Nations. (1985). United Nations Standard Minimum Rules for the Administration of Juvenile Justice (The Beijing Rules). https://www.ohchr.org/en/instruments-mechanisms/instruments/united-nations-standard-minimum-rules-administration-juvenile  The Daily Telegraph. (n.d.). Youth crime prevention: Spanish program that could help Australia's troubled youth. The Daily Telegraph. https://www.dailytelegraph.com.au/subscribe/news/1/?sourceCode=DTWEB_WRE170_a&dest=https%3A%2F%2Fwww.dailytelegraph.com.au%2Ftruecrimeaustralia%2Fyouth-crime-prevention-spanish-program-that-could-help-australias-troubled-youth%2Fnews-story%2F87bba05907ec8f8b29ad6bf8df348499&memtype=anonymous&mode=premium&v21=GROUPA-Segment-1-NOSCORE  United Nations. (1989). Convention on the Rights of the Child. https://www.ohchr.org/en/instruments-mechanisms/instruments/convention-rights-child  The Times of India. (2025, July\u202f21). Cyber police arrest two men for financial fraud using fake Parivahan app. The Times of India. Retrieved from Times of India website https://timesofindia.indiatimes.com/city/kochi/cyber-police-arrest-two-men-for-financial-fraud-using-fake-parivahan-app/articleshow/122800585.cms  Constitution of India, 1950 (India). https://legislative.gov.in/constitution-of"
+        ],
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "i (Winter) Issue",
+          "title": "Central University of Karnataka, Journal of Legal Studies",
+          "volume": "1"
+        },
+        "imprint": {
+          "place": "Karnataka, India"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499977"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Exploring Legislation, Constitutionality, Cybercrime, and Sciences: A Cinematic Analysis and Interpretation of Juvenile Justice, in the Digital Age",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499978",
+        "self_html": "https://zenodo.org/records/17499978",
+        "preview_html": "https://zenodo.org/records/17499978?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499978",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499978",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499978",
+        "reserve_doi": "https://zenodo.org/api/records/17499978/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499977",
+        "parent_html": "https://zenodo.org/records/17499977",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499977",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499977",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499978/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499978/sequence/default",
+        "files": "https://zenodo.org/api/records/17499978/files",
+        "media_files": "https://zenodo.org/api/records/17499978/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17499978:2.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17499978:2.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17499978:2.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17499978:2.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17499978:2.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17499978:2.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17499978/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499978/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499978/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499978/latest",
+        "versions": "https://zenodo.org/api/records/17499978/versions",
+        "draft": "https://zenodo.org/api/records/17499978/draft",
+        "access_links": "https://zenodo.org/api/records/17499978/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499978/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499978/access/users",
+        "access_request": "https://zenodo.org/api/records/17499978/access/request",
+        "access": "https://zenodo.org/api/records/17499978/access",
+        "communities": "https://zenodo.org/api/records/17499978/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499978/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499978/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499978/requests"
+      },
+      "updated": "2025-11-01T07:54:09.501756+00:00",
+      "recid": "17499978",
+      "revision": 4,
+      "files": [
+        {
+          "id": "24f98518-0935-4da3-8650-28ac9315777e",
+          "key": "2.pdf",
+          "size": 412408,
+          "checksum": "md5:1d30eb0758da1c0a6f583b38f95226f9",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499978/files/2.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1449547"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T07:31:45.074745+00:00",
+      "modified": "2025-11-01T07:31:45.308312+00:00",
+      "id": 17499891,
+      "conceptrecid": "17499890",
+      "doi": "10.5281/zenodo.17499891",
+      "conceptdoi": "10.5281/zenodo.17499890",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499891",
+      "metadata": {
+        "title": "Bridging the Digital Financial Divide: Trust Formation and Fintech Adoption Intentions in Rural Vietnam",
+        "doi": "10.5281/zenodo.17499891",
+        "publication_date": "2025-11-01",
+        "description": "<p>This study investigates the determinants of trust formation and fintech adoption intentions among rural consumers in Vietnam, addressing a critical gap in understanding financial inclusion dynamics in emerging economies. Employing a mixed-methods approach combining structural equation modeling (SEM) and fuzzy-set qualitative comparative analysis (fsQCA), this research examines 486 rural Vietnamese consumers across six provinces. The theoretical framework integrates the Unified Theory of Acceptance and Use of Technology (UTAUT2) with institutional trust theory and social cognitive theory to elucidate the complex pathways through which trust emerges in resource-constrained environments. The findings reveal that perceived usefulness (&beta; = 0.342, p &lt; 0.001) and social influence (&beta; = 0.287, p &lt; 0.001) significantly predict trust formation, while institutional support moderates the relationship between trust and adoption intention (&beta; = 0.194, p &lt; 0.01). The fsQCA analysis identifies four distinct configurational pathways to high adoption intention, demonstrating that multiple combinations of antecedents can achieve the same outcome. Notably, the presence of strong institutional support can compensate for lower levels of technological self-efficacy in driving adoption intentions. This research contributes to financial inclusion literature by providing empirical evidence of trust's mediating role in technology acceptance within collectivist, hierarchical societies and offers practical implications for policymakers and fintech providers seeking to bridge the digital financial divide in Southeast Asian rural markets.</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Tuan Minh HOANG",
+            "affiliation": "Hanoi Amsterdam high school for the gifted"
+          },
+          {
+            "name": "Vu Hiep HOANG",
+            "affiliation": "National Economics University"
+          }
+        ],
+        "keywords": [
+          "fintech adoption, trust formation, rural consumers, financial inclusion, Vietnam"
+        ],
+        "language": "ang",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "10",
+          "pages": "7109- 7123",
+          "title": "Journal of Economics, Finance And Management Studies",
+          "volume": "08"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499890"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Bridging the Digital Financial Divide: Trust Formation and Fintech Adoption Intentions in Rural Vietnam",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499891",
+        "self_html": "https://zenodo.org/records/17499891",
+        "preview_html": "https://zenodo.org/records/17499891?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499891",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499891",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499891",
+        "reserve_doi": "https://zenodo.org/api/records/17499891/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499890",
+        "parent_html": "https://zenodo.org/records/17499890",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499890",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499890",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499891/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499891/sequence/default",
+        "files": "https://zenodo.org/api/records/17499891/files",
+        "media_files": "https://zenodo.org/api/records/17499891/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17499891:54.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17499891:54.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17499891:54.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17499891:54.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17499891:54.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17499891:54.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17499891/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499891/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499891/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499891/latest",
+        "versions": "https://zenodo.org/api/records/17499891/versions",
+        "draft": "https://zenodo.org/api/records/17499891/draft",
+        "access_links": "https://zenodo.org/api/records/17499891/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499891/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499891/access/users",
+        "access_request": "https://zenodo.org/api/records/17499891/access/request",
+        "access": "https://zenodo.org/api/records/17499891/access",
+        "communities": "https://zenodo.org/api/records/17499891/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499891/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499891/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499891/requests"
+      },
+      "updated": "2025-11-01T07:31:45.308312+00:00",
+      "recid": "17499891",
+      "revision": 4,
+      "files": [
+        {
+          "id": "b9ced443-5b04-48aa-a422-f12f603821a4",
+          "key": "54.pdf",
+          "size": 526338,
+          "checksum": "md5:17685b1fa46491bc4ec86ac7efff720d",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499891/files/54.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "190052"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 3,
+        "unique_downloads": 3,
+        "views": 3,
+        "unique_views": 3,
+        "version_downloads": 3,
+        "version_unique_downloads": 3,
+        "version_unique_views": 3,
+        "version_views": 3
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T07:11:56.543169+00:00",
+      "modified": "2025-11-01T07:11:56.770718+00:00",
+      "id": 17499779,
+      "conceptrecid": "17499778",
+      "doi": "10.5281/zenodo.17499779",
+      "conceptdoi": "10.5281/zenodo.17499778",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499779",
+      "metadata": {
+        "title": "Digital technologies and migration: behind, beyond and around the black box",
+        "doi": "10.5281/zenodo.17499779",
+        "publication_date": "2025-09-30",
+        "description": "<p><em><span>Digital technologies have often been criticised for functioning as &ldquo;black boxes&rdquo; due to their complexity and opacity, which make it difficult to understand their inner mechanisms and outputs. This article presents the conceptual framework for this special issue, which aims to shift the focus away from viewing technology merely as a &ldquo;black box.&rdquo; Our primary objective is to contribute to the literature on digital technology&ndash;driven migration governance by moving beyond descriptions of digital technologies (&ldquo;explaining the black box&rdquo;) towards examining their established relationships, transformations over time, and both immediate and hidden consequences &mdash; that is, exploring the effects &ldquo;behind, beyond, and around the black box.&rdquo; Guided by these three principles, we advocate for a more nuanced analysis that examines both the continuities and discontinuities brought about by these technologies, rather than viewing them as entirely new phenomena. This approach redirects attention from the technology itself to an exploration of how these technologies are integrated within social contexts, thereby (re)shaping power relations among various social actors. Finally, we set aside normative judgments about the intrinsic value of these technologies to foreground how multiple actors engage with, resist, or repurpose them in their everyday lives.</span></em></p>\n<p>&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Mandal, Labani",
+            "affiliation": "Assistant Professor, Department of sociology, Belda College, Paschim   Medinipur West Bengal"
+          }
+        ],
+        "contributors": [
+          {
+            "name": "Dr. R. V. Bhole",
+            "affiliation": null,
+            "type": "Editor"
+          }
+        ],
+        "keywords": [
+          "Key Words: Digital technologies, black box, migration governance, conceptual framework, social context."
+        ],
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "9",
+          "pages": "181-185",
+          "title": "Journal of Research and Development",
+          "volume": "17"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499778"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Digital technologies and migration: behind, beyond and around the black box",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499779",
+        "self_html": "https://zenodo.org/records/17499779",
+        "preview_html": "https://zenodo.org/records/17499779?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499779",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499779",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499779",
+        "reserve_doi": "https://zenodo.org/api/records/17499779/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499778",
+        "parent_html": "https://zenodo.org/records/17499778",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499778",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499778",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499779/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499779/sequence/default",
+        "files": "https://zenodo.org/api/records/17499779/files",
+        "media_files": "https://zenodo.org/api/records/17499779/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17499779:170932.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17499779:170932.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17499779:170932.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17499779:170932.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17499779:170932.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17499779:170932.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17499779/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499779/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499779/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499779/latest",
+        "versions": "https://zenodo.org/api/records/17499779/versions",
+        "draft": "https://zenodo.org/api/records/17499779/draft",
+        "access_links": "https://zenodo.org/api/records/17499779/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499779/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499779/access/users",
+        "access_request": "https://zenodo.org/api/records/17499779/access/request",
+        "access": "https://zenodo.org/api/records/17499779/access",
+        "communities": "https://zenodo.org/api/records/17499779/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499779/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499779/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499779/requests"
+      },
+      "updated": "2025-11-01T07:11:56.770718+00:00",
+      "recid": "17499779",
+      "revision": 4,
+      "files": [
+        {
+          "id": "5802f84b-7ff7-4d2c-96a8-8091edc9545f",
+          "key": "170932.pdf",
+          "size": 587900,
+          "checksum": "md5:9fdcb0f855da389615fc5c62c25f5a8a",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499779/files/170932.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "388498"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T06:12:26.144331+00:00",
+      "modified": "2025-11-01T06:12:26.358270+00:00",
+      "id": 17499433,
+      "conceptrecid": "17499432",
+      "doi": "10.5281/zenodo.17499433",
+      "conceptdoi": "10.5281/zenodo.17499432",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499433",
+      "metadata": {
+        "title": "The influence of professionalism and work ethics on employee job satisfaction: A study in SMEs, Indonesia",
+        "doi": "10.5281/zenodo.17499433",
+        "publication_date": "2025-07-31",
+        "description": "<p>This study aims to analyze the influence of professionalism and work ethics on employee job satisfaction at SME CV AJAS in Surabaya, Indonesia. Using a quantitative approach with a saturated sample of 70 employees, data were collected using a structured questionnaire. Statistical analysis was performed using multiple linear regression in SPSS 26. With professionalism (t = 3.583) and work ethics (t = 2.992) significantly affecting job satisfaction (p &lt;0.05). Furthermore, the results of the F test confirmed the simultaneous influence of independent variables on the dependent variable. These findings underline the importance of improving employee behavior and ethical standards to improve satisfaction in the workplace.&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Wahjoedi, Tri",
+            "affiliation": "Sekolah Tinggi Ilmu Ekonomi Mahardhika, Surabaya, Indonesia."
+          }
+        ],
+        "keywords": [
+          "Professionalism",
+          "Work Ethics",
+          "Job Satisfaction",
+          "Human Resource Management",
+          "Employee Behavior"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "1",
+          "pages": "352-360",
+          "title": "World Journal of Advanced Research and Reviews",
+          "volume": "27"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "10.30574/wjarr.2025.27.1.2542"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "wjarr"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499432"
+              }
+            }
+          ]
+        }
+      },
+      "title": "The influence of professionalism and work ethics on employee job satisfaction: A study in SMEs, Indonesia",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499433",
+        "self_html": "https://zenodo.org/records/17499433",
+        "preview_html": "https://zenodo.org/records/17499433?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499433",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499433",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499433",
+        "reserve_doi": "https://zenodo.org/api/records/17499433/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499432",
+        "parent_html": "https://zenodo.org/records/17499432",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499432",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499432",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499433/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499433/sequence/default",
+        "files": "https://zenodo.org/api/records/17499433/files",
+        "media_files": "https://zenodo.org/api/records/17499433/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17499433:WJARR-2025-2542.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17499433:WJARR-2025-2542.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17499433:WJARR-2025-2542.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17499433:WJARR-2025-2542.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17499433:WJARR-2025-2542.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17499433:WJARR-2025-2542.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17499433/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499433/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499433/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499433/latest",
+        "versions": "https://zenodo.org/api/records/17499433/versions",
+        "draft": "https://zenodo.org/api/records/17499433/draft",
+        "access_links": "https://zenodo.org/api/records/17499433/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499433/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499433/access/users",
+        "access_request": "https://zenodo.org/api/records/17499433/access/request",
+        "access": "https://zenodo.org/api/records/17499433/access",
+        "communities": "https://zenodo.org/api/records/17499433/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499433/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499433/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499433/requests"
+      },
+      "updated": "2025-11-01T06:12:26.358270+00:00",
+      "recid": "17499433",
+      "revision": 4,
+      "files": [
+        {
+          "id": "db359f51-9942-42f0-98c9-7cbae5266a08",
+          "key": "WJARR-2025-2542.pdf",
+          "size": 590618,
+          "checksum": "md5:6917f66fb9637722474d04c17b2127f4",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499433/files/WJARR-2025-2542.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "155121"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 2,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 2,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T06:11:38.588338+00:00",
+      "modified": "2025-11-01T06:11:38.764117+00:00",
+      "id": 17499410,
+      "conceptrecid": "17499409",
+      "doi": "10.5281/zenodo.17499410",
+      "conceptdoi": "10.5281/zenodo.17499409",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499410",
+      "metadata": {
+        "title": "Chronic Kidney Disease of Unknown Etiology (CKDU) in Hadejia Valley, Nigeria:  Assessment of Heavy Metals in Cereal Crops from Different Locations along the Valley",
+        "doi": "10.5281/zenodo.17499410",
+        "publication_date": "2025-11-01",
+        "description": "<p><span>Chronic kidney disease of unknown etiology (CKDu) is a disease that is not attributable to any traditional risk factors and is one of the major life threatening, rampant in Nigeria notable in Hadejia Valley, covering Kano, Jigawa and Yobe States of Nigeria. Exposure to heavy metals and environmental toxins occur in water, foods and to air over a period.. This research is been carried out to determine the effects of environmental toxins and gene polymorphism on CKDu in Hadejia Valley. The objectives of the study is to determine the Physico-chemical parameters, presence, and concentration of Fluorine (F), Cadmium, (Cd) Lead (Pb) Arsenic (As), from randomly selected cereals in the study area, in Yobe State, (Gashua and Nguru) Jigawa State, (Birniwa, Kirikasamma, Hadejia, Auyo, Gujungu, Taura, and Ringim), and Kano State (Zakirai). The sites lie midway along the Hadejia Valley. In each of the 10 sites concentrations of nephrotoxic heavy metals in<span>&nbsp; </span>cereals including rice, wheat, maize, guinea corn were randomly sampled and Collected food samples were digested and analyzed using an Atomic Absorption Spectrophotometer<span>&nbsp; </span>(AAS model Agilent-AA55. Findings from the research suggest significant contamination of food sources in Hadejia Valley, particularly with lead and cadmium, both of which are nephrotoxic heavy metals linked to chronic kidney disease. Hadejia has the highest levels of fluorine and lead, making it a hotspot for contamination. Gashua shows the highest cadmium contamination, which is concerning due to cadmium's strong link to kidney disease. Auyo has the highest arsenic levels, posing long-term health risks. Cadmium and lead pose the highest health risks, exceeding WHO limits in multiple locations. The lack of significant variation between food types suggests a widespread pollution issue rather than localized contamination. Immediate intervention is needed to ensure safer food and mitigate CKDu risks. Other measures including urgent monitoring of food quality are required to prevent or at least reduce CKDu outbreaks.</span></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Auyo, M.I.",
+            "affiliation": null
+          },
+          {
+            "name": "Dangora, I.I.",
+            "affiliation": null
+          },
+          {
+            "name": "Garba, M.",
+            "affiliation": null
+          },
+          {
+            "name": "Abubakar, M.M.",
+            "affiliation": null
+          },
+          {
+            "name": "Dogara, M.M.",
+            "affiliation": null
+          },
+          {
+            "name": "Eghobor, S.",
+            "affiliation": null
+          },
+          {
+            "name": "Ahmed, A.",
+            "affiliation": null
+          },
+          {
+            "name": "Mohamed, M.",
+            "affiliation": null
+          },
+          {
+            "name": "Kabir, N.",
+            "affiliation": null
+          },
+          {
+            "name": "Harris, N.",
+            "affiliation": null
+          },
+          {
+            "name": "Adeniyi",
+            "affiliation": null
+          },
+          {
+            "name": "Muhammad, S.I.",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "11",
+          "pages": "1-15",
+          "title": "Global Academic and Scientific Journal of Multidisciplinary Studies (GASJMS)",
+          "volume": "3"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499409"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Chronic Kidney Disease of Unknown Etiology (CKDU) in Hadejia Valley, Nigeria:  Assessment of Heavy Metals in Cereal Crops from Different Locations along the Valley",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499410",
+        "self_html": "https://zenodo.org/records/17499410",
+        "preview_html": "https://zenodo.org/records/17499410?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499410",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499410",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499410",
+        "reserve_doi": "https://zenodo.org/api/records/17499410/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499409",
+        "parent_html": "https://zenodo.org/records/17499409",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499409",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499409",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499410/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499410/sequence/default",
+        "files": "https://zenodo.org/api/records/17499410/files",
+        "media_files": "https://zenodo.org/api/records/17499410/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17499410:Chronic%20Kidney%20Disease%20of%20Unknown%20Etiology%20(CKDU)%20in%20Hadejia%20Valley,%20Nigeria%20%20Assessment%20of%20Heavy%20Metals%20in%20Cereal%20Crops%20from%20Different%20Locations%20along%20the%20Valley.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17499410:Chronic%20Kidney%20Disease%20of%20Unknown%20Etiology%20(CKDU)%20in%20Hadejia%20Valley,%20Nigeria%20%20Assessment%20of%20Heavy%20Metals%20in%20Cereal%20Crops%20from%20Different%20Locations%20along%20the%20Valley.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17499410:Chronic%20Kidney%20Disease%20of%20Unknown%20Etiology%20(CKDU)%20in%20Hadejia%20Valley,%20Nigeria%20%20Assessment%20of%20Heavy%20Metals%20in%20Cereal%20Crops%20from%20Different%20Locations%20along%20the%20Valley.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17499410:Chronic%20Kidney%20Disease%20of%20Unknown%20Etiology%20(CKDU)%20in%20Hadejia%20Valley,%20Nigeria%20%20Assessment%20of%20Heavy%20Metals%20in%20Cereal%20Crops%20from%20Different%20Locations%20along%20the%20Valley.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17499410:Chronic%20Kidney%20Disease%20of%20Unknown%20Etiology%20(CKDU)%20in%20Hadejia%20Valley,%20Nigeria%20%20Assessment%20of%20Heavy%20Metals%20in%20Cereal%20Crops%20from%20Different%20Locations%20along%20the%20Valley.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17499410:Chronic%20Kidney%20Disease%20of%20Unknown%20Etiology%20(CKDU)%20in%20Hadejia%20Valley,%20Nigeria%20%20Assessment%20of%20Heavy%20Metals%20in%20Cereal%20Crops%20from%20Different%20Locations%20along%20the%20Valley.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17499410/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499410/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499410/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499410/latest",
+        "versions": "https://zenodo.org/api/records/17499410/versions",
+        "draft": "https://zenodo.org/api/records/17499410/draft",
+        "access_links": "https://zenodo.org/api/records/17499410/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499410/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499410/access/users",
+        "access_request": "https://zenodo.org/api/records/17499410/access/request",
+        "access": "https://zenodo.org/api/records/17499410/access",
+        "communities": "https://zenodo.org/api/records/17499410/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499410/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499410/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499410/requests"
+      },
+      "updated": "2025-11-01T06:11:38.764117+00:00",
+      "recid": "17499410",
+      "revision": 4,
+      "files": [
+        {
+          "id": "410a5d23-39b3-4e71-a851-099071fb9e3d",
+          "key": "Chronic Kidney Disease of Unknown Etiology (CKDU) in Hadejia Valley, Nigeria  Assessment of Heavy Metals in Cereal Crops from Different Locations along the Valley.pdf",
+          "size": 518370,
+          "checksum": "md5:f05eeecc8c97c0f9a89e9fe88683efcb",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499410/files/Chronic Kidney Disease of Unknown Etiology (CKDU) in Hadejia Valley, Nigeria  Assessment of Heavy Metals in Cereal Crops from Different Locations along the Valley.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "602509"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 3,
+        "unique_views": 2,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 2,
+        "version_views": 3
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T06:10:14.114166+00:00",
+      "modified": "2025-11-01T06:10:14.273136+00:00",
+      "id": 17499416,
+      "conceptrecid": "17499415",
+      "doi": "10.5281/zenodo.17499416",
+      "conceptdoi": "10.5281/zenodo.17499415",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499416",
+      "metadata": {
+        "title": "Enhancing malware detection using federated learning and explainable AI for privacy-preserving threat intelligence",
+        "doi": "10.5281/zenodo.17499416",
+        "publication_date": "2025-07-31",
+        "description": "<p>The escalating complexity and frequency of malware attacks pose a significant challenge to conventional cybersecurity frameworks, particularly in scenarios demanding high data privacy and cross-organizational threat intelligence sharing. Traditional centralized machine learning models for malware detection often rely on aggregating data in a central server, thereby increasing the risk of data breaches and limiting the deployment of models in privacy-sensitive environments such as healthcare, finance, and critical infrastructure. To address these limitations, this study explores an integrated approach that combines Federated Learning (FL) with Explainable Artificial Intelligence (XAI) for enhancing malware detection while preserving user privacy and system confidentiality. Federated learning enables the collaborative training of robust malware classifiers across multiple decentralized nodes without sharing raw data, thus maintaining local data sovereignty and complying with data protection regulations. The proposed framework incorporates deep learning architectures such as convolutional neural networks (CNNs) trained in a federated environment using feature vectors extracted from malicious binaries and behavior logs. To ensure transparency and trust in model predictions, explainable AI techniques specifically SHAP (SHapley Additive exPlanations) and LIME (Local Interpretable Model-agnostic Explanations) are integrated, providing actionable insights into the model&rsquo;s decision-making process. This study also presents a comprehensive evaluation using a benchmark malware dataset distributed across simulated client environments, measuring detection accuracy, communication overhead, privacy leakage, and interpretability performance. Results demonstrate that the FL-XAI approach achieves detection rates comparable to centralized models while ensuring data confidentiality and interpretability. The research contributes to the evolving field of privacy-preserving threat intelligence by offering a scalable and explainable framework suitable for real-time cybersecurity applications.&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Shallom, Kigbu",
+            "affiliation": "Department of Computer Science, University of Illinois at Springfield, USA."
+          },
+          {
+            "name": "Ikemefuna, Chukwujekwu Damian",
+            "affiliation": "Department of Cybersecurity, American National University, Kentucky Campus, USA."
+          }
+        ],
+        "keywords": [
+          "Federated Learning",
+          "Explainable AI",
+          "Malware Detection",
+          "Privacy Preservation",
+          "Threat Intelligence",
+          "Model Interpretability"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "1",
+          "pages": "331-351",
+          "title": "World Journal of Advanced Research and Reviews",
+          "volume": "27"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "10.30574/wjarr.2025.27.1.2541"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "wjarr"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499415"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Enhancing malware detection using federated learning and explainable AI for privacy-preserving threat intelligence",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499416",
+        "self_html": "https://zenodo.org/records/17499416",
+        "preview_html": "https://zenodo.org/records/17499416?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499416",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499416",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499416",
+        "reserve_doi": "https://zenodo.org/api/records/17499416/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499415",
+        "parent_html": "https://zenodo.org/records/17499415",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499415",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499415",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499416/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499416/sequence/default",
+        "files": "https://zenodo.org/api/records/17499416/files",
+        "media_files": "https://zenodo.org/api/records/17499416/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17499416:WJARR-2025-2541.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17499416:WJARR-2025-2541.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17499416:WJARR-2025-2541.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17499416:WJARR-2025-2541.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17499416:WJARR-2025-2541.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17499416:WJARR-2025-2541.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17499416/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499416/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499416/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499416/latest",
+        "versions": "https://zenodo.org/api/records/17499416/versions",
+        "draft": "https://zenodo.org/api/records/17499416/draft",
+        "access_links": "https://zenodo.org/api/records/17499416/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499416/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499416/access/users",
+        "access_request": "https://zenodo.org/api/records/17499416/access/request",
+        "access": "https://zenodo.org/api/records/17499416/access",
+        "communities": "https://zenodo.org/api/records/17499416/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499416/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499416/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499416/requests"
+      },
+      "updated": "2025-11-01T06:10:14.273136+00:00",
+      "recid": "17499416",
+      "revision": 4,
+      "files": [
+        {
+          "id": "9d73a525-fab1-4f09-ae4d-c58e8029d536",
+          "key": "WJARR-2025-2541.pdf",
+          "size": 700823,
+          "checksum": "md5:349d5997ce1cd063e7222c43a1cf651a",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499416/files/WJARR-2025-2541.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "155121"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T05:59:15.540313+00:00",
+      "modified": "2025-11-01T05:59:15.746030+00:00",
+      "id": 17499326,
+      "conceptrecid": "17499325",
+      "doi": "10.5281/zenodo.17499326",
+      "conceptdoi": "10.5281/zenodo.17499325",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499326",
+      "metadata": {
+        "title": "Fabricated space maintainers: Improving fit and function in pediatric patients",
+        "doi": "10.5281/zenodo.17499326",
+        "publication_date": "2025-07-31",
+        "description": "<p>Introduction: Premature Loss of primary molars can significantly disrupt the normal eruption sequence and lead to complications such as Loss of arch length, crowding, midline deviation, and malocclusion. Early intervention through space maintenance is crucial, especially in the mixed dentition phase. This case highlights the clinical application of a fixed crown-loop space maintainer in preserving the mesiodistal space post-extraction of a non-restorable primary molar.&nbsp;</p>\n<p>Case History: An 8-year-old female presented with extensive caries in tooth 85 and structural compromise in tooth 84. Clinical and radiographic examination indicated the necessity of extraction and immediate space maintenance. A stainless-steel crown was fitted on tooth 84 with a custom-fabricated loop, followed by extraction of tooth 85 and appliance cementation. Over four months, the eruption of tooth 45 was observed, and the appliance was removed due to loosening.&nbsp;</p>\n<p>Discussion: The use of a crown and loop space maintainer was indicated due to the poor prognosis of the adjacent abutment tooth, offering both full coronal coverage and reliable anchorage. Compared to band-retained alternatives, stainless steel crowns enhance durability and chairside efficiency. Regular monitoring ensured the appliance did not interfere with soft tissue or tooth eruption. This case supports the efficacy of such appliances in maintaining arch integrity and guiding proper occlusal development.&nbsp;</p>\n<p>Conclusion: A fixed crown-loop space maintainer effectively preserved arch space, facilitated proper eruption of the successor tooth, and maintained function in a pediatric patient with premature molar Loss. Its success underscores the importance of individualized planning, durable materials, and routine follow-up in pediatric space management strategies.&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "DH, Delaneira Alvita",
+            "affiliation": "Department of Pediatric Dentistry, Faculty of Dental Medicine, Universitas Airlangga, Surabaya, Indonesia."
+          },
+          {
+            "name": "Anindyariani, Alocitta",
+            "affiliation": "Department of Pediatric Dentistry, Faculty of Dental Medicine, Universitas Airlangga, Surabaya, Indonesia."
+          },
+          {
+            "name": "Nuraini, Prawati",
+            "affiliation": "Department of Pediatric Dentistry, Faculty of Dental Medicine, Universitas Airlangga, Surabaya, Indonesia."
+          }
+        ],
+        "keywords": [
+          "Premature Tooth Loss",
+          "Space Maintainer",
+          "Crown-Loop Appliance",
+          "Interceptive Orthodontic",
+          "Human and Health"
+        ],
+        "language": "eng",
+        "resource_type": {
+          "title": "Journal article",
+          "type": "publication",
+          "subtype": "article"
+        },
+        "journal": {
+          "issue": "1",
+          "pages": "313-317",
+          "title": "World Journal of Advanced Research and Reviews",
+          "volume": "27"
+        },
+        "alternate_identifiers": [
+          {
+            "identifier": "10.30574/wjarr.2025.27.1.2521"
+          }
+        ],
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "communities": [
+          {
+            "id": "wjarr"
+          }
+        ],
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499325"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Fabricated space maintainers: Improving fit and function in pediatric patients",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499326",
+        "self_html": "https://zenodo.org/records/17499326",
+        "preview_html": "https://zenodo.org/records/17499326?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499326",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499326",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499326",
+        "reserve_doi": "https://zenodo.org/api/records/17499326/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499325",
+        "parent_html": "https://zenodo.org/records/17499325",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499325",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499325",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499326/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499326/sequence/default",
+        "files": "https://zenodo.org/api/records/17499326/files",
+        "media_files": "https://zenodo.org/api/records/17499326/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17499326:WJARR-2025-2521.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17499326:WJARR-2025-2521.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17499326:WJARR-2025-2521.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17499326:WJARR-2025-2521.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17499326:WJARR-2025-2521.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17499326:WJARR-2025-2521.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17499326/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499326/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499326/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499326/latest",
+        "versions": "https://zenodo.org/api/records/17499326/versions",
+        "draft": "https://zenodo.org/api/records/17499326/draft",
+        "access_links": "https://zenodo.org/api/records/17499326/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499326/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499326/access/users",
+        "access_request": "https://zenodo.org/api/records/17499326/access/request",
+        "access": "https://zenodo.org/api/records/17499326/access",
+        "communities": "https://zenodo.org/api/records/17499326/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499326/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499326/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499326/requests"
+      },
+      "updated": "2025-11-01T05:59:15.746030+00:00",
+      "recid": "17499326",
+      "revision": 4,
+      "files": [
+        {
+          "id": "e08e5e54-9585-4b21-9d31-77a27bfc1128",
+          "key": "WJARR-2025-2521.pdf",
+          "size": 495388,
+          "checksum": "md5:9f7a6ea42d16b465db98aaa6f0d833b2",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499326/files/WJARR-2025-2521.pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "155121"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 2,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 2,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T05:58:20.322241+00:00",
+      "modified": "2025-11-01T06:33:50.455207+00:00",
+      "id": 17499330,
+      "conceptrecid": "17499329",
+      "doi": "10.5281/zenodo.17499330",
+      "conceptdoi": "10.5281/zenodo.17499329",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499330",
+      "metadata": {
+        "title": "Bozhi-Wu/TIFFAlign",
+        "doi": "10.5281/zenodo.17499330",
+        "publication_date": "2025-11-01",
+        "description": "<ul>\n<li>A simple GUI for automatic and manual alignment across calcium imaging sessions.</li>\n<li>With auto-alignment and blocked frames interpolation.</li>\n</ul>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Wu, Bozhi",
+            "affiliation": "University of Toronto",
+            "orcid": "0009-0008-2940-2296"
+          }
+        ],
+        "related_identifiers": [
+          {
+            "identifier": "https://github.com/Bozhi-Wu/TIFFAlign/tree/v1.0.0",
+            "relation": "isSupplementTo",
+            "resource_type": "software",
+            "scheme": "url"
+          }
+        ],
+        "version": "v1.0.0",
+        "custom": {
+          "code:codeRepository": "https://github.com/Bozhi-Wu/TIFFAlign"
+        },
+        "resource_type": {
+          "title": "Software",
+          "type": "software"
+        },
+        "license": {
+          "id": "mit-license"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499329"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Bozhi-Wu/TIFFAlign",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499330",
+        "self_html": "https://zenodo.org/records/17499330",
+        "preview_html": "https://zenodo.org/records/17499330?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499330",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499330",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499330",
+        "reserve_doi": "https://zenodo.org/api/records/17499330/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499329",
+        "parent_html": "https://zenodo.org/records/17499329",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499329",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499329",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499330/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499330/sequence/default",
+        "files": "https://zenodo.org/api/records/17499330/files",
+        "media_files": "https://zenodo.org/api/records/17499330/media-files",
+        "archive": "https://zenodo.org/api/records/17499330/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499330/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499330/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499330/latest",
+        "versions": "https://zenodo.org/api/records/17499330/versions",
+        "draft": "https://zenodo.org/api/records/17499330/draft",
+        "access_links": "https://zenodo.org/api/records/17499330/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499330/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499330/access/users",
+        "access_request": "https://zenodo.org/api/records/17499330/access/request",
+        "access": "https://zenodo.org/api/records/17499330/access",
+        "communities": "https://zenodo.org/api/records/17499330/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499330/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499330/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499330/requests"
+      },
+      "updated": "2025-11-01T06:33:50.455207+00:00",
+      "recid": "17499330",
+      "revision": 14,
+      "files": [
+        {
+          "id": "ee552a2b-f15e-4195-af67-e01e252e5288",
+          "key": "Bozhi-Wu/TIFFAlign-v1.0.0.zip",
+          "size": 20278987,
+          "checksum": "md5:b17fbe0b8a0808b7e8fcff4233c69dd6",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499330/files/Bozhi-Wu/TIFFAlign-v1.0.0.zip/content"
+          }
+        }
+      ],
+      "swh": {
+        "swhid": "swh:1:dir:e990c77b3f975462585bb0a4a5ac1afd9e8f9559;origin=https://doi.org/10.5281/zenodo.17499329;visit=swh:1:snp:1924c1c4166522ae75a999a418c9d0cdfe190461;anchor=swh:1:rel:7d354a11f80ac5cadddaeae121698b787a896a30;path=Bozhi-Wu-TIFFAlign-114fab5"
+      },
+      "owners": [
+        {
+          "id": "1449516"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 14,
+        "unique_views": 2,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 2,
+        "version_views": 14
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2025-11-01T05:50:02.132357+00:00",
+      "modified": "2025-11-01T05:50:02.391293+00:00",
+      "id": 17499225,
+      "conceptrecid": "17499224",
+      "doi": "10.5281/zenodo.17499225",
+      "conceptdoi": "10.5281/zenodo.17499224",
+      "doi_url": "https://doi.org/10.5281/zenodo.17499225",
+      "metadata": {
+        "title": "Determinants of Indonesian Audience Perception in the Age of Digital Media",
+        "doi": "10.5281/zenodo.17499225",
+        "publication_date": "2025-11-01",
+        "description": "<p><span><span lang=\"EN-US\"><em>Abstract&mdash; </em></span></span><span lang=\"EN-US\">The proliferation of digital media has profoundly altered how audiences in markets like Indonesia perceive and interact with entertainment content, creating a volatile envi- ronment</span><span lang=\"EN-US\"><span> </span>for<span> </span>media<span> </span>producers.<span> </span>This<span> </span>study<span> </span>aims<span> </span>to<span> </span>identify<span> </span>the principal determinants of audience perception within this<span> </span>new media ecosystem. The research focuses on the Indonesian adaptation of the popular Korean drama A Business Proposal, which<span> </span>became<span> </span>the<span> </span>object<span> </span>of<span> </span>a<span> </span>significant<span> </span>digital<span> </span>backlash<span> </span>following a celebrity scandal. A quantitative methodology was employed, utilizing survey data collected from 217 Indonesian viewers of<span> </span>the original series. Multiple regression analysis was performed<span> </span>to evaluate the influence of celebrity scandals, cancel culture, social<span> </span>media<span> </span>engagement,<span> </span>and<span> </span>fan<span> </span>loyalty<span> </span>on<span> </span>audience<span> </span>perception. The results conclusively demonstrate that all four variables are statistically significant determinants. Notably, celebrity scandals and the resulting cancel culture significantly damaged audience perceptions,<span> </span>with<span> </span>social<span> </span>media<span> </span>acting<span> </span>as<span> </span>a<span> </span>powerful<span> </span>amplifier for public discourse. Fan loyalty emerged as a complex factor, showing the potential to either mitigate or intensify the negative effects of the controversy. This study concludes that an intricate interplay of digital phenomena now governs audience reception, highlighting the critical need for media stakeholders to develop sophisticated strategies for managing online crises and engaging with digital fan communities to ensure commercial viability.</span></p>\n<p><em><span lang=\"EN-US\">Keywords&mdash; </span></em><span><span lang=\"EN-US\">Korean<span> </span>Drama,<span> </span>Celebrity<span> </span>Scandal,<span> </span>Cancel<span> </span>Culture, Social Media, Fan Loyalty.</span></span></p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Puspita, Elysia",
+            "affiliation": null
+          }
+        ],
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "17499224"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Determinants of Indonesian Audience Perception in the Age of Digital Media",
+      "links": {
+        "self": "https://zenodo.org/api/records/17499225",
+        "self_html": "https://zenodo.org/records/17499225",
+        "preview_html": "https://zenodo.org/records/17499225?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.17499225",
+        "self_doi": "https://doi.org/10.5281/zenodo.17499225",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499225",
+        "reserve_doi": "https://zenodo.org/api/records/17499225/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/17499224",
+        "parent_html": "https://zenodo.org/records/17499224",
+        "parent_doi": "https://doi.org/10.5281/zenodo.17499224",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.17499224",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:17499225/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:17499225/sequence/default",
+        "files": "https://zenodo.org/api/records/17499225/files",
+        "media_files": "https://zenodo.org/api/records/17499225/media-files",
+        "thumbnails": {
+          "10": "https://zenodo.org/api/iiif/record:17499225:QUESTIONNAIRE%20.pdf/full/%5E10,/0/default.jpg",
+          "50": "https://zenodo.org/api/iiif/record:17499225:QUESTIONNAIRE%20.pdf/full/%5E50,/0/default.jpg",
+          "100": "https://zenodo.org/api/iiif/record:17499225:QUESTIONNAIRE%20.pdf/full/%5E100,/0/default.jpg",
+          "250": "https://zenodo.org/api/iiif/record:17499225:QUESTIONNAIRE%20.pdf/full/%5E250,/0/default.jpg",
+          "750": "https://zenodo.org/api/iiif/record:17499225:QUESTIONNAIRE%20.pdf/full/%5E750,/0/default.jpg",
+          "1200": "https://zenodo.org/api/iiif/record:17499225:QUESTIONNAIRE%20.pdf/full/%5E1200,/0/default.jpg"
+        },
+        "archive": "https://zenodo.org/api/records/17499225/files-archive",
+        "archive_media": "https://zenodo.org/api/records/17499225/media-files-archive",
+        "latest": "https://zenodo.org/api/records/17499225/versions/latest",
+        "latest_html": "https://zenodo.org/records/17499225/latest",
+        "versions": "https://zenodo.org/api/records/17499225/versions",
+        "draft": "https://zenodo.org/api/records/17499225/draft",
+        "access_links": "https://zenodo.org/api/records/17499225/access/links",
+        "access_grants": "https://zenodo.org/api/records/17499225/access/grants",
+        "access_users": "https://zenodo.org/api/records/17499225/access/users",
+        "access_request": "https://zenodo.org/api/records/17499225/access/request",
+        "access": "https://zenodo.org/api/records/17499225/access",
+        "communities": "https://zenodo.org/api/records/17499225/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/17499225/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/17499225/request-deletion",
+        "requests": "https://zenodo.org/api/records/17499225/requests"
+      },
+      "updated": "2025-11-01T05:50:02.391293+00:00",
+      "recid": "17499225",
+      "revision": 4,
+      "files": [
+        {
+          "id": "be92d171-5e42-41d6-9d3d-8fdccc87ce60",
+          "key": "QUESTIONNAIRE .pdf",
+          "size": 153946,
+          "checksum": "md5:8c0dc81a0454cf8a253e9bd159157b9c",
+          "links": {
+            "self": "https://zenodo.org/api/records/17499225/files/QUESTIONNAIRE .pdf/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "1449495"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 1,
+        "unique_downloads": 1,
+        "views": 1,
+        "unique_views": 1,
+        "version_downloads": 1,
+        "version_unique_downloads": 1,
+        "version_unique_views": 1,
+        "version_views": 1
+      },
+      "state": "done",
+      "submitted": true
+    }
+  ]
+}

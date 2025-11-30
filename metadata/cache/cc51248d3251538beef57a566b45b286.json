@@ -1,0 +1,435 @@
+{
+  "cache_date": "2025-11-01T11:35:49.790375",
+  "data": [
+    {
+      "created": "2025-06-13T15:25:01.067701+00:00",
+      "modified": "2025-06-13T15:25:01.466928+00:00",
+      "id": 15656114,
+      "conceptrecid": "11482774",
+      "doi": "10.5281/zenodo.15656114",
+      "conceptdoi": "10.5281/zenodo.11482774",
+      "doi_url": "https://doi.org/10.5281/zenodo.15656114",
+      "metadata": {
+        "title": "ProkBERT PhaStyle",
+        "doi": "10.5281/zenodo.15656114",
+        "publication_date": "2025-06-13",
+        "description": "<div>\n<div dir=\"auto\">\n<h1>ProkBERT PhaStyle Datasets</h1>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#prokbert-phastyle-datasets\"></a></div>\n<div dir=\"auto\">\n<h2>Table of Contents</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#table-of-contents\"></a></div>\n<ol>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#introduction\">Introduction</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#dataset-overview\">Dataset Overview</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#dataset-splits\">Dataset Splits</a>\n<ul>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#sequencedb\">sequencedb</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#test_sequencedb\">test_sequencedb</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#512bp__train--1000bp__train\">512bp__train / 1000bp__train</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#512bp__train_all--1000bp__train_all\">512bp__train_all / 1000bp__train_all</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#512bp__test--1000bp__test\">512bp__test / 1000bp__test</a></li>\n</ul>\n</li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#fastani-results\">FastANI Results</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#fasta-files\">FASTA Files</a>\n<ul>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#sequenceddfasta\">sequencedb.fasta</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#testsequenceddffasta\">test_sequencedb.fasta</a></li>\n</ul>\n</li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#models-for-phage-lifestyle-prediction\">Models for Phage Lifestyle Prediction</a>\n<ul>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#directory-structure\">Directory Structure</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#holdout-settings\">Holdout Settings</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#model-loading--usage\">Model Loading &amp; Usage</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#model-summaries\">Model Summaries</a></li>\n</ul>\n</li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#prediction-score-files\">Prediction Score Files</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#containers-for-prediction-tools\">Containers for Prediction Tools</a>\n<ul>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#bacphlip\">BACPHLIP</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#phagepred\">PhagePred</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#dnabert2\">DNABERT2</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#deephage\">DeePhage</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#phatyp\">PhaTYP</a></li>\n</ul>\n</li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#license\">License</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#contact\">Contact</a></li>\n<li><a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#references\">References</a></li>\n</ol>\n<div dir=\"auto\">\n<h2>Introduction</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#introduction\"></a></div>\n<p dir=\"auto\">This repository contains datasets used for training, validation, and testing of the <strong>ProkBERT PhaStyle</strong> model for phage lifestyle prediction. The datasets include phage nucleotide sequences, segmented sequences, and descriptive metadata.</p>\n<div dir=\"auto\">\n<h1>phastyle Dataset</h1>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#phastyle-dataset\"></a></div>\n<p dir=\"auto\">The <strong>phastyle</strong> dataset supports training and evaluation of ProkBERT PhaStyle models for phage lifestyle prediction under both <strong>strict-holdout</strong> and <strong>standard-holdout</strong> scenarios. All data are stored in Hugging Face Dataset format under <code>hf_datasets/phastyle/</code>.</p>\n<div dir=\"auto\">\n<h2>Overview</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#overview\"></a></div>\n<ol>\n<li>\n<p dir=\"auto\"><strong>Strict-holdout</strong> (&ldquo;ANI &ge; 80% filter&rdquo;)</p>\n<ul>\n<li>Phage sequences infecting <em>Escherichia</em> (and any &ge;80% ANI relative) are <strong>excluded</strong> from training.</li>\n<li>Training split: <code>BACPHLIP_TRAINING</code> (1 798 non-<em>Escherichia</em> sequences)</li>\n<li>Validation split: <code>BACPHLIP_VALIDATION</code> (316 <em>Escherichia</em> sequences)</li>\n</ul>\n</li>\n<li>\n<p dir=\"auto\"><strong>Standard-holdout</strong></p>\n<ul>\n<li>All available BACPHLIP sequences used for training, including <em>Escherichia</em> relatives.</li>\n<li>Training split: <code>BACPHLIP_ALL</code></li>\n</ul>\n</li>\n<li>\n<p dir=\"auto\"><strong>External test collections</strong> (always held out):</p>\n<ul>\n<li><code>ESCHERICHIA</code> (Guelin collection)</li>\n<li><code>BASEL</code> (BASEL collection)</li>\n<li><code>EXTREMOPHILE</code></li>\n</ul>\n</li>\n</ol>\n<div dir=\"auto\">\n<h2>Splits</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#splits\"></a></div>\n<div dir=\"auto\">\n<h3>1. <code>sequencedb</code></h3>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#1-sequencedb\"></a></div>\n<p dir=\"auto\">Contains all full-length phage genomes with metadata.<br><strong>Fields</strong>:</p>\n<ul>\n<li><code>sequence_id</code>, <code>dataset</code> (one of <code>BACPHLIP_TRAINING</code>, <code>BACPHLIP_VALIDATION</code>, <code>BACPHLIP_ALL</code>, <code>ESCHERICHIA</code>, <code>BASEL</code>, <code>EXTREMOPHILE</code>)</li>\n<li><code>class_label</code> (&ldquo;temperate&rdquo; / &ldquo;virulent&rdquo;), binary <code>y</code></li>\n<li><code>L_seq</code> (sequence length), <code>sequence</code> (nucleotides)</li>\n<li>additional taxonomy/source columns</li>\n</ul>\n<div dir=\"auto\">\n<h3>2. <code>test_sequencedb</code></h3>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#2-test_sequencedb\"></a></div>\n<p dir=\"auto\">Simulated contig fragments (various lengths) for evaluating full-sequence performance.<br><strong>Fields</strong>:</p>\n<ul>\n<li><code>sequence_id</code>, <code>dataset</code>, <code>FragmentL</code> (fragment length), <code>Ls</code> (lifestyle)</li>\n<li><code>sequence_start</code>, <code>sequence_end</code>, <code>sequence</code></li>\n</ul>\n<div dir=\"auto\">\n<h3>3. <code>512bp__train</code> &amp; <code>1000bp__train</code></h3>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#3-512bp__train--1000bp__train\"></a></div>\n<p dir=\"auto\">Segments sampled at 10&times; coverage <strong>from</strong> <code>BACPHLIP_TRAINING</code> (strict-holdout).</p>\n<ul>\n<li>512 bp segments in <code>512bp__train</code> (2 270 027 rows)</li>\n<li>1 000 bp segments in <code>1000bp__train</code> (1 162 326 rows)</li>\n</ul>\n<div dir=\"auto\">\n<h3>4. <code>512bp__train_all</code> &amp; <code>1000bp__train_all</code></h3>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#4-512bp__train_all--1000bp__train_all\"></a></div>\n<p dir=\"auto\">Segments sampled at 10&times; coverage <strong>from</strong> <code>BACPHLIP_ALL</code> (standard-holdout).</p>\n<ul>\n<li>512 bp segments in <code>512bp__train_all</code> (2 754 145 rows)</li>\n<li>1 000 bp segments in <code>1000bp__train_all</code> (1 410 107 rows)</li>\n</ul>\n<div dir=\"auto\">\n<h3>5. <code>512bp__test</code> &amp; <code>1000bp__test</code></h3>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#5-512bp__test--1000bp__test\"></a></div>\n<p dir=\"auto\">Segments drawn from the three external collections (<code>ESCHERICHIA</code>, <code>BASEL</code>, <code>EXTREMOPHILE</code>):</p>\n<ul>\n<li>512 bp segments in <code>512bp__test</code> (675 086 rows)</li>\n<li>1 000 bp segments in <code>1000bp__test</code> (408 409 rows)</li>\n</ul>\n<p dir=\"auto\">Each segment record includes <code>segment_id</code>, <code>sequence_id</code>, start/end coordinates, nucleotide <code>segment</code>, <code>FragmentL</code>, <code>Ls</code>, and binary <code>y</code>.</p>\n<div dir=\"auto\">\n<pre><span>from</span> <span>datasets</span> <span>import</span> <span>load_dataset</span>\n\n<span># Load 512bp training set</span>\n<span>ds</span> <span>=</span> <span>load_dataset</span>(<span>\"hf_datasets/phastyle\"</span>, <span>\"512bp__train\"</span>)\n<span>print</span>(<span>ds</span>[<span>\"train\"</span>].<span>column_names</span>)\n<span># ['segment_id','sequence_id','class_label','y','segment_start','segment_end','segment']</span></pre>\n<div>&nbsp;</div>\n</div>\n<div dir=\"auto\">\n<h2>FastANI Results (<code>FastANI_results.tsv</code>)</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#fastani-results-fastani_resultstsv\"></a></div>\n<p dir=\"auto\">This file contains all-vs-all average nucleotide identity (ANI) comparisons between phage genomes in our training and test sets, used to enforce the 80% ANI exclusion criterion in the <strong>strict-holdout</strong> setting.</p>\n<div dir=\"auto\">\n<h3>File format</h3>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#file-format\"></a></div>\n<p dir=\"auto\">Each line of <code>FastANI_results.tsv</code> has the following tab-delimited fields:</p>\n<ol>\n<li><strong>Source FASTA path</strong><br>Path to the &ldquo;query&rdquo; genome FASTA file (e.g. <code>&hellip;/BACPHLIP_TRAINING__0__0.fasta</code>).</li>\n<li><strong>Target FASTA path</strong><br>Path to the &ldquo;reference&rdquo; genome FASTA file (e.g. <code>&hellip;/BACPHLIP_ALL__2524__0.fasta</code>).</li>\n<li><strong>ANI (%)</strong><br>Average nucleotide identity percentage (0&ndash;100).</li>\n<li><strong>Fragment count</strong><br>Number of matching fragments used to compute ANI.</li>\n<li><strong>Total query fragments</strong><br>(Optional) Total number of fragments in the source, indicating coverage of the alignment.</li>\n</ol>\n<div dir=\"auto\">\n<h3>Interpretation</h3>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#interpretation\"></a></div>\n<ul>\n<li><strong>Sequence IDs</strong> in the FASTA paths (e.g. <code>BACPHLIP_TRAINING__0__0</code>) correspond directly to <code>sequence_id</code> values in the <code>sequencedb</code> splits.</li>\n<li>Any pair with <strong>ANI &ge; 80%</strong> <em>and</em> alignment coverage &ge; 80% of the shorter genome was flagged and removed from the training set in the strict-holdout splits.</li>\n<li>The full matrix of ANI comparisons and the exact removal decisions are archived here to ensure reproducibility of our dataset curation.</li>\n</ul>\n<div dir=\"auto\">\n<h2>sequencedb.fasta</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#sequencedbfasta\"></a></div>\n<p dir=\"auto\">This file contains all full-length phage genomes used for model training and validation under both <strong>strict-holdout</strong> and <strong>standard-holdout</strong> regimes.</p>\n<p dir=\"auto\"><strong>Header format:</strong><br><code>&gt;dataset__sequence_id__y</code></p>\n<ul>\n<li><strong>dataset</strong>: one of <code>BACPHLIP_TRAINING</code>, <code>BACPHLIP_VALIDATION</code>, <code>BACPHLIP_ALL</code>, <code>ESCHERICHIA</code>, <code>BASEL</code>, <code>EXTREMOPHILE</code></li>\n<li><strong>sequence_id</strong>: integer index matching the <code>sequence_id</code> field in the <code>sequencedb</code> split</li>\n<li><strong>y</strong>: binary label (<code>0 = temperate</code>, <code>1 = virulent</code>)</li>\n</ul>\n<p dir=\"auto\"><strong>Example entry:</strong><br>BACPHLIP_TRAINING__0__0 ATGCGT&hellip; <em>(Here, record 0 from BACPHLIP_TRAINING is labeled temperate.)</em></p>\n<div dir=\"auto\">\n<h2>test_sequencedb.fasta</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#test_sequencedbfasta\"></a></div>\n<p dir=\"auto\">This file holds simulated contig fragments used for full-sequence evaluation on the external test collections.</p>\n<p dir=\"auto\"><strong>Header format:</strong><br><code>&gt;dataset__Lf{FragmentL}__sequence_id__y</code></p>\n<ul>\n<li><strong>dataset</strong>: <code>BASEL</code>, <code>ESCHERICHIA</code>, or <code>EXTREMOPHILE</code></li>\n<li><strong>FragmentL</strong>: fragment length in base pairs (e.g. <code>500</code>, <code>2000</code>, <code>10000</code>)</li>\n<li><strong>sequence_id</strong>: integer index matching the <code>sequence_id</code> field in the <code>test_sequencedb</code> split</li>\n<li><strong>y</strong>: binary label (<code>0 = temperate</code>, <code>1 = virulent</code>)</li>\n</ul>\n<p dir=\"auto\">Each FASTA record ID directly corresponds to entries in the <code>sequencedb</code> and <code>test_sequencedb</code>.</p>\n<div dir=\"auto\">\n<h1>Models for ProkBERT PhaStyle Phage Lifestyle Prediction</h1>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#models-for-prokbert-phastyle-phage-lifestyle-prediction\"></a></div>\n<p dir=\"auto\">This directory contains pretrained and finetuned models for ProkBERT PhaStyle, DNABERT-2, and Nucleotide Transformer under both <strong>strict-holdout</strong> and <strong>standard-holdout</strong> regimes. All models are packaged in Hugging Face format and provided as <code>safetensors</code> or <code>pytorch_model.bin</code> with accompanying tokenizer and config files.</p>\n<p dir=\"auto\">We fine-tuned each model under two regimes:</p>\n<ul>\n<li>\n<p dir=\"auto\"><strong>Strict-holdout</strong><br>We remove from the training set any BACPHLIP genome that either</p>\n<ol>\n<li>infects <em>Escherichia</em>, <strong>or</strong></li>\n<li>has &ge; 80 % ANI (over &ge; 80 % of its length) to <strong>any</strong> sequence in <strong>any</strong> external test collection (BASEL, Guelin/ESCHERICHIA, or EXTREMOPHILE).</li>\n</ol>\n</li>\n<li>\n<p dir=\"auto\"><strong>Standard-holdout</strong><br>We include <strong>all</strong> BACPHLIP genomes in the training set (no ANI or host-based exclusions).</p>\n</li>\n</ul>\n<p dir=\"auto\">For each regime, we sample 10&times; coverage segments (512 bp) from the appropriate training genomes, fine-tune the model as described above, and then evaluate on the three external test collections. Checkpoints are available under the corresponding <code>strict_holdout/</code> and <code>standard_holdout/</code> directories.</p>\n<div dir=\"auto\">\n<pre><span>from</span> <span>transformers</span> <span>import</span> <span>AutoModelForSequenceClassification</span>, <span>AutoTokenizer</span>\n\n<span># Example: load ProkBERT-mini standard-holdout</span>\n<span>model_name</span> <span>=</span> <span>\"path/to/zenodo_phagelifestyle_models/standard_holdout/prokbert-mini\"</span>\n<span>tokenizer</span> <span>=</span> <span>AutoTokenizer</span>.<span>from_pretrained</span>(<span>model_name</span>)\n<span>model</span>     <span>=</span> <span>AutoModelForSequenceClassification</span>.<span>from_pretrained</span>(<span>model_name</span>, <span>trust_remote_code</span><span>=</span><span>False</span>)\n\n<span># Tokenize and predict</span>\n<span>inputs</span>  <span>=</span> <span>tokenizer</span>(<span>\"ATGCGT...\"</span>, <span>return_tensors</span><span>=</span><span>\"pt\"</span>)\n<span>outputs</span> <span>=</span> <span>model</span>(<span>**</span><span>inputs</span>)\n<span>probs</span>   <span>=</span> <span>outputs</span>.<span>logits</span>.<span>softmax</span>(<span>dim</span><span>=</span><span>-</span><span>1</span>)</pre>\n<div>&nbsp;</div>\n</div>\n<p dir=\"auto\"><strong>Note:</strong> replace <code>prokbert-mini</code> with any other model folder (e.g. <code>DNABERT2</code>, <code>NT50</code>, <code>prokbert-mini-long</code>) and switch <code>standard_holdout</code> to <code>strict_holdout</code> as required.</p>\n\n\n<div dir=\"auto\">\n<h2>Model summaries</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#model-summaries\"></a></div>\n<ul>\n<li>\n<p dir=\"auto\"><strong>prokbert-mini / prokbert-mini-long</strong><br>6-layer, 6-head ProkBERT variants pretrained on microbial genomes (~21 M parameters).</p>\n</li>\n<li>\n<p dir=\"auto\"><strong>DNABERT2</strong><br>Transformer encoder pretrained on 32.5 billion bases from 135 species (~117 M parameters).</p>\n</li>\n<li>\n<p dir=\"auto\"><strong>NT50 / NT500</strong><br>Nucleotide Transformer models with 50 M and 500 M parameters, respectively, using 6-mer tokenization.</p>\n</li>\n</ul>\n<div dir=\"auto\">\n<h2>Prediction Score Files</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#prediction-score-files\"></a></div>\n<p dir=\"auto\">We provide two tab-delimited files containing all model prediction scores:</p>\n<div dir=\"auto\">\n<h3>1. <code>prediction_scores.tsv</code></h3>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#1-prediction_scorestsv\"></a></div>\n<p dir=\"auto\">This file reports per-segment (fragment) predictions across all test collections and models.</p>\n<p dir=\"auto\"><strong>Columns:</strong></p>\n<ul>\n<li>\n<p dir=\"auto\"><code>hold_out_setting</code><br>Either <code>strict_holdout</code> or <code>standard_holdout</code>, indicating which training regime was used.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>Dataset</code><br>One of <code>ESCHERICHIA</code>, <code>BASEL</code>, or <code>EXTREMOPHILE</code>, indicating the external test collection.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>Model</code><br>The model name, e.g. <code>prokbert-mini</code>, <code>prokbert-mini-long</code>, <code>DNABERT2</code>, <code>NT50</code>, <code>NT500</code>, <code>DeePhage</code>, or <code>PhaTYP</code>.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>Fragment_length</code><br>Length of the input fragment in base pairs (e.g. <code>500</code>, <code>1000</code>, <code>2000</code>, <code>10000</code>).</p>\n</li>\n<li>\n<p dir=\"auto\"><code>sequence_id</code><br>Integer index matching the fragment&rsquo;s parent sequence in <code>test_sequencedb</code>.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>test_fastaid</code><br>FASTA record identifier from <code>test_sequencedb.fasta</code>, e.g. <code>BASEL__Lf2000__323693__1</code>.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>class_label</code><br>Ground-truth label: <code>temperate</code> or <code>virulent</code>.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>predicted_label</code><br>Model&rsquo;s binary prediction: <code>temperate</code> or <code>virulent</code>.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>score_temperate</code><br>Model&rsquo;s predicted probability (0&ndash;1) for the <code>temperate</code> class.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>score_virulent</code><br>Model&rsquo;s predicted probability (0&ndash;1) for the <code>virulent</code> class.</p>\n</li>\n</ul>\n\n\n<div dir=\"auto\">\n<h3>2. <code>prediction_scores_sequences.tsv</code></h3>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#2-prediction_scores_sequencestsv\"></a></div>\n<p dir=\"auto\">This file reports per-contig (full-sequence) predictions, after aggregating fragment scores via weighted voting.</p>\n<p dir=\"auto\"><strong>Columns:</strong></p>\n<ul>\n<li>\n<p dir=\"auto\"><code>hold_out_setting</code><br>Either <code>strict_holdout</code> or <code>standard_holdout</code>.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>Dataset</code><br>One of <code>ESCHERICHIA</code>, <code>BASEL</code>, or <code>EXTREMOPHILE</code>.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>Model</code><br>The model name, as above.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>sequence_id</code><br>Integer index matching the full contig in <code>sequencedb</code>.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>test_fastaid</code><br>FASTA record identifier from <code>sequencedb.fasta</code>, e.g. <code>ESCHERICHIA__45__1</code>.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>source_description</code><br>Textual description of the phage source or isolate (where available).</p>\n</li>\n<li>\n<p dir=\"auto\"><code>class_label</code><br>Ground-truth label: <code>temperate</code> or <code>virulent</code>.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>predicted_label</code><br>Model&rsquo;s final binary prediction for the full contig.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>score_temperate</code><br>Aggregated probability (0&ndash;1) for the <code>temperate</code> class.</p>\n</li>\n<li>\n<p dir=\"auto\"><code>score_virulent</code><br>Aggregated probability (0&ndash;1) for the <code>virulent</code> class.</p>\n</li>\n</ul>\n<div dir=\"auto\">\n<h2>Overview</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#overview-1\"></a></div>\n<pre><span>@article</span>{<span>ProkBERT2024</span>,\n  <span>author</span>  = <span><span>{</span>Ligeti, Bal{\\'a}zs and Szepesi-Nagy, Istv{\\'a}n and Bodn{\\'a}r, Babett and Ligeti-Nagy, No{\\'e}mi and Juh{\\'a}sz, J{\\'a}nos<span>}</span></span>,\n  <span>journal</span> = <span><span>{</span>Frontiers in Microbiology<span>}</span></span>,\n  <span>title</span>   = <span><span>{</span>{ProkBERT} PhaStyle: Genomic language models for phage lifestyle prediction<span>}</span></span>,\n  <span>year</span>    = <span><span>{</span>2024<span>}</span></span>,\n  <span>volume</span>  = <span><span>{</span>14<span>}</span></span>,\n  <span>url</span>     = <span><span>{</span>https://www.frontiersin.org/articles/10.3389/fmicb.2023.1331233<span>}</span></span>,\n  <span>doi</span>     = <span><span>{</span>10.3389/fmicb.2023.1331233<span>}</span></span>,\n  <span>issn</span>    = <span><span>{</span>1664-302X<span>}</span></span>\n}</pre>\n<div>&nbsp;</div>\n<div dir=\"auto\">\n<h1>Containers for Phage Lifestyle Prediction Tools</h1>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#containers-for-phage-lifestyle-prediction-tools\"></a></div>\n<div dir=\"auto\">\n<h2>Overview</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#overview-2\"></a></div>\n<p dir=\"auto\">This repository contains containerized versions of various phage lifestyle prediction tools. These containers are built using Singularity/Apptainer and Docker to facilitate easy deployment, reproducibility, and compatibility across different computing environments.</p>\n<p dir=\"auto\">The available containers include:</p>\n<ul>\n<li><strong>BACPHLIP</strong></li>\n<li><strong>PhaTYP</strong></li>\n<li><strong>PhagePred</strong></li>\n<li><strong>DeePhage</strong></li>\n<li><strong>DNABERT2</strong></li>\n</ul>\n<p dir=\"auto\">Each container encapsulates all dependencies required to run the respective tool, allowing users to execute the tools without worrying about installation complexities.</p>\n\n\n<div dir=\"auto\">\n<h1>Containers for Phage Lifestyle Prediction Tools</h1>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#containers-for-phage-lifestyle-prediction-tools-1\"></a></div>\n<p dir=\"auto\">The containers are availabel in the previous version 3: <a href=\"https://zenodo.org/records/13959905/files/apptainers.tar.bz2?download=1\" rel=\"nofollow\">https://zenodo.org/records/13959905/files/apptainers.tar.bz2?download=1</a></p>\n<div dir=\"auto\">\n<h2>Overview</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#overview-3\"></a></div>\n<p dir=\"auto\">This directory contains Singularity (Apptainer) containers for various phage lifestyle prediction tools used in the ProkBERT PhaStyle project. These containers encapsulate the required environments and dependencies, ensuring reproducibility and ease of use across different computational platforms.</p>\n<div dir=\"auto\">\n<h2>Directory Structure</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#directory-structure\"></a></div>\n<p dir=\"auto\">The containers are organized as follows:</p>\n<ul>\n<li><code>containers/</code>\n<ul>\n<li><code>bacphlip/</code>\n<ul>\n<li><code>bacphlip.sif</code></li>\n<li><code>bacphlip.def</code></li>\n<li>Additional files and data related to BACPHLIP</li>\n</ul>\n</li>\n<li><code>phagepred/</code>\n<ul>\n<li><code>phagepred.sif</code></li>\n<li><code>phagepred.def</code></li>\n<li>Additional files and data related to PhagePred</li>\n</ul>\n</li>\n<li><code>dnabert2/</code>\n<ul>\n<li><code>prokbertdnabert.sif</code></li>\n<li><code>prokbertdnabert.def</code></li>\n</ul>\n</li>\n<li><code>deepphage/</code>\n<ul>\n<li><code>deephage.sif</code></li>\n<li><code>DeePhage/</code></li>\n<li>Additional files and data related to DeePhage</li>\n</ul>\n</li>\n<li><code>phatyp/</code>\n<ul>\n<li><code>phatyp.sif</code></li>\n<li><code>model/</code></li>\n<li>Additional files and data related to PhaTYP</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n<div dir=\"auto\">\n<h2>Containers and Methods</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#containers-and-methods\"></a></div>\n<div dir=\"auto\">\n<h3>1. BACPHLIP</h3>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#1-bacphlip\"></a></div>\n<ul>\n<li><strong>Container</strong>: <code>bacphlip.sif</code></li>\n<li><strong>Definition File</strong>: <code>bacphlip.def</code></li>\n<li><strong>Description</strong>: BACPHLIP (Bacteriophage Lifestyle Predictor) is a tool designed to predict the lifestyle of phages (temperate or virulent) based on sequence data. It utilizes Hidden Markov Models (HMMs) to identify integrase genes and other markers indicative of temperate phages. A random forest classifier is then applied to make the final prediction.</li>\n<li><strong>Additional Information</strong>: This container includes all necessary dependencies and the BACPHLIP software, providing a consistent environment for running predictions.</li>\n</ul>\n<div dir=\"auto\">\n<h3>2. PhagePred</h3>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#2-phagepred\"></a></div>\n<ul>\n<li><strong>Container</strong>: <code>phagepred.sif</code></li>\n<li><strong>Definition File</strong>: <code>phagepred.def</code></li>\n<li><strong>Description</strong>: PhagePred is a machine learning-based tool for predicting phage lifestyles using k-mer frequency features extracted from phage genomes. It employs statistical methods and clustering algorithms to classify phages as lytic (virulent) or lysogenic (temperate).</li>\n<li><strong>Additional Information</strong>: The container packages the PhagePred software along with its dependencies, facilitating seamless execution.</li>\n</ul>\n<div dir=\"auto\">\n<h3>3. DNABERT2</h3>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#3-dnabert2\"></a></div>\n<ul>\n<li><strong>Container</strong>: <code>prokbertdnabert.sif</code></li>\n<li><strong>Definition File</strong>: <code>prokbertdnabert.def</code></li>\n<li><strong>Description</strong>: DNABERT2 is a transformer-based deep learning model specifically designed for DNA sequence classification tasks. In this project, DNABERT2 has been fine-tuned for phage lifestyle prediction, leveraging its ability to capture long-range dependencies in DNA sequences.</li>\n<li><strong>Additional Information</strong>: The container provides an isolated environment with all dependencies, enabling the use of DNABERT2 without complex setup.</li>\n</ul>\n<div dir=\"auto\">\n<h3>4. DeePhage</h3>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#4-deephage\"></a></div>\n<ul>\n<li><strong>Container</strong>: <code>deephage.sif</code></li>\n<li><strong>Definition Files</strong>: <code>DeePhage.def</code>, <code>Dockerfile</code></li>\n<li><strong>Description</strong>: DeePhage is a deep learning framework that predicts phage lifestyles using convolutional neural networks (CNNs). It processes genomic sequences to classify phages into lytic or lysogenic categories based on sequence patterns.</li>\n<li><strong>Additional Information</strong>: The container includes the DeePhage software, the MATLAB Compiler Runtime (required for execution), and all other necessary dependencies.</li>\n</ul>\n<div dir=\"auto\">\n<h3>5. PhaTYP</h3>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#5-phatyp\"></a></div>\n<ul>\n<li><strong>Container</strong>: <code>phatyp.sif</code></li>\n<li><strong>Description</strong>: PhaTYP is a tool that predicts both phage types and their bacterial hosts using genomic sequence features and machine learning algorithms. It analyzes k-mer compositions and employs a random forest classifier for lifestyle prediction.</li>\n<li><strong>Additional Information</strong>: The container encapsulates the PhaTYP software along with pre-trained models and dependencies.</li>\n</ul>\n<div dir=\"auto\">\n<h2>Notes</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#notes\"></a></div>\n<ul>\n<li><strong>Usage</strong>: Each container is built to ensure compatibility and ease of use. By using these containers, users can avoid dependency conflicts and focus on running phage lifestyle predictions.</li>\n<li><strong>Dependencies</strong>: The containers are built using Singularity (Apptainer). Ensure that Singularity is installed on your system to run these containers.</li>\n<li><strong>Licensing</strong>: Please refer to each tool's individual license for terms of use and distribution.</li>\n</ul>\n<div dir=\"auto\">\n<h2>References</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#references\"></a></div>\n<ul>\n<li><strong>BACPHLIP</strong>: <a href=\"https://github.com/adamhockenberry/bacphlip\">BACPHLIP GitHub Repository</a></li>\n<li><strong>PhagePred</strong>: <a href=\"https://github.com/songkai1987/PhagePred\">PhagePred GitHub Repository</a></li>\n<li><strong>DNABERT2</strong>: <a href=\"https://github.com/MAGICS-LAB/DNABERT_2\">DNABERT2 GitHub Repository</a></li>\n<li><strong>DeePhage</strong>: <a href=\"https://github.com/shufangwu/DeePhage\">DeePhage GitHub Repository</a></li>\n<li><strong>PhaTYP</strong>: <a href=\"https://github.com/KennthShang/PhaTYP\">PhaTYP GitHub Repository</a></li>\n</ul>\n<div dir=\"auto\">\n<h2>Contact Information</h2>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#contact-information\"></a></div>\n<p dir=\"auto\">For questions or further assistance, please contact the project maintainers or open an issue in the repository.</p>\n\n\n<p dir=\"auto\"><em>Note: This README provides a concise description of each container and the associated phage lifestyle prediction tool. It is intended to help users understand the purpose of each container and how they fit into the ProkBERT PhaStyle project.</em></p>\n<div dir=\"auto\">\n<h1>License</h1>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#license\"></a></div>\n<p dir=\"auto\">These datasets are provided under the CC BY-NC-SA 4.0 license. You are free to use, share, and adapt the material for non-commercial purposes, provided you give appropriate credit and distribute your contributions under the same license</p>\n<div dir=\"auto\">\n<h1>Contact</h1>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#contact\"></a></div>\n<p dir=\"auto\">For questions, feedback, or collaboration opportunities, please contact:</p>\n<ul>\n<li><strong>Bal&aacute;zs Ligeti</strong> (Corresponding Author)\n<ul>\n<li>Email: <a href=\"mailto:obalasz@gmail.com\">obalasz@gmail.com</a></li>\n<li>ORCID: <a href=\"https://orcid.org/0000-0003-0301-0434\" rel=\"nofollow\">0000-0003-0301-0434</a></li>\n</ul>\n</li>\n</ul>\n<div dir=\"auto\">\n<h1>References</h1>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#references-1\"></a></div>\n<p dir=\"auto\">If you use these datasets in your research, please cite:</p>\n<div dir=\"auto\">\n<pre><span>@article</span>{<span>ProkBERT2024</span>,\n  <span>author</span>  = <span><span>{</span>Ligeti, Bal{\\'a}zs and Szepesi-Nagy, Istv{\\'a}n and Bodn{\\'a}r, Babett and Ligeti-Nagy, No{\\'e}mi and Juh{\\'a}sz, J{\\'a}nos<span>}</span></span>,\n  <span>journal</span> = <span><span>{</span>Frontiers in Microbiology<span>}</span></span>,\n  <span>title</span>   = <span><span>{</span>{ProkBERT} PhaStyle: Genomic language models for phage lifestyle prediction<span>}</span></span>,\n  <span>year</span>    = <span><span>{</span>2024<span>}</span></span>,\n  <span>volume</span>  = <span><span>{</span>14<span>}</span></span>,\n  <span>url</span>     = <span><span>{</span>https://www.frontiersin.org/articles/10.3389/fmicb.2023.1331233<span>}</span></span>,\n  <span>doi</span>     = <span><span>{</span>10.3389/fmicb.2023.1331233<span>}</span></span>,\n  <span>issn</span>    = <span><span>{</span>1664-302X<span>}</span></span>\n}</pre>\n<div>&nbsp;</div>\n</div>\n<div dir=\"auto\">\n<h1>License</h1>\n<a href=\"https://github.com/obalasz/sdfdfsfsd/blob/main/README.md#license-1\"></a></div>\nThese datasets are provided under the CC BY-NC-SA 4.0 license. You are free to use, share, and adapt the material for non-commercial purposes, provided you give appropriate credit and distribute your contributions under the same license</div>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Ligeti, Bal\u00e1zs",
+            "affiliation": null,
+            "orcid": "0000-0003-0301-0434"
+          }
+        ],
+        "contributors": [
+          {
+            "name": "Ligeti, Bal\u00e1zs",
+            "affiliation": null,
+            "type": "ContactPerson",
+            "orcid": "0000-0003-0301-0434"
+          }
+        ],
+        "keywords": [
+          "Phage lifestyle",
+          "Microbiome",
+          "metagenomics",
+          "Genomic language models",
+          "ProkBERT",
+          "Phage",
+          "Nucleotide transformer",
+          "DNABERT",
+          "Deep learning"
+        ],
+        "dates": [
+          {
+            "type": "submitted"
+          }
+        ],
+        "custom": {
+          "code:codeRepository": "https://github.com/nbrg-ppcu/PhaStyle"
+        },
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-sa-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 3,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "11482774"
+              }
+            }
+          ]
+        }
+      },
+      "title": "ProkBERT PhaStyle",
+      "links": {
+        "self": "https://zenodo.org/api/records/15656114",
+        "self_html": "https://zenodo.org/records/15656114",
+        "preview_html": "https://zenodo.org/records/15656114?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.15656114",
+        "self_doi": "https://doi.org/10.5281/zenodo.15656114",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.15656114",
+        "reserve_doi": "https://zenodo.org/api/records/15656114/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/11482774",
+        "parent_html": "https://zenodo.org/records/11482774",
+        "parent_doi": "https://doi.org/10.5281/zenodo.11482774",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.11482774",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:15656114/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:15656114/sequence/default",
+        "files": "https://zenodo.org/api/records/15656114/files",
+        "media_files": "https://zenodo.org/api/records/15656114/media-files",
+        "archive": "https://zenodo.org/api/records/15656114/files-archive",
+        "archive_media": "https://zenodo.org/api/records/15656114/media-files-archive",
+        "latest": "https://zenodo.org/api/records/15656114/versions/latest",
+        "latest_html": "https://zenodo.org/records/15656114/latest",
+        "versions": "https://zenodo.org/api/records/15656114/versions",
+        "draft": "https://zenodo.org/api/records/15656114/draft",
+        "access_links": "https://zenodo.org/api/records/15656114/access/links",
+        "access_grants": "https://zenodo.org/api/records/15656114/access/grants",
+        "access_users": "https://zenodo.org/api/records/15656114/access/users",
+        "access_request": "https://zenodo.org/api/records/15656114/access/request",
+        "access": "https://zenodo.org/api/records/15656114/access",
+        "communities": "https://zenodo.org/api/records/15656114/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/15656114/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/15656114/request-deletion",
+        "requests": "https://zenodo.org/api/records/15656114/requests"
+      },
+      "updated": "2025-06-13T15:25:01.466928+00:00",
+      "recid": "15656114",
+      "revision": 4,
+      "files": [
+        {
+          "id": "2d062c26-83d2-4f06-b203-be1bc84f7b32",
+          "key": "zenodo_phagelifestyle_models.tar.bz2",
+          "size": 5410907760,
+          "checksum": "md5:f22573d35ba4b4770eda0832cd6b9f2c",
+          "links": {
+            "self": "https://zenodo.org/api/records/15656114/files/zenodo_phagelifestyle_models.tar.bz2/content"
+          }
+        },
+        {
+          "id": "a8e34eea-c4c3-4243-9b3d-30e327a919e4",
+          "key": "viralcheckm.tar.bz2",
+          "size": 485996062,
+          "checksum": "md5:6b7618a463be695c1f238cc16e22f84f",
+          "links": {
+            "self": "https://zenodo.org/api/records/15656114/files/viralcheckm.tar.bz2/content"
+          }
+        },
+        {
+          "id": "16b88e27-6ad7-44e9-9664-d50bca31b808",
+          "key": "hf_datasets.tar.bz2",
+          "size": 1472948593,
+          "checksum": "md5:81c43cb024af109f4757bb8127aed058",
+          "links": {
+            "self": "https://zenodo.org/api/records/15656114/files/hf_datasets.tar.bz2/content"
+          }
+        },
+        {
+          "id": "3fd5f4ac-6e17-45d1-838c-a2cb3f1a19d1",
+          "key": "FastANI_results.tsv",
+          "size": 124661824,
+          "checksum": "md5:729f2a4e21f156db0518c91557aa0525",
+          "links": {
+            "self": "https://zenodo.org/api/records/15656114/files/FastANI_results.tsv/content"
+          }
+        },
+        {
+          "id": "eecf5bd0-80be-41da-8427-43d860dc1df4",
+          "key": "sequencedb.fasta",
+          "size": 338380958,
+          "checksum": "md5:0bbbed7546411f0eeee315570884c05d",
+          "links": {
+            "self": "https://zenodo.org/api/records/15656114/files/sequencedb.fasta/content"
+          }
+        },
+        {
+          "id": "29ca7c73-a27c-49b8-b63a-7c082c812be2",
+          "key": "test_sequencedb.fasta",
+          "size": 350876997,
+          "checksum": "md5:9e9379df3d5b74fcb94aae6548e93c08",
+          "links": {
+            "self": "https://zenodo.org/api/records/15656114/files/test_sequencedb.fasta/content"
+          }
+        },
+        {
+          "id": "315ad4c0-8d89-40e1-b596-efec76fdd651",
+          "key": "prediction_scores.tsv",
+          "size": 479521886,
+          "checksum": "md5:9c4267952c19bb2853b96afa413db491",
+          "links": {
+            "self": "https://zenodo.org/api/records/15656114/files/prediction_scores.tsv/content"
+          }
+        },
+        {
+          "id": "09b03b61-725c-4921-bd29-ffb4d44898ca",
+          "key": "README.md",
+          "size": 18625,
+          "checksum": "md5:29ac670afd6b7418f4023a1ff77c605d",
+          "links": {
+            "self": "https://zenodo.org/api/records/15656114/files/README.md/content"
+          }
+        },
+        {
+          "id": "1b5695a7-9d41-4ff5-ace4-9c54be85ff76",
+          "key": "prediction_scores_sequences.tsv",
+          "size": 1463513,
+          "checksum": "md5:87d92d3c5c074b4f8646fd3786eda3f0",
+          "links": {
+            "self": "https://zenodo.org/api/records/15656114/files/prediction_scores_sequences.tsv/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "200897"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 85,
+        "unique_downloads": 73,
+        "views": 155,
+        "unique_views": 137,
+        "version_downloads": 46,
+        "version_unique_downloads": 36,
+        "version_unique_views": 28,
+        "version_views": 29
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2023-09-18T19:30:36.179029+00:00",
+      "modified": "2023-09-19T02:27:06.416746+00:00",
+      "id": 8357021,
+      "conceptrecid": "8357020",
+      "doi": "10.5281/zenodo.8357021",
+      "conceptdoi": "10.5281/zenodo.8357020",
+      "doi_url": "https://doi.org/10.5281/zenodo.8357021",
+      "metadata": {
+        "title": "Trove of Gut Virus Genomes (TGVG)",
+        "doi": "10.5281/zenodo.8357021",
+        "publication_date": "2023-09-18",
+        "description": "<p>&nbsp;</p>\n\n<p><strong>TGVG_v1.1.genomes.all.fna</strong></p>\n\n<p>Sequences from the Gut Virome Database, the Cenote Human Virome Database, the Metagenomic Gut Virus catalog, and the Gut Phage Database&nbsp;were downloaded and dereplicated at 95% average nucleotide identity (ANI) across 85% alignment fraction (AF) using anicalc.py and aniclust.py from the CheckV (version 0.9.0) package, in line with metagenomic virus sequence community standards. Exemplar sequences from each cluster/singleton from the input sequences were kept and ran through Cenote-Taker 2 (version 2.1.5) to predict virus hallmark genes within each sequence using the &lsquo;virion&rsquo; hallmark gene database. Sequences were kept if they 1) encoded direct terminal repeats (signature of complete virus genome), one or more virus hallmark genes, and were over 1.5 kilobases or longer, or 2) encoded 2 or more virus hallmark genes and were over 12 kilobases. Sequences passing this threshold were run through CheckV to remove flanking host (bacterial) sequences and quantify the virus gene/bacteria gene ratio for each contig. Sequences with 3 or fewer virus genes and 3 or more bacterial genes after pruning/were discarded. Finally, sequences passing this threshold were dereplicated again with CheckV scripts at 95% ANI and 85% AF to yield the Trove of Gut Virus Genomes of 110,296 genomes/genome fragments each representing a viral SGB.</p>\n\n<p>&nbsp;</p>\n\n<p><strong>TGVG_v1.1_metadata.tsv</strong></p>\n\n<p>For each sequence in the Trove of Gut Virus Genomes CheckV was used to estimate completeness, ipHOP (version 1.1.0)&nbsp;was used to predict bacterial/archael host genus. Bacphlip (version 0.9.3) was run on each of the sequences predicted to be 90% or more complete to predict phage virulence.<br>\nvConTACT2 (version 0.11.3)&nbsp;was used to cluster viral SGBs from the Trove of Gut Virus Genomes into virus clusters. In addition to viral SGBs with vConTACT2 &ldquo;Singleton&rdquo; labels, viral SGBs with vConTACT2 labels &ldquo;Unassigned&rdquo;, &ldquo;Outlier&rdquo;, &ldquo;Overlap&rdquo;, &ldquo;Clustered/Singleton&rdquo; were also considered &ldquo;Singletons&rdquo; for downstream analysis.&nbsp;Genomad (version 1.5.2) taxonomy module was run on each sequence to obtain taxonomical assignment at the phylum, class, order, and family levels.<br>\n&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Tisza, Michael",
+            "affiliation": "Baylor College of Medicine",
+            "orcid": "0000-0003-1168-1617"
+          }
+        ],
+        "version": "v1.1",
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "8357020"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Trove of Gut Virus Genomes (TGVG)",
+      "links": {
+        "self": "https://zenodo.org/api/records/8357021",
+        "self_html": "https://zenodo.org/records/8357021",
+        "preview_html": "https://zenodo.org/records/8357021?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.8357021",
+        "self_doi": "https://doi.org/10.5281/zenodo.8357021",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.8357021",
+        "reserve_doi": "https://zenodo.org/api/records/8357021/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/8357020",
+        "parent_html": "https://zenodo.org/records/8357020",
+        "parent_doi": "https://doi.org/10.5281/zenodo.8357020",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.8357020",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:8357021/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:8357021/sequence/default",
+        "files": "https://zenodo.org/api/records/8357021/files",
+        "media_files": "https://zenodo.org/api/records/8357021/media-files",
+        "archive": "https://zenodo.org/api/records/8357021/files-archive",
+        "archive_media": "https://zenodo.org/api/records/8357021/media-files-archive",
+        "latest": "https://zenodo.org/api/records/8357021/versions/latest",
+        "latest_html": "https://zenodo.org/records/8357021/latest",
+        "versions": "https://zenodo.org/api/records/8357021/versions",
+        "draft": "https://zenodo.org/api/records/8357021/draft",
+        "access_links": "https://zenodo.org/api/records/8357021/access/links",
+        "access_grants": "https://zenodo.org/api/records/8357021/access/grants",
+        "access_users": "https://zenodo.org/api/records/8357021/access/users",
+        "access_request": "https://zenodo.org/api/records/8357021/access/request",
+        "access": "https://zenodo.org/api/records/8357021/access",
+        "communities": "https://zenodo.org/api/records/8357021/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/8357021/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/8357021/request-deletion",
+        "requests": "https://zenodo.org/api/records/8357021/requests"
+      },
+      "updated": "2023-09-19T02:27:06.416746+00:00",
+      "recid": "8357021",
+      "revision": 2,
+      "files": [
+        {
+          "id": "bcf20d73-dd5b-4f7f-821e-37dffa559d1e",
+          "key": "TGVG_v1.1.tar.gz",
+          "size": 1275121014,
+          "checksum": "md5:8b6a05d7892f5951a213aef8a3a02870",
+          "links": {
+            "self": "https://zenodo.org/api/records/8357021/files/TGVG_v1.1.tar.gz/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "90530"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 34,
+        "unique_downloads": 33,
+        "views": 360,
+        "unique_views": 351,
+        "version_downloads": 32,
+        "version_unique_downloads": 31,
+        "version_unique_views": 342,
+        "version_views": 350
+      },
+      "state": "done",
+      "submitted": true
+    },
+    {
+      "created": "2020-09-29T16:40:05.070302+00:00",
+      "modified": "2020-09-30T00:26:50.738852+00:00",
+      "id": 4058664,
+      "conceptrecid": "4058663",
+      "doi": "10.5281/zenodo.4058664",
+      "conceptdoi": "10.5281/zenodo.4058663",
+      "doi_url": "https://doi.org/10.5281/zenodo.4058664",
+      "metadata": {
+        "title": "Dataset for: \"BACPHLIP: Predicting bacteriophage lifestyle from conserved protein domains\"",
+        "doi": "10.5281/zenodo.4058664",
+        "publication_date": "2020-09-29",
+        "description": "<p>This is the dataset used in the manuscript titled&nbsp;&quot;BACPHLIP: Predicting bacteriophage lifestyle from conserved protein domains&quot;. The dataset is necessary to run the code that can be found at&nbsp;<a href=\"https://github.com/adamhockenberry/dca-weighting\">https://github.com/adamhockenberry/bacphlip-model-dev</a>&nbsp;and outside of the context of the code this data will likely not be super well-annotated or helpful. The code within that repository, however, should provide sufficient information about the structure and usage of this dataset.&nbsp;</p>",
+        "access_right": "open",
+        "creators": [
+          {
+            "name": "Hockenberry, Adam J",
+            "affiliation": "The University of Texas at Austin",
+            "orcid": "0000-0001-9476-0104"
+          },
+          {
+            "name": "Wilke, Claus O",
+            "affiliation": "The University of Texas at Austin",
+            "orcid": "0000-0002-7470-9261"
+          }
+        ],
+        "version": "initial-submission",
+        "resource_type": {
+          "title": "Dataset",
+          "type": "dataset"
+        },
+        "license": {
+          "id": "cc-by-4.0"
+        },
+        "relations": {
+          "version": [
+            {
+              "index": 0,
+              "is_last": true,
+              "parent": {
+                "pid_type": "recid",
+                "pid_value": "4058663"
+              }
+            }
+          ]
+        }
+      },
+      "title": "Dataset for: \"BACPHLIP: Predicting bacteriophage lifestyle from conserved protein domains\"",
+      "links": {
+        "self": "https://zenodo.org/api/records/4058664",
+        "self_html": "https://zenodo.org/records/4058664",
+        "preview_html": "https://zenodo.org/records/4058664?preview=1",
+        "doi": "https://doi.org/10.5281/zenodo.4058664",
+        "self_doi": "https://doi.org/10.5281/zenodo.4058664",
+        "self_doi_html": "https://zenodo.org/doi/10.5281/zenodo.4058664",
+        "reserve_doi": "https://zenodo.org/api/records/4058664/draft/pids/doi",
+        "parent": "https://zenodo.org/api/records/4058663",
+        "parent_html": "https://zenodo.org/records/4058663",
+        "parent_doi": "https://doi.org/10.5281/zenodo.4058663",
+        "parent_doi_html": "https://zenodo.org/doi/10.5281/zenodo.4058663",
+        "self_iiif_manifest": "https://zenodo.org/api/iiif/record:4058664/manifest",
+        "self_iiif_sequence": "https://zenodo.org/api/iiif/record:4058664/sequence/default",
+        "files": "https://zenodo.org/api/records/4058664/files",
+        "media_files": "https://zenodo.org/api/records/4058664/media-files",
+        "archive": "https://zenodo.org/api/records/4058664/files-archive",
+        "archive_media": "https://zenodo.org/api/records/4058664/media-files-archive",
+        "latest": "https://zenodo.org/api/records/4058664/versions/latest",
+        "latest_html": "https://zenodo.org/records/4058664/latest",
+        "versions": "https://zenodo.org/api/records/4058664/versions",
+        "draft": "https://zenodo.org/api/records/4058664/draft",
+        "access_links": "https://zenodo.org/api/records/4058664/access/links",
+        "access_grants": "https://zenodo.org/api/records/4058664/access/grants",
+        "access_users": "https://zenodo.org/api/records/4058664/access/users",
+        "access_request": "https://zenodo.org/api/records/4058664/access/request",
+        "access": "https://zenodo.org/api/records/4058664/access",
+        "communities": "https://zenodo.org/api/records/4058664/communities",
+        "communities-suggestions": "https://zenodo.org/api/records/4058664/communities-suggestions",
+        "request_deletion": "https://zenodo.org/api/records/4058664/request-deletion",
+        "requests": "https://zenodo.org/api/records/4058664/requests"
+      },
+      "updated": "2020-09-30T00:26:50.738852+00:00",
+      "recid": "4058664",
+      "revision": 2,
+      "files": [
+        {
+          "id": "fcbebd48-5b3b-4e26-b33c-ce986e5d3a4e",
+          "key": "Data.zip",
+          "size": 277614284,
+          "checksum": "md5:3c9a9bfc951952973cbe05792b57da61",
+          "links": {
+            "self": "https://zenodo.org/api/records/4058664/files/Data.zip/content"
+          }
+        }
+      ],
+      "swh": null,
+      "owners": [
+        {
+          "id": "47881"
+        }
+      ],
+      "status": "published",
+      "stats": {
+        "downloads": 105,
+        "unique_downloads": 91,
+        "views": 571,
+        "unique_views": 553,
+        "version_downloads": 103,
+        "version_unique_downloads": 89,
+        "version_unique_views": 547,
+        "version_views": 564
+      },
+      "state": "done",
+      "submitted": true
+    }
+  ]
+}
