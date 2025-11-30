@@ -47,8 +47,8 @@ jobs:
           cd mkdocs
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          mike deploy --config-file mkdocs.yml --branch gh-pages --deploy-prefix '' --update-aliases 1.0.0 latest
-          mike set-default --config-file mkdocs.yml --branch gh-pages --deploy-prefix '' 1.0.0
+          mike deploy --config-file mkdocs.yml --branch gh-pages --deploy-prefix 'docs' --update-aliases 1.0.0 latest
+          mike set-default --config-file mkdocs.yml --branch gh-pages --deploy-prefix 'docs' 1.0.0
       
       - name: Checkout gh-pages branch with MkDocs content
         uses: actions/checkout@v4
