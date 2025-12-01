@@ -11,7 +11,7 @@
 
 ## What is Awesome-Virome?
 
-A comprehensive, curated database of **300+ software tools** for virome analysis - the study of viral communities in various environments. This repository helps researchers navigate the complex landscape of tools for analyzing phages, viruses, and their interactions with hosts.
+A comprehensive, curated database of **302+ software tools** for virome analysis - the study of viral communities in various environments. This repository helps researchers navigate the complex landscape of tools for analyzing phages, viruses, and their interactions with hosts.
 
 **🎯 Perfect for:**
 - Researchers new to virome analysis seeking guidance
@@ -20,7 +20,7 @@ A comprehensive, curated database of **300+ software tools** for virome analysis
 - Students learning computational virology
 
 **🚀 Key Features:**
-- Curated collection of 300+ tools across 8 major categories
+- Curated collection of 302+ tools across 8 major categories (including 10 new 2025 tools)
 - Interactive dashboard with visualization and analytics
 - Tool comparison matrix with filtering and export
 - Automated metadata collection from GitHub/GitLab/Bitbucket
@@ -47,7 +47,7 @@ Don't just read about tools - **explore them visually!** Our interactive web app
 
 ### [📊 Interactive Dashboard](https://shandley.github.io/awesome-virome/dashboard.html)
 Visualize the entire virome analysis ecosystem at a glance:
-- **Tool Categorization Treemap** - See how 300+ tools are distributed across categories
+- **Tool Categorization Treemap** - See how 302+ tools are distributed across categories
 - **Interactive Network Graph** - Explore relationships between tools and categories
 - **Timeline Visualization** - Track the evolution of viral analysis tools over time
 - **Technology Trends** - Analyze programming language usage across the collection
