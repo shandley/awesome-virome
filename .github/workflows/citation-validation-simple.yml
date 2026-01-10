@@ -1,0 +1,99 @@
+name: Citation Data Validation
+
+on:
+  # Run after dashboard update workflow completes
+  workflow_run:
+    workflows:
+      - "Dashboard Data Update"
+    types:
+      - completed
+    branches:
+      - main
+  
+  # Run weekly
+  schedule:
+    # Run every Sunday at 12:00 UTC (after basic repository updates)
+    - cron: "0 12 * * 0"
+  
+  # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      skip_doi_check:
+        description: 'Skip DOI online validation (faster)'
+        type: boolean
+        default: false
+      auto_fix:
+        description: 'Automatically fix DOI format issues'
+        type: boolean
+        default: true
+
+# Permissions needed for creating and managing PRs
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  validate-citations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # Fetch all history for proper branch creation
+          fetch-depth: 0
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+          pip install PyGithub
+      
+      - name: Setup GitHub CLI
+        run: |
+          # Authenticate with GitHub CLI
+          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+      
+      - name: Run citation validation
+        id: validate
+        run: |
+          # Build command with appropriate arguments
+          CMD="python scripts/validate_citations.py --report"
+          
+          # Add skip DOI check if specified
+          if [[ "${{ github.event.inputs.skip_doi_check }}" == "true" ]]; then
+            CMD="$CMD --skip-doi-check"
+          fi
+          
+          # Add auto-fix if specified
+          if [[ "${{ github.event.inputs.auto_fix }}" == "true" ]]; then
+            CMD="$CMD --auto-fix"
+          fi
+          
+          # For scheduled or workflow_run events, use default settings (auto-fix enabled)
+          if [[ "${{ github.event_name }}" == "schedule" || "${{ github.event_name }}" == "workflow_run" ]]; then
+            CMD="$CMD --auto-fix"
+          fi
+          
+          # Run the command
+          echo "Running: $CMD"
+          $CMD
+      
+      - name: Upload validation report
+        uses: actions/upload-artifact@v4
+        with:
+          name: citation-validation-report
+          path: |
+            reports/citation_validation.json
+            reports/citation_validation_report.md
+      
+      - name: Process validation results and create PR
+        if: success()
+        run: |
+          # Run a dedicated script to handle PR creation
+          python scripts/process_citation_validation.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
