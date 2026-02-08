@@ -1,12 +1,12 @@
 {
-  "cache_date": "2026-01-04T08:30:25.722592",
+  "cache_date": "2026-02-08T08:36:53.859627",
   "data": [
     {
-      "url": "https://api.github.com/repos/nf-core/viralmetagenome/releases/267753541",
-      "assets_url": "https://api.github.com/repos/nf-core/viralmetagenome/releases/267753541/assets",
-      "upload_url": "https://uploads.github.com/repos/nf-core/viralmetagenome/releases/267753541/assets{?name,label}",
-      "html_url": "https://github.com/nf-core/viralmetagenome/releases/tag/1.0.1",
-      "id": 267753541,
+      "url": "https://api.github.com/repos/nf-core/viralmetagenome/releases/279434853",
+      "assets_url": "https://api.github.com/repos/nf-core/viralmetagenome/releases/279434853/assets",
+      "upload_url": "https://uploads.github.com/repos/nf-core/viralmetagenome/releases/279434853/assets{?name,label}",
+      "html_url": "https://github.com/nf-core/viralmetagenome/releases/tag/1.1.0",
+      "id": 279434853,
       "author": {
         "login": "Joon-Klaps",
         "id": 61584065,
@@ -28,20 +28,20 @@
         "user_view_type": "public",
         "site_admin": false
       },
-      "node_id": "RE_kwDOIw-IrM4P9ZhF",
-      "tag_name": "1.0.1",
+      "node_id": "RE_kwDOIw-IrM4Qp9Zl",
+      "tag_name": "1.1.0",
       "target_commitish": "master",
-      "name": "1.0.1 - Khaki Quail",
+      "name": "v1.1.0 - Virid Hen",
       "draft": false,
       "immutable": false,
       "prerelease": false,
-      "created_at": "2025-12-05T12:47:37Z",
-      "updated_at": "2025-12-05T12:59:45Z",
-      "published_at": "2025-12-05T12:59:45Z",
+      "created_at": "2026-01-23T16:24:56Z",
+      "updated_at": "2026-01-23T16:34:30Z",
+      "published_at": "2026-01-23T16:34:30Z",
       "assets": [],
-      "tarball_url": "https://api.github.com/repos/nf-core/viralmetagenome/tarball/1.0.1",
-      "zipball_url": "https://api.github.com/repos/nf-core/viralmetagenome/zipball/1.0.1",
-      "body": "## v1.0.1 - 2025-12-03\r\n\r\n### `Added`\r\n\r\n- Update modules ([#237](https://github.com/nf-core/viralmetagenome/pull/237)) (by @Joon-Klaps)\r\n\r\n### `Fixed`\r\n\r\n- Template merge from nf-core/tools v3.5.1 ([#236](https://github.com/nf-core/viralmetagenome/pull/236)) (by @Joon-Klaps)\r\n- Fix bug with numeric sample ids in custom_multiqc.py module ([#243](https://github.com/nf-core/viralmetagenome/pull/243)) (by @Joon-Klaps)\r\n- Fix runtime environment migration of `network_cluster` from custom docker repo to seqera containers ([#247](https://github.com/nf-core/viralmetagenome/pull/247)) (by @Joon-Klaps)\r\n\r\n### `Dependencies`\r\n\r\n| Dependency         | Old version | New version |\r\n| ------------------ | ----------- | ----------- |\r\n| `bcftools`         | 1.21        | 1.22        |\r\n| `blast`            | 2.16.0      | 2.17.0      |\r\n| `bwa-mem2`         | 2.2.1       | 2.3         |\r\n| `coreutils`        | 9.4         | 9.5         |\r\n| `fastp`            | 0.24.0      | 1.0.1       |\r\n| `htslib`           | 1.21        | 1.22.1      |\r\n| `kraken2`          | 2.1.5       | 2.1.6       |\r\n| `krakentools`      | 1.2         | 1.2.1       |\r\n| `mmseqs2`          | 17.b804f    | 18.8cc5c    |\r\n| `mosdepth`         | 0.3.10      | 0.3.11      |\r\n| `picard`           | 3.3.0       | 3.4.0       |\r\n| `samtools`         | 1.21        | 1.22.1      |\r\n| `snpeff`           | 5.1         | 5.3.0a      |\r\n| `umitools extract` | 1.1.5       | 1.1.6       |\r\n",
+      "tarball_url": "https://api.github.com/repos/nf-core/viralmetagenome/tarball/1.1.0",
+      "zipball_url": "https://api.github.com/repos/nf-core/viralmetagenome/zipball/1.1.0",
+      "body": "## v1.1.0 - 2026-01-23\r\n\r\n### `Added`\r\n\r\n- Add subworkflow tests of `fasta_fastq_clust` and `fasta_contig_clust` [#253](https://github.com/nf-core/viralmetagenome/pull/253) (by @Joon-Klaps)\r\n- Add subworkflow tests for `preprocessing_illumina` and `fastq_fastqc_umitools_trimmomatic` [#255](https://github.com/nf-core/viralmetagenome/pull/255) (by @Joon-Klaps)\r\n\r\n### `Fixed`\r\n\r\n- Fix memory issues for `network_cluster` [#105](https://github.com/nf-core/viralmetagenome/issues/105) by switching to Clusty [#251](https://github.com/nf-core/viralmetagenome/pull/251) (by @Joon-Klaps)\r\n- Improve memory efficiency and speed of FASTA sequence extraction [#252](https://github.com/nf-core/viralmetagenome/pull/252) (by @Joon-Klaps)\r\n- Fix bug of `clusty` not handling single genome distance files well [#253](https://github.com/nf-core/viralmetagenome/pull/253) (by @Joon-Klaps)\r\n- Fix reported trimmomatic bug [#254](https://github.com/nf-core/viralmetagenome/issues/254) 'no such variable \"trim_read_count\"' [#255](https://github.com/nf-core/viralmetagenome/pull/255) (by @Joon-Klaps)\r\n- Fix descrepancy of documentation and actual arguments [#256](https://github.com/nf-core/viralmetagenome/pull/256) (by @Joon-Klaps)\r\n- Fix performance issues with `extract_cluster.py` for large datasets [#259](https://github.com/nf-core/viralmetagenome/pull/259) (by @Joon-Klaps)\r\n\r\n### `Dependencies`\r\n\r\n| Dependency | Old version | New version |\r\n| ---------- | ----------- | ----------- |\r\n| `clusty`   | N/A         | 1.2.2       |",
       "mentions_count": 1
     }
   ]
