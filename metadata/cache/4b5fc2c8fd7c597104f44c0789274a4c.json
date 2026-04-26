@@ -1,12 +1,12 @@
 {
-  "cache_date": "2026-03-22T08:42:28.172885",
+  "cache_date": "2026-04-26T09:08:15.536820",
   "data": [
     {
-      "url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/releases/293051050",
-      "assets_url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/releases/293051050/assets",
-      "upload_url": "https://uploads.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/releases/293051050/assets{?name,label}",
-      "html_url": "https://github.com/EBI-Metagenomics/emg-viral-pipeline/releases/tag/v3.3.0",
-      "id": 293051050,
+      "url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/releases/307010609",
+      "assets_url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/releases/307010609/assets",
+      "upload_url": "https://uploads.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/releases/307010609/assets{?name,label}",
+      "html_url": "https://github.com/EBI-Metagenomics/emg-viral-pipeline/releases/tag/v3.3.1",
+      "id": 307010609,
       "author": {
         "login": "mberacochea",
         "id": 1123897,
@@ -28,21 +28,20 @@
         "user_view_type": "public",
         "site_admin": false
       },
-      "node_id": "RE_kwDOD37jYM4Rd5qq",
-      "tag_name": "v3.3.0",
+      "node_id": "RE_kwDOD37jYM4STJwx",
+      "tag_name": "v3.3.1",
       "target_commitish": "master",
-      "name": "v3.3.0",
+      "name": "v3.3.1",
       "draft": false,
       "immutable": false,
       "prerelease": false,
-      "created_at": "2026-03-04T15:58:28Z",
-      "updated_at": "2026-03-04T16:01:47Z",
-      "published_at": "2026-03-04T16:01:47Z",
+      "created_at": "2026-04-09T10:47:18Z",
+      "updated_at": "2026-04-09T10:49:46Z",
+      "published_at": "2026-04-09T10:49:46Z",
       "assets": [],
-      "tarball_url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/tarball/v3.3.0",
-      "zipball_url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/zipball/v3.3.0",
-      "body": "## What's Changed\r\n* Support compressed fasta and user proteins by @mberacochea in https://github.com/EBI-Metagenomics/emg-viral-pipeline/pull/165\r\n* Do not consider fraggenescan proteins in the annotation module by @mberacochea in https://github.com/EBI-Metagenomics/emg-viral-pipeline/pull/166\r\n* Bugfix/write gff missing contigs when user provided proteins by @mberacochea in https://github.com/EBI-Metagenomics/emg-viral-pipeline/pull/167\r\n* Feature/user proteins filter out proteins not in contigs by @mberacochea in https://github.com/EBI-Metagenomics/emg-viral-pipeline/pull/168\r\n\r\n\r\n**Full Changelog**: https://github.com/EBI-Metagenomics/emg-viral-pipeline/compare/v3.2.0...v3.3.0",
-      "mentions_count": 1
+      "tarball_url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/tarball/v3.3.1",
+      "zipball_url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/zipball/v3.3.1",
+      "body": "# Fixed\r\n\r\n- [nf-schema](https://github.com/nextflow-io/nf-schema) plugin was missing from the pipeline dependencies, which broke the pipeline if the plugin was missing from the env. \r\n  It also caused the pipeline to randomly fail at times (the error was during the validation of the parameters) [#169](https://github.com/EBI-Metagenomics/emg-viral-pipeline/pull/169)\r\n"
     }
   ]
 }

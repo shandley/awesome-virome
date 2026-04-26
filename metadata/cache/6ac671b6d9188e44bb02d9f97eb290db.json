@@ -1,12 +1,12 @@
 {
-  "cache_date": "2026-03-22T08:41:31.335916",
+  "cache_date": "2026-04-26T09:07:18.739631",
   "data": [
     {
-      "url": "https://api.github.com/repos/WrightonLabCSU/DRAM/releases/298257310",
-      "assets_url": "https://api.github.com/repos/WrightonLabCSU/DRAM/releases/298257310/assets",
-      "upload_url": "https://uploads.github.com/repos/WrightonLabCSU/DRAM/releases/298257310/assets{?name,label}",
-      "html_url": "https://github.com/WrightonLabCSU/DRAM/releases/tag/v2.0.0-beta27",
-      "id": 298257310,
+      "url": "https://api.github.com/repos/WrightonLabCSU/DRAM/releases/309167479",
+      "assets_url": "https://api.github.com/repos/WrightonLabCSU/DRAM/releases/309167479/assets",
+      "upload_url": "https://uploads.github.com/repos/WrightonLabCSU/DRAM/releases/309167479/assets{?name,label}",
+      "html_url": "https://github.com/WrightonLabCSU/DRAM/releases/tag/v2.0.0-beta28",
+      "id": 309167479,
       "author": {
         "login": "madeline-scyphers",
         "id": 93053005,
@@ -28,20 +28,20 @@
         "user_view_type": "public",
         "site_admin": false
       },
-      "node_id": "RE_kwDOCiVGq84Rxwue",
-      "tag_name": "v2.0.0-beta27",
+      "node_id": "RE_kwDOCiVGq84SbYV3",
+      "tag_name": "v2.0.0-beta28",
       "target_commitish": "dev",
-      "name": "v2.0.0-beta27 Release",
+      "name": "v2.0.0-beta28 Release",
       "draft": false,
       "immutable": false,
       "prerelease": true,
-      "created_at": "2026-03-18T04:26:47Z",
-      "updated_at": "2026-03-18T04:29:41Z",
-      "published_at": "2026-03-18T04:29:41Z",
+      "created_at": "2026-04-15T05:39:33Z",
+      "updated_at": "2026-04-15T07:04:03Z",
+      "published_at": "2026-04-15T05:40:55Z",
       "assets": [],
-      "tarball_url": "https://api.github.com/repos/WrightonLabCSU/DRAM/tarball/v2.0.0-beta27",
-      "zipball_url": "https://api.github.com/repos/WrightonLabCSU/DRAM/zipball/v2.0.0-beta27",
-      "body": "## 2.0.0-beta27 - 2026-03-18\r\n\r\n[f03804b](https://github.com/WrightonLabCSU/DRAM/commit/f03804bca43b15e55731316c00b1c34ac328c62c)...[7d9a12d](https://github.com/WrightonLabCSU/DRAM/commit/7d9a12d225c577a6b2fb0c4d7b1ba60a5588e1e8)\r\n\r\n### Features\r\n\r\n- Add a test version of dbcan3 to compare against dbcan2 ([efb3cc2](https://github.com/WrightonLabCSU/DRAM/commit/efb3cc23a5478f85e449099ec37285138cc5f8b7))\r\n\r\n  dbcan3 and dbcan3-sub test versions, will run both if run_dbcan3\r\n  option is present.\r\n\r\n- Switch hmmsearch to using PyHMMER search ([7d9a12d](https://github.com/WrightonLabCSU/DRAM/commit/7d9a12d225c577a6b2fb0c4d7b1ba60a5588e1e8))\r\n\r\n  PyHMMER has better parrallelism support, directly calling\r\n  the lower level C bindings for HMMER and rewriting how\r\n  it parallelizes. This means that when you had cpus=4 arg, it can\r\n  1/3 of the walltime with the exact same result."
+      "tarball_url": "https://api.github.com/repos/WrightonLabCSU/DRAM/tarball/v2.0.0-beta28",
+      "zipball_url": "https://api.github.com/repos/WrightonLabCSU/DRAM/zipball/v2.0.0-beta28",
+      "body": "## 2.0.0-beta28 - 2026-04-15\r\n\r\n[cdfe210](https://github.com/WrightonLabCSU/DRAM/commit/cdfe210ca64eb95baf6f1acedb62f91b74630181)...[e07cd74](https://github.com/WrightonLabCSU/DRAM/commit/e07cd74e8d60fca7513f645c04d0956760c74768)\r\n\r\n\r\n\r\n- Adds preliminary testing versions of antismash, and rgi raw outputs (not incorporated into annotations or any downstream steps, just raw putputs in dedicated foulders)\r\n- Adds TCDB, and CARD mmseqs searches to to annotations\r\n- Add curated DRAM DB hmm database to annotation\r\n\r\nNew databases can be downloaded from GLOBUS\r\n\r\n### Features\r\n\r\n- Add antiSMASH, CARD, RGI, TCDB ([8d08d1f](https://github.com/WrightonLabCSU/DRAM/commit/8d08d1f9d54fb139eb53587754e569c4317ddc37))\r\n\r\n  Add antiSMASH nextflow module, right now just collect antismash\r\n  raw output while we work on incorporating raw output into\r\n  larger pipeline\r\n  Add rgi nextflow module, right now like antiSMASH, only\r\n  collect raw output while we work on incorporating\r\n  ADD CARD db processing with mmseqs\r\n  ADD TCDB processing with mmseqs\r\n\r\n- Add DRAM DB HMMs = ([e07cd74](https://github.com/WrightonLabCSU/DRAM/commit/e07cd74e8d60fca7513f645c04d0956760c74768))\r\n\r\n  Add DRAM team curated HMM database as new annotation db option.\r\n  Work in progress and testing database, but can be found on GLOBUS."
     }
   ]
 }

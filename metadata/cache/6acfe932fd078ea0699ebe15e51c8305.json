@@ -1,12 +1,12 @@
 {
-  "cache_date": "2026-03-22T08:36:50.886516",
+  "cache_date": "2026-04-26T09:02:38.774270",
   "data": [
     {
-      "url": "https://api.github.com/repos/apcamargo/genomad/releases/261084824",
-      "assets_url": "https://api.github.com/repos/apcamargo/genomad/releases/261084824/assets",
-      "upload_url": "https://uploads.github.com/repos/apcamargo/genomad/releases/261084824/assets{?name,label}",
-      "html_url": "https://github.com/apcamargo/genomad/releases/tag/v1.11.2",
-      "id": 261084824,
+      "url": "https://api.github.com/repos/apcamargo/genomad/releases/302785970",
+      "assets_url": "https://api.github.com/repos/apcamargo/genomad/releases/302785970/assets",
+      "upload_url": "https://uploads.github.com/repos/apcamargo/genomad/releases/302785970/assets{?name,label}",
+      "html_url": "https://github.com/apcamargo/genomad/releases/tag/v1.12.0",
+      "id": 302785970,
       "author": {
         "login": "apcamargo",
         "id": 22940964,
@@ -28,20 +28,20 @@
         "user_view_type": "public",
         "site_admin": false
       },
-      "node_id": "RE_kwDOHpc0Rc4Pj9aY",
-      "tag_name": "v1.11.2",
+      "node_id": "RE_kwDOHpc0Rc4SDCWy",
+      "tag_name": "v1.12.0",
       "target_commitish": "main",
-      "name": "geNomad v1.11.2",
+      "name": "geNomad v1.12.0",
       "draft": false,
       "immutable": false,
       "prerelease": false,
-      "created_at": "2025-11-10T12:07:43Z",
-      "updated_at": "2025-11-10T12:11:45Z",
-      "published_at": "2025-11-10T12:11:45Z",
+      "created_at": "2026-03-29T03:26:08Z",
+      "updated_at": "2026-03-29T03:27:06Z",
+      "published_at": "2026-03-29T03:27:06Z",
       "assets": [],
-      "tarball_url": "https://api.github.com/repos/apcamargo/genomad/tarball/v1.11.2",
-      "zipball_url": "https://api.github.com/repos/apcamargo/genomad/zipball/v1.11.2",
-      "body": "### Fixed\r\n- Fix version reporting.\r\n\r\n### Added\r\n- Added support for Zstandard-compressed (`.zst`) input files for Python versions 3.14 and above."
+      "tarball_url": "https://api.github.com/repos/apcamargo/genomad/tarball/v1.12.0",
+      "zipball_url": "https://api.github.com/repos/apcamargo/genomad/zipball/v1.12.0",
+      "body": "### Changed\r\n- Refactor `extend_provirus_edges` in the `find-proviruses` module to simplify the provirus boundary-extension logic while preserving the behavior.\r\n\r\n### Fixed\r\n- Restore `temperature` scaling in `utils.softmax`. A regression introduced in version 1.11.1 caused the function to ignore the `temperature` parameter.\r\n- Fix FASTA parsing when the final line lacks a trailing newline by removing only `\"\\n\"` with `removesuffix(\"\\n\")` instead of always dropping the last character.\r\n- Fix left-boundary provirus extension across chromosome markers in the `find-proviruses` module. A sign error caused the marker-range check to inspect the wrong interval during leftward extensions, so blocking host markers could be missed.\r\n- Fix `summary` fallback to `nn-classification` with provirus results. The plain `nn` path incorrectly selected calibrated provirus neural network scores instead of uncalibrated ones.\r\n- Fix FDR threshold handling so `--max-fdr 0` does not disable FDR filtering, and scores with FDR exactly equal to the configured maximum are retained.\r\n- Fix detection of calibrated `marker-classification` outputs in `summary`. It now checks the NPZ file that the module actually consumes, instead of the TSV file."
     }
   ]
 }
