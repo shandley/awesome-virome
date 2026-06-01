@@ -333,6 +333,10 @@
         .update-old {
             color: var(--danger-color);
         }
+
+        .update-inactive {
+            color: #6c757d;
+        }
         
         /* Responsive adjustments */
         @media (max-width: 768px) {
@@ -516,9 +520,10 @@
                             <label for="maintenanceFilter" class="form-label">Maintenance Status</label>
                             <select class="form-select" id="maintenanceFilter">
                                 <option value="">All Statuses</option>
-                                <option value="recent">Recently Updated</option>
-                                <option value="medium">Medium Activity</option>
-                                <option value="old">Low Activity</option>
+                                <option value="recent">Active (updated 2024+)</option>
+                                <option value="medium">Stale (updated 2022-2023)</option>
+                                <option value="old">Low Activity (updated 2021)</option>
+                                <option value="inactive">Inactive (no update since 2021)</option>
                             </select>
                         </div>
                     </div>
@@ -1045,7 +1050,7 @@
                             <td>${tool.category || 'N/A'}</td>
                             <td>${getMainLanguage(tool.languages)}</td>
                             <td>${tool.stars || 0}</td>
-                            <td class="${getUpdateClass(tool.lastUpdated)}">${formatDate(tool.lastUpdated)}</td>
+                            <td class="${getToolStatus(tool)}">${formatDate(tool.lastUpdated)}</td>
                         `;
                         // Set data attribute for tool details
                         tableRow.setAttribute('data-tool', JSON.stringify(tool));
@@ -1060,10 +1065,9 @@
                 
                 // Create maintenance status badge
                 let updateStatus = '';
-                if (tool.lastUpdated) {
-                    const updateClass = getUpdateClass(tool.lastUpdated);
-                    const updateLabel = updateClass === 'update-recent' ? 'Active' : 
-                                      updateClass === 'update-medium' ? 'Maintained' : 'Low Activity';
+                if (tool.maintenance_status || tool.lastUpdated) {
+                    const updateClass = getToolStatus(tool);
+                    const updateLabel = getToolStatusLabel(tool);
                     updateStatus = `<span class="badge bg-secondary ${updateClass}">${updateLabel}</span>`;
                 }
                 
@@ -1137,18 +1141,34 @@
             
             function getUpdateClass(dateString) {
                 if (!dateString) return 'update-old';
-
                 const date = new Date(dateString);
                 const now = new Date();
-
-                // Calculate actual elapsed time in days, then convert to months
-                // Using 30.44 days per month (365.25 / 12) for accurate month calculation
                 const daysDiff = Math.floor((now - date) / (1000 * 60 * 60 * 24));
                 const monthsDiff = Math.floor(daysDiff / 30.44);
-
                 if (monthsDiff < 6) return 'update-recent';
                 if (monthsDiff < 12) return 'update-medium';
                 return 'update-old';
+            }
+
+            function getToolStatus(tool) {
+                const s = tool.maintenance_status;
+                if (s === 'active')   return 'update-recent';
+                if (s === 'stale')    return 'update-medium';
+                if (s === 'inactive') return 'update-inactive';
+                if (s === 'unknown')  return 'update-old';
+                return getUpdateClass(tool.lastUpdated);
+            }
+
+            function getToolStatusLabel(tool) {
+                const s = tool.maintenance_status;
+                if (s === 'active')   return 'Active';
+                if (s === 'stale')    return 'Stale';
+                if (s === 'inactive') return 'Inactive';
+                if (s === 'unknown')  return 'Unknown';
+                const cls = getUpdateClass(tool.lastUpdated);
+                if (cls === 'update-recent') return 'Active';
+                if (cls === 'update-medium') return 'Stale';
+                return 'Unknown';
             }
             
             function initializeDataTable() {
@@ -1742,25 +1762,28 @@
                     }
                     
                     // Classify tools by maintenance status
-                    const recent = tools.filter(tool => tool.lastUpdated && getUpdateClass(tool.lastUpdated) === 'update-recent').length;
-                    const medium = tools.filter(tool => tool.lastUpdated && getUpdateClass(tool.lastUpdated) === 'update-medium').length;
-                    const old = tools.filter(tool => !tool.lastUpdated || getUpdateClass(tool.lastUpdated) === 'update-old').length;
-                    
+                    const recent   = tools.filter(t => getToolStatus(t) === 'update-recent').length;
+                    const medium   = tools.filter(t => getToolStatus(t) === 'update-medium').length;
+                    const old      = tools.filter(t => getToolStatus(t) === 'update-old').length;
+                    const inactive = tools.filter(t => getToolStatus(t) === 'update-inactive').length;
+
                     new Chart(canvas, {
                         type: 'pie',
                         data: {
-                            labels: ['Active (< 6 months)', 'Maintained (6-12 months)', 'Low Activity (> 12 months)'],
+                            labels: ['Active (2024+)', 'Stale (2022-2023)', 'Unknown', 'Inactive (pre-2022)'],
                             datasets: [{
-                                data: [recent, medium, old],
+                                data: [recent, medium, old, inactive],
                                 backgroundColor: [
-                                    '#28a745', // Green for recent
-                                    '#ffc107', // Yellow for medium
-                                    '#e74c3c'  // Red for old
+                                    '#28a745', // Green for active
+                                    '#ffc107', // Yellow for stale
+                                    '#e74c3c', // Red for unknown/old
+                                    '#6c757d'  // Gray for inactive
                                 ],
                                 borderColor: [
                                     '#1e7e34',
                                     '#d39e00',
-                                    '#c0392b'
+                                    '#c0392b',
+                                    '#495057'
                                 ],
                                 borderWidth: 1
                             }]
@@ -2015,10 +2038,11 @@
                         
                         // Maintenance filter
                         if (maintenance) {
-                            const updateClass = getUpdateClass(tool.lastUpdated);
-                            if (maintenance === 'recent' && updateClass !== 'update-recent') return false;
-                            if (maintenance === 'medium' && updateClass !== 'update-medium') return false;
-                            if (maintenance === 'old' && updateClass !== 'update-old') return false;
+                            const updateClass = getToolStatus(tool);
+                            if (maintenance === 'recent'   && updateClass !== 'update-recent')   return false;
+                            if (maintenance === 'medium'   && updateClass !== 'update-medium')   return false;
+                            if (maintenance === 'old'      && updateClass !== 'update-old')      return false;
+                            if (maintenance === 'inactive' && updateClass !== 'update-inactive') return false;
                         }
                         
                         // Search filter
@@ -2118,10 +2142,11 @@
                         }
                         if (language && (!tool.languages || !tool.languages[language])) return false;
                         if (maintenance) {
-                            const updateClass = getUpdateClass(tool.lastUpdated);
-                            if (maintenance === 'recent' && updateClass !== 'update-recent') return false;
-                            if (maintenance === 'medium' && updateClass !== 'update-medium') return false;
-                            if (maintenance === 'old' && updateClass !== 'update-old') return false;
+                            const updateClass = getToolStatus(tool);
+                            if (maintenance === 'recent'   && updateClass !== 'update-recent')   return false;
+                            if (maintenance === 'medium'   && updateClass !== 'update-medium')   return false;
+                            if (maintenance === 'old'      && updateClass !== 'update-old')      return false;
+                            if (maintenance === 'inactive' && updateClass !== 'update-inactive') return false;
                         }
                         if (search) {
                             const nameMatch = tool.name.toLowerCase().includes(search);
@@ -2184,10 +2209,11 @@
                         }
                         if (language && (!tool.languages || !tool.languages[language])) return false;
                         if (maintenance) {
-                            const updateClass = getUpdateClass(tool.lastUpdated);
-                            if (maintenance === 'recent' && updateClass !== 'update-recent') return false;
-                            if (maintenance === 'medium' && updateClass !== 'update-medium') return false;
-                            if (maintenance === 'old' && updateClass !== 'update-old') return false;
+                            const updateClass = getToolStatus(tool);
+                            if (maintenance === 'recent'   && updateClass !== 'update-recent')   return false;
+                            if (maintenance === 'medium'   && updateClass !== 'update-medium')   return false;
+                            if (maintenance === 'old'      && updateClass !== 'update-old')      return false;
+                            if (maintenance === 'inactive' && updateClass !== 'update-inactive') return false;
                         }
                         if (search) {
                             const nameMatch = tool.name.toLowerCase().includes(search);
@@ -2310,7 +2336,7 @@
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between">
                                                 <strong>Last Updated:</strong> 
-                                                <span class="${getUpdateClass(tool.lastUpdated)}">${updateInfo}</span>
+                                                <span class="${getToolStatus(tool)}">${updateInfo}</span>
                                             </li>
                                             <li class="list-group-item d-flex justify-content-between">
                                                 <strong>Created:</strong> 
