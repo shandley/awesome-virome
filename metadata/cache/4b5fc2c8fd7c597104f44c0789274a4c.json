@@ -1,12 +1,12 @@
 {
-  "cache_date": "2025-11-01T08:23:02.975600",
+  "cache_date": "2026-05-31T10:22:28.099435",
   "data": [
     {
-      "url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/releases/245553972",
-      "assets_url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/releases/245553972/assets",
-      "upload_url": "https://uploads.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/releases/245553972/assets{?name,label}",
-      "html_url": "https://github.com/EBI-Metagenomics/emg-viral-pipeline/releases/tag/v3.0.3",
-      "id": 245553972,
+      "url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/releases/307010609",
+      "assets_url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/releases/307010609/assets",
+      "upload_url": "https://uploads.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/releases/307010609/assets{?name,label}",
+      "html_url": "https://github.com/EBI-Metagenomics/emg-viral-pipeline/releases/tag/v3.3.1",
+      "id": 307010609,
       "author": {
         "login": "mberacochea",
         "id": 1123897,
@@ -28,21 +28,20 @@
         "user_view_type": "public",
         "site_admin": false
       },
-      "node_id": "RE_kwDOD37jYM4Oots0",
-      "tag_name": "v3.0.3",
+      "node_id": "RE_kwDOD37jYM4STJwx",
+      "tag_name": "v3.3.1",
       "target_commitish": "master",
-      "name": "VIRIfy v3.0.3 - Bugfix release",
+      "name": "v3.3.1",
       "draft": false,
       "immutable": false,
       "prerelease": false,
-      "created_at": "2025-09-08T14:45:57Z",
-      "updated_at": "2025-09-08T14:47:28Z",
-      "published_at": "2025-09-08T14:47:28Z",
+      "created_at": "2026-04-09T10:47:18Z",
+      "updated_at": "2026-04-09T10:49:46Z",
+      "published_at": "2026-04-09T10:49:46Z",
       "assets": [],
-      "tarball_url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/tarball/v3.0.3",
-      "zipball_url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/zipball/v3.0.3",
-      "body": "## What's Changed\r\n* Add FAQ in README and a section about FASTA headers and invalid GFF's by @mberacochea in https://github.com/EBI-Metagenomics/emg-viral-pipeline/pull/155\r\n* Fix parsing script for VS2 records  by @KateSakharova in https://github.com/EBI-Metagenomics/emg-viral-pipeline/pull/154\r\n* Fix/spaces in contignames issue by @KateSakharova in https://github.com/EBI-Metagenomics/emg-viral-pipeline/pull/156\r\n* Bugfix/transpose on detect output by @KateSakharova in https://github.com/EBI-Metagenomics/emg-viral-pipeline/pull/157\r\n* Fix the balloon and r_chromomap containers lacking nextflow resource gather tools (i.e. ps) - @mberacochea  in https://github.com/EBI-Metagenomics/emg-viral-pipeline/pull/158\r\n\r\n\r\n**Full Changelog**: https://github.com/EBI-Metagenomics/emg-viral-pipeline/compare/v3.0.2...v3.0.3",
-      "mentions_count": 2
+      "tarball_url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/tarball/v3.3.1",
+      "zipball_url": "https://api.github.com/repos/EBI-Metagenomics/emg-viral-pipeline/zipball/v3.3.1",
+      "body": "# Fixed\r\n\r\n- [nf-schema](https://github.com/nextflow-io/nf-schema) plugin was missing from the pipeline dependencies, which broke the pipeline if the plugin was missing from the env. \r\n  It also caused the pipeline to randomly fail at times (the error was during the validation of the parameters) [#169](https://github.com/EBI-Metagenomics/emg-viral-pipeline/pull/169)\r\n"
     }
   ]
 }
