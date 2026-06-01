@@ -148,9 +148,6 @@ Here are the most popular and well-maintained tools in each major category:
 | [ViTax](https://github.com/Ying-Lab/ViTax) [Updated: 02/2025] | - | Viral taxonomy classification using HyenaDNA foundation model |
 | [vConTACT3](https://vcontact3.readthedocs.io) [Updated: 11/2025] | - | Machine learning-based hierarchical viral taxonomy for prokaryotic and eukaryotic viruses |
 
-**📈 Most Starred Overall:**
-2. [CovidMD](https://github.com/lammps/lammps) (⭐ 2365) - Molecular dynamics for COVID-19
-
 ## Contents
 
 ### 🚀 Getting Started
@@ -564,13 +561,6 @@ Here are the most popular and well-maintained tools in each major category:
 - [IEDB-tools](https://github.com/iedb/iedb-epitope-database) [unavailable] - Suite of tools for epitope prediction. [Python]
 - [NetMHCpan](https://services.healthtech.dtu.dk/service.php?NetMHCpan-4.1) - Neural network for MHC binding prediction in viral proteins. [web service]
 - [TepiTool](https://tools.iedb.org/tepitool/) - T-cell epitope prediction for viral sequences. [web service]
-
-### Viral Molecular Dynamics
-
-- [CHARMM-GUI](https://www.charmm-gui.org/) - Web-based interface for viral particle simulation setup. [web service]
-- [CovidMD](https://github.com/lammps/lammps) [Updated: 03/2025] - COVID-19 specific molecular dynamics toolbox (extensible to other viruses). [C++]
-- [NAMD-VIRAL](https://www.ks.uiuc.edu/Research/namd/) - Molecular dynamics simulations of viral proteins. [C++]
-- [VMD-Viral](https://www.ks.uiuc.edu/Research/vmd/) - Visualization of viral molecular dynamics. [C++]
 
 ### Dark Matter Viral Analysis
 
