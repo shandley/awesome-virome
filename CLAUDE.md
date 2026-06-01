@@ -1,7 +1,7 @@
 # Claude Code Project Context - Awesome-Virome
 
 ## 🎯 Project Overview
-**Awesome-Virome** is a curated database of 235+ bioinformatics tools for virome analysis, featuring:
+**Awesome-Virome** is a curated database of 239+ bioinformatics tools for virome analysis, featuring:
 - Interactive web dashboard with network visualization and analytics
 - Tool comparison matrix with advanced filtering and URL deep linking
 - RESTful API for programmatic access
@@ -11,7 +11,7 @@
 ## 🏗️ System Architecture
 
 ### Core Data Infrastructure
-- **`data.json`** - Main tool database (235+ tools, 164 GitHub repos actively tracked)
+- **`data.json`** - Main tool database (239+ tools, 164 GitHub repos actively tracked)
 - **`metadata/`** - Individual tool metadata files (150+ JSON files)
 - **`metrics_history/`** - Historical metrics tracking
 
@@ -88,7 +88,7 @@ python scripts/generate_api.py
 ```
 
 ## 📊 Project Statistics
-- **236** curated tools across 8 categories
+- **239** curated tools across 8 categories
 - **164** GitHub repositories actively tracked
 - **150+** metadata files with comprehensive tool info
 - **Weekly** automated updates

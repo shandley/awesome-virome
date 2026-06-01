@@ -11,7 +11,7 @@
 
 ## What is Awesome-Virome?
 
-A comprehensive, curated database of **235+ software tools** for virome analysis - the study of viral communities in various environments. This repository helps researchers navigate the complex landscape of tools for analyzing phages, viruses, and their interactions with hosts.
+A comprehensive, curated database of **239+ software tools** for virome analysis - the study of viral communities in various environments. This repository helps researchers navigate the complex landscape of tools for analyzing phages, viruses, and their interactions with hosts.
 
 **🎯 Perfect for:**
 - Researchers new to virome analysis seeking guidance
@@ -20,7 +20,7 @@ A comprehensive, curated database of **235+ software tools** for virome analysis
 - Students learning computational virology
 
 **🚀 Key Features:**
-- Curated collection of 235+ tools across 8 major categories
+- Curated collection of 239+ tools across 8 major categories
 - Interactive dashboard with visualization and analytics
 - Tool comparison matrix with filtering and export
 - Automated metadata collection from GitHub/GitLab/Bitbucket
@@ -47,7 +47,7 @@ Don't just read about tools - **explore them visually!** Our interactive web app
 
 ### [📊 Interactive Dashboard](https://shandley.github.io/awesome-virome/dashboard.html)
 Visualize the entire virome analysis ecosystem at a glance:
-- **Tool Categorization Treemap** - See how 235+ tools are distributed across categories
+- **Tool Categorization Treemap** - See how 239+ tools are distributed across categories
 - **Interactive Network Graph** - Explore relationships between tools and categories
 - **Timeline Visualization** - Track the evolution of viral analysis tools over time
 - **Technology Trends** - Analyze programming language usage across the collection
@@ -250,6 +250,7 @@ Here are the most popular and well-maintained tools in each major category:
 - [virMiner](https://github.com/TingtZHENG/VirMiner) [Updated: 10/2024] - Random forest approach for virus identification. [R]
 - [VirNet](https://github.com/alyosama/virnet) [Updated: 09/2024] - Neural network for phage identification. [Python]
 - [ViroProfiler](https://github.com/deng-lab/viroprofiler) [Updated: 02/2025] - Comprehensive phage profiling pipeline. [Nextflow]
+- [ViromeXplore](https://github.com/rhernandvel/ViromeXplore) [2025] - Nextflow workflows for complete virome characterization: contamination estimation, virus assembly, identification, taxonomy, functional annotation, and host prediction. [conda] [Nextflow]
 - [VirSorter](https://github.com/simroux/VirSorter) [Updated: 01/2025] - Detection of viral sequences from microbial genomic data. [bioconda] [Perl] [legacy]
 - [VirSorter2](https://bitbucket.org/MAVERICLab/virsorter2/) [v2.2.4, 2023] - Random forest classifier for virus detection. [conda] [Python] [v2.2.4, 2023]
 - [Virtifier](https://github.com/crazyinter/Seq2Vec) [Updated: 11/2024] - LSTM neural network for virus identification. [Python]
@@ -317,6 +318,8 @@ Here are the most popular and well-maintained tools in each major category:
 - [Virus Host DB](https://www.genome.jp/virushostdb/) - Database for virus-host relationships. [web service]
 - [Virus Host Predict](https://github.com/youngfran/virus_host_predict) [Updated: 05/2024] - Host prediction for viral sequences. [Python]
 - [WIsH](https://github.com/soedinglab/WIsH) [Updated: 10/2024] - Phage-host prediction using genome homology. [C++]
+- [PHIStruct](https://github.com/bioinfodlsu/PHIStruct) [2025] - Phage-host interaction prediction using structure-aware embeddings of receptor-binding proteins; strongest performance at low sequence similarity. [Python]
+- [PHPGAT](https://github.com/ZhaoZMer/PHPGAT) [2025] - Phage-host prediction using a multimodal heterogeneous knowledge graph with graph attention network integrating phage-phage, host-host, and phage-host interactions. [Python]
 
 ## Genome Analysis
 
