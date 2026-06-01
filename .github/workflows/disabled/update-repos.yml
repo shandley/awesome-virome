@@ -35,10 +35,10 @@ jobs:
     if: github.event_name == 'schedule' && github.event.schedule == '0 0 * * 0' || github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'basic' || github.event.inputs.update_type == 'all')
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
       
@@ -71,10 +71,10 @@ jobs:
     if: github.event_name == 'schedule' && github.event.schedule == '0 0 1 * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'enhanced' || github.event.inputs.update_type == 'all')
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
       
@@ -104,10 +104,10 @@ jobs:
     if: github.event_name == 'schedule' && github.event.schedule == '0 0 15 * *' || github.event_name == 'workflow_dispatch' && (github.event.inputs.update_type == 'bioinformatics' || github.event.inputs.update_type == 'all')
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
       
@@ -153,12 +153,12 @@ jobs:
       branch_name: ${{ steps.prepare.outputs.branch_name }}
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
       
@@ -283,7 +283,7 @@ jobs:
       needs.academic-impact-metadata.outputs.academic_impact_pr_url != ''
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       
       - name: Extract PR number
         id: extract_pr

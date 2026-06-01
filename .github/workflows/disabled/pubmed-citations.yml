@@ -38,13 +38,13 @@ jobs:
       pubmed_data_updated: ${{ steps.commit.outputs.changes_detected }}
     
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           # Fetch all history for proper branch creation
           fetch-depth: 0
       
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.10'
       
