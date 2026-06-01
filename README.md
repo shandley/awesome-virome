@@ -37,7 +37,7 @@ Explore the full **Awesome-Virome** experience with our interactive web platform
 - ⚖️ **Tool Comparison** - Compare tools side-by-side with advanced filtering
 - 🧭 **Selection Guide** - Get personalized tool recommendations
 
-**[Launch Website](https://shandley.github.io/awesome-virome/)** | **[View Documentation](https://shandley.github.io/awesome-virome/1.0.0/)** | **[Try Dashboard](https://shandley.github.io/awesome-virome/dashboard.html)**
+**[Launch Website](https://shandley.github.io/awesome-virome/)** | **[View Documentation](https://shandley.github.io/awesome-virome/docs/)** | **[Try Dashboard](https://shandley.github.io/awesome-virome/dashboard.html)**
 
 ---
 
