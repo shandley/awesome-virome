@@ -268,14 +268,14 @@ Here are the most popular and well-maintained tools in each major category:
 - [hafeZ](https://github.com/Chrisjrt/hafeZ) [Updated: 08/2024] - Readmapping approach for integrated phage identification. [Python]
 - [LysoPhD](https://ieeexplore.ieee.org/document/8983280) - Phage identification tool (code not available).
 - [phage_finder](http://phage-finder.sourceforge.net/) - Pipeline for prophage identification. [Perl] [legacy]
-- [phageboost](http://phageboost.ml) - Machine learning with boost algorithm for prophage detection. [R]
-- [PhageWeb](http://computationalbiology.ufpa.br/phageweb/) - Web server for phage identification (API available). [web service]
-- [PHASTER](https://phaster.ca/) - Rapid identification and annotation of prophage sequences (web service only). [web service]
+- [phageboost](http://phageboost.ml) [unavailable] - Machine learning with boost algorithm for prophage detection. [R]
+- [PhageWeb](http://computationalbiology.ufpa.br/phageweb/) [unavailable] - Web server for phage identification (API available). [web service]
+- [PHASTER](https://phaster.ca/) [unavailable] - Rapid identification and annotation of prophage sequences (web service only). [web service]
 - [Phigaro](https://github.com/bobeobibo/phigaro) [Updated: 12/2024] - Prophage prediction tool. (Note: downloads uncompressed file from Russian server). [Python]
 - [PhiSpy](https://github.com/linsalrob/PhiSpy) [v4.2.23, 2023] - Prophage identification combining similarity and composition-based approaches. [conda, pip] [Python] [v4.2.23, 2023]
 - [PIDE](https://github.com/chyghy/PIDE) [Updated: 02/2025] - Prophage island detection using ESM-2 protein language model and gene density clustering. [Python]
 - [Prophet](https://github.com/jaumlrc/ProphET) [Updated: 12/2023] - Prophage prediction tool. (Note: requires unsupported legacy software). [Perl] [legacy]
-- [Prophinder](http://aclame.ulb.ac.be/Tools/Prophinder/) - Web-based prophage detection tool. [web service]
+- [Prophinder](http://aclame.ulb.ac.be/Tools/Prophinder/) [unavailable] - Web-based prophage detection tool. [web service]
 - [VAPiD](https://github.com/rcs333/VAPiD) [Updated: 09/2024] - Virus genome annotation and identification tool. [pip] [Python]
 - [viralintegration](https://github.com/nf-core/viralintegration) [Updated: 12/2024] - Nextflow pipeline for detecting viral integration sites. [conda] [Nextflow]
 
@@ -407,7 +407,7 @@ Here are the most popular and well-maintained tools in each major category:
 - [mMGE](https://mai.fudan.edu.cn/mgedb/client/index.html#/) - Mobile genetic element database. [Updated 2023]
 - [PhagesDB](https://phagesdb.org/) - Database of phage genomes. [Updated 2023]
 - [ViromeDB](http://segatalab.cibio.unitn.it/data/VDB_Zolfo_et_al.html) - Public collection of >162,000 viral sequences. [2019]
-- [Viruses.String](http://viruses.string-db.org/) - Virus-host protein-protein interactions database. [Updated 2022]
+- [Viruses.String](http://viruses.string-db.org/) [unavailable] - Virus-host protein-protein interactions database. [Updated 2022]
 
 ## Functional Analysis
 
@@ -434,7 +434,7 @@ Here are the most popular and well-maintained tools in each major category:
 ### Viral Orthologous Groups
 
 - [efam](https://datacommons.cyverse.org/browse/iplant/home/shared/iVirus/Zayed_efam_2020.1) - Expanded metaproteome-supported HMM profile database of viral protein families. [2020]
-- [pVOGs](http://pvogs.cvm.iastate.edu/) - Prokaryotic virus orthologous groups. [Database]
+- [pVOGs](http://pvogs.cvm.iastate.edu/) [unavailable] - Prokaryotic virus orthologous groups. [Database]
 - [VogDB](http://vogdb.org/) - Virus orthologous groups database. [Database, Updated 2023]
 
 ## CRISPR Analysis
@@ -501,8 +501,8 @@ Here are the most popular and well-maintained tools in each major category:
 
 ### Structural Analysis Tools
 
-- [VIPERdb](http://viperdb.scripps.edu/) - Virus particle explorer database with structure visualization. [web service]
-- [VIRALpro](http://scratch.proteomics.ics.uci.edu/) - Viral capsid and tail protein prediction. [web service]
+- [VIPERdb](http://viperdb.scripps.edu/) [unavailable] - Virus particle explorer database with structure visualization. [web service]
+- [VIRALpro](http://scratch.proteomics.ics.uci.edu/) [unavailable] - Viral capsid and tail protein prediction. [web service]
 
 ### Antimicrobial Resistance Analysis
 
