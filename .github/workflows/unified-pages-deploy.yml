@@ -5,7 +5,6 @@ on:
     branches: [ main ]
     paths:
       - 'data.json'
-      - 'impact_data.json'
       - '*.html'
       - 'metadata/**'
       - 'reports/**'
@@ -60,12 +59,9 @@ jobs:
           # First copy all needed files to the gh-pages branch
           cp dashboard.html gh-pages/
           cp comparison.html gh-pages/ 2>/dev/null || true
-          cp citations.html gh-pages/ 2>/dev/null || true
           cp selection-guide.html gh-pages/ 2>/dev/null || true
-          cp direct_publication_impact.html gh-pages/ 2>/dev/null || true
           cp index_redirect.html gh-pages/ 2>/dev/null || true
           cp data.json gh-pages/
-          cp impact_data.json gh-pages/ 2>/dev/null || true
           cp -r js gh-pages/ 2>/dev/null || true
           cp -r metadata gh-pages/ 2>/dev/null || true
           cp -r reports gh-pages/ 2>/dev/null || true
