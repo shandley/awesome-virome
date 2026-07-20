@@ -274,7 +274,7 @@ Here are the most popular and well-maintained tools in each major category:
 - [PhiSpy](https://github.com/linsalrob/PhiSpy) [v4.2.23, 2023] - Prophage identification combining similarity and composition-based approaches. [conda, pip] [Python] [v4.2.23, 2023]
 - [PIDE](https://github.com/chyghy/PIDE) [Updated: 02/2025] - Prophage island detection using ESM-2 protein language model and gene density clustering. [Python]
 - [Prophet](https://github.com/jaumlrc/ProphET) [Updated: 12/2023] - Prophage prediction tool. (Note: requires unsupported legacy software). [Perl] [legacy]
-- [Prophinder](http://aclame.ulb.ac.be/Tools/Prophinder/) - Web-based prophage detection tool. [web service]
+- [Prophinder](http://aclame.ulb.ac.be/Tools/Prophinder/) [unavailable] - Web-based prophage detection tool. [web service]
 - [VAPiD](https://github.com/rcs333/VAPiD) [Updated: 09/2024] - Virus genome annotation and identification tool. [pip] [Python]
 - [viralintegration](https://github.com/nf-core/viralintegration) [Updated: 12/2024] - Nextflow pipeline for detecting viral integration sites. [conda] [Nextflow]
 
