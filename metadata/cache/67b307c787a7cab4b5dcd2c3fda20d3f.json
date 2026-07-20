@@ -1,12 +1,12 @@
 {
-  "cache_date": "2026-05-24T09:57:13.876117",
+  "cache_date": "2026-06-28T10:29:48.847515",
   "data": [
     {
-      "url": "https://api.github.com/repos/nf-core/viralmetagenome/releases/296735331",
-      "assets_url": "https://api.github.com/repos/nf-core/viralmetagenome/releases/296735331/assets",
-      "upload_url": "https://uploads.github.com/repos/nf-core/viralmetagenome/releases/296735331/assets{?name,label}",
-      "html_url": "https://github.com/nf-core/viralmetagenome/releases/tag/1.1.1",
-      "id": 296735331,
+      "url": "https://api.github.com/repos/nf-core/viralmetagenome/releases/333579878",
+      "assets_url": "https://api.github.com/repos/nf-core/viralmetagenome/releases/333579878/assets",
+      "upload_url": "https://uploads.github.com/repos/nf-core/viralmetagenome/releases/333579878/assets{?name,label}",
+      "html_url": "https://github.com/nf-core/viralmetagenome/releases/tag/1.1.2",
+      "id": 333579878,
       "author": {
         "login": "Joon-Klaps",
         "id": 61584065,
@@ -28,21 +28,21 @@
         "user_view_type": "public",
         "site_admin": false
       },
-      "node_id": "RE_kwDOIw-IrM4Rr9Jj",
-      "tag_name": "1.1.1",
-      "target_commitish": "master",
-      "name": "v1.1.1 - Azure Albatross",
+      "node_id": "RE_kwDOIw-IrM4T4gZm",
+      "tag_name": "1.1.2",
+      "target_commitish": "main",
+      "name": "v1.1.2 - Blush Bunting",
       "draft": false,
       "immutable": false,
       "prerelease": false,
-      "created_at": "2026-03-31T07:11:22Z",
-      "updated_at": "2026-03-31T07:30:30Z",
-      "published_at": "2026-03-31T07:30:30Z",
+      "created_at": "2026-06-03T08:38:08Z",
+      "updated_at": "2026-06-03T08:41:14Z",
+      "published_at": "2026-06-03T08:41:14Z",
       "assets": [],
-      "tarball_url": "https://api.github.com/repos/nf-core/viralmetagenome/tarball/1.1.1",
-      "zipball_url": "https://api.github.com/repos/nf-core/viralmetagenome/zipball/1.1.1",
-      "body": "### `Added`\r\n\r\n- Template update for nf-core/tools v3.5.2 ([#270](https://github.com/nf-core/viralmetagenome/pull/270)) (by @Joon-Klaps)\r\n- Modules update to latest nf-core versions ([#271](https://github.com/nf-core/viralmetagenome/pull/271)) (by @Joon-Klaps)\r\n- Update local modules to use topics ([#272](https://github.com/nf-core/viralmetagenome/pull/272)) (by @Joon-Klaps)\r\n- Add better output file descriptions for prokka [#274](https://github.com/nf-core/viralmetagenome/pull/274) (by @Joon-Klaps)\r\n- Better item descriptors (`it -> [it[0], it[1]` to `meta, fasta , _foo -> [meta,fasta]`) for better readability ([#265](https://github.com/nf-core/viralmetagenome/pull/265)) (by @Joon-Klaps)\r\n- Include the new parameter `--transpose_overview_tables` , fixes [#220](https://github.com/nf-core/viralmetagenome/issues/220) ([#275](https://github.com/nf-core/viralmetagenome/pull/275)) (by @Joon-Klaps)\r\n- Bump version from dev to `1.1.1` for release ([#277](https://github.com/nf-core/viralmetagenome/pull/276)) (by @Joon-Klaps)\r\n\r\n### `Fixed`\r\n\r\n- Follow the rules of strict syntax health [#265](https://github.com/nf-core/viralmetagenome/pull/265) (by @Joon-Klaps)\r\n- Moved the module specifics from base.config to modules.config ([#265](https://github.com/nf-core/viralmetagenome/pull/265))\r\n- Fix bug from regex in input schema still allowing underscores in sample and group names ([#269](https://github.com/nf-core/viralmetagenome/pull/269)) - (by @Joon-Klaps)\r\n\r\n### `Dependencies`\r\n\r\n| Dependency | Old version | New version |\r\n| ---------- | ----------- | ----------- |\r\n| `snpeff`   | 5.3.0a      | 5.4.0a      |\r\n\r\n### `Parameters`\r\n\r\n| Old parameter | New parameter                 |\r\n| ------------- | ----------------------------- |\r\n|               | `--transpose_overview_tables` |\r\n\r\n> **NB:** Parameter has been **updated** if both old and new parameter information is present.\r\n> **NB:** Parameter has been **added** if just the new parameter information is present.\r\n",
-      "mentions_count": 1
+      "tarball_url": "https://api.github.com/repos/nf-core/viralmetagenome/tarball/1.1.2",
+      "zipball_url": "https://api.github.com/repos/nf-core/viralmetagenome/zipball/1.1.2",
+      "body": "## v1.1.2 - 2026-06-03\r\n\r\n### `Added`\r\n\r\n- Add param `--cluster_with_reference_pool` to optionally include the reference pool in the clustering step ([#278](https://github.com/nf-core/viralmetagenome/pull/278)) (by @nrminor, @Joon-Klaps)\r\n- Template update to nf-core/tools v4.0.2 ([#289](https://github.com/nf-core/viralmetagenome/pull/289)) (by @Joon-Klaps)\r\n- Bump version from dev to `1.1.2` for release ([#292](https://github.com/nf-core/viralmetagenome/pull/292)) (by @Joon-Klaps)\r\n\r\n### `Fixed`\r\n\r\n- Cast Lazymaps to Hashmaps to become thread safe with various groovy operators ([#291](https://github.com/nf-core/viralmetagenome/pull/291)) (by @aersoares81, @Joon-Klaps)\r\n- Extract Python package versions via `python -c \"import X; print(X.__version__)\"` instead of `pip show`, so versions are recorded reliably across conda/pip layouts ([#292](https://github.com/nf-core/viralmetagenome/pull/292)) (by @Joon-Klaps)\r\n\r\n### `Dependencies`\r\n\r\n| Dependency  | Old version | New version |\r\n| ----------- | ----------- | ----------- |\r\n| `nf-schema` | 2.5.1       | 2.7.2       |\r\n| `nft-utils` | 0.0.3       | 1.0.0       |\r\n\r\n### `Parameters`\r\n\r\n| Old parameter | New parameter                   |\r\n| ------------- | ------------------------------- |\r\n|               | `--cluster_with_reference_pool` |\r\n\r\n> **NB:** Parameter has been **updated** if both old and new parameter information is present.\r\n> **NB:** Parameter has been **added** if just the new parameter information is present.",
+      "mentions_count": 3
     }
   ]
 }
