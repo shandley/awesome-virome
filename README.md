@@ -257,7 +257,7 @@ Here are the most popular and well-maintained tools in each major category:
 - [Virtus](https://github.com/yyoshiaki/VIRTUS) [Updated: 10/2024] - Virus sequence detection workflow. [Snakemake]
 - [virus_prediction](https://github.com/rujinlong/virus_prediction) [unavailable] - Nextflow pipeline with virSorter. [Nextflow]
 - [ViruSpy](https://github.com/NCBI-Hackathons/ViruSpy) [Updated: 11/2024] - Virus detection pipeline. [Python]
-- [VirusSeeker](https://wupathlabs.wustl.edu/virusseeker/) - Pipeline for virus detection from sequence data. [source] [Perl]
+- [VirusSeeker](https://github.com/guoyanzhao/VirusSeeker-Virome) - Pipeline for virus detection from sequence data. [source] [Perl]
 - [vRhyme](https://github.com/AnantharamanLab/vRhyme) [Updated: 02/2025] - Machine learning for viral binning from metagenomes. [conda] [Python]
 - [What_the_phage](https://github.com/replikation/What_the_Phage) [Updated: 02/2025] - Nextflow workflow combining multiple phage identification tools. [Nextflow]
 
@@ -268,8 +268,7 @@ Here are the most popular and well-maintained tools in each major category:
 - [hafeZ](https://github.com/Chrisjrt/hafeZ) [Updated: 08/2024] - Readmapping approach for integrated phage identification. [Python]
 - [LysoPhD](https://ieeexplore.ieee.org/document/8983280) - Phage identification tool (code not available).
 - [phage_finder](http://phage-finder.sourceforge.net/) - Pipeline for prophage identification. [Perl] [legacy]
-- [phageboost](http://phageboost.ml) - Machine learning with boost algorithm for prophage detection. [R]
-- [PhageWeb](http://computationalbiology.ufpa.br/phageweb/) - Web server for phage identification (API available). [web service]
+- [PhageWeb](https://github.com/phagewebufpa/API) - Web server for phage identification (API available). [web service]
 - [PHASTER](https://phaster.ca/) - Rapid identification and annotation of prophage sequences (web service only). [web service]
 - [Phigaro](https://github.com/bobeobibo/phigaro) [Updated: 12/2024] - Prophage prediction tool. (Note: downloads uncompressed file from Russian server). [Python]
 - [PhiSpy](https://github.com/linsalrob/PhiSpy) [v4.2.23, 2023] - Prophage identification combining similarity and composition-based approaches. [conda, pip] [Python] [v4.2.23, 2023]
@@ -356,7 +355,7 @@ Here are the most popular and well-maintained tools in each major category:
 - [PHANOTATE](https://github.com/deprekate/PHANOTATE) [Updated: 01/2025] - Phage gene finder using a graph-based algorithm to identify ORFs missed by other programs. [Python]
 - [PhageBoost](https://github.com/ku-cbd/PhageBoost) [Updated: 02/2025] - Machine learning tool for identifying structural proteins in phage genomes. [R]
 - [PhiSpy](https://github.com/linsalrob/PhiSpy) [v4.2.23, 2023] - While primarily for prophage identification, includes ORF prediction capabilities. [conda, pip] [Python]
-- [VIGOR](https://github.com/JCVI-VIRIFX/VIGOR4) [unavailable] - Viral genome annotation tool designed specifically for viral genomes, primarily eukaryotic viruses. [source] [Java/Perl]
+- [VIGOR](https://github.com/JCVenterInstitute/VIGOR4) - Viral genome annotation tool designed specifically for viral genomes, primarily eukaryotic viruses. [source] [Java/Perl]
 - [PhageTerm](https://sourceforge.net/projects/phageterm/) - Tool for identifying phage termini and packaging mechanisms, helpful for ORF identification. [source] [Python]
 - [Pharokka](https://github.com/gbouras13/pharokka) [v1.5.0, 2023] [v1.5.0, 2023] [Updated: 03/2025] - Dedicated phage annotation tool that includes ORF prediction. [conda] [Python]
 - [VGAS](https://github.com/tianqitang1/VGAS) [unavailable] - Comprehensive pipeline for viral genome annotation including gene finding. [source] [Python]
@@ -492,7 +491,7 @@ Here are the most popular and well-maintained tools in each major category:
 ### Interaction Analysis
 
 - [DeepVHPPI](https://github.com/QData/DeepVHPPI) [Updated: 12/2024] - Deep learning for virus-host protein-protein interactions. [Python]
-- [DePP](https://web.archive.org/web/20210307090418/https://timskvortsov.github.io/WebDePP/) [unavailable] - Depolymerase finder for phages. [web service]
+- [DePP](https://timskvortsov.github.io/WebDePP/) - Depolymerase finder for phages. [web service]
 - [PhageDPO](http://bit.ly/phagedpo) - SVM and ANN for phage depolymerase prediction. [Python]
 - [PhageTB](https://github.com/raghavagps/phagetb) [Updated: 11/2024] - BLAST-based phage therapy tools. [Python]
 - [PhageTerm](https://gitlab.pasteur.fr/vlegrand/ptv/-/releases) - Predicting phage packaging mechanism. [source] [Python]
@@ -521,27 +520,27 @@ Here are the most popular and well-maintained tools in each major category:
 - [QuRe](https://sourceforge.net/projects/qure/) - Viral quasispecies reconstruction tool. [Java]
 - [ShoRAH](https://github.com/cbg-ethz/shorah) [Updated: 12/2024] - Short reads assembly into haplotypes for viral population. [C++]
 - [V-pipe](https://github.com/cbg-ethz/V-pipe) [Updated: 03/2025] - Pipeline for viral population analysis. [Nextflow]
-- [ViQuaS](https://web.archive.org/web/20190710131744/https://github.com/HadiNW/ViQuaS) [unavailable] - Viral Quasispecies reconstruction. [Python]
+- [ViQuaS](https://github.com/duleepalj/ViQuaS) - Viral Quasispecies reconstruction. [Python]
 
 ### Cloud-based Viral Analysis
 
-- [CloVR-Microbe](https://web.archive.org/web/20170705185333/https://github.com/jorvis/clovr-base) [unavailable] - Cloud-based viral metagenomics pipeline. [Perl]
+- [CloVR-Microbe](https://github.com/clovr/clovr-base) - Cloud-based viral metagenomics pipeline. [Perl]
 - [IDseq](https://github.com/chanzuckerberg/idseq-web) [Updated: 03/2025] - Pathogen detection platform with viral analysis components. [Ruby]
-- [Viral Beacon](https://web.archive.org/web/20210612075424/https://github.com/ga4gh-beacon/beacon-virus-server) [unavailable] - Cloud platform for virus sequence sharing and analysis. [Python]
+- [Viral Beacon](https://covid19beacon.crg.eu/) - Cloud platform for virus sequence sharing and analysis. [Python]
 - [Viral-NGS](https://github.com/broadinstitute/viral-ngs) [Updated: 02/2025] - Broad Institute's viral genomic analysis on cloud. [Python]
 
 ### Machine Learning Models
 
 - [CHERRY-models](https://github.com/KennthShang/CHERRY) [Updated: 03/2025] - Pre-trained host prediction models. [Python] 
 - [DeepVirFinder-models](https://github.com/jessieren/DeepVirFinder/tree/master/models) [Updated: 03/2025] - Pre-trained models for viral sequence identification. [Python]
-- [PhaTYP-models](https://web.archive.org/web/20211218103428/https://github.com/PhaTYP/PhaTYP) [unavailable] - Phage lifestyle prediction models. [Python]
+- [PhaTYP-models](https://github.com/KennthShang/PhaTYP) - Phage lifestyle prediction models. [Python]
 - [ViraMiner-models](https://github.com/NeuroCSUT/ViraMiner) [Updated: 12/2024] - ML models for viral sequence mining. [Python]
 
 ### Viral Single-Cell Analysis
 
 - [MAVERIC](https://web.archive.org/web/20210613041214/https://github.com/GreenleafLab/MAVERIC) [unavailable] - Analyzing viral infections at the single-cell level. [Python]
 - [scViroCap](https://web.archive.org/web/20220721142633/https://github.com/liulab-dfci/scViroCap) [unavailable] - Single-cell viral capture sequencing analysis. [Python]
-- [scVIRseq](https://github.com/Teichlab/Viral-Track) [unavailable] - Single-cell virus infection profiling. [Python]
+- [scVIRseq](https://github.com/PierreBSC/Viral-Track) - Single-cell virus infection profiling. [Python]
 - [Viral-Track](https://github.com/PierreBSC/Viral-Track) [Updated: 12/2024] - Tracking viruses in single-cell RNA-Seq data. [R]
 
 ### Viral Glycoprotein Analysis
@@ -553,7 +552,7 @@ Here are the most popular and well-maintained tools in each major category:
 
 ### Ancient Viral Sequence Analysis
 
-- [EVE](https://github.com/oist/EVE) [unavailable] - Ancient viral element detection in genomes. [Python]
+- [EVE](https://github.com/havillj/eve-x) - Ancient viral element detection in genomes. [Python]
 - [HOPS](https://github.com/rhuebler/HOPS) [Updated: 10/2024] - Pathogen screening for ancient DNA, includes viral sequences. [Java]
 - [Paleovirology](https://github.com/giffordlabcvr/DIGS-tool) [Updated: 10/2024] - Tools for detecting ancient viral elements. [Perl]
 - [PastML](https://github.com/evolbioinfo/pastml) [Updated: 01/2025] - Useful for ancient viral sequence reconstruction. [Python]
@@ -561,7 +560,7 @@ Here are the most popular and well-maintained tools in each major category:
 ### Viral Immune Epitope Prediction
 
 - [EpiDOCK](https://epidock.ddg-pharmfac.net/) - Viral epitope docking and analysis. [web service]
-- [IEDB-tools](https://github.com/iedb/iedb-epitope-database) [unavailable] - Suite of tools for epitope prediction. [Python]
+- [IEDB-tools](https://tools.iedb.org/main/) - Suite of tools for epitope prediction. [Python]
 - [NetMHCpan](https://services.healthtech.dtu.dk/service.php?NetMHCpan-4.1) - Neural network for MHC binding prediction in viral proteins. [web service]
 - [TepiTool](https://tools.iedb.org/tepitool/) - T-cell epitope prediction for viral sequences. [web service]
 
