@@ -126,7 +126,7 @@ Here are the most popular and well-maintained tools in each major category:
 ### 🎯 Host Prediction
 | Tool | Stars | Description |
 |------|-------|-------------|
-| [CHERRY](https://github.com/KennthShang/CHERRY) [v1.0, 2022] | ⭐ 24 | Deep learning for phage host prediction |
+| [CHERRY](https://github.com/KennthShang/PhaBOX) [v1.0, 2022] | ⭐ 24 | Deep learning for phage host prediction (now maintained in PhaBOX2) |
 | [VirHostMatcher-Net](https://github.com/WeiliWw/VirHostMatcher-Net) | ⭐ 21 | Network-based virus-host prediction |
 | [DeepHost](https://github.com/deepomicslab/DeepHost) | ⭐ 17 | CNN for phage host prediction |
 | [PhARIS](https://github.com/JKrusche1/PhARIS) [Updated: 03/2025] | - | Phage Aureus RBP Identification System for receptor-binding protein identification |
@@ -141,7 +141,7 @@ Here are the most popular and well-maintained tools in each major category:
 | Tool | Stars | Description |
 |------|-------|-------------|
 | [vConTACT2.0](https://bitbucket.org/MAVERICLab/vcontact2/src/master/) [v0.9.19, 2023] | ⭐ 27 | Genome-sharing networks for virus taxonomy |
-| [PhaGCN](https://github.com/KennthShang/PhaGCN) [v1.0, 2022] | ⭐ 25 | Graph convolutional network for phage taxonomy |
+| [PhaGCN](https://github.com/KennthShang/PhaBOX) [v1.0, 2022] | ⭐ 25 | Graph convolutional network for phage taxonomy (now maintained in PhaBOX2) |
 | [VIPtree](https://github.com/yosuken/ViPTreeGen) | ⭐ 19 | Viral proteomic tree generation |
 | [taxMyPhage](https://github.com/amillard/tax_myPHAGE) [Updated: 03/2025] | - | Automated taxonomy assignment for dsDNA bacteriophage genomes using MASH and BLASTn |
 | [VITAP](https://github.com/DrKaiyangZheng/VITAP) [Updated: 03/2025] | - | Viral Taxonomic Assignment Pipeline using alignment-based methods with graph algorithms |
@@ -289,7 +289,7 @@ Here are the most popular and well-maintained tools in each major category:
 ## Host Prediction
 
 - [BacteriophageHostPrediction](https://github.com/dimiboeckaerts/BacteriophageHostPrediction) [Updated: 01/2025] - Computational methods for phage-host prediction. [Python]
-- [CHERRY](https://github.com/KennthShang/CHERRY) [v1.0, 2022] [v1.0, 2022] [Updated: 03/2025] - Deep learning for phage host prediction. [Python] [v1.0, 2022]
+- [CHERRY](https://github.com/KennthShang/PhaBOX) [Updated: 05/2026] - Deep learning for phage host prediction. Now maintained as part of the [PhaBOX2](https://github.com/KennthShang/PhaBOX) tool set. [Python]
 - [CrisprOpenDB](https://github.com/edzuf/CrisprOpenDB) [Updated: 07/2024] - CRISPR spacer database for phage-host prediction. [Python]
 - [DeePaC](https://gitlab.com/dacs-hpi/deepac) - CNN, ResNet for detection of novel human pathogens. [conda, pip] [Python]
 - [DeePaC-Live](https://gitlab.com/dacs-hpi/deepac-live) - DeePaC plugin for real-time analysis during sequencing. [conda, pip] [Python]
@@ -370,7 +370,7 @@ Here are the most popular and well-maintained tools in each major category:
 - [BERTax](https://github.com/f-kretschmer/bertax) [Updated: 02/2025] - BERT-based viral taxonomy tool. [Python]
 - [Classiphages 2.0](https://www.biorxiv.org/content/10.1101/558171v1) - Artificial neural network for phage classification (code not available).
 - [GraViTy](https://github.com/PAiewsakun/GRAViTy) [Updated: 12/2024] - HMMs and genome organization models for virus taxonomy. [R]
-- [PhaGCN](https://github.com/KennthShang/PhaGCN) [v1.0, 2022] [v1.0, 2022] [Updated: 02/2025] - Graph convolutional network for phage taxonomy. [Python] [v1.0, 2022]
+- [PhaGCN](https://github.com/KennthShang/PhaBOX) [Updated: 05/2026] - Graph convolutional network for phage taxonomy. Now maintained as part of the [PhaBOX2](https://github.com/KennthShang/PhaBOX) tool set. [Python]
 - [vConTACT](https://bitbucket.org/MAVERICLab/vcontact/src/master/) [Updated: 10/2016] - Whole-genome gene-sharing networks for virus taxonomy. [Python] [legacy]
 - [vConTACT2.0](https://bitbucket.org/MAVERICLab/vcontact2/src/master/) [v0.9.19, 2023] [v0.9.19, 2023] [Updated: 11/2022] - Updated version of vConTACT with improved performance. [Python] [v0.9.19, 2023]
 - [VICTOR](https://github.com/vdclab/vdclab-wiki/blob/master/VICTOR.md) - Genome-based phylogeny and classification of phages. [web service]
