@@ -1,138 +1,49 @@
 # awesome-virome Scripts
 
-This directory contains scripts used for maintaining and enhancing the awesome-virome repository.
+Scripts used to maintain and enhance the awesome-virome repository. The data-collection scripts are driven by the `simplified-update-workflow.yml` GitHub Action; the rest are validation helpers and manual utilities.
 
-## Scripts Overview
+## Data collection and metadata
 
-- `apis/` - API integration modules for GitHub, Semantic Scholar, Zenodo, CrossRef, etc.
-- `enhance_metadata.py` - Enhance repository metadata with additional information
-- `bioinformatics_metadata.py` - Generate bioinformatics-specific metadata
-- `academic_impact.py` - Collect academic impact metrics for tools
-- `clear_cache.py` - Cache management utilities
-- `comprehensive_citation_data.py` - Authoritative script for generating impact_data.json
-- `auto_fix_dois.py` - Fixes DOI format issues across repositories
-- `monitor_cache.py` - Advanced cache monitoring system
-- `cron_cache_monitor.sh` - Scheduled cache monitoring for production environments
-- `test_cache_monitoring.sh` - Test script for the cache monitoring system
-- `citation_report.py` - Generate citation reports for tools
+- `github_metrics_workflow.py` - production entry point for collecting GitHub metrics (stars, forks, language, topics); run by the update workflow
+- `github_metrics_enhancer.py` - core GitHub metrics logic used by the above
+- `enhance_metadata.py` - enriches repository metadata
+- `bioinformatics_metadata.py` - adds bioinformatics-specific metadata
+- `incremental_metadata_update.py` - updates metadata incrementally rather than from scratch
+- `generate_api.py` - generates the REST API endpoints under `api/`
 
-## Citation Data System
+The repository-level entry points `update_check.py` and `update_data_json.py` live at the repo root.
 
-The awesome-virome repository uses a streamlined citation data collection system:
+## API modules (`apis/`)
 
-1. **Data Collection** - Citation data is collected from PubMed, CrossRef, and other sources
-2. **DOI Validation** - DOI format is validated and inconsistencies are fixed
-3. **Report Generation** - Citation reports are generated for analysis
-4. **Impact Data** - All citation data is consolidated in impact_data.json
+- `citations_api.py` - shared infrastructure: the cache manager, `RateLimiter`, and API clients (GitHub, CrossRef, Semantic Scholar). Imported by the metadata scripts.
+- `bioconda_api.py` - Bioconda package lookups
+- `biotools_api.py` - bio.tools registry lookups
 
-### Citation Data Scripts
+## Validation
 
-- **comprehensive_citation_data.py** - The authoritative script for generating `impact_data.json`
-  - Collects data from multiple sources: academic_impact, bioinformatics, and citation reports
-  - Uses only real citation data with no synthetic data generation
-  - Consolidates all available citation information
+- `tool_validator.py` - validates tool submissions (used by `validate-contribution.yml`)
+- `verify_readme_content.py` - checks README content and duplicates
+- `validate_tool_schema.py` - validates tool entries against the schema
+- `validate_workflow_definitions.py` - validates workflow definition files
+- `verify_token.py` - checks GitHub token configuration
+- `test_github_api.py` - checks GitHub API connectivity
 
-- **auto_fix_dois.py** - The authoritative script for DOI format fixing
-  - Used by the `fix-dois.yml` workflow
-  - Automatically fixes common DOI format issues
+## Cache
 
-- **update_citation_counts.py** - Updates citation counts from CrossRef API
-- **pubmed_citations.py** - Collects citation data from PubMed
-- **citation_report.py** - Generates reports based on citation data
-- **validate_citations.py** - Validates DOI consistency across the repository
+The cache stores API responses during metadata runs. See `CACHE_SYSTEM.md` for details.
 
-## Cache System
+- `clear_cache.py` - cache statistics and clearing
+- `cache_warming.py` - pre-warm the cache for predictable access patterns
 
-The awesome-virome repository uses a smart caching system that provides:
+## Other utilities
 
-1. **Smart Invalidation** - Automatic invalidation of cache entries when repositories change
-2. **Dependency Tracking** - Track which cached data depends on which repositories
-3. **Rate Limit Awareness** - Adaptive behavior based on API rate limits
-4. **Performance Metrics** - Tracking of cache efficiency and performance
+- `data_quality_metrics.py` - computes data-quality metrics for the catalog
+- `check_version_info.py` - reports version information for tracked tools
 
-For more details, see [CACHING.md](CACHING.md).
+## Tests
 
-## Cache Monitoring System
-
-The cache monitoring system provides real-time and historical metrics on cache performance, with features for alerting, visualization, and optimization recommendations.
-
-Features include:
-- Real-time performance monitoring
-- Historical trend analysis
-- Cache health checks
-- Performance visualization
-- CSV export of metrics
-- Scheduled monitoring via cron
-
-For more information, see [CACHE_MONITORING.md](CACHE_MONITORING.md).
-
-## Usage
-
-### Metadata Enhancement
+Unit tests live in `tests/`. Run them with:
 
 ```bash
-# Enhance metadata for all repositories
-python enhance_metadata.py
-
-# Enhance metadata with additional bioinformatics information
-python bioinformatics_metadata.py
-
-# Collect academic impact information
-python academic_impact.py
+python -m pytest scripts/tests/ -v
 ```
-
-### Cache Management
-
-```bash
-# View cache statistics
-python clear_cache.py --stats
-
-# Clear all caches
-python clear_cache.py --clear-all
-
-# Clear caches for a specific repository
-python clear_cache.py --clear-repo "https://github.com/username/repo"
-```
-
-### Cache Monitoring
-
-```bash
-# Run basic monitoring
-python monitor_cache.py
-
-# Run continuous monitoring for 1 hour
-python monitor_cache.py --continuous --duration 3600
-
-# Generate performance graphs
-python monitor_cache.py --graphs
-
-# Export metrics to CSV
-python monitor_cache.py --export-csv
-```
-
-### Scheduled Monitoring
-
-```bash
-# Run a quick snapshot
-./cron_cache_monitor.sh
-
-# Run hourly monitoring
-./cron_cache_monitor.sh hourly
-
-# Run daily monitoring
-./cron_cache_monitor.sh daily
-
-# Run weekly comprehensive monitoring
-./cron_cache_monitor.sh weekly
-```
-
-### Testing
-
-```bash
-# Run tests for the cache monitoring system
-./test_cache_monitoring.sh
-```
-
-## Development
-
-When contributing to this repository, please ensure all scripts maintain compatibility with Python 3.6+ and follow the repository's code style.
