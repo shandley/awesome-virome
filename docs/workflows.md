@@ -1,109 +1,43 @@
 # GitHub Workflows
 
-This document provides details about the GitHub Actions workflows used in the awesome-virome repository.
+This document describes the GitHub Actions workflows used in the awesome-virome repository. The set was reduced in July 2026 to the four workflows that each do a distinct job; the citation, DOI, health-metrics, cache-maintenance, site-health, changelog, and duplicate pages-deploy workflows were removed.
 
-## Citation Data Workflows
+## Active workflows
 
-### Citation Data Collection and Impact Data Generation
+### Simplified Data Update Workflow
 
-**File**: `.github/workflows/pubmed-citations.yml`  
-**Schedule**: Daily at 04:00 UTC  
-**Manual Trigger**: Yes  
+**File**: `.github/workflows/simplified-update-workflow.yml`
+**Schedule**: Weekly (Sunday 08:00 UTC) and monthly (1st of the month, 08:00 UTC)
+**Manual trigger**: Yes
 
-**Purpose**:
-- Collects citation data from PubMed using NCBI E-utilities API
-- Generates citation reports and analysis
-- Runs the authoritative script for generating `impact_data.json`
+This is the core data engine. It pulls repository metadata from the GitHub API (stars, forks, language, topics), regenerates `data.json`, and generates the REST API endpoints under `api/`. It commits the refreshed data back to `main`.
 
-**Key Steps**:
-1. Collects PubMed citation data using `pubmed_citations.py`
-2. Generates citation reports using `citation_report.py`
-3. Updates `impact_data.json` using the authoritative `comprehensive_citation_data.py`
+Key scripts: `update_check.py`, `github_metrics_workflow.py`, `enhance_metadata.py`, `bioinformatics_metadata.py`, `update_data_json.py`, `generate_api.py`, `verify_readme_content.py`.
 
-### DOI Format Fixing
+### Unified GitHub Pages Deployment
 
-**File**: `.github/workflows/fix-dois.yml`  
-**Schedule**: Weekly on Sunday at 08:00 UTC  
-**Manual Trigger**: Yes  
+**File**: `.github/workflows/unified-pages-deploy.yml`
+**Trigger**: Push to `main` touching `data.json`, `*.html`, `metadata/**`, `reports/**`, `js/**`, `mkdocs/**`, or the landing page
+**Manual trigger**: Yes
 
-**Purpose**:
-- Automatically fixes common DOI formatting issues across metadata files
-- Consolidates DOI fixing functionality in one place
-
-**Key Steps**:
-1. Runs the authoritative `auto_fix_dois.py` script
-2. Commits and pushes any changes to DOI formats
-
-### Citation Data Validation
-
-**File**: `.github/workflows/citation-validation-direct.yml`  
-**Schedule**: Weekly on Sunday at 12:00 UTC  
-**Manual Trigger**: Yes  
-
-**Purpose**:
-- Validates DOI consistency across metadata files
-- Generates validation reports
-- Creates issues for critical validation problems
-
-**Key Steps**:
-1. Runs citation validation script (without DOI fixing)
-2. Generates validation reports
-3. Checks for critical issues
-4. Creates GitHub issues for critical problems if found
-
-### Update Citation Counts from CrossRef
-
-**File**: `.github/workflows/update-citation-counts.yml`  
-**Schedule**: Weekly on Sunday at 03:00 AM UTC  
-**Manual Trigger**: Yes  
-
-**Purpose**:
-- Updates citation counts from CrossRef API
-- Does NOT generate `impact_data.json` (delegated to the authoritative workflow)
-
-**Key Steps**:
-1. Fixes citation counts using CrossRef data
-2. Updates citation count data in metadata files
-3. Commits changes to metadata files only
-
-## Disabled/Deprecated Workflows
-
-The following workflows have been deprecated or disabled in favor of the authoritative workflows above:
-
-### Citation Data Validation (DEPRECATED)
-
-**File**: `.github/workflows/disabled/citation-validation.yml`  
-**Status**: Moved to disabled directory  
-**Replacement**: Use `citation-validation-direct.yml` instead
-
-### Citation Data Consolidation (DEPRECATED)
-
-**File**: `.github/workflows/update-impact-data.yml`  
-**Status**: Deprecated but not removed (accessible via manual trigger only)  
-**Replacement**: Use the authoritative Citation Data Collection workflow instead
-
-## Other Workflows
-
-### Site Health Check
-
-**File**: `.github/workflows/site-health-check.yml`  
-**Schedule**: Daily at 01:00 UTC  
-**Purpose**: Checks the health of the website, verifying that all pages load correctly
-
-### Repository Health Metrics
-
-**File**: `.github/workflows/repository-health-metrics.yml`  
-**Schedule**: Weekly on Monday  
-**Purpose**: Collects and reports on repository health metrics
+Builds and publishes the site to the `gh-pages` branch, which is the source GitHub Pages serves from. It deploys the MkDocs docs (via `mike`) and copies the dashboard, comparison, selection-guide, landing page, and data assets into the branch. This is the only site deployer; the former `simplified-pages-deploy.yml` used the Actions-artifact deploy method, which does not apply when Pages serves from a branch, so it was removed.
 
 ### Broken Link Checker
 
-**File**: `.github/workflows/broken-link-checker.yml`  
-**Schedule**: Weekly  
-**Purpose**: Checks for broken links throughout the site
+**File**: `.github/workflows/broken-link-checker.yml`
+**Schedule**: Weekly (Monday 00:00 UTC), and after the data update workflow
+**Manual trigger**: Yes (with an optional `check_all` input to also scan HTML and JSON)
 
-### Auto Changelog
+Checks the links in `README.md`, `API.md`, and `CONTRIBUTING.md`, and opens or updates a single rolling issue labeled `broken-links` when it finds problems. It skips entries already tagged `[unavailable]` and web.archive.org snapshots, allowlists domains that block automated checkers but work in a browser (publishers, DOI, Zenodo, SourceForge), treats 401/403/405/429/503 as "blocked" rather than broken, and retries a connection failure once before declaring a link dead.
 
-**File**: `.github/workflows/automated-changelog.yml`  
-**Trigger**: On pull request merge to main  
-**Purpose**: Automatically updates the changelog when PRs are merged
+### Validate Tool Contribution
+
+**File**: `.github/workflows/validate-contribution.yml`
+**Trigger**: New or edited issues using the tool-submission template, and pull requests touching `README.md`, `data.json`, or `metadata/**`
+**Manual trigger**: Yes (by issue or PR number)
+
+Validates tool submissions and posts feedback. For issues it parses the submission template, runs `tool_validator.py`, and comments a quality report with a maintainer checklist, applying `validated` / `needs-changes` labels. For pull requests it validates the changed tool data or README (with duplicate checking) and comments the result. This replaced the separate `contributor-suggestion.yml`, which duplicated the PR-validation path.
+
+## Disabled workflows
+
+`.github/workflows/disabled/` holds older experimental workflows that are not run. They are kept for reference only and are not wired to any trigger.

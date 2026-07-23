@@ -5,23 +5,24 @@ This directory contains simplified GitHub Actions workflows for the Awesome-Viro
 ## Active Workflows
 
 1. **simplified-update-workflow.yml**
-   - Consolidates all update operations (repo info, citations, metadata)
-   - Runs on schedule or manual trigger
-   - Directly commits changes to main branch
-   - No PR creation or approval process needed
-   - Replaces multiple specialized workflows (update-repos.yml, update-citation-data.yml, etc.)
+   - Pulls GitHub metadata (stars, forks, language, topics), regenerates data.json, and generates the API
+   - Runs on schedule (weekly and monthly) or manual trigger
+   - Commits refreshed data directly to main
 
-2. **simplified-pages-deploy.yml**
-   - Deploys to GitHub Pages when data.json changes
-   - Handles GitHub Pages configuration and deployment
-   - Automatically triggered by changes to data.json
-   - Replaces previous custom-pages-deploy.yml and simple-pages-deploy.yml
+2. **unified-pages-deploy.yml**
+   - Builds and publishes the site to the gh-pages branch (the Pages source)
+   - Deploys the MkDocs docs and copies dashboard/comparison/landing-page assets
+   - Triggered on push to main that touches site content
 
-3. **contributor-suggestion.yml**
-   - Processes contributions from external users
-   - Validates suggested changes
-   - Provides automatic feedback on PRs
-   - Ensures quality of external contributions
+3. **broken-link-checker.yml**
+   - Checks links in README/API/CONTRIBUTING and maintains a single rolling broken-links issue
+   - Runs weekly and after the data update
+
+4. **validate-contribution.yml**
+   - Validates tool submissions from issues (submission template) and pull requests
+   - Comments quality feedback and applies validated / needs-changes labels
+
+See `docs/workflows.md` for the full description of each.
 
 ## Disabled Workflows
 

@@ -4,8 +4,6 @@
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 [![Data Update Status](https://github.com/shandley/awesome-virome/actions/workflows/simplified-update-workflow.yml/badge.svg)](https://github.com/shandley/awesome-virome/actions/workflows/simplified-update-workflow.yml)
-[![Site Health](https://github.com/shandley/awesome-virome/actions/workflows/site-health-check.yml/badge.svg)](https://github.com/shandley/awesome-virome/actions/workflows/site-health-check.yml)
-[![Cache Status](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/shandley/awesome-virome/main/.github/badges/cache-status.json)](https://github.com/shandley/awesome-virome/actions/workflows/cache-maintenance.yml)
 
 <br clear="left"/>
 
