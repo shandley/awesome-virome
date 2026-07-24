@@ -1,3 +1,0 @@
-"""
-Citation source API clients.
-"""

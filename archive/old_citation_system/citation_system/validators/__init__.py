@@ -1,1 +1,0 @@
-"""Validation utilities for citation data."""
