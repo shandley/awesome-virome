@@ -142,6 +142,23 @@ class GitHubMetricsCollector:
         except Exception as e:
             return {'error': str(e)}
 
+    @staticmethod
+    def _maintenance_status(pushed_at: str) -> str:
+        """Classify maintenance activity from the last-push timestamp.
+
+        Tiers match the dashboard: <6 months = active, 6-12 = stale, else inactive.
+        """
+        try:
+            dt = datetime.fromisoformat(pushed_at.replace('Z', '+00:00'))
+        except (ValueError, AttributeError):
+            return 'unknown'
+        months = (datetime.now(dt.tzinfo) - dt).days / 30.44
+        if months < 6:
+            return 'active'
+        if months < 12:
+            return 'stale'
+        return 'inactive'
+
     def enhance_tool_metrics(self, tool: Dict) -> Dict:
         """Enhance a single tool's GitHub metrics."""
         url = tool.get('url', '')
@@ -175,6 +192,13 @@ class GitHubMetricsCollector:
             'languages': metrics.get('languages', {}),
             'all_languages': metrics.get('all_languages', [])
         })
+
+        # Propagate the last-activity timestamp and recompute maintenance status so
+        # the dashboard's activity tiers stay current (metrics refresh weekly).
+        pushed_at = metrics.get('pushed_at') or metrics.get('updated_at')
+        if pushed_at:
+            enhanced_tool['lastUpdated'] = pushed_at
+            enhanced_tool['maintenance_status'] = self._maintenance_status(pushed_at)
 
         return enhanced_tool
 

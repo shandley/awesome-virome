@@ -243,10 +243,16 @@ def update_data_json(data, tools_data, include_metadata=False):
     
     # Count of metadata matches
     metadata_matches = 0
-    
+
+    # Track ids used this run so a tool cross-listed in two README sections
+    # gets distinct node ids (tool-X, tool-X-2) instead of colliding.
+    tool_id_counts = {}
+
     # Add tool nodes
     for tool in tools_data:
-        tool_id = get_tool_id(tool["name"])
+        base_tool_id = get_tool_id(tool["name"])
+        tool_id_counts[base_tool_id] = tool_id_counts.get(base_tool_id, 0) + 1
+        tool_id = base_tool_id if tool_id_counts[base_tool_id] == 1 else f"{base_tool_id}-{tool_id_counts[base_tool_id]}"
         updated_node_ids.add(tool_id)
         
         # Create the base node data

@@ -9,7 +9,7 @@
 
 ## What is Awesome-Virome?
 
-A comprehensive, curated database of **239+ software tools** for virome analysis - the study of viral communities in various environments. This repository helps researchers navigate the complex landscape of tools for analyzing phages, viruses, and their interactions with hosts.
+A comprehensive, curated database of **244 software tools** for virome analysis - the study of viral communities in various environments. This repository helps researchers navigate the complex landscape of tools for analyzing phages, viruses, and their interactions with hosts.
 
 **🎯 Perfect for:**
 - Researchers new to virome analysis seeking guidance
@@ -18,7 +18,7 @@ A comprehensive, curated database of **239+ software tools** for virome analysis
 - Students learning computational virology
 
 **🚀 Key Features:**
-- Curated collection of 239+ tools across 8 major categories
+- Curated collection of 244 tools across 11 categories
 - Interactive dashboard with visualization and analytics
 - Tool comparison matrix with filtering and export
 - Automated metadata collection from GitHub/GitLab/Bitbucket
@@ -45,7 +45,7 @@ Don't just read about tools - **explore them visually!** Our interactive web app
 
 ### [📊 Interactive Dashboard](https://shandley.github.io/awesome-virome/dashboard.html)
 Visualize the entire virome analysis ecosystem at a glance:
-- **Tool Categorization Treemap** - See how 239+ tools are distributed across categories
+- **Tool Categorization Treemap** - See how 244 tools are distributed across categories
 - **Interactive Network Graph** - Explore relationships between tools and categories
 - **Timeline Visualization** - Track the evolution of viral analysis tools over time
 - **Technology Trends** - Analyze programming language usage across the collection
@@ -423,7 +423,6 @@ Here are the most popular and well-maintained tools in each major category:
 
 ### Phage-specific Analysis
 
-- [Phanotate](https://github.com/deprekate/PHANOTATE) [Updated: 01/2025] - Phage gene finder. [Python]
 - [PHROGs](https://academic.oup.com/nargab/article/3/3/lqab067/6342220) - Phage-specific orthologous groups. [Database, 2021]
 - [PHRED](https://academic.oup.com/femsle/article/363/4/fnw002/1845417) - Phage receptor identification tool (no longer available).
 - [SpikeHunter](https://github.com/nlm-irp-jianglab/SpikeHunter) [Updated: 01/2025] - Phage tail spike identification using protein embeddings. [Python]

@@ -23,7 +23,7 @@ Get a complete list of all virome analysis tools in the database.
   {
     "api_version": "1.0",
     "generated_at": "2025-04-30T12:34:56.789Z",
-    "count": 250,
+    "count": 244,
     "tools": [
       {
         "id": "VirSorter2",
@@ -114,7 +114,7 @@ Get a lightweight index optimized for client-side searching and filtering.
   {
     "api_version": "1.0",
     "generated_at": "2025-04-30T12:34:56.789Z",
-    "count": 250,
+    "count": 244,
     "tools": [
       {
         "id": "VirSorter2",
@@ -143,7 +143,7 @@ Get aggregate statistics about the tools database.
   {
     "api_version": "1.0",
     "generated_at": "2025-04-30T12:34:56.789Z",
-    "total_tools": 250,
+    "total_tools": 244,
     "total_stars": 12500,
     "average_stars": 50.0,
     "languages": {
