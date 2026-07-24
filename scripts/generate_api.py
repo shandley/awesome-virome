@@ -152,7 +152,6 @@ def extract_tools(data):
                 "created_at": node.get('createdAt'),
                 "languages": node.get('languages', {}),
                 "doi": node.get('doi'),
-                "citation_count": node.get('citation_count', 0),
                 "package_manager": node.get('package_manager')
             }
             tools.append(tool)

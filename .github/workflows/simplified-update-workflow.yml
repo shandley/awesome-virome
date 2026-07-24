@@ -90,7 +90,7 @@ jobs:
           echo "Collecting bioinformatics metadata..."
           python scripts/bioinformatics_metadata.py
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       # Always update data.json with appropriate flags
       - name: Update data.json

@@ -24,7 +24,6 @@ new_tools = [
         "createdAt": "2023-01-01T00:00:00Z",
         "lastUpdated": "2025-11-04T00:00:00Z",
         "doi": "10.1101/2025.06.27.661954",
-        "citation_count": 0,
         "provider": "github",
         "repo_path": "nf-core/viralmetagenome"
     },
@@ -45,7 +44,6 @@ new_tools = [
         "createdAt": "2023-01-01T00:00:00Z",
         "lastUpdated": "2025-05-15T00:00:00Z",
         "doi": None,
-        "citation_count": 0,
         "provider": "github",
         "repo_path": "nchis09/BonoboFlow"
     },
@@ -66,7 +64,6 @@ new_tools = [
         "createdAt": "2023-10-01T00:00:00Z",
         "lastUpdated": "2025-11-06T00:00:00Z",
         "doi": "10.1101/2025.08.05.668817",
-        "citation_count": 0,
         "provider": "github",
         "repo_path": "gbouras13/phold"
     },
@@ -87,7 +84,6 @@ new_tools = [
         "createdAt": "2024-08-13T00:00:00Z",
         "lastUpdated": "2025-02-26T00:00:00Z",
         "doi": "10.1186/s13059-025-03733-0",
-        "citation_count": 0,
         "provider": "github",
         "repo_path": "chyghy/PIDE"
     },
@@ -108,7 +104,6 @@ new_tools = [
         "createdAt": "2023-08-09T00:00:00Z",
         "lastUpdated": "2025-03-01T00:00:00Z",
         "doi": "10.1016/j.celrep.2025.115369",
-        "citation_count": 0,
         "provider": "github",
         "repo_path": "JKrusche1/PhARIS"
     },
@@ -129,7 +124,6 @@ new_tools = [
         "createdAt": "2023-08-16T00:00:00Z",
         "lastUpdated": "2025-02-08T00:00:00Z",
         "doi": "10.1101/2025.02.07.637044",
-        "citation_count": 0,
         "provider": "github",
         "repo_path": "Rounge-lab/VirMake"
     },
@@ -150,7 +144,6 @@ new_tools = [
         "createdAt": "2023-04-30T00:00:00Z",
         "lastUpdated": "2025-03-17T00:00:00Z",
         "doi": "10.1089/phage.2024.0050",
-        "citation_count": 0,
         "provider": "github",
         "repo_path": "amillard/tax_myPHAGE"
     },
@@ -171,7 +164,6 @@ new_tools = [
         "createdAt": "2024-03-17T00:00:00Z",
         "lastUpdated": "2025-03-01T00:00:00Z",
         "doi": "10.1038/s41467-025-57500-7",
-        "citation_count": 0,
         "provider": "github",
         "repo_path": "DrKaiyangZheng/VITAP"
     },
@@ -192,7 +184,6 @@ new_tools = [
         "createdAt": "2024-08-09T00:00:00Z",
         "lastUpdated": "2025-02-01T00:00:00Z",
         "doi": None,
-        "citation_count": 0,
         "provider": "github",
         "repo_path": "Ying-Lab/ViTax"
     },
@@ -213,7 +204,6 @@ new_tools = [
         "createdAt": "2025-01-01T00:00:00Z",
         "lastUpdated": "2025-11-06T00:00:00Z",
         "doi": "10.1101/2025.11.06.686974",
-        "citation_count": 0,
         "provider": "bitbucket",
         "repo_path": None
     }
