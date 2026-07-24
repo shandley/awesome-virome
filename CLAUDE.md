@@ -16,18 +16,18 @@
 - **`metrics_history/`** - Historical metrics tracking
 
 ### Automated Workflows
-- **Weekly/Monthly Updates**: `simplified-update-workflow.yml`
-  - Basic repo metadata updates (weekly)
-  - Comprehensive metrics enhancement (monthly)
-  - GitHub API-based metrics collection (stars, forks, languages, topics)
-- **Site Health**: Automated validation and health checks
-- **Cache Maintenance**: Cache warming and management
+The active workflow set is 4 (older workflows live in `.github/workflows/disabled/`):
+- **`simplified-update-workflow.yml`** - repo metadata and metrics updates (GitHub API: stars, forks, languages, topics, `pushed_at`); scheduled weekly for basic updates and monthly for a comprehensive run, plus manual dispatch
+- **`unified-pages-deploy.yml`** - builds and deploys the GitHub Pages site
+- **`broken-link-checker.yml`** - checks for dead links
+- **`validate-contribution.yml`** - validates contributions/PRs
 
 ### Metrics System
-- **GitHub Metrics** (Active): Stars, forks, languages, topics
+- **GitHub Metrics**: Stars, forks, languages, topics, and `pushed_at` (used to derive metadata freshness)
   - `scripts/github_metrics_enhancer.py` - Core logic
   - `scripts/github_metrics_workflow.py` - Production version
-- **Citation Tracking** (Removed): Previously tracked citations via DOI, removed site-wide for simplicity
+- **Bitbucket Metrics**: Basic repo metrics for the ~6 Bitbucket-hosted tools
+- **No citation tracking**: The project tracks repository metrics only. There is no DOI/citation subsystem.
 
 ## 📁 Key File Locations
 
@@ -37,11 +37,17 @@
 - `requirements.txt` - Python dependencies
 - `.github/workflows/` - GitHub Actions automation
 
-### Scripts (`scripts/`)
-- **Metadata**: `github_metrics_*.py`, `enhance_metadata.py`, `enhanced_repo_metadata.py`
+### Scripts in `scripts/`
+- **Metadata**: `github_metrics_*.py`, `enhance_metadata.py`
 - **Data Quality**: `validate_*.py`, `data_quality_metrics.py`
 - **API**: `generate_api.py`
-- **Utilities**: `update_check.py`, `cache_*.py`, `add_2025_tools.py`, `update_readme.py`
+- **Cache**: `cache_*.py`
+
+### Scripts at the repo root
+- `update_check.py` - repo availability check; also writes `starred_repos.md` and `unavailable_repos.md`
+- `update_data_json.py` - regenerates `data.json`
+- `update_readme.py` - regenerates the README tool tables
+- `add_2025_tools.py` - one-off helper for adding recent tools
 
 ### Web Assets
 - `dashboard.html` - Interactive network visualization with analytics (collapsible tools section, URL params)
@@ -60,7 +66,6 @@
 ### API Usage
 - **Free APIs only** - No premium dependencies
 - GitHub API: 5000 req/hr with token
-- Future: Semantic Scholar, CrossRef, PubMed (all free)
 
 ### Automation Philosophy
 - GitHub Actions over local execution
@@ -91,80 +96,12 @@ python scripts/generate_api.py
 - **244** curated tools across 11 categories
 - **164** GitHub repositories actively tracked
 - **150+** metadata files with comprehensive tool info
-- **Weekly** automated updates
-- **Monthly** comprehensive metrics enhancement
+- **Weekly + monthly** automated metadata and metrics updates
 
-## 🆕 Recent Updates (December 2024)
+## 🆕 Recent Work (2026)
 
-### New Tools Added
-- 10 virome tools with 2025 releases/publications
-- Tools span: Metagenome Analysis (2), Genome Assembly (1), Genome Annotation (1), Integrated Viruses (1), Host Prediction (1), Taxonomy (4)
-- Includes: nf-core/viralmetagenome, BonoboFlow, Phold, PIDE, PhARIS, VirMake, taxMyPhage, VITAP, ViTax, vConTACT3
-
-### Dashboard Improvements (dashboard.html)
-- Fixed month calculation bug in maintenance status (calendar arithmetic → elapsed time)
-- Implemented collapsible tools section (default collapsed for better UX)
-- Fixed export button visibility (white text on teal background)
-- Added data quality indicators for transparency
-- Filtered out Quick Start Guide items from tool list
-
-### Comparison Page Overhaul (comparison.html)
-**HIGH Priority Fixes:**
-- Fixed month calculation bug (same as dashboard)
-- Fixed filter logic bug (persistent custom filter vs push/pop)
-- Added graceful fallback for missing impact_data.json
-
-**MEDIUM Priority Enhancements:**
-- URL parameter support (deep linking for shareable filtered views)
-- Auto-apply filters (no manual "Apply" button needed)
-- Summary statistics card (real-time filtered results overview)
-- Data quality indicators (transparency about missing data)
-
-**Additional Improvements:**
-- Removed all citations features (site-wide decision)
-- Fixed export button text visibility
-- Improved data quality layout (compact format with icons)
-- Filtered out Quick Start Guide items
-
-### Data Structure Improvements
-- Quick Start Guide items now properly filtered from tool lists
-- Consistent filtering applied across dashboard.html and comparison.html
-- Cleaner separation between navigation items and actual tools
-## 🔄 Potential Next Steps
-
-### Comparison Page NICE-TO-HAVE Enhancements (Not Yet Implemented)
-These optional improvements were identified but not yet implemented:
-1. Quick stats cards at top (most starred tool, most cited, etc.)
-2. Enhanced tool detail modal (citation trends, related tools, installation snippets)
-3. "Compare Selected" feature (checkboxes for side-by-side comparison)
-4. Column visibility toggle
-5. Interactive feature buttons (click to filter)
-6. Keyboard shortcuts (Ctrl+F, Ctrl+E, Esc)
-7. "Recent Tools" quick filter
-8. Improved empty state messaging
-9. Saved filter sets (localStorage)
-10. Additional export formats (Markdown, BibTeX)
-11. Loading skeleton
-12. Active filter badges
-
-### Other Pages
-- Review and enhance selection-guide.html (not yet reviewed)
-- Consider additional analytics visualizations
-
-## 📝 Important Notes
-
-### Citations System
-- **Status:** Removed site-wide (December 2024)
-- **Reason:** Simplified system, focus on GitHub metrics
-- **Impact:** Removed from dashboard, comparison page, and all supporting code
-- **Files affected:** dashboard.html, comparison.html, data processing scripts
-
-### Quick Start Guide Items
-- **Issue:** Navigation items were appearing as tools in visualizations
-- **Fix:** Added category filter `node.category !== 'Quick Start Guide'`
-- **Locations:** dashboard.html (line 909), comparison.html (line 739-741)
-
-### Month Calculation Fix
-- **Issue:** Calendar month arithmetic (Dec 31 → Jan 1 = 1 month instead of 1 day)
-- **Fix:** Use elapsed time calculation: `daysDiff / 30.44` where 30.44 = 365.25 / 12
-- **Locations:** dashboard.html, comparison.html maintenance status calculations
+- **Citation system fully retired.** The DOI/citation tracking subsystem was removed across the site and its supporting scripts and workflows. The project tracks repository metrics only.
+- **Workflow set consolidated** from about 10 workflows down to 4 (see Automated Workflows above). Retired workflows are kept in `.github/workflows/disabled/` for reference.
+- **Monthly update pipeline fixed** and now runs reliably on schedule.
+- **Metadata freshness derived from GitHub `pushed_at`.** The `lastUpdated` and `maintenance_status` fields are computed from the repository's last push time rather than manual entry.
+- **Bitbucket metrics added** for the ~6 Bitbucket-hosted tools, so those entries also carry basic repo metrics.

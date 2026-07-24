@@ -642,58 +642,12 @@ def get_repo_metadata(repo_url, github_api=None):
         return {"name": repo_name, "url": repo_url, "provider": "unknown"}
 
 def extract_tool_metadata(tool_id, repo_url, tool_name, github_api=None, semantic_scholar_api=None, crossref_api=None):
+    """Extract tool-specific metadata for a given tool.
+
+    Citation / academic-impact collection was retired, so this now returns an
+    empty dict. Kept for backward compatibility with existing callers.
     """
-    Extract tool-specific metadata for a given tool.
-    This function integrates with academic_impact.py to collect citation data.
-    
-    Args:
-        tool_id: Identifier for the tool
-        repo_url: URL of the repository
-        tool_name: Name of the tool
-        github_api: GitHub API client (optional)
-        semantic_scholar_api: Semantic Scholar API client (optional)
-        crossref_api: CrossRef API client (optional)
-        
-    Returns:
-        Dictionary containing tool-specific metadata
-    """
-    # Import the academic impact collector lazily to avoid circular imports
-    try:
-        from academic_impact import AcademicImpactCollector
-        academic_collector = AcademicImpactCollector(
-            github_token=os.environ.get("GITHUB_TOKEN"),
-            semantic_scholar_key=os.environ.get("SEMANTIC_SCHOLAR_KEY"),
-            contact_email=os.environ.get("CONTACT_EMAIL")
-        )
-        
-        # Create a minimal tool object for the academic impact collector
-        tool_obj = {
-            "id": tool_id,
-            "name": tool_name,
-            "url": repo_url,
-            "description": ""
-        }
-        
-        # Collect academic impact data
-        academic_impact = academic_collector.process_tool(tool_obj)
-        
-        # Extract relevant fields
-        return {
-            "academic_impact": {
-                "doi": academic_impact.get("doi"),
-                "citation_info": academic_impact.get("citation_info"),
-                "citation_metrics": academic_impact.get("citation_metrics")
-            }
-        }
-    except (ImportError, Exception) as e:
-        logger.warning(f"Error collecting academic impact data: {e}")
-        return {
-            "academic_impact": {
-                "doi": None,
-                "citation_info": {},
-                "citation_metrics": {}
-            }
-        }
+    return {}
 
 if __name__ == "__main__":
     main()

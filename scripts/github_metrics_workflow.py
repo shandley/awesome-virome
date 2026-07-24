@@ -22,7 +22,7 @@ import time
 
 # Import our Phase 1 system
 try:
-    from github_metrics_enhancer import GitHubMetricsCollector
+    from github_metrics_enhancer import GitHubMetricsCollector, enhance_bitbucket_tool
 except ImportError:
     print("❌ Error: Could not import GitHubMetricsCollector")
     print("   Make sure scripts/github_metrics_enhancer.py is available")
@@ -223,9 +223,67 @@ def run_workflow_enhancement():
 
     return 0
 
+def run_bitbucket_enhancement():
+    """Enhance Bitbucket-hosted tools in data.json.
+
+    Runs independently of GitHub auth (Bitbucket's public API needs no token),
+    so it happens on every workflow run even when GITHUB_TOKEN is absent.
+    """
+    print("\n🪣 Starting Bitbucket Metrics Enhancement")
+    print("=" * 70)
+
+    try:
+        with open('data.json', 'r') as f:
+            data = json.load(f)
+    except Exception as e:
+        print(f"❌ Error loading data.json: {e}")
+        return 1
+
+    bitbucket_tools = [
+        node for node in data.get('nodes', [])
+        if node.get('type') == 'tool' and 'bitbucket.org' in node.get('url', '')
+    ]
+    print(f"🔍 Found {len(bitbucket_tools)} Bitbucket tools to enhance")
+
+    if not bitbucket_tools:
+        return 0
+
+    enhanced_count = 0
+    for i, tool in enumerate(bitbucket_tools):
+        tool_name = tool.get('name', 'Unknown')
+        print(f"   {i+1:3d}/{len(bitbucket_tools)} {tool_name:<30}", end=" ")
+        try:
+            enhanced_tool = enhance_bitbucket_tool(tool)
+            if 'bitbucket_metrics' in enhanced_tool:
+                enhanced_count += 1
+                for j, node in enumerate(data['nodes']):
+                    if node.get('id') == tool['id']:
+                        data['nodes'][j] = enhanced_tool
+                        break
+                print("✅")
+            else:
+                print("❌ (unverified, left as-is)")
+        except Exception as e:
+            print(f"❌ ({str(e)[:20]}...)")
+
+    print(f"\n💾 Saving Bitbucket-enhanced data...")
+    try:
+        with open('data.json', 'w') as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+        print(f"✅ Enhanced {enhanced_count}/{len(bitbucket_tools)} Bitbucket tools")
+    except Exception as e:
+        print(f"❌ Error saving data.json: {e}")
+        return 1
+
+    return 0
+
+
 def main():
     """Main entry point for workflow."""
     try:
+        # Bitbucket first: it needs no auth and must run even without a token,
+        # unlike the GitHub pass which returns early when GITHUB_TOKEN is absent.
+        run_bitbucket_enhancement()
         return run_workflow_enhancement()
     except KeyboardInterrupt:
         print("\n❌ Enhancement cancelled by user")

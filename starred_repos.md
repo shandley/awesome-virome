@@ -1,5 +1,11 @@
 # GitHub Repositories by Stars
 
+> **Auto-generated file.** This list is written by `update_check.py` (repo root) each time it runs, so do not hand-edit it; edits will be overwritten on the next run.
+>
+> **This snapshot predates the current generator.** It uses a two-column `Repository | Stars` layout, but `update_check.py` now emits a three-column `Repository | Category | Stars` table. The next run will therefore also change the schema, not just the rows.
+>
+> **Known problems to fix in the generator:** this snapshot contains duplicate rows (for example AlphaFold-Multimer, CovidMD, coronaSPAdes, and several others appear two or three times) and off-topic non-virome entries whose links point at unrelated repositories (for example the "AlphaFold-Multimer" row links to `deepmind/alphafold` and "CovidMD" links to `lammps/lammps`). The generator iterates the source tool list without deduplicating, so both issues trace to the source data and collection logic in `update_check.py`, not to this output file.
+
 | Repository | Stars |
 |------------|-------|
 | [AlphaFold-Multimer](https://github.com/deepmind/alphafold) | 13320 |

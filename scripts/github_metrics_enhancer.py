@@ -202,6 +202,57 @@ class GitHubMetricsCollector:
 
         return enhanced_tool
 
+def enhance_bitbucket_tool(tool: Dict) -> Dict:
+    """Enhance a single Bitbucket-hosted tool's metrics.
+
+    Uses the public Bitbucket Cloud API (no auth). Watchers are used as the
+    stars-equivalent. Maintenance status is computed with the same tiers as the
+    GitHub path via GitHubMetricsCollector._maintenance_status.
+    Returns the tool unchanged (and prints a note) if the repo can't be verified.
+    """
+    from bitbucket_metrics import extract_bitbucket_repo, get_repo_metrics
+
+    url = tool.get('url', '')
+    if 'bitbucket.org' not in url:
+        return tool
+
+    repo_path = extract_bitbucket_repo(url)
+    if not repo_path:
+        print(f"Warning: Could not extract Bitbucket repo path from {url}")
+        return tool
+
+    print(f"Enhancing Bitbucket metrics for {repo_path}...")
+    metrics = get_repo_metrics(repo_path)
+
+    if 'error' in metrics:
+        print(f"Error getting Bitbucket metrics for {repo_path}: {metrics['error']}")
+        return tool
+
+    enhanced_tool = tool.copy()
+    enhanced_tool.update({
+        'bitbucket_metrics': metrics,
+        'repo_path': repo_path,
+        'provider': 'bitbucket',
+        'last_metrics_update': datetime.now().isoformat(),
+        'stars': metrics.get('stars', tool.get('stars')),
+        'forks': metrics.get('forks', tool.get('forks')),
+        'is_archived': metrics.get('archived', False),
+    })
+
+    # Only overwrite language when Bitbucket reports one (it often returns '').
+    language = metrics.get('language')
+    if language:
+        enhanced_tool['language'] = language
+
+    pushed_at = metrics.get('pushed_at')
+    if pushed_at:
+        enhanced_tool['lastUpdated'] = pushed_at
+        enhanced_tool['maintenance_status'] = \
+            GitHubMetricsCollector._maintenance_status(pushed_at)
+
+    return enhanced_tool
+
+
 def main():
     """Main function to enhance GitHub metrics in data.json."""
 
