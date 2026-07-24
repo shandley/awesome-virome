@@ -342,9 +342,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="selection-guide.html">Selection Guide</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="citations.html">Citation Analytics</a>
-                    </li>
                 </ul>
                 <div class="d-flex align-items-center">
                     <div class="theme-toggle me-3" id="theme-toggle">
@@ -665,7 +662,7 @@
             // Global filter state for stars
             let globalMinStars = 0;
 
-            // Load data from the repository's data.json and impact_data.json files
+            // Load data from the repository's data.json file
             loadData();
             
             // Load and display data
@@ -675,7 +672,6 @@
                 try {
                     const baseUrl = window.location.href.split('/').slice(0, -1).join('/') + '/';
                     const dataUrl = new URL('data.json', baseUrl).href;
-                    const impactDataUrl = new URL('impact_data.json', baseUrl).href;
 
                     console.log('Fetching tool data from:', dataUrl);
 
@@ -689,43 +685,19 @@
                     })
                     .then(toolData => {
                         console.log('Tool data loaded successfully');
-
-                        // Try to fetch impact_data.json (optional)
-                        console.log('Attempting to fetch impact data from:', impactDataUrl);
-                        return fetch(`${impactDataUrl}?t=${Date.now()}`)
-                            .then(response => {
-                                if (!response.ok) {
-                                    console.warn(`Impact data not available (Status: ${response.status}), continuing without citation data`);
-                                    return null;
-                                }
-                                return response.json();
-                            })
-                            .catch(error => {
-                                console.warn('Impact data fetch failed, continuing without citation data:', error.message);
-                                return null;
-                            })
-                            .then(impactData => {
-                                return { toolData, impactData };
-                            });
+                        // Citation/impact feature retired; no impact data to merge.
+                        return { toolData };
                     })
-                    .then(({ toolData, impactData }) => {
-                        // Process and merge data - filter out Quick Start Guide items
+                    .then(({ toolData }) => {
+                        // Process data - filter out Quick Start Guide items
                         const tools = toolData.nodes.filter(node =>
                             node.type === 'tool' && node.category !== 'Quick Start Guide'
                         );
                         console.log(`Found ${tools.length} tools in data.json`);
 
-                        // Create impact data lookup map for faster access
+                        // Citation/impact feature retired; empty lookup keeps downstream code intact.
                         const impactMap = {};
-                        if (impactData && impactData.tools) {
-                            console.log(`Found ${impactData.tools.length} tools in impact_data.json`);
-                            impactData.tools.forEach(tool => {
-                                impactMap[tool.name] = tool;
-                            });
-                        } else {
-                            console.log('No impact data available - all citation counts will be 0');
-                        }
-                        
+
                         // Merge data from both sources
                         const mergedTools = tools.map(tool => {
                             // Format topic/features from description or topics
