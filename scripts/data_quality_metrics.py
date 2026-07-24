@@ -41,17 +41,12 @@ IMPORTANT_FIELDS = ["homepage", "language", "license", "stars", "last_updated"]
 METADATA_FIELDS = [
     "stars", "forks", "open_issues", "license", "created_at", "updated_at",
     "is_archived", "default_branch", "last_commit", "contributors_count",
-    "citation", "doi", "publication"
+    "doi"
 ]
 BIOINFORMATICS_FIELDS = [
     "package_managers", "container_images", "installation_methods",
     "input_formats", "output_formats", "dependencies", "language_versions"
 ]
-ACADEMIC_FIELDS = [
-    "citation_count", "first_published", "has_preprint", "journal",
-    "citation_trend"
-]
-
 def load_data_json() -> Dict[str, Any]:
     """Load the current data.json file"""
     try:
@@ -148,10 +143,8 @@ def analyze_data_quality() -> Dict[str, Any]:
             "important_fields_completion": 0,
             "metadata_completion": 0,
             "bioinformatics_completion": 0,
-            "academic_completion": 0,
             "tools_with_metadata": 0,
             "tools_with_github_repo": 0,
-            "tools_with_citation": 0,
             "tools_by_language": {},
             "tools_by_license": {},
             "avg_description_length": 0,
@@ -167,10 +160,8 @@ def analyze_data_quality() -> Dict[str, Any]:
         "important_fields_completion": 0,
         "metadata_completion": 0,
         "bioinformatics_completion": 0,
-        "academic_completion": 0,
         "tools_with_metadata": 0,
         "tools_with_github_repo": 0,
-        "tools_with_citation": 0,
         "tools_by_language": defaultdict(int),
         "tools_by_license": defaultdict(int),
         "avg_description_length": 0,
@@ -179,7 +170,7 @@ def analyze_data_quality() -> Dict[str, Any]:
     }
     
     # Field counters
-    for field in CRITICAL_FIELDS + IMPORTANT_FIELDS + METADATA_FIELDS + BIOINFORMATICS_FIELDS + ACADEMIC_FIELDS:
+    for field in CRITICAL_FIELDS + IMPORTANT_FIELDS + METADATA_FIELDS + BIOINFORMATICS_FIELDS:
         metrics["fields"][field] = 0
     
     # Quality indicators
@@ -189,7 +180,6 @@ def analyze_data_quality() -> Dict[str, Any]:
     important_field_count = 0
     metadata_field_count = 0
     bioinformatics_field_count = 0
-    academic_field_count = 0
     recent_cutoff = datetime.datetime.now() - datetime.timedelta(days=30)
     
     # Process each tool
@@ -206,7 +196,7 @@ def analyze_data_quality() -> Dict[str, Any]:
         combined_data = {**tool, **metadata}
         
         # Count fields
-        for field in CRITICAL_FIELDS + IMPORTANT_FIELDS + METADATA_FIELDS + BIOINFORMATICS_FIELDS + ACADEMIC_FIELDS:
+        for field in CRITICAL_FIELDS + IMPORTANT_FIELDS + METADATA_FIELDS + BIOINFORMATICS_FIELDS:
             if field in combined_data and combined_data[field]:
                 metrics["fields"][field] += 1
                 
@@ -219,8 +209,6 @@ def analyze_data_quality() -> Dict[str, Any]:
                     metadata_field_count += 1
                 if field in BIOINFORMATICS_FIELDS:
                     bioinformatics_field_count += 1
-                if field in ACADEMIC_FIELDS:
-                    academic_field_count += 1
         
         # Repository analysis
         repo_url = combined_data.get("repository", "")
@@ -239,10 +227,6 @@ def analyze_data_quality() -> Dict[str, Any]:
         license_name = combined_data.get("license")
         if license_name:
             metrics["tools_by_license"][license_name] += 1
-        
-        # Citation analysis
-        if "citation" in combined_data and combined_data["citation"]:
-            metrics["tools_with_citation"] += 1
         
         # Star count
         stars = combined_data.get("stars", 0)
@@ -269,7 +253,6 @@ def analyze_data_quality() -> Dict[str, Any]:
         metrics["important_fields_completion"] = (important_field_count / (len(tools) * len(IMPORTANT_FIELDS))) * 100
         metrics["metadata_completion"] = (metadata_field_count / (len(tools) * len(METADATA_FIELDS))) * 100
         metrics["bioinformatics_completion"] = (bioinformatics_field_count / (len(tools) * len(BIOINFORMATICS_FIELDS))) * 100
-        metrics["academic_completion"] = (academic_field_count / (len(tools) * len(ACADEMIC_FIELDS))) * 100
     
     # Convert defaultdicts to regular dicts for JSON serialization
     metrics["fields"] = dict(metrics["fields"])
@@ -309,7 +292,6 @@ def compare_with_history(current_metrics: Dict[str, Any], history: Dict[str, Any
         "total_tools": current_metrics["total_tools"] - previous["total_tools"],
         "critical_fields_change": current_metrics["critical_fields_completion"] - previous["critical_fields_completion"],
         "metadata_completion_change": current_metrics["metadata_completion"] - previous["metadata_completion"],
-        "tools_with_citation_change": current_metrics["tools_with_citation"] - previous["tools_with_citation"],
         "tools_with_metadata_change": current_metrics["tools_with_metadata"] - previous["tools_with_metadata"],
         "tools_updated_recently_change": current_metrics["tools_updated_recently"] - previous["tools_updated_recently"],
     }
@@ -337,11 +319,9 @@ def format_metrics_report(metrics: Dict[str, Any], comparison: Dict[str, Any]) -
     # Avoid division by zero
     if total_tools > 0:
         report.append(f"- Tools with Metadata: {metrics['tools_with_metadata']} ({metrics['tools_with_metadata']/total_tools*100:.1f}%)")
-        report.append(f"- Tools with Citations: {metrics['tools_with_citation']} ({metrics['tools_with_citation']/total_tools*100:.1f}%)")
         report.append(f"- Tools Updated in Last 30 Days: {metrics['tools_updated_recently']} ({metrics['tools_updated_recently']/total_tools*100:.1f}%)")
     else:
         report.append("- Tools with Metadata: 0 (0.0%)")
-        report.append("- Tools with Citations: 0 (0.0%)")
         report.append("- Tools Updated in Last 30 Days: 0 (0.0%)")
     
     report.append(f"- Total GitHub Stars: {metrics['total_stars']}")
@@ -352,7 +332,6 @@ def format_metrics_report(metrics: Dict[str, Any], comparison: Dict[str, Any]) -
     report.append(f"- Important Fields: {metrics['important_fields_completion']:.1f}%")
     report.append(f"- Metadata Fields: {metrics['metadata_completion']:.1f}%")
     report.append(f"- Bioinformatics Fields: {metrics['bioinformatics_completion']:.1f}%")
-    report.append(f"- Academic Impact Fields: {metrics['academic_completion']:.1f}%")
     report.append("")
     
     # Check if top_languages exists and has entries
@@ -383,7 +362,6 @@ def format_metrics_report(metrics: Dict[str, Any], comparison: Dict[str, Any]) -
         report.append(f"- Tools Added: {comparison['total_tools']}")
         report.append(f"- Critical Field Completion: {comparison['critical_fields_change']:.1f}% change")
         report.append(f"- Metadata Completion: {comparison['metadata_completion_change']:.1f}% change")
-        report.append(f"- Tools with Citations: {comparison['tools_with_citation_change']} change")
         report.append("")
     
     report.append("## Field Completion")
