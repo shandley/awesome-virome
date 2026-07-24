@@ -1,0 +1,427 @@
+{
+  "name": "nf-core/viralmetagenome",
+  "url": "https://github.com/nf-core/viralmetagenome",
+  "provider": "github",
+  "repo_path": "nf-core/viralmetagenome",
+  "description": "A nf-core pipeline for untargeted whole genome reconstruction with iSNV detection from metagenomic samples. ",
+  "created_at": "2023-01-12T16:00:46Z",
+  "updated_at": "2026-07-24T14:47:15Z",
+  "pushed_at": "2026-07-24T14:44:56Z",
+  "stars": 40,
+  "watchers": 40,
+  "forks": 11,
+  "open_issues": 15,
+  "default_branch": "main",
+  "license": "MIT License",
+  "license_url": "https://api.github.com/licenses/mit",
+  "homepage": "https://nf-co.re/viralmetagenome/",
+  "is_archived": false,
+  "is_disabled": false,
+  "fetch_time": "2026-07-24T15:41:07.747106",
+  "languages": {
+    "Nextflow": 395380,
+    "Python": 179153,
+    "HTML": 2665,
+    "Shell": 427
+  },
+  "topics": [
+    "epidemiology",
+    "fastq",
+    "nextflow",
+    "ngs",
+    "virology",
+    "virus-genomes",
+    "viral-metagenomics",
+    "nf-core",
+    "pipeline",
+    "workflow"
+  ],
+  "latest_release": {
+    "name": "v1.1.3 - Cerulean Crane ",
+    "tag": "1.1.3",
+    "published_at": "2026-07-02T07:54:11Z",
+    "url": "https://github.com/nf-core/viralmetagenome/releases/tag/1.1.3"
+  },
+  "dependencies": {
+    "sbom": {
+      "spdxVersion": "SPDX-2.3",
+      "dataLicense": "CC0-1.0",
+      "SPDXID": "SPDXRef-DOCUMENT",
+      "name": "com.github.nf-core/viralmetagenome",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/e8eaca88-fa6b-4906-8461-85fee94d1ad0",
+      "creationInfo": {
+        "creators": [
+          "Tool: protobom-v0.0.0-20260723130105-8c46c554dd89+dirty",
+          "Tool: GitHub.com-Dependency-Graph"
+        ],
+        "created": "2026-07-24T15:41:15Z"
+      },
+      "packages": [
+        {
+          "name": "actions/upload-artifact",
+          "SPDXID": "SPDXRef-githubactions-actions-upload-artifact-043fb46d1a93c77aae656e7c1c64a875d1fc6a0a-ac548b",
+          "versionInfo": "043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
+            }
+          ]
+        },
+        {
+          "name": "seqeralabs/action-tower-launch",
+          "SPDXID": "SPDXRef-githubactions-seqeralabs-action-tower-launch-51565b514bff1827cf34620de25d0055759f1fc9-af9162",
+          "versionInfo": "51565b514bff1827cf34620de25d0055759f1fc9",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/seqeralabs/action-tower-launch@51565b514bff1827cf34620de25d0055759f1fc9"
+            }
+          ]
+        },
+        {
+          "name": "actions/stale",
+          "SPDXID": "SPDXRef-githubactions-actions-stale-b5d41d4e1d5dceea10e7104786b73624c18a190f-0a9659",
+          "versionInfo": "b5d41d4e1d5dceea10e7104786b73624c18a190f",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/stale@b5d41d4e1d5dceea10e7104786b73624c18a190f"
+            }
+          ]
+        },
+        {
+          "name": "jlumbroso/free-disk-space",
+          "SPDXID": "SPDXRef-githubactions-jlumbroso-free-disk-space-54081f138730dfa15788a46383842cd2f914a1be-2f89c5",
+          "versionInfo": "54081f138730dfa15788a46383842cd2f914a1be",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/jlumbroso/free-disk-space@54081f138730dfa15788a46383842cd2f914a1be"
+            }
+          ]
+        },
+        {
+          "name": "eWaterCycle/setup-apptainer",
+          "SPDXID": "SPDXRef-githubactions-eWaterCycle-setup-apptainer-4bb22c52d4f63406c49e94c804632975787312b3-4bff8f",
+          "versionInfo": "4bb22c52d4f63406c49e94c804632975787312b3",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/eWaterCycle/setup-apptainer@4bb22c52d4f63406c49e94c804632975787312b3"
+            }
+          ]
+        },
+        {
+          "name": "actions/checkout",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-de0fac2e4500dabe0009e67214ff5f5447ce83dd-3ac792",
+          "versionInfo": "de0fac2e4500dabe0009e67214ff5f5447ce83dd",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd"
+            }
+          ]
+        },
+        {
+          "name": "actions/setup-python",
+          "SPDXID": "SPDXRef-githubactions-actions-setup-python-a309ff8b426b58ec0e2a45f0f869d46889d02405-7887df",
+          "versionInfo": "a309ff8b426b58ec0e2a45f0f869d46889d02405",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405"
+            }
+          ]
+        },
+        {
+          "name": "nf-core/setup-nextflow",
+          "SPDXID": "SPDXRef-githubactions-nf-core-setup-nextflow-b4ec1bc7c16a94435159de94a05253542fddf6ef-f03706",
+          "versionInfo": "b4ec1bc7c16a94435159de94a05253542fddf6ef",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/nf-core/setup-nextflow@b4ec1bc7c16a94435159de94a05253542fddf6ef"
+            }
+          ]
+        },
+        {
+          "name": "pietrobolcato/action-read-yaml",
+          "SPDXID": "SPDXRef-githubactions-pietrobolcato-action-read-yaml-9f13718d61111b69f30ab4ac683e67a56d254e1d-159406",
+          "versionInfo": "9f13718d61111b69f30ab4ac683e67a56d254e1d",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/pietrobolcato/action-read-yaml@9f13718d61111b69f30ab4ac683e67a56d254e1d"
+            }
+          ]
+        },
+        {
+          "name": "astral-sh/setup-uv",
+          "SPDXID": "SPDXRef-githubactions-astral-sh-setup-uv-08807647e7069bb48b6ef5acd8ec9567f424441b-119eb3",
+          "versionInfo": "08807647e7069bb48b6ef5acd8ec9567f424441b",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b"
+            }
+          ]
+        },
+        {
+          "name": "marocchino/sticky-pull-request-comment",
+          "SPDXID": "SPDXRef-githubactions-marocchino-sticky-pull-request-comment-5770ad5eb8f42dd2c4f34da00c94c5381e49af88-5bf400",
+          "versionInfo": "5770ad5eb8f42dd2c4f34da00c94c5381e49af88",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88"
+            }
+          ]
+        },
+        {
+          "name": "dawidd6/action-download-artifact",
+          "SPDXID": "SPDXRef-githubactions-dawidd6-action-download-artifact-b6e2e70617bc3265edd6dab6c906732b2f1ae151-3aa7df",
+          "versionInfo": "b6e2e70617bc3265edd6dab6c906732b2f1ae151",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/dawidd6/action-download-artifact@b6e2e70617bc3265edd6dab6c906732b2f1ae151"
+            }
+          ]
+        },
+        {
+          "name": "rzr/fediverse-action",
+          "SPDXID": "SPDXRef-githubactions-rzr-fediverse-action-563159eb8d45f70ab6aaba36ed55cd037e51f441-a80d3c",
+          "versionInfo": "563159eb8d45f70ab6aaba36ed55cd037e51f441",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/rzr/fediverse-action@563159eb8d45f70ab6aaba36ed55cd037e51f441"
+            }
+          ]
+        },
+        {
+          "name": "zentered/bluesky-post-action",
+          "SPDXID": "SPDXRef-githubactions-zentered-bluesky-post-action-5a91cc2ad10a304a4e96c16182dbe4918710bcf6-517a2d",
+          "versionInfo": "5a91cc2ad10a304a4e96c16182dbe4918710bcf6",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/zentered/bluesky-post-action@5a91cc2ad10a304a4e96c16182dbe4918710bcf6"
+            }
+          ]
+        },
+        {
+          "name": "nichmor/minimal-read-yaml",
+          "SPDXID": "SPDXRef-githubactions-nichmor-minimal-read-yaml-1f7205277e25e156e1f63815781db80a6d490b8f-6bd3b2",
+          "versionInfo": "1f7205277e25e156e1f63815781db80a6d490b8f",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/nichmor/minimal-read-yaml@1f7205277e25e156e1f63815781db80a6d490b8f"
+            }
+          ]
+        },
+        {
+          "name": "peter-evans/create-or-update-comment",
+          "SPDXID": "SPDXRef-githubactions-peter-evans-create-or-update-comment-e8674b075228eee787fea43ef493e45ece1004c9-54441a",
+          "versionInfo": "e8674b075228eee787fea43ef493e45ece1004c9",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/peter-evans/create-or-update-comment@e8674b075228eee787fea43ef493e45ece1004c9"
+            }
+          ]
+        },
+        {
+          "name": "j178/prek-action",
+          "SPDXID": "SPDXRef-githubactions-j178-prek-action-6ad80277337ad479fe43bd70701c3f7f8aa74db3-4b3e87",
+          "versionInfo": "6ad80277337ad479fe43bd70701c3f7f8aa74db3",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/j178/prek-action@6ad80277337ad479fe43bd70701c3f7f8aa74db3"
+            }
+          ]
+        },
+        {
+          "name": "actions/download-artifact",
+          "SPDXID": "SPDXRef-githubactions-actions-download-artifact-3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c-ebeef9",
+          "versionInfo": "3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c"
+            }
+          ]
+        },
+        {
+          "name": "com.github.nf-core/viralmetagenome",
+          "SPDXID": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "versionInfo": "main",
+          "downloadLocation": "git+https://github.com/nf-core/viralmetagenome",
+          "filesAnalyzed": false,
+          "licenseDeclared": "MIT",
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:github/nf-core/viralmetagenome@main"
+            }
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-stale-b5d41d4e1d5dceea10e7104786b73624c18a190f-0a9659",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-eWaterCycle-setup-apptainer-4bb22c52d4f63406c49e94c804632975787312b3-4bff8f",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-de0fac2e4500dabe0009e67214ff5f5447ce83dd-3ac792",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-pietrobolcato-action-read-yaml-9f13718d61111b69f30ab4ac683e67a56d254e1d-159406",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-marocchino-sticky-pull-request-comment-5770ad5eb8f42dd2c4f34da00c94c5381e49af88-5bf400",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-j178-prek-action-6ad80277337ad479fe43bd70701c3f7f8aa74db3-4b3e87",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-seqeralabs-action-tower-launch-51565b514bff1827cf34620de25d0055759f1fc9-af9162",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-rzr-fediverse-action-563159eb8d45f70ab6aaba36ed55cd037e51f441-a80d3c",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-zentered-bluesky-post-action-5a91cc2ad10a304a4e96c16182dbe4918710bcf6-517a2d",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-download-artifact-3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c-ebeef9",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-upload-artifact-043fb46d1a93c77aae656e7c1c64a875d1fc6a0a-ac548b",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-jlumbroso-free-disk-space-54081f138730dfa15788a46383842cd2f914a1be-2f89c5",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-setup-python-a309ff8b426b58ec0e2a45f0f869d46889d02405-7887df",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-nf-core-setup-nextflow-b4ec1bc7c16a94435159de94a05253542fddf6ef-f03706",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-astral-sh-setup-uv-08807647e7069bb48b6ef5acd8ec9567f424441b-119eb3",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-dawidd6-action-download-artifact-b6e2e70617bc3265edd6dab6c906732b2f1ae151-3aa7df",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-nichmor-minimal-read-yaml-1f7205277e25e156e1f63815781db80a6d490b8f-6bd3b2",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-peter-evans-create-or-update-comment-e8674b075228eee787fea43ef493e45ece1004c9-54441a",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-DOCUMENT",
+          "relatedSpdxElement": "SPDXRef-github-nf-core-viralmetagenome-main-8be5bf",
+          "relationshipType": "DESCRIBES"
+        }
+      ]
+    }
+  }
+}

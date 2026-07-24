@@ -5,10 +5,10 @@
   "repo_path": "deprekate/PHACTS",
   "description": "A simple program to classify the lifestyle of phages.",
   "created_at": "2018-10-17T17:55:01Z",
-  "updated_at": "2025-03-14T00:54:47Z",
+  "updated_at": "2026-07-03T12:28:25Z",
   "pushed_at": "2023-05-22T15:41:18Z",
-  "stars": 17,
-  "watchers": 17,
+  "stars": 18,
+  "watchers": 18,
   "forks": 4,
   "open_issues": 3,
   "default_branch": "master",
@@ -17,7 +17,7 @@
   "homepage": null,
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2025-04-01T08:41:19.860723",
+  "fetch_time": "2026-07-24T15:53:45.031950",
   "languages": {
     "Python": 8325
   },
@@ -29,19 +29,32 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.deprekate/PHACTS",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/de751866-770d-4dad-bcd7-743a78674b17",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/90e6e151-2966-4ca7-b9bb-b034815419a4",
       "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
       "creationInfo": {
         "creators": [
-          "Tool: protobom-v0.0.0-20250331202703-27d429d3d3e7+dirty",
+          "Tool: protobom-v0.0.0-20260723130105-8c46c554dd89+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2025-04-01T08:41:27Z"
+        "created": "2026-07-24T15:53:53Z"
       },
       "packages": [
         {
+          "name": "sklearn",
+          "SPDXID": "SPDXRef-pypi-sklearn-dba456",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/sklearn"
+            }
+          ]
+        },
+        {
           "name": "dill",
-          "SPDXID": "SPDXRef-pypi-dill-75c946",
+          "SPDXID": "SPDXRef-pypi-dill-d37f74",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
@@ -54,7 +67,7 @@
         },
         {
           "name": "numpy",
-          "SPDXID": "SPDXRef-pypi-numpy-75c946",
+          "SPDXID": "SPDXRef-pypi-numpy-bb58d5",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
@@ -62,19 +75,6 @@
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
               "referenceLocator": "pkg:pypi/numpy"
-            }
-          ]
-        },
-        {
-          "name": "sklearn",
-          "SPDXID": "SPDXRef-pypi-sklearn-75c946",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/sklearn"
             }
           ]
         },
@@ -97,17 +97,17 @@
       "relationships": [
         {
           "spdxElementId": "SPDXRef-github-deprekate-PHACTS-master-751246",
-          "relatedSpdxElement": "SPDXRef-pypi-dill-75c946",
+          "relatedSpdxElement": "SPDXRef-pypi-numpy-bb58d5",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-deprekate-PHACTS-master-751246",
-          "relatedSpdxElement": "SPDXRef-pypi-numpy-75c946",
+          "relatedSpdxElement": "SPDXRef-pypi-sklearn-dba456",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-deprekate-PHACTS-master-751246",
-          "relatedSpdxElement": "SPDXRef-pypi-sklearn-75c946",
+          "relatedSpdxElement": "SPDXRef-pypi-dill-d37f74",
           "relationshipType": "DEPENDS_ON"
         },
         {

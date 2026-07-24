@@ -14,17 +14,31 @@
   "bioconda": {
     "package": "",
     "version": "",
-    "dependencies": {},
+    "dependencies": {
+      "build": [
+        "{{ compiler('c') }}",
+        "{{ compiler('rust') }}",
+        "cargo-bundle-licenses",
+        "pkg-config",
+        "host:",
+        "python",
+        "pip",
+        "maturin",
+        "run:",
+        "python"
+      ],
+      "run": [
+        "python"
+      ],
+      "host": [
+        "python",
+        "pip",
+        "maturin",
+        "run:",
+        "python"
+      ]
+    },
     "installation": ""
   },
-  "academic_impact": {
-    "doi": "10.3897/zookeys.1257.155954.suppl1",
-    "citation_file": "",
-    "citation_format": "",
-    "total_citations": 0,
-    "influential_citations": 0,
-    "citations_by_year": {},
-    "formatted_citations": {}
-  },
-  "last_updated": "2025-11-01T08:40:11.046769"
+  "last_updated": "2026-07-24T16:00:16.551449"
 }
