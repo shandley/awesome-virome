@@ -14,17 +14,49 @@
   "bioconda": {
     "package": "",
     "version": "",
-    "dependencies": {},
+    "dependencies": {
+      "build": [
+        "{{ compiler('cxx') }}",
+        "{{ stdlib('c') }}",
+        "pkg-config",
+        "host:",
+        "pip",
+        "python",
+        "setuptools",
+        "wheel",
+        "numpy",
+        "run:",
+        "biopython",
+        "numpy",
+        "python",
+        "hmmer",
+        "scikit-learn",
+        "bcbio-gff"
+      ],
+      "run": [
+        "biopython",
+        "numpy",
+        "python",
+        "hmmer",
+        "scikit-learn",
+        "bcbio-gff"
+      ],
+      "host": [
+        "pip",
+        "python",
+        "setuptools",
+        "wheel",
+        "numpy",
+        "run:",
+        "biopython",
+        "numpy",
+        "python",
+        "hmmer",
+        "scikit-learn",
+        "bcbio-gff"
+      ]
+    },
     "installation": ""
   },
-  "academic_impact": {
-    "doi": "10.5281/zenodo.7749863",
-    "citation_file": "",
-    "citation_format": "",
-    "total_citations": 0,
-    "influential_citations": 0,
-    "citations_by_year": {},
-    "formatted_citations": {}
-  },
-  "last_updated": "2025-11-01T10:35:23.146081"
+  "last_updated": "2026-07-24T16:09:37.518884"
 }

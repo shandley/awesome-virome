@@ -5,21 +5,21 @@
   "repo_path": "shandley/hecatomb",
   "description": "hecatomb is a virome analysis pipeline for analysis of Illumina sequence data",
   "created_at": "2019-10-14T16:29:07Z",
-  "updated_at": "2025-01-16T14:31:39Z",
-  "pushed_at": "2025-04-01T00:02:03Z",
-  "stars": 57,
-  "watchers": 57,
-  "forks": 12,
-  "open_issues": 27,
+  "updated_at": "2026-07-13T09:39:53Z",
+  "pushed_at": "2025-09-23T07:10:26Z",
+  "stars": 61,
+  "watchers": 61,
+  "forks": 14,
+  "open_issues": 33,
   "default_branch": "main",
   "license": "MIT License",
   "license_url": "https://api.github.com/licenses/mit",
   "homepage": "",
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2025-04-01T08:28:52.822997",
+  "fetch_time": "2026-07-24T15:39:56.856544",
   "languages": {
-    "Python": 131126
+    "Python": 133464
   },
   "topics": [
     "virome",
@@ -27,10 +27,10 @@
     "snakemake"
   ],
   "latest_release": {
-    "name": "New version 1.3.3",
-    "tag": "v1.3.3",
-    "published_at": "2024-12-16T00:54:24Z",
-    "url": "https://github.com/shandley/hecatomb/releases/tag/v1.3.3"
+    "name": "New version 1.3.4",
+    "tag": "v.1.3.4",
+    "published_at": "2025-09-16T04:01:18Z",
+    "url": "https://github.com/shandley/hecatomb/releases/tag/v.1.3.4"
   },
   "dependencies": {
     "sbom": {
@@ -38,19 +38,61 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.shandley/hecatomb",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/db171f24-760a-4d93-a085-8b64edad6540",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/e2d9e502-92fd-4464-8993-e4030983346d",
       "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
       "creationInfo": {
         "creators": [
-          "Tool: protobom-v0.0.0-20250331202703-27d429d3d3e7+dirty",
+          "Tool: protobom-v0.0.0-20260723130105-8c46c554dd89+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2025-04-01T08:29:00Z"
+        "created": "2026-07-24T15:40:04Z"
       },
       "packages": [
         {
+          "name": "pypa/gh-action-pypi-publish",
+          "SPDXID": "SPDXRef-githubactions-pypa-gh-action-pypi-publish-27b31702a0e7fc50959f5ad993c78deac1bdfc29-816271",
+          "versionInfo": "27b31702a0e7fc50959f5ad993c78deac1bdfc29",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29"
+            }
+          ]
+        },
+        {
+          "name": "actions/checkout",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-3..-e18e8f",
+          "versionInfo": "3.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/checkout@3.*.*"
+            }
+          ]
+        },
+        {
+          "name": "actions/setup-python",
+          "SPDXID": "SPDXRef-githubactions-actions-setup-python-3..-c98b3a",
+          "versionInfo": "3.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/setup-python@3.*.*"
+            }
+          ]
+        },
+        {
           "name": "pyyaml",
-          "SPDXID": "SPDXRef-pypi-pyyaml-75c946",
+          "SPDXID": "SPDXRef-pypi-pyyaml-710ec0",
           "versionInfo": ">= 6.0",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
@@ -64,7 +106,7 @@
         },
         {
           "name": "click",
-          "SPDXID": "SPDXRef-pypi-click-75c946",
+          "SPDXID": "SPDXRef-pypi-click-cff290",
           "versionInfo": ">= 8.1.3",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
@@ -77,8 +119,36 @@
           ]
         },
         {
+          "name": "snakemake",
+          "SPDXID": "SPDXRef-pypi-snakemake-694a1b",
+          "versionInfo": ">= 8",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/snakemake"
+            }
+          ]
+        },
+        {
+          "name": "pulp",
+          "SPDXID": "SPDXRef-pypi-pulp-a7f911",
+          "versionInfo": "< 2.8",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/pulp"
+            }
+          ]
+        },
+        {
           "name": "metasnek",
-          "SPDXID": "SPDXRef-pypi-metasnek-75c946",
+          "SPDXID": "SPDXRef-pypi-metasnek-6db1d2",
           "versionInfo": ">= 0.0.7",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
@@ -91,22 +161,8 @@
           ]
         },
         {
-          "name": "snakemake",
-          "SPDXID": "SPDXRef-pypi-snakemake-75c946",
-          "versionInfo": ">= 7.29,< 8",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/snakemake"
-            }
-          ]
-        },
-        {
           "name": "snaketool-utils",
-          "SPDXID": "SPDXRef-pypi-snaketool-utils-75c946",
+          "SPDXID": "SPDXRef-pypi-snaketool-utils-e8c0b8",
           "versionInfo": ">= 0.0.5",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
@@ -120,7 +176,7 @@
         },
         {
           "name": "actions/checkout",
-          "SPDXID": "SPDXRef-githubactions-actions-checkout-4..-75c946",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-4..-f65130",
           "versionInfo": "4.*.*",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
@@ -128,13 +184,13 @@
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/actions/checkout@4.%2A.%2A"
+              "referenceLocator": "pkg:githubactions/actions/checkout@4.*.*"
             }
           ]
         },
         {
           "name": "conda-incubator/setup-miniconda",
-          "SPDXID": "SPDXRef-githubactions-conda-incubator-setup-miniconda-3..-75c946",
+          "SPDXID": "SPDXRef-githubactions-conda-incubator-setup-miniconda-3..-ffdeb6",
           "versionInfo": "3.*.*",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
@@ -142,63 +198,7 @@
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/conda-incubator/setup-miniconda@3.%2A.%2A"
-            }
-          ]
-        },
-        {
-          "name": "actions/checkout",
-          "SPDXID": "SPDXRef-githubactions-actions-checkout-3-75c946",
-          "versionInfo": "3",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/actions/checkout@3"
-            }
-          ]
-        },
-        {
-          "name": "pulp",
-          "SPDXID": "SPDXRef-pypi-pulp-75c946",
-          "versionInfo": "< 2.8",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/pulp"
-            }
-          ]
-        },
-        {
-          "name": "actions/setup-python",
-          "SPDXID": "SPDXRef-githubactions-actions-setup-python-3-75c946",
-          "versionInfo": "3",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/actions/setup-python@3"
-            }
-          ]
-        },
-        {
-          "name": "pypa/gh-action-pypi-publish",
-          "SPDXID": "SPDXRef-githubactions-pypa-gh-action-pypi-publish-27b31702a0e7fc50959f5ad993c78deac1bdfc29-75c946",
-          "versionInfo": "27b31702a0e7fc50959f5ad993c78deac1bdfc29",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29"
+              "referenceLocator": "pkg:githubactions/conda-incubator/setup-miniconda@3.*.*"
             }
           ]
         },
@@ -221,57 +221,57 @@
       "relationships": [
         {
           "spdxElementId": "SPDXRef-github-shandley-hecatomb-main-f3b185",
-          "relatedSpdxElement": "SPDXRef-pypi-click-75c946",
+          "relatedSpdxElement": "SPDXRef-pypi-snaketool-utils-e8c0b8",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-shandley-hecatomb-main-f3b185",
-          "relatedSpdxElement": "SPDXRef-pypi-metasnek-75c946",
+          "relatedSpdxElement": "SPDXRef-githubactions-conda-incubator-setup-miniconda-3..-ffdeb6",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-shandley-hecatomb-main-f3b185",
-          "relatedSpdxElement": "SPDXRef-pypi-snakemake-75c946",
+          "relatedSpdxElement": "SPDXRef-githubactions-pypa-gh-action-pypi-publish-27b31702a0e7fc50959f5ad993c78deac1bdfc29-816271",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-shandley-hecatomb-main-f3b185",
-          "relatedSpdxElement": "SPDXRef-pypi-snaketool-utils-75c946",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-3..-e18e8f",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-shandley-hecatomb-main-f3b185",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-75c946",
+          "relatedSpdxElement": "SPDXRef-pypi-pyyaml-710ec0",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-shandley-hecatomb-main-f3b185",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-3-75c946",
+          "relatedSpdxElement": "SPDXRef-pypi-click-cff290",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-shandley-hecatomb-main-f3b185",
-          "relatedSpdxElement": "SPDXRef-pypi-pulp-75c946",
+          "relatedSpdxElement": "SPDXRef-pypi-snakemake-694a1b",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-shandley-hecatomb-main-f3b185",
-          "relatedSpdxElement": "SPDXRef-githubactions-conda-incubator-setup-miniconda-3..-75c946",
+          "relatedSpdxElement": "SPDXRef-pypi-pulp-a7f911",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-shandley-hecatomb-main-f3b185",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-setup-python-3-75c946",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-f65130",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-shandley-hecatomb-main-f3b185",
-          "relatedSpdxElement": "SPDXRef-githubactions-pypa-gh-action-pypi-publish-27b31702a0e7fc50959f5ad993c78deac1bdfc29-75c946",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-setup-python-3..-c98b3a",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-shandley-hecatomb-main-f3b185",
-          "relatedSpdxElement": "SPDXRef-pypi-pyyaml-75c946",
+          "relatedSpdxElement": "SPDXRef-pypi-metasnek-6db1d2",
           "relationshipType": "DEPENDS_ON"
         },
         {
