@@ -17,7 +17,7 @@
   "homepage": null,
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-07-24T15:51:54.589123",
+  "fetch_time": "2026-08-01T10:15:06.447757",
   "languages": {
     "Python": 396095
   },
@@ -29,16 +29,55 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.PAiewsakun/GRAViTy",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/4f79a16d-2f0f-45ff-9ada-ccf1cbfead88",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/2e365bce-7945-47d0-b428-c373ee009834",
       "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
       "creationInfo": {
         "creators": [
           "Tool: protobom-v0.0.0-20260723130105-8c46c554dd89+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2026-07-24T15:52:02Z"
+        "created": "2026-08-01T10:15:14Z"
       },
       "packages": [
+        {
+          "name": "scikit-learn",
+          "SPDXID": "SPDXRef-pypi-scikit-learn-3b5320",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/scikit-learn"
+            }
+          ]
+        },
+        {
+          "name": "biopython",
+          "SPDXID": "SPDXRef-pypi-biopython-e97b89",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/biopython"
+            }
+          ]
+        },
+        {
+          "name": "ete3",
+          "SPDXID": "SPDXRef-pypi-ete3-573de9",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/ete3"
+            }
+          ]
+        },
         {
           "name": "dendropy",
           "SPDXID": "SPDXRef-pypi-dendropy-9a9a30",
@@ -92,45 +131,6 @@
           ]
         },
         {
-          "name": "scikit-learn",
-          "SPDXID": "SPDXRef-pypi-scikit-learn-3b5320",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/scikit-learn"
-            }
-          ]
-        },
-        {
-          "name": "biopython",
-          "SPDXID": "SPDXRef-pypi-biopython-e97b89",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/biopython"
-            }
-          ]
-        },
-        {
-          "name": "ete3",
-          "SPDXID": "SPDXRef-pypi-ete3-573de9",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/ete3"
-            }
-          ]
-        },
-        {
           "name": "com.github.PAiewsakun/GRAViTy",
           "SPDXID": "SPDXRef-github-PAiewsakun-GRAViTy-master-435dfc",
           "versionInfo": "master",
@@ -146,11 +146,6 @@
         }
       ],
       "relationships": [
-        {
-          "spdxElementId": "SPDXRef-github-PAiewsakun-GRAViTy-master-435dfc",
-          "relatedSpdxElement": "SPDXRef-pypi-dendropy-9a9a30",
-          "relationshipType": "DEPENDS_ON"
-        },
         {
           "spdxElementId": "SPDXRef-github-PAiewsakun-GRAViTy-master-435dfc",
           "relatedSpdxElement": "SPDXRef-pypi-numpy-bb58d5",
@@ -179,6 +174,11 @@
         {
           "spdxElementId": "SPDXRef-github-PAiewsakun-GRAViTy-master-435dfc",
           "relatedSpdxElement": "SPDXRef-pypi-ete3-573de9",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-PAiewsakun-GRAViTy-master-435dfc",
+          "relatedSpdxElement": "SPDXRef-pypi-dendropy-9a9a30",
           "relationshipType": "DEPENDS_ON"
         },
         {

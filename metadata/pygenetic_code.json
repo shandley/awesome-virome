@@ -17,7 +17,7 @@
   "homepage": "",
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-07-24T15:54:22.506842",
+  "fetch_time": "2026-08-01T10:17:25.739351",
   "languages": {
     "C": 55369,
     "Python": 52451,
@@ -36,27 +36,26 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.linsalrob/genetic_codes",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/f158e060-09c9-4dc5-acef-49aba47c9e8e",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/9236ea9c-b294-40f0-bab0-32b9f5ea89e2",
       "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
       "creationInfo": {
         "creators": [
           "Tool: protobom-v0.0.0-20260723130105-8c46c554dd89+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2026-07-24T15:54:30Z"
+        "created": "2026-08-01T10:17:33Z"
       },
       "packages": [
         {
-          "name": "actions/checkout",
-          "SPDXID": "SPDXRef-githubactions-actions-checkout-3-87103a",
-          "versionInfo": "3",
+          "name": "pytest",
+          "SPDXID": "SPDXRef-pypi-pytest-58b13b",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/actions/checkout@3"
+              "referenceLocator": "pkg:pypi/pytest"
             }
           ]
         },
@@ -71,6 +70,20 @@
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
               "referenceLocator": "pkg:githubactions/actions/setup-python@3"
+            }
+          ]
+        },
+        {
+          "name": "actions/checkout",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-3-87103a",
+          "versionInfo": "3",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/checkout@3"
             }
           ]
         },
@@ -159,19 +172,6 @@
           ]
         },
         {
-          "name": "pytest",
-          "SPDXID": "SPDXRef-pypi-pytest-58b13b",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/pytest"
-            }
-          ]
-        },
-        {
           "name": "com.github.linsalrob/genetic_codes",
           "SPDXID": "SPDXRef-github-linsalrob-geneticcodes-main-773a2f",
           "versionInfo": "main",
@@ -190,7 +190,7 @@
       "relationships": [
         {
           "spdxElementId": "SPDXRef-github-linsalrob-geneticcodes-main-773a2f",
-          "relatedSpdxElement": "SPDXRef-githubactions-pypa-gh-action-pypi-publish-releasev1-cecdad",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-f65130",
           "relationshipType": "DEPENDS_ON"
         },
         {
@@ -200,7 +200,7 @@
         },
         {
           "spdxElementId": "SPDXRef-github-linsalrob-geneticcodes-main-773a2f",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-5..-5baf2c",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-download-artifact-4..-eba405",
           "relationshipType": "DEPENDS_ON"
         },
         {
@@ -210,17 +210,12 @@
         },
         {
           "spdxElementId": "SPDXRef-github-linsalrob-geneticcodes-main-773a2f",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-3-87103a",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-setup-python-3-1e15b1",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-linsalrob-geneticcodes-main-773a2f",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-f65130",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-linsalrob-geneticcodes-main-773a2f",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-download-artifact-4..-eba405",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-5..-5baf2c",
           "relationshipType": "DEPENDS_ON"
         },
         {
@@ -230,7 +225,12 @@
         },
         {
           "spdxElementId": "SPDXRef-github-linsalrob-geneticcodes-main-773a2f",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-setup-python-3-1e15b1",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-3-87103a",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-linsalrob-geneticcodes-main-773a2f",
+          "relatedSpdxElement": "SPDXRef-githubactions-pypa-gh-action-pypi-publish-releasev1-cecdad",
           "relationshipType": "DEPENDS_ON"
         },
         {

@@ -17,7 +17,7 @@
   "homepage": null,
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-07-24T15:51:18.491846",
+  "fetch_time": "2026-08-01T10:14:43.143877",
   "languages": {
     "Jupyter Notebook": 354782,
     "Python": 44521
@@ -35,26 +35,39 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.ku-cbd/PhageBoost",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/e81d8dd1-445d-4fe7-8700-0111e3ab1d66",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/0979d4b1-1829-47a2-868e-14e00d892e22",
       "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
       "creationInfo": {
         "creators": [
           "Tool: protobom-v0.0.0-20260723130105-8c46c554dd89+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2026-07-24T15:51:26Z"
+        "created": "2026-08-01T10:14:51Z"
       },
       "packages": [
         {
-          "name": "scipy",
-          "SPDXID": "SPDXRef-pypi-scipy-eaf387",
+          "name": "numpy",
+          "SPDXID": "SPDXRef-pypi-numpy-bb58d5",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/scipy"
+              "referenceLocator": "pkg:pypi/numpy"
+            }
+          ]
+        },
+        {
+          "name": "pandas",
+          "SPDXID": "SPDXRef-pypi-pandas-8577a1",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/pandas"
             }
           ]
         },
@@ -81,32 +94,6 @@
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
               "referenceLocator": "pkg:pypi/more-itertools"
-            }
-          ]
-        },
-        {
-          "name": "biopython",
-          "SPDXID": "SPDXRef-pypi-biopython-e97b89",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/biopython"
-            }
-          ]
-        },
-        {
-          "name": "pyrodigal",
-          "SPDXID": "SPDXRef-pypi-pyrodigal-266098",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/pyrodigal"
             }
           ]
         },
@@ -150,6 +137,32 @@
           ]
         },
         {
+          "name": "scipy",
+          "SPDXID": "SPDXRef-pypi-scipy-eaf387",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/scipy"
+            }
+          ]
+        },
+        {
+          "name": "biopython",
+          "SPDXID": "SPDXRef-pypi-biopython-e97b89",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/biopython"
+            }
+          ]
+        },
+        {
           "name": "cachier",
           "SPDXID": "SPDXRef-pypi-cachier-203467",
           "downloadLocation": "NOASSERTION",
@@ -163,28 +176,15 @@
           ]
         },
         {
-          "name": "numpy",
-          "SPDXID": "SPDXRef-pypi-numpy-bb58d5",
+          "name": "pyrodigal",
+          "SPDXID": "SPDXRef-pypi-pyrodigal-266098",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/numpy"
-            }
-          ]
-        },
-        {
-          "name": "pandas",
-          "SPDXID": "SPDXRef-pypi-pandas-8577a1",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/pandas"
+              "referenceLocator": "pkg:pypi/pyrodigal"
             }
           ]
         },
@@ -207,6 +207,26 @@
       "relationships": [
         {
           "spdxElementId": "SPDXRef-github-ku-cbd-PhageBoost-master-c1559d",
+          "relatedSpdxElement": "SPDXRef-pypi-pandas-8577a1",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-ku-cbd-PhageBoost-master-c1559d",
+          "relatedSpdxElement": "SPDXRef-pypi-more-itertools-9253c9",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-ku-cbd-PhageBoost-master-c1559d",
+          "relatedSpdxElement": "SPDXRef-pypi-xgboost-a273c5",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-ku-cbd-PhageBoost-master-c1559d",
+          "relatedSpdxElement": "SPDXRef-pypi-pickleshare-afd792",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-ku-cbd-PhageBoost-master-c1559d",
           "relatedSpdxElement": "SPDXRef-pypi-cachier-203467",
           "relationshipType": "DEPENDS_ON"
         },
@@ -217,7 +237,7 @@
         },
         {
           "spdxElementId": "SPDXRef-github-ku-cbd-PhageBoost-master-c1559d",
-          "relatedSpdxElement": "SPDXRef-pypi-xgboost-a273c5",
+          "relatedSpdxElement": "SPDXRef-pypi-joblib-858c7a",
           "relationshipType": "DEPENDS_ON"
         },
         {
@@ -227,22 +247,7 @@
         },
         {
           "spdxElementId": "SPDXRef-github-ku-cbd-PhageBoost-master-c1559d",
-          "relatedSpdxElement": "SPDXRef-pypi-pandas-8577a1",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-ku-cbd-PhageBoost-master-c1559d",
           "relatedSpdxElement": "SPDXRef-pypi-scipy-eaf387",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-ku-cbd-PhageBoost-master-c1559d",
-          "relatedSpdxElement": "SPDXRef-pypi-joblib-858c7a",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-ku-cbd-PhageBoost-master-c1559d",
-          "relatedSpdxElement": "SPDXRef-pypi-more-itertools-9253c9",
           "relationshipType": "DEPENDS_ON"
         },
         {
@@ -253,11 +258,6 @@
         {
           "spdxElementId": "SPDXRef-github-ku-cbd-PhageBoost-master-c1559d",
           "relatedSpdxElement": "SPDXRef-pypi-pyrodigal-266098",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-ku-cbd-PhageBoost-master-c1559d",
-          "relatedSpdxElement": "SPDXRef-pypi-pickleshare-afd792",
           "relationshipType": "DEPENDS_ON"
         },
         {

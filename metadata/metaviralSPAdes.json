@@ -5,19 +5,19 @@
   "repo_path": "ablab/spades",
   "description": "SPAdes Genome Assembler",
   "created_at": "2016-06-01T15:06:09Z",
-  "updated_at": "2026-07-24T12:54:55Z",
+  "updated_at": "2026-07-31T18:36:28Z",
   "pushed_at": "2026-06-16T10:47:36Z",
-  "stars": 954,
-  "watchers": 954,
+  "stars": 956,
+  "watchers": 956,
   "forks": 162,
-  "open_issues": 299,
+  "open_issues": 300,
   "default_branch": "main",
   "license": "Other",
   "license_url": null,
   "homepage": "http://ablab.github.io/spades/",
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-07-24T15:50:11.658905",
+  "fetch_time": "2026-08-01T10:13:26.522184",
   "languages": {
     "C++": 69303589,
     "C": 14007932,
@@ -62,43 +62,15 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.ablab/spades",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/edbe6aab-06fe-4ce6-9145-4bda089b31da",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/7bded855-032c-4841-b018-c84ef631c23d",
       "creationInfo": {
         "creators": [
           "Tool: protobom-v0.0.0-20260723130105-8c46c554dd89+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2026-07-24T15:50:19Z"
+        "created": "2026-08-01T10:13:34Z"
       },
       "packages": [
-        {
-          "name": "hendrikmuhs/ccache-action",
-          "SPDXID": "SPDXRef-githubactions-hendrikmuhs-ccache-action-1.2.-aab9eb",
-          "versionInfo": "1.2.*",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/hendrikmuhs/ccache-action@1.2.*"
-            }
-          ]
-        },
-        {
-          "name": "actions/checkout",
-          "SPDXID": "SPDXRef-githubactions-actions-checkout-4..-f65130",
-          "versionInfo": "4.*.*",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/actions/checkout@4.*.*"
-            }
-          ]
-        },
         {
           "name": "actions/upload-artifact",
           "SPDXID": "SPDXRef-githubactions-actions-upload-artifact-4..-827482",
@@ -124,6 +96,34 @@
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
               "referenceLocator": "pkg:githubactions/actions/download-artifact@4.*.*"
+            }
+          ]
+        },
+        {
+          "name": "hendrikmuhs/ccache-action",
+          "SPDXID": "SPDXRef-githubactions-hendrikmuhs-ccache-action-1.2.-aab9eb",
+          "versionInfo": "1.2.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/hendrikmuhs/ccache-action@1.2.*"
+            }
+          ]
+        },
+        {
+          "name": "actions/checkout",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-4..-f65130",
+          "versionInfo": "4.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/checkout@4.*.*"
             }
           ]
         },
@@ -187,6 +187,11 @@
       "relationships": [
         {
           "spdxElementId": "SPDXRef-github-ablab-spades-main-e44379",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-1-d6f422",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-ablab-spades-main-e44379",
           "relatedSpdxElement": "SPDXRef-githubactions-actions-upload-artifact-4..-827482",
           "relationshipType": "DEPENDS_ON"
         },
@@ -197,27 +202,22 @@
         },
         {
           "spdxElementId": "SPDXRef-github-ablab-spades-main-e44379",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-setup-python-5..-888040",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-ablab-spades-main-e44379",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-cache-4..-cbd72f",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-ablab-spades-main-e44379",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-1-d6f422",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-ablab-spades-main-e44379",
           "relatedSpdxElement": "SPDXRef-githubactions-hendrikmuhs-ccache-action-1.2.-aab9eb",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-ablab-spades-main-e44379",
           "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-f65130",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-ablab-spades-main-e44379",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-setup-python-5..-888040",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-ablab-spades-main-e44379",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-cache-4..-cbd72f",
           "relationshipType": "DEPENDS_ON"
         },
         {

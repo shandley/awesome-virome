@@ -5,11 +5,11 @@
   "repo_path": "biobakery/MetaPhlAn",
   "description": "MetaPhlAn is a computational tool for profiling the composition of microbial communities from metagenomic shotgun sequencing data",
   "created_at": "2020-02-20T07:49:08Z",
-  "updated_at": "2026-07-24T13:10:56Z",
-  "pushed_at": "2026-07-24T13:10:06Z",
-  "stars": 418,
-  "watchers": 418,
-  "forks": 94,
+  "updated_at": "2026-07-30T09:36:53Z",
+  "pushed_at": "2026-07-28T10:20:39Z",
+  "stars": 420,
+  "watchers": 420,
+  "forks": 95,
   "open_issues": 1,
   "default_branch": "master",
   "license": "MIT License",
@@ -17,7 +17,7 @@
   "homepage": "http://segatalab.cibio.unitn.it/tools/metaphlan/index.html",
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-07-24T15:41:15.783240",
+  "fetch_time": "2026-08-01T10:04:24.026674",
   "languages": {
     "Python": 518156,
     "R": 28523,
@@ -34,10 +34,10 @@
     "python-tools"
   ],
   "latest_release": {
-    "name": "4.2.5",
-    "tag": "4.2.5",
-    "published_at": "2026-07-15T11:01:27Z",
-    "url": "https://github.com/biobakery/MetaPhlAn/releases/tag/4.2.5"
+    "name": "4.2.6",
+    "tag": "4.2.6",
+    "published_at": "2026-07-28T10:20:39Z",
+    "url": "https://github.com/biobakery/MetaPhlAn/releases/tag/4.2.6"
   },
   "dependencies": {
     "sbom": {
@@ -45,7 +45,7 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.biobakery/MetaPhlAn",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/52e243f3-54e4-4855-b83a-ff148293399b",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/1d82656c-a9dc-4b9d-b603-1f4e5ca332d3",
       "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
       "creationInfo": {
         "creators": [
@@ -53,22 +53,9 @@
           "Tool: GitHub.com-Dependency-Graph",
           "Tool: dependabot"
         ],
-        "created": "2026-07-24T15:41:23Z"
+        "created": "2026-08-01T10:04:31Z"
       },
       "packages": [
-        {
-          "name": "dendropy",
-          "SPDXID": "SPDXRef-pypi-dendropy-3664aa",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/dendropy"
-            }
-          ]
-        },
         {
           "name": "h5py",
           "SPDXID": "SPDXRef-pypi-h5py-d95d39",
@@ -83,15 +70,28 @@
           ]
         },
         {
-          "name": "requests",
-          "SPDXID": "SPDXRef-pypi-requests-afbb17",
+          "name": "pandas",
+          "SPDXID": "SPDXRef-pypi-pandas-1d8586",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/requests"
+              "referenceLocator": "pkg:pypi/pandas"
+            }
+          ]
+        },
+        {
+          "name": "scipy",
+          "SPDXID": "SPDXRef-pypi-scipy-487074",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/scipy"
             }
           ]
         },
@@ -122,32 +122,6 @@
           ]
         },
         {
-          "name": "pysam",
-          "SPDXID": "SPDXRef-pypi-pysam-b37a76",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/pysam"
-            }
-          ]
-        },
-        {
-          "name": "pandas",
-          "SPDXID": "SPDXRef-pypi-pandas-1d8586",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/pandas"
-            }
-          ]
-        },
-        {
           "name": "numpy",
           "SPDXID": "SPDXRef-pypi-numpy-df9d72",
           "downloadLocation": "NOASSERTION",
@@ -174,15 +148,41 @@
           ]
         },
         {
-          "name": "scipy",
-          "SPDXID": "SPDXRef-pypi-scipy-487074",
+          "name": "pysam",
+          "SPDXID": "SPDXRef-pypi-pysam-b37a76",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/scipy"
+              "referenceLocator": "pkg:pypi/pysam"
+            }
+          ]
+        },
+        {
+          "name": "dendropy",
+          "SPDXID": "SPDXRef-pypi-dendropy-3664aa",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/dendropy"
+            }
+          ]
+        },
+        {
+          "name": "requests",
+          "SPDXID": "SPDXRef-pypi-requests-afbb17",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/requests"
             }
           ]
         },
@@ -275,17 +275,17 @@
       "relationships": [
         {
           "spdxElementId": "SPDXRef-github-biobakery-MetaPhlAn-master-f36ff1",
-          "relatedSpdxElement": "SPDXRef-pypi-dendropy-3664aa",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-biobakery-MetaPhlAn-master-f36ff1",
           "relatedSpdxElement": "SPDXRef-pypi-h5py-d95d39",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-biobakery-MetaPhlAn-master-f36ff1",
-          "relatedSpdxElement": "SPDXRef-pypi-requests-afbb17",
+          "relatedSpdxElement": "SPDXRef-pypi-pandas-1d8586",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-biobakery-MetaPhlAn-master-f36ff1",
+          "relatedSpdxElement": "SPDXRef-pypi-scipy-487074",
           "relationshipType": "DEPENDS_ON"
         },
         {
@@ -300,16 +300,6 @@
         },
         {
           "spdxElementId": "SPDXRef-github-biobakery-MetaPhlAn-master-f36ff1",
-          "relatedSpdxElement": "SPDXRef-pypi-pysam-b37a76",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-biobakery-MetaPhlAn-master-f36ff1",
-          "relatedSpdxElement": "SPDXRef-pypi-pandas-1d8586",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-biobakery-MetaPhlAn-master-f36ff1",
           "relatedSpdxElement": "SPDXRef-pypi-numpy-df9d72",
           "relationshipType": "DEPENDS_ON"
         },
@@ -320,12 +310,17 @@
         },
         {
           "spdxElementId": "SPDXRef-github-biobakery-MetaPhlAn-master-f36ff1",
-          "relatedSpdxElement": "SPDXRef-pypi-scipy-487074",
+          "relatedSpdxElement": "SPDXRef-pypi-pysam-b37a76",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-biobakery-MetaPhlAn-master-f36ff1",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-f65130",
+          "relatedSpdxElement": "SPDXRef-pypi-dendropy-3664aa",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-biobakery-MetaPhlAn-master-f36ff1",
+          "relatedSpdxElement": "SPDXRef-pypi-requests-afbb17",
           "relationshipType": "DEPENDS_ON"
         },
         {
@@ -346,6 +341,11 @@
         {
           "spdxElementId": "SPDXRef-github-biobakery-MetaPhlAn-master-f36ff1",
           "relatedSpdxElement": "SPDXRef-githubactions-actions-setup-python-6..-6c08af",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-biobakery-MetaPhlAn-master-f36ff1",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-f65130",
           "relationshipType": "DEPENDS_ON"
         },
         {

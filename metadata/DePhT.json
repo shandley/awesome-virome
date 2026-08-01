@@ -17,7 +17,7 @@
   "homepage": "",
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-07-24T15:39:56.878325",
+  "fetch_time": "2026-08-01T10:03:11.336453",
   "languages": {
     "HTML": 846269,
     "Python": 353369
@@ -37,14 +37,14 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.chg60/DEPhT",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/0611d615-02c6-4fdb-95ad-f7e2d52a92a0",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/882391d0-ab06-4751-a4b6-398d4c305fb3",
       "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
       "creationInfo": {
         "creators": [
           "Tool: protobom-v0.0.0-20260723130105-8c46c554dd89+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2026-07-24T15:40:04Z"
+        "created": "2026-08-01T10:03:19Z"
       },
       "packages": [
         {
@@ -76,20 +76,6 @@
           ]
         },
         {
-          "name": "bitarray",
-          "SPDXID": "SPDXRef-pypi-bitarray-aca739",
-          "versionInfo": "~> 2.0.1",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/bitarray"
-            }
-          ]
-        },
-        {
           "name": "dna-features-viewer",
           "SPDXID": "SPDXRef-pypi-dna-features-viewer-cfd0fb",
           "versionInfo": "~> 3.1.0",
@@ -100,6 +86,20 @@
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
               "referenceLocator": "pkg:pypi/dna-features-viewer"
+            }
+          ]
+        },
+        {
+          "name": "pretty-html-table",
+          "SPDXID": "SPDXRef-pypi-pretty-html-table-ee246b",
+          "versionInfo": "~> 0.9.10",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/pretty-html-table"
             }
           ]
         },
@@ -118,16 +118,16 @@
           ]
         },
         {
-          "name": "requests",
-          "SPDXID": "SPDXRef-pypi-requests-406e08",
-          "versionInfo": ">= 2.26.0",
+          "name": "numpy",
+          "SPDXID": "SPDXRef-pypi-numpy-f11896",
+          "versionInfo": "~> 1.22.3",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/requests"
+              "referenceLocator": "pkg:pypi/numpy"
             }
           ]
         },
@@ -174,6 +174,20 @@
           ]
         },
         {
+          "name": "bitarray",
+          "SPDXID": "SPDXRef-pypi-bitarray-aca739",
+          "versionInfo": "~> 2.0.1",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/bitarray"
+            }
+          ]
+        },
+        {
           "name": "pandas",
           "SPDXID": "SPDXRef-pypi-pandas-6d9e95",
           "versionInfo": "~> 1.4.2",
@@ -188,30 +202,16 @@
           ]
         },
         {
-          "name": "pretty-html-table",
-          "SPDXID": "SPDXRef-pypi-pretty-html-table-ee246b",
-          "versionInfo": "~> 0.9.10",
+          "name": "requests",
+          "SPDXID": "SPDXRef-pypi-requests-406e08",
+          "versionInfo": ">= 2.26.0",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/pretty-html-table"
-            }
-          ]
-        },
-        {
-          "name": "numpy",
-          "SPDXID": "SPDXRef-pypi-numpy-f11896",
-          "versionInfo": "~> 1.22.3",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/numpy"
+              "referenceLocator": "pkg:pypi/requests"
             }
           ]
         },
@@ -234,6 +234,16 @@
       "relationships": [
         {
           "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
+          "relatedSpdxElement": "SPDXRef-pypi-bokeh-05395c",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
+          "relatedSpdxElement": "SPDXRef-pypi-matplotlib-bbaf02",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
           "relatedSpdxElement": "SPDXRef-pypi-pretty-html-table-ee246b",
           "relationshipType": "DEPENDS_ON"
         },
@@ -244,12 +254,17 @@
         },
         {
           "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-bokeh-05395c",
+          "relatedSpdxElement": "SPDXRef-pypi-kaleido-ea3a77",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-bitarray-aca739",
+          "relatedSpdxElement": "SPDXRef-pypi-plotly-fa5424",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
+          "relatedSpdxElement": "SPDXRef-pypi-pandas-6d9e95",
           "relationshipType": "DEPENDS_ON"
         },
         {
@@ -269,27 +284,12 @@
         },
         {
           "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-plotly-fa5424",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-pandas-6d9e95",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-matplotlib-bbaf02",
+          "relatedSpdxElement": "SPDXRef-pypi-bitarray-aca739",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
           "relatedSpdxElement": "SPDXRef-pypi-requests-406e08",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-kaleido-ea3a77",
           "relationshipType": "DEPENDS_ON"
         },
         {

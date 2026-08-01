@@ -17,7 +17,7 @@
   "homepage": "",
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-07-24T15:53:37.020374",
+  "fetch_time": "2026-08-01T10:16:48.404694",
   "languages": {
     "Python": 83671,
     "R": 56041,
@@ -45,15 +45,43 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.PathoGenOmics-Lab/VIPERA",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/7ea27b55-b62c-467c-b753-df9dc9dde1d4",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/1b6f5bc6-12c4-4fca-93f2-6fa8c30a0b94",
       "creationInfo": {
         "creators": [
           "Tool: protobom-v0.0.0-20260723130105-8c46c554dd89+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2026-07-24T15:53:45Z"
+        "created": "2026-08-01T10:16:56Z"
       },
       "packages": [
+        {
+          "name": "docker/build-push-action",
+          "SPDXID": "SPDXRef-githubactions-docker-build-push-action-6..-70f020",
+          "versionInfo": "6.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/docker/build-push-action@6.*.*"
+            }
+          ]
+        },
+        {
+          "name": "docker/login-action",
+          "SPDXID": "SPDXRef-githubactions-docker-login-action-3..-e9c01b",
+          "versionInfo": "3.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/docker/login-action@3.*.*"
+            }
+          ]
+        },
         {
           "name": "actions/checkout",
           "SPDXID": "SPDXRef-githubactions-actions-checkout-3..-e18e8f",
@@ -111,34 +139,6 @@
           ]
         },
         {
-          "name": "docker/build-push-action",
-          "SPDXID": "SPDXRef-githubactions-docker-build-push-action-6..-70f020",
-          "versionInfo": "6.*.*",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/docker/build-push-action@6.*.*"
-            }
-          ]
-        },
-        {
-          "name": "docker/login-action",
-          "SPDXID": "SPDXRef-githubactions-docker-login-action-3..-e9c01b",
-          "versionInfo": "3.*.*",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/docker/login-action@3.*.*"
-            }
-          ]
-        },
-        {
           "name": "com.github.PathoGenOmics-Lab/VIPERA",
           "SPDXID": "SPDXRef-github-PathoGenOmics-Lab-VIPERA-main-057d5c",
           "versionInfo": "main",
@@ -157,6 +157,16 @@
       "relationships": [
         {
           "spdxElementId": "SPDXRef-github-PathoGenOmics-Lab-VIPERA-main-057d5c",
+          "relatedSpdxElement": "SPDXRef-githubactions-docker-build-push-action-6..-70f020",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-PathoGenOmics-Lab-VIPERA-main-057d5c",
+          "relatedSpdxElement": "SPDXRef-githubactions-docker-login-action-3..-e9c01b",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-PathoGenOmics-Lab-VIPERA-main-057d5c",
           "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-3..-e18e8f",
           "relationshipType": "DEPENDS_ON"
         },
@@ -173,16 +183,6 @@
         {
           "spdxElementId": "SPDXRef-github-PathoGenOmics-Lab-VIPERA-main-057d5c",
           "relatedSpdxElement": "SPDXRef-githubactions-actions-upload-artifact-4..-827482",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-PathoGenOmics-Lab-VIPERA-main-057d5c",
-          "relatedSpdxElement": "SPDXRef-githubactions-docker-build-push-action-6..-70f020",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-PathoGenOmics-Lab-VIPERA-main-057d5c",
-          "relatedSpdxElement": "SPDXRef-githubactions-docker-login-action-3..-e9c01b",
           "relationshipType": "DEPENDS_ON"
         },
         {

@@ -6,7 +6,7 @@
   "description": "V-pipe is a pipeline designed for analysing NGS data of short viral genomes",
   "created_at": "2017-04-10T09:01:20Z",
   "updated_at": "2026-07-15T03:33:15Z",
-  "pushed_at": "2026-07-15T13:32:55Z",
+  "pushed_at": "2026-07-30T22:17:00Z",
   "stars": 148,
   "watchers": 148,
   "forks": 46,
@@ -17,7 +17,7 @@
   "homepage": "https://cbg-ethz.github.io/V-pipe/",
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-07-24T15:56:34.611133",
+  "fetch_time": "2026-08-01T10:19:46.261660",
   "languages": {
     "Jupyter Notebook": 7935447,
     "HTML": 1067888,
@@ -50,5 +50,291 @@
     "published_at": "2024-06-10T17:56:29Z",
     "url": "https://github.com/cbg-ethz/V-pipe/releases/tag/v3.0.0.pre1"
   },
-  "dependencies": null
+  "dependencies": {
+    "sbom": {
+      "spdxVersion": "SPDX-2.3",
+      "dataLicense": "CC0-1.0",
+      "SPDXID": "SPDXRef-DOCUMENT",
+      "name": "com.github.cbg-ethz/V-pipe",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/1b6bdcde-9052-4764-a158-1c1e72cdd0ae",
+      "creationInfo": {
+        "creators": [
+          "Tool: protobom-v0.0.0-20260723130105-8c46c554dd89+dirty",
+          "Tool: GitHub.com-Dependency-Graph"
+        ],
+        "created": "2026-08-01T10:19:54Z"
+      },
+      "packages": [
+        {
+          "name": "docker/setup-buildx-action",
+          "SPDXID": "SPDXRef-githubactions-docker-setup-buildx-action-3..-49b45c",
+          "versionInfo": "3.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/docker/setup-buildx-action@3.*.*"
+            }
+          ]
+        },
+        {
+          "name": "docker/login-action",
+          "SPDXID": "SPDXRef-githubactions-docker-login-action-3..-e9c01b",
+          "versionInfo": "3.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/docker/login-action@3.*.*"
+            }
+          ]
+        },
+        {
+          "name": "docker/setup-qemu-action",
+          "SPDXID": "SPDXRef-githubactions-docker-setup-qemu-action-3..-34ddf0",
+          "versionInfo": "3.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/docker/setup-qemu-action@3.*.*"
+            }
+          ]
+        },
+        {
+          "name": "docker/metadata-action",
+          "SPDXID": "SPDXRef-githubactions-docker-metadata-action-5..-af4253",
+          "versionInfo": "5.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/docker/metadata-action@5.*.*"
+            }
+          ]
+        },
+        {
+          "name": "docker/build-push-action",
+          "SPDXID": "SPDXRef-githubactions-docker-build-push-action-6..-70f020",
+          "versionInfo": "6.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/docker/build-push-action@6.*.*"
+            }
+          ]
+        },
+        {
+          "name": "actions/upload-artifact",
+          "SPDXID": "SPDXRef-githubactions-actions-upload-artifact-4..-827482",
+          "versionInfo": "4.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/upload-artifact@4.*.*"
+            }
+          ]
+        },
+        {
+          "name": "peter-evans/create-pull-request",
+          "SPDXID": "SPDXRef-githubactions-peter-evans-create-pull-request-3..-a3f8e9",
+          "versionInfo": "3.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/peter-evans/create-pull-request@3.*.*"
+            }
+          ]
+        },
+        {
+          "name": "stefanzweifel/git-auto-commit-action",
+          "SPDXID": "SPDXRef-githubactions-stefanzweifel-git-auto-commit-action-4..-f829cf",
+          "versionInfo": "4.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/stefanzweifel/git-auto-commit-action@4.*.*"
+            }
+          ]
+        },
+        {
+          "name": "megalinter/megalinter",
+          "SPDXID": "SPDXRef-githubactions-megalinter-megalinter-8..-72bbdb",
+          "versionInfo": "8.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/megalinter/megalinter@8.*.*"
+            }
+          ]
+        },
+        {
+          "name": "actions/checkout",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-4..-f65130",
+          "versionInfo": "4.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/checkout@4.*.*"
+            }
+          ]
+        },
+        {
+          "name": "snakemake/snakemake-github-action",
+          "SPDXID": "SPDXRef-githubactions-snakemake-snakemake-github-action-1..-b2e35b",
+          "versionInfo": "1.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/snakemake/snakemake-github-action@1.*.*"
+            }
+          ]
+        },
+        {
+          "name": "conda-incubator/setup-miniconda",
+          "SPDXID": "SPDXRef-githubactions-conda-incubator-setup-miniconda-3..-ffdeb6",
+          "versionInfo": "3.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/conda-incubator/setup-miniconda@3.*.*"
+            }
+          ]
+        },
+        {
+          "name": "actions/download-artifact",
+          "SPDXID": "SPDXRef-githubactions-actions-download-artifact-4..-eba405",
+          "versionInfo": "4.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/download-artifact@4.*.*"
+            }
+          ]
+        },
+        {
+          "name": "com.github.cbg-ethz/V-pipe",
+          "SPDXID": "SPDXRef-github-cbg-ethz-V-pipe-master-a23c2b",
+          "versionInfo": "master",
+          "downloadLocation": "git+https://github.com/cbg-ethz/V-pipe",
+          "filesAnalyzed": false,
+          "licenseDeclared": "Apache-2.0",
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:github/cbg-ethz/V-pipe@master"
+            }
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "spdxElementId": "SPDXRef-github-cbg-ethz-V-pipe-master-a23c2b",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-download-artifact-4..-eba405",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-cbg-ethz-V-pipe-master-a23c2b",
+          "relatedSpdxElement": "SPDXRef-githubactions-docker-setup-buildx-action-3..-49b45c",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-cbg-ethz-V-pipe-master-a23c2b",
+          "relatedSpdxElement": "SPDXRef-githubactions-docker-build-push-action-6..-70f020",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-cbg-ethz-V-pipe-master-a23c2b",
+          "relatedSpdxElement": "SPDXRef-githubactions-peter-evans-create-pull-request-3..-a3f8e9",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-cbg-ethz-V-pipe-master-a23c2b",
+          "relatedSpdxElement": "SPDXRef-githubactions-stefanzweifel-git-auto-commit-action-4..-f829cf",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-cbg-ethz-V-pipe-master-a23c2b",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-f65130",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-cbg-ethz-V-pipe-master-a23c2b",
+          "relatedSpdxElement": "SPDXRef-githubactions-snakemake-snakemake-github-action-1..-b2e35b",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-cbg-ethz-V-pipe-master-a23c2b",
+          "relatedSpdxElement": "SPDXRef-githubactions-conda-incubator-setup-miniconda-3..-ffdeb6",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-cbg-ethz-V-pipe-master-a23c2b",
+          "relatedSpdxElement": "SPDXRef-githubactions-docker-login-action-3..-e9c01b",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-cbg-ethz-V-pipe-master-a23c2b",
+          "relatedSpdxElement": "SPDXRef-githubactions-docker-setup-qemu-action-3..-34ddf0",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-cbg-ethz-V-pipe-master-a23c2b",
+          "relatedSpdxElement": "SPDXRef-githubactions-docker-metadata-action-5..-af4253",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-cbg-ethz-V-pipe-master-a23c2b",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-upload-artifact-4..-827482",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-cbg-ethz-V-pipe-master-a23c2b",
+          "relatedSpdxElement": "SPDXRef-githubactions-megalinter-megalinter-8..-72bbdb",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-DOCUMENT",
+          "relatedSpdxElement": "SPDXRef-github-cbg-ethz-V-pipe-master-a23c2b",
+          "relationshipType": "DESCRIBES"
+        }
+      ]
+    }
+  }
 }
