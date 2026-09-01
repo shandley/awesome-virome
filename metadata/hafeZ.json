@@ -17,7 +17,7 @@
   "homepage": "",
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-08-01T10:08:36.773590",
+  "fetch_time": "2026-09-01T13:13:18.225754",
   "languages": {
     "Python": 110609
   },
@@ -34,16 +34,44 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.Chrisjrt/hafeZ",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/0fdfaaf9-09ec-4e68-bcb0-15c5e96393d3",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/b3fc23f0-9ce5-4b35-9778-8372c745b84a",
       "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
       "creationInfo": {
         "creators": [
-          "Tool: protobom-v0.0.0-20260723130105-8c46c554dd89+dirty",
+          "Tool: protobom-v0.0.0-20260831182632-a13c9debdc2f+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2026-08-01T10:08:44Z"
+        "created": "2026-09-01T13:13:26Z"
       },
       "packages": [
+        {
+          "name": "matplotlib",
+          "SPDXID": "SPDXRef-pypi-matplotlib-1d0a12",
+          "versionInfo": ">= 3.3.4",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/matplotlib"
+            }
+          ]
+        },
+        {
+          "name": "pysam",
+          "SPDXID": "SPDXRef-pypi-pysam-3e7a1c",
+          "versionInfo": ">= 0.16.0.1",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/pysam"
+            }
+          ]
+        },
         {
           "name": "biopython",
           "SPDXID": "SPDXRef-pypi-biopython-16d790",
@@ -129,34 +157,6 @@
           ]
         },
         {
-          "name": "matplotlib",
-          "SPDXID": "SPDXRef-pypi-matplotlib-1d0a12",
-          "versionInfo": ">= 3.3.4",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/matplotlib"
-            }
-          ]
-        },
-        {
-          "name": "pysam",
-          "SPDXID": "SPDXRef-pypi-pysam-3e7a1c",
-          "versionInfo": ">= 0.16.0.1",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/pysam"
-            }
-          ]
-        },
-        {
           "name": "com.github.Chrisjrt/hafeZ",
           "SPDXID": "SPDXRef-github-Chrisjrt-hafeZ-master-254903",
           "versionInfo": "master",
@@ -173,21 +173,6 @@
         }
       ],
       "relationships": [
-        {
-          "spdxElementId": "SPDXRef-github-Chrisjrt-hafeZ-master-254903",
-          "relatedSpdxElement": "SPDXRef-pypi-numpy-9bceb1",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-Chrisjrt-hafeZ-master-254903",
-          "relatedSpdxElement": "SPDXRef-pypi-seaborn-ea73a5",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-Chrisjrt-hafeZ-master-254903",
-          "relatedSpdxElement": "SPDXRef-pypi-pandas-91d060",
-          "relationshipType": "DEPENDS_ON"
-        },
         {
           "spdxElementId": "SPDXRef-github-Chrisjrt-hafeZ-master-254903",
           "relatedSpdxElement": "SPDXRef-pypi-matplotlib-1d0a12",
@@ -211,6 +196,21 @@
         {
           "spdxElementId": "SPDXRef-github-Chrisjrt-hafeZ-master-254903",
           "relatedSpdxElement": "SPDXRef-pypi-pyrodigal-f63c32",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-Chrisjrt-hafeZ-master-254903",
+          "relatedSpdxElement": "SPDXRef-pypi-numpy-9bceb1",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-Chrisjrt-hafeZ-master-254903",
+          "relatedSpdxElement": "SPDXRef-pypi-seaborn-ea73a5",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-Chrisjrt-hafeZ-master-254903",
+          "relatedSpdxElement": "SPDXRef-pypi-pandas-91d060",
           "relationshipType": "DEPENDS_ON"
         },
         {

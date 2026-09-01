@@ -17,7 +17,7 @@
   "homepage": "",
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-08-01T10:18:34.450666",
+  "fetch_time": "2026-09-01T13:23:17.584726",
   "languages": {
     "Python": 111527
   },
@@ -40,14 +40,14 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.linxingchen/cobra",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/b433cb1c-98a5-42b3-92a8-ee7deb28dfa4",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/95fa11df-a3fc-4322-9916-48fda544c2c0",
       "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
       "creationInfo": {
         "creators": [
-          "Tool: protobom-v0.0.0-20260723130105-8c46c554dd89+dirty",
+          "Tool: protobom-v0.0.0-20260831182632-a13c9debdc2f+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2026-08-01T10:18:42Z"
+        "created": "2026-09-01T13:23:25Z"
       },
       "packages": [
         {
@@ -77,22 +77,8 @@
           ]
         },
         {
-          "name": "actions/checkout",
-          "SPDXID": "SPDXRef-githubactions-actions-checkout-4..-f65130",
-          "versionInfo": "4.*.*",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/actions/checkout@4.*.*"
-            }
-          ]
-        },
-        {
           "name": "mamba-org/setup-micromamba",
-          "SPDXID": "SPDXRef-githubactions-mamba-org-setup-micromamba-1..-16b4cf",
+          "SPDXID": "SPDXRef-githubactions-mamba-org-setup-micromamba-1..-36235b",
           "versionInfo": "1.*.*",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
@@ -100,13 +86,13 @@
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/mamba-org/setup-micromamba@1.*.*"
+              "referenceLocator": "pkg:githubactions/mamba-org/setup-micromamba@1.%2A.%2A"
             }
           ]
         },
         {
           "name": "codespell-project/actions-codespell",
-          "SPDXID": "SPDXRef-githubactions-codespell-project-actions-codespell-2..-adb0cc",
+          "SPDXID": "SPDXRef-githubactions-codespell-project-actions-codespell-2..-913f1d",
           "versionInfo": "2.*.*",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
@@ -114,7 +100,21 @@
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/codespell-project/actions-codespell@2.*.*"
+              "referenceLocator": "pkg:githubactions/codespell-project/actions-codespell@2.%2A.%2A"
+            }
+          ]
+        },
+        {
+          "name": "actions/checkout",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-4..-bfd09a",
+          "versionInfo": "4.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/checkout@4.%2A.%2A"
             }
           ]
         },
@@ -137,16 +137,6 @@
       "relationships": [
         {
           "spdxElementId": "SPDXRef-github-linxingchen-cobra-main-eb064d",
-          "relatedSpdxElement": "SPDXRef-githubactions-mamba-org-setup-micromamba-1..-16b4cf",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-linxingchen-cobra-main-eb064d",
-          "relatedSpdxElement": "SPDXRef-githubactions-codespell-project-actions-codespell-2..-adb0cc",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-linxingchen-cobra-main-eb064d",
           "relatedSpdxElement": "SPDXRef-pypi-biopython-e97b89",
           "relationshipType": "DEPENDS_ON"
         },
@@ -157,7 +147,17 @@
         },
         {
           "spdxElementId": "SPDXRef-github-linxingchen-cobra-main-eb064d",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-f65130",
+          "relatedSpdxElement": "SPDXRef-githubactions-mamba-org-setup-micromamba-1..-36235b",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-linxingchen-cobra-main-eb064d",
+          "relatedSpdxElement": "SPDXRef-githubactions-codespell-project-actions-codespell-2..-913f1d",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-linxingchen-cobra-main-eb064d",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-bfd09a",
           "relationshipType": "DEPENDS_ON"
         },
         {

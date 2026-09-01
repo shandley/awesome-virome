@@ -5,8 +5,8 @@
   "repo_path": "medvir/VirMet",
   "description": "Set of tools for viral metagenomics.",
   "created_at": "2013-08-21T09:24:53Z",
-  "updated_at": "2026-06-01T07:32:56Z",
-  "pushed_at": "2026-06-01T07:32:52Z",
+  "updated_at": "2026-08-17T14:32:42Z",
+  "pushed_at": "2026-08-17T14:32:37Z",
   "stars": 17,
   "watchers": 17,
   "forks": 5,
@@ -17,9 +17,9 @@
   "homepage": "https://medvir.github.io/VirMet/",
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-08-01T10:16:15.129202",
+  "fetch_time": "2026-09-01T13:20:56.345194",
   "languages": {
-    "Python": 88980,
+    "Python": 90651,
     "R": 2319,
     "JavaScript": 582
   },
@@ -47,16 +47,29 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.medvir/VirMet",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/45f20b8b-1401-41f1-a39d-4aadcd3dfeb4",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/54ce1f68-3326-42f0-a94f-eb02eb54f991",
       "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
       "creationInfo": {
         "creators": [
-          "Tool: protobom-v0.0.0-20260723130105-8c46c554dd89+dirty",
+          "Tool: protobom-v0.0.0-20260831182632-a13c9debdc2f+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2026-08-01T10:16:23Z"
+        "created": "2026-09-01T13:21:04Z"
       },
       "packages": [
+        {
+          "name": "bio",
+          "SPDXID": "SPDXRef-pypi-bio-7007ad",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/bio"
+            }
+          ]
+        },
         {
           "name": "numpy",
           "SPDXID": "SPDXRef-pypi-numpy-bb58d5",
@@ -84,35 +97,8 @@
           ]
         },
         {
-          "name": "bio",
-          "SPDXID": "SPDXRef-pypi-bio-7007ad",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/bio"
-            }
-          ]
-        },
-        {
-          "name": "actions/checkout",
-          "SPDXID": "SPDXRef-githubactions-actions-checkout-4..-f65130",
-          "versionInfo": "4.*.*",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/actions/checkout@4.*.*"
-            }
-          ]
-        },
-        {
           "name": "actions/setup-python",
-          "SPDXID": "SPDXRef-githubactions-actions-setup-python-4..-56caa7",
+          "SPDXID": "SPDXRef-githubactions-actions-setup-python-4..-05a6a2",
           "versionInfo": "4.*.*",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
@@ -120,13 +106,13 @@
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/actions/setup-python@4.*.*"
+              "referenceLocator": "pkg:githubactions/actions/setup-python@4.%2A.%2A"
             }
           ]
         },
         {
           "name": "conda-incubator/setup-miniconda",
-          "SPDXID": "SPDXRef-githubactions-conda-incubator-setup-miniconda-3..-ffdeb6",
+          "SPDXID": "SPDXRef-githubactions-conda-incubator-setup-miniconda-3..-0dc592",
           "versionInfo": "3.*.*",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
@@ -134,7 +120,21 @@
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/conda-incubator/setup-miniconda@3.*.*"
+              "referenceLocator": "pkg:githubactions/conda-incubator/setup-miniconda@3.%2A.%2A"
+            }
+          ]
+        },
+        {
+          "name": "actions/checkout",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-4..-bfd09a",
+          "versionInfo": "4.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/checkout@4.%2A.%2A"
             }
           ]
         },
@@ -156,6 +156,11 @@
       "relationships": [
         {
           "spdxElementId": "SPDXRef-github-medvir-VirMet-master-b6cdda",
+          "relatedSpdxElement": "SPDXRef-pypi-bio-7007ad",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-medvir-VirMet-master-b6cdda",
           "relatedSpdxElement": "SPDXRef-pypi-numpy-bb58d5",
           "relationshipType": "DEPENDS_ON"
         },
@@ -166,22 +171,17 @@
         },
         {
           "spdxElementId": "SPDXRef-github-medvir-VirMet-master-b6cdda",
-          "relatedSpdxElement": "SPDXRef-pypi-bio-7007ad",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-setup-python-4..-05a6a2",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-medvir-VirMet-master-b6cdda",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-f65130",
+          "relatedSpdxElement": "SPDXRef-githubactions-conda-incubator-setup-miniconda-3..-0dc592",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-medvir-VirMet-master-b6cdda",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-setup-python-4..-56caa7",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-medvir-VirMet-master-b6cdda",
-          "relatedSpdxElement": "SPDXRef-githubactions-conda-incubator-setup-miniconda-3..-ffdeb6",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-bfd09a",
           "relationshipType": "DEPENDS_ON"
         },
         {

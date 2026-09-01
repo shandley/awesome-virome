@@ -5,10 +5,10 @@
   "repo_path": "chg60/DEPhT",
   "description": "Fast and sensitive discovery of complete phages and prophages in bacterial genome sequences",
   "created_at": "2021-01-15T18:04:15Z",
-  "updated_at": "2026-06-16T05:08:37Z",
+  "updated_at": "2026-08-03T12:16:20Z",
   "pushed_at": "2024-12-16T14:46:02Z",
-  "stars": 23,
-  "watchers": 23,
+  "stars": 22,
+  "watchers": 22,
   "forks": 4,
   "open_issues": 7,
   "default_branch": "main",
@@ -17,7 +17,7 @@
   "homepage": "",
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-08-01T10:03:11.336453",
+  "fetch_time": "2026-09-01T13:07:55.139953",
   "languages": {
     "HTML": 846269,
     "Python": 353369
@@ -37,27 +37,27 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.chg60/DEPhT",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/882391d0-ab06-4751-a4b6-398d4c305fb3",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/7a3aabac-20e9-4201-a3c3-42639c720230",
       "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
       "creationInfo": {
         "creators": [
-          "Tool: protobom-v0.0.0-20260723130105-8c46c554dd89+dirty",
+          "Tool: protobom-v0.0.0-20260831182632-a13c9debdc2f+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2026-08-01T10:03:19Z"
+        "created": "2026-09-01T13:08:03Z"
       },
       "packages": [
         {
-          "name": "bokeh",
-          "SPDXID": "SPDXRef-pypi-bokeh-05395c",
-          "versionInfo": "~> 2.4.2",
+          "name": "biopython",
+          "SPDXID": "SPDXRef-pypi-biopython-16d790",
+          "versionInfo": ">= 1.78",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/bokeh"
+              "referenceLocator": "pkg:pypi/biopython"
             }
           ]
         },
@@ -76,16 +76,16 @@
           ]
         },
         {
-          "name": "dna-features-viewer",
-          "SPDXID": "SPDXRef-pypi-dna-features-viewer-cfd0fb",
-          "versionInfo": "~> 3.1.0",
+          "name": "pandas",
+          "SPDXID": "SPDXRef-pypi-pandas-6d9e95",
+          "versionInfo": "~> 1.4.2",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/dna-features-viewer"
+              "referenceLocator": "pkg:pypi/pandas"
             }
           ]
         },
@@ -104,30 +104,16 @@
           ]
         },
         {
-          "name": "phamclust",
-          "SPDXID": "SPDXRef-pypi-phamclust-d5e2c3",
-          "versionInfo": "~> 0.1.3",
+          "name": "bokeh",
+          "SPDXID": "SPDXRef-pypi-bokeh-05395c",
+          "versionInfo": "~> 2.4.2",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/phamclust"
-            }
-          ]
-        },
-        {
-          "name": "numpy",
-          "SPDXID": "SPDXRef-pypi-numpy-f11896",
-          "versionInfo": "~> 1.22.3",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/numpy"
+              "referenceLocator": "pkg:pypi/bokeh"
             }
           ]
         },
@@ -142,20 +128,6 @@
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
               "referenceLocator": "pkg:pypi/kaleido"
-            }
-          ]
-        },
-        {
-          "name": "biopython",
-          "SPDXID": "SPDXRef-pypi-biopython-16d790",
-          "versionInfo": ">= 1.78",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/biopython"
             }
           ]
         },
@@ -188,16 +160,30 @@
           ]
         },
         {
-          "name": "pandas",
-          "SPDXID": "SPDXRef-pypi-pandas-6d9e95",
-          "versionInfo": "~> 1.4.2",
+          "name": "dna-features-viewer",
+          "SPDXID": "SPDXRef-pypi-dna-features-viewer-cfd0fb",
+          "versionInfo": "~> 3.1.0",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/pandas"
+              "referenceLocator": "pkg:pypi/dna-features-viewer"
+            }
+          ]
+        },
+        {
+          "name": "phamclust",
+          "SPDXID": "SPDXRef-pypi-phamclust-d5e2c3",
+          "versionInfo": "~> 0.1.3",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/phamclust"
             }
           ]
         },
@@ -212,6 +198,20 @@
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
               "referenceLocator": "pkg:pypi/requests"
+            }
+          ]
+        },
+        {
+          "name": "numpy",
+          "SPDXID": "SPDXRef-pypi-numpy-f11896",
+          "versionInfo": "~> 1.22.3",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/numpy"
             }
           ]
         },
@@ -234,42 +234,7 @@
       "relationships": [
         {
           "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-bokeh-05395c",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-matplotlib-bbaf02",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-pretty-html-table-ee246b",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-numpy-f11896",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-kaleido-ea3a77",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-plotly-fa5424",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-pandas-6d9e95",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-dna-features-viewer-cfd0fb",
+          "relatedSpdxElement": "SPDXRef-pypi-bitarray-aca739",
           "relationshipType": "DEPENDS_ON"
         },
         {
@@ -279,17 +244,52 @@
         },
         {
           "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
+          "relatedSpdxElement": "SPDXRef-pypi-requests-406e08",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
+          "relatedSpdxElement": "SPDXRef-pypi-matplotlib-bbaf02",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
+          "relatedSpdxElement": "SPDXRef-pypi-plotly-fa5424",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
+          "relatedSpdxElement": "SPDXRef-pypi-dna-features-viewer-cfd0fb",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
+          "relatedSpdxElement": "SPDXRef-pypi-numpy-f11896",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
           "relatedSpdxElement": "SPDXRef-pypi-biopython-16d790",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-bitarray-aca739",
+          "relatedSpdxElement": "SPDXRef-pypi-pandas-6d9e95",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
-          "relatedSpdxElement": "SPDXRef-pypi-requests-406e08",
+          "relatedSpdxElement": "SPDXRef-pypi-pretty-html-table-ee246b",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
+          "relatedSpdxElement": "SPDXRef-pypi-bokeh-05395c",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-chg60-DEPhT-main-b4a7b2",
+          "relatedSpdxElement": "SPDXRef-pypi-kaleido-ea3a77",
           "relationshipType": "DEPENDS_ON"
         },
         {

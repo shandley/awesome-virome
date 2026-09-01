@@ -5,19 +5,19 @@
   "repo_path": "EBI-Metagenomics/emg-viral-pipeline",
   "description": "VIRify: detection of phages and eukaryotic viruses from metagenomic and metatranscriptomic assemblies",
   "created_at": "2020-04-29T16:04:00Z",
-  "updated_at": "2026-06-23T09:30:08Z",
-  "pushed_at": "2026-07-28T15:07:39Z",
-  "stars": 152,
-  "watchers": 152,
+  "updated_at": "2026-08-11T07:14:33Z",
+  "pushed_at": "2026-09-01T09:34:43Z",
+  "stars": 153,
+  "watchers": 153,
   "forks": 21,
-  "open_issues": 19,
+  "open_issues": 20,
   "default_branch": "master",
   "license": "Apache License 2.0",
   "license_url": "https://api.github.com/licenses/apache-2.0",
   "homepage": "",
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-08-01T10:15:49.800483",
+  "fetch_time": "2026-09-01T13:20:30.962541",
   "languages": {
     "Python": 180244,
     "Nextflow": 106106,
@@ -45,22 +45,39 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.EBI-Metagenomics/emg-viral-pipeline",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/a1caba35-406e-4d69-93ea-9b02b5dc9248",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/fa581cd0-f049-40c2-853e-ea72f909b9ff",
       "creationInfo": {
         "creators": [
-          "Tool: protobom-v0.0.0-20260723130105-8c46c554dd89+dirty",
+          "Tool: protobom-v0.0.0-20260831182632-a13c9debdc2f+dirty",
           "Tool: GitHub.com-Dependency-Graph",
           "Tool: dependabot"
         ],
-        "created": "2026-08-01T10:15:57Z"
+        "created": "2026-09-01T13:20:38Z"
       },
       "packages": [
+        {
+          "name": "pytest",
+          "SPDXID": "SPDXRef-pypi-pytest-9.0.3-e9136a",
+          "versionInfo": "9.0.3",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "licenseConcluded": "MIT",
+          "copyrightText": "Copyright (c) 2004 Holger Krekel and others, Copyright (c) 2014, Gregory Boissinot, copyright 2015, holger krekel and pytest-dev team, Copyright Holger Krekel and others, 2004",
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/pytest@9.0.3"
+            }
+          ]
+        },
         {
           "name": "ruamel-yaml",
           "SPDXID": "SPDXRef-pypi-ruamel-yaml-0.18.14-d71d13",
           "versionInfo": "0.18.14",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
+          "licenseConcluded": "MIT",
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
@@ -118,24 +135,8 @@
           ]
         },
         {
-          "name": "pytest",
-          "SPDXID": "SPDXRef-pypi-pytest-9.0.3-e9136a",
-          "versionInfo": "9.0.3",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "licenseConcluded": "MIT",
-          "copyrightText": "Copyright (c) 2004 Holger Krekel and others, Copyright (c) 2014, Gregory Boissinot, copyright 2015, holger krekel and pytest-dev team, Copyright Holger Krekel and others, 2004",
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/pytest@9.0.3"
-            }
-          ]
-        },
-        {
           "name": "actions/checkout",
-          "SPDXID": "SPDXRef-githubactions-actions-checkout-5..-5baf2c",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-5..-7acfc6",
           "versionInfo": "5.*.*",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
@@ -143,13 +144,13 @@
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/actions/checkout@5.*.*"
+              "referenceLocator": "pkg:githubactions/actions/checkout@5.%2A.%2A"
             }
           ]
         },
         {
           "name": "actions/setup-python",
-          "SPDXID": "SPDXRef-githubactions-actions-setup-python-6..-6c08af",
+          "SPDXID": "SPDXRef-githubactions-actions-setup-python-6..-9454b1",
           "versionInfo": "6.*.*",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
@@ -157,7 +158,7 @@
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/actions/setup-python@6.*.*"
+              "referenceLocator": "pkg:githubactions/actions/setup-python@6.%2A.%2A"
             }
           ]
         },
@@ -180,6 +181,11 @@
       "relationships": [
         {
           "spdxElementId": "SPDXRef-github-EBI-Metagenomics-emg-viral-pipeline-master-0d32b0",
+          "relatedSpdxElement": "SPDXRef-pypi-pytest-9.0.3-e9136a",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-EBI-Metagenomics-emg-viral-pipeline-master-0d32b0",
           "relatedSpdxElement": "SPDXRef-pypi-ruamel-yaml-0.18.14-d71d13",
           "relationshipType": "DEPENDS_ON"
         },
@@ -200,17 +206,12 @@
         },
         {
           "spdxElementId": "SPDXRef-github-EBI-Metagenomics-emg-viral-pipeline-master-0d32b0",
-          "relatedSpdxElement": "SPDXRef-pypi-pytest-9.0.3-e9136a",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-5..-7acfc6",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-EBI-Metagenomics-emg-viral-pipeline-master-0d32b0",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-5..-5baf2c",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-EBI-Metagenomics-emg-viral-pipeline-master-0d32b0",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-setup-python-6..-6c08af",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-setup-python-6..-9454b1",
           "relationshipType": "DEPENDS_ON"
         },
         {
