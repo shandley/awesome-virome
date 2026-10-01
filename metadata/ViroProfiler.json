@@ -5,11 +5,11 @@
   "repo_path": "deng-lab/viroprofiler",
   "description": "A containerized bioinformatics pipeline for viral metagenomic data analysis",
   "created_at": "2022-09-17T18:39:31Z",
-  "updated_at": "2026-08-29T03:32:37Z",
-  "pushed_at": "2026-04-09T12:50:17Z",
+  "updated_at": "2026-09-20T16:35:06Z",
+  "pushed_at": "2026-09-20T16:59:26Z",
   "stars": 41,
   "watchers": 41,
-  "forks": 14,
+  "forks": 13,
   "open_issues": 21,
   "default_branch": "main",
   "license": "MIT License",
@@ -17,16 +17,16 @@
   "homepage": "https://deng-lab.github.io/viroprofiler",
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-09-01T13:11:36.292995",
+  "fetch_time": "2026-10-01T15:15:42.266337",
   "languages": {
-    "Nextflow": 128032,
-    "Python": 69941,
-    "Groovy": 43740,
-    "Dockerfile": 8916,
+    "Nextflow": 185335,
+    "Groovy": 48614,
+    "Python": 47765,
+    "Dockerfile": 46680,
     "Perl": 6397,
-    "HTML": 2499,
-    "Shell": 1932,
-    "R": 1902
+    "Shell": 5082,
+    "R": 2962,
+    "HTML": 2499
   },
   "topics": [],
   "latest_release": {
@@ -41,14 +41,14 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.deng-lab/viroprofiler",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/e050bbc3-811e-4f7f-bc7c-b192f07f3007",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/4f4a43a6-14af-437f-b70c-f9858a1d5821",
       "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
       "creationInfo": {
         "creators": [
-          "Tool: protobom-v0.0.0-20260831182632-a13c9debdc2f+dirty",
+          "Tool: protobom-v0.0.0-20260929134500-3b3d4804fe8e+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2026-09-01T13:11:44Z"
+        "created": "2026-10-01T15:15:50Z"
       },
       "packages": [
         {
@@ -80,71 +80,71 @@
         },
         {
           "name": "actions/checkout",
-          "SPDXID": "SPDXRef-githubactions-actions-checkout-3-87103a",
-          "versionInfo": "3",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-4..-bfd09a",
+          "versionInfo": "4.*.*",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/actions/checkout@3"
-            }
-          ]
-        },
-        {
-          "name": "docker/login-action",
-          "SPDXID": "SPDXRef-githubactions-docker-login-action-2-852582",
-          "versionInfo": "2",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/docker/login-action@2"
+              "referenceLocator": "pkg:githubactions/actions/checkout@4.%2A.%2A"
             }
           ]
         },
         {
           "name": "docker/setup-buildx-action",
-          "SPDXID": "SPDXRef-githubactions-docker-setup-buildx-action-2-118d07",
-          "versionInfo": "2",
+          "SPDXID": "SPDXRef-githubactions-docker-setup-buildx-action-3..-fd6fe2",
+          "versionInfo": "3.*.*",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/docker/setup-buildx-action@2"
+              "referenceLocator": "pkg:githubactions/docker/setup-buildx-action@3.%2A.%2A"
             }
           ]
         },
         {
-          "name": "docker/metadata-action",
-          "SPDXID": "SPDXRef-githubactions-docker-metadata-action-4-49f958",
-          "versionInfo": "4",
+          "name": "docker/login-action",
+          "SPDXID": "SPDXRef-githubactions-docker-login-action-3..-4496c1",
+          "versionInfo": "3.*.*",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/docker/metadata-action@4"
+              "referenceLocator": "pkg:githubactions/docker/login-action@3.%2A.%2A"
             }
           ]
         },
         {
           "name": "docker/build-push-action",
-          "SPDXID": "SPDXRef-githubactions-docker-build-push-action-4-acf29b",
-          "versionInfo": "4",
+          "SPDXID": "SPDXRef-githubactions-docker-build-push-action-6..-501058",
+          "versionInfo": "6.*.*",
           "downloadLocation": "NOASSERTION",
           "filesAnalyzed": false,
           "externalRefs": [
             {
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/docker/build-push-action@4"
+              "referenceLocator": "pkg:githubactions/docker/build-push-action@6.%2A.%2A"
+            }
+          ]
+        },
+        {
+          "name": "prefix-dev/setup-pixi",
+          "SPDXID": "SPDXRef-githubactions-prefix-dev-setup-pixi-0..-ce76c8",
+          "versionInfo": "0.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/prefix-dev/setup-pixi@0.%2A.%2A"
             }
           ]
         },
@@ -177,6 +177,34 @@
           ]
         },
         {
+          "name": "actions/upload-artifact",
+          "SPDXID": "SPDXRef-githubactions-actions-upload-artifact-4..-2c6cf8",
+          "versionInfo": "4.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/upload-artifact@4.%2A.%2A"
+            }
+          ]
+        },
+        {
+          "name": "nf-core/setup-nextflow",
+          "SPDXID": "SPDXRef-githubactions-nf-core-setup-nextflow-2..-d92bba",
+          "versionInfo": "2.*.*",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/nf-core/setup-nextflow@2.%2A.%2A"
+            }
+          ]
+        },
+        {
           "name": "com.github.deng-lab/viroprofiler",
           "SPDXID": "SPDXRef-github-deng-lab-viroprofiler-main-0539bf",
           "versionInfo": "main",
@@ -195,22 +223,32 @@
       "relationships": [
         {
           "spdxElementId": "SPDXRef-github-deng-lab-viroprofiler-main-0539bf",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-3-87103a",
+          "relatedSpdxElement": "SPDXRef-githubactions-docker-build-push-action-6..-501058",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-deng-lab-viroprofiler-main-0539bf",
-          "relatedSpdxElement": "SPDXRef-githubactions-docker-login-action-2-852582",
+          "relatedSpdxElement": "SPDXRef-githubactions-nf-core-setup-nextflow-2..-d92bba",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-deng-lab-viroprofiler-main-0539bf",
-          "relatedSpdxElement": "SPDXRef-githubactions-docker-setup-buildx-action-2-118d07",
+          "relatedSpdxElement": "SPDXRef-githubactions-prefix-dev-setup-pixi-0..-ce76c8",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-deng-lab-viroprofiler-main-0539bf",
           "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-2-ce10eb",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-deng-lab-viroprofiler-main-0539bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-mhausenblas-mkdocs-deploy-gh-pages-master-04c46c",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-deng-lab-viroprofiler-main-0539bf",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-upload-artifact-4..-2c6cf8",
           "relationshipType": "DEPENDS_ON"
         },
         {
@@ -225,17 +263,17 @@
         },
         {
           "spdxElementId": "SPDXRef-github-deng-lab-viroprofiler-main-0539bf",
-          "relatedSpdxElement": "SPDXRef-githubactions-docker-metadata-action-4-49f958",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-bfd09a",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-deng-lab-viroprofiler-main-0539bf",
-          "relatedSpdxElement": "SPDXRef-githubactions-docker-build-push-action-4-acf29b",
+          "relatedSpdxElement": "SPDXRef-githubactions-docker-setup-buildx-action-3..-fd6fe2",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-deng-lab-viroprofiler-main-0539bf",
-          "relatedSpdxElement": "SPDXRef-githubactions-mhausenblas-mkdocs-deploy-gh-pages-master-04c46c",
+          "relatedSpdxElement": "SPDXRef-githubactions-docker-login-action-3..-4496c1",
           "relationshipType": "DEPENDS_ON"
         },
         {

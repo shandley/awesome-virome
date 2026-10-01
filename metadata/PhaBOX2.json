@@ -5,10 +5,10 @@
   "repo_path": "KennthShang/PhaBOX",
   "description": "Local version of the virus identification and analysis web server (tool set)  ",
   "created_at": "2022-09-27T03:26:52Z",
-  "updated_at": "2026-08-29T03:23:41Z",
-  "pushed_at": "2026-05-13T07:10:20Z",
-  "stars": 118,
-  "watchers": 118,
+  "updated_at": "2026-09-15T13:26:25Z",
+  "pushed_at": "2026-09-28T07:13:06Z",
+  "stars": 120,
+  "watchers": 120,
   "forks": 8,
   "open_issues": 30,
   "default_branch": "main",
@@ -17,7 +17,7 @@
   "homepage": "https://phage.ee.cityu.edu.hk/",
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-09-01T13:19:59.605880",
+  "fetch_time": "2026-10-01T15:23:41.171693",
   "languages": {
     "Python": 294278
   },
@@ -32,10 +32,10 @@
     "virus"
   ],
   "latest_release": {
-    "name": "",
-    "tag": "v2.1.13",
-    "published_at": "2025-10-19T06:35:43Z",
-    "url": "https://github.com/KennthShang/PhaBOX/releases/tag/v2.1.13"
+    "name": "PhaBOX 2.2",
+    "tag": "v2.2",
+    "published_at": "2026-09-28T07:13:06Z",
+    "url": "https://github.com/KennthShang/PhaBOX/releases/tag/v2.2"
   },
   "dependencies": {
     "sbom": {
@@ -43,15 +43,31 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.KennthShang/PhaBOX",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/05bdf313-80fa-4642-80fe-b142fdfcf36a",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/732cb59d-bf75-4230-83c5-4591bb4fa523",
       "creationInfo": {
         "creators": [
-          "Tool: protobom-v0.0.0-20260831182632-a13c9debdc2f+dirty",
+          "Tool: protobom-v0.0.0-20260929134500-3b3d4804fe8e+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2026-09-01T13:20:07Z"
+        "created": "2026-10-01T15:23:49Z"
       },
       "packages": [
+        {
+          "name": "protobuf",
+          "SPDXID": "SPDXRef-pypi-protobuf-3.20.3-084aa5",
+          "versionInfo": "3.20.3",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "licenseConcluded": "BSD-3-Clause",
+          "copyrightText": "Copyright 2007 Google Inc., Copyright 2008 Google Inc.",
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/protobuf@3.20.3"
+            }
+          ]
+        },
         {
           "name": "transformers",
           "SPDXID": "SPDXRef-pypi-transformers-4.11.3-c57451",
@@ -65,6 +81,69 @@
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
               "referenceLocator": "pkg:pypi/transformers@4.11.3"
+            }
+          ]
+        },
+        {
+          "name": "sacremoses",
+          "SPDXID": "SPDXRef-pypi-sacremoses-0.0.43-9dfa73",
+          "versionInfo": "0.0.43",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "licenseConcluded": "MIT",
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/sacremoses@0.0.43"
+            }
+          ]
+        },
+        {
+          "name": "pyqt5-sip",
+          "SPDXID": "SPDXRef-pypi-pyqt5-sip-12.9.0-ccce0f",
+          "versionInfo": "12.9.0",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "licenseConcluded": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-github-OTHER",
+          "copyrightText": "Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>, Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>, Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>, Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>, Copyright (c) 2020, Riverbank Computing Limited, Copyright (c) 2021 Riverbank Computing Limited <info@riverbankcomputing.com>",
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/pyqt5-sip@12.9.0"
+            }
+          ]
+        },
+        {
+          "name": "zstandard",
+          "SPDXID": "SPDXRef-pypi-zstandard-0.23.0-2af5c9",
+          "versionInfo": "0.23.0",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "licenseConcluded": "BSD-3-Clause",
+          "copyrightText": "Copyright (c) 1989, 1991 Free Software Foundation, Inc., Copyright (c) 2003-2008 Yuta Mori, Copyright (c) 2016 Tino Reichardt, Copyright (c) 2016-present, Gregory Szorc, Copyright (c) 2016, Gregory Szorc, Copyright (c) 2017-present, Gregory Szorc, Copyright (c) 2018-present, Gregory Szorc, Copyright (c) 2020-present, Gregory Szorc, Copyright (c) 2021-present, Gregory Szorc, Copyright (c) Meta Platforms, Inc. and affiliates, Copyright (c) Yann Collet - Meta Platforms, Inc, Copyright (c) Yann Collet, Meta Platforms, Inc. and affiliates, copyrighted by the Free Software Foundation",
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/zstandard@0.23.0"
+            }
+          ]
+        },
+        {
+          "name": "pyarrow",
+          "SPDXID": "SPDXRef-pypi-pyarrow-8.0.0-70ac56",
+          "versionInfo": "8.0.0",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "licenseConcluded": "Apache-2.0",
+          "copyrightText": "Copyright 2001-2009 Kitware, Inc., Copyright 2011 Kitware, Inc., Copyright 2012 Cloudera Inc., Copyright 2012 Continuum Analytics, Inc., Copyright 2012-2014 Continuum Analytics, Inc.",
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/pyarrow@8.0.0"
             }
           ]
         },
@@ -116,21 +195,6 @@
           ]
         },
         {
-          "name": "sacremoses",
-          "SPDXID": "SPDXRef-pypi-sacremoses-0.0.43-9dfa73",
-          "versionInfo": "0.0.43",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "licenseConcluded": "MIT",
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/sacremoses@0.0.43"
-            }
-          ]
-        },
-        {
           "name": "matplotlib",
           "SPDXID": "SPDXRef-pypi-matplotlib-3.9.1-cecf4c",
           "versionInfo": "3.9.1",
@@ -143,70 +207,6 @@
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
               "referenceLocator": "pkg:pypi/matplotlib@3.9.1"
-            }
-          ]
-        },
-        {
-          "name": "zstandard",
-          "SPDXID": "SPDXRef-pypi-zstandard-0.23.0-2af5c9",
-          "versionInfo": "0.23.0",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "licenseConcluded": "BSD-3-Clause",
-          "copyrightText": "Copyright (c) 1989, 1991 Free Software Foundation, Inc., Copyright (c) 2003-2008 Yuta Mori, Copyright (c) 2016 Tino Reichardt, Copyright (c) 2016-present, Gregory Szorc, Copyright (c) 2016, Gregory Szorc, Copyright (c) 2017-present, Gregory Szorc, Copyright (c) 2018-present, Gregory Szorc, Copyright (c) 2020-present, Gregory Szorc, Copyright (c) 2021-present, Gregory Szorc, Copyright (c) Meta Platforms, Inc. and affiliates, Copyright (c) Yann Collet - Meta Platforms, Inc, Copyright (c) Yann Collet, Meta Platforms, Inc. and affiliates, copyrighted by the Free Software Foundation",
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/zstandard@0.23.0"
-            }
-          ]
-        },
-        {
-          "name": "protobuf",
-          "SPDXID": "SPDXRef-pypi-protobuf-3.20.3-084aa5",
-          "versionInfo": "3.20.3",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "licenseConcluded": "BSD-3-Clause",
-          "copyrightText": "Copyright 2007 Google Inc., Copyright 2008 Google Inc.",
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/protobuf@3.20.3"
-            }
-          ]
-        },
-        {
-          "name": "pyarrow",
-          "SPDXID": "SPDXRef-pypi-pyarrow-8.0.0-70ac56",
-          "versionInfo": "8.0.0",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "licenseConcluded": "Apache-2.0",
-          "copyrightText": "Copyright 2001-2009 Kitware, Inc., Copyright 2011 Kitware, Inc., Copyright 2012 Cloudera Inc., Copyright 2012 Continuum Analytics, Inc., Copyright 2012-2014 Continuum Analytics, Inc.",
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/pyarrow@8.0.0"
-            }
-          ]
-        },
-        {
-          "name": "pyqt5-sip",
-          "SPDXID": "SPDXRef-pypi-pyqt5-sip-12.9.0-ccce0f",
-          "versionInfo": "12.9.0",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "licenseConcluded": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-github-OTHER",
-          "copyrightText": "Copyright (c) 2015 Riverbank Computing Limited <info@riverbankcomputing.com>, Copyright (c) 2017 Riverbank Computing Limited <info@riverbankcomputing.com>, Copyright (c) 2019 Riverbank Computing Limited <info@riverbankcomputing.com>, Copyright (c) 2020 Riverbank Computing Limited <info@riverbankcomputing.com>, Copyright (c) 2020, Riverbank Computing Limited, Copyright (c) 2021 Riverbank Computing Limited <info@riverbankcomputing.com>",
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/pyqt5-sip@12.9.0"
             }
           ]
         },
@@ -259,52 +259,7 @@
       "relationships": [
         {
           "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
-          "relatedSpdxElement": "SPDXRef-pypi-huggingface-hub-0.25.1-3fbd74",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
-          "relatedSpdxElement": "SPDXRef-pypi-transformers-4.11.3-c57451",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
-          "relatedSpdxElement": "SPDXRef-pypi-hpack-4.0.0-b12bab",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
-          "relatedSpdxElement": "SPDXRef-pypi-torch-1.10.1-4c5228",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
-          "relatedSpdxElement": "SPDXRef-pypi-zstandard-0.23.0-2af5c9",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
-          "relatedSpdxElement": "SPDXRef-pypi-protobuf-3.20.3-084aa5",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
-          "relatedSpdxElement": "SPDXRef-pypi-pyqt5-sip-12.9.0-ccce0f",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-bfd09a",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
           "relatedSpdxElement": "SPDXRef-pypi-pyqt5-5.15.4-f6e50f",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
-          "relatedSpdxElement": "SPDXRef-pypi-sacremoses-0.0.43-9dfa73",
           "relationshipType": "DEPENDS_ON"
         },
         {
@@ -314,7 +269,52 @@
         },
         {
           "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
+          "relatedSpdxElement": "SPDXRef-pypi-huggingface-hub-0.25.1-3fbd74",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
+          "relatedSpdxElement": "SPDXRef-pypi-sacremoses-0.0.43-9dfa73",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
+          "relatedSpdxElement": "SPDXRef-pypi-pyqt5-sip-12.9.0-ccce0f",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
+          "relatedSpdxElement": "SPDXRef-pypi-torch-1.10.1-4c5228",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-4..-bfd09a",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
+          "relatedSpdxElement": "SPDXRef-pypi-protobuf-3.20.3-084aa5",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
+          "relatedSpdxElement": "SPDXRef-pypi-transformers-4.11.3-c57451",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
+          "relatedSpdxElement": "SPDXRef-pypi-zstandard-0.23.0-2af5c9",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
           "relatedSpdxElement": "SPDXRef-pypi-pyarrow-8.0.0-70ac56",
+          "relationshipType": "DEPENDS_ON"
+        },
+        {
+          "spdxElementId": "SPDXRef-github-KennthShang-PhaBOX-main-7e7267",
+          "relatedSpdxElement": "SPDXRef-pypi-hpack-4.0.0-b12bab",
           "relationshipType": "DEPENDS_ON"
         },
         {

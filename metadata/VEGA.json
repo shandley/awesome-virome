@@ -17,7 +17,7 @@
   "homepage": "",
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-09-01T13:18:41.104207",
+  "fetch_time": "2026-10-01T15:22:22.239567",
   "languages": {
     "Shell": 13115,
     "Python": 11607,
@@ -37,29 +37,15 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.pauloluniyi/VGEA",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/557a2870-1e84-4900-ab0a-db6d2024418a",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/47b92308-aea1-414d-883f-7e5644272669",
       "creationInfo": {
         "creators": [
-          "Tool: protobom-v0.0.0-20260831182632-a13c9debdc2f+dirty",
+          "Tool: protobom-v0.0.0-20260929134500-3b3d4804fe8e+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2026-09-01T13:18:49Z"
+        "created": "2026-10-01T15:22:30Z"
       },
       "packages": [
-        {
-          "name": "actions/checkout",
-          "SPDXID": "SPDXRef-githubactions-actions-checkout-2-ce10eb",
-          "versionInfo": "2",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:githubactions/actions/checkout@2"
-            }
-          ]
-        },
         {
           "name": "snakemake/snakemake-github-action",
           "SPDXID": "SPDXRef-githubactions-snakemake-snakemake-github-action-1.18.0-2a90d8",
@@ -71,6 +57,20 @@
               "referenceCategory": "PACKAGE-MANAGER",
               "referenceType": "purl",
               "referenceLocator": "pkg:githubactions/snakemake/snakemake-github-action@1.18.0"
+            }
+          ]
+        },
+        {
+          "name": "actions/checkout",
+          "SPDXID": "SPDXRef-githubactions-actions-checkout-2-ce10eb",
+          "versionInfo": "2",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:githubactions/actions/checkout@2"
             }
           ]
         },
@@ -93,12 +93,12 @@
       "relationships": [
         {
           "spdxElementId": "SPDXRef-github-pauloluniyi-VGEA-master-cba6ae",
-          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-2-ce10eb",
+          "relatedSpdxElement": "SPDXRef-githubactions-snakemake-snakemake-github-action-1.18.0-2a90d8",
           "relationshipType": "DEPENDS_ON"
         },
         {
           "spdxElementId": "SPDXRef-github-pauloluniyi-VGEA-master-cba6ae",
-          "relatedSpdxElement": "SPDXRef-githubactions-snakemake-snakemake-github-action-1.18.0-2a90d8",
+          "relatedSpdxElement": "SPDXRef-githubactions-actions-checkout-2-ce10eb",
           "relationshipType": "DEPENDS_ON"
         },
         {

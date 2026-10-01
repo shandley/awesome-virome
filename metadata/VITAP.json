@@ -5,10 +5,10 @@
   "repo_path": "DrKaiyangZheng/VITAP",
   "description": "The viral taxonomic assignment pipeline",
   "created_at": "2024-03-17T09:29:06Z",
-  "updated_at": "2026-08-31T05:26:55Z",
+  "updated_at": "2026-09-20T21:18:29Z",
   "pushed_at": "2026-08-31T05:25:54Z",
-  "stars": 46,
-  "watchers": 46,
+  "stars": 47,
+  "watchers": 47,
   "forks": 6,
   "open_issues": 15,
   "default_branch": "main",
@@ -17,7 +17,7 @@
   "homepage": null,
   "is_archived": false,
   "is_disabled": false,
-  "fetch_time": "2026-09-01T13:06:44.692564",
+  "fetch_time": "2026-10-01T15:10:22.879981",
   "languages": {
     "Python": 90406
   },
@@ -34,44 +34,16 @@
       "dataLicense": "CC0-1.0",
       "SPDXID": "SPDXRef-DOCUMENT",
       "name": "com.github.DrKaiyangZheng/VITAP",
-      "documentNamespace": "https://spdx.org/spdxdocs/protobom/a5ae831f-2698-4faa-b339-171684e055d2",
+      "documentNamespace": "https://spdx.org/spdxdocs/protobom/dfcc5243-5ade-46b5-991a-92571a748db8",
       "comment": "Exact versions could not be resolved for some packages. For more information: https://docs.github.com/en/code-security/supply-chain-security/understanding-your-software-supply-chain/about-the-dependency-graph#dependencies-included.",
       "creationInfo": {
         "creators": [
-          "Tool: protobom-v0.0.0-20260831182632-a13c9debdc2f+dirty",
+          "Tool: protobom-v0.0.0-20260929134500-3b3d4804fe8e+dirty",
           "Tool: GitHub.com-Dependency-Graph"
         ],
-        "created": "2026-09-01T13:06:52Z"
+        "created": "2026-10-01T15:10:30Z"
       },
       "packages": [
-        {
-          "name": "pyrodigal",
-          "SPDXID": "SPDXRef-pypi-pyrodigal-dc1866",
-          "versionInfo": ">= 3.6",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/pyrodigal"
-            }
-          ]
-        },
-        {
-          "name": "tqdm",
-          "SPDXID": "SPDXRef-pypi-tqdm-a75e6a",
-          "versionInfo": ">= 4.65.0",
-          "downloadLocation": "NOASSERTION",
-          "filesAnalyzed": false,
-          "externalRefs": [
-            {
-              "referenceCategory": "PACKAGE-MANAGER",
-              "referenceType": "purl",
-              "referenceLocator": "pkg:pypi/tqdm"
-            }
-          ]
-        },
         {
           "name": "pandas",
           "SPDXID": "SPDXRef-pypi-pandas-d41546",
@@ -143,6 +115,34 @@
           ]
         },
         {
+          "name": "pyrodigal",
+          "SPDXID": "SPDXRef-pypi-pyrodigal-dc1866",
+          "versionInfo": ">= 3.6",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/pyrodigal"
+            }
+          ]
+        },
+        {
+          "name": "tqdm",
+          "SPDXID": "SPDXRef-pypi-tqdm-a75e6a",
+          "versionInfo": ">= 4.65.0",
+          "downloadLocation": "NOASSERTION",
+          "filesAnalyzed": false,
+          "externalRefs": [
+            {
+              "referenceCategory": "PACKAGE-MANAGER",
+              "referenceType": "purl",
+              "referenceLocator": "pkg:pypi/tqdm"
+            }
+          ]
+        },
+        {
           "name": "com.github.DrKaiyangZheng/VITAP",
           "SPDXID": "SPDXRef-github-DrKaiyangZheng-VITAP-main-9cbedd",
           "versionInfo": "main",
@@ -159,6 +159,11 @@
         }
       ],
       "relationships": [
+        {
+          "spdxElementId": "SPDXRef-github-DrKaiyangZheng-VITAP-main-9cbedd",
+          "relatedSpdxElement": "SPDXRef-pypi-pyrodigal-dc1866",
+          "relationshipType": "DEPENDS_ON"
+        },
         {
           "spdxElementId": "SPDXRef-github-DrKaiyangZheng-VITAP-main-9cbedd",
           "relatedSpdxElement": "SPDXRef-pypi-tqdm-a75e6a",
@@ -187,11 +192,6 @@
         {
           "spdxElementId": "SPDXRef-github-DrKaiyangZheng-VITAP-main-9cbedd",
           "relatedSpdxElement": "SPDXRef-pypi-pyarrow-976f1a",
-          "relationshipType": "DEPENDS_ON"
-        },
-        {
-          "spdxElementId": "SPDXRef-github-DrKaiyangZheng-VITAP-main-9cbedd",
-          "relatedSpdxElement": "SPDXRef-pypi-pyrodigal-dc1866",
           "relationshipType": "DEPENDS_ON"
         },
         {
