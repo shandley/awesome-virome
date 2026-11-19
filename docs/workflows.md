@@ -12,7 +12,7 @@ This document describes the GitHub Actions workflows used in the awesome-virome 
 
 This is the core data engine. It pulls repository metadata from the GitHub API (stars, forks, language, topics), regenerates `data.json`, and generates the REST API endpoints under `api/`. It commits the refreshed data back to `main`.
 
-Key scripts: `update_check.py`, `github_metrics_workflow.py`, `enhance_metadata.py`, `bioinformatics_metadata.py`, `update_data_json.py`, `generate_api.py`, `verify_readme_content.py`.
+Key scripts: `update_check.py`, `github_metrics_workflow.py`, `enhance_metadata.py`, `update_data_json.py`, `generate_api.py`, `verify_readme_content.py`.
 
 ### Unified GitHub Pages Deployment
 

@@ -84,16 +84,12 @@ jobs:
             echo "readme_changed=false" >> $GITHUB_OUTPUT
           fi
       
-      # Comprehensive update: Enhanced metadata and bioinformatics
+      # Comprehensive update: enhanced repository metadata
       - name: Run comprehensive update
         if: github.event.inputs.update_type == 'comprehensive' || github.event.schedule == '0 8 1 * *'
         run: |
-          # Run each component in sequence
           echo "Collecting enhanced metadata..."
           python scripts/enhance_metadata.py
-
-          echo "Collecting bioinformatics metadata..."
-          python scripts/bioinformatics_metadata.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
@@ -103,7 +99,7 @@ jobs:
           # Determine which flags to include based on the update type
           if [[ "${{ github.event.inputs.update_type }}" == "comprehensive" || "${{ github.event.schedule }}" == "0 8 1 * *" ]]; then
             echo "Running comprehensive data.json update..."
-            python update_data_json.py --include-metadata --include-bioinformatics
+            python update_data_json.py --include-metadata
           elif [[ "${{ github.event.inputs.update_type }}" == "readme_sync" || "${{ steps.verify_readme.outputs.readme_changed }}" == "true" ]]; then
             echo "Running README-based data.json update..."
             python update_data_json.py
@@ -133,7 +129,7 @@ jobs:
           
           # Determine commit message based on update type
           if [[ "${{ github.event.inputs.update_type }}" == "comprehensive" || "${{ github.event.schedule }}" == "0 8 1 * *" ]]; then
-            COMMIT_MSG="Comprehensive data update (Enhanced, Bioinformatics)"
+            COMMIT_MSG="Comprehensive data update"
           elif [[ "${{ github.event.inputs.update_type }}" == "readme_sync" || "${{ steps.verify_readme.outputs.readme_changed }}" == "true" ]]; then
             COMMIT_MSG="Update data.json from README changes"
           else

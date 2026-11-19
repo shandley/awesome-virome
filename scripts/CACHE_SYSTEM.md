@@ -17,7 +17,7 @@ The cache stores API responses (GitHub, CrossRef, and others) so repeated metada
 
 ### CacheManager
 
-Located in `scripts/apis/citations_api.py`. Handles storage and retrieval, dependency mapping between repositories and cached data, invalidation on repository updates, and freshness validation with configurable expiration. It is imported by the metadata scripts (`enhance_metadata.py`, `bioinformatics_metadata.py`, `update_check.py`).
+Located in `scripts/apis/citations_api.py`. Handles storage and retrieval, dependency mapping between repositories and cached data, invalidation on repository updates, and freshness validation with configurable expiration. It is imported by the metadata scripts (`enhance_metadata.py`, `update_check.py`).
 
 ### RateLimiter
 

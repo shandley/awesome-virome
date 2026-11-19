@@ -7,7 +7,6 @@ Scripts used to maintain and enhance the awesome-virome repository. The data-col
 - `github_metrics_workflow.py` - production entry point for collecting GitHub metrics (stars, forks, language, topics); run by the update workflow
 - `github_metrics_enhancer.py` - core GitHub metrics logic used by the above
 - `enhance_metadata.py` - enriches repository metadata
-- `bioinformatics_metadata.py` - adds bioinformatics-specific metadata
 - `incremental_metadata_update.py` - updates metadata incrementally rather than from scratch
 - `generate_api.py` - generates the REST API endpoints under `api/`
 
@@ -16,8 +15,6 @@ The repository-level entry points `update_check.py` and `update_data_json.py` li
 ## API modules (`apis/`)
 
 - `citations_api.py` - shared infrastructure: the cache manager, `RateLimiter`, and API clients (GitHub, CrossRef, Semantic Scholar). Imported by the metadata scripts.
-- `bioconda_api.py` - Bioconda package lookups
-- `biotools_api.py` - bio.tools registry lookups
 
 ## Validation
 
