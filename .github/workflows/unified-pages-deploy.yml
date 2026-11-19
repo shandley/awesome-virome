@@ -78,6 +78,10 @@ jobs:
           cp selection-guide.html gh-pages/ 2>/dev/null || true
           cp index_redirect.html gh-pages/ 2>/dev/null || true
           cp data.json gh-pages/
+
+          # Replace these directories rather than copying over them, so files
+          # deleted on main also disappear from the published site.
+          rm -rf gh-pages/js gh-pages/metadata gh-pages/reports
           cp -r js gh-pages/ 2>/dev/null || true
           cp -r metadata gh-pages/ 2>/dev/null || true
           cp -r reports gh-pages/ 2>/dev/null || true
