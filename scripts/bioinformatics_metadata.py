@@ -325,11 +325,11 @@ class BioinformaticsMetadataCollector:
 
 
 def load_tools_data() -> List[Dict[str, Any]]:
-    """Load tools data from data.json."""
+    """Load tool nodes from data.json, skipping category and subcategory nodes."""
     try:
         with open('data.json', 'r') as f:
             data = json.load(f)
-            return data.get('nodes', [])
+            return [node for node in data.get('nodes', []) if node.get('type') == 'tool']
     except (json.JSONDecodeError, FileNotFoundError) as e:
         logger.error(f"Error loading data.json: {e}")
         return []
