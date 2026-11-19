@@ -117,6 +117,17 @@ def get_subcategory_id(subcategory):
     """Generate a subcategory ID from the subcategory name."""
     return f"subcategory-{subcategory.replace(' ', '-')}"
 
+# Fields kept when a tool's URL changes; everything else came from the old repository.
+MOVED_TOOL_KEEP_KEYS = ("color", "doi")
+
+
+def same_repo_url(old_url, new_url):
+    """Compare two tool URLs, ignoring scheme, case and a trailing slash."""
+    def normalize(url):
+        return re.sub(r"^https?://", "", (url or "").strip().lower()).rstrip("/")
+    return normalize(old_url) == normalize(new_url)
+
+
 def load_enhanced_metadata():
     """Load enhanced metadata from the metadata directory."""
     metadata_dir = Path(__file__).parent / "metadata"
@@ -268,9 +279,17 @@ def update_data_json(data, tools_data, include_metadata=False):
             "package_manager": tool["package_manager"]
         }
         
-        # If the tool already exists, preserve additional properties
-        if tool_id in existing_nodes_by_id:
-            existing_node = existing_nodes_by_id[tool_id]
+        # If the tool already exists at the same URL, preserve additional
+        # properties. A changed URL means the tool moved to another repository,
+        # so the metrics collected from the old one no longer describe it; the
+        # next metrics run fills them in again.
+        existing_node = existing_nodes_by_id.get(tool_id)
+        if existing_node and not same_repo_url(existing_node.get("url"), tool["url"]):
+            logger.info(f"URL changed for {tool['name']}; dropping metrics from the old repository")
+            existing_node = {key: existing_node[key] for key in MOVED_TOOL_KEEP_KEYS if key in existing_node}
+            existing_node["maintenance_status"] = "unknown"
+
+        if existing_node:
             for key, value in existing_node.items():
                 if key not in node_data:
                     node_data[key] = value
@@ -279,6 +298,8 @@ def update_data_json(data, tools_data, include_metadata=False):
             for key in ["stars", "updateTime", "size", "color"]:
                 if key in existing_node:
                     node_data[key] = existing_node[key]
+            for key, default in (("stars", 0), ("updateTime", 0), ("size", 10)):
+                node_data.setdefault(key, default)
         else:
             # Set defaults for new tools
             node_data["stars"] = 0
@@ -342,8 +363,7 @@ def update_data_json(data, tools_data, include_metadata=False):
         # The README language tag is optional, and the metadata pass above only
         # runs monthly. Without this fallback a weekly run blanks the language
         # of every untagged tool until the next monthly run restores it.
-        if not node_data.get("language"):
-            existing_node = existing_nodes_by_id.get(tool_id, {})
+        if not node_data.get("language") and existing_node:
             fallback_language = (
                 (existing_node.get("github_metrics") or {}).get("language")
                 or existing_node.get("language")
