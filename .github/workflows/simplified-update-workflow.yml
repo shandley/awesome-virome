@@ -23,6 +23,13 @@ on:
 permissions:
   contents: write
 
+# Queue runs instead of letting them overlap. The weekly and monthly schedules
+# both fire when the 1st of the month is a Sunday, and two runs pushing to main
+# at once leaves the slower one rejected at `git push`.
+concurrency:
+  group: data-update
+  cancel-in-progress: false
+
 jobs:
   update-data:
     runs-on: ubuntu-latest
@@ -135,15 +142,20 @@ jobs:
           
           # Commit only if there are changes
           git diff --staged --quiet || git commit -m "$COMMIT_MSG"
-          
+
+          # Pick up anything pushed to main while this run was in progress.
+          # --autostash because the scripts also rewrite tracked files that are
+          # not staged above (starred_repos.md, unavailable_repos.md).
+          git pull --rebase --autostash origin main
+
           # Push changes directly to main
           git push
-      
+
       # Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         run: |
           # Run any necessary pre-deployment scripts
           # (If you have a custom static site generator or build step, it would go here)
-          
+
           # GitHub Pages will automatically deploy from main branch if configured correctly
           echo "Changes pushed to main branch. GitHub Pages will automatically update."
