@@ -17,7 +17,7 @@ Key scripts: `update_check.py`, `github_metrics_workflow.py`, `enhance_metadata.
 ### Unified GitHub Pages Deployment
 
 **File**: `.github/workflows/unified-pages-deploy.yml`
-**Trigger**: Push to `main` touching `data.json`, `*.html`, `metadata/**`, `reports/**`, `js/**`, `mkdocs/**`, or the landing page
+**Trigger**: Push to `main` touching `data.json`, `*.html`, `metadata/**`, `reports/**`, `js/**`, `mkdocs/**`, or the landing page; also runs when the Simplified Data Update Workflow completes successfully, because that workflow pushes with `GITHUB_TOKEN` and those commits do not raise push events
 **Manual trigger**: Yes
 
 Builds and publishes the site to the `gh-pages` branch, which is the source GitHub Pages serves from. It deploys the MkDocs docs (via `mike`) and copies the dashboard, comparison, selection-guide, landing page, and data assets into the branch. This is the only site deployer; the former `simplified-pages-deploy.yml` used the Actions-artifact deploy method, which does not apply when Pages serves from a branch, so it was removed.

@@ -12,7 +12,7 @@ This directory contains simplified GitHub Actions workflows for the Awesome-Viro
 2. **unified-pages-deploy.yml**
    - Builds and publishes the site to the gh-pages branch (the Pages source)
    - Deploys the MkDocs docs and copies dashboard/comparison/landing-page assets
-   - Triggered on push to main that touches site content
+   - Triggered on push to main that touches site content, and when simplified-update-workflow.yml completes successfully (its own pushes use GITHUB_TOKEN and do not raise push events)
 
 3. **broken-link-checker.yml**
    - Checks links in README/API/CONTRIBUTING and maintains a single rolling broken-links issue
@@ -45,7 +45,7 @@ These disabled workflows are kept for historical reference but are no longer act
 2. **Update Process**:
    - Scheduled updates run weekly (basic) and monthly (comprehensive)
    - Updates are committed directly to main branch
-   - GitHub Pages automatically deploy with new data
+   - unified-pages-deploy.yml then publishes the new data to the site
 
 3. **Contribution Process**:
    - External contributors create PRs with changes to README or metadata
