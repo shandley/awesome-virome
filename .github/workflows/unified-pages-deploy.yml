@@ -11,13 +11,29 @@ on:
       - 'js/**'
       - 'mkdocs/**'
       - 'landing-page.html'
+  # The data update workflow pushes with GITHUB_TOKEN, and GitHub does not
+  # raise push events for those commits. Deploy when that workflow finishes
+  # so the site picks up the refreshed data.json.
+  workflow_run:
+    workflows:
+      - "Simplified Data Update Workflow"
+    types:
+      - completed
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
   contents: write
 
+# One deploy at a time: each run rewrites and pushes the gh-pages branch.
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: false
+
 jobs:
   build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

@@ -151,11 +151,5 @@ jobs:
           # Push changes directly to main
           git push
 
-      # Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        run: |
-          # Run any necessary pre-deployment scripts
-          # (If you have a custom static site generator or build step, it would go here)
-
-          # GitHub Pages will automatically deploy from main branch if configured correctly
-          echo "Changes pushed to main branch. GitHub Pages will automatically update."
+      # The site is deployed by unified-pages-deploy.yml, which runs when this
+      # workflow completes (a push made with GITHUB_TOKEN does not trigger it).
