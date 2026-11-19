@@ -23,7 +23,7 @@ Host prediction tools help determine the bacterial hosts of viral sequences, par
 
 ### iPHoP
 
-[iPHoP](https://bitbucket.org/srouxjgi/iphop/src/main/) (Integrated Prediction of Host and Phage) is a state-of-the-art tool for predicting phage-host interactions at various taxonomic levels.
+[iPHoP](https://github.com/simroux/iphop/) (Integrated Prediction of Host and Phage) is a state-of-the-art tool for predicting phage-host interactions at various taxonomic levels.
 
 - **Version**: v1.3.3, 2023
 - **Installation**: `conda install -c bioconda iphop`
@@ -99,7 +99,7 @@ CHERRY uses a combination of convolutional neural networks and LSTM to learn seq
 
 | Tool | Method | Taxonomic Level | Strengths | Limitations |
 |------|--------|-----------------|-----------|-------------|
-| [iPHoP](https://bitbucket.org/srouxjgi/iphop/src/main/) | Integrated | Kingdom to Strain | Combines multiple methods, high accuracy | Resource intensive |
+| [iPHoP](https://github.com/simroux/iphop/) | Integrated | Kingdom to Strain | Combines multiple methods, high accuracy | Resource intensive |
 | [CHERRY](https://github.com/KennthShang/CHERRY) | Deep Learning | Genus, Species | Works well with novel phages | Needs substantial computing power |
 | [VirHostMatcher-Net](https://github.com/WeiliWw/VirHostMatcher-Net) | Network-based | Genus | Good accuracy at genus level | Limited to specific host taxa |
 | [WIsH](https://github.com/soedinglab/WIsH) | Markov Models | Species | Fast, lightweight | Better with complete genomes |
@@ -137,7 +137,7 @@ Based on published benchmarks (test datasets with known hosts):
 
 For optimal host prediction results, we recommend a multi-tool approach:
 
-1. **Start with [iPHoP](https://bitbucket.org/srouxjgi/iphop/src/main/)**:
+1. **Start with [iPHoP](https://github.com/simroux/iphop/)**:
    - Comprehensive predictions with confidence scores
    - Good starting point for most analyses
 

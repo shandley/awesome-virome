@@ -65,7 +65,7 @@ When selecting tools for virome analysis, consider these key factors:
         <strong>Bacteria:</strong>
         <div class="workflow-box">
           <a href="https://github.com/soedinglab/WIsH">WIsH</a><br>
-          <a href="https://bitbucket.org/srouxjgi/iphop/src/main/">iPHoP</a><br>
+          <a href="https://github.com/simroux/iphop/">iPHoP</a><br>
           <a href="https://github.com/refresh-bio/PHIST">PHIST</a>
         </div>
       </div>
@@ -146,7 +146,7 @@ When selecting tools for virome analysis, consider these key factors:
 | Tool | Strengths | Limitations | Best For |
 |------|-----------|-------------|----------|
 | [WIsH](https://github.com/soedinglab/WIsH) | Fast, accurate for bacteria | Requires reference genomes | Phage-host studies |
-| [iPHoP](https://bitbucket.org/srouxjgi/iphop/src/main/) | Multi-method approach | Computationally intensive | When accuracy is critical |
+| [iPHoP](https://github.com/simroux/iphop/) | Multi-method approach | Computationally intensive | When accuracy is critical |
 | [PHIST](https://github.com/refresh-bio/PHIST) | Simple k-mer based | May miss distant relationships | Quick screening |
 | [VirHostMatcher-Net](https://github.com/WeiliWw/VirHostMatcher-Net) | Works across domains | Requires training | Cross-domain studies |
 
@@ -164,7 +164,7 @@ When selecting tools for virome analysis, consider these key factors:
 |----------------|-------------------|
 | Low (Laptop) | [Seeker](https://github.com/gussow/seeker), [PHIST](https://github.com/refresh-bio/PHIST), [VirHostMatcher](https://github.com/jessieren/VirHostMatcher) |
 | Medium (Workstation) | [VirSorter2](https://bitbucket.org/MAVERICLab/virsorter2/), [VIBRANT](https://github.com/AnantharamanLab/VIBRANT), [WIsH](https://github.com/soedinglab/WIsH) |
-| High (Server/Cluster) | [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication), [iPHoP](https://bitbucket.org/srouxjgi/iphop/src/main/), [PHAMB](https://github.com/RasmussenLab/phamb) |
+| High (Server/Cluster) | [metaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication), [iPHoP](https://github.com/simroux/iphop/), [PHAMB](https://github.com/RasmussenLab/phamb) |
 | Cloud-optimized | [IDseq](https://idseq.net/), [CZ ID](https://czid.org/), [Jovian](https://github.com/seqeralabs/jovian) |
 
 ## Recent Additions (2024-2025)
@@ -183,7 +183,7 @@ These tools have been added recently and show promising results:
 |------|----------------|-------------|
 | [VirSorter2](https://bitbucket.org/MAVERICLab/virsorter2/) | 3.6+ | scikit-learn, Tensorflow |
 | [VIBRANT](https://github.com/AnantharamanLab/VIBRANT) | 3.5+ | scikit-learn, prodigal |
-| [iPHoP](https://bitbucket.org/srouxjgi/iphop/src/main/) | 3.7+ | mash, pytorch, diamond |
+| [iPHoP](https://github.com/simroux/iphop/) | 3.7+ | mash, pytorch, diamond |
 | [MetaviralSPAdes](https://github.com/ablab/spades/tree/metaviral_publication) | Any | C++17 compiler |
 | [Pharokka](https://github.com/gbouras13/pharokka) | 3.8+ | BLAST+, mash, prodigal |
 

@@ -46,7 +46,7 @@ Tools for identifying viral sequences in metagenomic data:
 
 Tools for predicting the bacterial hosts of phages:
 
-- [iPHoP](https://bitbucket.org/srouxjgi/iphop/src/main/) - Integrated approach for phage host prediction
+- [iPHoP](https://github.com/simroux/iphop/) - Integrated approach for phage host prediction
 - [CHERRY](https://github.com/KennthShang/CHERRY) - Deep learning for phage host prediction
 - [VirHostMatcher-Net](https://github.com/WeiliWw/VirHostMatcher-Net) - Network-based virus-host prediction
 - [WIsH](https://github.com/soedinglab/WIsH) - Phage-host prediction using genome homology
