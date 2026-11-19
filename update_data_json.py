@@ -338,7 +338,20 @@ def update_data_json(data, tools_data, include_metadata=False):
                         node_data["size"] = 15
                     else:
                         node_data["size"] = 10
-        
+
+        # The README language tag is optional, and the metadata pass above only
+        # runs monthly. Without this fallback a weekly run blanks the language
+        # of every untagged tool until the next monthly run restores it.
+        if not node_data.get("language"):
+            existing_node = existing_nodes_by_id.get(tool_id, {})
+            fallback_language = (
+                (existing_node.get("github_metrics") or {}).get("language")
+                or existing_node.get("language")
+            )
+            if fallback_language:
+                node_data["language"] = fallback_language
+                all_languages.add(fallback_language)
+
         new_nodes.append(node_data)
         
         # Add link between tool and category/subcategory
